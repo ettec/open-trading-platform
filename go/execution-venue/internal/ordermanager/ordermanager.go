@@ -2,9 +2,9 @@ package ordermanager
 
 import (
 	"fmt"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordercache"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordergateway"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
+	"github.com/ettec/open-trading-platform/execution-venue/pb"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"
@@ -207,6 +207,7 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status pb.OrderS
 	order, exists := om.orderStore.GetOrder(id)
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("set order status failed, no order found for id %v", id)}
+		return
 	}
 
 	err := order.SetStatus(status)
@@ -226,6 +227,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(id *pb.OrderId, resultChan cha
 	order, exists := om.orderStore.GetOrder(id.OrderId)
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("cancel order failed, no order found for id %v", id.OrderId)}
+		return
 	}
 
 	err := order.SetTargetStatus(pb.OrderStatus_CANCELLED)
@@ -268,6 +270,8 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *pb.CreateAndRo
 			OrderId: nil,
 			Error:   err,
 		}
+
+		return
 	}
 
 	err = om.gateway.Send(order)

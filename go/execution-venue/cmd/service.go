@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordercache"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordercache/orderstore"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordergateway/fixgateway"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordermanager"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache/orderstore"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway/fixgateway"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordermanager"
+	"github.com/ettec/open-trading-platform/execution-venue/pb"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
@@ -22,10 +22,12 @@ import (
 const (
 	UseLocalStoreKey  = "USE_LOCAL_STORE"
 	LocalStorePathKey = "LOCAL_STORE_PATH"
+	KafkaOrderTopicKey = "KAFKA_ORDERS_TOPIC"
+	KafkaBrokersKey = "KAFKA_BROKERS"
 )
 
 type service struct {
-	orderManager ordermanager.OrderManager
+	orderManager ordermanager.OrderManager;
 }
 
 func NewService(om ordermanager.OrderManager) *service {
@@ -52,7 +54,7 @@ func main() {
 
 
 	port := "50551"
-	fmt.Println("starting Execution Venue Service on port:" + port)
+	fmt.Println("Starting Execution Venue Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
@@ -75,7 +77,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-    om := ordermanager.NewOrderManager(orderCache, gateway)
+	om := ordermanager.NewOrderManager(orderCache, gateway)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)
@@ -123,6 +125,19 @@ func createOrderStore() (orderstore.OrderStore, error) {
 		}
 		store = fileStore
 
+	} else {
+		ordersTopic, exists := os.LookupEnv(KafkaOrderTopicKey)
+		if !exists {
+			log.Fatalf("must specify %v for the kafka store",KafkaOrderTopicKey)
+		}
+
+		kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
+		if !exists {
+			log.Fatalf("must specify %v for the kafka store",KafkaBrokersKey)
+		}
+
+		store = orderstore.NewKafkaStore(ordersTopic, strings.Split(kafkaBrokers, ","))
+		
 	}
 
 	return store, nil
@@ -143,7 +158,7 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 
 
 	template :=
-			"[DEFAULT]\n" +
+		"[DEFAULT]\n" +
 			"ConnectionType=initiator\n" +
 			"ReconnectInterval=60\n" +
 			"SenderCompID="+ sessionId.SenderCompID +"\n" +
@@ -202,4 +217,3 @@ func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgate
 
 	return nil
 }
-

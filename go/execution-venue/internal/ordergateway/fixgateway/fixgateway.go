@@ -2,8 +2,8 @@ package fixgateway
 
 import (
 	"fmt"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordergateway"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
+	"github.com/ettec/open-trading-platform/execution-venue/pb"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"

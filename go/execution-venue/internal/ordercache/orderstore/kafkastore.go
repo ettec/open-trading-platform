@@ -3,44 +3,52 @@ package orderstore
 import (
 	"context"
 	"fmt"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/pb"
+	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
-	"os"
 )
 
 type KafkaStore struct {
+	writer *kafka.Writer
 
 }
 
-func NewKafkaStore(topic string, kafkaUrl string, partition int) (*KafkaStore, error) {
+func NewKafkaStore(topic string, kafkaBrokerUrls []string) *KafkaStore {
 	result := KafkaStore{}
 
-	conn, _ := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition)
+	result.writer = kafka.NewWriter(kafka.WriterConfig{
+		Brokers:           kafkaBrokerUrls,
+		Topic:             topic,
+		Balancer:          &kafka.LeastBytes{},
 
+	})
 
-
-	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666 )
-	if err != nil {
-		return nil, fmt.Errorf("Unable to create file store: %w", err)
-	}
-
-	result.file = file
-
-	return &result, nil
+	return &result
 }
 
 func (ks *KafkaStore) Close() {
-	.file.Close()
+	ks.writer.Close()
 }
 
-func (fs *KafkaStore) Write(order *pb.Order) error {
-	bytes, err := proto.Marshal(order)
+func (ks *KafkaStore) Write(order *pb.Order) error {
+
+	orderBytes, err := proto.Marshal(order)
 	if err != nil {
-		return fmt.Errorf("unable to convert order %v to bytes: %w", order, err)
+		return err
 	}
-	_, err = fs.file.Write(bytes)
+
+	msg := kafka.Message{
+		Key:  []byte(order.Id),
+		Value: orderBytes,
+
+	}
+
+	err = ks.writer.WriteMessages(context.Background(),msg)
+
 	if err != nil {
-		return fmt.Errorf("unable to write order %v bytes: %w", order, err)
+		return fmt.Errorf("failed to write order to kafka order store: %w", err)
 	}
+
+
 	return nil
 }

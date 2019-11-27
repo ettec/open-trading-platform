@@ -1,7 +1,7 @@
 package orderstore
 
 import (
-	"github.com/coronationstreet/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/pb"
 )
 
 

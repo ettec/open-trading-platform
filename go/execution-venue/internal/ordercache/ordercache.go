@@ -1,8 +1,8 @@
 package ordercache
 
 import (
-	"github.com/coronationstreet/open-trading-platform/execution-venue/internal/ordercache/orderstore"
-	"github.com/coronationstreet/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache/orderstore"
+	"github.com/ettec/open-trading-platform/execution-venue/pb"
 )
 
 type OrderCache struct {
@@ -20,30 +20,28 @@ func NewOrderCache(store orderstore.OrderStore) *OrderCache {
 }
 
 
-func (fs *OrderCache) Store(order *pb.Order) error {
+func (oc *OrderCache) Store(order *pb.Order) error {
 
-	existingOrder, exists := fs.cache[order.Id]
+	existingOrder, exists := oc.cache[order.Id]
 	if exists {
 		order.Version = existingOrder.Version + 1
 	} else {
 		order.Version = 0
 	}
 
-	e := fs.store.Write(order)
+	e := oc.store.Write(order)
 	if e != nil {
 		return e
 	}
 
-	fs.cache[order.Id] = order
+	oc.cache[order.Id] = order
 
-	return nil;
+	return nil
 }
 
-
-
 // Returns the order and true if found, otherwise a nil value and false
-func (fs *OrderCache) GetOrder(orderId string) (*pb.Order, bool) {
-	order, ok := fs.cache[orderId]
+func (oc *OrderCache) GetOrder(orderId string) (*pb.Order, bool) {
+	order, ok := oc.cache[orderId]
 
 	if ok {
 		return order, true
@@ -52,6 +50,6 @@ func (fs *OrderCache) GetOrder(orderId string) (*pb.Order, bool) {
 	}
 }
 
-func (fs *OrderCache) Close() {
-	fs.store.Close()
+func (oc *OrderCache) Close() {
+	oc.store.Close()
 }
