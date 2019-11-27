@@ -9,6 +9,7 @@ COMPNAME=$(basename "$PWD")
 cat > Dockerfile << EOF
 FROM ubuntu:19.10
 ADD $COMPNAME /
+COPY resources /resources
 CMD /$COMPNAME
 EOF
 

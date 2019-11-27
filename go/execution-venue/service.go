@@ -94,7 +94,7 @@ func main() {
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
+		log.Fatalf("error   while serving : %v", err)
 	}
 
 }
@@ -137,7 +137,7 @@ func createOrderStore() (orderstore.OrderStore, error) {
 		}
 
 		store = orderstore.NewKafkaStore(ordersTopic, strings.Split(kafkaBrokers, ","))
-		
+
 	}
 
 	return store, nil
@@ -168,8 +168,8 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 			"[SESSION]\n" +
 			"BeginString="+sessionId.BeginString+"\n" +
 			"DefaultApplVerID=FIX.5.0SP2\n" +
-			"TransportDataDictionary=./FIXT11.xml\n" +
-			"AppDataDictionary=./FIX50SP2.xml\n" +
+			"TransportDataDictionary=./resources/FIXT11.xml\n" +
+			"AppDataDictionary=./resources/FIX50SP2.xml\n" +
 			"TargetCompID="+ sessionId.TargetCompID +"\n" +
 			"StartTime=00:00:00\n" +
 			"EndTime=00:00:00\n" +
