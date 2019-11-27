@@ -1,0 +1,36 @@
+syntax = "proto3";
+package clientmarketdataservice;
+option go_package="cmds";
+
+message Subscription{
+    string subscriberId = 1;
+    string listingId = 2;
+}
+
+message AddSubscriptionResponse {
+    string message = 1;
+
+}
+
+
+message SubscribeRequest {
+    string subscriberId = 1;
+}
+
+message BookLine {
+	string bidSize = 1;
+	string bidPrice = 2;
+	string askSize = 3;
+	string askPrice =4;
+}
+
+
+message Book {
+    string listingId = 1;
+    repeated BookLine depth = 2;
+}
+
+service ClientMarketDataService{
+    rpc AddSubscription(Subscription) returns (AddSubscriptionResponse) {};
+    rpc Subscribe(SubscribeRequest) returns (stream Book) {};
+} 

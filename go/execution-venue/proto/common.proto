@@ -1,0 +1,10 @@
+syntax = "proto3";
+package common;
+option go_package="pb";
+
+
+message Decimal64 {
+    sfixed64 mantissa = 1;
+    sfixed32 exponent = 2;
+}
+

@@ -1,0 +1,36 @@
+syntax = "proto3";
+import "common.proto";
+
+package ordermodel;
+option go_package="pb";
+
+enum Side {
+    BUY =0;
+    SELL=1;
+}
+
+
+enum OrderStatus {
+    NONE =0;
+    LIVE =1;
+    FILLED =2;
+    CANCELLED =3;
+}
+
+
+
+message Order{
+    int32 version = 1;
+    string id = 2;
+    Side side = 3;
+    common.Decimal64 quantity = 4;
+    common.Decimal64 price = 5;
+    string listingId = 6;
+    common.Decimal64 remainingQuantity=7;
+    common.Decimal64 tradedQuantity=8;
+    common.Decimal64 avgTradePrice=9;
+    OrderStatus status=10;
+    OrderStatus targetStatus=11;
+}
+
+

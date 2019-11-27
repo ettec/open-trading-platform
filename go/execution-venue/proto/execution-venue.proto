@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "ordermodel.proto";
+import "common.proto";
+package executionvenue;
+option go_package="pb";
+
+
+message CreateAndRouteOrderParams{
+    ordermodel.Side side = 1;
+    common.Decimal64 quantity = 2;
+    common.Decimal64 price = 3;
+    string listingId = 4;
+}
+
+message OrderId {
+    string orderId = 1;
+}
+
+service ExecutionVenue{
+    rpc CreateAndRouteOrder(CreateAndRouteOrderParams) returns (OrderId) {};
+    rpc CancelOrder(OrderId) returns (google.protobuf.Empty) {};
+} 
+
+
