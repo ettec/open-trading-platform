@@ -21,7 +21,7 @@ func NewKafkaStore(topic string, kafkaUrl string, partition int) (*KafkaStore, e
 
 	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666 )
 	if err != nil {
-		return nil, fmt.Errorf("Unable to create file store: %w", err)
+		return nil, fmt.Errorf("unable to create file store: %w", err)
 	}
 
 	result.file = file
