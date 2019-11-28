@@ -14,8 +14,8 @@ var global = Function('return this')();
 
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
 goog.object.extend(proto, google_protobuf_empty_pb);
-var ordermodel_pb = require('./ordermodel_pb.js');
-goog.object.extend(proto, ordermodel_pb);
+var order_pb = require('./order_pb.js');
+goog.object.extend(proto, order_pb);
 var common_pb = require('./common_pb.js');
 goog.object.extend(proto, common_pb);
 goog.exportSymbol('proto.executionvenue.CreateAndRouteOrderParams', null, global);

@@ -1,4 +1,4 @@
-// source: ordermodel.proto
+// source: order.proto
 /**
  * @fileoverview
  * @enhanceable

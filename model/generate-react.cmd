@@ -1,0 +1,2 @@
+protoc $1/*.proto --js_out=import_style=commonjs,binary:../react/opentp-client/src/serverapi --grpc-web_out=import_style=typescript,mode=grpcwebtext:../react/opentp-client/src/serverapi --proto_path=$1:.
+protoc ./*.proto --js_out=import_style=commonjs,binary:../react/opentp-client/src/serverapi --grpc-web_out=import_style=typescript,mode=grpcwebtext:../react/opentp-client/src/serverapi --proto_path=$1:.

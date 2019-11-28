@@ -1,12 +1,12 @@
 import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-import * as ordermodel_pb from './ordermodel_pb';
+import * as order_pb from './order_pb';
 import * as common_pb from './common_pb';
 
 export class CreateAndRouteOrderParams extends jspb.Message {
-  getSide(): ordermodel_pb.Side;
-  setSide(value: ordermodel_pb.Side): void;
+  getSide(): order_pb.Side;
+  setSide(value: order_pb.Side): void;
 
   getQuantity(): common_pb.Decimal64 | undefined;
   setQuantity(value?: common_pb.Decimal64): void;
@@ -31,7 +31,7 @@ export class CreateAndRouteOrderParams extends jspb.Message {
 
 export namespace CreateAndRouteOrderParams {
   export type AsObject = {
-    side: ordermodel_pb.Side,
+    side: order_pb.Side,
     quantity?: common_pb.Decimal64.AsObject,
     price?: common_pb.Decimal64.AsObject,
     listingid: string,
