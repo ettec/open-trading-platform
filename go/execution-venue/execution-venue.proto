@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
-import "ordermodel.proto";
+import "order.proto";
 import "common.proto";
 package executionvenue;
 option go_package="pb";

@@ -99,6 +99,8 @@ func main() {
 
 }
 
+here - next step is a proxy for the client to see the orders - can then router from cmd line to test - question is in what format to send to client
+
 func createOrderStore() (orderstore.OrderStore, error) {
 	var store orderstore.OrderStore
 
