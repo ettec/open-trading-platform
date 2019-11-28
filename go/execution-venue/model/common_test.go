@@ -1,4 +1,4 @@
-package pb
+package model
 
 import (
 	"github.com/shopspring/decimal"

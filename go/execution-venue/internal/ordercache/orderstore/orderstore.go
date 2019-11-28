@@ -1,11 +1,10 @@
 package orderstore
 
 import (
-	"github.com/ettec/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/model"
 )
 
-
 type OrderStore interface {
-	Write(order *pb.Order) error
+	Write(order *model.Order) error
 	Close()
 }

@@ -3,13 +3,13 @@ import "google/protobuf/empty.proto";
 import "order.proto";
 import "common.proto";
 package executionvenue;
-option go_package="pb";
+option go_package="api";
 
 
 message CreateAndRouteOrderParams{
-    ordermodel.Side side = 1;
-    common.Decimal64 quantity = 2;
-    common.Decimal64 price = 3;
+    model.Side side = 1;
+    model.Decimal64 quantity = 2;
+    model.Decimal64 price = 3;
     string listingId = 4;
 }
 

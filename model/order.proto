@@ -1,8 +1,8 @@
 syntax = "proto3";
 import "common.proto";
 
-package ordermodel;
-option go_package="pb";
+package model;
+option go_package="model";
 
 enum Side {
     BUY =0;
@@ -23,12 +23,12 @@ message Order{
     int32 version = 1;
     string id = 2;
     Side side = 3;
-    common.Decimal64 quantity = 4;
-    common.Decimal64 price = 5;
+    Decimal64 quantity = 4;
+    Decimal64 price = 5;
     string listingId = 6;
-    common.Decimal64 remainingQuantity=7;
-    common.Decimal64 tradedQuantity=8;
-    common.Decimal64 avgTradePrice=9;
+    Decimal64 remainingQuantity=7;
+    Decimal64 tradedQuantity=8;
+    Decimal64 avgTradePrice=9;
     OrderStatus status=10;
     OrderStatus targetStatus=11;
 }

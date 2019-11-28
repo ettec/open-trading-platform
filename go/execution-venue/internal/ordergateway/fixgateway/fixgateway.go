@@ -3,7 +3,7 @@ package fixgateway
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
-	"github.com/ettec/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/model"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
@@ -27,7 +27,7 @@ func NewFixOrderGateway(sessionID quickfix.SessionID) ordergateway.OrderGateway 
 	}
 }
 
-func (f *FixOrderGateway) Send(order *pb.Order) error {
+func (f *FixOrderGateway) Send(order *model.Order) error {
 
 	side, err := getFixSide(order.Side)
 	if err != nil {
@@ -45,12 +45,12 @@ func (f *FixOrderGateway) Send(order *pb.Order) error {
 
 }
 
-func getFixSide(side pb.Side) (enum.Side, error) {
+func getFixSide(side model.Side) (enum.Side, error) {
 
 	switch side {
-	case pb.Side_BUY:
+	case model.Side_BUY:
 		return enum.Side_BUY, nil
-	case pb.Side_SELL:
+	case model.Side_SELL:
 		return enum.Side_SELL, nil
 	default:
 		return "", fmt.Errorf("side %v not supported", side)
@@ -59,14 +59,14 @@ func getFixSide(side pb.Side) (enum.Side, error) {
 }
 
 type OrderHandler interface {
-	SetOrderStatus(orderId string, status pb.OrderStatus) error
-	UpdateTradedQuantity(orderId string, lastPrice pb.Decimal64, lastQty pb.Decimal64) error
+	SetOrderStatus(orderId string, status model.OrderStatus) error
+	UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error
 }
 
 type fixHandler struct {
 	sessionToHandler map[quickfix.SessionID]OrderHandler
 	inboundRouter    *quickfix.MessageRouter
-	outboundRouter *quickfix.MessageRouter
+	outboundRouter   *quickfix.MessageRouter
 }
 
 func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.Application {
@@ -78,7 +78,6 @@ func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.
 
 	f.outboundRouter = quickfix.NewMessageRouter()
 	f.outboundRouter.AddRoute(businessmessagereject.Route(f.onOutboundBusinessMessageReject))
-
 
 	return &f
 }
@@ -97,7 +96,6 @@ func (f *fixHandler) onOutboundBusinessMessageReject(msg businessmessagereject.B
 
 	return nil
 }
-
 
 func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 
@@ -121,13 +119,13 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 
 	switch execType {
 	case enum.ExecType_NEW:
-		err := handler.SetOrderStatus(orderId, pb.OrderStatus_LIVE)
+		err := handler.SetOrderStatus(orderId, model.OrderStatus_LIVE)
 		if err != nil {
 			logSessionMsgf(sessionID, "Error: Failed to set order status: %v", err)
 			return nil
 		}
 	case enum.ExecType_CANCELED:
-		err := handler.SetOrderStatus(orderId, pb.OrderStatus_CANCELLED)
+		err := handler.SetOrderStatus(orderId, model.OrderStatus_CANCELLED)
 		if err != nil {
 			logSessionMsgf(sessionID, "Error: Failed to set order status: %v", err)
 			return nil
@@ -144,7 +142,7 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 			return err
 		}
 
-		handler.UpdateTradedQuantity(orderId, *pb.ToDecimal64(lastPrice), *pb.ToDecimal64(lastQty))
+		handler.UpdateTradedQuantity(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty))
 	}
 
 	return nil
@@ -171,7 +169,11 @@ func (f *fixHandler) ToAdmin(message *quickfix.Message, sessionID quickfix.Sessi
 
 //Notification of app message being sent to target.
 func (f *fixHandler) ToApp(message *quickfix.Message, sessionID quickfix.SessionID) error {
-	f.outboundRouter.Route(message,sessionID)
+	err :=f.outboundRouter.Route(message, sessionID)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
-package common;
-option go_package="pb";
+package model;
+option go_package="model";
 
 
 message Decimal64 {

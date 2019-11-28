@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/execution-venue/api"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway/fixgateway"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordermanager"
-	"github.com/ettec/open-trading-platform/execution-venue/pb"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
@@ -20,10 +20,10 @@ import (
 )
 
 const (
-	UseLocalStoreKey  = "USE_LOCAL_STORE"
-	LocalStorePathKey = "LOCAL_STORE_PATH"
+	UseLocalStoreKey   = "USE_LOCAL_STORE"
+	LocalStorePathKey  = "LOCAL_STORE_PATH"
 	KafkaOrderTopicKey = "KAFKA_ORDERS_TOPIC"
-	KafkaBrokersKey = "KAFKA_BROKERS"
+	KafkaBrokersKey    = "KAFKA_BROKERS"
 )
 
 type service struct {
@@ -35,11 +35,11 @@ func NewService(om ordermanager.OrderManager) *service {
 	return &service
 }
 
-func (s *service) CreateAndRouteOrder(context context.Context, params *pb.CreateAndRouteOrderParams) (*pb.OrderId, error) {
+func (s *service) CreateAndRouteOrder(context context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 	return s.orderManager.CreateAndRouteOrder(params)
 }
 
-func (s *service) CancelOrder(ctx context.Context, id *pb.OrderId) (*empty.Empty, error) {
+func (s *service) CancelOrder(ctx context.Context, id *api.OrderId) (*empty.Empty, error) {
 	return &empty.Empty{}, s.orderManager.CancelOrder(id)
 }
 
@@ -50,8 +50,6 @@ func (s *service) Close() {
 }
 
 func main() {
-
-
 
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
@@ -90,7 +88,7 @@ func main() {
 	service := NewService(om)
 	defer service.Close()
 
-	pb.RegisterExecutionVenueServer(s, service)
+	api.RegisterExecutionVenueServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
@@ -98,8 +96,6 @@ func main() {
 	}
 
 }
-
-here - next step is a proxy for the client to see the orders - can then router from cmd line to test - question is in what format to send to client
 
 func createOrderStore() (orderstore.OrderStore, error) {
 	var store orderstore.OrderStore
@@ -130,12 +126,12 @@ func createOrderStore() (orderstore.OrderStore, error) {
 	} else {
 		ordersTopic, exists := os.LookupEnv(KafkaOrderTopicKey)
 		if !exists {
-			log.Fatalf("must specify %v for the kafka store",KafkaOrderTopicKey)
+			log.Fatalf("must specify %v for the kafka store", KafkaOrderTopicKey)
 		}
 
 		kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
 		if !exists {
-			log.Fatalf("must specify %v for the kafka store",KafkaBrokersKey)
+			log.Fatalf("must specify %v for the kafka store", KafkaBrokersKey)
 		}
 
 		store = orderstore.NewKafkaStore(ordersTopic, strings.Split(kafkaBrokers, ","))
@@ -157,39 +153,36 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 	fixHost, ok := os.LookupEnv("FIX_SOCKET_CONNECT_HOST")
 	allRequiredEnvVars = allRequiredEnvVars && ok
 
-
-
 	template :=
 		"[DEFAULT]\n" +
 			"ConnectionType=initiator\n" +
 			"ReconnectInterval=60\n" +
-			"SenderCompID="+ sessionId.SenderCompID +"\n" +
+			"SenderCompID=" + sessionId.SenderCompID + "\n" +
 			"FileStorePath=" + filestorePath + "\n" +
 			"FileLogPath=" + filelogPath + "\n" +
 			"\n" +
 			"[SESSION]\n" +
-			"BeginString="+sessionId.BeginString+"\n" +
+			"BeginString=" + sessionId.BeginString + "\n" +
 			"DefaultApplVerID=FIX.5.0SP2\n" +
 			"TransportDataDictionary=./resources/FIXT11.xml\n" +
 			"AppDataDictionary=./resources/FIX50SP2.xml\n" +
-			"TargetCompID="+ sessionId.TargetCompID +"\n" +
+			"TargetCompID=" + sessionId.TargetCompID + "\n" +
 			"StartTime=00:00:00\n" +
 			"EndTime=00:00:00\n" +
 			"HeartBtInt=20\n" +
 			"SocketConnectPort=" + fixPort + "\n" +
 			"SocketConnectHost=" + fixHost + "\n"
 
-
 	return template
 }
 
-func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgateway.OrderHandler)  error {
+func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgateway.OrderHandler) error {
 
 	fixConfig := getFixConfig(id)
 
-	app := fixgateway.NewFixHandler( id, handler )
+	app := fixgateway.NewFixHandler(id, handler)
 
-	log.Printf("Creating fix engine with config: %v" , fixConfig)
+	log.Printf("Creating fix engine with config: %v", fixConfig)
 
 	appSettings, err := quickfix.ParseSettings(strings.NewReader(fixConfig))
 	if err != nil {
@@ -208,14 +201,14 @@ func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgate
 	go func() {
 		err = initiator.Start()
 		if err != nil {
-			panic( fmt.Errorf("failed to start the fix engine: %v", err))
+			panic(fmt.Errorf("failed to start the fix engine: %v", err))
 		}
 
 		<-done
 
 		//for condition == true { do something }
 		defer initiator.Stop()
-	} ()
+	}()
 
 	return nil
 }
