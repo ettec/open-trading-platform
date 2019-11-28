@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
-	"github.com/ettec/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/model"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"
@@ -19,10 +19,10 @@ func init() {
 
 
 type OrderManager interface {
-	CancelOrder(id *pb.OrderId) error
-	CreateAndRouteOrder(params *pb.CreateAndRouteOrderParams) (*pb.OrderId, error)
-	SetOrderStatus(orderId string, status pb.OrderStatus) error
-	UpdateTradedQuantity(orderId string, lastPrice pb.Decimal64, lastQty pb.Decimal64) error
+	CancelOrder(id *model.OrderId) error
+	CreateAndRouteOrder(params *model.CreateAndRouteOrderParams) (*model.OrderId, error)
+	SetOrderStatus(orderId string, status model.OrderStatus) error
+	UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error
 	Close()
 }
 
@@ -88,7 +88,7 @@ func (om *orderManagerImpl) Close() {
 }
 
 
-func (om *orderManagerImpl) SetOrderStatus(orderId string, status pb.OrderStatus) error {
+func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderStatus) error {
 	log.Printf("updating order %v status to %v", orderId, status)
 
 	resultChan := make(chan errorCmdResult)
@@ -108,7 +108,7 @@ func (om *orderManagerImpl) SetOrderStatus(orderId string, status pb.OrderStatus
 
 
 
-func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice pb.Decimal64, lastQty pb.Decimal64) error {
+func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error {
 	log.Printf( orderId +":adding execution for price %v and quantity %v", lastPrice, lastQty)
 
 	resultChan := make(chan errorCmdResult)
@@ -127,7 +127,7 @@ func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice pb.De
 	return result.Error
 }
 
-func (om *orderManagerImpl) CreateAndRouteOrder(params *pb.CreateAndRouteOrderParams) (*pb.OrderId, error) {
+func (om *orderManagerImpl) CreateAndRouteOrder(params *model.CreateAndRouteOrderParams) (*model.OrderId, error) {
 
 	log.Printf("creating order with params:%v", params)
 
@@ -144,7 +144,7 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *pb.CreateAndRouteOrderPa
 	return result.OrderId, result.Error
 }
 
-func (om *orderManagerImpl) CancelOrder(id *pb.OrderId) error {
+func (om *orderManagerImpl) CancelOrder(id *model.OrderId) error {
 
 	log.Print(id.OrderId + ":cancelling order")
 
@@ -164,24 +164,28 @@ func (om *orderManagerImpl) CancelOrder(id *pb.OrderId) error {
 
 
 
-func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice pb.Decimal64, lastQty pb.Decimal64, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model.Decimal64, lastQty model.Decimal64, resultChan chan errorCmdResult) {
 
 	order, exists := om.orderStore.GetOrder(id)
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("update traded quantity failed, no order found for id %v", id)}
 	}
 
-	if order.TargetStatus == pb.OrderStatus_LIVE {
-		order.SetStatus(pb.OrderStatus_LIVE)
+	if order.TargetStatus == model.OrderStatus_LIVE {
+		err :=order.SetStatus(model.OrderStatus_LIVE)
+		if err != nil {
+			resultChan <- errorCmdResult{Error: err}
+			return
+		}
 	}
 
 	order.AvgTradePrice = calculateAveragePrice(order.AvgTradePrice, order.TradedQuantity, &lastPrice, &lastQty)
 
-	order.RemainingQuantity = pb.ToDecimal64(order.RemainingQuantity.AsDecimal().Sub(lastQty.AsDecimal()))
-	order.TradedQuantity = pb.ToDecimal64(order.TradedQuantity.AsDecimal().Add(lastQty.AsDecimal()))
+	order.RemainingQuantity = model.ToDecimal64(order.RemainingQuantity.AsDecimal().Sub(lastQty.AsDecimal()))
+	order.TradedQuantity = model.ToDecimal64(order.TradedQuantity.AsDecimal().Add(lastQty.AsDecimal()))
 
 	if order.RemainingQuantity.AsDecimal().LessThanOrEqual(zero) {
-		err := order.SetStatus(pb.OrderStatus_FILLED)
+		err := order.SetStatus(model.OrderStatus_FILLED)
 		if err != nil {
 			resultChan <- errorCmdResult{Error: err}
 			return
@@ -193,16 +197,16 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice pb.De
 
 }
 
-func calculateAveragePrice( avgPrice *pb.Decimal64, tradeQnt *pb.Decimal64, lastPx *pb.Decimal64, lastQty *pb.Decimal64) *pb.Decimal64 {
+func calculateAveragePrice( avgPrice *model.Decimal64, tradeQnt *model.Decimal64, lastPx *model.Decimal64, lastQty *model.Decimal64) *model.Decimal64 {
 	totalTradeValue := avgPrice.AsDecimal().Mul(tradeQnt.AsDecimal()).Add(lastPx.AsDecimal().Mul(lastQty.AsDecimal()))
 	totalTradedQnt := tradeQnt.AsDecimal().Add(lastQty.AsDecimal())
 	newAvgPrice := totalTradeValue.Div(totalTradedQnt)
 
-	return pb.ToDecimal64(newAvgPrice)
+	return model.ToDecimal64(newAvgPrice)
 }
 
 
-func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status pb.OrderStatus, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.OrderStatus, resultChan chan errorCmdResult) {
 
 	order, exists := om.orderStore.GetOrder(id)
 	if !exists {
@@ -222,7 +226,7 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status pb.OrderS
 
 }
 
-func (om *orderManagerImpl) executeCancelOrderCmd(id *pb.OrderId, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeCancelOrderCmd(id *model.OrderId, resultChan chan errorCmdResult) {
 
 	order, exists := om.orderStore.GetOrder(id.OrderId)
 	if !exists {
@@ -230,7 +234,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(id *pb.OrderId, resultChan cha
 		return
 	}
 
-	err := order.SetTargetStatus(pb.OrderStatus_CANCELLED)
+	err := order.SetTargetStatus(model.OrderStatus_CANCELLED)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -240,7 +244,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(id *pb.OrderId, resultChan cha
 	resultChan <- errorCmdResult{Error:err}
 }
 
-func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *pb.CreateAndRouteOrderParams,
+func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *model.CreateAndRouteOrderParams,
 	resultChan chan createAndRouteOrderCmdResult) {
 
 	uniqueId, err := uuid.NewUUID()
@@ -253,15 +257,15 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *pb.CreateAndRo
 
 	id := uniqueId.String()
 
-	order := &pb.Order{
+	order := &model.Order{
 		Id:                id,
 		Side:              params.Side,
 		Quantity:          params.Quantity,
 		Price:             params.Price,
 		ListingId:         params.ListingId,
 		RemainingQuantity: params.Quantity,
-		Status:            pb.OrderStatus_NONE,
-		TargetStatus:      pb.OrderStatus_LIVE,
+		Status:            model.OrderStatus_NONE,
+		TargetStatus:      model.OrderStatus_LIVE,
 	}
 
 	err = om.orderStore.Store(order)
@@ -277,7 +281,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *pb.CreateAndRo
 	err = om.gateway.Send(order)
 
 	resultChan <- createAndRouteOrderCmdResult{
-		OrderId: &pb.OrderId{
+		OrderId: &model.OrderId{
 			OrderId: id,
 		},
 		Error: err,
@@ -287,29 +291,29 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *pb.CreateAndRo
 
 type updateTradedQntCmd struct {
 	orderId    string
-	lastPrice  pb.Decimal64
-	lastQty    pb.Decimal64
+	lastPrice  model.Decimal64
+	lastQty    model.Decimal64
 	ResultChan chan errorCmdResult
 }
 
 type setOrderStatusCmd struct {
 	orderId    string
-	status     pb.OrderStatus
+	status     model.OrderStatus
 	ResultChan chan errorCmdResult
 }
 
 type createAndRouteOrderCmd struct {
-	Params     *pb.CreateAndRouteOrderParams
+	Params     *model.CreateAndRouteOrderParams
 	ResultChan chan createAndRouteOrderCmdResult
 }
 
 type createAndRouteOrderCmdResult struct {
-	OrderId *pb.OrderId
+	OrderId *model.OrderId
 	Error   error
 }
 
 type cancelOrderCmd struct {
-	Params     *pb.OrderId
+	Params     *model.OrderId
 	ResultChan chan errorCmdResult
 }
 

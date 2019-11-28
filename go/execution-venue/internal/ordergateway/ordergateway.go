@@ -1,7 +1,9 @@
 package ordergateway
 
-import "github.com/ettec/open-trading-platform/execution-venue/pb"
+import (
+	"github.com/ettec/open-trading-platform/execution-venue/model"
+)
 
 type OrderGateway interface {
-	Send(order *pb.Order) error
+	Send(order *model.Order) error
 }

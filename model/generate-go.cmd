@@ -1,4 +1,5 @@
-mkdir -p $1/model
-mkdir -p $1/api
-protoc $1/*.proto --go_out=plugins=grpc:$1/api/ --proto_path=$1:.
-protoc ./*.proto --go_out=plugins=grpc:$1/model/ --proto_path=$1:.
+# Usage: generate-go.cmd  <servicename> 
+SVC_PATH=../go/$1
+mkdir -p $SVC_PATH/model
+protoc $SVC_PATH/*.proto --go_out=plugins=grpc:$SVC_PATH/model/ --proto_path=$SVC_PATH:.
+protoc ./*.proto --go_out=plugins=grpc:$SVC_PATH/model/ --proto_path=$SVC_PATH:.

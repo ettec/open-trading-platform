@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/execution-venue/api"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway/fixgateway"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordermanager"
+	"github.com/ettec/open-trading-platform/execution-venue/model"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
@@ -27,7 +27,7 @@ const (
 )
 
 type service struct {
-	orderManager ordermanager.OrderManager;
+	orderManager ordermanager.OrderManager
 }
 
 func NewService(om ordermanager.OrderManager) *service {
@@ -35,11 +35,11 @@ func NewService(om ordermanager.OrderManager) *service {
 	return &service
 }
 
-func (s *service) CreateAndRouteOrder(context context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
+func (s *service) CreateAndRouteOrder(context context.Context, params *model.CreateAndRouteOrderParams) (*model.OrderId, error) {
 	return s.orderManager.CreateAndRouteOrder(params)
 }
 
-func (s *service) CancelOrder(ctx context.Context, id *api.OrderId) (*empty.Empty, error) {
+func (s *service) CancelOrder(ctx context.Context, id *model.OrderId) (*empty.Empty, error) {
 	return &empty.Empty{}, s.orderManager.CancelOrder(id)
 }
 
@@ -88,7 +88,7 @@ func main() {
 	service := NewService(om)
 	defer service.Close()
 
-	api.RegisterExecutionVenueServer(s, service)
+	model.RegisterExecutionVenueServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
@@ -143,7 +143,7 @@ func createOrderStore() (orderstore.OrderStore, error) {
 
 func getFixConfig(sessionId quickfix.SessionID) string {
 
-	allRequiredEnvVars := true;
+	allRequiredEnvVars := true
 	filelogPath, ok := os.LookupEnv("FIX_LOG_FILE_PATH")
 	allRequiredEnvVars = allRequiredEnvVars && ok
 	filestorePath, ok := os.LookupEnv("FIX_FILE_STORE_PATH")

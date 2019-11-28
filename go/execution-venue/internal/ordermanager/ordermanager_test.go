@@ -1,8 +1,9 @@
 package ordermanager
 
 import (
+	
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
-	"github.com/ettec/open-trading-platform/execution-venue/pb"
+	"github.com/ettec/open-trading-platform/execution-venue/model"
 	"github.com/golang/protobuf/proto"
 	"os"
 	"testing"
@@ -29,22 +30,22 @@ func teardown() {
 
 func TestOrderManagerImpl_CalculateAveragePrice(t *testing.T) {
 
-	avgPrice := pb.Decimal64{
+	avgPrice := model.Decimal64{
 		Mantissa:             0,
 		Exponent:             0,
 	}
 
-	trdQnt := pb.Decimal64{
+	trdQnt := model.Decimal64{
 		Mantissa:             0,
 		Exponent:             0,
 	}
 
-	lastPrice := pb.Decimal64{
+	lastPrice := model.Decimal64{
 		Mantissa:             10,
 		Exponent:             1,
 	}
 
-	lastQnt := pb.Decimal64{
+	lastQnt := model.Decimal64{
 		Mantissa:             5,
 		Exponent:             0,
 	}
@@ -59,17 +60,17 @@ func TestOrderManagerImpl_CalculateAveragePrice(t *testing.T) {
 	}
 
 
-	trdQnt = pb.Decimal64{
+	trdQnt = model.Decimal64{
 		Mantissa:             5,
 		Exponent:             0,
 	}
 
-	lastPrice = pb.Decimal64{
+	lastPrice = model.Decimal64{
 		Mantissa:             80,
 		Exponent:             0,
 	}
 
-	lastQnt = pb.Decimal64{
+	lastQnt = model.Decimal64{
 		Mantissa:             5,
 		Exponent:             0,
 	}
@@ -84,7 +85,7 @@ func TestOrderManagerImpl_CalculateAveragePrice(t *testing.T) {
 
 }
 
-var EPSILON float64 = 0.00000001
+var EPSILON = 0.00000001
 func floatEquals(a, b float64) bool {
 	if (a - b) < EPSILON && (b - a) < EPSILON {
 		return true
@@ -93,10 +94,10 @@ func floatEquals(a, b float64) bool {
 }
 
 func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
-	params := &pb.CreateAndRouteOrderParams{
-		Side:      pb.Side_BUY,
-		Quantity:  pb.IntToDecimal64(15),
-		Price:     pb.IntToDecimal64(20),
+	params := &model.CreateAndRouteOrderParams{
+		Side:      model.Side_BUY,
+		Quantity:  model.IntToDecimal64(15),
+		Price:     model.IntToDecimal64(20),
 		ListingId: "listing1",
 	}
 
@@ -111,12 +112,12 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 		t.Fatalf("created order not found in store")
 	}
 
-	orderManager.SetOrderStatus(id.OrderId, pb.OrderStatus_LIVE)
+	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
-	err = orderManager.UpdateTradedQuantity(id.OrderId, pb.Decimal64{
+	err = orderManager.UpdateTradedQuantity(id.OrderId, model.Decimal64{
 		Mantissa:             170,
 		Exponent:             -1,
-	}, pb.Decimal64{
+	}, model.Decimal64{
 		Mantissa:             5,
 		Exponent:             0,
 
@@ -126,10 +127,10 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 		t.Fatalf("error %v", err)
 	}
 
-	err = orderManager.UpdateTradedQuantity(id.OrderId, pb.Decimal64{
+	err = orderManager.UpdateTradedQuantity(id.OrderId, model.Decimal64{
 		Mantissa:             19,
 		Exponent:             0,
-	}, pb.Decimal64{
+	}, model.Decimal64{
 		Mantissa:             5,
 		Exponent:             0,
 
@@ -139,18 +140,18 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 		t.Fatalf("error %v", err)
 	}
 
-	testOrder := &pb.Order{
-		Version:              3,
-		Id:                   id.OrderId,
-		Side:                 pb.Side_BUY,
-		Quantity:             pb.IntToDecimal64(15),
-		Price:                pb.IntToDecimal64(20),
-		ListingId:            "listing1",
-		RemainingQuantity:    pb.IntToDecimal64(5),
-		Status:               pb.OrderStatus_LIVE,
-		TargetStatus:         pb.OrderStatus_NONE,
-		TradedQuantity:       pb.IntToDecimal64(10),
-		AvgTradePrice:        &pb.Decimal64{
+	testOrder := &model.Order{
+		Version:           3,
+		Id:                id.OrderId,
+		Side:              model.Side_BUY,
+		Quantity:          model.IntToDecimal64(15),
+		Price:             model.IntToDecimal64(20),
+		ListingId:         "listing1",
+		RemainingQuantity: model.IntToDecimal64(5),
+		Status:            model.OrderStatus_LIVE,
+		TargetStatus:      model.OrderStatus_NONE,
+		TradedQuantity:    model.IntToDecimal64(10),
+		AvgTradePrice:        &model.Decimal64{
 			Mantissa:             180000000000000000,
 			Exponent:             -16,
 		},
@@ -166,10 +167,10 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 }
 
 func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
-	params := &pb.CreateAndRouteOrderParams{
-		Side:      pb.Side_BUY,
-		Quantity:  pb.IntToDecimal64(15),
-		Price:     pb.IntToDecimal64(20),
+	params := &model.CreateAndRouteOrderParams{
+		Side:      model.Side_BUY,
+		Quantity:  model.IntToDecimal64(15),
+		Price:     model.IntToDecimal64(20),
 		ListingId: "listing1",
 	}
 
@@ -179,10 +180,10 @@ func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 	}
 
 
-	err = orderManager.UpdateTradedQuantity(id.OrderId, pb.Decimal64{
+	err = orderManager.UpdateTradedQuantity(id.OrderId, model.Decimal64{
 		Mantissa:             170,
 		Exponent:             -1,
-	}, pb.Decimal64{
+	}, model.Decimal64{
 		Mantissa:             15,
 		Exponent:             0,
 
@@ -198,18 +199,18 @@ func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 		t.Fatalf("created order not found in store")
 	}
 
-	testOrder := &pb.Order{
-		Version:              1,
-		Id:                   id.OrderId,
-		Side:                 pb.Side_BUY,
-		Quantity:             pb.IntToDecimal64(15),
-		Price:                pb.IntToDecimal64(20),
-		ListingId:            "listing1",
-		RemainingQuantity:    pb.IntToDecimal64(0),
-		Status:               pb.OrderStatus_FILLED,
-		TargetStatus:         pb.OrderStatus_NONE,
-		TradedQuantity:		  pb.IntToDecimal64(15),
-		AvgTradePrice:        &pb.Decimal64{
+	testOrder := &model.Order{
+		Version:           1,
+		Id:                id.OrderId,
+		Side:              model.Side_BUY,
+		Quantity:          model.IntToDecimal64(15),
+		Price:             model.IntToDecimal64(20),
+		ListingId:         "listing1",
+		RemainingQuantity: model.IntToDecimal64(0),
+		Status:            model.OrderStatus_FILLED,
+		TargetStatus:      model.OrderStatus_NONE,
+		TradedQuantity:    model.IntToDecimal64(15),
+		AvgTradePrice:        &model.Decimal64{
 			Mantissa:             170000000000000000,
 			Exponent:             -16,
 		},
@@ -226,10 +227,10 @@ func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 
 func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
-	params := &pb.CreateAndRouteOrderParams{
-		Side:      pb.Side_BUY,
-		Quantity:  pb.IntToDecimal64(10),
-		Price:     pb.IntToDecimal64(20),
+	params := &model.CreateAndRouteOrderParams{
+		Side:      model.Side_BUY,
+		Quantity:  model.IntToDecimal64(10),
+		Price:     model.IntToDecimal64(20),
 		ListingId: "listing1",
 	}
 
@@ -244,18 +245,18 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		t.Fatalf("created order not found in store")
 	}
 
-	orderManager.SetOrderStatus(id.OrderId, pb.OrderStatus_LIVE)
+	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
-	testOrder := &pb.Order{
-		Version:              1,
-		Id:                   id.OrderId,
-		Side:                 pb.Side_BUY,
-		Quantity:             pb.IntToDecimal64(10),
-		Price:                pb.IntToDecimal64(20),
-		ListingId:            "listing1",
-		RemainingQuantity:    pb.IntToDecimal64(10),
-		Status:               pb.OrderStatus_LIVE,
-		TargetStatus:         pb.OrderStatus_NONE,
+	testOrder := &model.Order{
+		Version:           1,
+		Id:                id.OrderId,
+		Side:              model.Side_BUY,
+		Quantity:          model.IntToDecimal64(10),
+		Price:             model.IntToDecimal64(20),
+		ListingId:         "listing1",
+		RemainingQuantity: model.IntToDecimal64(10),
+		Status:            model.OrderStatus_LIVE,
+		TargetStatus:      model.OrderStatus_NONE,
 
 	}
 
@@ -270,16 +271,16 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 
 
 
-	params := &pb.CreateAndRouteOrderParams{
-		Side:      pb.Side_BUY,
-		Quantity:  pb.IntToDecimal64(10),
-		Price:     pb.IntToDecimal64(20),
+	params := &model.CreateAndRouteOrderParams{
+		Side:      model.Side_BUY,
+		Quantity:  model.IntToDecimal64(10),
+		Price:     model.IntToDecimal64(20),
 		ListingId: "listing1",
 	}
 
 	id, _ := orderManager.CreateAndRouteOrder(params)
 
-	orderManager.SetOrderStatus(id.OrderId, pb.OrderStatus_LIVE)
+	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 
 	err := orderManager.CancelOrder(id)
@@ -287,18 +288,18 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 		t.Fatalf("cancel order call failed: %v", err)
 	}
 
-	orderManager.SetOrderStatus(id.OrderId, pb.OrderStatus_CANCELLED)
+	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
 
-	testOrder := &pb.Order{
-		Version:              3,
-		Id:                   id.OrderId,
-		Side:                 pb.Side_BUY,
-		Quantity:             pb.IntToDecimal64(10),
-		Price:                pb.IntToDecimal64(20),
-		ListingId:            "listing1",
-		RemainingQuantity:    pb.IntToDecimal64(10),
-		Status:               pb.OrderStatus_CANCELLED,
-		TargetStatus:         pb.OrderStatus_NONE,
+	testOrder := &model.Order{
+		Version:           3,
+		Id:                id.OrderId,
+		Side:              model.Side_BUY,
+		Quantity:          model.IntToDecimal64(10),
+		Price:             model.IntToDecimal64(20),
+		ListingId:         "listing1",
+		RemainingQuantity: model.IntToDecimal64(10),
+		Status:            model.OrderStatus_CANCELLED,
+		TargetStatus:      model.OrderStatus_NONE,
 
 	}
 
@@ -317,32 +318,32 @@ type TestOrderManager struct {
 
 }
 
-func (f *TestOrderManager) Send(order *pb.Order) error {
+func (f *TestOrderManager) Send(order *model.Order) error {
 	return nil
 }
 
 
 func NewTestOrderStore() *TestOrderStore {
 	t := TestOrderStore{
-		orders:    make([]*pb.Order,0,10),
-		ordersMap:  make(map[string]*pb.Order),
+		orders:    make([]*model.Order,0,10),
+		ordersMap:  make(map[string]*model.Order),
 	}
 
 	return &t
 }
 
 type TestOrderStore struct {
-	orders    []*pb.Order
-	ordersMap map[string]*pb.Order
+	orders    []*model.Order
+	ordersMap map[string]*model.Order
 }
 
-func (t *TestOrderStore) Write(order *pb.Order) error {
+func (t *TestOrderStore) Write(order *model.Order) error {
 	t.orders = append(t.orders, order)
 	t.ordersMap[order.Id] = order
 	return nil
 }
 
-func (t *TestOrderStore) GetOrder(orderId string) (pb.Order, bool) {
+func (t *TestOrderStore) GetOrder(orderId string) (model.Order, bool) {
 	order, ok := t.ordersMap[orderId]
 	return *order, ok
 }
