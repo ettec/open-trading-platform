@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway/fixgateway"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordermanager"
-	"github.com/ettec/open-trading-platform/execution-venue/model"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"

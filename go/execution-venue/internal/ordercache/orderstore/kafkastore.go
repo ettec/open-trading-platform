@@ -3,7 +3,7 @@ package orderstore
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/execution-venue/model"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
 	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
 )

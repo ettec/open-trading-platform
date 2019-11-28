@@ -1,7 +1,7 @@
 package ordergateway
 
 import (
-	"github.com/ettec/open-trading-platform/execution-venue/model"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
 )
 
 type OrderGateway interface {

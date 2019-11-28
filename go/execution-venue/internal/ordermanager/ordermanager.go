@@ -2,9 +2,9 @@ package ordermanager
 
 import (
 	"fmt"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
-	"github.com/ettec/open-trading-platform/execution-venue/model"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"

@@ -1,7 +1,7 @@
 package orderstore
 
 import (
-	"github.com/ettec/open-trading-platform/execution-venue/model"
+	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
 )
 
 type OrderStore interface {
