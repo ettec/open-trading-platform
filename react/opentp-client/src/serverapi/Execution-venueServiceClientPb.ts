@@ -9,7 +9,6 @@
 
 import * as grpcWeb from 'grpc-web';
 
-import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 import * as order_pb from './order_pb';
 import * as common_pb from './common_pb';
 
@@ -59,18 +58,18 @@ export class ExecutionVenueClient {
   }
 
   methodInfoCancelOrder = new grpcWeb.AbstractClientBase.MethodInfo(
-    google_protobuf_empty_pb.Empty,
+    common_pb.Empty,
     (request: OrderId) => {
       return request.serializeBinary();
     },
-    google_protobuf_empty_pb.Empty.deserializeBinary
+    common_pb.Empty.deserializeBinary
   );
 
   cancelOrder(
     request: OrderId,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: google_protobuf_empty_pb.Empty) => void) {
+               response: common_pb.Empty) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
         '/executionvenue.ExecutionVenue/CancelOrder',

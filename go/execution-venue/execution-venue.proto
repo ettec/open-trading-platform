@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
 import "order.proto";
 import "common.proto";
 package executionvenue;
@@ -19,7 +18,7 @@ message OrderId {
 
 service ExecutionVenue{
     rpc CreateAndRouteOrder(CreateAndRouteOrderParams) returns (OrderId) {};
-    rpc CancelOrder(OrderId) returns (google.protobuf.Empty) {};
+    rpc CancelOrder(OrderId) returns (model.Empty) {};
 } 
 
 

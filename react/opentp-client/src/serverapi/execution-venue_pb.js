@@ -12,8 +12,6 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
-goog.object.extend(proto, google_protobuf_empty_pb);
 var order_pb = require('./order_pb.js');
 goog.object.extend(proto, order_pb);
 var common_pb = require('./common_pb.js');
@@ -135,7 +133,7 @@ proto.executionvenue.CreateAndRouteOrderParams.deserializeBinaryFromReader = fun
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!proto.ordermodel.Side} */ (reader.readEnum());
+      var value = /** @type {!proto.model.Side} */ (reader.readEnum());
       msg.setSide(value);
       break;
     case 2:
@@ -215,31 +213,31 @@ proto.executionvenue.CreateAndRouteOrderParams.serializeBinaryToWriter = functio
 
 
 /**
- * optional ordermodel.Side side = 1;
- * @return {!proto.ordermodel.Side}
+ * optional model.Side side = 1;
+ * @return {!proto.model.Side}
  */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.getSide = function() {
-  return /** @type {!proto.ordermodel.Side} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {!proto.model.Side} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {!proto.ordermodel.Side} value */
+/** @param {!proto.model.Side} value */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.setSide = function(value) {
   jspb.Message.setProto3EnumField(this, 1, value);
 };
 
 
 /**
- * optional common.Decimal64 quantity = 2;
- * @return {?proto.common.Decimal64}
+ * optional model.Decimal64 quantity = 2;
+ * @return {?proto.model.Decimal64}
  */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.getQuantity = function() {
-  return /** @type{?proto.common.Decimal64} */ (
+  return /** @type{?proto.model.Decimal64} */ (
     jspb.Message.getWrapperField(this, common_pb.Decimal64, 2));
 };
 
 
-/** @param {?proto.common.Decimal64|undefined} value */
+/** @param {?proto.model.Decimal64|undefined} value */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.setQuantity = function(value) {
   jspb.Message.setWrapperField(this, 2, value);
 };
@@ -263,16 +261,16 @@ proto.executionvenue.CreateAndRouteOrderParams.prototype.hasQuantity = function(
 
 
 /**
- * optional common.Decimal64 price = 3;
- * @return {?proto.common.Decimal64}
+ * optional model.Decimal64 price = 3;
+ * @return {?proto.model.Decimal64}
  */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.getPrice = function() {
-  return /** @type{?proto.common.Decimal64} */ (
+  return /** @type{?proto.model.Decimal64} */ (
     jspb.Message.getWrapperField(this, common_pb.Decimal64, 3));
 };
 
 
-/** @param {?proto.common.Decimal64|undefined} value */
+/** @param {?proto.model.Decimal64|undefined} value */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.setPrice = function(value) {
   jspb.Message.setWrapperField(this, 3, value);
 };
