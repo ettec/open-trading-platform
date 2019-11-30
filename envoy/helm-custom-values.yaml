@@ -25,9 +25,9 @@ files:
                 - name: local_service
                   domains: ["*"]
                   routes:
-                  - match: { prefix: "/" }
+                  - match: { prefix: "/clientmarketdataservice.ClientMarketDataService" }
                     route:
-                      cluster: greeter_service
+                      cluster: client-market-data-service-cluster
                       max_grpc_timeout: 0s
                   cors:
                     allow_origin:
@@ -41,7 +41,7 @@ files:
               - name: envoy.cors
               - name: envoy.router
       clusters:
-      - name: greeter_service
+      - name: client-market-data-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}

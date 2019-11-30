@@ -1,0 +1,10 @@
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: grpc-greet
+spec:
+  grpc: true
+  prefix: /ahelloworld.Greeter/ 
+  rewrite: /ahelloworld.Greeter/ 
+  service: grpc-example2a

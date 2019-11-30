@@ -1,0 +1,16 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: grpc-client-market-data-service
+spec:
+  grpc: True
+  prefix: /clientmarketdataservice.ClientMarketDataService/
+  rewrite: /clientmarketdataservice.ClientMarketDataService/
+  service: client-market-data-service:50551 
+  cors:
+    origins: "*"
+    methods: POST, GET, OPTIONS
+    headers: Content-Type
+    credentials: true
+    exposed_headers: X-Custom-Header,keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,custom-header-1,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
+    max_age: "86400"

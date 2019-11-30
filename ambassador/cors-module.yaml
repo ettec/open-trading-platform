@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v1
+kind:  Module
+metadata:
+  name:  ambassador
+spec:
+  config:
+    cors:
+      origins: "*" 
+      methods: POST, GET, OPTIONS, PUT

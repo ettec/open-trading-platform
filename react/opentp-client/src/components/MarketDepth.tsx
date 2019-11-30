@@ -6,7 +6,7 @@ import v4 from 'uuid';
 import './OrderBlotter.css';
 import * as grpcWeb from 'grpc-web'
 import {ClientMarketDataServiceClient} from '../serverapi/CmdsServiceClientPb'
-import {SubscribeRequest, Book, BookLine} from '../serverapi/cmds_pb'
+import {SubscribeRequest, Book, BookLine, Subscription} from '../serverapi/cmds_pb'
 import {LocalBookLine} from '../model/Model'
 
 
@@ -15,7 +15,7 @@ interface MarketDepthState {
   book: Book
 }
 
-const marketDataService = new ClientMarketDataServiceClient('http://192.168.1.100:32237', null, null)
+const marketDataService = new ClientMarketDataServiceClient('http://192.168.1.100:32365', null, null)
 
 
 
@@ -158,18 +158,24 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
 
       console.log("Subscribe to:" + this.state.symbol)
 
-      fetch('http://192.168.1.100:31638/api/market-data-proxy/subscribe-to-quote?subscriberId=' + this.id + '&symbol=' + this.state.symbol, {
-        method: 'PUT'
-      })
-        .then(
-          response =>{ console.log(response.statusText) } 
-          )
-        
-        .catch(error => {
-          throw new Error(error);
-        });
-    
-        console.log("Subcribed to:" + this.state.symbol)
+      if( this.state.symbol != null) {
+        var subscription = new Subscription()
+        subscription.setSubscriberid(this.id)
+        subscription.setListingid(this.state.symbol)
+        console.log("adding subscription:" + subscription)
+        marketDataService.addSubscription(subscription, {}, (err, response )=>{
+            if( err ) {
+              console.log("failed to add subscription:" + err)
+              return
+            }
+
+            if( response ) {
+              console.log("Add subscription response:" + response)
+            }
+            
+
+        } )
+      }
 
     }
     
