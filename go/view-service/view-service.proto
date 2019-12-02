@@ -1,26 +1,15 @@
 syntax = "proto3";
-package view-service;
+package viewservice;
 import "order.proto";
 import "common.proto";
 
 option go_package="model";
 
-message Subscription{
-    string subscriberId = 1;
-    string listingId = 2;
-}
 
-message AddSubscriptionResponse {
-    string message = 1;
-
-}
-
-
-message SubscribeRequest {
-    string subscriberId = 1;
+message SubscribeToOrders {
 }
 
 
 service ViewService {
-    rpc Subscribe(SubscribeRequest) returns (stream Order) {};
-}  question is does user need to pass id in call or can it be inferred somehow from metadata? 
+    rpc Subscribe(SubscribeToOrders) returns (stream model.Order) {};
+}  
