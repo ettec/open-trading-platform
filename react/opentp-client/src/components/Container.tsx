@@ -103,6 +103,7 @@ export default class Container extends React.Component {
     state: Model;
     factory: (node: TabNode) => React.ReactNode;
     readonly configKey : string = "open-oms-config"; 
+    
 
 
     constructor() {
@@ -151,6 +152,8 @@ export default class Container extends React.Component {
 
     public render() { 
 
+       
+
         let contents: React.ReactNode = "loading ...";
         if (this.state !== null) {
             contents = <FlexLayout.Layout
@@ -166,7 +169,7 @@ export default class Container extends React.Component {
         <div className="toolbar" >
         <Navbar className="bp3-dark">
             <Navbar.Group align={Alignment.LEFT}>
-                <Navbar.Heading>Open OMS</Navbar.Heading>
+                <Navbar.Heading>Open Trading Platform</Navbar.Heading>
                 <Navbar.Divider />
                 <Button className="bp3-minimal" icon="home" text="Home" />
                 <Button className="bp3-minimal" icon="floppy-disk" text="Save" onClick={this.onSave}/>

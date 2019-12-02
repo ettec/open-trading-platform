@@ -8,6 +8,9 @@ import * as grpcWeb from 'grpc-web'
 import {ClientMarketDataServiceClient} from '../serverapi/CmdsServiceClientPb'
 import {SubscribeRequest, Book, BookLine, Subscription} from '../serverapi/cmds_pb'
 import {LocalBookLine} from '../model/Model'
+import { GrpcConsumer } from "./GrpcContextProvider/GrpcContextProvider";
+import Login from "./Login";
+
 
 
 interface MarketDepthState {
@@ -30,51 +33,11 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         this.setState({symbol:''});
 
         this.id = v4();
-        
-
-        /*
-        this.orderMap.set("1a",  {
-          id: "1a",
-          instrumentId: "abc",
-          qty: 30,
-          price: 45,
-          orderStatus: OrderStatus.Live,
-          targetStatus: OrderStatus.None,
-          side: Side.Buy
-
-        })
-        this.orderMap.set("2a",  {
-          id: "2a",
-          instrumentId: "abc2",
-          qty: 30,
-          price: 45,
-          orderStatus: OrderStatus.Live,
-          targetStatus: OrderStatus.None,
-          side: Side.Buy
-
-        })
-        this.orderMap.set("3a",  {
-          id: "3a",
-          instrumentId: "abc3",
-          qty: 30,
-          price: 45,
-          orderStatus: OrderStatus.Live,
-          targetStatus: OrderStatus.None,
-          side: Side.Buy
-
-        })
-        
-        */
-      //  let blotterState : MarketDepthState = {
-      //    orders: Array.from(this.orderMap.values())
-        //}
-
-        //this.state =  {};
 
         var subscription = new SubscribeRequest()
         subscription.setSubscriberid(this.id)
 
-        this.stream = marketDataService.subscribe(subscription, {})
+        this.stream = marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData)
 
         this.stream.on('data', (response: Book) => {
           console.log('Received book' + response)
@@ -96,43 +59,6 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         this.stream.on('end', () => {
           console.log('stream end signal received');
         });
-
-
-        
-
-        //, (err: grpcWeb.Error, response: Book) => {
-        //    console.log(response.symbol());
-       // });
-        
-        
-        /*
-        this.marketDepthSource = new EventSource("http://192.168.1.100:31638/api/market-data-proxy/add-subscription?subscriberId=" + this.id);
-
-        this.marketDepthSource.addEventListener( "quotes", e  => {
-
-          console.log("Message Event " + e);
-          
-          const messageEvent =  e as MessageEvent;
-
-          
-          let bookFromJson : Book  = JSON.parse(messageEvent.data) as Book;
-
-          console.log("Book:" + bookFromJson);
-
-          let blotterState : MarketDepthState =  {...this.state,... {
-            book: bookFromJson,
-          }}
-
-          this.setState( blotterState );
-        })
-
-        this.marketDepthSource.onerror = function(e) {
-          console.log("EventSource failed." + e);
-        };
-
-        this.marketDepthSource.onopen = ( e: Event) => {
-          console.log("Opened SSE connection")
-        }; */
 
         this.handleSymbolChange = this.handleSymbolChange.bind(this);
         this.onSubscribe = this.onSubscribe.bind(this);
@@ -163,7 +89,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         subscription.setSubscriberid(this.id)
         subscription.setListingid(this.state.symbol)
         console.log("adding subscription:" + subscription)
-        marketDataService.addSubscription(subscription, {}, (err, response )=>{
+        marketDataService.addSubscription(subscription, Login.grpcContext.grpcMetaData, (err, response )=>{
             if( err ) {
               console.log("failed to add subscription:" + err)
               return
