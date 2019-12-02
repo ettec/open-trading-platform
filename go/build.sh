@@ -3,6 +3,8 @@
 echo $PWD
 cd $PWD
 
+mkdir -p resources
+
 go build .
 COMPNAME=$(basename "$PWD")
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/coronationstreet/open-trading-platform/client-market-data-service/cmds"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
@@ -25,7 +26,16 @@ func (*server) AddSubscription(context context.Context, subscription *cmds.Subsc
 
 func (*server) Subscribe(request *cmds.SubscribeRequest, stream cmds.ClientMarketDataService_SubscribeServer) error {
 
-	log.Println("Received subscription request for subscriber %v", request.SubscriberId)
+	md, ok := metadata.FromIncomingContext(stream.Context())
+	if !ok {
+		return fmt.Errorf("failed to read metadata from the context")
+	}
+
+	appInstanceId := md.Get( "app-instance-id")[0]
+	username := md.Get( "user-name")[0]
+
+	log.Printf("received subscription request for application instance id: %v, username:%v", appInstanceId, username)
+
 	marketDataChannel := make(chan *cmds.Book, 3)
 
 	go func() {
@@ -69,7 +79,7 @@ func (*server) Subscribe(request *cmds.SubscribeRequest, stream cmds.ClientMarke
 func main() {
 
 	port := "50551"
-	fmt.Println("Starting Client Market Data Server on port:" + port)
+	fmt.Println("Starting Client Market Data Server on the port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:" + port)
 
 	if err != nil {

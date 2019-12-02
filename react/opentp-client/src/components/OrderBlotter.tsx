@@ -20,7 +20,7 @@ export default class OrderBlotter extends React.Component<Props, BlotterState > 
 
     orderMap : Map<string, Order>;
 
-    ordersSource : EventSource;
+ //   ordersSource : EventSource;
     id : string;
 
     constructor(props: Props) {
@@ -69,6 +69,7 @@ export default class OrderBlotter extends React.Component<Props, BlotterState > 
         this.state =  blotterState;
         
         
+        /*
         this.ordersSource = new EventSource("http://192.168.1.100:31887/proxy/subscribe-to-topic/orders?subscriberId=" + this.id);
 
         this.ordersSource.addEventListener( "orders", e  => {
@@ -100,7 +101,7 @@ export default class OrderBlotter extends React.Component<Props, BlotterState > 
 
         this.ordersSource.onopen = ( e: Event) => {
           console.log("Opened SSE connection")
-        }; 
+        }; */
 
     }
 
