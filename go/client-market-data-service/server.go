@@ -16,31 +16,50 @@ type server struct{}
 
 func (*server) AddSubscription(context context.Context, subscription *cmds.Subscription) (*cmds.AddSubscriptionResponse, error) {
 
-	//return nil, status.Errorf(codes.NotFound, "No subscriber found for id %v", subscription.SubscriberId)
-
 
 	return &cmds.AddSubscriptionResponse{
 		Message: "Subscription for " + subscription.ListingId + " added for subscriber " + subscription.SubscriberId,
 	}, nil
 }
 
-func (*server) Subscribe(request *cmds.SubscribeRequest, stream cmds.ClientMarketDataService_SubscribeServer) error {
-
-	md, ok := metadata.FromIncomingContext(stream.Context())
+func getMetaData(ctx context.Context) (username string, appInstanceId string, err error) {
+	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-		return fmt.Errorf("failed to read metadata from the context")
+		return "", "", fmt.Errorf("failed to read metadata from the context")
 	}
 
-	appInstanceId := md.Get( "app-instance-id")[0]
-	username := md.Get( "user-name")[0]
+	appInstanceIds := md.Get( "app-instance-id")
+	if len(appInstanceIds) != 1 {
+		return "", "", fmt.Errorf("unable to retrieve app-instance-id from metadata")
+	}
+	appInstanceId = appInstanceIds[0]
 
-	log.Printf("received subscription request for application instance id: %v, username:%v", appInstanceId, username)
+
+	usernames := md.Get( "user-name")
+	if len(usernames) != 1 {
+		return "", "", fmt.Errorf("unable to retrieve user-name from metadata")
+	}
+	username = usernames[0]
+
+	return username, appInstanceId, nil
+}
+
+func (*server) Subscribe(request *cmds.SubscribeRequest, stream cmds.ClientMarketDataService_SubscribeServer) error {
+
+
+	/*
+	username, appInstanceId, err := getMetaData(stream.Context())
+	if err != nil {
+		return err
+	}*/
+
+
 
 	marketDataChannel := make(chan *cmds.Book, 3)
 
 	go func() {
 
-		i := 0;
+		i := 0
 		for {
 			i++
 			time.Sleep(1 * time.Second)

@@ -29,6 +29,10 @@ files:
                     route:
                       cluster: client-market-data-service-cluster
                       max_grpc_timeout: 0s
+                  - match: { prefix: "/viewservice.ViewService" }
+                    route:
+                      cluster: view-service-cluster
+                      max_grpc_timeout: 0s
                   cors:
                     allow_origin:
                     - "*"
@@ -47,6 +51,13 @@ files:
         http2_protocol_options: {}
         lb_policy: round_robin
         hosts: [{ socket_address: { address: client-market-data-service, port_value: 50551 }}]
+      - name: view-service-cluster
+        connect_timeout: 0.25s
+        type: logical_dns
+        http2_protocol_options: {}
+        lb_policy: round_robin
+        hosts: [{ socket_address: { address: view-service, port_value: 50551 }}]
+
 
 service:
   type: NodePort
