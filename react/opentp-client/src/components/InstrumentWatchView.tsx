@@ -1,7 +1,6 @@
 import { TabNode, Model, Actions } from "flexlayout-react";
 import React from 'react';
-import ReactTable from 'react-table';
-import "react-table/react-table.css";
+
 import v4 from 'uuid';
 import { InstrumentWatchLine, SearchDisplayInstrument, Instrument } from '../model/Model';
 import InstrumentSearchBar from "./InstrumentSearchBar";
@@ -124,53 +123,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
         <InstrumentSearchBar add={this.addInstrument} />
 
-        <ReactTable<InstrumentWatchLine>
 
-          data={clonedWatches}
-          columns={[
-            {
-              columns: [
-                {
-                  Header: "Name",
-                  accessor: "name"
-                },
-                {
-                  Header: "Symbol",
-                  accessor: "symbol"
-                },
-                {
-                  Header: "Type",
-                  accessor: "type"
-                },
-                {
-                  Header: "Bid Size",
-                  accessor: "bidSize"
-                },
-                {
-                  Header: "Bid Px",
-                  accessor: "bidPrice"
-                },
-                {
-                  Header: "Ask Px",
-                  accessor: "askPrice"
-                },
-                {
-                  Header: "Ask Size",
-                  accessor: "askSize"
-                }
-              ]
-            }
-          ]}
-
-          showPaginationBottom={false}
-          defaultPageSize={200}
-          style={{
-            height: 20 * 41 + "px" // This will force the table body to overflow and scroll, since there is not enough room
-          }}
-          className="-striped -highlight"
-
-        />)
-                <br />
 
 
 

@@ -1,7 +1,6 @@
 import { IItemRendererProps, ItemRenderer, Select, ItemListPredicate } from "@blueprintjs/select";
 import { MenuItem } from "@blueprintjs/core";
 import React, { Component, RefObject } from 'react';
-import "react-table/react-table.css";
 import v4 from 'uuid';
 import { SearchDisplayInstrument } from '../model/Model';
 import './OrderBlotter.css';

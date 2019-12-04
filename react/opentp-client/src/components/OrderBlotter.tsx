@@ -1,7 +1,6 @@
 import React from 'react';
 import './OrderBlotter.css';
-import ReactTable, { RowInfo } from 'react-table';
-import "react-table/react-table.css";
+
 import v4 from 'uuid';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
@@ -10,7 +9,12 @@ import Login from './Login';
 import { SubscribeToOrders } from '../serverapi/view-service_pb';
 import { Order, Side, OrderStatus } from '../serverapi/order_pb';
 import { Decimal64 } from '../serverapi/common_pb';
+import { number } from 'prop-types';
+import { toNumber } from '../util/decimal64Conversion';
+import { Table, Column, Cell } from "@blueprintjs/table";
+import "@blueprintjs/table/lib/css/table.css"
 
+  
 
 interface BlotterState {
   orders: OrderView[];
@@ -21,15 +25,9 @@ interface Props {
   selectedOrder?: Order;
 }
 
-const viewService = new ViewServiceClient('http://192.168.1.100:32365', null, null)
 
-export function toNumber(dec?: Decimal64): number | undefined {
-  if (dec) {
-    return dec.getMantissa() * Math.pow(10, dec.getExponent())
-  }
 
-  return undefined
-}
+
 
 class OrderView {
 
@@ -66,7 +64,7 @@ class OrderView {
     this.price = toNumber(order.getPrice())
     this.listingId = order.getListingid()
     this.remainingQuantity = toNumber(order.getRemainingquantity())
-    this.tradedQuantity = toNumber(order.getRemainingquantity())
+    this.tradedQuantity = toNumber(order.getTradedquantity())
     this.avgTradePrice = toNumber(order.getAvgtradeprice())
     this.status = this.getStatusString(order.getStatus())
     this.targetStatus = this.getStatusString(order.getTargetstatus())
@@ -95,9 +93,12 @@ class OrderView {
 
 export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
+  viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
+
   orderMap: Map<string, OrderView>;
 
   stream?: grpcWeb.ClientReadableStream<Order>;
+
 
   //   ordersSource : EventSource;
   id: string;
@@ -115,7 +116,7 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
     this.state = blotterState;
 
-    this.stream = viewService.subscribe(new SubscribeToOrders(), Login.grpcContext.grpcMetaData)
+    this.stream = this.viewService.subscribe(new SubscribeToOrders(), Login.grpcContext.grpcMetaData)
 
     this.stream.on('data', (order: Order) => {
       console.log('Received an order' + order)
@@ -188,103 +189,10 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
       <div>
 
         <ContextMenuTrigger id="orderblottermenu">
-
-
-
-          <ReactTable<OrderView>
-
-
-            data={myClonedArray}
-            columns={[
-              {
-                columns: [
-                  {
-                    Header: "Order Id",
-                    accessor: "id"
-                  },
-                  {
-                    Header: "Listing Id",
-                    accessor: "listingId"
-                  },
-                  {
-                    Header: "Status",
-                    accessor: "status"
-                  },
-                  {
-                    Header: "Target Status",
-                    accessor: "targetStatus"
-                  },
-                  {
-                    Header: "Price",
-                    accessor: "price"
-                  },
-                  {
-                    Header: "Quantity",
-                    accessor: "quantity"
-                  },
-                  {
-                    Header: "Side",
-                    accessor: "side"
-                  },
-                  {
-                    Header: "Traded Quantity",
-                    accessor: "tradedQuantity"
-                  },
-                  {
-                    Header: "Remaining Quantity",
-                    accessor: "remainingQuantity"
-                  },
-                  {
-                    Header: "Avg Price",
-                    accessor: "avgTradePrice"
-                  }
-                ]
-              }
-            ]}
-
-            showPaginationBottom={false}
-            defaultPageSize={200}
-            style={{
-              height: 20 * 41 + "px" // This will force the table body to overflow and scroll, since there is not enough room
-            }}
-            className="-striped -highlight"
-
-            getTrProps={(state: any, rowInfo: RowInfo | undefined) => {
-
-              if (rowInfo && rowInfo.original) {
-
-                let backgroundstyle: any;
-                if (this.props.selectedOrder && this.props.selectedOrder.getId() === rowInfo.original.id) {
-                  backgroundstyle = {
-                    background: '#00afec'
-                  }
-                } else {
-                  backgroundstyle = {};
-                }
-
-                return {
-
-                  onClick: (e: any) => {
-
-                    let blotterState: BlotterState = {
-                      orders: Array.from(this.orderMap.values()),
-                    }
-                    this.props.onOrderSelected(rowInfo.original.order)
-
-                    this.setState(blotterState);
-
-                  },
-                  style: backgroundstyle
-                }
-              } else {
-                return {}
-              }
-            }}
-
-
-
-          />)
-                <br />
+        
+        <Table enableRowResizing={true} numRows={this.orderMap.size} className="bp3-dark">
+                    <Column name="Id" cellRenderer={this.renderId} />            
+        </Table>
 
         </ContextMenuTrigger>
 
@@ -304,5 +212,7 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
     );
   }
+
+  private renderId = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].id}</Cell>;
 
 }

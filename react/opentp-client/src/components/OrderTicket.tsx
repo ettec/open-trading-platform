@@ -1,5 +1,12 @@
 import React from 'react';
 import query from 'query-string';
+import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
+import Login from './Login';
+import { CreateAndRouteOrderParams, OrderId } from '../serverapi/execution-venue_pb';
+import { logError } from '../logging/Logging';
+import { Error } from 'grpc-web';
+import { Side } from '../serverapi/order_pb';
+import { Decimal64 } from '../serverapi/common_pb';
 
 
 interface OrderParameters {
@@ -11,6 +18,8 @@ interface OrderParameters {
 
 
 export default class OrderTicket extends React.Component<{}, OrderParameters> {
+
+  executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
 
     constructor() {
         super({});
@@ -102,6 +111,29 @@ export default class OrderTicket extends React.Component<{}, OrderParameters> {
 
 
         sendOrder(params: OrderParameters ) {
+
+          let croParams = new CreateAndRouteOrderParams()
+          croParams.setListingid(params.instrumentId)
+          
+          let side: Side;
+          if (params.side.toUpperCase() === "BUY") {
+              side = Side.BUY
+          } else if( params.side.toUpperCase() === "SELL") {
+            side = Side.SELL
+          } else {
+            logError("Unrecognised side:" + params.side)
+            return
+          }
+
+          croParams.setSide(side)
+          croParams.setQuantity(new Decimal64())
+
+          this.executionVenueService.createAndRouteOrder(new CreateAndRouteOrderParams(), Login.grpcContext.grpcMetaData, (err: Error,
+            response: OrderId) => {
+            if( err ) {
+              logError("failed to send order:" + err)
+            }
+          })
           
      let queryParams:string  = query.stringify(params);
 

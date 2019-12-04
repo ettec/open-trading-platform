@@ -1,7 +1,7 @@
 import { Button, InputGroup } from "@blueprintjs/core";
 import React from 'react';
-import ReactTable from 'react-table';
-import "react-table/react-table.css";
+
+
 import v4 from 'uuid';
 import './OrderBlotter.css';
 import * as grpcWeb from 'grpc-web'
@@ -18,15 +18,13 @@ interface MarketDepthState {
   book: Book
 }
 
-const marketDataService = new ClientMarketDataServiceClient('http://192.168.1.100:32365', null, null)
-
-
-
 export default class MarketDepth extends React.Component<{}, MarketDepthState > {
 
     stream?: grpcWeb.ClientReadableStream<Book>;    
    // marketDepthSource : EventSource;
     id : string;
+
+    marketDataService = new ClientMarketDataServiceClient(Login.grpcContext.serviceUrl, null, null)
     
     constructor() {
         super({});
@@ -37,7 +35,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         var subscription = new SubscribeRequest()
         subscription.setSubscriberid(this.id)
 
-        this.stream = marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData)
+        this.stream = this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData)
 
         this.stream.on('data', (response: Book) => {
           let blotterState : MarketDepthState =  {...this.state,... {
@@ -87,7 +85,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         subscription.setSubscriberid(this.id)
         subscription.setListingid(this.state.symbol)
         console.log("adding subscription:" + subscription)
-        marketDataService.addSubscription(subscription, Login.grpcContext.grpcMetaData, (err, response )=>{
+        this.marketDataService.addSubscription(subscription, Login.grpcContext.grpcMetaData, (err, response )=>{
             if( err ) {
               console.log("failed to add subscription:" + err)
               return
@@ -128,41 +126,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
               <div className="bp3-dark">
                 <InputGroup onChange={this.handleSymbolChange} />
                 <Button onClick={this.onSubscribe } >Subscribe</Button>
-                <ReactTable<LocalBookLine> 
-                  
-                  data={clonedDepth}
-                  columns={[
-                    {
-                      columns: [
-                        {
-                          Header: "Bid Size",
-                          accessor: "bidSize"
-                        },
-                        {
-                          Header: "Bid Px",
-                          accessor: "bidPrice"
-                        },
-                        {
-                          Header: "Ask Px",
-                          accessor: "askPrice"
-                        },
-                        {
-                          Header: "Ask Size",
-                          accessor: "askSize"
-                        }
-                      ]
-                    }
-                  ]}
-                  
-                  showPaginationBottom={false}
-                  defaultPageSize={200}
-                  style={{
-                    height: 20*41 + "px" // This will force the table body to overflow and scroll, since there is not enough room
-                  }}
-                  className="-striped -highlight"
-                  
-                />)
-                <br />
+            
 
 
 

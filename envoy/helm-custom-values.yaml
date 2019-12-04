@@ -25,6 +25,10 @@ files:
                 - name: local_service
                   domains: ["*"]
                   routes:
+                  - match: { prefix: "/executionvenue.ExecutionVenue" }
+                    route:
+                      cluster: execution-venue-cluster
+                      max_grpc_timeout: 0s
                   - match: { prefix: "/clientmarketdataservice.ClientMarketDataService" }
                     route:
                       cluster: client-market-data-service-cluster
@@ -57,6 +61,12 @@ files:
         http2_protocol_options: {}
         lb_policy: round_robin
         hosts: [{ socket_address: { address: view-service, port_value: 50551 }}]
+      - name: execution-venue-cluster
+        connect_timeout: 0.25s
+        type: logical_dns
+        http2_protocol_options: {}
+        lb_policy: round_robin
+        hosts: [{ socket_address: { address: execution-venue, port_value: 50551 }}]
 
 
 service:
