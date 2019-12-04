@@ -1,4 +1,5 @@
-import { Order } from "../model/Model";
+import { Order } from "../serverapi/order_pb";
+
 
 
 export interface RootState {
@@ -33,7 +34,7 @@ export function omsReducer(state = {},
 
     switch( action.type ) {
         case SET_SELECTED_ORDER:
-            console.log("Setting order id to:" + action.order.id)
+            console.log("Setting order id to:" + action.order.getId())
             return { ...state,  selectedOrder: action.order }
     }
 

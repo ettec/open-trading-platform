@@ -39,7 +39,7 @@ export interface LocalBookLine {
   askSize:string
 }
 
-
+/*
 
 export enum OrderStatus {
     Live,
@@ -65,4 +65,4 @@ export enum OrderStatus {
     tradedQty: number,
     remainingQty: number,
     errorMsg: string
-  }
+  } */

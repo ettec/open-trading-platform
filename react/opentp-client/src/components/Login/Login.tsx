@@ -31,16 +31,16 @@ export default class Login extends React.Component<Props, State> {
 
         this.appInstanceId = v4();
 
-        this.username = ""
+        this.username = "bert"
 
         Login.grpcContext = {
             serviceUrl : 'http://192.168.1.100:32365', 
-            grpcMetaData : {}//"username": this.username, "app-instance-id": this.appInstanceId}
+            grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId}
         }
 
 
         this.state = {
-            loggedIn : false
+            loggedIn : true
         }
 
         this.handleUserNameChange = this.handleUserNameChange.bind(this);

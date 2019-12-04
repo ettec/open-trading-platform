@@ -40,7 +40,6 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         this.stream = marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData)
 
         this.stream.on('data', (response: Book) => {
-          console.log('Received book' + response)
           let blotterState : MarketDepthState =  {...this.state,... {
             book: response,
           }}
@@ -49,7 +48,6 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState > 
         });
         this.stream.on('status', (status: grpcWeb.Status) => {
           if (status.metadata) {
-            console.log('Received metadata');
             console.log(status.metadata);
           }
         });
