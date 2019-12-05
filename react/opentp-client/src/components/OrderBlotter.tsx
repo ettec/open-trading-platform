@@ -195,8 +195,15 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
         bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection}>
                     <Column name="Id" cellRenderer={this.renderId} />            
                     <Column name="Side" cellRenderer={this.renderSide} />
+                    <Column name="Listing Id" cellRenderer={this.renderListingId} />
                     <Column name="Quantity" cellRenderer={this.renderQuantity} />
-                    <Column name="Price" cellRenderer={this.renderPrice} />
+                    <Column name="Price" cellRenderer={this.renderPrice} /> 
+                    <Column name="Status" cellRenderer={this.renderStatus} />
+                    <Column name="Target Status" cellRenderer={this.renderTargetStatus} />
+                    <Column name="Rem Qty" cellRenderer={this.renderRemQty} />
+                    <Column name="Traded Qty" cellRenderer={this.renderTrdQty} />
+                    <Column name="Avg Price" cellRenderer={this.renderAvgPrice} />
+                    
         </Table>
 
       </div>
@@ -209,6 +216,12 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
   private renderSide = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].side}</Cell>;
   private renderQuantity = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].quantity}</Cell>;
   private renderPrice = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].price}</Cell>;
+  private renderListingId = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].listingId}</Cell>;
+  private renderRemQty = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].remainingQuantity}</Cell>;
+  private renderTrdQty = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].tradedQuantity}</Cell>;
+  private renderAvgPrice = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].avgTradePrice}</Cell>;
+  private renderStatus = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].status}</Cell>;
+  private renderTargetStatus = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].targetStatus}</Cell>;
 
 
   private onSelection = (selectedRegions: IRegion[]) => {
