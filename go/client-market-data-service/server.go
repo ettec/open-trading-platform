@@ -62,7 +62,7 @@ func (*server) Subscribe(request *cmds.SubscribeRequest, stream cmds.ClientMarke
 		i := 0
 		for {
 			i++
-			time.Sleep(1 * time.Second)
+			time.Sleep(3 * time.Second)
 
 			if i % 2 == 0 {
 				marketDataChannel <- &cmds.Book{

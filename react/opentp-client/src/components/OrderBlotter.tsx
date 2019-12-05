@@ -9,15 +9,18 @@ import Login from './Login';
 import { SubscribeToOrders } from '../serverapi/view-service_pb';
 import { Order, Side, OrderStatus } from '../serverapi/order_pb';
 import { Decimal64 } from '../serverapi/common_pb';
-import { number } from 'prop-types';
+import { number, string } from 'prop-types';
 import { toNumber } from '../util/decimal64Conversion';
-import { Table, Column, Cell } from "@blueprintjs/table";
+import { Table, Column, Cell, SelectionModes, IMenuContext, IRegion } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css"
+import { Menu } from '@blueprintjs/core';
+import { start } from 'repl';
 
   
 
 interface BlotterState {
   orders: OrderView[];
+  selectedOrders : Map<string, Order>
 }
 
 interface Props {
@@ -111,7 +114,8 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
     this.orderMap = new Map<string, OrderView>();
  
     let blotterState: BlotterState = {
-      orders: Array.from(this.orderMap.values())
+      orders: Array.from(this.orderMap.values()),
+      selectedOrders: new Map<string, Order>()
     }
 
     this.state = blotterState;
@@ -128,11 +132,10 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
       console.log("Values " + this.orderMap.values());
 
-
       let blotterState: BlotterState = {
-        orders: Array.from(this.orderMap.values()),
-
-        //selectionChanged: this.state.selectionChanged
+        ...this.state, ... {
+          orders: Array.from(this.orderMap.values()),
+        }
       }
 
 
@@ -187,25 +190,14 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
     return (
       <div>
-
-        <ContextMenuTrigger id="orderblottermenu">
         
-        <Table enableRowResizing={true} numRows={this.orderMap.size} className="bp3-dark">
+        <Table enableRowResizing={false} numRows={this.orderMap.size} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
+        bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection}>
                     <Column name="Id" cellRenderer={this.renderId} />            
+                    <Column name="Side" cellRenderer={this.renderSide} />
+                    <Column name="Quantity" cellRenderer={this.renderQuantity} />
+                    <Column name="Price" cellRenderer={this.renderPrice} />
         </Table>
-
-        </ContextMenuTrigger>
-
-        <ContextMenu id="orderblottermenu" >
-          <MenuItem data={this.props.selectedOrder} onClick={this.cancelOrder}  >
-            Cancel Order
-              </MenuItem>
-          <MenuItem divider />
-          <MenuItem data={this.props.selectedOrder} onClick={this.modifyOrder}>
-            Modify Order
-              </MenuItem>
-
-        </ContextMenu>
 
       </div>
 
@@ -214,5 +206,51 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
   }
 
   private renderId = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].id}</Cell>;
+  private renderSide = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].side}</Cell>;
+  private renderQuantity = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].quantity}</Cell>;
+  private renderPrice = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].price}</Cell>;
+
+
+  private onSelection = (selectedRegions: IRegion[]) => {
+    let selectedOrders : Map<string, Order> = new Map<string,Order>()
+
+
+    for( let region of selectedRegions)  {
+
+      let firstRowIdx : number;
+      let lastRowIdx : number;
+
+
+      if( region.rows ) {
+        firstRowIdx = region.rows[0]
+        lastRowIdx = region.rows[1]
+      }  else {
+        firstRowIdx = 0
+        lastRowIdx = this.state.orders.length -1
+      }
+
+      for (let i = firstRowIdx; i < lastRowIdx; i++) {
+        let order = this.state.orders[i].order
+        selectedOrders.set(order.getId(), order)
+      }
+    }
+
+
+    
+  }
+
+  private renderBodyContextMenu = (context: IMenuContext) => {
+    return (
+        <Menu>
+             <MenuItem data={this.props.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size==0} >
+            Cancel Order
+              </MenuItem>
+          <MenuItem divider />
+          <MenuItem data={this.props.selectedOrder} onClick={this.modifyOrder}>
+            Modify Order
+              </MenuItem>
+        </Menu>
+    );
+};
 
 }
