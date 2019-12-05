@@ -1,0 +1,24 @@
+syntax = "proto3";
+import "order.proto";
+import "common.proto";
+package executionvenue;
+option go_package="model";
+
+
+message CreateAndRouteOrderParams{
+    model.Side side = 1;
+    model.Decimal64 quantity = 2;
+    model.Decimal64 price = 3;
+    string listingId = 4;
+}
+
+message OrderId {
+    string orderId = 1;
+}
+
+service ExecutionVenue{
+    rpc CreateAndRouteOrder(CreateAndRouteOrderParams) returns (OrderId) {};
+    rpc CancelOrder(OrderId) returns (model.Empty) {};
+} 
+
+

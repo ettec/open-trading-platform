@@ -16,9 +16,6 @@ export interface Instrument {
   symbols : {
     IEX : string
   }
-
-
-
   
 }
 
