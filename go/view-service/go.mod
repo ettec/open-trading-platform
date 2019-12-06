@@ -1,4 +1,4 @@
-module github.com/ettec/open-trading-platform/view-service
+module github.com/ettec/open-trading-platform/go/view-service
 
 go 1.13
 

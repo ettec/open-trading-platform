@@ -1,24 +1,32 @@
 syntax = "proto3";
-import "order.proto";
-import "common.proto";
+import "listing.proto";
 package executionvenue;
 option go_package="model";
 
 
-message CreateAndRouteOrderParams{
-    model.Side side = 1;
-    model.Decimal64 quantity = 2;
-    model.Decimal64 price = 3;
-    string listingId = 4;
+message ListingId {
+    int32 listingId = 1;
 }
 
-message OrderId {
-    string orderId = 1;
+
+message ListingIds {
+    repeated int32 listingIds = 1; 
 }
 
-service ExecutionVenue{
-    rpc CreateAndRouteOrder(CreateAndRouteOrderParams) returns (OrderId) {};
-    rpc CancelOrder(OrderId) returns (model.Empty) {};
+message Listings {
+   repeated model.Listing listings = 1;
+
+}
+
+message MatchParameters {
+	string symbolMatch = 1;
+	string nameMatch = 2;
+}
+
+service StaticDataService{
+    rpc GetListingsMatching(MatchParameters) returns (Listings) {};
+    rpc GetListing(ListingId) returns (model.Listing) {};
+    rpc GetListings(ListingIds) returns (Listings) {};
 } 
 
 

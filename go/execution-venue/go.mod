@@ -1,4 +1,4 @@
-module github.com/ettec/open-trading-platform/execution-venue
+module github.com/ettec/open-trading-platform/go/execution-venue
 
 go 1.13
 
