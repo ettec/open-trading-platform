@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "listing.proto";
-package executionvenue;
+package staticdataservice;
 option go_package="model";
 
 

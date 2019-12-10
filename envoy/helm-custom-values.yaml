@@ -35,6 +35,10 @@ files:
                       max_grpc_timeout: 0s
                   - match: { prefix: "/viewservice.ViewService" }
                     route:
+                      cluster: static-data-service-cluster
+                      max_grpc_timeout: 0s
+                  - match: { prefix: "/staticdataservice.StaticDataService" }
+                    route:
                       cluster: view-service-cluster
                       max_grpc_timeout: 0s
                   cors:
@@ -67,7 +71,12 @@ files:
         http2_protocol_options: {}
         lb_policy: round_robin
         hosts: [{ socket_address: { address: execution-venue, port_value: 50551 }}]
-
+      - name: static-data-service-cluster
+        connect_timeout: 0.25s
+        type: logical_dns
+        http2_protocol_options: {}
+        lb_policy: round_robin
+        hosts: [{ socket_address: { address: static-data-service, port_value: 50551 }}]
 
 service:
   type: NodePort

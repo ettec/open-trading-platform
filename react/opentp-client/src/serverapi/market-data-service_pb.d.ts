@@ -4,8 +4,8 @@ export class Subscription extends jspb.Message {
   getSubscriberid(): string;
   setSubscriberid(value: string): void;
 
-  getListingid(): string;
-  setListingid(value: string): void;
+  getListingid(): number;
+  setListingid(value: number): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Subscription.AsObject;
@@ -18,7 +18,7 @@ export class Subscription extends jspb.Message {
 export namespace Subscription {
   export type AsObject = {
     subscriberid: string,
-    listingid: string,
+    listingid: number,
   }
 }
 
@@ -58,7 +58,7 @@ export namespace SubscribeRequest {
   }
 }
 
-export class BookLine extends jspb.Message {
+export class DepthLine extends jspb.Message {
   getBidsize(): string;
   setBidsize(value: string): void;
 
@@ -72,14 +72,14 @@ export class BookLine extends jspb.Message {
   setAskprice(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): BookLine.AsObject;
-  static toObject(includeInstance: boolean, msg: BookLine): BookLine.AsObject;
-  static serializeBinaryToWriter(message: BookLine, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): BookLine;
-  static deserializeBinaryFromReader(message: BookLine, reader: jspb.BinaryReader): BookLine;
+  toObject(includeInstance?: boolean): DepthLine.AsObject;
+  static toObject(includeInstance: boolean, msg: DepthLine): DepthLine.AsObject;
+  static serializeBinaryToWriter(message: DepthLine, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DepthLine;
+  static deserializeBinaryFromReader(message: DepthLine, reader: jspb.BinaryReader): DepthLine;
 }
 
-export namespace BookLine {
+export namespace DepthLine {
   export type AsObject = {
     bidsize: string,
     bidprice: string,
@@ -88,27 +88,27 @@ export namespace BookLine {
   }
 }
 
-export class Book extends jspb.Message {
-  getListingid(): string;
-  setListingid(value: string): void;
+export class Quote extends jspb.Message {
+  getListingid(): number;
+  setListingid(value: number): void;
 
-  getDepthList(): Array<BookLine>;
-  setDepthList(value: Array<BookLine>): void;
+  getDepthList(): Array<DepthLine>;
+  setDepthList(value: Array<DepthLine>): void;
   clearDepthList(): void;
-  addDepth(value?: BookLine, index?: number): BookLine;
+  addDepth(value?: DepthLine, index?: number): DepthLine;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Book.AsObject;
-  static toObject(includeInstance: boolean, msg: Book): Book.AsObject;
-  static serializeBinaryToWriter(message: Book, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Book;
-  static deserializeBinaryFromReader(message: Book, reader: jspb.BinaryReader): Book;
+  toObject(includeInstance?: boolean): Quote.AsObject;
+  static toObject(includeInstance: boolean, msg: Quote): Quote.AsObject;
+  static serializeBinaryToWriter(message: Quote, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Quote;
+  static deserializeBinaryFromReader(message: Quote, reader: jspb.BinaryReader): Quote;
 }
 
-export namespace Book {
+export namespace Quote {
   export type AsObject = {
-    listingid: string,
-    depthList: Array<BookLine.AsObject>,
+    listingid: number,
+    depthList: Array<DepthLine.AsObject>,
   }
 }
 

@@ -2,34 +2,44 @@ import { IItemRendererProps, ItemRenderer, Select, ItemListPredicate } from "@bl
 import { MenuItem } from "@blueprintjs/core";
 import React, { Component, RefObject } from 'react';
 import v4 from 'uuid';
-import { SearchDisplayInstrument } from '../model/Model';
 import './OrderBlotter.css';
 import { Button } from "@blueprintjs/core";
+import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
+import Login from "./Login";
+import { MatchParameters, Listings } from "../serverapi/static-data-service_pb";
+import { Listing } from "../serverapi/listing_pb";
+import { logError } from "../logging/Logging";
 
+const ListingSelect = Select.ofType<Listing>();
 
-const InstrumentSelect = Select.ofType<SearchDisplayInstrument>();
-
-
-
-const renderInstrument: ItemRenderer<SearchDisplayInstrument> = (inst, { handleClick, modifiers, query }) => {
+const renderListing: ItemRenderer<Listing> = (listing, { handleClick, modifiers, query }) => {
     if (!modifiers.matchesPredicate) {
         return null;
     }
-    const text = `${inst.symbol}`;
+    var instrument = listing.getInstrument()
+    if( !instrument ) {
+        logError("instrument of listing " + listing + " is not set")
+        return null;
+    }
+
+    var market = listing.getMarket()
+    if( !market ) {
+        logError("market of listing " + listing + " is not set")
+        return null;
+    }
+
+    const text = `${instrument.getDisplaysymbol()}`;
     return (
         <MenuItem
             active={modifiers.active}
             disabled={modifiers.disabled}
-            label={inst.name}
-            key={inst.id}
+            label={instrument.getName() + " - " + market.getName}
+            key={listing.getId()}
             onClick={handleClick}
             text={highlightText(text, query)}
         />
     );
 };
-
-
-
 
 function highlightText(text: string, query: string) {
     let lastIndex = 0;
@@ -66,24 +76,24 @@ function escapeRegExpChars(text: string) {
     return text.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
 
-interface InstrumentSearchBarState {
-    items: SearchDisplayInstrument[]
-    selected?: SearchDisplayInstrument;
+interface ListingSearchBarState {
+    items: Listing[]
+    selected?: Listing;
 }
 
-interface InstrumentSearchBarProps {
-    add : (instrument? : SearchDisplayInstrument) => void
+interface ListingSearchBarProps {
+    add : (listing? : Listing) => void
 }
 
 
-export default class InstrumentSearchBar extends React.Component<InstrumentSearchBarProps, InstrumentSearchBarState> {
+export default class InstrumentSearchBar extends React.Component<ListingSearchBarProps, ListingSearchBarState> {
 
     id: string;
     lastSearchString: string;
+
+    staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
    
-
-
-    constructor(props : InstrumentSearchBarProps) {
+    constructor(props : ListingSearchBarProps) {
         super(props);
 
         let initialState = {
@@ -95,11 +105,7 @@ export default class InstrumentSearchBar extends React.Component<InstrumentSearc
         this.id = v4();
         this.lastSearchString = ''
 
-        
         this.handleQueryChange = this.handleQueryChange.bind(this);
-       
-
-
     }
 
     handleQueryChange(query : string) {
@@ -122,9 +128,27 @@ export default class InstrumentSearchBar extends React.Component<InstrumentSearc
 
         }
 
-        
-        
 
+        let p = new MatchParameters()
+        p.setSymbolmatch(query)
+        this.staticDataService.getListingsMatching(p, Login.grpcContext.grpcMetaData, (err, listings : Listings) => {
+
+            if (err) {
+              console.log("failed to get listings matching:" + err)
+              return
+            }
+    
+            let newState = { 
+                ...this.state, ... {}
+            }
+
+            newState.items = listings.getListingsList()
+
+            this.setState(newState) 
+
+          })
+        
+/*
         var fetchRequestString : string =  'http://192.168.1.100:31352/instrument-lookup/instruments-matching?searchString=' + query
         fetch(fetchRequestString, {
             method: 'GET',
@@ -166,6 +190,7 @@ export default class InstrumentSearchBar extends React.Component<InstrumentSearc
             ).catch(error => {
                 console.log(error)
             });
+            */
     }
 
 
@@ -178,31 +203,43 @@ export default class InstrumentSearchBar extends React.Component<InstrumentSearc
 
             <div>
 
-                <InstrumentSelect 
+                <ListingSelect 
                     
                     items={items}
                     resetOnClose={true}
                     onItemSelect={this.handleValueChange}
                     onQueryChange={this.handleQueryChange}
                     noResults={<MenuItem disabled={true} text="No results." />}
-                    itemRenderer={renderInstrument}>
+                    itemRenderer={renderListing}>
                     
                     <Button
                         rightIcon="caret-down"
-                        text={selected ? `${selected.symbol + " - " + selected.name} ` : "(No selection)"}
+                        text={selected? `${this.getSelectDisplayName(selected)} ` : "(No selection)"}
                     />
-                </InstrumentSelect>
+                </ListingSelect>
                 <Button onClick={()=>this.props.add(this.state.selected)}>Add</Button>
             </div>
         );
     }
 
 
-    private handleValueChange = (instrument: SearchDisplayInstrument) => {
-        console.log("Selected: " + instrument.symbol)
+    private getSelectDisplayName(listing: Listing): string {
+        let i = listing.getInstrument()
+        let m = listing.getMarket()
+        
+        if( i && m ) {
+            return i.getDisplaysymbol() + " - " + i.getName() + " - " + m.getMic()
+        } else {
+            let msg = "listing " + listing + " is missing instrument or market"
+            logError(msg)
+            return msg
+        }
+    }
+
+    private handleValueChange = (listing: Listing) => {
         this.setState({
              ...this.state, ... {
-                selected: instrument,
+                selected: listing,
             }
         })
     };

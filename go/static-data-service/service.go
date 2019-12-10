@@ -117,7 +117,7 @@ func hydrateListings(r *sql.Rows, err error) (*model.Listings, error) {
 		l.Market = &model.Market{}
 
 		err = r.Scan(&l.Id, &l.MarketSymbol, &l.Market.Id, &l.Market.Name, &l.Market.Mic, &l.Market.CountryCode,
-			&l.Instrument.Id, &l.Instrument.Name, &l.Instrument.DisplayName, &l.Instrument.Enabled)
+			&l.Instrument.Id, &l.Instrument.Name, &l.Instrument.DisplaySymbol, &l.Instrument.Enabled)
 		result.Listings = append(result.Listings, l)
 		if err != nil {
 			return  nil, fmt.Errorf("failed to marshal database row into listing %w", err)

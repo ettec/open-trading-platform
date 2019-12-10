@@ -1,4 +1,4 @@
-module github.com/coronationstreet/open-trading-platform/go/client-market-data-service
+module github.com/coronationstreet/open-trading-platform/go/market-data-service
 
 go 1.13
 

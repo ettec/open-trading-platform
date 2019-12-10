@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for clientmarketdataservice
+ * @fileoverview gRPC-Web generated client stub for marketdataservice
  * @enhanceable
  * @public
  */
@@ -11,11 +11,11 @@ import * as grpcWeb from 'grpc-web';
 
 import {
   AddSubscriptionResponse,
-  Book,
+  Quote,
   SubscribeRequest,
-  Subscription} from './cmds_pb';
+  Subscription} from './market-data-service_pb';
 
-export class ClientMarketDataServiceClient {
+export class MarketDataServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
   credentials_: null | { [index: string]: string; };
@@ -49,7 +49,7 @@ export class ClientMarketDataServiceClient {
                response: AddSubscriptionResponse) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
-        '/clientmarketdataservice.ClientMarketDataService/AddSubscription',
+        '/marketdataservice.MarketDataService/AddSubscription',
       request,
       metadata || {},
       this.methodInfoAddSubscription,
@@ -57,11 +57,11 @@ export class ClientMarketDataServiceClient {
   }
 
   methodInfoSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
-    Book,
+    Quote,
     (request: SubscribeRequest) => {
       return request.serializeBinary();
     },
-    Book.deserializeBinary
+    Quote.deserializeBinary
   );
 
   subscribe(
@@ -69,7 +69,7 @@ export class ClientMarketDataServiceClient {
     metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
       this.hostname_ +
-        '/clientmarketdataservice.ClientMarketDataService/Subscribe',
+        '/marketdataservice.MarketDataService/Subscribe',
       request,
       metadata || {},
       this.methodInfoSubscribe);

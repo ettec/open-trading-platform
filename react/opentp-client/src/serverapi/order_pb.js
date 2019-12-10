@@ -1,5 +1,4 @@
 // source: order.proto
-/* eslint-disable */
 /**
  * @fileoverview
  * @enhanceable

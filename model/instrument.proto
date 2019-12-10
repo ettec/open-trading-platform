@@ -8,7 +8,7 @@ message Instrument {
    int32 version = 1;
    int32 id = 2;
    string name = 3; 
-   string displayName = 4;
+   string displaySymbol = 4;
    bool enabled = 5;
 }
 

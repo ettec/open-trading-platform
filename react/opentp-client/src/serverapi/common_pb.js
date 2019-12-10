@@ -1,5 +1,4 @@
 // source: common.proto
-/* eslint-disable */
 /**
  * @fileoverview
  * @enhanceable

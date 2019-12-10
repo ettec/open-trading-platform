@@ -1,4 +1,6 @@
 
+
+/*
 export interface SearchDisplayInstrument {
   id:number,
   name:string,
@@ -17,7 +19,7 @@ export interface Instrument {
     IEX : string
   }
   
-}
+} */
 
 export interface InstrumentWatchLine {
   id:number,
