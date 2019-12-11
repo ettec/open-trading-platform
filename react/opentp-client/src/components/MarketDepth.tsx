@@ -11,6 +11,7 @@ import Login from "./Login";
 import { Table, Column, Cell } from "@blueprintjs/table";
 import  { QuoteService, QuoteListener } from "../services/QuoteService";
 import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
+import { toNumber } from "../util/decimal64Conversion";
 
 
 
@@ -52,7 +53,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     subscription.setSubscriberid(this.id)
 
 
-    this.quoteService.SubscribeToQuote(121469, this)
+    this.quoteService.SubscribeToQuote(54123, this)
 
  
 
@@ -89,17 +90,16 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   }
 
-  onQuote(recievedQuote: Quote): void {
+  onQuote(receivedQuote: Quote): void {
     let state: MarketDepthState = {
       ...this.state, ... {
-        quote: recievedQuote,
+        quote: receivedQuote,
       }
     }
 
     // A bug in the table implementation means state has to be set twice to update the table
     this.setState(state);
     this.setState(state);
-
   }
 
   handleSymbolChange(e: any) {
@@ -148,9 +148,6 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   public render() {
 
-
-
-
     if (this.state && this.state.quote) {
       return (
         <div className="bp3-dark">
@@ -172,8 +169,6 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
           <Button onClick={this.onSubscribe} >Subscribe</Button>
         </div>
       );
-
-
     }
 
   }
@@ -182,7 +177,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
-      return (<Cell>{depth[row].getBidsize()}</Cell>)
+      return (<Cell>{toNumber(depth[row].getBidsize())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }
@@ -192,7 +187,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
-      return (<Cell>{depth[row].getAsksize()}</Cell>)
+      return (<Cell>{toNumber(depth[row].getAsksize())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }
@@ -203,7 +198,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     if (row < depth.length) {
       let line = depth[row]
-      return (<Cell>{line.getBidprice()}</Cell>)
+      return (<Cell>{toNumber(line.getBidprice())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }
@@ -213,7 +208,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
-      return (<Cell>{depth[row].getAskprice()}</Cell>)
+      return (<Cell>{toNumber(depth[row].getAskprice())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }

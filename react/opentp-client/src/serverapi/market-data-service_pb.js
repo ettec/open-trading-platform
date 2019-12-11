@@ -13,6 +13,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var common_pb = require('./common_pb.js');
+goog.object.extend(proto, common_pb);
 goog.exportSymbol('proto.marketdataservice.AddSubscriptionResponse', null, global);
 goog.exportSymbol('proto.marketdataservice.DepthLine', null, global);
 goog.exportSymbol('proto.marketdataservice.Quote', null, global);
@@ -563,10 +565,10 @@ proto.marketdataservice.DepthLine.prototype.toObject = function(opt_includeInsta
  */
 proto.marketdataservice.DepthLine.toObject = function(includeInstance, msg) {
   var f, obj = {
-    bidsize: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    bidprice: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    asksize: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    askprice: jspb.Message.getFieldWithDefault(msg, 4, "")
+    bidsize: (f = msg.getBidsize()) && common_pb.Decimal64.toObject(includeInstance, f),
+    bidprice: (f = msg.getBidprice()) && common_pb.Decimal64.toObject(includeInstance, f),
+    asksize: (f = msg.getAsksize()) && common_pb.Decimal64.toObject(includeInstance, f),
+    askprice: (f = msg.getAskprice()) && common_pb.Decimal64.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -604,19 +606,23 @@ proto.marketdataservice.DepthLine.deserializeBinaryFromReader = function(msg, re
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new common_pb.Decimal64;
+      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
       msg.setBidsize(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new common_pb.Decimal64;
+      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
       msg.setBidprice(value);
       break;
     case 3:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new common_pb.Decimal64;
+      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
       msg.setAsksize(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new common_pb.Decimal64;
+      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
       msg.setAskprice(value);
       break;
     default:
@@ -649,93 +655,169 @@ proto.marketdataservice.DepthLine.prototype.serializeBinary = function() {
 proto.marketdataservice.DepthLine.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getBidsize();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       1,
-      f
+      f,
+      common_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getBidprice();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
+      f,
+      common_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getAsksize();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       3,
-      f
+      f,
+      common_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getAskprice();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       4,
-      f
+      f,
+      common_pb.Decimal64.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional string bidSize = 1;
- * @return {string}
+ * optional model.Decimal64 bidSize = 1;
+ * @return {?proto.model.Decimal64}
  */
 proto.marketdataservice.DepthLine.prototype.getBidsize = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, common_pb.Decimal64, 1));
 };
 
 
-/** @param {string} value */
+/** @param {?proto.model.Decimal64|undefined} value */
 proto.marketdataservice.DepthLine.prototype.setBidsize = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
- * optional string bidPrice = 2;
- * @return {string}
+ * Clears the message field making it undefined.
+ */
+proto.marketdataservice.DepthLine.prototype.clearBidsize = function() {
+  this.setBidsize(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.marketdataservice.DepthLine.prototype.hasBidsize = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional model.Decimal64 bidPrice = 2;
+ * @return {?proto.model.Decimal64}
  */
 proto.marketdataservice.DepthLine.prototype.getBidprice = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, common_pb.Decimal64, 2));
 };
 
 
-/** @param {string} value */
+/** @param {?proto.model.Decimal64|undefined} value */
 proto.marketdataservice.DepthLine.prototype.setBidprice = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
- * optional string askSize = 3;
- * @return {string}
+ * Clears the message field making it undefined.
+ */
+proto.marketdataservice.DepthLine.prototype.clearBidprice = function() {
+  this.setBidprice(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.marketdataservice.DepthLine.prototype.hasBidprice = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional model.Decimal64 askSize = 3;
+ * @return {?proto.model.Decimal64}
  */
 proto.marketdataservice.DepthLine.prototype.getAsksize = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, common_pb.Decimal64, 3));
 };
 
 
-/** @param {string} value */
+/** @param {?proto.model.Decimal64|undefined} value */
 proto.marketdataservice.DepthLine.prototype.setAsksize = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  jspb.Message.setWrapperField(this, 3, value);
 };
 
 
 /**
- * optional string askPrice = 4;
- * @return {string}
+ * Clears the message field making it undefined.
  */
-proto.marketdataservice.DepthLine.prototype.getAskprice = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+proto.marketdataservice.DepthLine.prototype.clearAsksize = function() {
+  this.setAsksize(undefined);
 };
 
 
-/** @param {string} value */
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.marketdataservice.DepthLine.prototype.hasAsksize = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional model.Decimal64 askPrice = 4;
+ * @return {?proto.model.Decimal64}
+ */
+proto.marketdataservice.DepthLine.prototype.getAskprice = function() {
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, common_pb.Decimal64, 4));
+};
+
+
+/** @param {?proto.model.Decimal64|undefined} value */
 proto.marketdataservice.DepthLine.prototype.setAskprice = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
+  jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ */
+proto.marketdataservice.DepthLine.prototype.clearAskprice = function() {
+  this.setAskprice(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.marketdataservice.DepthLine.prototype.hasAskprice = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 

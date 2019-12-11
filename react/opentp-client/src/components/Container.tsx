@@ -6,6 +6,7 @@ import OrderBlotterContainer from '../containers/OrderBlotterContainer';
 import InstrumentWatchView from "./InstrumentWatchView";
 import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
+import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
 
 
 export default class Container extends React.Component {
@@ -104,10 +105,13 @@ export default class Container extends React.Component {
     factory: (node: TabNode) => React.ReactNode;
     readonly configKey : string = "open-oms-config"; 
     
+    quoteService : QuoteService
 
 
     constructor() {
         super({}, {});
+
+        this.quoteService = new QuoteServiceImpl()
 
         let layoutString : string | null= localStorage.getItem(this.configKey);
 
@@ -129,15 +133,14 @@ export default class Container extends React.Component {
                 return <OrderBlotterContainer />;
             }
             if (component === "market-depth") {
-                return <MarketDepth />;
+                return <MarketDepth quoteService={this.quoteService}/>;
             }
             if (component === "instrument-watch") {
-                return<InstrumentWatchView node={node} model={this.state} />;
+                return<InstrumentWatchView quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if(component === "nav-bar") {
                 return <Navbar/>;
             }
-
         }
 
         this.onSave = this.onSave.bind(this);

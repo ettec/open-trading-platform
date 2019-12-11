@@ -62,16 +62,19 @@ func (*server) Subscribe(request *model.SubscribeRequest, stream model.MarketDat
 
 			if i%2 == 0 {
 				marketDataChannel <- &model.Quote{
-					ListingId: 121469,
-					Depth: []*model.DepthLine{{BidSize: "10", BidPrice: "13", AskPrice: "14", AskSize: "5",},
-						{BidSize: "9", BidPrice: "12", AskPrice: "15", AskSize: "6",},
+					ListingId: 54123,
+					Depth: []*model.DepthLine{{BidSize: &model.Decimal64{Mantissa:10}, BidPrice: &model.Decimal64{Mantissa:13},
+						AskPrice: &model.Decimal64{Mantissa:14}, AskSize: &model.Decimal64{Mantissa:5},},
+						{BidSize: &model.Decimal64{Mantissa:9}, BidPrice: &model.Decimal64{Mantissa:12},
+							AskPrice: &model.Decimal64{Mantissa:15}, AskSize: &model.Decimal64{Mantissa:6},},
 					},
 				}
 			} else {
 				marketDataChannel <- &model.Quote{
-					ListingId: 121469,
+					ListingId: 54123,
 					Depth: []*model.DepthLine{
-						{BidSize: "2", BidPrice: "12", AskPrice: "15", AskSize: "3",},
+						{BidSize: &model.Decimal64{Mantissa:2}, BidPrice: &model.Decimal64{Mantissa:12},
+							AskPrice:&model.Decimal64{Mantissa:15} , AskSize: &model.Decimal64{Mantissa:3},},
 					},
 				}
 			}

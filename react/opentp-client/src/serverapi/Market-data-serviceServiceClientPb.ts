@@ -9,6 +9,8 @@
 
 import * as grpcWeb from 'grpc-web';
 
+import * as common_pb from './common_pb';
+
 import {
   AddSubscriptionResponse,
   Quote,

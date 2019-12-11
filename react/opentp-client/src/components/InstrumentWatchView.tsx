@@ -1,8 +1,6 @@
 import { TabNode, Model, Actions } from "flexlayout-react";
 import React from 'react';
 
-import v4 from 'uuid';
-
 import InstrumentSearchBar from "./InstrumentSearchBar";
 import './OrderBlotter.css';
 import { Listing } from "../serverapi/listing_pb";
@@ -13,13 +11,15 @@ import { Error } from "grpc-web";
 import { QuoteService, QuoteListener } from "../services/QuoteService";
 import { Quote } from "../serverapi/market-data-service_pb";
 import { logDebug } from "../logging/Logging";
-
+import { SelectionModes, IMenuContext, Table, Column, Cell, IRegion } from "@blueprintjs/table";
+import { Menu, MenuItem } from "@blueprintjs/core";
+import { toNumber } from "../util/decimal64Conversion";
 
 
 
 
 interface InstrumentWatchState {
-  watches: ListingWatchLine[]
+  watches: ListingWatch[]
 }
 
 interface InstrumentWatchProps {
@@ -39,7 +39,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
 
-  watchMap: Map<number, ListingWatchLine> = new Map()
+  watchMap: Map<number, ListingWatch> = new Map()
 
   constructor(props: InstrumentWatchProps) {
     super(props);
@@ -55,7 +55,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     this.addListing = this.addListing.bind(this);
 
     this.props.node.setEventListener("save", (p) => {
-      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.watchMap.keys()) }
+      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.state.watches.map(l=>l.listing.getId())) }
       this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
     });
 
@@ -63,18 +63,14 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
       let persistentConfig: PersistentConfig = this.props.node.getConfig();
       this.addListingLineByIds(persistentConfig.listingIds)
     }
-
-
   }
 
   addListing(listing?: Listing) {
 
     if (listing) {
-
       if (this.watchMap.has(listing.getId())) {
         return;
       }
-
       this.addListingLine(listing);
     }
 
@@ -86,80 +82,230 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
     this.staticDataService.getListings(ids, Login.grpcContext.grpcMetaData,
       (err: Error, listings: Listings) => {
-
-        listings.getListingsList().forEach((listing) => {
-          this.addListingLine(listing)
-        })
+        if (listings) {
+          listings.getListingsList().forEach((listing) => {
+            this.addListingLine(listing)
+          })
+        }
       })
   }
 
   private addListingLine(listing: Listing) {
 
     if (!this.watchMap.get(listing.getId())) {
-      let line = new ListingWatchLine()
-      line.listing = listing
+      let line = new ListingWatch(listing)
+      
 
-      let listingWatchLine = new ListingWatchLine()
-      listingWatchLine.listing = listing
+      this.watchMap.set(listing.getId(), line);
 
-
-      this.watchMap.set(listing.getId(), listingWatchLine);
+      let lines = this.state.watches.slice(0)
+      lines.push(line)
+      
       this.setState({
-        watches: Array.from(this.watchMap.values())
+        watches: lines
       });
 
       this.quoteService.SubscribeToQuote(listing.getId(), this)
 
-
     }
-
 
   }
 
   onQuote(quote: Quote): void {
 
     let line = this.watchMap.get(quote.getListingid())
-    if( line ) {
+    if (line) {
 
       line.quote = quote
+      let lines = this.state.watches.slice(0)
       this.setState({
-        watches: Array.from(this.watchMap.values())
+        watches: lines
       });
 
     } else {
-      logDebug("received quote update for non-existent line, quote:" + quote)
+      logDebug("received quote update for non-existent watch, quote id:" + quote.getListingid())
     }
 
   }
+/*
+  private renderBodyContextMenu = (context: IMenuContext) => {
+    return (
+        <Menu>
+             <MenuItem data={this.props.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size==0} >
+            Cancel Order
+              </MenuItem>
+          <MenuItem divider />
+          <MenuItem data={this.props.selectedOrder} onClick={this.modifyOrder}>
+            Modify Order
+              </MenuItem>
+        </Menu>
+    );
+  };*/
 
   public render() {
-    var watches: ListingWatchLine[];
-    if (this.state) {
-      watches = Object.assign([], this.state.watches);
-    } else {
-      watches = []
-    }
-
-    const clonedWatches = watches;
-
-
+   
     return (
 
       <div className="bp3-dark">
 
         <InstrumentSearchBar add={this.addListing} />
-
-
-
+        <Table enableRowResizing={false} numRows={this.state.watches.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
+          onSelection={this.onSelection}>
+          <Column name="Id" cellRenderer={this.renderId} />
+          <Column name="Symbol" cellRenderer={this.renderSymbol} />
+          <Column name="Name" cellRenderer={this.renderName} />
+          <Column name="Mic" cellRenderer={this.renderMic} />
+          <Column name="Country" cellRenderer={this.renderCountry} />
+          <Column name="Bid Size" cellRenderer={this.renderBidSize} />
+          <Column name="Bid Px" cellRenderer={this.renderBidPrice} />
+          <Column name="Ask Px" cellRenderer={this.renderAskPrice} />
+          <Column name="Ask Size" cellRenderer={this.renderAskSize} />
+        </Table>
       </div>
-
 
     );
   }
 
+  private renderId = (row: number) => <Cell>{this.state.watches[row].Id()}</Cell>;
+  private renderSymbol = (row: number) => <Cell>{this.state.watches[row].Symbol()}</Cell>;
+  private renderName = (row: number) => <Cell>{this.state.watches[row].Name()}</Cell>;
+  private renderMic = (row: number) => <Cell>{this.state.watches[row].Mic()}</Cell>;
+  private renderCountry = (row: number) => <Cell>{this.state.watches[row].Country()}</Cell>;
+  private renderBidSize = (row: number) => <Cell>{this.state.watches[row].BidSize()}</Cell>;
+  private renderBidPrice = (row: number) => <Cell>{this.state.watches[row].BidPrice()}</Cell>;
+  private renderAskPrice = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
+  private renderAskSize = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
+  
+  private onSelection = (selectedRegions: IRegion[]) => {
+    let selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
+
+    for (let region of selectedRegions) {
+
+      let firstRowIdx: number;
+      let lastRowIdx: number;
+
+      if (region.rows) {
+        firstRowIdx = region.rows[0]
+        lastRowIdx = region.rows[1]
+      } else {
+        firstRowIdx = 0
+        lastRowIdx = this.state.watches.length - 1
+      }
+
+      for (let i = firstRowIdx; i < lastRowIdx; i++) {
+        let watch = this.state.watches[i]
+        selectedWatches.set(watch.Id(), watch)
+      }
+    }
+
+  }
+
+  
 }
 
-class ListingWatchLine {
-  listing?: Listing;
+class ListingWatch {
+
+  listing: Listing;
   quote?: Quote;
+
+  constructor( listing: Listing ) {
+    this.listing = listing
+  }
+
+  Id():number {
+    return this.listing.getId()
+  }
+
+  Symbol():string {
+    let i = this.listing.getInstrument()
+    if( i ) {
+      return i.getDisplaysymbol()
+    } 
+
+    return ""
+  }
+
+  Name():string {
+    let i = this.listing.getInstrument()
+    if( i ) {
+      return i.getName()
+    } 
+
+    return ""
+  }
+
+  Mic():string {
+    let m = this.listing.getMarket()
+    if( m ) {
+      return m.getMic()
+    } 
+
+    return ""
+  }
+
+  Country():string {
+    let m = this.listing.getMarket()
+    if( m ) {
+      return m.getCountrycode()
+    } 
+
+    return ""
+  }
+
+  BidSize():string {
+    if( this.quote) {
+      if( this.quote.getDepthList().length >= 1 ) {
+        let depth = this.quote.getDepthList()[0]
+        let sz = toNumber(depth.getBidsize())
+        if( sz ){
+          return sz.toString()
+        }
+      }
+    }
+    
+    return ""
+  }
+
+  BidPrice():string {
+    if( this.quote) {
+      if( this.quote.getDepthList().length >= 1 ) {
+        let depth = this.quote.getDepthList()[0]
+        let sz = toNumber(depth.getBidprice())
+        if( sz ){
+          return sz.toString()
+        }
+      }
+    }
+    
+    return ""
+  }
+
+  AskSize():string {
+    if( this.quote) {
+      if( this.quote.getDepthList().length >= 1 ) {
+        let depth = this.quote.getDepthList()[0]
+        let sz = toNumber(depth.getAsksize())
+        if( sz ){
+          return sz.toString()
+        }
+      }
+    }
+    
+    return ""
+  }
+
+  AskPrice():string {
+    if( this.quote) {
+      if( this.quote.getDepthList().length >= 1 ) {
+        let depth = this.quote.getDepthList()[0]
+        let sz = toNumber(depth.getAskprice())
+        if( sz ){
+          return sz.toString()
+        }
+      }
+    }
+   
+    return ""
+  }
+  
 }

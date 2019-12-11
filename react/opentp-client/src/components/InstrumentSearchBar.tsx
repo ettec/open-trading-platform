@@ -1,6 +1,6 @@
-import { IItemRendererProps, ItemRenderer, Select, ItemListPredicate } from "@blueprintjs/select";
+import {  ItemRenderer, Select } from "@blueprintjs/select";
 import { MenuItem } from "@blueprintjs/core";
-import React, { Component, RefObject } from 'react';
+import React from 'react';
 import v4 from 'uuid';
 import './OrderBlotter.css';
 import { Button } from "@blueprintjs/core";
@@ -8,7 +8,7 @@ import { StaticDataServiceClient } from "../serverapi/Static-data-serviceService
 import Login from "./Login";
 import { MatchParameters, Listings } from "../serverapi/static-data-service_pb";
 import { Listing } from "../serverapi/listing_pb";
-import { logError } from "../logging/Logging";
+import { logError, logGrpcError } from "../logging/Logging";
 
 const ListingSelect = Select.ofType<Listing>();
 
@@ -33,7 +33,7 @@ const renderListing: ItemRenderer<Listing> = (listing, { handleClick, modifiers,
         <MenuItem
             active={modifiers.active}
             disabled={modifiers.disabled}
-            label={instrument.getName() + " - " + market.getName}
+            label={instrument.getName() + " - " + market.getName()}
             key={listing.getId()}
             onClick={handleClick}
             text={highlightText(text, query)}
@@ -134,7 +134,7 @@ export default class InstrumentSearchBar extends React.Component<ListingSearchBa
         this.staticDataService.getListingsMatching(p, Login.grpcContext.grpcMetaData, (err, listings : Listings) => {
 
             if (err) {
-              console.log("failed to get listings matching:" + err)
+                logGrpcError("failed to get listings matching:", err)
               return
             }
     
@@ -148,49 +148,6 @@ export default class InstrumentSearchBar extends React.Component<ListingSearchBa
 
           })
         
-/*
-        var fetchRequestString : string =  'http://192.168.1.100:31352/instrument-lookup/instruments-matching?searchString=' + query
-        fetch(fetchRequestString, {
-            method: 'GET',
-        }) 
-            .then(
-
-                response => {
-
-                    if( response.ok ) {
-                        response.json().then(data => {
-
-                            if( data != null ) {
-                                let instrumentsFromJson : SearchDisplayInstrument[]  = data as SearchDisplayInstrument[];
-
-                                let newState = { 
-                                    ...this.state, ... {}
-                                }
-
-                                newState.items = instrumentsFromJson
-
-                                this.setState(newState) 
-
-                            } else {
-                                let newState = { 
-                                    ...this.state, ... {
-                                    }
-                                }
-
-                                newState.items = []
-
-                                this.setState(newState) 
-                            }
-
-
-                            
-                        })
-                    }
-                }
-            ).catch(error => {
-                console.log(error)
-            });
-            */
     }
 
 

@@ -15,6 +15,7 @@ import { Table, Column, Cell, SelectionModes, IMenuContext, IRegion } from "@blu
 import "@blueprintjs/table/lib/css/table.css"
 import { Menu } from '@blueprintjs/core';
 import { start } from 'repl';
+import { logGrpcError, logDebug } from '../logging/Logging';
 
   
 
@@ -102,8 +103,6 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
   stream?: grpcWeb.ClientReadableStream<Order>;
 
-
-  //   ordersSource : EventSource;
   id: string;
 
   constructor(props: Props) {
@@ -143,15 +142,14 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
     });
     this.stream.on('status', (status: grpcWeb.Status) => {
       if (status.metadata) {
-        console.log('Received metadata');
-        console.log(status.metadata);
+        logDebug('Received metadata:' + status.metadata);
       }
     });
     this.stream.on('error', (err: grpcWeb.Error) => {
-      console.log('Received error:' + err)
+      logGrpcError('Error subscribing to orders:', err)
     });
     this.stream.on('end', () => {
-      console.log('stream end signal received');
+      logDebug('stream end signal received');
     });
 
 

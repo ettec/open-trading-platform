@@ -1,5 +1,7 @@
 syntax = "proto3";
 package marketdataservice;
+import "common.proto";
+
 option go_package="model";
 
 message Subscription{
@@ -17,10 +19,10 @@ message SubscribeRequest {
 }
 
 message DepthLine {
-	string bidSize = 1;
-	string bidPrice = 2;
-	string askSize = 3;
-	string askPrice =4;
+	model.Decimal64 bidSize = 1;
+	model.Decimal64 bidPrice = 2;
+	model.Decimal64 askSize = 3;
+	model.Decimal64 askPrice =4;
 }
 
 

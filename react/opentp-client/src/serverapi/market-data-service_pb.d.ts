@@ -1,5 +1,7 @@
 import * as jspb from "google-protobuf"
 
+import * as common_pb from './common_pb';
+
 export class Subscription extends jspb.Message {
   getSubscriberid(): string;
   setSubscriberid(value: string): void;
@@ -59,17 +61,25 @@ export namespace SubscribeRequest {
 }
 
 export class DepthLine extends jspb.Message {
-  getBidsize(): string;
-  setBidsize(value: string): void;
+  getBidsize(): common_pb.Decimal64 | undefined;
+  setBidsize(value?: common_pb.Decimal64): void;
+  hasBidsize(): boolean;
+  clearBidsize(): void;
 
-  getBidprice(): string;
-  setBidprice(value: string): void;
+  getBidprice(): common_pb.Decimal64 | undefined;
+  setBidprice(value?: common_pb.Decimal64): void;
+  hasBidprice(): boolean;
+  clearBidprice(): void;
 
-  getAsksize(): string;
-  setAsksize(value: string): void;
+  getAsksize(): common_pb.Decimal64 | undefined;
+  setAsksize(value?: common_pb.Decimal64): void;
+  hasAsksize(): boolean;
+  clearAsksize(): void;
 
-  getAskprice(): string;
-  setAskprice(value: string): void;
+  getAskprice(): common_pb.Decimal64 | undefined;
+  setAskprice(value?: common_pb.Decimal64): void;
+  hasAskprice(): boolean;
+  clearAskprice(): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DepthLine.AsObject;
@@ -81,10 +91,10 @@ export class DepthLine extends jspb.Message {
 
 export namespace DepthLine {
   export type AsObject = {
-    bidsize: string,
-    bidprice: string,
-    asksize: string,
-    askprice: string,
+    bidsize?: common_pb.Decimal64.AsObject,
+    bidprice?: common_pb.Decimal64.AsObject,
+    asksize?: common_pb.Decimal64.AsObject,
+    askprice?: common_pb.Decimal64.AsObject,
   }
 }
 
