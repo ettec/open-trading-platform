@@ -1,7 +1,6 @@
 syntax = "proto3";
 package viewservice;
 import "order.proto";
-import "common.proto";
 
 option go_package="model";
 

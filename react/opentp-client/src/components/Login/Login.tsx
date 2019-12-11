@@ -15,6 +15,7 @@ export interface State {
 }
 
 export interface GrcpContextData {
+    appInstanceId : string
     serviceUrl : string,
     grpcMetaData: Metadata
 }
@@ -35,7 +36,8 @@ export default class Login extends React.Component<Props, State> {
 
         Login.grpcContext = {
             serviceUrl : 'http://192.168.1.100:32365', 
-            grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId}
+            grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId},
+            appInstanceId : this.username + "@" + this.appInstanceId
         }
 
 

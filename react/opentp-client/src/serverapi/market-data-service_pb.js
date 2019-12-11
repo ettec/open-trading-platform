@@ -1,3 +1,4 @@
+/* eslint-disable */
 // source: market-data-service.proto
 /**
  * @fileoverview

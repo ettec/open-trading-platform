@@ -5,34 +5,43 @@ import React from 'react';
 import v4 from 'uuid';
 import './OrderBlotter.css';
 import * as grpcWeb from 'grpc-web'
-import { ClientMarketDataServiceClient } from '../serverapi/CmdsServiceClientPb'
-import { SubscribeRequest, Book, BookLine, Subscription } from '../serverapi/cmds_pb'
-import { LocalBookLine } from '../model/Model'
-import { GrpcConsumer } from "./GrpcContextProvider/GrpcContextProvider";
+
+import { SubscribeRequest, Quote, DepthLine, Subscription } from '../serverapi/market-data-service_pb'
 import Login from "./Login";
 import { Table, Column, Cell } from "@blueprintjs/table";
+import  { QuoteService, QuoteListener } from "../services/QuoteService";
+import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 
 
+
+interface MarketDepthProps {
+  quoteService : QuoteService
+}
 
 interface MarketDepthState {
   symbol?: string,
-  book: Book
+  quote: Quote
 }
 
-export default class MarketDepth extends React.Component<{}, MarketDepthState> {
+export default class MarketDepth extends React.Component<MarketDepthProps, MarketDepthState> implements QuoteListener {
 
-  stream?: grpcWeb.ClientReadableStream<Book>;
+  stream?: grpcWeb.ClientReadableStream<Quote>;
 
   id: string;
 
-  marketDataService = new ClientMarketDataServiceClient(Login.grpcContext.serviceUrl, null, null)
+  quoteService: QuoteService;
 
   count: number;
 
+  staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
 
 
-  constructor() {
-    super({});
+
+  constructor(props: MarketDepthProps) {
+    super(props);
+
+    this.quoteService = props.quoteService
+
     this.setState({ symbol: '' });
 
     this.id = v4();
@@ -42,19 +51,26 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
     var subscription = new SubscribeRequest()
     subscription.setSubscriberid(this.id)
 
+
+    this.quoteService.SubscribeToQuote(121469, this)
+
+ 
+
+    
+/*
     this.stream = this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData)
 
-    this.stream.on('data', (response: Book) => {
+    this.stream.on('data', (response: Quote) => {
 
-      let blotterState: MarketDepthState = {
+      let state: MarketDepthState = {
         ...this.state, ... {
-          book: response,
+          quote: response,
         }
       }
 
       // A bug in the table implementation means state has to be set twice to update the table
-      this.setState(blotterState);
-      this.setState(blotterState);
+      this.setState(state);
+      this.setState(state);
     });
     this.stream.on('status', (status: grpcWeb.Status) => {
       if (status.metadata) {
@@ -66,13 +82,25 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
     });
     this.stream.on('end', () => {
       console.log('stream end signal received');
-    });
+    });*/
 
     this.handleSymbolChange = this.handleSymbolChange.bind(this);
     this.onSubscribe = this.onSubscribe.bind(this);
 
   }
 
+  onQuote(recievedQuote: Quote): void {
+    let state: MarketDepthState = {
+      ...this.state, ... {
+        quote: recievedQuote,
+      }
+    }
+
+    // A bug in the table implementation means state has to be set twice to update the table
+    this.setState(state);
+    this.setState(state);
+
+  }
 
   handleSymbolChange(e: any) {
 
@@ -91,7 +119,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
   }
 
   onSubscribe() {
-
+/*
     console.log("Subscribe to:" + this.state.symbol)
 
     if (this.state.symbol != null) {
@@ -111,7 +139,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
 
 
       })
-    }
+    } */
 
   }
 
@@ -123,7 +151,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
 
 
 
-    if (this.state && this.state.book) {
+    if (this.state && this.state.quote) {
       return (
         <div className="bp3-dark">
           <InputGroup onChange={this.handleSymbolChange} />
@@ -151,7 +179,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
   }
 
   private renderBidSize = (row: number) => {
-    let depth = this.state.book.getDepthList()
+    let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
       return (<Cell>{depth[row].getBidsize()}</Cell>)
@@ -161,7 +189,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
   }
 
   private renderAskSize = (row: number) => {
-    let depth = this.state.book.getDepthList()
+    let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
       return (<Cell>{depth[row].getAsksize()}</Cell>)
@@ -171,7 +199,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
   }
 
   private renderBidPrice = (row: number) => {
-    let depth = this.state.book.getDepthList()
+    let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
       let line = depth[row]
@@ -182,7 +210,7 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
   }
 
   private renderAskPrice = (row: number) => {
-    let depth = this.state.book.getDepthList()
+    let depth = this.state.quote.getDepthList()
 
     if (row < depth.length) {
       return (<Cell>{depth[row].getAskprice()}</Cell>)
@@ -190,7 +218,5 @@ export default class MarketDepth extends React.Component<{}, MarketDepthState> {
       return (<Cell></Cell>)
     }
   }
-
-
 
 }

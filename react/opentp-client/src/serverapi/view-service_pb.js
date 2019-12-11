@@ -1,5 +1,5 @@
-// source: view-service.proto
 /* eslint-disable */
+// source: view-service.proto
 /**
  * @fileoverview
  * @enhanceable
