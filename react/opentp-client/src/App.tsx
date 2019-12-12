@@ -7,6 +7,10 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import { Button } from '@blueprintjs/core';
 import Login from './components/Login';
+import { Listing } from './serverapi/listing_pb';
+
+
+
 
 const App: React.FC = () => {
   return (

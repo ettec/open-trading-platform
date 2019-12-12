@@ -8,6 +8,7 @@ import { logError, logDebug, logGrpcError } from "../logging/Logging";
 
 export interface QuoteService {
   SubscribeToQuote(listingId: number, listener: QuoteListener): void
+  UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) : void
 }
 
 export interface QuoteListener {
@@ -20,7 +21,7 @@ export default class QuoteServiceImpl implements QuoteService {
 
   stream?: ClientReadableStream<Quote>;
 
-  idToListeners: Map<number, QuoteListener[]> = new Map()
+  idToListeners: Map<number, Array<QuoteListener>> = new Map()
 
   constructor() {
 
@@ -75,5 +76,16 @@ export default class QuoteServiceImpl implements QuoteService {
 
     listeners.push(listener)
   }
+
+  UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) {
+    let listeners = this.idToListeners.get(listingId)
+    if (listeners) {
+        const index = listeners.indexOf(listener, 0);
+        if (index > -1) {
+          listeners.splice(index, 1);
+        }
+    }
+  }
+
 
 }

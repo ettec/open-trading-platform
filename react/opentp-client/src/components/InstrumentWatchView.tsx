@@ -1,21 +1,18 @@
-import { TabNode, Model, Actions } from "flexlayout-react";
+import { Cell, Column, IRegion, SelectionModes, Table } from "@blueprintjs/table";
+import { Actions, Model, TabNode } from "flexlayout-react";
+import { Error } from "grpc-web";
 import React from 'react';
-
-import InstrumentSearchBar from "./InstrumentSearchBar";
-import './OrderBlotter.css';
+import { logDebug } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
-import Login from "./Login";
+import { Quote } from "../serverapi/market-data-service_pb";
 import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 import { ListingIds, Listings } from "../serverapi/static-data-service_pb";
-import { Error } from "grpc-web";
-import { QuoteService, QuoteListener } from "../services/QuoteService";
-import { Quote } from "../serverapi/market-data-service_pb";
-import { logDebug } from "../logging/Logging";
-import { SelectionModes, IMenuContext, Table, Column, Cell, IRegion } from "@blueprintjs/table";
-import { Menu, MenuItem } from "@blueprintjs/core";
+import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
-
-
+import { ListingContext } from "./Container";
+import InstrumentSearchBar from "./InstrumentSearchBar";
+import Login from "./Login";
+import './OrderBlotter.css';
 
 
 interface InstrumentWatchState {
@@ -25,7 +22,8 @@ interface InstrumentWatchState {
 interface InstrumentWatchProps {
   node: TabNode,
   model: Model,
-  quoteService: QuoteService
+  quoteService: QuoteService,
+  listingContext: ListingContext
 }
 
 interface PersistentConfig {
@@ -38,6 +36,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
+  listingContext: ListingContext
 
   watchMap: Map<number, ListingWatch> = new Map()
 
@@ -63,6 +62,8 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
       let persistentConfig: PersistentConfig = this.props.node.getConfig();
       this.addListingLineByIds(persistentConfig.listingIds)
     }
+
+    this.listingContext = props.listingContext
   }
 
   addListing(listing?: Listing) {
@@ -192,9 +193,15 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
         lastRowIdx = this.state.watches.length - 1
       }
 
-      for (let i = firstRowIdx; i < lastRowIdx; i++) {
+      
+      for (let i = firstRowIdx; i <= lastRowIdx; i++) {
         let watch = this.state.watches[i]
         selectedWatches.set(watch.Id(), watch)
+
+        if( i == firstRowIdx) {
+          this.listingContext.setSelectedListing(watch.listing)
+        }
+
       }
     }
 

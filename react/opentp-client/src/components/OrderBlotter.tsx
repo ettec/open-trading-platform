@@ -1,22 +1,17 @@
-import React from 'react';
-import './OrderBlotter.css';
-
-import v4 from 'uuid';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
-import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
-import * as grpcWeb from 'grpc-web'
-import Login from './Login';
-import { SubscribeToOrders } from '../serverapi/view-service_pb';
-import { Order, Side, OrderStatus } from '../serverapi/order_pb';
-import { Decimal64 } from '../serverapi/common_pb';
-import { number, string } from 'prop-types';
-import { toNumber } from '../util/decimal64Conversion';
-import { Table, Column, Cell, SelectionModes, IMenuContext, IRegion } from "@blueprintjs/table";
-import "@blueprintjs/table/lib/css/table.css"
 import { Menu } from '@blueprintjs/core';
-import { start } from 'repl';
-import { logGrpcError, logDebug } from '../logging/Logging';
-
+import { Cell, Column, IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
+import "@blueprintjs/table/lib/css/table.css";
+import * as grpcWeb from 'grpc-web';
+import React from 'react';
+import { MenuItem } from "react-contextmenu";
+import v4 from 'uuid';
+import { logDebug, logGrpcError } from '../logging/Logging';
+import { Order, OrderStatus, Side } from '../serverapi/order_pb';
+import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
+import { SubscribeToOrders } from '../serverapi/view-service_pb';
+import { toNumber } from '../util/decimal64Conversion';
+import Login from './Login';
+import './OrderBlotter.css';
   
 
 interface BlotterState {
@@ -28,9 +23,6 @@ interface Props {
   onOrderSelected: (order: Order) => void
   selectedOrder?: Order;
 }
-
-
-
 
 
 class OrderView {

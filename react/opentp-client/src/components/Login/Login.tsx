@@ -5,6 +5,7 @@ import v4 from 'uuid';
 import { createContext } from 'react';
 import GrpcContextProvider from "../GrpcContextProvider";
 import { Metadata } from "grpc-web";
+import { Listing } from "../../serverapi/listing_pb";
 
 export interface Props {
     children?: React.ReactNode
@@ -19,6 +20,9 @@ export interface GrcpContextData {
     serviceUrl : string,
     grpcMetaData: Metadata
 }
+
+
+
 
 export default class Login extends React.Component<Props, State> {
 

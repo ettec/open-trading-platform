@@ -7,6 +7,7 @@ import InstrumentWatchView from "./InstrumentWatchView";
 import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
 import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
+import { Listing } from "../serverapi/listing_pb";
 
 
 export default class Container extends React.Component {
@@ -106,12 +107,15 @@ export default class Container extends React.Component {
     readonly configKey : string = "open-oms-config"; 
     
     quoteService : QuoteService
+    listingContext : ListingContext
+    
 
 
     constructor() {
         super({}, {});
 
         this.quoteService = new QuoteServiceImpl()
+        this.listingContext = new ListingContext()
 
         let layoutString : string | null= localStorage.getItem(this.configKey);
 
@@ -133,10 +137,10 @@ export default class Container extends React.Component {
                 return <OrderBlotterContainer />;
             }
             if (component === "market-depth") {
-                return <MarketDepth quoteService={this.quoteService}/>;
+                return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
             }
             if (component === "instrument-watch") {
-                return<InstrumentWatchView quoteService={this.quoteService} node={node} model={this.state} />;
+                return<InstrumentWatchView listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if(component === "nav-bar") {
                 return <Navbar/>;
@@ -187,5 +191,30 @@ export default class Container extends React.Component {
 
 
     } 
+
+}
+
+
+export class ListingContext {
+
+    private selectedListing? : Listing
+    private listeners : Array<(listing: Listing) => void>
+    
+    constructor() {
+        this.listeners = new Array<(listing: Listing) => void>()
+    }
+
+    setSelectedListing( listing : Listing) {
+        this.selectedListing = listing
+        this.listeners.forEach(l=>l(listing))
+    }
+
+    addListener(listener: (listing: Listing) => void) {
+        if( this.selectedListing ) {
+            listener(this.selectedListing)
+        }
+
+        this.listeners.push(listener)
+    }
 
 }
