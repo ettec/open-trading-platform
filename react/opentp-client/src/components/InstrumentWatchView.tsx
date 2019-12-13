@@ -43,6 +43,8 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   constructor(props: InstrumentWatchProps) {
     super(props);
 
+    
+
     this.quoteService = props.quoteService
 
     let initialState: InstrumentWatchState = {

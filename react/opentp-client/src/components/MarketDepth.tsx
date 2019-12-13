@@ -1,4 +1,4 @@
-import { Button, InputGroup } from "@blueprintjs/core";
+import { InputGroup, Label } from "@blueprintjs/core";
 import { Cell, Column, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
@@ -11,12 +11,6 @@ import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext } from "./Container";
 import Login from "./Login";
 import './OrderBlotter.css';
-
-
-
-
-
-
 
 interface MarketDepthProps {
   quoteService : QuoteService,
@@ -54,15 +48,25 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     var subscription = new SubscribeRequest()
     subscription.setSubscriberid(this.id)
 
-    this.handleSymbolChange = this.handleSymbolChange.bind(this);
-    this.onSubscribe = this.onSubscribe.bind(this);
-
     this.props.listingContext.addListener((listing:Listing)=> {
 
-      if( this.state.listing ){
+      if( this.state && this.state.listing ){
+        if( this.state.listing == listing) {
+          return
+        }
+
         this.quoteService.UnsubscribeFromQuote(this.state.listing.getId(), this)  
       }
 
+      let state: MarketDepthState = {
+        ...this.state, ... {
+          listing: listing,
+          quote: undefined
+        }
+      }
+
+      this.setState(state)
+      this.setState(state)
       this.quoteService.SubscribeToQuote(listing.getId(), this)
     })
 
@@ -80,58 +84,11 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     this.setState(state);
   }
 
-  handleSymbolChange(e: any) {
-
-    if (e.target && e.target.value) {
-
-      let newSymbol: string = e.target.value;
-
-      let blotterState: MarketDepthState = {
-        ...this.state, ... {
-          symbol: newSymbol ,
-        }
-      }
-
-      this.setState(state => (blotterState))
-    }
-  }
-
-  onSubscribe() {
-/*
-    console.log("Subscribe to:" + this.state.symbol)
-
-    if (this.state.symbol != null) {
-      var subscription = new Subscription()
-      subscription.setSubscriberid(this.id)
-      subscription.setListingid(this.state.symbol)
-      console.log("adding subscription:" + subscription)
-      this.marketDataService.addSubscription(subscription, Login.grpcContext.grpcMetaData, (err, response) => {
-        if (err) {
-          console.log("failed to add subscription:" + err)
-          return
-        }
-
-        if (response) {
-          console.log("Add subscription response:" + response)
-        }
-
-
-      })
-    } */
-
-  }
-
-
-
 
   public render() {
-
-    if (this.state && this.state.quote) {
       return (
         <div className="bp3-dark">
-          <InputGroup onChange={this.handleSymbolChange} />
-          <Button onClick={this.onSubscribe} >Subscribe</Button>
-
+          <Label>{this.getListingLabel()}</Label>
           <Table enableRowResizing={false} numRows={10} className="bp3-dark">
             <Column name="Bid Size" cellRenderer={this.renderBidSize} />
             <Column name="Bid Px" cellRenderer={this.renderBidPrice} />
@@ -139,22 +96,28 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
             <Column name="Ask Size" cellRenderer={this.renderAskSize} />
           </Table>
         </div>);
+  }
 
-    } else {
-      return (
-        <div className="bp3-dark">
-          <InputGroup onChange={this.handleSymbolChange} />
-          <Button onClick={this.onSubscribe} >Subscribe</Button>
-        </div>
-      );
+  private getListingLabel(): string  {
+    if( this.state && this.state.listing) {
+      let i = this.state.listing.getInstrument() 
+      let m = this.state.listing.getMarket() 
+      if( i && m ){
+        return i.getDisplaysymbol() + " - " + m.getMic()
+      }
+      
     }
 
+    return " "
   }
 
   private renderBidSize = (row: number) => {
-    if( !this.state.quote) {
+
+    if( !this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
+
+
 
     let depth = this.state.quote.getDepthList()
 
@@ -166,7 +129,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
   }
 
   private renderAskSize = (row: number) => {
-    if( !this.state.quote) {
+    if( !this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -180,7 +143,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
   }
 
   private renderBidPrice = (row: number) => {
-    if( !this.state.quote) {
+    if( !this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -195,7 +158,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
   }
 
   private renderAskPrice = (row: number) => {
-    if( !this.state.quote) {
+    if( !this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 

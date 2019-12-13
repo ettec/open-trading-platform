@@ -3,26 +3,35 @@ import query from 'query-string';
 import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
 import Login from './Login';
 import { CreateAndRouteOrderParams, OrderId } from '../serverapi/execution-venue_pb';
-import { logError } from '../logging/Logging';
+import { logError, logGrpcError } from '../logging/Logging';
 import { Error } from 'grpc-web';
 import { Side } from '../serverapi/order_pb';
 import { Decimal64 } from '../serverapi/common_pb';
+import { ListingContext } from './Container';
+import { Listing } from '../serverapi/listing_pb';
 
 
-interface OrderParameters {
+interface OrderTicketState {
+    listing?: Listing,
     quantity: number,
     price: number,
     side: string,
     instrumentId: string
 }
 
+interface OrderTicketProps {
 
-export default class OrderTicket extends React.Component<{}, OrderParameters> {
+  listingContext: ListingContext
+}
+
+
+
+export default class OrderTicket extends React.Component<OrderTicketProps , OrderTicketState> {
 
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
 
-    constructor() {
-        super({});
+    constructor(props: OrderTicketProps) {
+        super(props);
 
         this.state = {
           quantity : 0,
@@ -30,6 +39,18 @@ export default class OrderTicket extends React.Component<{}, OrderParameters> {
           side: '',
           instrumentId: ''
         };
+
+
+        props.listingContext.addListener((listing:Listing)=>{
+          let state: OrderTicketState = {
+            ...this.state, ... {
+              listing: listing,
+            }
+          }
+
+          this.setState(state)
+        })
+
     }      
 
    
@@ -99,10 +120,6 @@ export default class OrderTicket extends React.Component<{}, OrderParameters> {
             <div>
               <button onClick={e=>this.sendOrder(this.state) }>Send</button>
             </div>
-
-
-
-           
           </div>
         );
 
@@ -110,7 +127,7 @@ export default class OrderTicket extends React.Component<{}, OrderParameters> {
 
 
 
-        sendOrder(params: OrderParameters ) {
+        sendOrder(params: OrderTicketState ) {
 
           let croParams = new CreateAndRouteOrderParams()
           croParams.setListingid(params.instrumentId)
@@ -131,29 +148,10 @@ export default class OrderTicket extends React.Component<{}, OrderParameters> {
           this.executionVenueService.createAndRouteOrder(new CreateAndRouteOrderParams(), Login.grpcContext.grpcMetaData, (err: Error,
             response: OrderId) => {
             if( err ) {
-              logError("failed to send order:" + err)
+              logGrpcError("failed to send order:", err)
             }
           })
           
-     let queryParams:string  = query.stringify(params);
-
-          fetch('http://192.168.1.102:32413/order-management/create-and-route-order' + '?' + queryParams, {
-              method: 'POST',
-              mode: 'no-cors'
-            })
-              .then(
-
-                response =>{ console.log(response.statusText) } 
-                )
-
-                
-              
-              .catch(error => {
-                throw new Error(error);
-              });
-
-
-
         }
 
         
