@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "listing.proto";
 import "order.proto";
 import "common.proto";
 package executionvenue;
@@ -9,7 +10,7 @@ message CreateAndRouteOrderParams{
     model.Side side = 1;
     model.Decimal64 quantity = 2;
     model.Decimal64 price = 3;
-    string listingId = 4;
+    model.Listing listing = 4;
 }
 
 message OrderId {

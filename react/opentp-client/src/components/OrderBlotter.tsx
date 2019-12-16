@@ -14,14 +14,12 @@ import { OrderContext } from './Container';
 import Login from './Login';
 import './OrderBlotter.css';
   
-
 interface OrderBlotterState {
   orders: OrderView[];
   selectedOrders : Map<string, Order>
 }
 
 interface OrderBlotterProps {
-  
   orderContext : OrderContext
 }
 
@@ -218,12 +216,10 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   private onSelection = (selectedRegions: IRegion[]) => {
     let selectedOrders : Map<string, Order> = new Map<string,Order>()
 
-
     for( let region of selectedRegions)  {
 
       let firstRowIdx : number;
       let lastRowIdx : number;
-
 
       if( region.rows ) {
         firstRowIdx = region.rows[0]

@@ -1,5 +1,6 @@
 import * as jspb from "google-protobuf"
 
+import * as listing_pb from './listing_pb';
 import * as order_pb from './order_pb';
 import * as common_pb from './common_pb';
 
@@ -17,8 +18,10 @@ export class CreateAndRouteOrderParams extends jspb.Message {
   hasPrice(): boolean;
   clearPrice(): void;
 
-  getListingid(): string;
-  setListingid(value: string): void;
+  getListing(): listing_pb.Listing | undefined;
+  setListing(value?: listing_pb.Listing): void;
+  hasListing(): boolean;
+  clearListing(): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateAndRouteOrderParams.AsObject;
@@ -33,7 +36,7 @@ export namespace CreateAndRouteOrderParams {
     side: order_pb.Side,
     quantity?: common_pb.Decimal64.AsObject,
     price?: common_pb.Decimal64.AsObject,
-    listingid: string,
+    listing?: listing_pb.Listing.AsObject,
   }
 }
 

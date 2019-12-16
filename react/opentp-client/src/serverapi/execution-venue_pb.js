@@ -13,6 +13,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var listing_pb = require('./listing_pb.js');
+goog.object.extend(proto, listing_pb);
 var order_pb = require('./order_pb.js');
 goog.object.extend(proto, order_pb);
 var common_pb = require('./common_pb.js');
@@ -96,7 +98,7 @@ proto.executionvenue.CreateAndRouteOrderParams.toObject = function(includeInstan
     side: jspb.Message.getFieldWithDefault(msg, 1, 0),
     quantity: (f = msg.getQuantity()) && common_pb.Decimal64.toObject(includeInstance, f),
     price: (f = msg.getPrice()) && common_pb.Decimal64.toObject(includeInstance, f),
-    listingid: jspb.Message.getFieldWithDefault(msg, 4, "")
+    listing: (f = msg.getListing()) && listing_pb.Listing.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -148,8 +150,9 @@ proto.executionvenue.CreateAndRouteOrderParams.deserializeBinaryFromReader = fun
       msg.setPrice(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setListingid(value);
+      var value = new listing_pb.Listing;
+      reader.readMessage(value,listing_pb.Listing.deserializeBinaryFromReader);
+      msg.setListing(value);
       break;
     default:
       reader.skipField();
@@ -203,11 +206,12 @@ proto.executionvenue.CreateAndRouteOrderParams.serializeBinaryToWriter = functio
       common_pb.Decimal64.serializeBinaryToWriter
     );
   }
-  f = message.getListingid();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getListing();
+  if (f != null) {
+    writer.writeMessage(
       4,
-      f
+      f,
+      listing_pb.Listing.serializeBinaryToWriter
     );
   }
 };
@@ -295,17 +299,35 @@ proto.executionvenue.CreateAndRouteOrderParams.prototype.hasPrice = function() {
 
 
 /**
- * optional string listingId = 4;
- * @return {string}
+ * optional model.Listing listing = 4;
+ * @return {?proto.model.Listing}
  */
-proto.executionvenue.CreateAndRouteOrderParams.prototype.getListingid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+proto.executionvenue.CreateAndRouteOrderParams.prototype.getListing = function() {
+  return /** @type{?proto.model.Listing} */ (
+    jspb.Message.getWrapperField(this, listing_pb.Listing, 4));
 };
 
 
-/** @param {string} value */
-proto.executionvenue.CreateAndRouteOrderParams.prototype.setListingid = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
+/** @param {?proto.model.Listing|undefined} value */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.setListing = function(value) {
+  jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.clearListing = function() {
+  this.setListing(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.hasListing = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 

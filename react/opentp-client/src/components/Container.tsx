@@ -8,7 +8,7 @@ import InstrumentWatchView from "./InstrumentWatchView";
 import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
 import OrderBlotter from "./OrderBlotter";
-import { Order } from "../serverapi/order_pb";
+import { Order, Side } from "../serverapi/order_pb";
 
 export default class Container extends React.Component {
 
@@ -109,6 +109,7 @@ export default class Container extends React.Component {
     quoteService : QuoteService
     listingContext : ListingContext
     orderContext : OrderContext
+    ticketController : TicketController
     
 
 
@@ -118,6 +119,7 @@ export default class Container extends React.Component {
         this.quoteService = new QuoteServiceImpl()
         this.listingContext = new ListingContext()
         this.orderContext = new OrderContext()
+        this.ticketController = new TicketController()
 
         let layoutString : string | null= localStorage.getItem(this.configKey);
 
@@ -132,9 +134,6 @@ export default class Container extends React.Component {
 
         this.factory = (node: TabNode) => {
             var component = node.getComponent();
-            if (component === "order-ticket") {
-                return <OrderTicket listingContext={this.listingContext}/>
-            }
             if (component === "order-blotter") {
                 return <OrderBlotter orderContext={this.orderContext} />;
             }
@@ -142,7 +141,7 @@ export default class Container extends React.Component {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
             }
             if (component === "instrument-watch") {
-                return<InstrumentWatchView listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
+                return<InstrumentWatchView  ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if(component === "nav-bar") {
                 return <Navbar/>;
@@ -185,6 +184,9 @@ export default class Container extends React.Component {
             </Navbar.Group>
         </Navbar>
         </div>
+        <div>
+            <OrderTicket listingContext={this.listingContext} tickerController={this.ticketController} ></OrderTicket>
+        </div>
 
         <div className="contents">
         {contents}
@@ -197,9 +199,25 @@ export default class Container extends React.Component {
 }
 
 
+export class TicketController {
+
+    private orderTicket? : OrderTicket;
+
+    setOrderTicket(orderTicket : OrderTicket) {
+        this.orderTicket = orderTicket
+    }
+
+    openTicket( side : Side) {
+        if( this.orderTicket ) {
+            this.orderTicket.openTicket(side)
+        }
+    }
+
+}
+
 export class ListingContext {
 
-    private selectedListing? : Listing
+    selectedListing? : Listing
     private listeners : Array<(listing: Listing) => void>
     
     constructor() {

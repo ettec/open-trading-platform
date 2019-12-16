@@ -1,4 +1,4 @@
-import { Cell, Column, IRegion, SelectionModes, Table } from "@blueprintjs/table";
+import { Cell, Column, IRegion, SelectionModes, Table, IMenuContext } from "@blueprintjs/table";
 import { Actions, Model, TabNode } from "flexlayout-react";
 import { Error } from "grpc-web";
 import React from 'react';
@@ -9,10 +9,13 @@ import { StaticDataServiceClient } from "../serverapi/Static-data-serviceService
 import { ListingIds, Listings } from "../serverapi/static-data-service_pb";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
-import { ListingContext } from "./Container";
+import { ListingContext, TicketController } from "./Container";
 import InstrumentSearchBar from "./InstrumentSearchBar";
 import Login from "./Login";
+import { MenuItem } from "react-contextmenu";
+import { Menu } from '@blueprintjs/core';
 import './OrderBlotter.css';
+import { Side } from "../serverapi/order_pb";
 
 
 interface InstrumentWatchState {
@@ -23,7 +26,8 @@ interface InstrumentWatchProps {
   node: TabNode,
   model: Model,
   quoteService: QuoteService,
-  listingContext: ListingContext
+  listingContext: ListingContext,
+  ticketController: TicketController
 }
 
 interface PersistentConfig {
@@ -37,15 +41,15 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
   listingContext: ListingContext
+  ticketController: TicketController
 
   watchMap: Map<number, ListingWatch> = new Map()
 
   constructor(props: InstrumentWatchProps) {
     super(props);
 
-    
-
     this.quoteService = props.quoteService
+    this.ticketController = props.ticketController
 
     let initialState: InstrumentWatchState = {
       watches: Array.from(this.watchMap.values())
@@ -66,6 +70,9 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     }
 
     this.listingContext = props.listingContext
+
+    this.openBuyDialog = this.openBuyDialog.bind(this);
+    this.openSellDialog = this.openSellDialog.bind(this);
   }
 
   addListing(listing?: Listing) {
@@ -153,7 +160,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
         <InstrumentSearchBar add={this.addListing} />
         <Table enableRowResizing={false} numRows={this.state.watches.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-          onSelection={this.onSelection}>
+          onSelection={this.onSelection} bodyContextMenuRenderer={this.renderBodyContextMenu}>
           <Column name="Id" cellRenderer={this.renderId} />
           <Column name="Symbol" cellRenderer={this.renderSymbol} />
           <Column name="Name" cellRenderer={this.renderName} />
@@ -178,7 +185,31 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   private renderBidPrice = (row: number) => <Cell>{this.state.watches[row].BidPrice()}</Cell>;
   private renderAskPrice = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
   private renderAskSize = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
+
+  private renderBodyContextMenu = (context: IMenuContext) => {
+    return (
+        <Menu>
+             <MenuItem  onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing == undefined}>
+            Buy
+              </MenuItem>
+          <MenuItem divider />
+          <MenuItem  onClick={this.openSellDialog} disabled={this.listingContext.selectedListing == undefined}>
+            Sell
+              </MenuItem>
+        </Menu>
+    );
+};
   
+private openBuyDialog(e: any) {
+  this.ticketController.openTicket(Side.BUY)
+}
+
+
+private openSellDialog(e: any) {
+  this.ticketController.openTicket(Side.SELL)
+}
+
+
   private onSelection = (selectedRegions: IRegion[]) => {
     let selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
 
