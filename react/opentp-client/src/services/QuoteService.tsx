@@ -24,6 +24,7 @@ export default class QuoteServiceImpl implements QuoteService {
   stream?: ClientReadableStream<Quote>;
 
   idToListeners: Map<number, Array<QuoteListener>> = new Map()
+  listingIdToQuote: Map<number, Quote> = new Map()
 
   constructor() {
 
@@ -33,6 +34,8 @@ export default class QuoteServiceImpl implements QuoteService {
     this.stream = this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData)
 
     this.stream.on('data', (quote: Quote) => {
+
+      this.listingIdToQuote.set(quote.getListingid(), quote)
       let listeners = this.idToListeners.get(quote.getListingid())
       if(  listeners ) {
         listeners.forEach(l => {
@@ -77,6 +80,12 @@ export default class QuoteServiceImpl implements QuoteService {
     }
 
     listeners.push(listener)
+
+    let existingQuote = this.listingIdToQuote.get(listingId)
+    if( existingQuote ) {
+      listener.onQuote(existingQuote)
+    }
+    
   }
 
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) {

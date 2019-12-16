@@ -1,6 +1,6 @@
-import { Dialog, Classes, Tooltip, Button, AnchorButton, Intent } from '@blueprintjs/core';
+import { Dialog, Classes, Tooltip, Button, AnchorButton, Intent, NumericInput, FormGroup, Colors } from '@blueprintjs/core';
 import { Error } from 'grpc-web';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { getListingLabel } from '../common/modelutilities';
 import { logDebug, logGrpcError } from '../logging/Logging';
 import { Decimal64 } from '../serverapi/common_pb';
@@ -111,11 +111,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       >
         <div className={Classes.DIALOG_BODY}>
 
-          <div>
-            <label>Quantity </label>
-            <input
-              type="text"
-              name="quantity"
+
+        <FormGroup
+            label="Quantity"
+            labelFor="quantity-input">
+            <NumericInput
+              id="quantity-input"
               value={this.state.quantity}
               onChange={
                 (e: any) => {
@@ -124,12 +125,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
               }
             />
-          </div>
-          <div>
-            <label>Price </label>
-            <input
-              type="text"
-              name="price"
+      </FormGroup>
+      <FormGroup
+            label="Price"
+            labelFor="price-input">
+           <NumericInput
+              id="price-input"
               value={this.state.price}
               onChange={
                 (e: any) => {
@@ -138,13 +139,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
               }
             />
-          </div>
+      </FormGroup>
 
         </div>
         <div className={Classes.DIALOG_FOOTER}>
           <div className={Classes.DIALOG_FOOTER_ACTIONS}>
             <AnchorButton onClick={this.sendOrder}
-              intent={Intent.PRIMARY}><h2>
+              intent={Intent.PRIMARY} style={this.getBuySellButtonStyle(this.state.side)}><h2>
               {this.getSideAsString(this.state.side)}</h2>
             </AnchorButton>
           </div>
@@ -154,6 +155,23 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       </Dialog>
     );
 
+  }
+  
+
+  private getBuySellButtonStyle(side: Side): CSSProperties {
+
+    let  color  = Colors.DARK_GRAY1
+    switch (side) {
+      case Side.BUY:
+        color= Colors.BLUE5
+        break
+      case Side.SELL:
+        color= Colors.ROSE4
+        break
+      
+    }
+
+    return { background: color}
   }
 
 
