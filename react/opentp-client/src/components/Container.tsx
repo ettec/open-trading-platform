@@ -2,13 +2,13 @@ import { Alignment, Button, Navbar } from "@blueprintjs/core";
 import FlexLayout, { Model, TabNode } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React from 'react';
-import OrderBlotterContainer from '../containers/OrderBlotterContainer';
+import { Listing } from "../serverapi/listing_pb";
+import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
 import InstrumentWatchView from "./InstrumentWatchView";
 import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
-import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
-import { Listing } from "../serverapi/listing_pb";
-
+import OrderBlotter from "./OrderBlotter";
+import { Order } from "../serverapi/order_pb";
 
 export default class Container extends React.Component {
 
@@ -108,6 +108,7 @@ export default class Container extends React.Component {
     
     quoteService : QuoteService
     listingContext : ListingContext
+    orderContext : OrderContext
     
 
 
@@ -116,6 +117,7 @@ export default class Container extends React.Component {
 
         this.quoteService = new QuoteServiceImpl()
         this.listingContext = new ListingContext()
+        this.orderContext = new OrderContext()
 
         let layoutString : string | null= localStorage.getItem(this.configKey);
 
@@ -131,10 +133,10 @@ export default class Container extends React.Component {
         this.factory = (node: TabNode) => {
             var component = node.getComponent();
             if (component === "order-ticket") {
-                return <OrderTicket/>
+                return <OrderTicket listingContext={this.listingContext}/>
             }
             if (component === "order-blotter") {
-                return <OrderBlotterContainer />;
+                return <OrderBlotter orderContext={this.orderContext} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
@@ -214,6 +216,29 @@ export class ListingContext {
             listener(this.selectedListing)
         }
 
+        this.listeners.push(listener)
+    }
+
+}
+
+export class OrderContext {
+
+    selectedOrder? : Order
+    private listeners : Array<(order: Order) => void>
+    
+    constructor() {
+        this.listeners = new Array<(order: Order) => void>()
+    }
+
+    setSelectedOrder( order : Order) {
+        this.selectedOrder = order
+        this.listeners.forEach(l=>l(order))
+    }
+
+    addListener(listener: (order: Order) => void) {
+        if( this.selectedOrder ) {
+            listener(this.selectedOrder)
+        }
         this.listeners.push(listener)
     }
 

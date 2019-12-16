@@ -9,6 +9,8 @@ import { Side } from '../serverapi/order_pb';
 import { Decimal64 } from '../serverapi/common_pb';
 import { ListingContext } from './Container';
 import { Listing } from '../serverapi/listing_pb';
+import { Classes } from '@blueprintjs/core';
+import { getListingLabel } from '../common/modelutilities';
 
 
 interface OrderTicketState {
@@ -40,7 +42,6 @@ export default class OrderTicket extends React.Component<OrderTicketProps , Orde
           instrumentId: ''
         };
 
-
         props.listingContext.addListener((listing:Listing)=>{
           let state: OrderTicketState = {
             ...this.state, ... {
@@ -55,12 +56,24 @@ export default class OrderTicket extends React.Component<OrderTicketProps , Orde
 
    
 
-    public render() {
+    private getListingLabel(): string  {
+      if( this.state && this.state.listing) {
+        return getListingLabel(this.state.listing)
+      }
+  
+      return " "
+    }
 
+    public render() {
 
         return ( 
             
           <div>
+            <div>
+              <h1 className={Classes.HEADING}>
+                {this.getListingLabel()}
+              </h1>
+            </div>
             <div>
             <label>Side </label>
             <input

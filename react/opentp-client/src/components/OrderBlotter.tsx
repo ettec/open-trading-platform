@@ -10,18 +10,19 @@ import { Order, OrderStatus, Side } from '../serverapi/order_pb';
 import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
 import { SubscribeToOrders } from '../serverapi/view-service_pb';
 import { toNumber } from '../util/decimal64Conversion';
+import { OrderContext } from './Container';
 import Login from './Login';
 import './OrderBlotter.css';
   
 
-interface BlotterState {
+interface OrderBlotterState {
   orders: OrderView[];
   selectedOrders : Map<string, Order>
 }
 
-interface Props {
-  onOrderSelected: (order: Order) => void
-  selectedOrder?: Order;
+interface OrderBlotterProps {
+  
+  orderContext : OrderContext
 }
 
 
@@ -87,7 +88,7 @@ class OrderView {
 
 }
 
-export default class OrderBlotter extends React.Component<Props, BlotterState> {
+export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
 
   viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
 
@@ -97,14 +98,14 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
   id: string;
 
-  constructor(props: Props) {
+  constructor(props: OrderBlotterProps) {
     super(props);
 
     this.id = v4();
 
     this.orderMap = new Map<string, OrderView>();
  
-    let blotterState: BlotterState = {
+    let blotterState: OrderBlotterState = {
       orders: Array.from(this.orderMap.values()),
       selectedOrders: new Map<string, Order>()
     }
@@ -123,7 +124,7 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
 
       console.log("Values " + this.orderMap.values());
 
-      let blotterState: BlotterState = {
+      let blotterState: OrderBlotterState = {
         ...this.state, ... {
           orders: Array.from(this.orderMap.values()),
         }
@@ -237,19 +238,16 @@ export default class OrderBlotter extends React.Component<Props, BlotterState> {
         selectedOrders.set(order.getId(), order)
       }
     }
-
-
-    
   }
 
   private renderBodyContextMenu = (context: IMenuContext) => {
     return (
         <Menu>
-             <MenuItem data={this.props.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size==0} >
+             <MenuItem data={this.props.orderContext.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size==0} >
             Cancel Order
               </MenuItem>
           <MenuItem divider />
-          <MenuItem data={this.props.selectedOrder} onClick={this.modifyOrder}>
+          <MenuItem data={this.props.orderContext.selectedOrder} onClick={this.modifyOrder}>
             Modify Order
               </MenuItem>
         </Menu>

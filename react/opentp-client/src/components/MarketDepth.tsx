@@ -11,6 +11,7 @@ import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext } from "./Container";
 import Login from "./Login";
 import './OrderBlotter.css';
+import { getListingLabel } from "../common/modelutilities";
 
 interface MarketDepthProps {
   quoteService : QuoteService,
@@ -100,12 +101,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   private getListingLabel(): string  {
     if( this.state && this.state.listing) {
-      let i = this.state.listing.getInstrument() 
-      let m = this.state.listing.getMarket() 
-      if( i && m ){
-        return i.getDisplaysymbol() + " - " + m.getMic()
-      }
-      
+      return getListingLabel(this.state.listing)
     }
 
     return " "

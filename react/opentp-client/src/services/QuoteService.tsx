@@ -14,7 +14,9 @@ export interface QuoteService {
 export interface QuoteListener {
   onQuote(quote: Quote): void
 }
-
+/**
+ * Use this to subscribe to quotes to avoid multiple server side subscriptions to the same quote
+ */
 export default class QuoteServiceImpl implements QuoteService {
 
   marketDataService = new MarketDataServiceClient(Login.grpcContext.serviceUrl, null, null)
