@@ -118,10 +118,42 @@ func hydrateListings(r *sql.Rows, err error) (*model.Listings, error) {
 
 		err = r.Scan(&l.Id, &l.MarketSymbol, &l.Market.Id, &l.Market.Name, &l.Market.Mic, &l.Market.CountryCode,
 			&l.Instrument.Id, &l.Instrument.Name, &l.Instrument.DisplaySymbol, &l.Instrument.Enabled)
-		result.Listings = append(result.Listings, l)
 		if err != nil {
 			return  nil, fmt.Errorf("failed to marshal database row into listing %w", err)
 		}
+
+		l.SizeIncrement = &model.Decimal64{
+			Mantissa:             1,
+			Exponent:             0,
+		}
+
+		te := model.TickSizeEntry{
+			LowerPriceBound:      &model.Decimal64{
+				Mantissa:             0,
+				Exponent:             0,
+			},
+			UpperPriceBound:      &model.Decimal64{
+				Mantissa:             1,
+				Exponent:             10,
+			},
+			TickSize:             &model.Decimal64{
+				Mantissa:             1,
+				Exponent:             -2,
+			},
+
+		}
+
+		entries := make([]*model.TickSizeEntry,0)
+		entries = append(entries, &te)
+
+		tt := model.TickSizeTable{
+			Entries:              entries,
+		}
+
+		l.TickSize = &tt
+
+		result.Listings = append(result.Listings, l)
+
 	}
 	return &result, nil
 }

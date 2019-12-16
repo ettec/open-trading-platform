@@ -1,7 +1,7 @@
-import { Dialog, Classes, Tooltip, Button, AnchorButton, Intent, NumericInput, FormGroup, Colors } from '@blueprintjs/core';
+import { Dialog, Classes, Tooltip, Button, AnchorButton, Intent, NumericInput, FormGroup, Colors, Label } from '@blueprintjs/core';
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
-import { getListingLabel } from '../common/modelutilities';
+import { getListingShortName, getListingLongName } from '../common/modelutilities';
 import { logDebug, logGrpcError } from '../logging/Logging';
 import { Decimal64 } from '../serverapi/common_pb';
 import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
@@ -88,14 +88,25 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
   }
 
-  private getListingLabel(): string {
+  private getListingShortName(): string {
     let side = this.state.side
     if (this.state && this.state.listing && side != undefined) {
 
-      return this.getSideAsString(side) + " " + getListingLabel(this.state.listing)
+      return this.getSideAsString(side) + " " + getListingShortName(this.state.listing)
     }
 
     return " "
+  }
+
+  private getListingFullName():string {
+    let side = this.state.side
+    if (this.state && this.state.listing && side != undefined) {
+
+      return getListingLongName(this.state.listing)
+    }
+
+    return " "
+
   }
 
   public render() {
@@ -105,13 +116,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       <Dialog
         icon="exchange"
         onClose={this.handleClose}
-        title={this.getListingLabel()}
+        title={this.getListingShortName()}
         {...this.state}
         className="bp3-dark"
       >
         <div className={Classes.DIALOG_BODY}>
 
-
+        <Label>{this.getListingFullName()}</Label>
         <FormGroup
             label="Quantity"
             labelFor="quantity-input">

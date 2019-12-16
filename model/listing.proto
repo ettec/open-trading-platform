@@ -4,6 +4,7 @@ package model;
 
 import "instrument.proto";
 import "market.proto";
+import "common.proto";
 
 option go_package="model";
 
@@ -16,5 +17,18 @@ message Listing {
     Market market = 3;
     Instrument instrument = 4;
     string marketSymbol = 5;
-
+    TickSizeTable tickSize = 6;
+    Decimal64 sizeIncrement = 7;
 }
+
+message TickSizeTable {
+    repeated TickSizeEntry entries=1;
+		
+}
+
+message TickSizeEntry {
+    Decimal64 lowerPriceBound=1;
+    Decimal64 upperPriceBound=2;
+    Decimal64 tickSize=3;
+}
+

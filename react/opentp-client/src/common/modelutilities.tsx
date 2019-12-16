@@ -1,7 +1,7 @@
 import { Listing } from "../serverapi/listing_pb"
 
 
-export function getListingLabel(listing:Listing ): string  {
+export function getListingShortName(listing:Listing ): string  {
     
       let i = listing.getInstrument() 
       let m = listing.getMarket() 
@@ -12,3 +12,15 @@ export function getListingLabel(listing:Listing ): string  {
       }
     
   }
+
+  export function getListingLongName(listing:Listing ): string  {
+    
+    let i = listing.getInstrument() 
+    let m = listing.getMarket() 
+    if( i && m ){
+      return i.getName() + " - " + m.getMic()
+    } else {
+      return "Listing:" + listing.getId() + " missing instrument or market"
+    }
+  
+}
