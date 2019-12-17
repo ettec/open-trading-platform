@@ -13,7 +13,7 @@ import { ListingContext, TicketController } from "./Container";
 import InstrumentSearchBar from "./InstrumentSearchBar";
 import Login from "./Login";
 import { MenuItem } from "react-contextmenu";
-import { Menu } from '@blueprintjs/core';
+import { Menu, Popover, Position, Colors } from '@blueprintjs/core';
 import './OrderBlotter.css';
 import { Side } from "../serverapi/order_pb";
 
@@ -33,7 +33,6 @@ interface InstrumentWatchProps {
 interface PersistentConfig {
   listingIds: number[]
 }
-
 
 
 export default class InstrumentWatchView extends React.Component<InstrumentWatchProps, InstrumentWatchState> implements QuoteListener {
@@ -60,7 +59,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     this.addListing = this.addListing.bind(this);
 
     this.props.node.setEventListener("save", (p) => {
-      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.state.watches.map(l=>l.listing.getId())) }
+      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.state.watches.map(l => l.listing.getId())) }
       this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
     });
 
@@ -104,13 +103,13 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
     if (!this.watchMap.get(listing.getId())) {
       let line = new ListingWatch(listing)
-      
+
 
       this.watchMap.set(listing.getId(), line);
 
       let lines = this.state.watches.slice(0)
       lines.push(line)
-      
+
       this.setState({
         watches: lines
       });
@@ -137,30 +136,16 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     }
 
   }
-/*
-  private renderBodyContextMenu = (context: IMenuContext) => {
-    return (
-        <Menu>
-             <MenuItem data={this.props.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size==0} >
-            Cancel Order
-              </MenuItem>
-          <MenuItem divider />
-          <MenuItem data={this.props.selectedOrder} onClick={this.modifyOrder}>
-            Modify Order
-              </MenuItem>
-        </Menu>
-    );
-  };*/
 
   public render() {
-   
+
     return (
 
       <div className="bp3-dark">
 
         <InstrumentSearchBar add={this.addListing} />
         <Table enableRowResizing={false} numRows={this.state.watches.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-          onSelection={this.onSelection} bodyContextMenuRenderer={this.renderBodyContextMenu}>
+          onSelection={this.onSelection} bodyContextMenuRenderer={this.renderContextMenu}>
           <Column name="Id" cellRenderer={this.renderId} />
           <Column name="Symbol" cellRenderer={this.renderSymbol} />
           <Column name="Name" cellRenderer={this.renderName} />
@@ -172,7 +157,6 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
           <Column name="Ask Size" cellRenderer={this.renderAskSize} />
         </Table>
       </div>
-
     );
   }
 
@@ -186,29 +170,35 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   private renderAskPrice = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
   private renderAskSize = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
 
-  private renderBodyContextMenu = (context: IMenuContext) => {
+  renderContextMenu = () => {
     return (
-        <Menu>
-             <MenuItem  onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing == undefined}>
-            Buy
-              </MenuItem>
-          <MenuItem divider />
-          <MenuItem  onClick={this.openSellDialog} disabled={this.listingContext.selectedListing == undefined}>
-            Sell
-              </MenuItem>
-        </Menu>
+
+      <Menu style={{color:Colors.LIME3}}>
+        <MenuItem onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing == undefined}>
+          Buy
+         </MenuItem>
+        <MenuItem divider />
+        <MenuItem onClick={this.openSellDialog} disabled={this.listingContext.selectedListing == undefined}>
+          Sell
+         </MenuItem>
+      </Menu>
+
     );
-};
-  
-private openBuyDialog(e: any) {
-  this.ticketController.openTicket(Side.BUY)
-}
+  };
 
+  private openBuyDialog(e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) {
 
-private openSellDialog(e: any) {
-  this.ticketController.openTicket(Side.SELL)
-}
+    if (this.listingContext.selectedListing) {
+      this.ticketController.openTicket(Side.BUY, this.listingContext.selectedListing)
+    }
 
+  }
+
+  private openSellDialog(e: any) {
+    if (this.listingContext.selectedListing) {
+      this.ticketController.openTicket(Side.SELL, this.listingContext.selectedListing)
+    }
+  }
 
   private onSelection = (selectedRegions: IRegion[]) => {
     let selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
@@ -226,12 +216,12 @@ private openSellDialog(e: any) {
         lastRowIdx = this.state.watches.length - 1
       }
 
-      
+
       for (let i = firstRowIdx; i <= lastRowIdx; i++) {
         let watch = this.state.watches[i]
         selectedWatches.set(watch.Id(), watch)
 
-        if( i == firstRowIdx) {
+        if (i == firstRowIdx) {
           this.listingContext.setSelectedListing(watch.listing)
         }
 
@@ -240,7 +230,7 @@ private openSellDialog(e: any) {
 
   }
 
-  
+
 }
 
 class ListingWatch {
@@ -248,104 +238,104 @@ class ListingWatch {
   listing: Listing;
   quote?: Quote;
 
-  constructor( listing: Listing ) {
+  constructor(listing: Listing) {
     this.listing = listing
   }
 
-  Id():number {
+  Id(): number {
     return this.listing.getId()
   }
 
-  Symbol():string {
+  Symbol(): string {
     let i = this.listing.getInstrument()
-    if( i ) {
+    if (i) {
       return i.getDisplaysymbol()
-    } 
+    }
 
     return ""
   }
 
-  Name():string {
+  Name(): string {
     let i = this.listing.getInstrument()
-    if( i ) {
+    if (i) {
       return i.getName()
-    } 
+    }
 
     return ""
   }
 
-  Mic():string {
+  Mic(): string {
     let m = this.listing.getMarket()
-    if( m ) {
+    if (m) {
       return m.getMic()
-    } 
+    }
 
     return ""
   }
 
-  Country():string {
+  Country(): string {
     let m = this.listing.getMarket()
-    if( m ) {
+    if (m) {
       return m.getCountrycode()
-    } 
+    }
 
     return ""
   }
 
-  BidSize():string {
-    if( this.quote) {
-      if( this.quote.getDepthList().length >= 1 ) {
+  BidSize(): string {
+    if (this.quote) {
+      if (this.quote.getDepthList().length >= 1) {
         let depth = this.quote.getDepthList()[0]
         let sz = toNumber(depth.getBidsize())
-        if( sz ){
+        if (sz) {
           return sz.toString()
         }
       }
     }
-    
+
     return ""
   }
 
-  BidPrice():string {
-    if( this.quote) {
-      if( this.quote.getDepthList().length >= 1 ) {
+  BidPrice(): string {
+    if (this.quote) {
+      if (this.quote.getDepthList().length >= 1) {
         let depth = this.quote.getDepthList()[0]
         let sz = toNumber(depth.getBidprice())
-        if( sz ){
+        if (sz) {
           return sz.toString()
         }
       }
     }
-    
+
     return ""
   }
 
-  AskSize():string {
-    if( this.quote) {
-      if( this.quote.getDepthList().length >= 1 ) {
+  AskSize(): string {
+    if (this.quote) {
+      if (this.quote.getDepthList().length >= 1) {
         let depth = this.quote.getDepthList()[0]
         let sz = toNumber(depth.getAsksize())
-        if( sz ){
+        if (sz) {
           return sz.toString()
         }
       }
     }
-    
+
     return ""
   }
 
-  AskPrice():string {
-    if( this.quote) {
-      if( this.quote.getDepthList().length >= 1 ) {
+  AskPrice(): string {
+    if (this.quote) {
+      if (this.quote.getDepthList().length >= 1) {
         let depth = this.quote.getDepthList()[0]
         let sz = toNumber(depth.getAskprice())
-        if( sz ){
+        if (sz) {
           return sz.toString()
         }
       }
     }
-   
+
     return ""
   }
-  
+
 }

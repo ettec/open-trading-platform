@@ -7,7 +7,7 @@ import { ClientReadableStream, Status, Error } from "grpc-web";
 import { logError, logDebug, logGrpcError } from "../logging/Logging";
 
 export interface QuoteService {
-  SubscribeToQuote(listingId: number, listener: QuoteListener): void
+  SubscribeToQuote(listingId: number, listener: QuoteListener): Quote | undefined
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) : void
 }
 
@@ -62,7 +62,7 @@ export default class QuoteServiceImpl implements QuoteService {
 
   }
 
-  SubscribeToQuote(listingId: number, listener: QuoteListener): void {
+  SubscribeToQuote(listingId: number, listener: QuoteListener): Quote | undefined {
     let listeners = this.idToListeners.get(listingId)
     if (!listeners) {
       listeners = new Array<QuoteListener>();
@@ -81,17 +81,13 @@ export default class QuoteServiceImpl implements QuoteService {
 
     listeners.push(listener)
 
-    let existingQuote = this.listingIdToQuote.get(listingId)
-    if( existingQuote ) {
-      listener.onQuote(existingQuote)
-    }
-    
+    return this.listingIdToQuote.get(listingId)
   }
 
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) {
     let listeners = this.idToListeners.get(listingId)
     if (listeners) {
-        const index = listeners.indexOf(listener, 0);
+        const index = listeners.indexOf(listener);
         if (index > -1) {
           listeners.splice(index, 1);
         }

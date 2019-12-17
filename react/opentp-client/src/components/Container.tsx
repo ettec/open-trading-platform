@@ -185,7 +185,7 @@ export default class Container extends React.Component {
         </Navbar>
         </div>
         <div>
-            <OrderTicket listingContext={this.listingContext} tickerController={this.ticketController} ></OrderTicket>
+            <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
         </div>
 
         <div className="contents">
@@ -207,9 +207,9 @@ export class TicketController {
         this.orderTicket = orderTicket
     }
 
-    openTicket( side : Side) {
+    openTicket( side : Side, listing: Listing) {
         if( this.orderTicket ) {
-            this.orderTicket.openTicket(side)
+            this.orderTicket.openTicket(side, listing)
         }
     }
 
