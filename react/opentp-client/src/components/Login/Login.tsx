@@ -2,10 +2,9 @@ import * as React from "react";
 import Container from "../Container";
 import { InputGroup, Button } from "@blueprintjs/core";
 import v4 from 'uuid';
-import { createContext } from 'react';
 import GrpcContextProvider from "../GrpcContextProvider";
 import { Metadata } from "grpc-web";
-import { Listing } from "../../serverapi/listing_pb";
+
 
 export interface Props {
     children?: React.ReactNode

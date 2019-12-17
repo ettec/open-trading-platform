@@ -73,7 +73,7 @@ function highlightText(text: string, query: string) {
 }
 
 function escapeRegExpChars(text: string) {
-    return text.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return text.replace(/([.*+?^=!:${}()|[\]/\\])/g, "\\$1");
 }
 
 interface ListingSearchBarState {
@@ -110,7 +110,7 @@ export default class InstrumentSearchBar extends React.Component<ListingSearchBa
 
     handleQueryChange(query : string) {
 
-        if( query != this.lastSearchString) {
+        if( query !== this.lastSearchString) {
             this.lastSearchString = query;
         } else {
             return
@@ -119,7 +119,7 @@ export default class InstrumentSearchBar extends React.Component<ListingSearchBa
 
         if( !query || query.length < 2) {
             let newState = { 
-                ...this.state, ... {
+                ...this.state,...{
                 }
             }
             newState.items = []
@@ -139,7 +139,7 @@ export default class InstrumentSearchBar extends React.Component<ListingSearchBa
             }
     
             let newState = { 
-                ...this.state, ... {}
+                ...this.state,...{}
             }
 
             newState.items = listings.getListingsList()
@@ -195,7 +195,7 @@ export default class InstrumentSearchBar extends React.Component<ListingSearchBa
 
     private handleValueChange = (listing: Listing) => {
         this.setState({
-             ...this.state, ... {
+             ...this.state,...{
                 selected: listing,
             }
         })

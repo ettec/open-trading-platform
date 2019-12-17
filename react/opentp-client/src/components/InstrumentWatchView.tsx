@@ -1,4 +1,4 @@
-import { Cell, Column, IRegion, SelectionModes, Table, IMenuContext } from "@blueprintjs/table";
+import { Cell, Column, IRegion, SelectionModes, Table} from "@blueprintjs/table";
 import { Actions, Model, TabNode } from "flexlayout-react";
 import { Error } from "grpc-web";
 import React from 'react';
@@ -13,7 +13,7 @@ import { ListingContext, TicketController } from "./Container";
 import InstrumentSearchBar from "./InstrumentSearchBar";
 import Login from "./Login";
 import { MenuItem } from "react-contextmenu";
-import { Menu, Popover, Position, Colors } from '@blueprintjs/core';
+import { Menu,   Colors,  Hotkeys, Hotkey } from '@blueprintjs/core';
 import './OrderBlotter.css';
 import { Side } from "../serverapi/order_pb";
 
@@ -33,7 +33,6 @@ interface InstrumentWatchProps {
 interface PersistentConfig {
   listingIds: number[]
 }
-
 
 export default class InstrumentWatchView extends React.Component<InstrumentWatchProps, InstrumentWatchState> implements QuoteListener {
 
@@ -73,6 +72,24 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     this.openBuyDialog = this.openBuyDialog.bind(this);
     this.openSellDialog = this.openSellDialog.bind(this);
   }
+
+  public renderHotkeys() {
+    return <Hotkeys>
+        <Hotkey
+            global={true}
+            combo="shift + a"
+            label="Be awesome all the time"
+            onKeyDown={() => console.log("Awesome!")}
+        />
+        <Hotkey
+            group="Fancy shortcuts"
+            combo="shift + f"
+            label="Be fancy only when focused"
+            onKeyDown={() => console.log("So fancy!")}
+        />
+    </Hotkeys>;
+}
+ 
 
   addListing(listing?: Listing) {
 
@@ -174,11 +191,11 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     return (
 
       <Menu style={{color:Colors.LIME3}}>
-        <MenuItem onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing == undefined}>
+        <MenuItem onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
           Buy
          </MenuItem>
         <MenuItem divider />
-        <MenuItem onClick={this.openSellDialog} disabled={this.listingContext.selectedListing == undefined}>
+        <MenuItem onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
           Sell
          </MenuItem>
       </Menu>
@@ -221,7 +238,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
         let watch = this.state.watches[i]
         selectedWatches.set(watch.Id(), watch)
 
-        if (i == firstRowIdx) {
+        if (i === firstRowIdx) {
           this.listingContext.setSelectedListing(watch.listing)
         }
 

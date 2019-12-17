@@ -1,4 +1,4 @@
-import { InputGroup, Label } from "@blueprintjs/core";
+import {  Label } from "@blueprintjs/core";
 import { Cell, Column, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
@@ -52,7 +52,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     this.props.listingContext.addListener((listing:Listing)=> {
 
       if( this.state && this.state.listing ){
-        if( this.state.listing == listing) {
+        if( this.state.listing === listing) {
           return
         }
 
@@ -60,7 +60,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       }
 
       let state: MarketDepthState = {
-        ...this.state, ... {
+        ...this.state,...{
           listing: listing,
           quote: undefined
         }
@@ -75,7 +75,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   onQuote(receivedQuote: Quote): void {
     let state: MarketDepthState = {
-      ...this.state, ... {
+      ...this.state,...{
         quote: receivedQuote,
       }
     }

@@ -1,18 +1,19 @@
-import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput, Spinner } from '@blueprintjs/core';
+import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput } from '@blueprintjs/core';
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
-import { logGrpcError, logDebug } from '../logging/Logging';
+import { logGrpcError } from '../logging/Logging';
 import { Decimal64 } from '../serverapi/common_pb';
 import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
 import { CreateAndRouteOrderParams, OrderId } from '../serverapi/execution-venue_pb';
 import { Listing } from '../serverapi/listing_pb';
+import { TickSizeEntry } from '../serverapi/listing_pb';
 import { Side } from '../serverapi/order_pb';
 import { toNumber } from '../util/decimal64Conversion';
-import { ListingContext, TicketController } from './Container';
 import Login from './Login';
 import { QuoteService, QuoteListener } from '../services/QuoteService';
 import { Quote } from '../serverapi/market-data-service_pb';
+import {  TicketController } from "./Container";
 
 interface OrderTicketState {
   listing?: Listing,
@@ -53,7 +54,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   onQuote(recQuote: Quote): void {
       let state: OrderTicketState = {
-        ...this.state, ... {
+        ...this.state,...{
           quote: recQuote
         }
       }
@@ -97,6 +98,54 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   // TOdo - bind in tick size to numeric HTMLFormControlsCollection, use quote to populate in, add hotkeys for ticket 
 
+
+  private getTickSize(price:number, listing:Listing):number {
+    let tt = listing.getTicksize()
+    if( tt ) {
+      let el = tt.getEntriesList()
+      for(var entry of el) {
+        let tickSize = this.tickSizeFromEntry(entry, price)
+        if( tickSize ) {
+          return tickSize
+        }
+      }
+    }
+
+    return 1
+  }
+
+  private tickSizeFromEntry(entry :TickSizeEntry, price: number  ):number | undefined {
+    let lowerBound = toNumber(entry.getLowerpricebound())
+    let upperBound = toNumber(entry.getUpperpricebound())
+
+    if( lowerBound !== undefined && upperBound !== undefined ) {
+      if( price >= lowerBound && price <=upperBound) {
+        return toNumber(entry.getTicksize())
+      }
+    }
+    
+    return undefined
+  }
+
+
+  private getAskText(quote?: Quote):string {
+    if( quote ) {
+      let best = this.getBestBidAndAsk(quote)
+      return "Ask: " + best.bestAskQuantity +"@" + best.bestAskPrice
+    } else {
+      return "Ask: <>"
+    }
+  }
+
+  private getBidText(quote?: Quote):string {
+    if( quote ) {
+      let best = this.getBestBidAndAsk(quote)
+      return "Bid: " + best.bestBidQuantity +"@" + best.bestBidPrice
+    } else {
+      return "Bid: <>"
+    }
+  }
+
   public render() {
 
     let listing = this.state.listing
@@ -104,6 +153,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     if (listing ) {
 
       let sizeIncrement = toNumber(listing.getSizeincrement())
+      let tickSize = this.getTickSize(this.state.price, listing)
 
       return (
 
@@ -116,12 +166,16 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
           <div className={Classes.DIALOG_BODY}>
 
             <Label>{this.getListingFullName()}</Label>
+            <Label style={{color:Colors.LIME3}}>{this.getBidText(this.state.quote)}</Label>
+            <Label style={{color:Colors.ORANGE3}}>{this.getAskText(this.state.quote)}</Label>
+
             <FormGroup
               label="Quantity"
               labelFor="quantity-input">
               <NumericInput
                 id="quantity-input"
                 stepSize={sizeIncrement}
+                minorStepSize={sizeIncrement}
                 value={this.state.quantity}
                 onChange={
                   (e: any) => {
@@ -137,6 +191,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
               <NumericInput
                 id="price-input"
                 value={this.state.price}
+                stepSize={tickSize}
+                minorStepSize={tickSize}
                 onChange={
                   (e: any) => {
                     this.setState({ price: e.target.value })
@@ -182,24 +238,38 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     return { background: color }
   }
 
-  openTicket(newSide: Side, newListing: Listing) {
 
-    logDebug("opening ticket")
+  getBestBidAndAsk(quote: Quote): BestBidAndAsk {
+    let result = new BestBidAndAsk()
+    if (quote.getDepthList().length > 0) {
+      let depthLine = quote.getDepthList()[0]
+
+      result.bestBidPrice = toNumber(depthLine.getBidprice())
+      result.bestBidQuantity = toNumber(depthLine.getBidsize())
+      result.bestAskPrice = toNumber(depthLine.getAskprice())
+      result.bestAskQuantity = toNumber(depthLine.getAsksize())
+      
+    }
+
+    return result
+  }
+
+
+
+  openTicket(newSide: Side, newListing: Listing) {
 
     let existingQuote = this.quoteService.SubscribeToQuote(newListing.getId(), this)
 
     let defaultPrice;
     let defaultQuantity;
     if (existingQuote) {
-      if (existingQuote.getDepthList().length > 0) {
-        let depthLine = existingQuote.getDepthList()[0]
-        if (this.state.side === Side.SELL) {
-          defaultPrice = toNumber(depthLine.getBidprice())
-          defaultQuantity = toNumber(depthLine.getBidsize())
-        } else {
-          defaultPrice = toNumber(depthLine.getAskprice())
-          defaultQuantity = toNumber(depthLine.getAsksize())
-        }
+      let best = this.getBestBidAndAsk(existingQuote)
+      if (this.state.side === Side.SELL) {
+        defaultPrice = best.bestBidPrice
+        defaultQuantity = best.bestBidQuantity
+      } else {
+        defaultPrice = best.bestAskPrice
+        defaultQuantity = best.bestAskQuantity
       }
     }
 
@@ -212,7 +282,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
     let state: OrderTicketState = {
-      ...this.state, ... {
+      ...this.state,...{
         side: newSide,
         isOpen: true,
         listing: newListing,
@@ -223,19 +293,16 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
     this.setState(state)
-    logDebug("opened ticket")
   }
 
   private handleClose = () => {
-
-    logDebug("closing ticket")
 
     if (this.state.listing) {
       this.quoteService.UnsubscribeFromQuote(this.state.listing.getId(), this)
     }
 
     this.setState({
-      ...this.state, ... {
+      ...this.state,...{
         isOpen: false,
         defaultPrice: undefined,
         defaultQuantity: undefined,
@@ -246,7 +313,6 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       }
     })
 
-    logDebug("closed ticket")
   };
 
 
@@ -254,7 +320,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
     let listing = this.state.listing
     let side = this.state.side
-    if (listing && side) {
+    if (listing) {
 
       let croParams = new CreateAndRouteOrderParams()
       croParams.setListing(listing)
@@ -273,14 +339,15 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
     }
 
-
+    this.handleClose()
 
   }
 
+}
 
-
-
-
-
-
+class BestBidAndAsk {
+  bestBidPrice? :number
+  bestBidQuantity? :number
+  bestAskPrice? :number
+  bestAskQuantity? :number
 }

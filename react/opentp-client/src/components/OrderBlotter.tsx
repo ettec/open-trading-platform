@@ -123,7 +123,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
       console.log("Values " + this.orderMap.values());
 
       let blotterState: OrderBlotterState = {
-        ...this.state, ... {
+        ...this.state,...{
           orders: Array.from(this.orderMap.values()),
         }
       }
@@ -148,21 +148,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
   cancelOrder = (e: any, data: Order) => {
-    if (data) {
-      http://192.168.1.102:32413/order-management/cancel-order?orderId=00a2fdb5-7521-4f44-a985-2cddc7a19222
-
-      fetch('http://192.168.1.102:32413/order-management/cancel-order?orderId=' + data.getId(), {
-        method: 'POST',
-        mode: 'no-cors'
-      })
-        .then(
-          response => { console.log(response.statusText) }
-        )
-
-        .catch(error => {
-          throw new Error(error);
-        });
-    }
+  
   }
 
   modifyOrder = (e: any, data: Order) => {
@@ -173,9 +159,6 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
   public render() {
-
-
-    const myClonedArray = Object.assign([], this.state.orders);
 
     return (
       <div>
@@ -239,7 +222,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   private renderBodyContextMenu = (context: IMenuContext) => {
     return (
         <Menu>
-             <MenuItem data={this.props.orderContext.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size==0} >
+             <MenuItem data={this.props.orderContext.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size===0} >
             Cancel Order
               </MenuItem>
           <MenuItem divider />
