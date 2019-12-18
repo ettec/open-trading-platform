@@ -242,6 +242,13 @@ func (om *orderManagerImpl) executeCancelOrderCmd(id *model.OrderId, resultChan 
 	}
 
 	err = om.orderStore.Store(order)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
+	err = om.gateway.Cancel(order)
+
 	resultChan <- errorCmdResult{Error:err}
 }
 

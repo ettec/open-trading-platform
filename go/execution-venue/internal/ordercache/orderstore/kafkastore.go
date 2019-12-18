@@ -19,6 +19,7 @@ func NewKafkaStore(topic string, kafkaBrokerUrls []string) *KafkaStore {
 		Brokers:  kafkaBrokerUrls,
 		Topic:    topic,
 		Balancer: &kafka.LeastBytes{},
+		Async: true,
 	})
 
 	return &result

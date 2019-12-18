@@ -6,4 +6,5 @@ import (
 
 type OrderGateway interface {
 	Send(order *model.Order, listing *model.Listing) error
+	Cancel(order *model.Order) error
 }

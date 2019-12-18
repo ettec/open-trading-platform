@@ -8,6 +8,7 @@ import (
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix42/businessmessagereject"
+	"github.com/quickfixgo/quickfix/fix50sp1/ordercancelrequest"
 	"github.com/quickfixgo/quickfix/fix50sp2/executionreport"
 	"github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
 	"github.com/shopspring/decimal"
@@ -44,6 +45,20 @@ func (f *FixOrderGateway) Send(order *model.Order, listing *model.Listing) error
 	return quickfix.SendToTarget(msg, f.sessionID)
 
 }
+
+func (f *FixOrderGateway) Cancel(order *model.Order) error {
+
+	side, err := getFixSide(order.Side)
+	if err != nil {
+		return err
+	}
+
+	msg := ordercancelrequest.New(field.NewClOrdID(order.Id), field.NewSide(side),
+		field.NewTransactTime(time.Now()))
+
+	return quickfix.SendToTarget(msg, f.sessionID)
+}
+
 
 func getFixSide(side model.Side) (enum.Side, error) {
 
