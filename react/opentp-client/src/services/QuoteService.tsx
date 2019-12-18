@@ -42,10 +42,7 @@ export default class QuoteServiceImpl implements QuoteService {
           l.onQuote(quote)
         })
 
-      } else {
-        logError("recieved update for quote for which there are no listeners, quote id:" + quote.getListingid())
-      }
-
+      } 
 
     });
     this.stream.on('status', (status: Status) => {
@@ -92,6 +89,8 @@ export default class QuoteServiceImpl implements QuoteService {
           listeners.splice(index, 1);
         }
     }
+
+    
   }
 
 

@@ -104,7 +104,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       return getListingShortName(this.state.listing)
     }
 
-    return " "
+    return "(No Selection) "
   }
 
   private renderBidSize = (row: number) => {

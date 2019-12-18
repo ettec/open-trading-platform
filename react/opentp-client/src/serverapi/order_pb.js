@@ -76,7 +76,7 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     side: jspb.Message.getFieldWithDefault(msg, 3, 0),
     quantity: (f = msg.getQuantity()) && common_pb.Decimal64.toObject(includeInstance, f),
     price: (f = msg.getPrice()) && common_pb.Decimal64.toObject(includeInstance, f),
-    listingid: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    listingid: jspb.Message.getFieldWithDefault(msg, 6, 0),
     remainingquantity: (f = msg.getRemainingquantity()) && common_pb.Decimal64.toObject(includeInstance, f),
     tradedquantity: (f = msg.getTradedquantity()) && common_pb.Decimal64.toObject(includeInstance, f),
     avgtradeprice: (f = msg.getAvgtradeprice()) && common_pb.Decimal64.toObject(includeInstance, f),
@@ -141,7 +141,7 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
       msg.setPrice(value);
       break;
     case 6:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setListingid(value);
       break;
     case 7:
@@ -234,8 +234,8 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getListingid();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt32(
       6,
       f
     );
@@ -393,17 +393,17 @@ proto.model.Order.prototype.hasPrice = function() {
 
 
 /**
- * optional string listingId = 6;
- * @return {string}
+ * optional int32 listingId = 6;
+ * @return {number}
  */
 proto.model.Order.prototype.getListingid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
-/** @param {string} value */
+/** @param {number} value */
 proto.model.Order.prototype.setListingid = function(value) {
-  jspb.Message.setProto3StringField(this, 6, value);
+  jspb.Message.setProto3IntField(this, 6, value);
 };
 
 

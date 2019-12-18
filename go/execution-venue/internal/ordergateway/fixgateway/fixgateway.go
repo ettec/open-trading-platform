@@ -2,8 +2,8 @@ package fixgateway
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
@@ -27,7 +27,7 @@ func NewFixOrderGateway(sessionID quickfix.SessionID) ordergateway.OrderGateway 
 	}
 }
 
-func (f *FixOrderGateway) Send(order *model.Order) error {
+func (f *FixOrderGateway) Send(order *model.Order, listing *model.Listing) error {
 
 	side, err := getFixSide(order.Side)
 	if err != nil {
@@ -39,7 +39,7 @@ func (f *FixOrderGateway) Send(order *model.Order) error {
 
 	msg.SetOrderQty(decimal.NewFromBigInt(big.NewInt(order.GetQuantity().Mantissa), order.GetQuantity().GetExponent()), 0)
 	msg.SetPrice(decimal.NewFromBigInt(big.NewInt(order.GetPrice().Mantissa), order.GetPrice().GetExponent()), 0)
-	msg.SetSymbol(order.GetListingId())
+	msg.SetSymbol(listing.MarketSymbol)
 
 	return quickfix.SendToTarget(msg, f.sessionID)
 
@@ -76,8 +76,6 @@ func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.
 	f.inboundRouter = quickfix.NewMessageRouter()
 	f.inboundRouter.AddRoute(executionreport.Route(f.onExecutionReport))
 
-	f.outboundRouter = quickfix.NewMessageRouter()
-	f.outboundRouter.AddRoute(businessmessagereject.Route(f.onOutboundBusinessMessageReject))
 
 	return &f
 }
@@ -169,10 +167,6 @@ func (f *fixHandler) ToAdmin(message *quickfix.Message, sessionID quickfix.Sessi
 
 //Notification of app message being sent to target.
 func (f *fixHandler) ToApp(message *quickfix.Message, sessionID quickfix.SessionID) error {
-	err :=f.outboundRouter.Route(message, sessionID)
-	if err != nil {
-		return err
-	}
 
 	return nil
 }

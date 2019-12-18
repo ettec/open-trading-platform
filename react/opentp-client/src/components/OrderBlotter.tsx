@@ -13,6 +13,9 @@ import { toNumber } from '../util/decimal64Conversion';
 import { OrderContext } from './Container';
 import Login from './Login';
 import './OrderBlotter.css';
+import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
+import { OrderId } from '../serverapi/execution-venue_pb';
+import { Empty } from '../serverapi/common_pb';
   
 interface OrderBlotterState {
   orders: OrderView[];
@@ -31,7 +34,7 @@ class OrderView {
   side: string;
   quantity?: number;
   price?: number;
-  listingId: string;
+  listingId: number;
   remainingQuantity?: number;
   tradedQuantity?: number;
   avgTradePrice?: number;
@@ -89,6 +92,7 @@ class OrderView {
 export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
 
   viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
+  executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
 
   orderMap: Map<string, OrderView>;
 
@@ -113,14 +117,10 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     this.stream = this.viewService.subscribe(new SubscribeToOrders(), Login.grpcContext.grpcMetaData)
 
     this.stream.on('data', (order: Order) => {
-      console.log('Received an order' + order)
-
-
+    
       let orderView = new OrderView(order)
 
       this.orderMap.set(order.getId(), orderView);
-
-      console.log("Values " + this.orderMap.values());
 
       let blotterState: OrderBlotterState = {
         ...this.state,...{
@@ -147,8 +147,18 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   }
 
 
-  cancelOrder = (e: any, data: Order) => {
-  
+  cancelOrder = (e: any, orders: Array<Order>) => {
+    
+    orders.forEach(order => {
+      let orderId = new OrderId()  
+      orderId.setOrderid(order.getId())
+      this.executionVenueService.cancelOrder(orderId, Login.grpcContext.grpcMetaData, (err:grpcWeb.Error, response : Empty)=>{
+          if( err ){
+            logGrpcError("error cancelling order", err)
+          }
+      } )
+    });
+
   }
 
   modifyOrder = (e: any, data: Order) => {
@@ -164,7 +174,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
       <div>
         
         <Table enableRowResizing={false} numRows={this.orderMap.size} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-        bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection}>
+        bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} >
                     <Column name="Id" cellRenderer={this.renderId} />            
                     <Column name="Side" cellRenderer={this.renderSide} />
                     <Column name="Listing Id" cellRenderer={this.renderListingId} />
@@ -197,32 +207,61 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
   private onSelection = (selectedRegions: IRegion[]) => {
-    let selectedOrders : Map<string, Order> = new Map<string,Order>()
+    let newSelectedOrders: Map<string, Order> = this.getSelectedOrdersFromRegions(selectedRegions);
 
-    for( let region of selectedRegions)  {
-
-      let firstRowIdx : number;
-      let lastRowIdx : number;
-
-      if( region.rows ) {
-        firstRowIdx = region.rows[0]
-        lastRowIdx = region.rows[1]
-      }  else {
-        firstRowIdx = 0
-        lastRowIdx = this.state.orders.length -1
-      }
-
-      for (let i = firstRowIdx; i < lastRowIdx; i++) {
-        let order = this.state.orders[i].order
-        selectedOrders.set(order.getId(), order)
+    let blotterState: OrderBlotterState = {
+      ...this.state,...{
+        selectedOrders: newSelectedOrders,
       }
     }
+    
+    this.setState(blotterState)
   }
 
+
+  private getSelectedOrdersFromRegions(selectedRegions: IRegion[]): Map<string, Order> {
+    let newSelectedOrders: Map<string, Order> = new Map<string, Order>();
+    for (let region of selectedRegions) {
+      let firstRowIdx: number;
+      let lastRowIdx: number;
+      if (region.rows) {
+        firstRowIdx = region.rows[0];
+        lastRowIdx = region.rows[1];
+      }
+      else {
+        firstRowIdx = 0;
+        lastRowIdx = this.state.orders.length - 1;
+      }
+      for (let i = firstRowIdx; i <= lastRowIdx; i++) {
+        let order = this.state.orders[i].order;
+        newSelectedOrders.set(order.getId(), order);
+      }
+    }
+    return newSelectedOrders;
+  }
+
+
+  cancelleableOrders(orders:Map<string, Order> ) : Array<Order> {
+
+    let result = new Array<Order>()
+    for( let order of orders.values()) {
+      if( order.getStatus() === OrderStatus.LIVE) {
+        result.push(order)
+      }
+    }
+
+    return result
+  }
+
+
   private renderBodyContextMenu = (context: IMenuContext) => {
+
+    let selectedOrders = this.getSelectedOrdersFromRegions(context.getRegions())
+    let cancelleableOrders = this.cancelleableOrders(selectedOrders)
+
     return (
         <Menu>
-             <MenuItem data={this.props.orderContext.selectedOrder} onClick={this.cancelOrder} disabled={this.state.selectedOrders.size===0} >
+             <MenuItem  data={this.props.orderContext.selectedOrder} onClick={e=>this.cancelOrder(e,cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
             Cancel Order
               </MenuItem>
           <MenuItem divider />

@@ -25,7 +25,7 @@ message Order{
     Side side = 3;
     Decimal64 quantity = 4;
     Decimal64 price = 5;
-    string listingId = 6;
+    int32 listingId = 6;
     Decimal64 remainingQuantity=7;
     Decimal64 tradedQuantity=8;
     Decimal64 avgTradePrice=9;

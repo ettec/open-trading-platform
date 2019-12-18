@@ -73,24 +73,6 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
     this.openSellDialog = this.openSellDialog.bind(this);
   }
 
-  public renderHotkeys() {
-    return <Hotkeys>
-        <Hotkey
-            global={true}
-            combo="shift + a"
-            label="Be awesome all the time"
-            onKeyDown={() => console.log("Awesome!")}
-        />
-        <Hotkey
-            group="Fancy shortcuts"
-            combo="shift + f"
-            label="Be fancy only when focused"
-            onKeyDown={() => console.log("So fancy!")}
-        />
-    </Hotkeys>;
-}
- 
-
   addListing(listing?: Listing) {
 
     if (listing) {
@@ -190,8 +172,8 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   renderContextMenu = () => {
     return (
 
-      <Menu style={{color:Colors.LIME3}}>
-        <MenuItem onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
+      <Menu>
+        <MenuItem  onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
           Buy
          </MenuItem>
         <MenuItem divider />
@@ -232,7 +214,6 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
         firstRowIdx = 0
         lastRowIdx = this.state.watches.length - 1
       }
-
 
       for (let i = firstRowIdx; i <= lastRowIdx; i++) {
         let watch = this.state.watches[i]

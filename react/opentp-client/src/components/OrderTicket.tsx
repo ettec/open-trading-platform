@@ -2,14 +2,14 @@ import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, Numeri
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
-import { logGrpcError } from '../logging/Logging';
+import { logGrpcError, logDebug } from '../logging/Logging';
 import { Decimal64 } from '../serverapi/common_pb';
 import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
 import { CreateAndRouteOrderParams, OrderId } from '../serverapi/execution-venue_pb';
 import { Listing } from '../serverapi/listing_pb';
 import { TickSizeEntry } from '../serverapi/listing_pb';
 import { Side } from '../serverapi/order_pb';
-import { toNumber } from '../util/decimal64Conversion';
+import { toNumber, toDecimal64 } from '../util/decimal64Conversion';
 import Login from './Login';
 import { QuoteService, QuoteListener } from '../services/QuoteService';
 import { Quote } from '../serverapi/market-data-service_pb';
@@ -325,16 +325,16 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       let croParams = new CreateAndRouteOrderParams()
       croParams.setListing(listing)
 
-
-
       croParams.setSide(side)
-      croParams.setQuantity(new Decimal64())
+      croParams.setQuantity(toDecimal64(this.state.quantity))
+      croParams.setPrice(toDecimal64(this.state.price))
 
-      this.executionVenueService.createAndRouteOrder(new CreateAndRouteOrderParams(), Login.grpcContext.grpcMetaData, (err: Error,
+      this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
         response: OrderId) => {
         if (err) {
-          logGrpcError("failed to send order:", err)
+          logGrpcError("error whilst sending order:", err)
         }
+        logDebug("create and route order result:" + response.getOrderid())
       })
 
     }

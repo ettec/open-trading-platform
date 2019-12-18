@@ -3,12 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache/orderstore"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway/fixgateway"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordermanager"
-	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway/fixgateway"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordermanager"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -35,12 +34,39 @@ func NewService(om ordermanager.OrderManager) *service {
 	return &service
 }
 
+
+
 func (s *service) CreateAndRouteOrder(context context.Context, params *model.CreateAndRouteOrderParams) (*model.OrderId, error) {
-	return s.orderManager.CreateAndRouteOrder(params)
+
+	log.Printf("Received  order parameters-> %v", params)
+
+	if params.GetQuantity() == nil {
+		return nil, fmt.Errorf("quantity required on params:%v", params)
+	}
+
+	if params.GetPrice() == nil {
+		return nil, fmt.Errorf("price required on params:%v", params)
+	}
+
+	if params.GetListing() == nil {
+		return nil, fmt.Errorf("listing required on params:%v", params)
+	}
+
+	result, err := s.orderManager.CreateAndRouteOrder(params)
+	if err != nil {
+		log.Printf("error when creating and routing order:%v", err)
+		return nil, err
+	}
+
+	log.Printf("created order id:%v", result.OrderId)
+
+	return &model.OrderId{
+		OrderId: result.OrderId,
+	}, nil
 }
 
-func (s *service) CancelOrder(ctx context.Context, id *model.OrderId) (*empty.Empty, error) {
-	return &empty.Empty{}, s.orderManager.CancelOrder(id)
+func (s *service) CancelOrder(ctx context.Context, id *model.OrderId) (*model.Empty, error) {
+	return &model.Empty{}, s.orderManager.CancelOrder(id)
 }
 
 func (s *service) Close() {
@@ -144,9 +170,9 @@ func createOrderStore() (orderstore.OrderStore, error) {
 func getFixConfig(sessionId quickfix.SessionID) string {
 
 	allRequiredEnvVars := true
-	filelogPath, ok := os.LookupEnv("FIX_LOG_FILE_PATH")
+	fileLogPath, ok := os.LookupEnv("FIX_LOG_FILE_PATH")
 	allRequiredEnvVars = allRequiredEnvVars && ok
-	filestorePath, ok := os.LookupEnv("FIX_FILE_STORE_PATH")
+	fileStorePath, ok := os.LookupEnv("FIX_FILE_STORE_PATH")
 	allRequiredEnvVars = allRequiredEnvVars && ok
 	fixPort, ok := os.LookupEnv("FIX_SOCKET_CONNECT_PORT")
 	allRequiredEnvVars = allRequiredEnvVars && ok
@@ -158,8 +184,8 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 			"ConnectionType=initiator\n" +
 			"ReconnectInterval=60\n" +
 			"SenderCompID=" + sessionId.SenderCompID + "\n" +
-			"FileStorePath=" + filestorePath + "\n" +
-			"FileLogPath=" + filelogPath + "\n" +
+			"FileStorePath=" + fileStorePath + "\n" +
+			"FileLogPath=" + fileLogPath + "\n" +
 			"\n" +
 			"[SESSION]\n" +
 			"BeginString=" + sessionId.BeginString + "\n" +

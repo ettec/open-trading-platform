@@ -22,8 +22,8 @@ export class Order extends jspb.Message {
   hasPrice(): boolean;
   clearPrice(): void;
 
-  getListingid(): string;
-  setListingid(value: string): void;
+  getListingid(): number;
+  setListingid(value: number): void;
 
   getRemainingquantity(): common_pb.Decimal64 | undefined;
   setRemainingquantity(value?: common_pb.Decimal64): void;
@@ -61,7 +61,7 @@ export namespace Order {
     side: Side,
     quantity?: common_pb.Decimal64.AsObject,
     price?: common_pb.Decimal64.AsObject,
-    listingid: string,
+    listingid: number,
     remainingquantity?: common_pb.Decimal64.AsObject,
     tradedquantity?: common_pb.Decimal64.AsObject,
     avgtradeprice?: common_pb.Decimal64.AsObject,

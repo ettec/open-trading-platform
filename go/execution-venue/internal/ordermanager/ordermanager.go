@@ -2,9 +2,9 @@ package ordermanager
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/model"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordercache"
-	"github.com/ettec/open-trading-platform/execution-venue/internal/ordergateway"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
+	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"
@@ -129,8 +129,6 @@ func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice model
 
 func (om *orderManagerImpl) CreateAndRouteOrder(params *model.CreateAndRouteOrderParams) (*model.OrderId, error) {
 
-	log.Printf("creating order with params:%v", params)
-
 	resultChan := make(chan createAndRouteOrderCmdResult)
 
 	om.createOrderChan <- createAndRouteOrderCmd{
@@ -140,8 +138,12 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *model.CreateAndRouteOrde
 
 	result := <-resultChan
 
-	log.Printf("create and route order result:%v", result)
-	return result.OrderId, result.Error
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return result.OrderId, nil
 }
 
 func (om *orderManagerImpl) CancelOrder(id *model.OrderId) error {
@@ -161,7 +163,6 @@ func (om *orderManagerImpl) CancelOrder(id *model.OrderId) error {
 
 	return result.Error
 }
-
 
 
 func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model.Decimal64, lastQty model.Decimal64, resultChan chan errorCmdResult) {
@@ -262,7 +263,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *model.CreateAn
 		Side:              params.Side,
 		Quantity:          params.Quantity,
 		Price:             params.Price,
-		ListingId:         params.ListingId,
+		ListingId:         params.Listing.GetId(),
 		RemainingQuantity: params.Quantity,
 		Status:            model.OrderStatus_NONE,
 		TargetStatus:      model.OrderStatus_LIVE,
@@ -278,7 +279,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *model.CreateAn
 		return
 	}
 
-	err = om.gateway.Send(order)
+	err = om.gateway.Send(order, params.Listing)
 
 	resultChan <- createAndRouteOrderCmdResult{
 		OrderId: &model.OrderId{

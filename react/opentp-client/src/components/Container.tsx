@@ -134,6 +134,7 @@ export default class Container extends React.Component {
 
         this.factory = (node: TabNode) => {
             var component = node.getComponent();
+            
             if (component === "order-blotter") {
                 return <OrderBlotter orderContext={this.orderContext} />;
             }

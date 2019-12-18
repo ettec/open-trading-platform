@@ -3,8 +3,8 @@
     <module name="execution-venue" />
     <working_directory value="$PROJECT_DIR$" />
     <envs>
-      <env name="KAFKA_ORDERS_TOPIC" value="orders" />
-      <env name="KAFKA_BROKERS" value="asd" />
+      <env name="USE_LOCAL_STORE" value="true" />
+      <env name="LOCAL_STORE_PATH" value="$USER_HOME$/test/fix/orderstore.protobuf" />
       <env name="FIX_LOG_FILE_PATH" value="$USER_HOME$/test/fix" />
       <env name="FIX_FILE_STORE_PATH" value="$USER_HOME$/test/fix" />
       <env name="FIX_SOCKET_CONNECT_PORT" value="9876" />
