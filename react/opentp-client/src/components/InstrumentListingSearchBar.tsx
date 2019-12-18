@@ -86,7 +86,7 @@ interface ListingSearchBarProps {
 }
 
 
-export default class InstrumentSearchBar extends React.Component<ListingSearchBarProps, ListingSearchBarState> {
+export default class InstrumentListingSearchBar extends React.Component<ListingSearchBarProps, ListingSearchBarState> {
 
     id: string;
     lastSearchString: string;

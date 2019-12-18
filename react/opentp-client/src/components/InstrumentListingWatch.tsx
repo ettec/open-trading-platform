@@ -10,7 +10,7 @@ import { ListingIds, Listings } from "../serverapi/static-data-service_pb";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext, TicketController } from "./Container";
-import InstrumentSearchBar from "./InstrumentSearchBar";
+import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import Login from "./Login";
 import { MenuItem } from "react-contextmenu";
 import { Menu,   Colors,  Hotkeys, Hotkey } from '@blueprintjs/core';
@@ -18,11 +18,11 @@ import './OrderBlotter.css';
 import { Side } from "../serverapi/order_pb";
 
 
-interface InstrumentWatchState {
+interface InstrumentListingWatchState {
   watches: ListingWatch[]
 }
 
-interface InstrumentWatchProps {
+interface InstrumentListingWatchProps {
   node: TabNode,
   model: Model,
   quoteService: QuoteService,
@@ -34,7 +34,7 @@ interface PersistentConfig {
   listingIds: number[]
 }
 
-export default class InstrumentWatchView extends React.Component<InstrumentWatchProps, InstrumentWatchState> implements QuoteListener {
+export default class InstrumentListingWatch extends React.Component<InstrumentListingWatchProps, InstrumentListingWatchState> implements QuoteListener {
 
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
@@ -43,13 +43,13 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
   watchMap: Map<number, ListingWatch> = new Map()
 
-  constructor(props: InstrumentWatchProps) {
+  constructor(props: InstrumentListingWatchProps) {
     super(props);
 
     this.quoteService = props.quoteService
     this.ticketController = props.ticketController
 
-    let initialState: InstrumentWatchState = {
+    let initialState: InstrumentListingWatchState = {
       watches: Array.from(this.watchMap.values())
     }
 
@@ -142,7 +142,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
 
       <div className="bp3-dark">
 
-        <InstrumentSearchBar add={this.addListing} />
+        <InstrumentListingSearchBar add={this.addListing} />
         <Table enableRowResizing={false} numRows={this.state.watches.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
           onSelection={this.onSelection} bodyContextMenuRenderer={this.renderContextMenu}>
           <Column name="Id" cellRenderer={this.renderId} />
@@ -172,7 +172,7 @@ export default class InstrumentWatchView extends React.Component<InstrumentWatch
   renderContextMenu = () => {
     return (
 
-      <Menu>
+      <Menu >
         <MenuItem  onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
           Buy
          </MenuItem>

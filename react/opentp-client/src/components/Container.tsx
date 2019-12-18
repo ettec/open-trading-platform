@@ -4,7 +4,7 @@ import "flexlayout-react/style/dark.css";
 import React from 'react';
 import { Listing } from "../serverapi/listing_pb";
 import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
-import InstrumentWatchView from "./InstrumentWatchView";
+import InstrumentListingWatch from "./InstrumentListingWatch";
 import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
 import OrderBlotter from "./OrderBlotter";
@@ -142,7 +142,7 @@ export default class Container extends React.Component {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
             }
             if (component === "instrument-watch") {
-                return<InstrumentWatchView  ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
+                return<InstrumentListingWatch  ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if(component === "nav-bar") {
                 return <Navbar/>;
