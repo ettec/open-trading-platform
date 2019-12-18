@@ -2,7 +2,7 @@ package messagesource
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/view-service/internal/model"
+	"github.com/ettec/open-trading-platform/go/view-service/internal/model"
 	"github.com/golang/protobuf/proto"
 	"math/rand"
 	"time"

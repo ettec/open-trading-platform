@@ -6,6 +6,7 @@ import (
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
 	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
+	"time"
 )
 
 type KafkaStore struct {
@@ -20,6 +21,7 @@ func NewKafkaStore(topic string, kafkaBrokerUrls []string) *KafkaStore {
 		Topic:    topic,
 		Balancer: &kafka.LeastBytes{},
 		Async: true,
+		BatchTimeout: 10 * time.Millisecond,
 	})
 
 	return &result

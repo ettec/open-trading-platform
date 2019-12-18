@@ -170,6 +170,7 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model
 	order, exists := om.orderStore.GetOrder(id)
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("update traded quantity failed, no order found for id %v", id)}
+		return
 	}
 
 	if order.TargetStatus == model.OrderStatus_LIVE {

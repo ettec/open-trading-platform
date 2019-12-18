@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/view-service/internal/messagesource"
-	"github.com/ettec/open-trading-platform/view-service/internal/model"
+	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
+	"github.com/ettec/open-trading-platform/go/view-service/internal/model"
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"

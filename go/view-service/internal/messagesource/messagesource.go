@@ -3,6 +3,7 @@ package messagesource
 import (
 	"context"
 	"github.com/segmentio/kafka-go"
+	"time"
 )
 
 type Source interface {
@@ -19,6 +20,10 @@ func NewKafkaMessageSource(topic string, brokerUrls []string) *KafkaMessageSourc
 	ks.reader =  kafka.NewReader(kafka.ReaderConfig{
 		Brokers: brokerUrls,
 		Topic:   topic,
+		ReadBackoffMin: 10 * time.Millisecond,
+		ReadBackoffMax: 20 * time.Millisecond,
+		MaxWait: 15 * time.Millisecond,
+
 	})
 
 	return ks
