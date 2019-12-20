@@ -1,25 +1,23 @@
-import { Cell, Column, IRegion, SelectionModes, Table} from "@blueprintjs/table";
+import { Menu } from '@blueprintjs/core';
+import { Cell, Column, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import { Actions, Model, TabNode } from "flexlayout-react";
-import { Error } from "grpc-web";
 import React from 'react';
+import { MenuItem } from "react-contextmenu";
 import { logDebug } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
 import { Quote } from "../serverapi/market-data-service_pb";
-import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
-import { ListingIds, Listings } from "../serverapi/static-data-service_pb";
+import { Side } from "../serverapi/order_pb";
+import { ListingId } from "../serverapi/static-data-service_pb";
+import { ListingService } from "../services/ListingService";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
-import Login from "./Login";
-import { MenuItem } from "react-contextmenu";
-import { Menu,   Colors,  Hotkeys, Hotkey } from '@blueprintjs/core';
 import './OrderBlotter.css';
-import { Side } from "../serverapi/order_pb";
 
 
 interface InstrumentListingWatchState {
-  watches: ListingWatch[]
+  watches: Array<ListingWatch>
 }
 
 interface InstrumentListingWatchProps {
@@ -27,7 +25,8 @@ interface InstrumentListingWatchProps {
   model: Model,
   quoteService: QuoteService,
   listingContext: ListingContext,
-  ticketController: TicketController
+  ticketController: TicketController,
+  listingService: ListingService
 }
 
 interface PersistentConfig {
@@ -36,10 +35,10 @@ interface PersistentConfig {
 
 export default class InstrumentListingWatch extends React.Component<InstrumentListingWatchProps, InstrumentListingWatchState> implements QuoteListener {
 
-  staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
   listingContext: ListingContext
   ticketController: TicketController
+  listingService: ListingService
 
   watchMap: Map<number, ListingWatch> = new Map()
 
@@ -48,27 +47,30 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
     this.quoteService = props.quoteService
     this.ticketController = props.ticketController
-
-    let initialState: InstrumentListingWatchState = {
-      watches: Array.from(this.watchMap.values())
-    }
-
-    this.state = initialState;
+    this.listingService = props.listingService
 
     this.addListing = this.addListing.bind(this);
 
     this.props.node.setEventListener("save", (p) => {
-      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.state.watches.map(l => l.listing.getId())) }
+      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.state.watches.map(l => l.listingId)) }
       this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
     });
 
+    let initialWatches = new Array<ListingWatch>()
     if (this.props.node.getConfig() && this.props.node.getConfig()) {
       let persistentConfig: PersistentConfig = this.props.node.getConfig();
-      this.addListingLineByIds(persistentConfig.listingIds)
+      persistentConfig.listingIds.forEach(id => {
+        let watch = this.getListingWatch(id)
+        initialWatches.push(watch)
+      })
     }
 
-    this.listingContext = props.listingContext
+    let initialState: InstrumentListingWatchState = {
+      watches: initialWatches
+    }
+    this.state = initialState
 
+    this.listingContext = props.listingContext
     this.openBuyDialog = this.openBuyDialog.bind(this);
     this.openSellDialog = this.openSellDialog.bind(this);
   }
@@ -76,46 +78,41 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
   addListing(listing?: Listing) {
 
     if (listing) {
-      if (this.watchMap.has(listing.getId())) {
-        return;
+      if (!this.watchMap.get(listing.getId())) {
+        let watch = this.getListingWatch(listing.getId())
+        let newWatches = this.state.watches.slice(0)
+        newWatches.push(watch)
+        this.setState(
+          {
+            watches: newWatches
+          }
+        )
       }
-      this.addListingLine(listing);
     }
-
   }
 
-  private addListingLineByIds(listingIds: number[]) {
-    let ids = new ListingIds()
-    ids.setListingidsList(listingIds)
-
-    this.staticDataService.getListings(ids, Login.grpcContext.grpcMetaData,
-      (err: Error, listings: Listings) => {
-        if (listings) {
-          listings.getListingsList().forEach((listing) => {
-            this.addListingLine(listing)
-          })
-        }
-      })
-  }
-
-  private addListingLine(listing: Listing) {
-
-    if (!this.watchMap.get(listing.getId())) {
-      let line = new ListingWatch(listing)
 
 
-      this.watchMap.set(listing.getId(), line);
+  private getListingWatch(listingId: number): ListingWatch {
 
-      let lines = this.state.watches.slice(0)
-      lines.push(line)
+
+    let line = new ListingWatch(listingId)
+
+    let id = new ListingId()
+    id.setListingid(listingId)
+
+    this.listingService.GetListing(listingId, (listing: Listing)=> {
+      line.listing = listing
 
       this.setState({
-        watches: lines
-      });
+        watches: Object.assign([], this.state.watches)
+      })
+    })
+  
+    this.watchMap.set(listingId, line);
+    this.quoteService.SubscribeToQuote(listingId, this)
 
-      this.quoteService.SubscribeToQuote(listing.getId(), this)
-
-    }
+    return line
 
   }
 
@@ -173,7 +170,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     return (
 
       <Menu >
-        <MenuItem  onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
+        <MenuItem onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
           Buy
          </MenuItem>
         <MenuItem divider />
@@ -220,7 +217,10 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
         selectedWatches.set(watch.Id(), watch)
 
         if (i === firstRowIdx) {
-          this.listingContext.setSelectedListing(watch.listing)
+          if (watch.listing) {
+            this.listingContext.setSelectedListing(watch.listing)
+          }
+
         }
 
       }
@@ -233,50 +233,58 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
 class ListingWatch {
 
-  listing: Listing;
+  listingId: number;
+  listing?: Listing;
   quote?: Quote;
 
-  constructor(listing: Listing) {
-    this.listing = listing
+  constructor(listingId: number) {
+    this.listingId = listingId
   }
 
   Id(): number {
-    return this.listing.getId()
+    return this.listingId
   }
 
   Symbol(): string {
-    let i = this.listing.getInstrument()
-    if (i) {
-      return i.getDisplaysymbol()
+    if (this.listing) {
+      let i = this.listing.getInstrument()
+      if (i) {
+        return i.getDisplaysymbol()
+      }
     }
 
     return ""
   }
 
   Name(): string {
-    let i = this.listing.getInstrument()
-    if (i) {
-      return i.getName()
+    if (this.listing) {
+      let i = this.listing.getInstrument()
+      if (i) {
+        return i.getName()
+      }
     }
+
 
     return ""
   }
 
   Mic(): string {
-    let m = this.listing.getMarket()
-    if (m) {
-      return m.getMic()
+    if (this.listing) {
+      let m = this.listing.getMarket()
+      if (m) {
+        return m.getMic()
+      }
     }
-
     return ""
   }
 
   Country(): string {
-    let m = this.listing.getMarket()
-    if (m) {
-      return m.getCountrycode()
+    if (this.listing) {
+      let m = this.listing.getMarket()
+      if (m) {
+        return m.getCountrycode()
+      }
     }
-
     return ""
   }
 

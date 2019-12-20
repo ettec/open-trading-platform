@@ -9,6 +9,7 @@ import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
 import OrderBlotter from "./OrderBlotter";
 import { Order, Side } from "../serverapi/order_pb";
+import ListingServiceImpl, { ListingService } from "../services/ListingService";
 
 export default class Container extends React.Component {
 
@@ -107,6 +108,7 @@ export default class Container extends React.Component {
     readonly configKey : string = "open-oms-config"; 
     
     quoteService : QuoteService
+    listingService: ListingService
     listingContext : ListingContext
     orderContext : OrderContext
     ticketController : TicketController
@@ -116,6 +118,7 @@ export default class Container extends React.Component {
     constructor() {
         super({}, {});
 
+        this.listingService = new ListingServiceImpl()
         this.quoteService = new QuoteServiceImpl()
         this.listingContext = new ListingContext()
         this.orderContext = new OrderContext()
@@ -136,13 +139,13 @@ export default class Container extends React.Component {
             var component = node.getComponent();
             
             if (component === "order-blotter") {
-                return <OrderBlotter orderContext={this.orderContext} />;
+                return <OrderBlotter listingService={this.listingService} orderContext={this.orderContext} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
             }
             if (component === "instrument-watch") {
-                return<InstrumentListingWatch  ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
+                return<InstrumentListingWatch  listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if(component === "nav-bar") {
                 return <Navbar/>;

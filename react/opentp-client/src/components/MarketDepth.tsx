@@ -40,7 +40,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     this.quoteService = props.quoteService
 
-    this.setState({});
+    this.state = {};
 
     this.id = v4();
 

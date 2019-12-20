@@ -1,4 +1,4 @@
-import { Menu, Colors } from '@blueprintjs/core';
+import { Colors, Menu } from '@blueprintjs/core';
 import { Cell, Column, IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import * as grpcWeb from 'grpc-web';
@@ -6,16 +6,18 @@ import React from 'react';
 import { MenuItem } from "react-contextmenu";
 import v4 from 'uuid';
 import { logDebug, logGrpcError } from '../logging/Logging';
+import { Empty } from '../serverapi/common_pb';
+import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
+import { OrderId } from '../serverapi/execution-venue_pb';
 import { Order, OrderStatus, Side } from '../serverapi/order_pb';
 import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
 import { SubscribeToOrders } from '../serverapi/view-service_pb';
+import { ListingService } from '../services/ListingService';
 import { toNumber } from '../util/decimal64Conversion';
 import { OrderContext } from './Container';
 import Login from './Login';
 import './OrderBlotter.css';
-import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
-import { OrderId } from '../serverapi/execution-venue_pb';
-import { Empty } from '../serverapi/common_pb';
+import { Listing } from '../serverapi/listing_pb';
 
 interface OrderBlotterState {
   orders: OrderView[];
@@ -24,8 +26,8 @@ interface OrderBlotterState {
 
 interface OrderBlotterProps {
   orderContext: OrderContext
+  listingService: ListingService
 }
-
 
 class OrderView {
 
@@ -40,10 +42,25 @@ class OrderView {
   avgTradePrice?: number;
   status: string;
   targetStatus: string;
-  order: Order;
+  private order: Order;
+  listing?: Listing;
 
   constructor(order: Order) {
-    this.order = order;
+    this.id = ""
+    this.version = 0;
+    this.side = "";
+    this.listingId = 0;
+    this.status = "";
+    this.targetStatus = "";
+    this.order = order
+
+    this.setOrder(order)
+  }
+
+  setOrder(order: Order) {
+    this.order = order
+
+
     this.version = order.getVersion()
     this.id = order.getId()
 
@@ -66,11 +83,14 @@ class OrderView {
     this.avgTradePrice = toNumber(order.getAvgtradeprice())
     this.status = this.getStatusString(order.getStatus())
     this.targetStatus = this.getStatusString(order.getTargetstatus())
-
-
   }
 
-  private getStatusString(status: OrderStatus): string {
+  getOrder(): Order {
+    return this.order
+  }
+
+  getStatusString(status: OrderStatus) {
+
     switch (status) {
       case OrderStatus.CANCELLED:
         return "Cancelled"
@@ -80,11 +100,22 @@ class OrderView {
         return "Live"
       case OrderStatus.NONE:
         return "None"
-      default:
-        return "Unknown status: " + status
     }
 
+  }
 
+
+
+  getSymbol(): string | undefined {
+    return this.listing?.getInstrument()?.getDisplaysymbol()
+  }
+
+  getMic(): string | undefined {
+    return this.listing?.getMarket()?.getMic()
+  }
+
+  getCountryCode(): string | undefined {
+    return this.listing?.getMarket()?.getCountrycode()
   }
 
 }
@@ -93,22 +124,28 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
+  listingService: ListingService
 
-  orderMap: Map<string, OrderView>;
+  orderMap: Map<string, number>;
 
   stream?: grpcWeb.ClientReadableStream<Order>;
 
   id: string;
+
 
   constructor(props: OrderBlotterProps) {
     super(props);
 
     this.id = v4();
 
-    this.orderMap = new Map<string, OrderView>();
+    this.listingService = props.listingService
+
+    this.orderMap = new Map<string, number>();
+
+    let view = new Array<OrderView>(5)
 
     let blotterState: OrderBlotterState = {
-      orders: Array.from(this.orderMap.values()),
+      orders: view,
       selectedOrders: new Map<string, Order>()
     }
 
@@ -118,18 +155,51 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     this.stream.on('data', (order: Order) => {
 
-      let orderView = new OrderView(order)
+      let idx = this.orderMap.get(order.getId())
+      let orderView: OrderView
+      let newOrders = this.state.orders
+      if (!idx) {
+        idx = this.orderMap.size
+        let orderLength = this.state.orders.length
+        if (idx >= orderLength) {
+          newOrders = new Array<OrderView>(orderLength * 2)
+          for( let i=0; i < orderLength; i++) {
+              newOrders[i] = this.state.orders[i]
+          }
+        }
 
-      this.orderMap.set(order.getId(), orderView);
+        this.orderMap.set(order.getId(), idx);
+        orderView = new OrderView(order)
+
+        newOrders[idx] = orderView
+      } else {
+        orderView = this.state.orders[idx]
+        orderView.setOrder(order)
+      }
 
       let blotterState: OrderBlotterState = {
         ...this.state, ...{
-          orders: Array.from(this.orderMap.values()),
+          orders: newOrders
         }
       }
 
-
       this.setState(blotterState);
+
+      if (!orderView.listing) {
+        this.listingService.GetListing(order.getListingid(), (listing: Listing) => {
+          orderView.listing = listing
+          let blotterState: OrderBlotterState = {
+            ...this.state, ...{
+              orders: this.state.orders
+            }
+          }
+
+          this.setState(blotterState);
+        })
+      }
+
+
+
     });
     this.stream.on('status', (status: grpcWeb.Status) => {
       if (status.metadata) {
@@ -173,11 +243,13 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     return (
       <div>
 
-        <Table enableRowResizing={false} numRows={this.orderMap.size} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
+        <Table enableRowResizing={false} numRows={this.state.orders.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
           bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} >
           <Column name="Id" cellRenderer={this.renderId} />
           <Column name="Side" cellRenderer={this.renderSide} />
-          <Column name="Listing Id" cellRenderer={this.renderListingId} />
+          <Column name="Symbol" cellRenderer={this.renderSymbol} />
+          <Column name="Mic" cellRenderer={this.renderMic} />
+          <Column name="Country" cellRenderer={this.renderCountry} />
           <Column name="Quantity" cellRenderer={this.renderQuantity} />
           <Column name="Price" cellRenderer={this.renderPrice} />
           <Column name="Status" cellRenderer={this.renderStatus} />
@@ -185,6 +257,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
           <Column name="Rem Qty" cellRenderer={this.renderRemQty} />
           <Column name="Traded Qty" cellRenderer={this.renderTrdQty} />
           <Column name="Avg Price" cellRenderer={this.renderAvgPrice} />
+          <Column name="Listing Id" cellRenderer={this.renderListingId} />
 
         </Table>
 
@@ -194,43 +267,52 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     );
   }
 
-  private renderId = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].id}</Cell>;
-  private renderSide = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].side}</Cell>;
-  private renderQuantity = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].quantity}</Cell>;
-  private renderPrice = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].price}</Cell>;
-  private renderListingId = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].listingId}</Cell>;
-  private renderRemQty = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].remainingQuantity}</Cell>;
-  private renderTrdQty = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].tradedQuantity}</Cell>;
-  private renderAvgPrice = (row: number) => <Cell>{Array.from(this.orderMap.values())[row].avgTradePrice}</Cell>;
+  private renderId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.id}</Cell>;
+  private renderSide = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.side}</Cell>;
+  private renderQuantity = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.quantity}</Cell>;
+  private renderSymbol = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getSymbol()}</Cell>;
+  private renderMic = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getMic()}</Cell>;
+  private renderCountry = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getCountryCode()}</Cell>;
+  private renderPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.price}</Cell>;
+  private renderListingId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.listingId}</Cell>;
+  private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
+  private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
+  private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
 
   private renderStatus = (row: number) => {
-    let orderView = Array.from(this.orderMap.values())[row]
+    let orderView = Array.from(this.state.orders)[row]
     let statusStyle = {}
-    switch (orderView.order.getStatus()) {
-      case OrderStatus.LIVE:
-        statusStyle = { background: Colors.GREEN3 }
-        break
-      case OrderStatus.CANCELLED:
-        statusStyle = { background: Colors.RED3 }
-        break
-      case OrderStatus.FILLED:
-        statusStyle = { background: Colors.BLUE3 }
-        break
+    if (orderView) {
+      switch (orderView.getOrder().getStatus()) {
+        case OrderStatus.LIVE:
+          statusStyle = { background: Colors.GREEN3 }
+          break
+        case OrderStatus.CANCELLED:
+          statusStyle = { background: Colors.RED3 }
+          break
+        case OrderStatus.FILLED:
+          statusStyle = { background: Colors.BLUE3 }
+          break
+      }
     }
 
-    return <Cell style={statusStyle}>{orderView.status}</Cell>
+
+
+    return <Cell style={statusStyle}>{orderView?.status}</Cell>
   }
 
 
   private renderTargetStatus = (row: number) => {
-    let orderView = Array.from(this.orderMap.values())[row]
+    let orderView = Array.from(this.state.orders)[row]
     let statusStyle = {}
-    if (orderView.order.getTargetstatus() !== OrderStatus.NONE) {
-      statusStyle = { background: Colors.ORANGE3 }
+    if (orderView) {
+      if (orderView.getOrder().getTargetstatus() !== OrderStatus.NONE) {
+        statusStyle = { background: Colors.ORANGE3 }
+      }
     }
 
 
-    return <Cell style={statusStyle}>{orderView.targetStatus}</Cell>
+    return <Cell style={statusStyle}>{orderView?.targetStatus}</Cell>
   }
 
 
@@ -261,8 +343,10 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         lastRowIdx = this.state.orders.length - 1;
       }
       for (let i = firstRowIdx; i <= lastRowIdx; i++) {
-        let order = this.state.orders[i].order;
-        newSelectedOrders.set(order.getId(), order);
+        let orderView = this.state.orders[i];
+        if (orderView) {
+          newSelectedOrders.set(orderView.getOrder().getId(), orderView.getOrder());
+        }
       }
     }
     return newSelectedOrders;
