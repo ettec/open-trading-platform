@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.inject.Inject;
+
 import org.fixprotocol.components.InstrmtMDReqGrp;
-import org.fixprotocol.components.MarketData.MarketDataRequest;
+import org.fixprotocol.components.MarketData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class MarketDataServerHandler extends SimpleChannelInboundHandler<MarketDataRequest>   {
+public class MarketDataServerHandler extends SimpleChannelInboundHandler<MarketData.MarketDataRequest>   {
 
   Logger log = LoggerFactory.getLogger(MarketDataServerHandler.class);
 
@@ -31,7 +31,7 @@ public class MarketDataServerHandler extends SimpleChannelInboundHandler<MarketD
 
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, MarketDataRequest msg)
+  protected void channelRead0(ChannelHandlerContext ctx, MarketData.MarketDataRequest msg)
       throws Exception {
 
     log.info("Received subscription request", msg);

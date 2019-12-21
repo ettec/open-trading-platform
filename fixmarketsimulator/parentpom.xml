@@ -151,8 +151,20 @@
       <artifactId>netty-all</artifactId>
       <version>4.1.39.Final</version>
     </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>1.26.0</version>
+            <scope>compile</scope>
+        </dependency>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-protobuf</artifactId>
+        <version>1.26.0</version>
+        <scope>compile</scope>
+      </dependency>
 
-         
+
     </dependencies>
 <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

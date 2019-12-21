@@ -10,8 +10,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Bundled Protobuf Distribution" level="application" />
-    <orderEntry type="library" name="Maven: com.ettech:gpbfixmarketdata:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: io.kubernetes:client-java:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.kubernetes:client-java-api:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: io.sundr:builder-annotations:0.9.2" level="project" />
@@ -77,6 +75,18 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: jaxen:jaxen:1.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.mina:mina-core:2.1.2" level="project" />
     <orderEntry type="library" name="Maven: ch.obermuhlner:big-math:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-netty-shaded:1.26.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-core:1.26.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.android:annotations:4.1.1.4" level="project" />
+    <orderEntry type="library" name="Maven: io.perfmark:perfmark-api:0.19.0" level="project" />
+    <orderEntry type="library" name="Maven: io.opencensus:opencensus-api:0.24.0" level="project" />
+    <orderEntry type="library" name="Maven: io.opencensus:opencensus-contrib-grpc-metrics:0.24.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-protobuf:1.26.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-api:1.26.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-context:1.26.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:proto-google-common-protos:1.12.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-protobuf-lite:1.26.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-stub:1.26.0" level="project" />
     <orderEntry type="library" name="Maven: org.mockito:mockito-core:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.9.10" level="project" />
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy-agent:1.9.10" level="project" />

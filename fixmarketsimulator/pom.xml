@@ -57,19 +57,35 @@
       <version>2.1.2</version>
     </dependency>
 
-
-
     <dependency>
       <groupId>ch.obermuhlner</groupId>
       <artifactId>big-math</artifactId>
       <version>2.2.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty-shaded</artifactId>
+      <version>1.26.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-protobuf</artifactId>
+      <version>1.26.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-stub</artifactId>
+      <version>1.26.0</version>
+    </dependency>
+
+
 
 
   </dependencies>
 
   <build>
+
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -129,6 +145,7 @@
             </execution>
           </executions>
         </plugin>
+
 
       </plugins>
     </pluginManagement>

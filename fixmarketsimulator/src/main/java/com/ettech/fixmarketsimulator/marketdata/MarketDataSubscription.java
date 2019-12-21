@@ -1,26 +1,17 @@
 package com.ettech.fixmarketsimulator.marketdata;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
-import com.ettech.fixmarketsimulator.exchange.MDEntry;
-import com.ettech.fixmarketsimulator.exchange.MdEntryListener;
-import com.ettech.fixmarketsimulator.exchange.MdEntryType;
-import com.ettech.fixmarketsimulator.exchange.Order;
-import com.ettech.fixmarketsimulator.exchange.OrderBook;
-import com.ettech.fixmarketsimulator.exchange.Side;
+import com.ettech.fixmarketsimulator.exchange.*;
 import io.netty.channel.ChannelHandlerContext;
+import org.fixprotocol.components.Fix;
+import org.fixprotocol.components.Instrument;
+import org.fixprotocol.components.MarketData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
-import org.fixprotocol.components.Fix.Decimal64;
-import org.fixprotocol.components.Instrument;
-import org.fixprotocol.components.MarketData.MDEntryTypeEnum;
-import org.fixprotocol.components.MarketData.MDIncGrp;
-import org.fixprotocol.components.MarketData.MDIncGrp.Builder;
-import org.fixprotocol.components.MarketData.MDUpdateActionEnum;
-import org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MarketDataSubscription implements Closeable, MdEntryListener {
 
@@ -36,9 +27,9 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
     this.book = book;
     this.requestId = requestId;
 
-    MarketDataIncrementalRefresh.Builder incRefreshBuilder = MarketDataIncrementalRefresh.newBuilder();
+    MarketData.MarketDataIncrementalRefresh.Builder incRefreshBuilder = MarketData.MarketDataIncrementalRefresh.newBuilder();
     incRefreshBuilder.setMdReqId(requestId);
-    var updateType = MDUpdateActionEnum.MD_UPDATE_ACTION_NEW;
+    var updateType = MarketData.MDUpdateActionEnum.MD_UPDATE_ACTION_NEW;
 
     for (Order order : book.getBuyOrders()) {
       incRefreshBuilder.addMdIncGrp(getMdEntryFromOrder(book, order, updateType, Side.Buy));
@@ -55,8 +46,8 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
     log.info("Sent incremental refresh {}", incRefresh);
   }
 
-  private MDIncGrp getMdEntryFromOrder(OrderBook book, Order order, MDUpdateActionEnum updateType, Side side) {
-    var mdEntryBuilder = MDIncGrp.newBuilder();
+  private MarketData.MDIncGrp getMdEntryFromOrder(OrderBook book, Order order, MarketData.MDUpdateActionEnum updateType, Side side) {
+    MarketData.MDIncGrp.Builder mdEntryBuilder = MarketData.MDIncGrp.newBuilder();
     mdEntryBuilder.setMdUpdateAction(updateType);
 
     mdEntryBuilder.setMdEntryId(order.getOrderId());
@@ -73,16 +64,16 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
     return mdEntryBuilder.build();
   }
 
-  private void setQuantity(Builder mdEntryBuilder, long qntAsDouble) {
+  private void setQuantity(MarketData.MDIncGrp.Builder mdEntryBuilder, long qntAsDouble) {
     long quantity = qntAsDouble;
-    var qntBuilder = Decimal64.newBuilder();
+    var qntBuilder = Fix.Decimal64.newBuilder();
     qntBuilder.setMantissa(quantity);
     qntBuilder.setExponent(0);
     mdEntryBuilder.setMdEntrySize(qntBuilder.build());
   }
 
-  private void setPrice(Builder mdEntryBuilder, BigDecimal price) {
-    var priceBuilder = Decimal64.newBuilder();
+  private void setPrice(MarketData.MDIncGrp.Builder mdEntryBuilder, BigDecimal price) {
+    var priceBuilder = Fix.Decimal64.newBuilder();
     int scale = -1*price.scale();
     priceBuilder.setExponent(scale);
 
@@ -100,10 +91,10 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
 
   @Override
   public void onMdEntries(List<MDEntry> mdEntries) {
-    MarketDataIncrementalRefresh.Builder incRefresh = MarketDataIncrementalRefresh.newBuilder();
+    MarketData.MarketDataIncrementalRefresh.Builder incRefresh = MarketData.MarketDataIncrementalRefresh.newBuilder();
     for (MDEntry entry : mdEntries) {
 
-      var mdEntryBuilder = MDIncGrp.newBuilder();
+      var mdEntryBuilder = MarketData.MDIncGrp.newBuilder();
       mdEntryBuilder.setMdUpdateAction(getMDEntryTypeEnum(entry.getMdEntryType()));
       mdEntryBuilder.setInstrument(Instrument.newBuilder().setSymbol(entry.getInstrument()).build());
       mdEntryBuilder.setMdEntryId(entry.getOrderId());
@@ -120,19 +111,19 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
     ctx.writeAndFlush(incRefresh.build());
   }
 
-  private MDEntryTypeEnum getMdEntryType(Side side) {
-    return side == Side.Buy ? MDEntryTypeEnum.MD_ENTRY_TYPE_BID
-        : MDEntryTypeEnum.MD_ENTRY_TYPE_OFFER;
+  private MarketData.MDEntryTypeEnum getMdEntryType(Side side) {
+    return side == Side.Buy ? MarketData.MDEntryTypeEnum.MD_ENTRY_TYPE_BID
+        : MarketData.MDEntryTypeEnum.MD_ENTRY_TYPE_OFFER;
   }
 
-  public MDUpdateActionEnum getMDEntryTypeEnum(MdEntryType entryType) {
+  public MarketData.MDUpdateActionEnum getMDEntryTypeEnum(MdEntryType entryType) {
     switch (entryType) {
       case Add:
-        return MDUpdateActionEnum.MD_UPDATE_ACTION_NEW;
+        return MarketData.MDUpdateActionEnum.MD_UPDATE_ACTION_NEW;
       case Modify:
-        return MDUpdateActionEnum.MD_UPDATE_ACTION_CHANGE;
+        return MarketData.MDUpdateActionEnum.MD_UPDATE_ACTION_CHANGE;
       case Remove:
-        return MDUpdateActionEnum.MD_UPDATE_ACTION_DELETE;
+        return MarketData.MDUpdateActionEnum.MD_UPDATE_ACTION_DELETE;
       default:
         throw new RuntimeException("Unexpected entry type:" + entryType);
     }

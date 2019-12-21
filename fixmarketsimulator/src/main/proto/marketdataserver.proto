@@ -1,0 +1,16 @@
+syntax = "proto3";
+package marketdataservice;
+import "marketdata.proto";
+import "google/protobuf/empty.proto";
+
+option java_package = "com.ettech.fixmarketsimulator.marketdataserver.api";
+
+
+message SubscribeRequest {
+    string partyId = 1;
+}
+
+service MarketDataService{
+    rpc Subscribe(MarketData.MarketDataRequest) returns (google.protobuf.Empty) {};
+    rpc Connect(SubscribeRequest) returns (stream MarketData.MarketDataIncrementalRefresh) {};
+} 
