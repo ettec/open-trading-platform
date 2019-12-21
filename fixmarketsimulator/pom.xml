@@ -7,7 +7,7 @@
     <groupId>com.ettech</groupId>
     <artifactId>parentpom</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../parentpom.xml</relativePath>
+    <relativePath>./parentpom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -31,12 +31,6 @@
   </properties>
 
   <dependencies>
-
-    <dependency>
-    <groupId>com.ettech</groupId>
-    <artifactId>gpbfixmarketdata</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    </dependency>
 
     <dependency>
       <groupId>io.kubernetes</groupId>

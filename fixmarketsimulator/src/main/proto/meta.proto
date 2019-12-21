@@ -1,0 +1,44 @@
+//
+//	FIX Unified Repository mapping to Google Protocol Buffers
+//
+//	Copyright (c) FIX Trading Community. All Rights Reserved.
+//
+//	Category: meta
+//
+//	File: meta.proto
+//
+syntax = "proto3";
+import "google/protobuf/descriptor.proto";
+
+option java_package = "org.fixprotocol.components";
+option java_outer_classname = "Meta";
+
+package meta;
+
+extend google.protobuf.FieldOptions {
+        TimeUnitEnum time_unit = 51001;
+        Epoch epoch = 51002;
+        sfixed32 exponent = 51003;
+        fixed32 min_len = 51004;
+        fixed32 max_len = 51005;
+        sfixed64 min_value = 51006;
+        sfixed64 max_value = 51007;
+}
+
+enum TimeUnitEnum {
+    TIME_UNIT_UNSPECIFIED = 0;
+    TIME_UNIT_DAYS = 1;
+    TIME_UNIT_SECONDS = 2;
+    TIME_UNIT_MILLISECONDS = 3;
+    TIME_UNIT_MICROSECONDS = 4;
+    TIME_UNIT_NANOSECONDS = 5;
+    TIME_UNIT_PICOSECONDS = 6;
+}
+
+enum Epoch {
+    EPOCH_UNSPECIFIED = 0;
+    EPOCH_MIDNIGHT = 1;
+    EPOCH_UNIX = 2;
+    EPOCH_1900 = 3;
+    EPOCH_2000 = 4;
+}

@@ -1,0 +1,1055 @@
+//
+//	FIX Unified Repository mapping to Google Protocol Buffers
+//
+//	Copyright (c) FIX Trading Community. All Rights Reserved.
+//
+//	Category: MarketData
+//
+//	File: marketdata.proto
+//
+syntax = "proto3";
+import "meta.proto";
+import "fix.proto";
+import "common.proto";
+import "session.proto";
+
+option java_package = "org.fixprotocol.components";
+option java_outer_classname = "MarketData";
+
+package MarketData;
+
+enum MDEntryTypeEnum {
+    MD_ENTRY_TYPE_UNSPECIFIED = 0;
+    MD_ENTRY_TYPE_BID = 1               [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_CLOSING_PRICE = 2     [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_INDEX_VALUE = 3       [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_OFFER = 4             [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_OPENING_PRICE = 5     [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_SETTLEMENT_PRICE = 6  [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_TRADE = 7             [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_TRADING_SESSION_HIGH_PRICE = 8            [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_TRADING_SESSION_LOW_PRICE = 9             [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_TRADING_SESSION_VWAPPRICE = 10            [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_ENTRY_TYPE_IMBALANCE = 11        [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_4_3];
+    MD_ENTRY_TYPE_OPEN_INTEREST = 12    [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_4];
+    MD_ENTRY_TYPE_TRADE_VOLUME = 13     [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_4_4];
+    MD_ENTRY_TYPE_COMPOSITE_UNDERLYING_PRICE = 14           [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    MD_ENTRY_TYPE_EMPTY_BOOK = 15       [(fix.enum_value)="J", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_MARGIN_RATE = 16      [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_MID_PRICE = 17        [(fix.enum_value)="H", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_PRIOR_SETTLE_PRICE = 18                   [(fix.enum_value)="M", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_SESSION_HIGH_BID = 19 [(fix.enum_value)="N", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_SESSION_LOW_OFFER = 20                    [(fix.enum_value)="O", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_SETTLE_HIGH_PRICE = 21                    [(fix.enum_value)="K", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_SETTLE_LOW_PRICE = 22 [(fix.enum_value)="L", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_SIMULATED_BUY_PRICE = 23                  [(fix.enum_value)="F", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_SIMULATED_SELL_PRICE = 24                 [(fix.enum_value)="E", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_ENTRY_TYPE_EARLY_PRICES = 25     [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=8];
+    MD_ENTRY_TYPE_AUCTION_CLEARING_PRICE = 26               [(fix.enum_value)="Q", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    MD_ENTRY_TYPE_SWAP_VALUE_FACTOR = 27                    [(fix.enum_value)="S", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=54];
+    MD_ENTRY_TYPE_CUMULATIVE_VALUE_ADJUSTMENT_FOR_LONG_POSITIONS = 28           [(fix.enum_value)="T", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=55];
+    MD_ENTRY_TYPE_CUMULATIVE_VALUE_ADJUSTMENT_FOR_SHORT_POSITIONS = 29          [(fix.enum_value)="V", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=55];
+    MD_ENTRY_TYPE_DAILY_VALUE_ADJUSTMENT_FOR_LONG_POSITIONS = 30                [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=55];
+    MD_ENTRY_TYPE_DAILY_VALUE_ADJUSTMENT_FOR_SHORT_POSITIONS = 31               [(fix.enum_value)="U", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=55];
+    MD_ENTRY_TYPE_RECOVERY_RATE = 32    [(fix.enum_value)="Y", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=83];
+    MD_ENTRY_TYPE_RECOVERY_RATE_FOR_LONG = 33               [(fix.enum_value)="Z", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=83];
+    MD_ENTRY_TYPE_RECOVERY_RATE_FOR_SHORT = 34              [(fix.enum_value)="a", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=83];
+    MD_ENTRY_TYPE_CASH_RATE = 35        [(fix.enum_value)="X", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=84];
+    MD_ENTRY_TYPE_FIXING_PRICE = 36     [(fix.enum_value)="W", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=84];
+}
+
+enum PriceTypeEnum {
+    PRICE_TYPE_UNSPECIFIED = 0;
+    PRICE_TYPE_FIXED_AMOUNT = 1         [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_2];
+    PRICE_TYPE_PERCENTAGE = 2           [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    PRICE_TYPE_PER_UNIT = 3             [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    PRICE_TYPE_DISCOUNT = 4             [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_3];
+    PRICE_TYPE_PREMIUM = 5              [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_3];
+    PRICE_TYPE_SPREAD = 6               [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_3];
+    PRICE_TYPE_TEDPRICE = 7             [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_3];
+    PRICE_TYPE_TEDYIELD = 8             [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_4_3];
+    PRICE_TYPE_FIXED_CABINET_TRADE_PRICE = 9                [(fix.enum_value)="10", (fix.enum_added)=VERSION_FIX_4_4];
+    PRICE_TYPE_VARIABLE_CABINET_TRADE_PRICE = 10            [(fix.enum_value)="11", (fix.enum_added)=VERSION_FIX_4_4];
+    PRICE_TYPE_YIELD = 11               [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_4_4];
+    PRICE_TYPE_PRODUCT_TICKS_IN_EIGHTS = 12                 [(fix.enum_value)="15", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    PRICE_TYPE_PRODUCT_TICKS_IN_FOURTHS = 13                [(fix.enum_value)="14", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    PRICE_TYPE_PRODUCT_TICKS_IN_HALFS = 14                  [(fix.enum_value)="13", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    PRICE_TYPE_PRODUCT_TICKS_IN_ONE_TWENTY_EIGHTS = 15      [(fix.enum_value)="19", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    PRICE_TYPE_PRODUCT_TICKS_IN_SIXTEENTHS = 16             [(fix.enum_value)="16", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    PRICE_TYPE_PRODUCT_TICKS_IN_SIXTY_FORTHS = 17           [(fix.enum_value)="18", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    PRICE_TYPE_PRODUCT_TICKS_IN_THIRTY_SECONDS = 18         [(fix.enum_value)="17", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+}
+
+enum OrdTypeEnum {
+    ORD_TYPE_UNSPECIFIED = 0;
+    ORD_TYPE_LIMIT = 1                  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_LIMIT_ON_CLOSE = 2         [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_2_7, (fix.enum_deprecated)=VERSION_FIX_4_3];
+    ORD_TYPE_LIMIT_OR_BETTER = 3        [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_2_7, (fix.enum_deprecated)=VERSION_FIX_4_4];
+    ORD_TYPE_LIMIT_WITH_OR_WITHOUT = 4  [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_MARKET = 5                 [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_MARKET_ON_CLOSE = 6        [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_2_7, (fix.enum_deprecated)=VERSION_FIX_4_3];
+    ORD_TYPE_ON_BASIS = 7               [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_ON_CLOSE = 8               [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_2_7, (fix.enum_deprecated)=VERSION_FIX_4_3];
+    ORD_TYPE_STOP = 9                   [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_STOP_LIMIT = 10            [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_WITH_OR_WITHOUT = 11       [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_2_7];
+    ORD_TYPE_PEGGED = 12                [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_3_0];
+    ORD_TYPE_FOREX_MARKET = 13          [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_0, (fix.enum_deprecated)=VERSION_FIX_4_3];
+    ORD_TYPE_PREVIOUSLY_INDICATED = 14  [(fix.enum_value)="E", (fix.enum_added)=VERSION_FIX_4_0];
+    ORD_TYPE_PREVIOUSLY_QUOTED = 15     [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_4_0];
+    ORD_TYPE_FOREX_LIMIT = 16           [(fix.enum_value)="F", (fix.enum_added)=VERSION_FIX_4_1, (fix.enum_deprecated)=VERSION_FIX_4_3];
+    ORD_TYPE_FOREX_PREVIOUSLY_QUOTED = 17                   [(fix.enum_value)="H", (fix.enum_added)=VERSION_FIX_4_1, (fix.enum_deprecated)=VERSION_FIX_4_3];
+    ORD_TYPE_FOREX_SWAP = 18            [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_4_1];
+    ORD_TYPE_FUNARI = 19                [(fix.enum_value)="I", (fix.enum_added)=VERSION_FIX_4_2];
+    ORD_TYPE_MARKET_IF_TOUCHED = 20     [(fix.enum_value)="J", (fix.enum_added)=VERSION_FIX_4_3];
+    ORD_TYPE_MARKET_WITH_LEFT_OVER_AS_LIMIT = 21            [(fix.enum_value)="K", (fix.enum_added)=VERSION_FIX_4_3];
+    ORD_TYPE_NEXT_FUND_VALUATION_POINT = 22                 [(fix.enum_value)="M", (fix.enum_added)=VERSION_FIX_4_3];
+    ORD_TYPE_PREVIOUS_FUND_VALUATION_POINT = 23             [(fix.enum_value)="L", (fix.enum_added)=VERSION_FIX_4_3];
+    ORD_TYPE_COUNTER_ORDER_SELECTION = 24                   [(fix.enum_value)="Q", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+}
+
+enum LotTypeEnum {
+    LOT_TYPE_UNSPECIFIED = 0;
+    LOT_TYPE_BLOCK_LOT = 1              [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    LOT_TYPE_ODD_LOT = 2                [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+    LOT_TYPE_ROUND_LOT = 3              [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    LOT_TYPE_ROUND_LOT_BASED_UPON = 4   [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=80];
+}
+
+enum TickDirectionEnum {
+    TICK_DIRECTION_UNSPECIFIED = 0;
+    TICK_DIRECTION_MINUS_TICK = 1       [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    TICK_DIRECTION_PLUS_TICK = 2        [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    TICK_DIRECTION_ZERO_MINUS_TICK = 3  [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_2];
+    TICK_DIRECTION_ZERO_PLUS_TICK = 4   [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+}
+
+enum TradingSessionIDEnum {
+    TRADING_SESSION_ID_UNSPECIFIED = 0;
+    TRADING_SESSION_ID_AFTERNOON = 1    [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_ID_AFTER_HOURS = 2  [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_ID_DAY = 3          [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_ID_EVENING = 4      [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_ID_HALF_DAY = 5     [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_ID_MORNING = 6      [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+}
+
+enum TradingSessionSubIDEnum {
+    TRADING_SESSION_SUB_ID_UNSPECIFIED = 0;
+    TRADING_SESSION_SUB_ID_CLOSING_OR_CLOSING_AUCTION = 1   [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_SUB_ID_CONTINUOUS = 2                   [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_SUB_ID_INTRADAY_AUCTION = 3             [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_SUB_ID_OPENING_OR_OPENING_AUCTION = 4   [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_SUB_ID_POST_TRADING = 5                 [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_SUB_ID_PRE_TRADING = 6                  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    TRADING_SESSION_SUB_ID_QUIESCENT = 7                    [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+}
+
+enum SecurityTradingStatusEnum {
+    SECURITY_TRADING_STATUS_UNSPECIFIED = 0;
+    SECURITY_TRADING_STATUS_ITSPRE_OPENING = 1              [(fix.enum_value)="14", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_MARKET_IMBALANCE_BUY = 2        [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_MARKET_IMBALANCE_SELL = 3       [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_MARKET_ON_CLOSE_IMBALANCE_BUY = 4                   [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_MARKET_ON_CLOSE_IMBALANCE_SELL = 5                  [(fix.enum_value)="10", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_NEW_PRICE_INDICATION = 6        [(fix.enum_value)="15", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_NOT_AVAILABLE_FOR_TRADING = 7   [(fix.enum_value)="18", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_NOT_TRADED_ON_THIS_MARKET = 8   [(fix.enum_value)="19", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_NO_MARKET_IMBALANCE = 9         [(fix.enum_value)="12", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_NO_MARKET_ON_CLOSE_IMBALANCE = 10                   [(fix.enum_value)="13", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_NO_OPEN = 11                    [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_OPENING_DELAY = 12              [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_PRICE_INDICATION = 13           [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_READY_TO_TRADE = 14             [(fix.enum_value)="17", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_RESUME = 15 [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_TRADE_DISSEMINATION_TIME = 16   [(fix.enum_value)="16", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_TRADING_HALT = 17               [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_TRADING_RANGE_INDICATION = 18   [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_UNKNOWN_OR_INVALID = 19         [(fix.enum_value)="20", (fix.enum_added)=VERSION_FIX_4_2];
+    SECURITY_TRADING_STATUS_FAST_MARKET = 20                [(fix.enum_value)="23", (fix.enum_added)=VERSION_FIX_4_3];
+    SECURITY_TRADING_STATUS_OPENING_ROTATION = 21           [(fix.enum_value)="22", (fix.enum_added)=VERSION_FIX_4_3];
+    SECURITY_TRADING_STATUS_PRE_OPEN = 22                   [(fix.enum_value)="21", (fix.enum_added)=VERSION_FIX_4_3];
+    SECURITY_TRADING_STATUS_CROSS = 23  [(fix.enum_value)="25", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=42];
+    SECURITY_TRADING_STATUS_PRE_CROSS = 24                  [(fix.enum_value)="24", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=42];
+    SECURITY_TRADING_STATUS_POST_CLOSE = 25                 [(fix.enum_value)="26", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=84];
+}
+
+enum HaltReasonEnum {
+    HALT_REASON_UNSPECIFIED = 0;
+    HALT_REASON_ADDITIONAL_INFORMATION = 1                  [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=86];
+    HALT_REASON_EQUIPMENT_CHANGEOVER = 2                    [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=86];
+    HALT_REASON_NEWS_DISSEMINATION = 3  [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=86];
+    HALT_REASON_NEWS_PENDING = 4        [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=86];
+    HALT_REASON_ORDER_IMBALANCE = 5     [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=86];
+    HALT_REASON_ORDER_INFLUX = 6        [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=86];
+}
+
+enum QuoteConditionEnum {
+    QUOTE_CONDITION_UNSPECIFIED = 0;
+    QUOTE_CONDITION_CLOSED = 1          [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_CONSOLIDATED_BEST = 2                   [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_CROSSED = 3         [(fix.enum_value)="F", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_DEPTH = 4           [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_EXCHANGE_BEST = 5   [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_FAST_TRADING = 6    [(fix.enum_value)="H", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_LOCKED = 7          [(fix.enum_value)="E", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_NON_FIRM = 8        [(fix.enum_value)="I", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_OPEN = 9            [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_4_2];
+    QUOTE_CONDITION_FAST_MARKET_ETH = 10                    [(fix.enum_value)="f ", (fix.enum_added)=VERSION_FIX_4_4];
+    QUOTE_CONDITION_MANUAL = 11         [(fix.enum_value)="L", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=6];
+    QUOTE_CONDITION_ADDITIONAL_INFO = 12                    [(fix.enum_value)="U", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_ADDITIONAL_INFO_DUE_TO_RELATED = 13     [(fix.enum_value)="V", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_AUTOMATIC_EXECUTION = 14                [(fix.enum_value)="d", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_AUTOMATIC_EXECUTION_ETH = 15            [(fix.enum_value)="e", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_BID_OFFER_SPECIALIST = 16               [(fix.enum_value)="r", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_BID_SPECIALIST = 17 [(fix.enum_value)="p", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_CLOSING = 18        [(fix.enum_value)="O", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_DEPTH_ON_BID = 19   [(fix.enum_value)="N", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_DEPTH_ON_OFFER = 20 [(fix.enum_value)="M", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_DUE_TO_NEWS_DISSEMINATION = 21          [(fix.enum_value)="l", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_DUE_TO_NEWS_PENDING = 22                [(fix.enum_value)="m", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_DUE_TO_RELATED = 23 [(fix.enum_value)="S", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_END_OF_DAY_SAM = 24 [(fix.enum_value)="s", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_EQUIPMENT_CHANGEOVER = 25               [(fix.enum_value)="a", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_FORBIDDEN_SAM = 26  [(fix.enum_value)="t", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_FROZEN_SAM = 27     [(fix.enum_value)="u", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_HALT = 28           [(fix.enum_value)="j", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_HALT_ETH = 29       [(fix.enum_value)="k", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_IMPLIED_PRICE = 30  [(fix.enum_value)="K", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_INACTIVE_ETH = 31   [(fix.enum_value)="g", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_NEWS_DISSEMINATION = 32                 [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_NEWS_PENDING = 33   [(fix.enum_value)="T", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_NO_ACTIVE_SAM = 34  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_NO_OPEN = 35        [(fix.enum_value)="b", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_OFFER_SPECIALIST = 36                   [(fix.enum_value)="q", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_OPENING_SAM = 37    [(fix.enum_value)="w", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_OPEN_SAM = 38       [(fix.enum_value)="x", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_ORDER_IMBALANCE = 39                    [(fix.enum_value)="Z", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_ORDER_INFLUX = 40   [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_OUTRIGHT_PRICE = 41 [(fix.enum_value)="J", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_OUT_OF_SEQUENCE = 42                    [(fix.enum_value)="o", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_PRE_OPENING_SAM = 43                    [(fix.enum_value)="v", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_REGULAR_ETH = 44    [(fix.enum_value)="c", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_RESERVED_SAM = 45   [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_RESTRICTED = 46     [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_RESUME = 47         [(fix.enum_value)="W", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_ROTATION = 48       [(fix.enum_value)="h", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_ROTATION_ETH = 49   [(fix.enum_value)="i", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_SURVEILLANCE_SAM = 50                   [(fix.enum_value)="y", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_SUSPENDED_SAM = 51  [(fix.enum_value)="z", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_TRADING_RANGE = 52  [(fix.enum_value)="Q", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_TRADING_RESUME = 53 [(fix.enum_value)="n", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_VIEW_OF_COMMON = 54 [(fix.enum_value)="X", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_VOLUME_ALERT = 55   [(fix.enum_value)="Y", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    QUOTE_CONDITION_BETTER_PRICES_IN_CONDITIONAL_ORDERS = 56                    [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    QUOTE_CONDITION_REST_OF_BOOK_VWAP = 57                  [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    QUOTE_CONDITION_MEDIAN_PRICE = 58   [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=61];
+    QUOTE_CONDITION_FLAT_CURVE = 59     [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=83];
+    QUOTE_CONDITION_FULL_CURVE = 60     [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=83];
+}
+
+enum TradeConditionEnum {
+    TRADE_CONDITION_UNSPECIFIED = 0;
+    TRADE_CONDITION_AVERAGE_PRICE_TRADE = 1                 [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_CASH = 2            [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_CASH_TRADE = 3      [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_INTRADAY_TRADE_DETAIL = 4               [(fix.enum_value)="F", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_NEXT_DAY = 5        [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_NEXT_DAY_TRADE = 6  [(fix.enum_value)="J", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_OPENED = 7          [(fix.enum_value)="K", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_OPENING = 8         [(fix.enum_value)="E", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_RULE127TRADE = 9    [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_RULE155TRADE = 10   [(fix.enum_value)="H", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_SELLER = 11         [(fix.enum_value)="L", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_SOLD = 12           [(fix.enum_value)="M", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_SOLD_LAST = 13      [(fix.enum_value)="I", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_STOPPED_STOCK = 14  [(fix.enum_value)="N", (fix.enum_added)=VERSION_FIX_4_2];
+    TRADE_CONDITION_IMBALANCE_MORE_BUYERS = 15              [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_4_3];
+    TRADE_CONDITION_IMBALANCE_MORE_SELLERS = 16             [(fix.enum_value)="Q", (fix.enum_added)=VERSION_FIX_4_3];
+    TRADE_CONDITION_OPENING_PRICE = 17  [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_4_3];
+    TRADE_CONDITION_TRADES_RESULTING_FROM_INTERMARKET_SWEEP = 18                [(fix.enum_value)="Z", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=6];
+    TRADE_CONDITION_TRADES_RESULTING_FROM_MANUAL = 19       [(fix.enum_value)="Y", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=6];
+    TRADE_CONDITION_ACQUISITION = 20    [(fix.enum_value)="c", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_ADJUSTED = 21       [(fix.enum_value)="y", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_ADJUSTED_ETH = 22   [(fix.enum_value)="z", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_AUTOMATIC_EXECUTION = 23                [(fix.enum_value)="AQ", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_AUTO_EXECUTION_ETH = 24                 [(fix.enum_value)="v", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_BARGAIN_CONDITION = 25                  [(fix.enum_value)="S", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_BASKET_INDEX = 26   [(fix.enum_value)="AS", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_BUNCHED = 27        [(fix.enum_value)="d", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_BUNCHED_SALE = 28   [(fix.enum_value)="f", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_BURST_BASKET = 29   [(fix.enum_value)="AT", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL = 30         [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_ETH = 31     [(fix.enum_value)="i", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_LAST = 32    [(fix.enum_value)="n", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_LAST_ETH = 33                    [(fix.enum_value)="l", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_ONLY = 34    [(fix.enum_value)="s", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_ONLY_ETH = 35                    [(fix.enum_value)="t", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_OPEN = 36    [(fix.enum_value)="p", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_OPEN_ETH = 37                    [(fix.enum_value)="q", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_STOPPED = 38 [(fix.enum_value)="h", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CANCEL_STOPPED_ETH = 39                 [(fix.enum_value)="j", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_COMBO = 40          [(fix.enum_value)="AH", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_COMBO_ETH = 41      [(fix.enum_value)="AI", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CONVERTED_PRICE_INDICATOR = 42          [(fix.enum_value)="T", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CROSSED = 43        [(fix.enum_value)="X", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_CROSSED_OLD = 44    [(fix.enum_value)="AO", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_DIRECT_PLUS = 45    [(fix.enum_value)="b", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_DISTRIBUTION = 46   [(fix.enum_value)="e", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_EXCHANGE_LAST = 47  [(fix.enum_value)="U", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_EX_PIT = 48         [(fix.enum_value)="W", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_FAST_MARKET = 49    [(fix.enum_value)="AP", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_FINAL_PRICE_OF_SESSION = 50             [(fix.enum_value)="V", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_FORM_T = 51         [(fix.enum_value)="AR", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_IMPLIED_TRADE = 52  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_LATE_OPEN_ETH = 53  [(fix.enum_value)="u", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_MARKETPLACE_ENTERED_TRADE = 54          [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_MULTILEG_TO_MULTILEG_TRADE = 55         [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_MULT_ASSET_CLASS_MULTILEG_TRADE = 56    [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_OFFICAL_CLOSING_PRICE = 57              [(fix.enum_value)="AN", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_OFFICIAL_CLOSING_PRICE = 58             [(fix.enum_value)="AJ", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_OPENED_SALE_ETH = 59                    [(fix.enum_value)="r", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_OUT_OF_SEQUENCE_ETH = 60                [(fix.enum_value)="k", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_PRIOR_REFERENCE_PRICE = 61              [(fix.enum_value)="AK", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_REGULAR_ETH = 62    [(fix.enum_value)="AG", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_REOPEN = 63         [(fix.enum_value)="w", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_REOPEN_ETH = 64     [(fix.enum_value)="x", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_SOLD_LAST_SALE = 65 [(fix.enum_value)="o", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_SOLD_LAST_SALE_ETH = 66                 [(fix.enum_value)="m", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_SPLIT_TRADE = 67    [(fix.enum_value)="g", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_SPREAD = 68         [(fix.enum_value)="AA", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_SPREAD_ETH = 69     [(fix.enum_value)="AB", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_STOPPED = 70        [(fix.enum_value)="AE", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_STOPPED_ETH = 71    [(fix.enum_value)="AF", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_STOPPED_OUT_OF_SEQUENCE = 72            [(fix.enum_value)="AM", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_STOPPED_SOLD_LAST = 73                  [(fix.enum_value)="AL", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_STRADDLE = 74       [(fix.enum_value)="AC", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_STRADDLE_ETH = 75   [(fix.enum_value)="AD", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_VOLUME_ONLY = 76    [(fix.enum_value)="a", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    TRADE_CONDITION_OUTSIDE_SPREAD = 77 [(fix.enum_value)="AV", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+}
+
+enum OpenCloseSettlFlagEnum {
+    OPEN_CLOSE_SETTL_FLAG_UNSPECIFIED = 0;
+    OPEN_CLOSE_SETTL_FLAG_DAILY_OPEN = 1                    [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    OPEN_CLOSE_SETTL_FLAG_DELIVERY_SETTLEMENT_ENTRY = 2     [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    OPEN_CLOSE_SETTL_FLAG_SESSION_OPEN = 3                  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    OPEN_CLOSE_SETTL_FLAG_ENTRY_FROM_PREVIOUS_BUSINESS_DAY = 4                  [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_3];
+    OPEN_CLOSE_SETTL_FLAG_EXPECTED_ENTRY = 5                [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_3];
+    OPEN_CLOSE_SETTL_FLAG_THEORETICAL_PRICE_VALUE = 6       [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_4];
+}
+
+enum TimeInForceEnum {
+    TIME_IN_FORCE_UNSPECIFIED = 0;
+    TIME_IN_FORCE_AT_THE_OPENING = 1    [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_2_7];
+    TIME_IN_FORCE_DAY = 2               [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_2_7];
+    TIME_IN_FORCE_FILL_OR_KILL = 3      [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_2_7];
+    TIME_IN_FORCE_GOOD_TILL_CANCEL = 4  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_2_7];
+    TIME_IN_FORCE_GOOD_TILL_CROSSING = 5                    [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_2_7];
+    TIME_IN_FORCE_IMMEDIATE_OR_CANCEL = 6                   [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_2_7];
+    TIME_IN_FORCE_GOOD_TILL_DATE = 7    [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_0];
+    TIME_IN_FORCE_AT_THE_CLOSE = 8      [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_3];
+    TIME_IN_FORCE_AT_CROSSING = 9       [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=61];
+    TIME_IN_FORCE_GOOD_THROUGH_CROSSING = 10                [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=61];
+}
+
+enum ExecInstEnum {
+    EXEC_INST_UNSPECIFIED = 0;
+    EXEC_INST_ALL_OR_NONE = 1           [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_CALL_FIRST = 2            [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_DO_NOT_INCREASE = 3       [(fix.enum_value)="E", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_DO_NOT_REDUCE = 4         [(fix.enum_value)="F", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_GO_ALONG = 5              [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_HELD = 6                  [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_NOT_HELD = 7              [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_NO_CROSS = 8              [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_OKTO_CROSS = 9            [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_OVER_THE_DAY = 10         [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_PARTICIPATE_DO_NOT_INITIATE = 11              [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_PERCENT_OF_VOLUME = 12    [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_STAY_ON_BID_SIDE = 13     [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_STAY_ON_OFFER_SIDE = 14   [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_STRICT_SCALE = 15         [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_TRY_TO_SCALE = 16         [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_WORK = 17                 [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_2_7];
+    EXEC_INST_INSTITUTIONS_ONLY = 18    [(fix.enum_value)="I", (fix.enum_added)=VERSION_FIX_3_0];
+    EXEC_INST_LAST_PEG = 19             [(fix.enum_value)="L", (fix.enum_added)=VERSION_FIX_3_0, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_MARKET_PEG = 20           [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_3_0, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_MID_PRICE_PEG = 21        [(fix.enum_value)="M", (fix.enum_added)=VERSION_FIX_3_0, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_NON_NEGOTIABLE = 22       [(fix.enum_value)="N", (fix.enum_added)=VERSION_FIX_3_0];
+    EXEC_INST_OPENING_PEG = 23          [(fix.enum_value)="O", (fix.enum_added)=VERSION_FIX_3_0, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_PRIMARY_PEG = 24          [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_3_0, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_SUSPEND = 25              [(fix.enum_value)="S", (fix.enum_added)=VERSION_FIX_3_0];
+    EXEC_INST_CUSTOMER_DISPLAY_INSTRUCTION = 26             [(fix.enum_value)="U", (fix.enum_added)=VERSION_FIX_4_1];
+    EXEC_INST_NETTING = 27              [(fix.enum_value)="V", (fix.enum_added)=VERSION_FIX_4_1];
+    EXEC_INST_PEG_TO_VWAP = 28          [(fix.enum_value)="W", (fix.enum_added)=VERSION_FIX_4_2, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_CANCEL_ON_SYSTEM_FAILURE = 29                 [(fix.enum_value)="Q", (fix.enum_added)=VERSION_FIX_4_3];
+    EXEC_INST_CANCEL_ON_TRADING_HALT = 30                   [(fix.enum_value)="K", (fix.enum_added)=VERSION_FIX_4_3];
+    EXEC_INST_REINSTATE_ON_SYSTEM_FAILURE = 31              [(fix.enum_value)="H", (fix.enum_added)=VERSION_FIX_4_3];
+    EXEC_INST_REINSTATE_ON_TRADING_HALT = 32                [(fix.enum_value)="J", (fix.enum_added)=VERSION_FIX_4_3];
+    EXEC_INST_TRADE_ALONG = 33          [(fix.enum_value)="X", (fix.enum_added)=VERSION_FIX_4_3];
+    EXEC_INST_TRY_TO_STOP = 34          [(fix.enum_value)="Y", (fix.enum_added)=VERSION_FIX_4_3];
+    EXEC_INST_CANCEL_IF_NOT_BEST = 35   [(fix.enum_value)="Z", (fix.enum_added)=VERSION_FIX_4_4];
+    EXEC_INST_IGNORE_PRICE_VALIDITY_CHECKS = 36             [(fix.enum_value)="c", (fix.enum_added)=VERSION_FIX_4_4];
+    EXEC_INST_PEG_TO_LIMIT_PRICE = 37   [(fix.enum_value)="d", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_STRICT_LIMIT = 38         [(fix.enum_value)="b", (fix.enum_added)=VERSION_FIX_4_4];
+    EXEC_INST_TRAILING_STOP_PEG = 39    [(fix.enum_value)="a", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_WORK_TO_TARGET_STRATEGY = 40                  [(fix.enum_value)="e", (fix.enum_added)=VERSION_FIX_4_4];
+    EXEC_INST_INTERMARKET_SWEEP = 41    [(fix.enum_value)="f", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=6];
+    EXEC_INST_SINGLE_EXECUTION_REQUESTED_FOR_BLOCK_TRADE = 42                   [(fix.enum_value)="j", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=6];
+    EXEC_INST_EXTERNAL_ROUTING_ALLOWED = 43                 [(fix.enum_value)="g", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=14];
+    EXEC_INST_EXTERNAL_ROUTING_NOT_ALLOWED = 44             [(fix.enum_value)="h", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=14];
+    EXEC_INST_IMBALANCE_ONLY = 45       [(fix.enum_value)="i", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    EXEC_INST_BEST_EXECUTION = 46       [(fix.enum_value)="k", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=35];
+    EXEC_INST_FIXED_PEG_TO_LOCAL_BEST_BID_OR_OFFER_AT_TIME_OF_ORDER = 47        [(fix.enum_value)="T", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=35, (fix.enum_deprecated)=VERSION_FIX_5_0];
+    EXEC_INST_CANCEL_ON_CONNECTION_LOSS = 48                [(fix.enum_value)="o", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    EXEC_INST_REINSTATE_ON_CONNECTION_LOSS = 49             [(fix.enum_value)="n", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    EXEC_INST_RELEASE_FROM_SUSPENSION = 50                  [(fix.enum_value)="q", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    EXEC_INST_SUSPEND_ON_CONNECTION_LOSS = 51               [(fix.enum_value)="p", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    EXEC_INST_SUSPEND_ON_SYSTEM_FAILURE = 52                [(fix.enum_value)="l", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    EXEC_INST_SUSPEND_ON_TRADING_HALT = 53                  [(fix.enum_value)="m", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=58];
+    EXEC_INST_EXECUTE_AS_DELTA_NEUTRAL = 54                 [(fix.enum_value)="r", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=59];
+    EXEC_INST_EXECUTE_AS_DURATION_NEUTRAL = 55              [(fix.enum_value)="s", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=59];
+    EXEC_INST_EXECUTE_AS_FX_NEUTRAL = 56                    [(fix.enum_value)="t", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=59];
+}
+
+enum ScopeEnum {
+    SCOPE_UNSPECIFIED = 0;
+    SCOPE_GLOBAL = 1                    [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_3];
+    SCOPE_LOCAL_MARKET = 2              [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_3];
+    SCOPE_NATIONAL = 3                  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_3];
+}
+
+enum TrdTypeEnum {
+    TRD_TYPE_UNSPECIFIED = 0;
+    TRD_TYPE_AFTER_HOURS_TRADE = 1      [(fix.enum_value)="10", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_BLOCK_TRADE = 2            [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_BUNCHED_TRADE = 3          [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_EFP = 4                    [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_LATE_BUNCHED_TRADE = 5     [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_LATE_TRADE = 6             [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_PRIOR_REFERENCE_PRICE_TRADE = 7                [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_REGULAR_TRADE = 8          [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_TRANSFER = 9               [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_TTRADE = 10                [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_WEIGHTED_AVERAGE_PRICE_TRADE = 11              [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_4];
+    TRD_TYPE_ALL_OR_NONE = 12           [(fix.enum_value)="16", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_EXCHANGE_FOR_RISK = 13     [(fix.enum_value)="11", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_EXCHANGE_FOR_SWAP = 14     [(fix.enum_value)="12", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_EXCHANGE_OF_FUTURES_FOR = 15                   [(fix.enum_value)="13", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_EXCHANGE_OF_FUTURES_FOR_FUTURES = 16           [(fix.enum_value)="18", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_EXCHANGE_OF_OPTIONS_FOR_OPTIONS = 17           [(fix.enum_value)="14", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_FUTURES_LARGE_ORDER_EXECUTION = 18             [(fix.enum_value)="17", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_OPTION_CABINET_TRADE = 19  [(fix.enum_value)="20", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_OPTION_INTERIM_TRADE = 20  [(fix.enum_value)="19", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_TRADING_AT_SETTLEMENT = 21 [(fix.enum_value)="15", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=5];
+    TRD_TYPE_PRIVATELY_NEGOTIATED_TRADES = 22               [(fix.enum_value)="22", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    TRD_TYPE_SUBSTITUTION_OF_FUTURES_FOR_FORWARDS = 23      [(fix.enum_value)="23", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=19];
+    TRD_TYPE_BLOCK_TRADES = 24          [(fix.enum_value)="40", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_CASH_SETTLEMENT = 25       [(fix.enum_value)="29", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_DELTA_NEUTRAL_TRANSACTION = 26                 [(fix.enum_value)="46", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_ERROR_TRADE = 27           [(fix.enum_value)="24", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_FINANCING_TRANSACTION = 28 [(fix.enum_value)="47", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_GUARANTEED_DELIVERY = 29   [(fix.enum_value)="31", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_LARGE_TRADE = 30           [(fix.enum_value)="38", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_NAME_CHANGE = 31           [(fix.enum_value)="41", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_OPTION_EXERCISE = 32       [(fix.enum_value)="45", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_PORTFOLIO_TRANSFER = 33    [(fix.enum_value)="42", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_PROROGATION_BUY = 34       [(fix.enum_value)="43", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_PROROGATION_SELL = 35      [(fix.enum_value)="44", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_CUM_BONUS = 36     [(fix.enum_value)="36", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_CUM_CAPITAL_REPAYMENTS = 37            [(fix.enum_value)="34", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_CUM_COUPON = 38    [(fix.enum_value)="27", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_CUM_DIVIDEND = 39  [(fix.enum_value)="25", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_CUM_RIGHTS = 40    [(fix.enum_value)="32", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_EX_BONUS = 41      [(fix.enum_value)="37", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_EX_CAPITAL_REPAYMENTS = 42             [(fix.enum_value)="35", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_EX_COUPON = 43     [(fix.enum_value)="28", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_EX_DIVIDEND = 44   [(fix.enum_value)="26", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_EX_RIGHTS = 45     [(fix.enum_value)="33", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_SPECIAL_PRICE = 46         [(fix.enum_value)="30", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_WORKED_PRINCIPAL_TRADE = 47                    [(fix.enum_value)="39", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=26];
+    TRD_TYPE_DERIVATIVE_RELATED_TRANSACTION = 48            [(fix.enum_value)="49", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_EXCHANGE_GRANTED_TRADE = 49                    [(fix.enum_value)="52", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_NON_STANDARD_SETTLEMENT = 50                   [(fix.enum_value)="48", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_OTC = 51                   [(fix.enum_value)="54", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_PORTFOLIO_TRADE = 52       [(fix.enum_value)="50", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_REPURCHASE_AGREEMENT = 53  [(fix.enum_value)="53", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_VOLUME_WEIGHTED_AVERAGE_TRADE = 54             [(fix.enum_value)="51", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    TRD_TYPE_EXCHANGE_BASIS_FACILITY = 55                   [(fix.enum_value)="55", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=55];
+}
+
+enum OrderCapacityEnum {
+    ORDER_CAPACITY_UNSPECIFIED = 0;
+    ORDER_CAPACITY_AGENCY = 1           [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_4_3];
+    ORDER_CAPACITY_AGENT_FOR_OTHER_MEMBER = 2               [(fix.enum_value)="W", (fix.enum_added)=VERSION_FIX_4_3];
+    ORDER_CAPACITY_INDIVIDUAL = 3       [(fix.enum_value)="I", (fix.enum_added)=VERSION_FIX_4_3];
+    ORDER_CAPACITY_PRINCIPAL = 4        [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_4_3];
+    ORDER_CAPACITY_PROPRIETARY = 5      [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_4_3];
+    ORDER_CAPACITY_RISKLESS_PRINCIPAL = 6                   [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_4_3];
+}
+
+enum MDOriginTypeEnum {
+    MD_ORIGIN_TYPE_UNSPECIFIED = 0;
+    MD_ORIGIN_TYPE_BOOK = 1             [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    MD_ORIGIN_TYPE_CROSS = 2            [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    MD_ORIGIN_TYPE_OFF_BOOK = 3         [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+}
+
+enum SettlTypeEnum {
+    SETTL_TYPE_UNSPECIFIED = 0;
+    SETTL_TYPE_CASH = 1                 [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_FUTURE = 2               [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_NEXT_DAY = 3             [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_REGULAR = 4              [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_SELLERS_OPTION = 5       [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_TPLUS2 = 6               [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_TPLUS3 = 7               [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_TPLUS4 = 8               [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_WHEN_AND_IF_ISSUED = 9   [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_2_7];
+    SETTL_TYPE_TPLUS5 = 10              [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_3_0];
+    SETTL_TYPE_FX_SPOT_NEXT_SETTLEMENT = 11                 [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=21];
+    SETTL_TYPE_BROKEN_DATE = 12         [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=25];
+}
+
+enum MDQuoteTypeEnum {
+    MD_QUOTE_TYPE_UNSPECIFIED = 0;
+    MD_QUOTE_TYPE_COUNTER = 1           [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=32];
+    MD_QUOTE_TYPE_INDICATIVE = 2        [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=32];
+    MD_QUOTE_TYPE_INDICATIVE_AND_TRADEABLE = 3              [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=32];
+    MD_QUOTE_TYPE_RESTRICTED_TRADEABLE = 4                  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=32];
+    MD_QUOTE_TYPE_TRADEABLE = 5         [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=32];
+}
+
+enum DealingCapacityEnum {
+    DEALING_CAPACITY_UNSPECIFIED = 0;
+    DEALING_CAPACITY_AGENT = 1          [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=95];
+    DEALING_CAPACITY_PRINCIPAL = 2      [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=95];
+    DEALING_CAPACITY_RISKLESS_PRINCIPAL = 3                 [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=95];
+}
+
+enum MDUpdateActionEnum {
+    MD_UPDATE_ACTION_UNSPECIFIED = 0;
+    MD_UPDATE_ACTION_CHANGE = 1         [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_UPDATE_ACTION_DELETE = 2         [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_UPDATE_ACTION_NEW = 3            [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_UPDATE_ACTION_DELETE_FROM = 4    [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_UPDATE_ACTION_DELETE_THRU = 5    [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=7];
+    MD_UPDATE_ACTION_OVERLAY = 6        [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=42];
+}
+
+enum DeleteReasonEnum {
+    DELETE_REASON_UNSPECIFIED = 0;
+    DELETE_REASON_CANCELLATION = 1      [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    DELETE_REASON_ERROR = 2             [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+}
+
+enum FinancialStatusEnum {
+    FINANCIAL_STATUS_UNSPECIFIED = 0;
+    FINANCIAL_STATUS_BANKRUPT = 1       [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    FINANCIAL_STATUS_PENDING_DELISTING = 2                  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_3];
+    FINANCIAL_STATUS_RESTRICTED = 3     [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=12];
+}
+
+enum CorporateActionEnum {
+    CORPORATE_ACTION_UNSPECIFIED = 0;
+    CORPORATE_ACTION_EX_DISTRIBUTION = 1                    [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_4_2];
+    CORPORATE_ACTION_EX_DIVIDEND = 2    [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_4_2];
+    CORPORATE_ACTION_EX_INTEREST = 3    [(fix.enum_value)="E", (fix.enum_added)=VERSION_FIX_4_2];
+    CORPORATE_ACTION_EX_RIGHTS = 4      [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_2];
+    CORPORATE_ACTION_NEW = 5            [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_4_2];
+    CORPORATE_ACTION_CASH_DIVIDEND = 6  [(fix.enum_value)="F", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_CUSIP = 7          [(fix.enum_value)="U", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_LIQUIDATION_REORGANIZATION = 8         [(fix.enum_value)="L", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_MERGER_REORGANIZATION = 9              [(fix.enum_value)="M", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_NON_INTEGER_STOCK_SPLIT = 10           [(fix.enum_value)="H", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_POSITION_CONSOLIDATION = 11            [(fix.enum_value)="K", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_REVERSE_STOCK_SPLIT = 12               [(fix.enum_value)="I", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_RIGHTS_OFFERING = 13                   [(fix.enum_value)="N", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_SHAREHOLDER_MEETING = 14               [(fix.enum_value)="O", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_SPECIAL_ACTION = 15                    [(fix.enum_value)="S", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_SPINOFF = 16       [(fix.enum_value)="P", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_STANDARD_INTEGER_STOCK_SPLIT = 17      [(fix.enum_value)="J", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_STOCK_DIVIDEND = 18                    [(fix.enum_value)="G", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_SYMBOL_CONVERSION = 19                 [(fix.enum_value)="T", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_TENDER_OFFER = 20  [(fix.enum_value)="Q", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_WARRANT = 21       [(fix.enum_value)="R", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=4];
+    CORPORATE_ACTION_LEAP_ROLLOVER = 22 [(fix.enum_value)="V", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=8];
+    CORPORATE_ACTION_SUCCESSION_EVENT = 23                  [(fix.enum_value)="W", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=42];
+}
+
+enum MatchTypeEnum {
+    MATCH_TYPE_UNSPECIFIED = 0;
+    MATCH_TYPE_A1EXACT_MATCH_SUMMARIZED_QUANTITY = 1        [(fix.enum_value)="S1", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_A2EXACT_MATCH_SUMMARIZED_QUANTITY = 2        [(fix.enum_value)="S2", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_A3EXACT_MATCH_SUMMARIZED_QUANTITY = 3        [(fix.enum_value)="S3", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_A4EXACT_MATCH_SUMMARIZED_QUANTITY = 4        [(fix.enum_value)="S4", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_A5EXACT_MATCH_SUMMARIZED_QUANTITY = 5        [(fix.enum_value)="S5", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_ACTACCEPTED_TRADE = 6    [(fix.enum_value)="M3", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_ACTDEFAULT_AFTER_M2 = 7  [(fix.enum_value)="M5", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_ACTDEFAULT_TRADE = 8     [(fix.enum_value)="M4", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_ACTM6MATCH = 9           [(fix.enum_value)="M6", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_EXACT_MATCH_MINUS_BADGES_TIMES = 10          [(fix.enum_value)="M1", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_EXACT_MATCH_PLUS2BADGES = 11                 [(fix.enum_value)="A4", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_EXACT_MATCH_PLUS2BADGES_EXEC_TIME = 12       [(fix.enum_value)="A3", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_EXACT_MATCH_PLUS4BADGES = 13                 [(fix.enum_value)="A2", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_EXACT_MATCH_PLUS4BADGES_EXEC_TIME = 14       [(fix.enum_value)="A1", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_EXACT_MATCH_PLUS_EXEC_TIME = 15              [(fix.enum_value)="A5", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_OCSLOCKED_IN = 16        [(fix.enum_value)="MT", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_STAMPED_ADVISORIES_OR_SPECIALIST_ACCEPTS = 17                    [(fix.enum_value)="AQ", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_SUMMARIZED_MATCH_MINUS_BADGES_TIMES = 18     [(fix.enum_value)="M2", (fix.enum_added)=VERSION_FIX_4_3];
+    MATCH_TYPE_AUTO_MATCH = 19          [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_CALL_AUCTION = 20        [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_CONFIRMED_TRADE_REPORT = 21                  [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_COUNTER_ORDER_SELECTION = 22                 [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_CROSS_AUCTION = 23       [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_ONE_PARTY_TRADE_REPORT = 24                  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_TWO_PARTY_TRADE_REPORT = 25                  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=22];
+    MATCH_TYPE_ISSUING = 26             [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+}
+
+enum MDSecSizeTypeEnum {
+    MD_SEC_SIZE_TYPE_UNSPECIFIED = 0;
+    MD_SEC_SIZE_TYPE_CUSTOMER = 1       [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+}
+
+enum StatsTypeEnum {
+    STATS_TYPE_UNSPECIFIED = 0;
+    STATS_TYPE_AVERAGE_PRICE = 1        [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    STATS_TYPE_EXCHANGE_LAST = 2        [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    STATS_TYPE_HIGH = 3                 [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+    STATS_TYPE_TURNOVER = 4             [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=47];
+}
+
+enum StreamAsgnTypeEnum {
+    STREAM_ASGN_TYPE_UNSPECIFIED = 0;
+    STREAM_ASGN_TYPE_ASSIGNMENT = 1     [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_TYPE_REJECTED = 2       [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_TYPE_TERMINATE = 3      [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+}
+
+enum StreamAsgnRejReasonEnum {
+    STREAM_ASGN_REJ_REASON_UNSPECIFIED = 0;
+    STREAM_ASGN_REJ_REASON_EXCEEDS_MAXIMUM_SIZE = 1         [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_REJ_REASON_NO_AVAILABLE_STREAM = 2          [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_REJ_REASON_OTHER = 3    [(fix.enum_value)="99", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_REJ_REASON_UNKNOWN_CLIENT = 4               [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_REJ_REASON_UNKNOWN_OR_INVALID_CURRENCY_PAIR = 5                 [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+}
+
+enum SubscriptionRequestTypeEnum {
+    SUBSCRIPTION_REQUEST_TYPE_UNSPECIFIED = 0;
+    SUBSCRIPTION_REQUEST_TYPE_DISABLE_PREVIOUS_SNAPSHOT = 1 [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    SUBSCRIPTION_REQUEST_TYPE_SNAPSHOT = 2                  [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    SUBSCRIPTION_REQUEST_TYPE_SNAPSHOT_AND_UPDATES = 3      [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+}
+
+enum MDUpdateTypeEnum {
+    MD_UPDATE_TYPE_UNSPECIFIED = 0;
+    MD_UPDATE_TYPE_FULL_REFRESH = 1     [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_UPDATE_TYPE_INCREMENTAL_REFRESH = 2                  [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+}
+
+enum ApplQueueActionEnum {
+    APPL_QUEUE_ACTION_UNSPECIFIED = 0;
+    APPL_QUEUE_ACTION_END_SESSION = 1   [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_QUEUE_ACTION_NO_ACTION_TAKEN = 2                   [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_QUEUE_ACTION_OVERLAY_LAST = 3  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_QUEUE_ACTION_QUEUE_FLUSHED = 4 [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+}
+
+enum MDBookTypeEnum {
+    MD_BOOK_TYPE_UNSPECIFIED = 0;
+    MD_BOOK_TYPE_ORDER_DEPTH = 1        [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    MD_BOOK_TYPE_PRICE_DEPTH = 2        [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    MD_BOOK_TYPE_TOP_OF_BOOK = 3        [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+}
+
+enum ApplQueueResolutionEnum {
+    APPL_QUEUE_RESOLUTION_UNSPECIFIED = 0;
+    APPL_QUEUE_RESOLUTION_END_SESSION = 1                   [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_QUEUE_RESOLUTION_NO_ACTION_TAKEN = 2               [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_QUEUE_RESOLUTION_OVERLAY_LAST = 3                  [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_QUEUE_RESOLUTION_QUEUE_FLUSHED = 4                 [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+}
+
+enum MDReqRejReasonEnum {
+    MD_REQ_REJ_REASON_UNSPECIFIED = 0;
+    MD_REQ_REJ_REASON_DUPLICATE_MD_REQ_ID = 1               [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_INSUFFICIENT_BANDWIDTH = 2            [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_INSUFFICIENT_PERMISSIONS = 3          [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNKNOWN_SYMBOL = 4                    [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNSUPPORTED_AGGREGATED_BOOK = 5       [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNSUPPORTED_MARKET_DEPTH = 6          [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNSUPPORTED_MD_ENTRY_TYPE = 7         [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNSUPPORTED_MD_UPDATE_TYPE = 8        [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNSUPPORTED_SUBSCRIPTION_REQUEST_TYPE = 9                 [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_2];
+    MD_REQ_REJ_REASON_UNSUPPORTED_MD_IMPLICIT_DELETE = 10   [(fix.enum_value)="C", (fix.enum_added)=VERSION_FIX_4_3];
+    MD_REQ_REJ_REASON_UNSUPPORTED_OPEN_CLOSE_SETTLE_FLAG = 11                   [(fix.enum_value)="B", (fix.enum_added)=VERSION_FIX_4_3];
+    MD_REQ_REJ_REASON_UNSUPPORTED_SCOPE = 12                [(fix.enum_value)="A", (fix.enum_added)=VERSION_FIX_4_3];
+    MD_REQ_REJ_REASON_UNSUPPORTED_TRADING_SESSION_ID = 13   [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_4_3];
+    MD_REQ_REJ_REASON_INSUFFICIENT_CREDIT = 14              [(fix.enum_value)="D", (fix.enum_added)=VERSION_FIX_4_4, (fix.enum_added_ep)=21];
+}
+
+enum StreamAsgnReqTypeEnum {
+    STREAM_ASGN_REQ_TYPE_UNSPECIFIED = 0;
+    STREAM_ASGN_REQ_TYPE_STREAM_ASSIGNMENT_FOR_EXISTING_CUSTOMER = 1            [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_REQ_TYPE_STREAM_ASSIGNMENT_FOR_NEW_CUSTOMER = 2                 [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+}
+
+enum StreamAsgnAckTypeEnum {
+    STREAM_ASGN_ACK_TYPE_UNSPECIFIED = 0;
+    STREAM_ASGN_ACK_TYPE_ASSIGNMENT_ACCEPTED = 1            [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+    STREAM_ASGN_ACK_TYPE_ASSIGNMENT_REJECTED = 2            [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=93];
+}
+
+message MDFullGrp {
+    string currency = 1                 [(fix.tag)=15, (fix.type)=DATATYPE_CURRENCY, (fix.field_added)=VERSION_FIX_4_4];
+    DealingCapacityEnum dealing_capacity = 2                [(fix.tag)=1048, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    string desk_id = 3                  [(fix.tag)=284, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    string encoded_text = 4             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 encoded_text_len = 5       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_4];
+    repeated ExecInstEnum exec_inst = 6 [(fix.tag)=18, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 expire_date = 7            [(fix.tag)=432, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Timestamp expire_time = 8       [(fix.tag)=126, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 high_px = 9           [(fix.tag)=332, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_4_4];
+    string location_id = 10             [(fix.tag)=283, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 low_px = 11           [(fix.tag)=333, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_buyer = 12          [(fix.tag)=288, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 md_entry_date = 13         [(fix.tag)=272, (fix.type)=DATATYPE_UTC_DATE_ONLY, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_forward_points = 14              [(fix.tag)=1027, (fix.type)=DATATYPE_PRICE_OFFSET, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_id = 15             [(fix.tag)=278, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_originator = 16     [(fix.tag)=282, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 md_entry_position_no = 17  [(fix.tag)=290, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_px = 18      [(fix.tag)=270, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_seller = 19         [(fix.tag)=289, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_size = 20    [(fix.tag)=271, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_spot_rate = 21                   [(fix.tag)=1026, (fix.type)=DATATYPE_FLOAT, (fix.field_added)=VERSION_FIX_4_4];
+    fix.TimeOnly md_entry_time = 22     [(fix.tag)=273, (fix.type)=DATATYPE_UTC_TIME_ONLY, (fix.field_added)=VERSION_FIX_4_4];
+    MDEntryTypeEnum md_entry_type = 23  [(fix.tag)=269, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    string md_mkt = 24                  [(fix.tag)=275, (fix.type)=DATATYPE_EXCHANGE, (fix.field_added)=VERSION_FIX_4_4];
+    MDOriginTypeEnum md_origin_type = 25                    [(fix.tag)=1024, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 md_price_level = 26        [(fix.tag)=1023, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    MDQuoteTypeEnum md_quote_type = 27  [(fix.tag)=1070, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 min_qty = 28          [(fix.tag)=110, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 number_of_orders = 29      [(fix.tag)=346, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated OpenCloseSettlFlagEnum open_close_settl_flag = 30                  [(fix.tag)=286, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    OrdTypeEnum ord_type = 31           [(fix.tag)=40, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    OrderCapacityEnum order_capacity = 32                   [(fix.tag)=528, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    string order_id = 33                [(fix.tag)=37, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.Parties parties = 34                    [(fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 price_delta = 35      [(fix.tag)=811, (fix.type)=DATATYPE_FLOAT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated QuoteConditionEnum quote_condition = 36        [(fix.tag)=276, (fix.type)=DATATYPE_MULTIPLE_STRING_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    string quote_entry_id = 37          [(fix.tag)=299, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 rpt_seq = 38               [(fix.tag)=83, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated ScopeEnum scope = 39       [(fix.tag)=546, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    string secondary_order_id = 40      [(fix.tag)=198, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 seller_days = 41           [(fix.tag)=287, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 settl_date = 42            [(fix.tag)=64, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    oneof settl_type_union {
+        SettlTypeEnum settl_type = 43       [(fix.tag)=63, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+        fix.Tenor settl_type_tenor = 44     [(fix.tag)=63, (fix.type)=DATATYPE_TENOR, (fix.field_added)=VERSION_FIX_4_4];
+    }
+    string text = 45                    [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    TickDirectionEnum tick_direction = 46                   [(fix.tag)=274, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    TimeInForceEnum time_in_force = 47  [(fix.tag)=59, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    repeated TradeConditionEnum trade_condition = 48        [(fix.tag)=277, (fix.type)=DATATYPE_MULTIPLE_STRING_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 trade_volume = 49     [(fix.tag)=1020, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_4_4];
+    oneof trading_session_id_union {
+        TradingSessionIDEnum trading_session_id = 50            [(fix.tag)=336, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+        fixed32 trading_session_id_reserved100plus = 51         [(fix.tag)=336, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_4_4];
+    }
+    oneof trading_session_sub_id_union {
+        TradingSessionSubIDEnum trading_session_sub_id = 52     [(fix.tag)=625, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+        fixed32 trading_session_sub_id_reserved100plus = 53     [(fix.tag)=625, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_4_4];
+    }
+    oneof halt_reason_union {
+        HaltReasonEnum halt_reason = 54     [(fix.tag)=327, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 halt_reason_reserved100plus = 55                [(fix.tag)=327, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    LotTypeEnum lot_type = 56           [(fix.tag)=1093, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_5_0];
+    PriceTypeEnum price_type = 57       [(fix.tag)=423, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    repeated SecSizesGrp sec_sizes_grp = 58                 [(fix.field_added)=VERSION_FIX_5_0];
+    oneof security_trading_status_union {
+        SecurityTradingStatusEnum security_trading_status = 59  [(fix.tag)=326, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 security_trading_status_reserved100plus = 60    [(fix.tag)=326, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61       [(fix.field_added)=VERSION_FIX_5_0];
+    Common.YieldData yield_data = 62    [(fix.field_added)=VERSION_FIX_5_0];
+    repeated Common.RateSource rate_source = 63             [(fix.field_added)=VERSION_FIX_5_0SP1];
+    string settl_currency = 64          [(fix.tag)=120, (fix.type)=DATATYPE_CURRENCY, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=82];
+    fix.Decimal64 first_px = 65         [(fix.tag)=1025, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=84];
+    fix.Decimal64 last_px = 66          [(fix.tag)=31, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=84];
+    oneof trd_type_union {
+        TrdTypeEnum trd_type = 67           [(fix.tag)=828, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=84];
+        fixed32 trd_type_reserved1000plus = 68                  [(fix.tag)=828, (fix.type)=DATATYPE_RESERVED1000PLUS, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=84];
+    }
+}
+
+message MDIncGrp {
+    repeated CorporateActionEnum corporate_action = 1       [(fix.tag)=292, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    string currency = 2                 [(fix.tag)=15, (fix.type)=DATATYPE_CURRENCY, (fix.field_added)=VERSION_FIX_4_4];
+    DealingCapacityEnum dealing_capacity = 3                [(fix.tag)=1048, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    DeleteReasonEnum delete_reason = 4  [(fix.tag)=285, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    string desk_id = 5                  [(fix.tag)=284, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    string encoded_text = 6             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 encoded_text_len = 7       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_4];
+    repeated ExecInstEnum exec_inst = 8 [(fix.tag)=18, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 expire_date = 9            [(fix.tag)=432, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Timestamp expire_time = 10      [(fix.tag)=126, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_4_4];
+    repeated FinancialStatusEnum financial_status = 11      [(fix.tag)=291, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 high_px = 12          [(fix.tag)=332, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.InstrmtLegGrp instrmt_leg_grp = 13      [(fix.field_added)=VERSION_FIX_4_4];
+    Common.Instrument instrument = 14   [(fix.field_added)=VERSION_FIX_4_4];
+    string location_id = 15             [(fix.tag)=283, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 low_px = 16           [(fix.tag)=333, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_buyer = 17          [(fix.tag)=288, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 md_entry_date = 18         [(fix.tag)=272, (fix.type)=DATATYPE_UTC_DATE_ONLY, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_forward_points = 19              [(fix.tag)=1027, (fix.type)=DATATYPE_PRICE_OFFSET, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_id = 20             [(fix.tag)=278, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_originator = 21     [(fix.tag)=282, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 md_entry_position_no = 22  [(fix.tag)=290, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_px = 23      [(fix.tag)=270, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_ref_id = 24         [(fix.tag)=280, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    string md_entry_seller = 25         [(fix.tag)=289, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_size = 26    [(fix.tag)=271, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 md_entry_spot_rate = 27                   [(fix.tag)=1026, (fix.type)=DATATYPE_FLOAT, (fix.field_added)=VERSION_FIX_4_4];
+    fix.TimeOnly md_entry_time = 28     [(fix.tag)=273, (fix.type)=DATATYPE_UTC_TIME_ONLY, (fix.field_added)=VERSION_FIX_4_4];
+    MDEntryTypeEnum md_entry_type = 29  [(fix.tag)=269, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    string md_mkt = 30                  [(fix.tag)=275, (fix.type)=DATATYPE_EXCHANGE, (fix.field_added)=VERSION_FIX_4_4];
+    MDOriginTypeEnum md_origin_type = 31                    [(fix.tag)=1024, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 md_price_level = 32        [(fix.tag)=1023, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    MDQuoteTypeEnum md_quote_type = 33  [(fix.tag)=1070, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    MDUpdateActionEnum md_update_action = 34                [(fix.tag)=279, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 min_qty = 35          [(fix.tag)=110, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 net_chg_prev_day = 36 [(fix.tag)=451, (fix.type)=DATATYPE_PRICE_OFFSET, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 number_of_orders = 37      [(fix.tag)=346, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated OpenCloseSettlFlagEnum open_close_settl_flag = 38                  [(fix.tag)=286, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    OrdTypeEnum ord_type = 39           [(fix.tag)=40, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    OrderCapacityEnum order_capacity = 40                   [(fix.tag)=528, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    string order_id = 41                [(fix.tag)=37, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.Parties parties = 42                    [(fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 price_delta = 43      [(fix.tag)=811, (fix.type)=DATATYPE_FLOAT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated QuoteConditionEnum quote_condition = 44        [(fix.tag)=276, (fix.type)=DATATYPE_MULTIPLE_STRING_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    string quote_entry_id = 45          [(fix.tag)=299, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 rpt_seq = 46               [(fix.tag)=83, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated ScopeEnum scope = 47       [(fix.tag)=546, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    string secondary_order_id = 48      [(fix.tag)=198, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 seller_days = 49           [(fix.tag)=287, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 settl_date = 50            [(fix.tag)=64, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    oneof settl_type_union {
+        SettlTypeEnum settl_type = 51       [(fix.tag)=63, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+        fix.Tenor settl_type_tenor = 52     [(fix.tag)=63, (fix.type)=DATATYPE_TENOR, (fix.field_added)=VERSION_FIX_4_4];
+    }
+    string text = 53                    [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    TickDirectionEnum tick_direction = 54                   [(fix.tag)=274, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    TimeInForceEnum time_in_force = 55  [(fix.tag)=59, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+    repeated TradeConditionEnum trade_condition = 56        [(fix.tag)=277, (fix.type)=DATATYPE_MULTIPLE_STRING_VALUE, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Decimal64 trade_volume = 57     [(fix.tag)=1020, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_4_4];
+    oneof trading_session_id_union {
+        TradingSessionIDEnum trading_session_id = 58            [(fix.tag)=336, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+        fixed32 trading_session_id_reserved100plus = 59         [(fix.tag)=336, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_4_4];
+    }
+    oneof trading_session_sub_id_union {
+        TradingSessionSubIDEnum trading_session_sub_id = 60     [(fix.tag)=625, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+        fixed32 trading_session_sub_id_reserved100plus = 61     [(fix.tag)=625, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_4_4];
+    }
+    repeated Common.UndInstrmtGrp und_instrmt_grp = 62      [(fix.field_added)=VERSION_FIX_4_4];
+    oneof halt_reason_union {
+        HaltReasonEnum halt_reason = 63     [(fix.tag)=327, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 halt_reason_reserved100plus = 64                [(fix.tag)=327, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    LotTypeEnum lot_type = 65           [(fix.tag)=1093, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 market_depth = 66          [(fix.tag)=264, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    MatchTypeEnum match_type = 67       [(fix.tag)=574, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 md_sub_book_type = 68      [(fix.tag)=1173, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    PriceTypeEnum price_type = 69       [(fix.tag)=423, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    repeated SecSizesGrp sec_sizes_grp = 70                 [(fix.field_added)=VERSION_FIX_5_0];
+    oneof security_trading_status_union {
+        SecurityTradingStatusEnum security_trading_status = 71  [(fix.tag)=326, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 security_trading_status_reserved100plus = 72    [(fix.tag)=326, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73       [(fix.field_added)=VERSION_FIX_5_0];
+    repeated StatsIndGrp stats_ind_grp = 74                 [(fix.field_added)=VERSION_FIX_5_0];
+    string trade_id = 75                [(fix.tag)=1003, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+    fix.Timestamp trans_bkd_time = 76   [(fix.tag)=483, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_5_0];
+    fix.Timestamp transact_time = 77    [(fix.tag)=60, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_5_0];
+    oneof trd_type_union {
+        TrdTypeEnum trd_type = 78           [(fix.tag)=828, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 trd_type_reserved1000plus = 79                  [(fix.tag)=828, (fix.type)=DATATYPE_RESERVED1000PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    Common.YieldData yield_data = 80    [(fix.field_added)=VERSION_FIX_5_0];
+    repeated Common.RateSource rate_source = 81             [(fix.field_added)=VERSION_FIX_5_0SP1];
+    string settl_currency = 82          [(fix.tag)=120, (fix.type)=DATATYPE_CURRENCY, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=82];
+    fix.Decimal64 first_px = 83         [(fix.tag)=1025, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=84];
+    fix.Decimal64 last_px = 84          [(fix.tag)=31, (fix.type)=DATATYPE_PRICE, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=84];
+    string md_stream_id = 85            [(fix.tag)=1500, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+}
+
+message MDReqGrp {
+    MDEntryTypeEnum md_entry_type = 1   [(fix.tag)=269, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_4];
+}
+
+message MDRjctGrp {
+    string alt_md_source_id = 1         [(fix.tag)=817, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+}
+
+message SecSizesGrp {
+    fix.Decimal64 md_sec_size = 1       [(fix.tag)=1179, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_5_0];
+    oneof md_sec_size_type_union {
+        MDSecSizeTypeEnum md_sec_size_type = 2                  [(fix.tag)=1178, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 md_sec_size_type_reserved100plus = 3            [(fix.tag)=1178, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+}
+
+message StatsIndGrp {
+    StatsTypeEnum stats_type = 1        [(fix.tag)=1176, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+}
+
+message StrmAsgnReqGrp {
+    repeated Common.Parties parties = 1 [(fix.field_added)=VERSION_FIX_5_0SP1];
+    repeated StrmAsgnReqInstrmtGrp strm_asgn_req_instrmt_grp = 2                [(fix.field_added)=VERSION_FIX_5_0SP1];
+}
+
+message StrmAsgnRptGrp {
+    repeated Common.Parties parties = 1 [(fix.field_added)=VERSION_FIX_5_0SP1];
+    repeated StrmAsgnRptInstrmtGrp strm_asgn_rpt_instrmt_grp = 2                [(fix.field_added)=VERSION_FIX_5_0SP1];
+}
+
+message StrmAsgnReqInstrmtGrp {
+    Common.Instrument instrument = 1    [(fix.field_added)=VERSION_FIX_5_0SP1];
+    fix.Decimal64 md_entry_size = 2     [(fix.tag)=271, (fix.type)=DATATYPE_QTY, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    string md_stream_id = 3             [(fix.tag)=1500, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    oneof settl_type_union {
+        SettlTypeEnum settl_type = 4        [(fix.tag)=63, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+        fix.Tenor settl_type_tenor = 5      [(fix.tag)=63, (fix.type)=DATATYPE_TENOR, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    }
+}
+
+message StrmAsgnRptInstrmtGrp {
+    Common.Instrument instrument = 1    [(fix.field_added)=VERSION_FIX_5_0SP1];
+    string encoded_text = 2             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    sfixed64 encoded_text_len = 3       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    string md_stream_id = 4             [(fix.tag)=1500, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    oneof settl_type_union {
+        SettlTypeEnum settl_type = 5        [(fix.tag)=63, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+        fix.Tenor settl_type_tenor = 6      [(fix.tag)=63, (fix.type)=DATATYPE_TENOR, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    }
+    oneof stream_asgn_rej_reason_union {
+        StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7      [(fix.tag)=1502, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+        fixed32 stream_asgn_rej_reason_reserved100plus = 8      [(fix.tag)=1502, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    }
+    StreamAsgnTypeEnum stream_asgn_type = 9                 [(fix.tag)=1617, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    string text = 10                    [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+}
+
+message MarketDataRequest {
+    option (fix.msg_type_value)="V";
+    bool aggregated_book = 1            [(fix.tag)=266, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 market_depth = 2           [(fix.tag)=264, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_2];
+    string md_req_id = 3                [(fix.tag)=262, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    MDUpdateTypeEnum md_update_type = 4 [(fix.tag)=265, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardHeader standard_header = 5              [(fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardTrailer standard_trailer = 6            [(fix.field_added)=VERSION_FIX_4_2];
+    SubscriptionRequestTypeEnum subscription_request_type = 7                   [(fix.tag)=263, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_2];
+    bool md_implicit_delete = 8         [(fix.tag)=547, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_3];
+    repeated OpenCloseSettlFlagEnum open_close_settl_flag = 9                   [(fix.tag)=286, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_3];
+    repeated ScopeEnum scope = 10       [(fix.tag)=546, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_3];
+    ApplQueueActionEnum appl_queue_action = 11              [(fix.tag)=815, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 appl_queue_max = 12        [(fix.tag)=812, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.InstrmtMDReqGrp instrmt_md_req_grp = 13 [(fix.field_added)=VERSION_FIX_4_4];
+    MDQuoteTypeEnum md_quote_type = 14  [(fix.tag)=1070, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated MDReqGrp md_req_grp = 15   [(fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.TrdgSesGrp trdg_ses_grp = 16            [(fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.Parties parties = 17                    [(fix.field_added)=VERSION_FIX_5_0];
+}
+
+message MarketDataSnapshotFullRefresh {
+    option (fix.msg_type_value)="W";
+    repeated CorporateActionEnum corporate_action = 1       [(fix.tag)=292, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_2];
+    repeated FinancialStatusEnum financial_status = 2       [(fix.tag)=291, (fix.type)=DATATYPE_MULTIPLE_CHAR_VALUE, (fix.field_added)=VERSION_FIX_4_2];
+    string md_req_id = 3                [(fix.tag)=262, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardHeader standard_header = 4              [(fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardTrailer standard_trailer = 5            [(fix.field_added)=VERSION_FIX_4_2];
+    Common.Instrument instrument = 6    [(fix.field_added)=VERSION_FIX_4_3];
+    fix.Decimal64 net_chg_prev_day = 7  [(fix.tag)=451, (fix.type)=DATATYPE_PRICE_OFFSET, (fix.field_added)=VERSION_FIX_4_3];
+    sfixed64 appl_queue_depth = 8       [(fix.tag)=813, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    ApplQueueResolutionEnum appl_queue_resolution = 9       [(fix.tag)=814, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 clearing_business_date = 10                    [(fix.tag)=715, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.InstrmtLegGrp instrmt_leg_grp = 11      [(fix.field_added)=VERSION_FIX_4_4];
+    MDBookTypeEnum md_book_type = 12    [(fix.tag)=1021, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    string md_feed_type = 13            [(fix.tag)=1022, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    repeated MDFullGrp md_full_grp = 14 [(fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 md_report_id = 15          [(fix.tag)=963, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.RoutingGrp routing_grp = 16             [(fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 trade_date = 17            [(fix.tag)=75, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.UndInstrmtGrp und_instrmt_grp = 18      [(fix.field_added)=VERSION_FIX_4_4];
+    Common.ApplicationSequenceControl application_sequence_control = 19         [(fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 market_depth = 20          [(fix.tag)=264, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 md_sub_book_type = 21      [(fix.tag)=1173, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    bool refresh_indicator = 22         [(fix.tag)=1187, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 tot_num_reports = 23       [(fix.tag)=911, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    string md_stream_id = 24            [(fix.tag)=1500, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+}
+
+message MarketDataIncrementalRefresh {
+    option (fix.msg_type_value)="X";
+    string md_req_id = 1                [(fix.tag)=262, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardHeader standard_header = 2              [(fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardTrailer standard_trailer = 3            [(fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 appl_queue_depth = 4       [(fix.tag)=813, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    ApplQueueResolutionEnum appl_queue_resolution = 5       [(fix.tag)=814, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    MDBookTypeEnum md_book_type = 6     [(fix.tag)=1021, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_4];
+    string md_feed_type = 7             [(fix.tag)=1022, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    repeated MDIncGrp md_inc_grp = 8    [(fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.RoutingGrp routing_grp = 9              [(fix.field_added)=VERSION_FIX_4_4];
+    sfixed32 trade_date = 10            [(fix.tag)=75, (fix.type)=DATATYPE_LOCAL_MKT_DATE, (fix.field_added)=VERSION_FIX_4_4];
+    Common.ApplicationSequenceControl application_sequence_control = 11         [(fix.field_added)=VERSION_FIX_5_0];
+}
+
+message MarketDataRequestReject {
+    option (fix.msg_type_value)="Y";
+    string encoded_text = 1             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 encoded_text_len = 2       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_2];
+    string md_req_id = 3                [(fix.tag)=262, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    MDReqRejReasonEnum md_req_rej_reason = 4                [(fix.tag)=281, (fix.type)=DATATYPE_CHAR, (fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardHeader standard_header = 5              [(fix.field_added)=VERSION_FIX_4_2];
+    Session.StandardTrailer standard_trailer = 6            [(fix.field_added)=VERSION_FIX_4_2];
+    string text = 7                     [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    repeated MDRjctGrp md_rjct_grp = 8  [(fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.Parties parties = 9 [(fix.field_added)=VERSION_FIX_5_0];
+}
+
+message StreamAssignmentRequest {
+    option (fix.msg_type_value)="CC";
+    Session.StandardHeader standard_header = 1              [(fix.field_added)=VERSION_FIX_5_0SP1];
+    Session.StandardTrailer standard_trailer = 2            [(fix.field_added)=VERSION_FIX_5_0SP1];
+    repeated StrmAsgnReqGrp strm_asgn_req_grp = 3           [(fix.field_added)=VERSION_FIX_5_0SP1];
+    string stream_asgn_req_id = 4       [(fix.tag)=1497, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    StreamAsgnReqTypeEnum stream_asgn_req_type = 5          [(fix.tag)=1498, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+}
+
+message StreamAssignmentReport {
+    option (fix.msg_type_value)="CD";
+    Session.StandardHeader standard_header = 1              [(fix.field_added)=VERSION_FIX_5_0SP1];
+    Session.StandardTrailer standard_trailer = 2            [(fix.field_added)=VERSION_FIX_5_0SP1];
+    repeated StrmAsgnRptGrp strm_asgn_rpt_grp = 3           [(fix.field_added)=VERSION_FIX_5_0SP1];
+    string stream_asgn_req_id = 4       [(fix.tag)=1497, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    StreamAsgnReqTypeEnum stream_asgn_req_type = 5          [(fix.tag)=1498, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    string stream_asgn_rpt_id = 6       [(fix.tag)=1501, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+}
+
+message StreamAssignmentReportACK {
+    option (fix.msg_type_value)="CE";
+    Session.StandardHeader standard_header = 1              [(fix.field_added)=VERSION_FIX_5_0SP1];
+    Session.StandardTrailer standard_trailer = 2            [(fix.field_added)=VERSION_FIX_5_0SP1];
+    string encoded_text = 3             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    sfixed64 encoded_text_len = 4       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    StreamAsgnAckTypeEnum stream_asgn_ack_type = 5          [(fix.tag)=1503, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    oneof stream_asgn_rej_reason_union {
+        StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6      [(fix.tag)=1502, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+        fixed32 stream_asgn_rej_reason_reserved100plus = 7      [(fix.tag)=1502, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    }
+    string stream_asgn_rpt_id = 8       [(fix.tag)=1501, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+    string text = 9                     [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0SP1, (fix.field_added_ep)=93];
+}
