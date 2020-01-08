@@ -9,30 +9,36 @@ public interface MarketSegmentGrpOrBuilder extends
 
   /**
    * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketId.
    */
   java.lang.String getMarketId();
   /**
    * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketId.
    */
   com.google.protobuf.ByteString
       getMarketIdBytes();
 
   /**
    * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketSegmentId.
    */
   java.lang.String getMarketSegmentId();
   /**
    * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketSegmentId.
    */
   com.google.protobuf.ByteString
       getMarketSegmentIdBytes();
 
   /**
    * <code>.Common.SecurityTradingRules security_trading_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the securityTradingRules field is set.
    */
   boolean hasSecurityTradingRules();
   /**
    * <code>.Common.SecurityTradingRules security_trading_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityTradingRules.
    */
   org.fixprotocol.components.SecurityTradingRules getSecurityTradingRules();
   /**

@@ -9,26 +9,31 @@ public interface ApplicationSequenceControlOrBuilder extends
 
   /**
    * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applId.
    */
   java.lang.String getApplId();
   /**
    * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for applId.
    */
   com.google.protobuf.ByteString
       getApplIdBytes();
 
   /**
    * <code>sfixed64 appl_last_seq_num = 2 [(.fix.tag) = 1350, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applLastSeqNum.
    */
   long getApplLastSeqNum();
 
   /**
    * <code>bool appl_resend_flag = 3 [(.fix.tag) = 1352, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applResendFlag.
    */
   boolean getApplResendFlag();
 
   /**
    * <code>sfixed64 appl_seq_num = 4 [(.fix.tag) = 1181, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applSeqNum.
    */
   long getApplSeqNum();
 }

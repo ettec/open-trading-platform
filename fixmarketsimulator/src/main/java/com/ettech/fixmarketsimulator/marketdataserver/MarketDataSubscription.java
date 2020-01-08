@@ -1,7 +1,6 @@
-package com.ettech.fixmarketsimulator.marketdata;
+package com.ettech.fixmarketsimulator.marketdataserver;
 
 import com.ettech.fixmarketsimulator.exchange.*;
-import io.netty.channel.ChannelHandlerContext;
 import org.fixprotocol.components.Fix;
 import org.fixprotocol.components.Instrument;
 import org.fixprotocol.components.MarketData;
@@ -15,15 +14,15 @@ import java.util.List;
 
 public class MarketDataSubscription implements Closeable, MdEntryListener {
 
-  ChannelHandlerContext ctx;
+  Connection connection;
   OrderBook book;
   String requestId;
 
   Logger log = LoggerFactory.getLogger(MarketDataSubscription.class);
 
-  MarketDataSubscription(ChannelHandlerContext ctx, OrderBook book, String requestId) {
+  public MarketDataSubscription(Connection connection, OrderBook book, String requestId) {
 
-    this.ctx = ctx;
+    this.connection = connection;
     this.book = book;
     this.requestId = requestId;
 
@@ -42,7 +41,7 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
     book.addMdEntryListener(this);
 
     var incRefresh = incRefreshBuilder.build();
-    ctx.write(incRefresh);
+    connection.send(incRefresh);
     log.info("Sent incremental refresh {}", incRefresh);
   }
 
@@ -108,7 +107,7 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
       incRefresh.addMdIncGrp(mdEntryBuilder.build());
     }
 
-    ctx.writeAndFlush(incRefresh.build());
+    connection.send(incRefresh.build());
   }
 
   private MarketData.MDEntryTypeEnum getMdEntryType(Side side) {

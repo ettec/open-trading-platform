@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object rootPartySubId_;
   /**
    * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartySubId.
    */
   public java.lang.String getRootPartySubId() {
     java.lang.Object ref = rootPartySubId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for rootPartySubId.
    */
   public com.google.protobuf.ByteString
       getRootPartySubIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int rootPartySubIdType_;
   /**
    * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for rootPartySubIdType.
    */
   public int getRootPartySubIdTypeValue() {
     return rootPartySubIdType_;
   }
   /**
    * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartySubIdType.
    */
   public org.fixprotocol.components.RootPartySubIDTypeEnum getRootPartySubIdType() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object rootPartySubId_ = "";
     /**
      * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rootPartySubId.
      */
     public java.lang.String getRootPartySubId() {
       java.lang.Object ref = rootPartySubId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for rootPartySubId.
      */
     public com.google.protobuf.ByteString
         getRootPartySubIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The rootPartySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartySubId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRootPartySubId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for rootPartySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartySubIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int rootPartySubIdType_ = 0;
     /**
      * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for rootPartySubIdType.
      */
     public int getRootPartySubIdTypeValue() {
       return rootPartySubIdType_;
     }
     /**
      * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for rootPartySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartySubIdTypeValue(int value) {
       rootPartySubIdType_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rootPartySubIdType.
      */
     public org.fixprotocol.components.RootPartySubIDTypeEnum getRootPartySubIdType() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The rootPartySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartySubIdType(org.fixprotocol.components.RootPartySubIDTypeEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRootPartySubIdType() {
       

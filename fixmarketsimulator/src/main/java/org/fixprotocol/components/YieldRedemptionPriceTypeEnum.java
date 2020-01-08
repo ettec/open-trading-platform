@@ -174,6 +174,8 @@ public enum YieldRedemptionPriceTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -181,6 +183,10 @@ public enum YieldRedemptionPriceTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static YieldRedemptionPriceTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return YIELD_REDEMPTION_PRICE_TYPE_UNSPECIFIED;

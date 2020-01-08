@@ -218,12 +218,14 @@ private static final long serialVersionUID = 0L;
   private int expirationCycle_;
   /**
    * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for expirationCycle.
    */
   public int getExpirationCycleValue() {
     return expirationCycle_;
   }
   /**
    * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The expirationCycle.
    */
   public org.fixprotocol.components.ExpirationCycleEnum getExpirationCycle() {
     @SuppressWarnings("deprecation")
@@ -235,12 +237,14 @@ private static final long serialVersionUID = 0L;
   private int impliedMarketIndicator_;
   /**
    * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for impliedMarketIndicator.
    */
   public int getImpliedMarketIndicatorValue() {
     return impliedMarketIndicator_;
   }
   /**
    * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The impliedMarketIndicator.
    */
   public org.fixprotocol.components.ImpliedMarketIndicatorEnum getImpliedMarketIndicator() {
     @SuppressWarnings("deprecation")
@@ -287,12 +291,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 maxPriceVariation_;
   /**
    * <code>.fix.Decimal64 max_price_variation = 4 [(.fix.tag) = 1143, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the maxPriceVariation field is set.
    */
   public boolean hasMaxPriceVariation() {
     return maxPriceVariation_ != null;
   }
   /**
    * <code>.fix.Decimal64 max_price_variation = 4 [(.fix.tag) = 1143, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maxPriceVariation.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMaxPriceVariation() {
     return maxPriceVariation_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : maxPriceVariation_;
@@ -308,12 +314,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 maxTradeVol_;
   /**
    * <code>.fix.Decimal64 max_trade_vol = 5 [(.fix.tag) = 1140, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the maxTradeVol field is set.
    */
   public boolean hasMaxTradeVol() {
     return maxTradeVol_ != null;
   }
   /**
    * <code>.fix.Decimal64 max_trade_vol = 5 [(.fix.tag) = 1140, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maxTradeVol.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMaxTradeVol() {
     return maxTradeVol_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : maxTradeVol_;
@@ -329,12 +337,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 minTradeVol_;
   /**
    * <code>.fix.Decimal64 min_trade_vol = 6 [(.fix.tag) = 562, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the minTradeVol field is set.
    */
   public boolean hasMinTradeVol() {
     return minTradeVol_ != null;
   }
   /**
    * <code>.fix.Decimal64 min_trade_vol = 6 [(.fix.tag) = 562, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The minTradeVol.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMinTradeVol() {
     return minTradeVol_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : minTradeVol_;
@@ -350,12 +360,14 @@ private static final long serialVersionUID = 0L;
   private int multilegModel_;
   /**
    * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for multilegModel.
    */
   public int getMultilegModelValue() {
     return multilegModel_;
   }
   /**
    * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The multilegModel.
    */
   public org.fixprotocol.components.MultilegModelEnum getMultilegModel() {
     @SuppressWarnings("deprecation")
@@ -367,12 +379,14 @@ private static final long serialVersionUID = 0L;
   private int multilegPriceMethod_;
   /**
    * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for multilegPriceMethod.
    */
   public int getMultilegPriceMethodValue() {
     return multilegPriceMethod_;
   }
   /**
    * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The multilegPriceMethod.
    */
   public org.fixprotocol.components.MultilegPriceMethodEnum getMultilegPriceMethod() {
     @SuppressWarnings("deprecation")
@@ -384,12 +398,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.PriceLimits priceLimits_;
   /**
    * <code>.Common.PriceLimits price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the priceLimits field is set.
    */
   public boolean hasPriceLimits() {
     return priceLimits_ != null;
   }
   /**
    * <code>.Common.PriceLimits price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceLimits.
    */
   public org.fixprotocol.components.PriceLimits getPriceLimits() {
     return priceLimits_ == null ? org.fixprotocol.components.PriceLimits.getDefaultInstance() : priceLimits_;
@@ -405,12 +421,14 @@ private static final long serialVersionUID = 0L;
   private int priceType_;
   /**
    * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for priceType.
    */
   public int getPriceTypeValue() {
     return priceType_;
   }
   /**
    * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceType.
    */
   public org.fixprotocol.components.PriceTypeEnum getPriceType() {
     @SuppressWarnings("deprecation")
@@ -422,12 +440,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 roundLot_;
   /**
    * <code>.fix.Decimal64 round_lot = 11 [(.fix.tag) = 561, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the roundLot field is set.
    */
   public boolean hasRoundLot() {
     return roundLot_ != null;
   }
   /**
    * <code>.fix.Decimal64 round_lot = 11 [(.fix.tag) = 561, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The roundLot.
    */
   public org.fixprotocol.components.Fix.Decimal64 getRoundLot() {
     return roundLot_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : roundLot_;
@@ -478,6 +498,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object tradingCurrency_;
   /**
    * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingCurrency.
    */
   public java.lang.String getTradingCurrency() {
     java.lang.Object ref = tradingCurrency_;
@@ -493,6 +514,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for tradingCurrency.
    */
   public com.google.protobuf.ByteString
       getTradingCurrencyBytes() {
@@ -1155,12 +1177,15 @@ private static final long serialVersionUID = 0L;
     private int expirationCycle_ = 0;
     /**
      * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for expirationCycle.
      */
     public int getExpirationCycleValue() {
       return expirationCycle_;
     }
     /**
      * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for expirationCycle to set.
+     * @return This builder for chaining.
      */
     public Builder setExpirationCycleValue(int value) {
       expirationCycle_ = value;
@@ -1169,6 +1194,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The expirationCycle.
      */
     public org.fixprotocol.components.ExpirationCycleEnum getExpirationCycle() {
       @SuppressWarnings("deprecation")
@@ -1177,6 +1203,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The expirationCycle to set.
+     * @return This builder for chaining.
      */
     public Builder setExpirationCycle(org.fixprotocol.components.ExpirationCycleEnum value) {
       if (value == null) {
@@ -1189,6 +1217,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearExpirationCycle() {
       
@@ -1200,12 +1229,15 @@ private static final long serialVersionUID = 0L;
     private int impliedMarketIndicator_ = 0;
     /**
      * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for impliedMarketIndicator.
      */
     public int getImpliedMarketIndicatorValue() {
       return impliedMarketIndicator_;
     }
     /**
      * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for impliedMarketIndicator to set.
+     * @return This builder for chaining.
      */
     public Builder setImpliedMarketIndicatorValue(int value) {
       impliedMarketIndicator_ = value;
@@ -1214,6 +1246,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The impliedMarketIndicator.
      */
     public org.fixprotocol.components.ImpliedMarketIndicatorEnum getImpliedMarketIndicator() {
       @SuppressWarnings("deprecation")
@@ -1222,6 +1255,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The impliedMarketIndicator to set.
+     * @return This builder for chaining.
      */
     public Builder setImpliedMarketIndicator(org.fixprotocol.components.ImpliedMarketIndicatorEnum value) {
       if (value == null) {
@@ -1234,6 +1269,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearImpliedMarketIndicator() {
       
@@ -1487,12 +1523,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> maxPriceVariationBuilder_;
     /**
      * <code>.fix.Decimal64 max_price_variation = 4 [(.fix.tag) = 1143, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the maxPriceVariation field is set.
      */
     public boolean hasMaxPriceVariation() {
       return maxPriceVariationBuilder_ != null || maxPriceVariation_ != null;
     }
     /**
      * <code>.fix.Decimal64 max_price_variation = 4 [(.fix.tag) = 1143, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The maxPriceVariation.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMaxPriceVariation() {
       if (maxPriceVariationBuilder_ == null) {
@@ -1604,12 +1642,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> maxTradeVolBuilder_;
     /**
      * <code>.fix.Decimal64 max_trade_vol = 5 [(.fix.tag) = 1140, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the maxTradeVol field is set.
      */
     public boolean hasMaxTradeVol() {
       return maxTradeVolBuilder_ != null || maxTradeVol_ != null;
     }
     /**
      * <code>.fix.Decimal64 max_trade_vol = 5 [(.fix.tag) = 1140, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The maxTradeVol.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMaxTradeVol() {
       if (maxTradeVolBuilder_ == null) {
@@ -1721,12 +1761,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> minTradeVolBuilder_;
     /**
      * <code>.fix.Decimal64 min_trade_vol = 6 [(.fix.tag) = 562, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the minTradeVol field is set.
      */
     public boolean hasMinTradeVol() {
       return minTradeVolBuilder_ != null || minTradeVol_ != null;
     }
     /**
      * <code>.fix.Decimal64 min_trade_vol = 6 [(.fix.tag) = 562, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The minTradeVol.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMinTradeVol() {
       if (minTradeVolBuilder_ == null) {
@@ -1836,12 +1878,15 @@ private static final long serialVersionUID = 0L;
     private int multilegModel_ = 0;
     /**
      * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for multilegModel.
      */
     public int getMultilegModelValue() {
       return multilegModel_;
     }
     /**
      * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for multilegModel to set.
+     * @return This builder for chaining.
      */
     public Builder setMultilegModelValue(int value) {
       multilegModel_ = value;
@@ -1850,6 +1895,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The multilegModel.
      */
     public org.fixprotocol.components.MultilegModelEnum getMultilegModel() {
       @SuppressWarnings("deprecation")
@@ -1858,6 +1904,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The multilegModel to set.
+     * @return This builder for chaining.
      */
     public Builder setMultilegModel(org.fixprotocol.components.MultilegModelEnum value) {
       if (value == null) {
@@ -1870,6 +1918,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMultilegModel() {
       
@@ -1881,12 +1930,15 @@ private static final long serialVersionUID = 0L;
     private int multilegPriceMethod_ = 0;
     /**
      * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for multilegPriceMethod.
      */
     public int getMultilegPriceMethodValue() {
       return multilegPriceMethod_;
     }
     /**
      * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for multilegPriceMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setMultilegPriceMethodValue(int value) {
       multilegPriceMethod_ = value;
@@ -1895,6 +1947,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The multilegPriceMethod.
      */
     public org.fixprotocol.components.MultilegPriceMethodEnum getMultilegPriceMethod() {
       @SuppressWarnings("deprecation")
@@ -1903,6 +1956,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The multilegPriceMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setMultilegPriceMethod(org.fixprotocol.components.MultilegPriceMethodEnum value) {
       if (value == null) {
@@ -1915,6 +1970,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMultilegPriceMethod() {
       
@@ -1928,12 +1984,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.PriceLimits, org.fixprotocol.components.PriceLimits.Builder, org.fixprotocol.components.PriceLimitsOrBuilder> priceLimitsBuilder_;
     /**
      * <code>.Common.PriceLimits price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the priceLimits field is set.
      */
     public boolean hasPriceLimits() {
       return priceLimitsBuilder_ != null || priceLimits_ != null;
     }
     /**
      * <code>.Common.PriceLimits price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceLimits.
      */
     public org.fixprotocol.components.PriceLimits getPriceLimits() {
       if (priceLimitsBuilder_ == null) {
@@ -2043,12 +2101,15 @@ private static final long serialVersionUID = 0L;
     private int priceType_ = 0;
     /**
      * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for priceType.
      */
     public int getPriceTypeValue() {
       return priceType_;
     }
     /**
      * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for priceType to set.
+     * @return This builder for chaining.
      */
     public Builder setPriceTypeValue(int value) {
       priceType_ = value;
@@ -2057,6 +2118,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceType.
      */
     public org.fixprotocol.components.PriceTypeEnum getPriceType() {
       @SuppressWarnings("deprecation")
@@ -2065,6 +2127,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The priceType to set.
+     * @return This builder for chaining.
      */
     public Builder setPriceType(org.fixprotocol.components.PriceTypeEnum value) {
       if (value == null) {
@@ -2077,6 +2141,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPriceType() {
       
@@ -2090,12 +2155,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> roundLotBuilder_;
     /**
      * <code>.fix.Decimal64 round_lot = 11 [(.fix.tag) = 561, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the roundLot field is set.
      */
     public boolean hasRoundLot() {
       return roundLotBuilder_ != null || roundLot_ != null;
     }
     /**
      * <code>.fix.Decimal64 round_lot = 11 [(.fix.tag) = 561, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The roundLot.
      */
     public org.fixprotocol.components.Fix.Decimal64 getRoundLot() {
       if (roundLotBuilder_ == null) {
@@ -2445,6 +2512,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object tradingCurrency_ = "";
     /**
      * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingCurrency.
      */
     public java.lang.String getTradingCurrency() {
       java.lang.Object ref = tradingCurrency_;
@@ -2460,6 +2528,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for tradingCurrency.
      */
     public com.google.protobuf.ByteString
         getTradingCurrencyBytes() {
@@ -2476,6 +2545,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tradingCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingCurrency(
         java.lang.String value) {
@@ -2489,6 +2560,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingCurrency() {
       
@@ -2498,6 +2570,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for tradingCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingCurrencyBytes(
         com.google.protobuf.ByteString value) {

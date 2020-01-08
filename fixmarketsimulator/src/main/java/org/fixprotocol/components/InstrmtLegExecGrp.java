@@ -348,12 +348,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.InstrumentLeg instrumentLeg_;
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrumentLeg field is set.
    */
   public boolean hasInstrumentLeg() {
     return instrumentLeg_ != null;
   }
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentLeg.
    */
   public org.fixprotocol.components.InstrumentLeg getInstrumentLeg() {
     return instrumentLeg_ == null ? org.fixprotocol.components.InstrumentLeg.getDefaultInstance() : instrumentLeg_;
@@ -369,12 +371,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legCalculatedCcyLastQty_;
   /**
    * <code>.fix.Decimal64 leg_calculated_ccy_last_qty = 2 [(.fix.tag) = 1074, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legCalculatedCcyLastQty field is set.
    */
   public boolean hasLegCalculatedCcyLastQty() {
     return legCalculatedCcyLastQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_calculated_ccy_last_qty = 2 [(.fix.tag) = 1074, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legCalculatedCcyLastQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegCalculatedCcyLastQty() {
     return legCalculatedCcyLastQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legCalculatedCcyLastQty_;
@@ -390,12 +394,14 @@ private static final long serialVersionUID = 0L;
   private int legCoveredOrUncovered_;
   /**
    * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legCoveredOrUncovered.
    */
   public int getLegCoveredOrUncoveredValue() {
     return legCoveredOrUncovered_;
   }
   /**
    * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legCoveredOrUncovered.
    */
   public org.fixprotocol.components.LegCoveredOrUncoveredEnum getLegCoveredOrUncovered() {
     @SuppressWarnings("deprecation")
@@ -407,12 +413,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legGrossTradeAmt_;
   /**
    * <code>.fix.Decimal64 leg_gross_trade_amt = 4 [(.fix.tag) = 1075, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legGrossTradeAmt field is set.
    */
   public boolean hasLegGrossTradeAmt() {
     return legGrossTradeAmt_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_gross_trade_amt = 4 [(.fix.tag) = 1075, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legGrossTradeAmt.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegGrossTradeAmt() {
     return legGrossTradeAmt_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legGrossTradeAmt_;
@@ -428,12 +436,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legLastForwardPoints_;
   /**
    * <code>.fix.Decimal64 leg_last_forward_points = 5 [(.fix.tag) = 1073, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legLastForwardPoints field is set.
    */
   public boolean hasLegLastForwardPoints() {
     return legLastForwardPoints_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_last_forward_points = 5 [(.fix.tag) = 1073, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legLastForwardPoints.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegLastForwardPoints() {
     return legLastForwardPoints_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legLastForwardPoints_;
@@ -449,12 +459,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legLastPx_;
   /**
    * <code>.fix.Decimal64 leg_last_px = 6 [(.fix.tag) = 637, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legLastPx field is set.
    */
   public boolean hasLegLastPx() {
     return legLastPx_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_last_px = 6 [(.fix.tag) = 637, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legLastPx.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegLastPx() {
     return legLastPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legLastPx_;
@@ -470,12 +482,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legOrderQty_;
   /**
    * <code>.fix.Decimal64 leg_order_qty = 7 [(.fix.tag) = 685, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legOrderQty field is set.
    */
   public boolean hasLegOrderQty() {
     return legOrderQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_order_qty = 7 [(.fix.tag) = 685, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legOrderQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegOrderQty() {
     return legOrderQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legOrderQty_;
@@ -491,12 +505,14 @@ private static final long serialVersionUID = 0L;
   private int legPositionEffect_;
   /**
    * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legPositionEffect.
    */
   public int getLegPositionEffectValue() {
     return legPositionEffect_;
   }
   /**
    * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legPositionEffect.
    */
   public org.fixprotocol.components.LegPositionEffectEnum getLegPositionEffect() {
     @SuppressWarnings("deprecation")
@@ -508,12 +524,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legQty_;
   /**
    * <code>.fix.Decimal64 leg_qty = 9 [(.fix.tag) = 687, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legQty field is set.
    */
   public boolean hasLegQty() {
     return legQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_qty = 9 [(.fix.tag) = 687, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegQty() {
     return legQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legQty_;
@@ -529,6 +547,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legRefId_;
   /**
    * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legRefId.
    */
   public java.lang.String getLegRefId() {
     java.lang.Object ref = legRefId_;
@@ -544,6 +563,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legRefId.
    */
   public com.google.protobuf.ByteString
       getLegRefIdBytes() {
@@ -563,6 +583,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSettlCurrency_;
   /**
    * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSettlCurrency.
    */
   public java.lang.String getLegSettlCurrency() {
     java.lang.Object ref = legSettlCurrency_;
@@ -578,6 +599,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legSettlCurrency.
    */
   public com.google.protobuf.ByteString
       getLegSettlCurrencyBytes() {
@@ -597,6 +619,7 @@ private static final long serialVersionUID = 0L;
   private int legSettlDate_;
   /**
    * <code>sfixed32 leg_settl_date = 12 [(.fix.tag) = 588, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSettlDate.
    */
   public int getLegSettlDate() {
     return legSettlDate_;
@@ -606,12 +629,14 @@ private static final long serialVersionUID = 0L;
   private int legSettlType_;
   /**
    * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSettlType.
    */
   public int getLegSettlTypeValue() {
     return legSettlType_;
   }
   /**
    * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSettlType.
    */
   public org.fixprotocol.components.LegSettlTypeEnum getLegSettlType() {
     @SuppressWarnings("deprecation")
@@ -658,12 +683,14 @@ private static final long serialVersionUID = 0L;
   private int legSwapType_;
   /**
    * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSwapType.
    */
   public int getLegSwapTypeValue() {
     return legSwapType_;
   }
   /**
    * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSwapType.
    */
   public org.fixprotocol.components.LegSwapTypeEnum getLegSwapType() {
     @SuppressWarnings("deprecation")
@@ -675,6 +702,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legAllocId_;
   /**
    * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legAllocId.
    */
   public java.lang.String getLegAllocId() {
     java.lang.Object ref = legAllocId_;
@@ -690,6 +718,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for legAllocId.
    */
   public com.google.protobuf.ByteString
       getLegAllocIdBytes() {
@@ -709,12 +738,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legCurrencyRatio_;
   /**
    * <code>.fix.Decimal64 leg_currency_ratio = 17 [(.fix.tag) = 1383, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legCurrencyRatio field is set.
    */
   public boolean hasLegCurrencyRatio() {
     return legCurrencyRatio_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_currency_ratio = 17 [(.fix.tag) = 1383, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legCurrencyRatio.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegCurrencyRatio() {
     return legCurrencyRatio_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legCurrencyRatio_;
@@ -730,12 +761,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legDividendYield_;
   /**
    * <code>.fix.Decimal64 leg_dividend_yield = 18 [(.fix.tag) = 1381, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legDividendYield field is set.
    */
   public boolean hasLegDividendYield() {
     return legDividendYield_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_dividend_yield = 18 [(.fix.tag) = 1381, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legDividendYield.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegDividendYield() {
     return legDividendYield_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legDividendYield_;
@@ -761,6 +794,7 @@ private static final long serialVersionUID = 0L;
           };
   /**
    * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return A list containing the legExecInst.
    */
   public java.util.List<org.fixprotocol.components.LegExecInstEnum> getLegExecInstList() {
     return new com.google.protobuf.Internal.ListAdapter<
@@ -768,18 +802,22 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The count of legExecInst.
    */
   public int getLegExecInstCount() {
     return legExecInst_.size();
   }
   /**
    * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @param index The index of the element to return.
+   * @return The legExecInst at the given index.
    */
   public org.fixprotocol.components.LegExecInstEnum getLegExecInst(int index) {
     return legExecInst_converter_.convert(legExecInst_.get(index));
   }
   /**
    * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return A list containing the enum numeric values on the wire for legExecInst.
    */
   public java.util.List<java.lang.Integer>
   getLegExecInstValueList() {
@@ -787,6 +825,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @param index The index of the value to return.
+   * @return The enum numeric value on the wire of legExecInst at the given index.
    */
   public int getLegExecInstValue(int index) {
     return legExecInst_.get(index);
@@ -797,12 +837,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legLastQty_;
   /**
    * <code>.fix.Decimal64 leg_last_qty = 20 [(.fix.tag) = 1418, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legLastQty field is set.
    */
   public boolean hasLegLastQty() {
     return legLastQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_last_qty = 20 [(.fix.tag) = 1418, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legLastQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegLastQty() {
     return legLastQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legLastQty_;
@@ -853,12 +895,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legVolatility_;
   /**
    * <code>.fix.Decimal64 leg_volatility = 22 [(.fix.tag) = 1379, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legVolatility field is set.
    */
   public boolean hasLegVolatility() {
     return legVolatility_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_volatility = 22 [(.fix.tag) = 1379, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legVolatility.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegVolatility() {
     return legVolatility_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legVolatility_;
@@ -1866,12 +1910,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.InstrumentLeg, org.fixprotocol.components.InstrumentLeg.Builder, org.fixprotocol.components.InstrumentLegOrBuilder> instrumentLegBuilder_;
     /**
      * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrumentLeg field is set.
      */
     public boolean hasInstrumentLeg() {
       return instrumentLegBuilder_ != null || instrumentLeg_ != null;
     }
     /**
      * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrumentLeg.
      */
     public org.fixprotocol.components.InstrumentLeg getInstrumentLeg() {
       if (instrumentLegBuilder_ == null) {
@@ -1983,12 +2029,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legCalculatedCcyLastQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_calculated_ccy_last_qty = 2 [(.fix.tag) = 1074, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legCalculatedCcyLastQty field is set.
      */
     public boolean hasLegCalculatedCcyLastQty() {
       return legCalculatedCcyLastQtyBuilder_ != null || legCalculatedCcyLastQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_calculated_ccy_last_qty = 2 [(.fix.tag) = 1074, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legCalculatedCcyLastQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegCalculatedCcyLastQty() {
       if (legCalculatedCcyLastQtyBuilder_ == null) {
@@ -2098,12 +2146,15 @@ private static final long serialVersionUID = 0L;
     private int legCoveredOrUncovered_ = 0;
     /**
      * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legCoveredOrUncovered.
      */
     public int getLegCoveredOrUncoveredValue() {
       return legCoveredOrUncovered_;
     }
     /**
      * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legCoveredOrUncovered to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCoveredOrUncoveredValue(int value) {
       legCoveredOrUncovered_ = value;
@@ -2112,6 +2163,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legCoveredOrUncovered.
      */
     public org.fixprotocol.components.LegCoveredOrUncoveredEnum getLegCoveredOrUncovered() {
       @SuppressWarnings("deprecation")
@@ -2120,6 +2172,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legCoveredOrUncovered to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCoveredOrUncovered(org.fixprotocol.components.LegCoveredOrUncoveredEnum value) {
       if (value == null) {
@@ -2132,6 +2186,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegCoveredOrUncoveredEnum leg_covered_or_uncovered = 3 [(.fix.tag) = 565, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegCoveredOrUncovered() {
       
@@ -2145,12 +2200,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legGrossTradeAmtBuilder_;
     /**
      * <code>.fix.Decimal64 leg_gross_trade_amt = 4 [(.fix.tag) = 1075, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legGrossTradeAmt field is set.
      */
     public boolean hasLegGrossTradeAmt() {
       return legGrossTradeAmtBuilder_ != null || legGrossTradeAmt_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_gross_trade_amt = 4 [(.fix.tag) = 1075, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legGrossTradeAmt.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegGrossTradeAmt() {
       if (legGrossTradeAmtBuilder_ == null) {
@@ -2262,12 +2319,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legLastForwardPointsBuilder_;
     /**
      * <code>.fix.Decimal64 leg_last_forward_points = 5 [(.fix.tag) = 1073, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legLastForwardPoints field is set.
      */
     public boolean hasLegLastForwardPoints() {
       return legLastForwardPointsBuilder_ != null || legLastForwardPoints_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_last_forward_points = 5 [(.fix.tag) = 1073, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legLastForwardPoints.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegLastForwardPoints() {
       if (legLastForwardPointsBuilder_ == null) {
@@ -2379,12 +2438,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legLastPxBuilder_;
     /**
      * <code>.fix.Decimal64 leg_last_px = 6 [(.fix.tag) = 637, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legLastPx field is set.
      */
     public boolean hasLegLastPx() {
       return legLastPxBuilder_ != null || legLastPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_last_px = 6 [(.fix.tag) = 637, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legLastPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegLastPx() {
       if (legLastPxBuilder_ == null) {
@@ -2496,12 +2557,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legOrderQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_order_qty = 7 [(.fix.tag) = 685, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legOrderQty field is set.
      */
     public boolean hasLegOrderQty() {
       return legOrderQtyBuilder_ != null || legOrderQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_order_qty = 7 [(.fix.tag) = 685, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legOrderQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegOrderQty() {
       if (legOrderQtyBuilder_ == null) {
@@ -2611,12 +2674,15 @@ private static final long serialVersionUID = 0L;
     private int legPositionEffect_ = 0;
     /**
      * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legPositionEffect.
      */
     public int getLegPositionEffectValue() {
       return legPositionEffect_;
     }
     /**
      * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legPositionEffect to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPositionEffectValue(int value) {
       legPositionEffect_ = value;
@@ -2625,6 +2691,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legPositionEffect.
      */
     public org.fixprotocol.components.LegPositionEffectEnum getLegPositionEffect() {
       @SuppressWarnings("deprecation")
@@ -2633,6 +2700,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legPositionEffect to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPositionEffect(org.fixprotocol.components.LegPositionEffectEnum value) {
       if (value == null) {
@@ -2645,6 +2714,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegPositionEffectEnum leg_position_effect = 8 [(.fix.tag) = 564, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegPositionEffect() {
       
@@ -2658,12 +2728,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_qty = 9 [(.fix.tag) = 687, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legQty field is set.
      */
     public boolean hasLegQty() {
       return legQtyBuilder_ != null || legQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_qty = 9 [(.fix.tag) = 687, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegQty() {
       if (legQtyBuilder_ == null) {
@@ -2773,6 +2845,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legRefId_ = "";
     /**
      * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legRefId.
      */
     public java.lang.String getLegRefId() {
       java.lang.Object ref = legRefId_;
@@ -2788,6 +2861,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legRefId.
      */
     public com.google.protobuf.ByteString
         getLegRefIdBytes() {
@@ -2804,6 +2878,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legRefId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegRefId(
         java.lang.String value) {
@@ -2817,6 +2893,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegRefId() {
       
@@ -2826,6 +2903,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_ref_id = 10 [(.fix.tag) = 654, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legRefId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegRefIdBytes(
         com.google.protobuf.ByteString value) {
@@ -2842,6 +2921,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSettlCurrency_ = "";
     /**
      * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSettlCurrency.
      */
     public java.lang.String getLegSettlCurrency() {
       java.lang.Object ref = legSettlCurrency_;
@@ -2857,6 +2937,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legSettlCurrency.
      */
     public com.google.protobuf.ByteString
         getLegSettlCurrencyBytes() {
@@ -2873,6 +2954,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSettlCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlCurrency(
         java.lang.String value) {
@@ -2886,6 +2969,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSettlCurrency() {
       
@@ -2895,6 +2979,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_settl_currency = 11 [(.fix.tag) = 675, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legSettlCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -2911,12 +2997,15 @@ private static final long serialVersionUID = 0L;
     private int legSettlDate_ ;
     /**
      * <code>sfixed32 leg_settl_date = 12 [(.fix.tag) = 588, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSettlDate.
      */
     public int getLegSettlDate() {
       return legSettlDate_;
     }
     /**
      * <code>sfixed32 leg_settl_date = 12 [(.fix.tag) = 588, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSettlDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlDate(int value) {
       
@@ -2926,6 +3015,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_settl_date = 12 [(.fix.tag) = 588, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSettlDate() {
       
@@ -2937,12 +3027,15 @@ private static final long serialVersionUID = 0L;
     private int legSettlType_ = 0;
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legSettlType.
      */
     public int getLegSettlTypeValue() {
       return legSettlType_;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legSettlType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlTypeValue(int value) {
       legSettlType_ = value;
@@ -2951,6 +3044,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSettlType.
      */
     public org.fixprotocol.components.LegSettlTypeEnum getLegSettlType() {
       @SuppressWarnings("deprecation")
@@ -2959,6 +3053,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSettlType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlType(org.fixprotocol.components.LegSettlTypeEnum value) {
       if (value == null) {
@@ -2971,6 +3067,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 13 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSettlType() {
       
@@ -3222,12 +3319,15 @@ private static final long serialVersionUID = 0L;
     private int legSwapType_ = 0;
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legSwapType.
      */
     public int getLegSwapTypeValue() {
       return legSwapType_;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legSwapType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSwapTypeValue(int value) {
       legSwapType_ = value;
@@ -3236,6 +3336,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSwapType.
      */
     public org.fixprotocol.components.LegSwapTypeEnum getLegSwapType() {
       @SuppressWarnings("deprecation")
@@ -3244,6 +3345,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSwapType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSwapType(org.fixprotocol.components.LegSwapTypeEnum value) {
       if (value == null) {
@@ -3256,6 +3359,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 15 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSwapType() {
       
@@ -3267,6 +3371,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legAllocId_ = "";
     /**
      * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legAllocId.
      */
     public java.lang.String getLegAllocId() {
       java.lang.Object ref = legAllocId_;
@@ -3282,6 +3387,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for legAllocId.
      */
     public com.google.protobuf.ByteString
         getLegAllocIdBytes() {
@@ -3298,6 +3404,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The legAllocId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocId(
         java.lang.String value) {
@@ -3311,6 +3419,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegAllocId() {
       
@@ -3320,6 +3429,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_id = 16 [(.fix.tag) = 1366, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for legAllocId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocIdBytes(
         com.google.protobuf.ByteString value) {
@@ -3338,12 +3449,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legCurrencyRatioBuilder_;
     /**
      * <code>.fix.Decimal64 leg_currency_ratio = 17 [(.fix.tag) = 1383, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legCurrencyRatio field is set.
      */
     public boolean hasLegCurrencyRatio() {
       return legCurrencyRatioBuilder_ != null || legCurrencyRatio_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_currency_ratio = 17 [(.fix.tag) = 1383, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legCurrencyRatio.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegCurrencyRatio() {
       if (legCurrencyRatioBuilder_ == null) {
@@ -3455,12 +3568,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legDividendYieldBuilder_;
     /**
      * <code>.fix.Decimal64 leg_dividend_yield = 18 [(.fix.tag) = 1381, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legDividendYield field is set.
      */
     public boolean hasLegDividendYield() {
       return legDividendYieldBuilder_ != null || legDividendYield_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_dividend_yield = 18 [(.fix.tag) = 1381, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legDividendYield.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegDividendYield() {
       if (legDividendYieldBuilder_ == null) {
@@ -3577,6 +3692,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return A list containing the legExecInst.
      */
     public java.util.List<org.fixprotocol.components.LegExecInstEnum> getLegExecInstList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -3584,18 +3700,24 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The count of legExecInst.
      */
     public int getLegExecInstCount() {
       return legExecInst_.size();
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index of the element to return.
+     * @return The legExecInst at the given index.
      */
     public org.fixprotocol.components.LegExecInstEnum getLegExecInst(int index) {
       return legExecInst_converter_.convert(legExecInst_.get(index));
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index to set the value at.
+     * @param value The legExecInst to set.
+     * @return This builder for chaining.
      */
     public Builder setLegExecInst(
         int index, org.fixprotocol.components.LegExecInstEnum value) {
@@ -3609,6 +3731,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The legExecInst to add.
+     * @return This builder for chaining.
      */
     public Builder addLegExecInst(org.fixprotocol.components.LegExecInstEnum value) {
       if (value == null) {
@@ -3621,6 +3745,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param values The legExecInst to add.
+     * @return This builder for chaining.
      */
     public Builder addAllLegExecInst(
         java.lang.Iterable<? extends org.fixprotocol.components.LegExecInstEnum> values) {
@@ -3633,6 +3759,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegExecInst() {
       legExecInst_ = java.util.Collections.emptyList();
@@ -3642,6 +3769,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return A list containing the enum numeric values on the wire for legExecInst.
      */
     public java.util.List<java.lang.Integer>
     getLegExecInstValueList() {
@@ -3649,12 +3777,17 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of legExecInst at the given index.
      */
     public int getLegExecInstValue(int index) {
       return legExecInst_.get(index);
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of legExecInst at the given index.
+     * @return This builder for chaining.
      */
     public Builder setLegExecInstValue(
         int index, int value) {
@@ -3665,6 +3798,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for legExecInst to add.
+     * @return This builder for chaining.
      */
     public Builder addLegExecInstValue(int value) {
       ensureLegExecInstIsMutable();
@@ -3674,6 +3809,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.LegExecInstEnum leg_exec_inst = 19 [(.fix.tag) = 1384, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param values The enum numeric values on the wire for legExecInst to add.
+     * @return This builder for chaining.
      */
     public Builder addAllLegExecInstValue(
         java.lang.Iterable<java.lang.Integer> values) {
@@ -3690,12 +3827,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legLastQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_last_qty = 20 [(.fix.tag) = 1418, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legLastQty field is set.
      */
     public boolean hasLegLastQty() {
       return legLastQtyBuilder_ != null || legLastQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_last_qty = 20 [(.fix.tag) = 1418, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legLastQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegLastQty() {
       if (legLastQtyBuilder_ == null) {
@@ -4047,12 +4186,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legVolatilityBuilder_;
     /**
      * <code>.fix.Decimal64 leg_volatility = 22 [(.fix.tag) = 1379, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legVolatility field is set.
      */
     public boolean hasLegVolatility() {
       return legVolatilityBuilder_ != null || legVolatility_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_volatility = 22 [(.fix.tag) = 1379, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legVolatility.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegVolatility() {
       if (legVolatilityBuilder_ == null) {

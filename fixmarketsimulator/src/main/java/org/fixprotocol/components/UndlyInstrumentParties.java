@@ -119,6 +119,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object underlyingInstrumentPartyId_;
   /**
    * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartyId.
    */
   public java.lang.String getUnderlyingInstrumentPartyId() {
     java.lang.Object ref = underlyingInstrumentPartyId_;
@@ -134,6 +135,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingInstrumentPartyId.
    */
   public com.google.protobuf.ByteString
       getUnderlyingInstrumentPartyIdBytes() {
@@ -153,12 +155,14 @@ private static final long serialVersionUID = 0L;
   private int underlyingInstrumentPartyIdSource_;
   /**
    * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingInstrumentPartyIdSource.
    */
   public int getUnderlyingInstrumentPartyIdSourceValue() {
     return underlyingInstrumentPartyIdSource_;
   }
   /**
    * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartyIdSource.
    */
   public org.fixprotocol.components.UnderlyingInstrumentPartyIDSourceEnum getUnderlyingInstrumentPartyIdSource() {
     @SuppressWarnings("deprecation")
@@ -170,12 +174,14 @@ private static final long serialVersionUID = 0L;
   private int underlyingInstrumentPartyRole_;
   /**
    * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingInstrumentPartyRole.
    */
   public int getUnderlyingInstrumentPartyRoleValue() {
     return underlyingInstrumentPartyRole_;
   }
   /**
    * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartyRole.
    */
   public org.fixprotocol.components.UnderlyingInstrumentPartyRoleEnum getUnderlyingInstrumentPartyRole() {
     @SuppressWarnings("deprecation")
@@ -612,6 +618,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object underlyingInstrumentPartyId_ = "";
     /**
      * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingInstrumentPartyId.
      */
     public java.lang.String getUnderlyingInstrumentPartyId() {
       java.lang.Object ref = underlyingInstrumentPartyId_;
@@ -627,6 +634,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for underlyingInstrumentPartyId.
      */
     public com.google.protobuf.ByteString
         getUnderlyingInstrumentPartyIdBytes() {
@@ -643,6 +651,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingInstrumentPartyId to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingInstrumentPartyId(
         java.lang.String value) {
@@ -656,6 +666,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingInstrumentPartyId() {
       
@@ -665,6 +676,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for underlyingInstrumentPartyId to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingInstrumentPartyIdBytes(
         com.google.protobuf.ByteString value) {
@@ -681,12 +694,15 @@ private static final long serialVersionUID = 0L;
     private int underlyingInstrumentPartyIdSource_ = 0;
     /**
      * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for underlyingInstrumentPartyIdSource.
      */
     public int getUnderlyingInstrumentPartyIdSourceValue() {
       return underlyingInstrumentPartyIdSource_;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for underlyingInstrumentPartyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingInstrumentPartyIdSourceValue(int value) {
       underlyingInstrumentPartyIdSource_ = value;
@@ -695,6 +711,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingInstrumentPartyIdSource.
      */
     public org.fixprotocol.components.UnderlyingInstrumentPartyIDSourceEnum getUnderlyingInstrumentPartyIdSource() {
       @SuppressWarnings("deprecation")
@@ -703,6 +720,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingInstrumentPartyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingInstrumentPartyIdSource(org.fixprotocol.components.UnderlyingInstrumentPartyIDSourceEnum value) {
       if (value == null) {
@@ -715,6 +734,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingInstrumentPartyIdSource() {
       
@@ -726,12 +746,15 @@ private static final long serialVersionUID = 0L;
     private int underlyingInstrumentPartyRole_ = 0;
     /**
      * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for underlyingInstrumentPartyRole.
      */
     public int getUnderlyingInstrumentPartyRoleValue() {
       return underlyingInstrumentPartyRole_;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for underlyingInstrumentPartyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingInstrumentPartyRoleValue(int value) {
       underlyingInstrumentPartyRole_ = value;
@@ -740,6 +763,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingInstrumentPartyRole.
      */
     public org.fixprotocol.components.UnderlyingInstrumentPartyRoleEnum getUnderlyingInstrumentPartyRole() {
       @SuppressWarnings("deprecation")
@@ -748,6 +772,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingInstrumentPartyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingInstrumentPartyRole(org.fixprotocol.components.UnderlyingInstrumentPartyRoleEnum value) {
       if (value == null) {
@@ -760,6 +786,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingInstrumentPartyRole() {
       

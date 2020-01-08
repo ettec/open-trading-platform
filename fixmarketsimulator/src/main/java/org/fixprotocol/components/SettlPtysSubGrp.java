@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object settlPartySubId_;
   /**
    * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartySubId.
    */
   public java.lang.String getSettlPartySubId() {
     java.lang.Object ref = settlPartySubId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for settlPartySubId.
    */
   public com.google.protobuf.ByteString
       getSettlPartySubIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int settlPartySubIdType_;
   /**
    * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlPartySubIdType.
    */
   public int getSettlPartySubIdTypeValue() {
     return settlPartySubIdType_;
   }
   /**
    * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartySubIdType.
    */
   public org.fixprotocol.components.SettlPartySubIDTypeEnum getSettlPartySubIdType() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object settlPartySubId_ = "";
     /**
      * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlPartySubId.
      */
     public java.lang.String getSettlPartySubId() {
       java.lang.Object ref = settlPartySubId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for settlPartySubId.
      */
     public com.google.protobuf.ByteString
         getSettlPartySubIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlPartySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartySubId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlPartySubId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for settlPartySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartySubIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int settlPartySubIdType_ = 0;
     /**
      * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlPartySubIdType.
      */
     public int getSettlPartySubIdTypeValue() {
       return settlPartySubIdType_;
     }
     /**
      * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for settlPartySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartySubIdTypeValue(int value) {
       settlPartySubIdType_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlPartySubIdType.
      */
     public org.fixprotocol.components.SettlPartySubIDTypeEnum getSettlPartySubIdType() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlPartySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartySubIdType(org.fixprotocol.components.SettlPartySubIDTypeEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlPartySubIdType() {
       

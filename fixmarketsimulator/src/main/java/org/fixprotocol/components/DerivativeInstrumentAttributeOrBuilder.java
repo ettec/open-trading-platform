@@ -9,19 +9,23 @@ public interface DerivativeInstrumentAttributeOrBuilder extends
 
   /**
    * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeInstrAttribType.
    */
   int getDerivativeInstrAttribTypeValue();
   /**
    * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrAttribType.
    */
   org.fixprotocol.components.DerivativeInstrAttribTypeEnum getDerivativeInstrAttribType();
 
   /**
    * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrAttribValue.
    */
   java.lang.String getDerivativeInstrAttribValue();
   /**
    * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeInstrAttribValue.
    */
   com.google.protobuf.ByteString
       getDerivativeInstrAttribValueBytes();

@@ -33,39 +33,47 @@ public interface SettlInstructionsDataOrBuilder extends
 
   /**
    * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlDeliveryType.
    */
   int getSettlDeliveryTypeValue();
   /**
    * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlDeliveryType.
    */
   org.fixprotocol.components.SettlDeliveryTypeEnum getSettlDeliveryType();
 
   /**
    * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The standInstDbId.
    */
   java.lang.String getStandInstDbId();
   /**
    * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for standInstDbId.
    */
   com.google.protobuf.ByteString
       getStandInstDbIdBytes();
 
   /**
    * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The standInstDbName.
    */
   java.lang.String getStandInstDbName();
   /**
    * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for standInstDbName.
    */
   com.google.protobuf.ByteString
       getStandInstDbNameBytes();
 
   /**
    * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for standInstDbType.
    */
   int getStandInstDbTypeValue();
   /**
    * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The standInstDbType.
    */
   org.fixprotocol.components.StandInstDbTypeEnum getStandInstDbType();
 }

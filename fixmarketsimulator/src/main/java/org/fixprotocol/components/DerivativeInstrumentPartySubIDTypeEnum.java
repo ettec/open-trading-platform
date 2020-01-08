@@ -294,6 +294,8 @@ public enum DerivativeInstrumentPartySubIDTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -301,6 +303,10 @@ public enum DerivativeInstrumentPartySubIDTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static DerivativeInstrumentPartySubIDTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return DERIVATIVE_INSTRUMENT_PARTY_SUB_ID_TYPE_UNSPECIFIED;

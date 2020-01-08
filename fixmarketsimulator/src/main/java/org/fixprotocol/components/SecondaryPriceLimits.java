@@ -130,12 +130,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 secondaryHighLimitPrice_;
   /**
    * <code>.fix.Decimal64 secondary_high_limit_price = 1 [(.fix.tag) = 1230, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the secondaryHighLimitPrice field is set.
    */
   public boolean hasSecondaryHighLimitPrice() {
     return secondaryHighLimitPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 secondary_high_limit_price = 1 [(.fix.tag) = 1230, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The secondaryHighLimitPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getSecondaryHighLimitPrice() {
     return secondaryHighLimitPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : secondaryHighLimitPrice_;
@@ -151,12 +153,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 secondaryLowLimitPrice_;
   /**
    * <code>.fix.Decimal64 secondary_low_limit_price = 2 [(.fix.tag) = 1221, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the secondaryLowLimitPrice field is set.
    */
   public boolean hasSecondaryLowLimitPrice() {
     return secondaryLowLimitPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 secondary_low_limit_price = 2 [(.fix.tag) = 1221, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The secondaryLowLimitPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getSecondaryLowLimitPrice() {
     return secondaryLowLimitPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : secondaryLowLimitPrice_;
@@ -172,12 +176,14 @@ private static final long serialVersionUID = 0L;
   private int secondaryPriceLimitType_;
   /**
    * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for secondaryPriceLimitType.
    */
   public int getSecondaryPriceLimitTypeValue() {
     return secondaryPriceLimitType_;
   }
   /**
    * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The secondaryPriceLimitType.
    */
   public org.fixprotocol.components.SecondaryPriceLimitTypeEnum getSecondaryPriceLimitType() {
     @SuppressWarnings("deprecation")
@@ -189,12 +195,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 secondaryTradingReferencePrice_;
   /**
    * <code>.fix.Decimal64 secondary_trading_reference_price = 4 [(.fix.tag) = 1240, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the secondaryTradingReferencePrice field is set.
    */
   public boolean hasSecondaryTradingReferencePrice() {
     return secondaryTradingReferencePrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 secondary_trading_reference_price = 4 [(.fix.tag) = 1240, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The secondaryTradingReferencePrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getSecondaryTradingReferencePrice() {
     return secondaryTradingReferencePrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : secondaryTradingReferencePrice_;
@@ -602,12 +610,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> secondaryHighLimitPriceBuilder_;
     /**
      * <code>.fix.Decimal64 secondary_high_limit_price = 1 [(.fix.tag) = 1230, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the secondaryHighLimitPrice field is set.
      */
     public boolean hasSecondaryHighLimitPrice() {
       return secondaryHighLimitPriceBuilder_ != null || secondaryHighLimitPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 secondary_high_limit_price = 1 [(.fix.tag) = 1230, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The secondaryHighLimitPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getSecondaryHighLimitPrice() {
       if (secondaryHighLimitPriceBuilder_ == null) {
@@ -719,12 +729,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> secondaryLowLimitPriceBuilder_;
     /**
      * <code>.fix.Decimal64 secondary_low_limit_price = 2 [(.fix.tag) = 1221, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the secondaryLowLimitPrice field is set.
      */
     public boolean hasSecondaryLowLimitPrice() {
       return secondaryLowLimitPriceBuilder_ != null || secondaryLowLimitPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 secondary_low_limit_price = 2 [(.fix.tag) = 1221, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The secondaryLowLimitPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getSecondaryLowLimitPrice() {
       if (secondaryLowLimitPriceBuilder_ == null) {
@@ -834,12 +846,15 @@ private static final long serialVersionUID = 0L;
     private int secondaryPriceLimitType_ = 0;
     /**
      * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for secondaryPriceLimitType.
      */
     public int getSecondaryPriceLimitTypeValue() {
       return secondaryPriceLimitType_;
     }
     /**
      * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for secondaryPriceLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setSecondaryPriceLimitTypeValue(int value) {
       secondaryPriceLimitType_ = value;
@@ -848,6 +863,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The secondaryPriceLimitType.
      */
     public org.fixprotocol.components.SecondaryPriceLimitTypeEnum getSecondaryPriceLimitType() {
       @SuppressWarnings("deprecation")
@@ -856,6 +872,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The secondaryPriceLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setSecondaryPriceLimitType(org.fixprotocol.components.SecondaryPriceLimitTypeEnum value) {
       if (value == null) {
@@ -868,6 +886,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SecondaryPriceLimitTypeEnum secondary_price_limit_type = 3 [(.fix.tag) = 1305, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecondaryPriceLimitType() {
       
@@ -881,12 +900,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> secondaryTradingReferencePriceBuilder_;
     /**
      * <code>.fix.Decimal64 secondary_trading_reference_price = 4 [(.fix.tag) = 1240, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the secondaryTradingReferencePrice field is set.
      */
     public boolean hasSecondaryTradingReferencePrice() {
       return secondaryTradingReferencePriceBuilder_ != null || secondaryTradingReferencePrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 secondary_trading_reference_price = 4 [(.fix.tag) = 1240, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The secondaryTradingReferencePrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getSecondaryTradingReferencePrice() {
       if (secondaryTradingReferencePriceBuilder_ == null) {

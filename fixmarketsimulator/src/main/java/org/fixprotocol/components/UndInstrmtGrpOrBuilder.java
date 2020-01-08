@@ -9,10 +9,12 @@ public interface UndInstrmtGrpOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingInstrument underlying_instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingInstrument field is set.
    */
   boolean hasUnderlyingInstrument();
   /**
    * <code>.Common.UnderlyingInstrument underlying_instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrument.
    */
   org.fixprotocol.components.UnderlyingInstrument getUnderlyingInstrument();
   /**

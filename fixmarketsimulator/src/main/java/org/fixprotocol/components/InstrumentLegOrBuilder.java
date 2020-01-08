@@ -9,50 +9,60 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegIssuer.
    */
   java.lang.String getEncodedLegIssuer();
   /**
    * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedLegIssuer.
    */
   com.google.protobuf.ByteString
       getEncodedLegIssuerBytes();
 
   /**
    * <code>sfixed64 encoded_leg_issuer_len = 2 [(.fix.tag) = 618, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegIssuerLen.
    */
   long getEncodedLegIssuerLen();
 
   /**
    * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegSecurityDesc.
    */
   java.lang.String getEncodedLegSecurityDesc();
   /**
    * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedLegSecurityDesc.
    */
   com.google.protobuf.ByteString
       getEncodedLegSecurityDescBytes();
 
   /**
    * <code>sfixed64 encoded_leg_security_desc_len = 4 [(.fix.tag) = 621, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegSecurityDescLen.
    */
   long getEncodedLegSecurityDescLen();
 
   /**
    * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCfiCode.
    */
   java.lang.String getLegCfiCode();
   /**
    * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legCfiCode.
    */
   com.google.protobuf.ByteString
       getLegCfiCodeBytes();
 
   /**
    * <code>.fix.Decimal64 leg_contract_multiplier = 6 [(.fix.tag) = 614, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legContractMultiplier field is set.
    */
   boolean hasLegContractMultiplier();
   /**
    * <code>.fix.Decimal64 leg_contract_multiplier = 6 [(.fix.tag) = 614, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legContractMultiplier.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegContractMultiplier();
   /**
@@ -62,25 +72,30 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCountryOfIssue.
    */
   java.lang.String getLegCountryOfIssue();
   /**
    * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legCountryOfIssue.
    */
   com.google.protobuf.ByteString
       getLegCountryOfIssueBytes();
 
   /**
    * <code>sfixed32 leg_coupon_payment_date = 8 [(.fix.tag) = 248, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCouponPaymentDate.
    */
   int getLegCouponPaymentDate();
 
   /**
    * <code>.fix.Decimal64 leg_coupon_rate = 9 [(.fix.tag) = 615, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legCouponRate field is set.
    */
   boolean hasLegCouponRate();
   /**
    * <code>.fix.Decimal64 leg_coupon_rate = 9 [(.fix.tag) = 615, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCouponRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegCouponRate();
   /**
@@ -90,20 +105,24 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCreditRating.
    */
   java.lang.String getLegCreditRating();
   /**
    * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legCreditRating.
    */
   com.google.protobuf.ByteString
       getLegCreditRatingBytes();
 
   /**
    * <code>.fix.Decimal64 leg_factor = 11 [(.fix.tag) = 253, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legFactor field is set.
    */
   boolean hasLegFactor();
   /**
    * <code>.fix.Decimal64 leg_factor = 11 [(.fix.tag) = 253, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legFactor.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegFactor();
   /**
@@ -113,69 +132,83 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legInstrRegistry.
    */
   java.lang.String getLegInstrRegistry();
   /**
    * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legInstrRegistry.
    */
   com.google.protobuf.ByteString
       getLegInstrRegistryBytes();
 
   /**
    * <code>sfixed32 leg_issue_date = 13 [(.fix.tag) = 249, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legIssueDate.
    */
   int getLegIssueDate();
 
   /**
    * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legIssuer.
    */
   java.lang.String getLegIssuer();
   /**
    * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legIssuer.
    */
   com.google.protobuf.ByteString
       getLegIssuerBytes();
 
   /**
    * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legLocaleOfIssue.
    */
   java.lang.String getLegLocaleOfIssue();
   /**
    * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legLocaleOfIssue.
    */
   com.google.protobuf.ByteString
       getLegLocaleOfIssueBytes();
 
   /**
    * <code>sfixed32 leg_maturity_date = 16 [(.fix.tag) = 611, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legMaturityDate.
    */
   int getLegMaturityDate();
 
   /**
    * <code>sfixed32 leg_maturity_month_year = 17 [(.fix.tag) = 610, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legMaturityMonthYear.
    */
   int getLegMaturityMonthYear();
 
   /**
    * <code>bytes leg_opt_attribute = 18 [(.fix.tag) = 613, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legOptAttribute.
    */
   com.google.protobuf.ByteString getLegOptAttribute();
 
   /**
    * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legProduct.
    */
   int getLegProductValue();
   /**
    * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legProduct.
    */
   org.fixprotocol.components.LegProductEnum getLegProduct();
 
   /**
    * <code>.fix.Decimal64 leg_ratio_qty = 20 [(.fix.tag) = 623, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legRatioQty field is set.
    */
   boolean hasLegRatioQty();
   /**
    * <code>.fix.Decimal64 leg_ratio_qty = 20 [(.fix.tag) = 623, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRatioQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegRatioQty();
   /**
@@ -185,25 +218,30 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>sfixed32 leg_redemption_date = 21 [(.fix.tag) = 254, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRedemptionDate.
    */
   int getLegRedemptionDate();
 
   /**
    * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRepoCollateralSecurityType.
    */
   java.lang.String getLegRepoCollateralSecurityType();
   /**
    * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legRepoCollateralSecurityType.
    */
   com.google.protobuf.ByteString
       getLegRepoCollateralSecurityTypeBytes();
 
   /**
    * <code>.fix.Decimal64 leg_repurchase_rate = 23 [(.fix.tag) = 252, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legRepurchaseRate field is set.
    */
   boolean hasLegRepurchaseRate();
   /**
    * <code>.fix.Decimal64 leg_repurchase_rate = 23 [(.fix.tag) = 252, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRepurchaseRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegRepurchaseRate();
   /**
@@ -213,82 +251,99 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>sfixed64 leg_repurchase_term = 24 [(.fix.tag) = 251, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRepurchaseTerm.
    */
   long getLegRepurchaseTerm();
 
   /**
    * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityDesc.
    */
   java.lang.String getLegSecurityDesc();
   /**
    * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSecurityDesc.
    */
   com.google.protobuf.ByteString
       getLegSecurityDescBytes();
 
   /**
    * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityExchange.
    */
   java.lang.String getLegSecurityExchange();
   /**
    * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSecurityExchange.
    */
   com.google.protobuf.ByteString
       getLegSecurityExchangeBytes();
 
   /**
    * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityId.
    */
   java.lang.String getLegSecurityId();
   /**
    * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSecurityId.
    */
   com.google.protobuf.ByteString
       getLegSecurityIdBytes();
 
   /**
    * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSecurityIdSource.
    */
   int getLegSecurityIdSourceValue();
   /**
    * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityIdSource.
    */
   org.fixprotocol.components.LegSecurityIDSourceEnum getLegSecurityIdSource();
 
   /**
    * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSecurityType.
    */
   int getLegSecurityTypeValue();
   /**
    * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityType.
    */
   org.fixprotocol.components.LegSecurityTypeEnum getLegSecurityType();
 
   /**
    * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSide.
    */
   int getLegSideValue();
   /**
    * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSide.
    */
   org.fixprotocol.components.LegSideEnum getLegSide();
 
   /**
    * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legStateOrProvinceOfIssue.
    */
   java.lang.String getLegStateOrProvinceOfIssue();
   /**
    * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legStateOrProvinceOfIssue.
    */
   com.google.protobuf.ByteString
       getLegStateOrProvinceOfIssueBytes();
 
   /**
    * <code>.fix.Decimal64 leg_strike_price = 32 [(.fix.tag) = 612, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legStrikePrice field is set.
    */
   boolean hasLegStrikePrice();
   /**
    * <code>.fix.Decimal64 leg_strike_price = 32 [(.fix.tag) = 612, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legStrikePrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegStrikePrice();
   /**
@@ -298,54 +353,65 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSymbol.
    */
   java.lang.String getLegSymbol();
   /**
    * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSymbol.
    */
   com.google.protobuf.ByteString
       getLegSymbolBytes();
 
   /**
    * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSymbolSfx.
    */
   int getLegSymbolSfxValue();
   /**
    * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSymbolSfx.
    */
   org.fixprotocol.components.LegSymbolSfxEnum getLegSymbolSfx();
 
   /**
    * <code>sfixed32 leg_contract_settl_month = 35 [(.fix.tag) = 955, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legContractSettlMonth.
    */
   int getLegContractSettlMonth();
 
   /**
    * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legCurrency.
    */
   java.lang.String getLegCurrency();
   /**
    * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legCurrency.
    */
   com.google.protobuf.ByteString
       getLegCurrencyBytes();
 
   /**
    * <code>sfixed32 leg_dated_date = 37 [(.fix.tag) = 739, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legDatedDate.
    */
   int getLegDatedDate();
 
   /**
    * <code>sfixed32 leg_interest_accrual_date = 38 [(.fix.tag) = 956, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legInterestAccrualDate.
    */
   int getLegInterestAccrualDate();
 
   /**
    * <code>.fix.Decimal64 leg_option_ratio = 39 [(.fix.tag) = 1017, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legOptionRatio field is set.
    */
   boolean hasLegOptionRatio();
   /**
    * <code>.fix.Decimal64 leg_option_ratio = 39 [(.fix.tag) = 1017, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legOptionRatio.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegOptionRatio();
   /**
@@ -355,20 +421,24 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legPool.
    */
   java.lang.String getLegPool();
   /**
    * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legPool.
    */
   com.google.protobuf.ByteString
       getLegPoolBytes();
 
   /**
    * <code>.fix.Decimal64 leg_price = 41 [(.fix.tag) = 566, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legPrice field is set.
    */
   boolean hasLegPrice();
   /**
    * <code>.fix.Decimal64 leg_price = 41 [(.fix.tag) = 566, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legPrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegPrice();
   /**
@@ -402,57 +472,69 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSecuritySubType.
    */
   java.lang.String getLegSecuritySubType();
   /**
    * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legSecuritySubType.
    */
   com.google.protobuf.ByteString
       getLegSecuritySubTypeBytes();
 
   /**
    * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legStrikeCurrency.
    */
   java.lang.String getLegStrikeCurrency();
   /**
    * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legStrikeCurrency.
    */
   com.google.protobuf.ByteString
       getLegStrikeCurrencyBytes();
 
   /**
    * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legTimeUnit.
    */
   int getLegTimeUnitValue();
   /**
    * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legTimeUnit.
    */
   org.fixprotocol.components.LegTimeUnitEnum getLegTimeUnit();
 
   /**
    * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legUnitOfMeasure.
    */
   int getLegUnitOfMeasureValue();
   /**
    * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legUnitOfMeasure.
    */
   org.fixprotocol.components.LegUnitOfMeasureEnum getLegUnitOfMeasure();
 
   /**
    * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for legExerciseStyle.
    */
   int getLegExerciseStyleValue();
   /**
    * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legExerciseStyle.
    */
   org.fixprotocol.components.LegExerciseStyleEnum getLegExerciseStyle();
 
   /**
    * <code>.fix.LocalTimeOnly leg_maturity_time = 48 [(.fix.tag) = 1212, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legMaturityTime field is set.
    */
   boolean hasLegMaturityTime();
   /**
    * <code>.fix.LocalTimeOnly leg_maturity_time = 48 [(.fix.tag) = 1212, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legMaturityTime.
    */
   org.fixprotocol.components.Fix.LocalTimeOnly getLegMaturityTime();
   /**
@@ -462,19 +544,23 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for legPriceUnitOfMeasure.
    */
   int getLegPriceUnitOfMeasureValue();
   /**
    * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legPriceUnitOfMeasure.
    */
   org.fixprotocol.components.LegPriceUnitOfMeasureEnum getLegPriceUnitOfMeasure();
 
   /**
    * <code>.fix.Decimal64 leg_price_unit_of_measure_qty = 50 [(.fix.tag) = 1422, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legPriceUnitOfMeasureQty field is set.
    */
   boolean hasLegPriceUnitOfMeasureQty();
   /**
    * <code>.fix.Decimal64 leg_price_unit_of_measure_qty = 50 [(.fix.tag) = 1422, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legPriceUnitOfMeasureQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegPriceUnitOfMeasureQty();
   /**
@@ -484,15 +570,18 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>sfixed64 leg_put_or_call = 51 [(.fix.tag) = 1358, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legPutOrCall.
    */
   long getLegPutOrCall();
 
   /**
    * <code>.fix.Decimal64 leg_unit_of_measure_qty = 52 [(.fix.tag) = 1224, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legUnitOfMeasureQty field is set.
    */
   boolean hasLegUnitOfMeasureQty();
   /**
    * <code>.fix.Decimal64 leg_unit_of_measure_qty = 52 [(.fix.tag) = 1224, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legUnitOfMeasureQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegUnitOfMeasureQty();
   /**
@@ -502,24 +591,29 @@ public interface InstrumentLegOrBuilder extends
 
   /**
    * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for legContractMultiplierUnit.
    */
   int getLegContractMultiplierUnitValue();
   /**
    * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The legContractMultiplierUnit.
    */
   org.fixprotocol.components.LegContractMultiplierUnitEnum getLegContractMultiplierUnit();
 
   /**
    * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for legFlowScheduleType.
    */
   int getLegFlowScheduleTypeValue();
   /**
    * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The legFlowScheduleType.
    */
   org.fixprotocol.components.LegFlowScheduleTypeEnum getLegFlowScheduleType();
 
   /**
    * <code>fixed32 leg_flow_schedule_type_reserved100plus = 55 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The legFlowScheduleTypeReserved100plus.
    */
   int getLegFlowScheduleTypeReserved100Plus();
 

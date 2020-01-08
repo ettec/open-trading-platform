@@ -9,25 +9,30 @@ public interface PtysSubGrpOrBuilder extends
 
   /**
    * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The partySubId.
    */
   java.lang.String getPartySubId();
   /**
    * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for partySubId.
    */
   com.google.protobuf.ByteString
       getPartySubIdBytes();
 
   /**
    * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for partySubIdType.
    */
   int getPartySubIdTypeValue();
   /**
    * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The partySubIdType.
    */
   org.fixprotocol.components.PartySubIDTypeEnum getPartySubIdType();
 
   /**
    * <code>fixed32 party_sub_id_type_reserved4000plus = 3 [(.fix.tag) = 803, (.fix.type) = DATATYPE_RESERVED4000PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The partySubIdTypeReserved4000plus.
    */
   int getPartySubIdTypeReserved4000Plus();
 

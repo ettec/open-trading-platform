@@ -9,10 +9,12 @@ public interface TimeInForceRulesOrBuilder extends
 
   /**
    * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for timeInForce.
    */
   int getTimeInForceValue();
   /**
    * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The timeInForce.
    */
   org.fixprotocol.components.TimeInForceEnum getTimeInForce();
 }

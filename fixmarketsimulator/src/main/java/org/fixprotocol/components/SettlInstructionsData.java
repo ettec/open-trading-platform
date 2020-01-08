@@ -161,12 +161,14 @@ private static final long serialVersionUID = 0L;
   private int settlDeliveryType_;
   /**
    * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlDeliveryType.
    */
   public int getSettlDeliveryTypeValue() {
     return settlDeliveryType_;
   }
   /**
    * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlDeliveryType.
    */
   public org.fixprotocol.components.SettlDeliveryTypeEnum getSettlDeliveryType() {
     @SuppressWarnings("deprecation")
@@ -178,6 +180,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object standInstDbId_;
   /**
    * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The standInstDbId.
    */
   public java.lang.String getStandInstDbId() {
     java.lang.Object ref = standInstDbId_;
@@ -193,6 +196,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for standInstDbId.
    */
   public com.google.protobuf.ByteString
       getStandInstDbIdBytes() {
@@ -212,6 +216,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object standInstDbName_;
   /**
    * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The standInstDbName.
    */
   public java.lang.String getStandInstDbName() {
     java.lang.Object ref = standInstDbName_;
@@ -227,6 +232,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for standInstDbName.
    */
   public com.google.protobuf.ByteString
       getStandInstDbNameBytes() {
@@ -246,12 +252,14 @@ private static final long serialVersionUID = 0L;
   private int standInstDbType_;
   /**
    * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for standInstDbType.
    */
   public int getStandInstDbTypeValue() {
     return standInstDbType_;
   }
   /**
    * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The standInstDbType.
    */
   public org.fixprotocol.components.StandInstDbTypeEnum getStandInstDbType() {
     @SuppressWarnings("deprecation")
@@ -910,12 +918,15 @@ private static final long serialVersionUID = 0L;
     private int settlDeliveryType_ = 0;
     /**
      * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlDeliveryType.
      */
     public int getSettlDeliveryTypeValue() {
       return settlDeliveryType_;
     }
     /**
      * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for settlDeliveryType to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlDeliveryTypeValue(int value) {
       settlDeliveryType_ = value;
@@ -924,6 +935,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlDeliveryType.
      */
     public org.fixprotocol.components.SettlDeliveryTypeEnum getSettlDeliveryType() {
       @SuppressWarnings("deprecation")
@@ -932,6 +944,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlDeliveryType to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlDeliveryType(org.fixprotocol.components.SettlDeliveryTypeEnum value) {
       if (value == null) {
@@ -944,6 +958,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlDeliveryTypeEnum settl_delivery_type = 2 [(.fix.tag) = 172, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlDeliveryType() {
       
@@ -955,6 +970,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object standInstDbId_ = "";
     /**
      * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The standInstDbId.
      */
     public java.lang.String getStandInstDbId() {
       java.lang.Object ref = standInstDbId_;
@@ -970,6 +986,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for standInstDbId.
      */
     public com.google.protobuf.ByteString
         getStandInstDbIdBytes() {
@@ -986,6 +1003,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The standInstDbId to set.
+     * @return This builder for chaining.
      */
     public Builder setStandInstDbId(
         java.lang.String value) {
@@ -999,6 +1018,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStandInstDbId() {
       
@@ -1008,6 +1028,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_id = 3 [(.fix.tag) = 171, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for standInstDbId to set.
+     * @return This builder for chaining.
      */
     public Builder setStandInstDbIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1024,6 +1046,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object standInstDbName_ = "";
     /**
      * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The standInstDbName.
      */
     public java.lang.String getStandInstDbName() {
       java.lang.Object ref = standInstDbName_;
@@ -1039,6 +1062,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for standInstDbName.
      */
     public com.google.protobuf.ByteString
         getStandInstDbNameBytes() {
@@ -1055,6 +1079,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The standInstDbName to set.
+     * @return This builder for chaining.
      */
     public Builder setStandInstDbName(
         java.lang.String value) {
@@ -1068,6 +1094,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStandInstDbName() {
       
@@ -1077,6 +1104,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stand_inst_db_name = 4 [(.fix.tag) = 170, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for standInstDbName to set.
+     * @return This builder for chaining.
      */
     public Builder setStandInstDbNameBytes(
         com.google.protobuf.ByteString value) {
@@ -1093,12 +1122,15 @@ private static final long serialVersionUID = 0L;
     private int standInstDbType_ = 0;
     /**
      * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for standInstDbType.
      */
     public int getStandInstDbTypeValue() {
       return standInstDbType_;
     }
     /**
      * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for standInstDbType to set.
+     * @return This builder for chaining.
      */
     public Builder setStandInstDbTypeValue(int value) {
       standInstDbType_ = value;
@@ -1107,6 +1139,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The standInstDbType.
      */
     public org.fixprotocol.components.StandInstDbTypeEnum getStandInstDbType() {
       @SuppressWarnings("deprecation")
@@ -1115,6 +1148,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The standInstDbType to set.
+     * @return This builder for chaining.
      */
     public Builder setStandInstDbType(org.fixprotocol.components.StandInstDbTypeEnum value) {
       if (value == null) {
@@ -1127,6 +1162,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StandInstDbTypeEnum stand_inst_db_type = 5 [(.fix.tag) = 169, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStandInstDbType() {
       

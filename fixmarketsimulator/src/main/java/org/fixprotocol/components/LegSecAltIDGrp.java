@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSecurityAltId_;
   /**
    * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSecurityAltId.
    */
   public java.lang.String getLegSecurityAltId() {
     java.lang.Object ref = legSecurityAltId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legSecurityAltId.
    */
   public com.google.protobuf.ByteString
       getLegSecurityAltIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int legSecurityAltIdSource_;
   /**
    * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSecurityAltIdSource.
    */
   public int getLegSecurityAltIdSourceValue() {
     return legSecurityAltIdSource_;
   }
   /**
    * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSecurityAltIdSource.
    */
   public org.fixprotocol.components.LegSecurityAltIDSourceEnum getLegSecurityAltIdSource() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSecurityAltId_ = "";
     /**
      * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSecurityAltId.
      */
     public java.lang.String getLegSecurityAltId() {
       java.lang.Object ref = legSecurityAltId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legSecurityAltId.
      */
     public com.google.protobuf.ByteString
         getLegSecurityAltIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSecurityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityAltId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityAltId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legSecurityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityAltIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int legSecurityAltIdSource_ = 0;
     /**
      * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legSecurityAltIdSource.
      */
     public int getLegSecurityAltIdSourceValue() {
       return legSecurityAltIdSource_;
     }
     /**
      * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legSecurityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityAltIdSourceValue(int value) {
       legSecurityAltIdSource_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSecurityAltIdSource.
      */
     public org.fixprotocol.components.LegSecurityAltIDSourceEnum getLegSecurityAltIdSource() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSecurityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityAltIdSource(org.fixprotocol.components.LegSecurityAltIDSourceEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityAltIdSource() {
       

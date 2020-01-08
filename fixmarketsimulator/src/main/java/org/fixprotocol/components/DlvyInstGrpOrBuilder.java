@@ -9,19 +9,23 @@ public interface DlvyInstGrpOrBuilder extends
 
   /**
    * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for dlvyInstType.
    */
   int getDlvyInstTypeValue();
   /**
    * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The dlvyInstType.
    */
   org.fixprotocol.components.DlvyInstTypeEnum getDlvyInstType();
 
   /**
    * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlInstSource.
    */
   int getSettlInstSourceValue();
   /**
    * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlInstSource.
    */
   org.fixprotocol.components.SettlInstSourceEnum getSettlInstSource();
 

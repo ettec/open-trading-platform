@@ -9,15 +9,18 @@ public interface EvntGrpOrBuilder extends
 
   /**
    * <code>sfixed32 event_date = 1 [(.fix.tag) = 866, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventDate.
    */
   int getEventDate();
 
   /**
    * <code>.fix.Decimal64 event_px = 2 [(.fix.tag) = 867, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the eventPx field is set.
    */
   boolean hasEventPx();
   /**
    * <code>.fix.Decimal64 event_px = 2 [(.fix.tag) = 867, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventPx.
    */
   org.fixprotocol.components.Fix.Decimal64 getEventPx();
   /**
@@ -27,34 +30,41 @@ public interface EvntGrpOrBuilder extends
 
   /**
    * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventText.
    */
   java.lang.String getEventText();
   /**
    * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for eventText.
    */
   com.google.protobuf.ByteString
       getEventTextBytes();
 
   /**
    * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for eventType.
    */
   int getEventTypeValue();
   /**
    * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventType.
    */
   org.fixprotocol.components.EventTypeEnum getEventType();
 
   /**
    * <code>fixed32 event_type_reserved100plus = 5 [(.fix.tag) = 865, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventTypeReserved100plus.
    */
   int getEventTypeReserved100Plus();
 
   /**
    * <code>.fix.Timestamp event_time = 6 [(.fix.tag) = 1145, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the eventTime field is set.
    */
   boolean hasEventTime();
   /**
    * <code>.fix.Timestamp event_time = 6 [(.fix.tag) = 1145, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The eventTime.
    */
   org.fixprotocol.components.Fix.Timestamp getEventTime();
   /**

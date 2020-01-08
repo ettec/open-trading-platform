@@ -9,20 +9,24 @@ public interface UndSecAltIDGrpOrBuilder extends
 
   /**
    * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSecurityAltId.
    */
   java.lang.String getUnderlyingSecurityAltId();
   /**
    * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingSecurityAltId.
    */
   com.google.protobuf.ByteString
       getUnderlyingSecurityAltIdBytes();
 
   /**
    * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingSecurityAltIdSource.
    */
   int getUnderlyingSecurityAltIdSourceValue();
   /**
    * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSecurityAltIdSource.
    */
   org.fixprotocol.components.UnderlyingSecurityAltIDSourceEnum getUnderlyingSecurityAltIdSource();
 }

@@ -130,12 +130,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 highLimitPrice_;
   /**
    * <code>.fix.Decimal64 high_limit_price = 1 [(.fix.tag) = 1149, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the highLimitPrice field is set.
    */
   public boolean hasHighLimitPrice() {
     return highLimitPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 high_limit_price = 1 [(.fix.tag) = 1149, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The highLimitPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getHighLimitPrice() {
     return highLimitPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : highLimitPrice_;
@@ -151,12 +153,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 lowLimitPrice_;
   /**
    * <code>.fix.Decimal64 low_limit_price = 2 [(.fix.tag) = 1148, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the lowLimitPrice field is set.
    */
   public boolean hasLowLimitPrice() {
     return lowLimitPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 low_limit_price = 2 [(.fix.tag) = 1148, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The lowLimitPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLowLimitPrice() {
     return lowLimitPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : lowLimitPrice_;
@@ -172,12 +176,14 @@ private static final long serialVersionUID = 0L;
   private int priceLimitType_;
   /**
    * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for priceLimitType.
    */
   public int getPriceLimitTypeValue() {
     return priceLimitType_;
   }
   /**
    * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceLimitType.
    */
   public org.fixprotocol.components.PriceLimitTypeEnum getPriceLimitType() {
     @SuppressWarnings("deprecation")
@@ -189,12 +195,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 tradingReferencePrice_;
   /**
    * <code>.fix.Decimal64 trading_reference_price = 4 [(.fix.tag) = 1150, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the tradingReferencePrice field is set.
    */
   public boolean hasTradingReferencePrice() {
     return tradingReferencePrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 trading_reference_price = 4 [(.fix.tag) = 1150, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingReferencePrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getTradingReferencePrice() {
     return tradingReferencePrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : tradingReferencePrice_;
@@ -602,12 +610,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> highLimitPriceBuilder_;
     /**
      * <code>.fix.Decimal64 high_limit_price = 1 [(.fix.tag) = 1149, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the highLimitPrice field is set.
      */
     public boolean hasHighLimitPrice() {
       return highLimitPriceBuilder_ != null || highLimitPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 high_limit_price = 1 [(.fix.tag) = 1149, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The highLimitPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getHighLimitPrice() {
       if (highLimitPriceBuilder_ == null) {
@@ -719,12 +729,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> lowLimitPriceBuilder_;
     /**
      * <code>.fix.Decimal64 low_limit_price = 2 [(.fix.tag) = 1148, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the lowLimitPrice field is set.
      */
     public boolean hasLowLimitPrice() {
       return lowLimitPriceBuilder_ != null || lowLimitPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 low_limit_price = 2 [(.fix.tag) = 1148, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The lowLimitPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLowLimitPrice() {
       if (lowLimitPriceBuilder_ == null) {
@@ -834,12 +846,15 @@ private static final long serialVersionUID = 0L;
     private int priceLimitType_ = 0;
     /**
      * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for priceLimitType.
      */
     public int getPriceLimitTypeValue() {
       return priceLimitType_;
     }
     /**
      * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for priceLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setPriceLimitTypeValue(int value) {
       priceLimitType_ = value;
@@ -848,6 +863,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceLimitType.
      */
     public org.fixprotocol.components.PriceLimitTypeEnum getPriceLimitType() {
       @SuppressWarnings("deprecation")
@@ -856,6 +872,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The priceLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setPriceLimitType(org.fixprotocol.components.PriceLimitTypeEnum value) {
       if (value == null) {
@@ -868,6 +886,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PriceLimitTypeEnum price_limit_type = 3 [(.fix.tag) = 1306, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPriceLimitType() {
       
@@ -881,12 +900,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> tradingReferencePriceBuilder_;
     /**
      * <code>.fix.Decimal64 trading_reference_price = 4 [(.fix.tag) = 1150, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the tradingReferencePrice field is set.
      */
     public boolean hasTradingReferencePrice() {
       return tradingReferencePriceBuilder_ != null || tradingReferencePrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 trading_reference_price = 4 [(.fix.tag) = 1150, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingReferencePrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTradingReferencePrice() {
       if (tradingReferencePriceBuilder_ == null) {

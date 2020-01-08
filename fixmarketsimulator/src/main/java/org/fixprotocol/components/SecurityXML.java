@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object securityXml_;
   /**
    * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXml.
    */
   public java.lang.String getSecurityXml() {
     java.lang.Object ref = securityXml_;
@@ -118,6 +119,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for securityXml.
    */
   public com.google.protobuf.ByteString
       getSecurityXmlBytes() {
@@ -137,6 +139,7 @@ private static final long serialVersionUID = 0L;
   private long securityXmlLen_;
   /**
    * <code>sfixed64 security_xml_len = 2 [(.fix.tag) = 1184, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXmlLen.
    */
   public long getSecurityXmlLen() {
     return securityXmlLen_;
@@ -146,6 +149,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object securityXmlSchema_;
   /**
    * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXmlSchema.
    */
   public java.lang.String getSecurityXmlSchema() {
     java.lang.Object ref = securityXmlSchema_;
@@ -161,6 +165,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for securityXmlSchema.
    */
   public com.google.protobuf.ByteString
       getSecurityXmlSchemaBytes() {
@@ -516,6 +521,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object securityXml_ = "";
     /**
      * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityXml.
      */
     public java.lang.String getSecurityXml() {
       java.lang.Object ref = securityXml_;
@@ -531,6 +537,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for securityXml.
      */
     public com.google.protobuf.ByteString
         getSecurityXmlBytes() {
@@ -547,6 +554,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The securityXml to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityXml(
         java.lang.String value) {
@@ -560,6 +569,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecurityXml() {
       
@@ -569,6 +579,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for securityXml to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityXmlBytes(
         com.google.protobuf.ByteString value) {
@@ -585,12 +597,15 @@ private static final long serialVersionUID = 0L;
     private long securityXmlLen_ ;
     /**
      * <code>sfixed64 security_xml_len = 2 [(.fix.tag) = 1184, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityXmlLen.
      */
     public long getSecurityXmlLen() {
       return securityXmlLen_;
     }
     /**
      * <code>sfixed64 security_xml_len = 2 [(.fix.tag) = 1184, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The securityXmlLen to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityXmlLen(long value) {
       
@@ -600,6 +615,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 security_xml_len = 2 [(.fix.tag) = 1184, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecurityXmlLen() {
       
@@ -611,6 +627,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object securityXmlSchema_ = "";
     /**
      * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityXmlSchema.
      */
     public java.lang.String getSecurityXmlSchema() {
       java.lang.Object ref = securityXmlSchema_;
@@ -626,6 +643,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for securityXmlSchema.
      */
     public com.google.protobuf.ByteString
         getSecurityXmlSchemaBytes() {
@@ -642,6 +660,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The securityXmlSchema to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityXmlSchema(
         java.lang.String value) {
@@ -655,6 +675,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecurityXmlSchema() {
       
@@ -664,6 +685,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for securityXmlSchema to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityXmlSchemaBytes(
         com.google.protobuf.ByteString value) {

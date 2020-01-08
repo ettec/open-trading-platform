@@ -20,10 +20,12 @@ public final class Marketdataserver {
 
     /**
      * <code>string partyId = 1;</code>
+     * @return The partyId.
      */
     java.lang.String getPartyId();
     /**
      * <code>string partyId = 1;</code>
+     * @return The bytes for partyId.
      */
     com.google.protobuf.ByteString
         getPartyIdBytes();
@@ -116,6 +118,7 @@ public final class Marketdataserver {
     private volatile java.lang.Object partyId_;
     /**
      * <code>string partyId = 1;</code>
+     * @return The partyId.
      */
     public java.lang.String getPartyId() {
       java.lang.Object ref = partyId_;
@@ -131,6 +134,7 @@ public final class Marketdataserver {
     }
     /**
      * <code>string partyId = 1;</code>
+     * @return The bytes for partyId.
      */
     public com.google.protobuf.ByteString
         getPartyIdBytes() {
@@ -451,6 +455,7 @@ public final class Marketdataserver {
       private java.lang.Object partyId_ = "";
       /**
        * <code>string partyId = 1;</code>
+       * @return The partyId.
        */
       public java.lang.String getPartyId() {
         java.lang.Object ref = partyId_;
@@ -466,6 +471,7 @@ public final class Marketdataserver {
       }
       /**
        * <code>string partyId = 1;</code>
+       * @return The bytes for partyId.
        */
       public com.google.protobuf.ByteString
           getPartyIdBytes() {
@@ -482,6 +488,8 @@ public final class Marketdataserver {
       }
       /**
        * <code>string partyId = 1;</code>
+       * @param value The partyId to set.
+       * @return This builder for chaining.
        */
       public Builder setPartyId(
           java.lang.String value) {
@@ -495,6 +503,7 @@ public final class Marketdataserver {
       }
       /**
        * <code>string partyId = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPartyId() {
         
@@ -504,6 +513,8 @@ public final class Marketdataserver {
       }
       /**
        * <code>string partyId = 1;</code>
+       * @param value The bytes for partyId to set.
+       * @return This builder for chaining.
        */
       public Builder setPartyIdBytes(
           com.google.protobuf.ByteString value) {

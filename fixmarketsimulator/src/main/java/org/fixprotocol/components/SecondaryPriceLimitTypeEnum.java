@@ -54,6 +54,8 @@ public enum SecondaryPriceLimitTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -61,6 +63,10 @@ public enum SecondaryPriceLimitTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static SecondaryPriceLimitTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return SECONDARY_PRICE_LIMIT_TYPE_UNSPECIFIED;

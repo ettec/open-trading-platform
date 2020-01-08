@@ -167,12 +167,14 @@ private static final long serialVersionUID = 0L;
   private int pegLimitType_;
   /**
    * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegLimitType.
    */
   public int getPegLimitTypeValue() {
     return pegLimitType_;
   }
   /**
    * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegLimitType.
    */
   public org.fixprotocol.components.PegLimitTypeEnum getPegLimitType() {
     @SuppressWarnings("deprecation")
@@ -184,12 +186,14 @@ private static final long serialVersionUID = 0L;
   private int pegMoveType_;
   /**
    * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegMoveType.
    */
   public int getPegMoveTypeValue() {
     return pegMoveType_;
   }
   /**
    * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegMoveType.
    */
   public org.fixprotocol.components.PegMoveTypeEnum getPegMoveType() {
     @SuppressWarnings("deprecation")
@@ -201,12 +205,14 @@ private static final long serialVersionUID = 0L;
   private int pegOffsetType_;
   /**
    * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegOffsetType.
    */
   public int getPegOffsetTypeValue() {
     return pegOffsetType_;
   }
   /**
    * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegOffsetType.
    */
   public org.fixprotocol.components.PegOffsetTypeEnum getPegOffsetType() {
     @SuppressWarnings("deprecation")
@@ -218,12 +224,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 pegOffsetValue_;
   /**
    * <code>.fix.Decimal64 peg_offset_value = 4 [(.fix.tag) = 211, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the pegOffsetValue field is set.
    */
   public boolean hasPegOffsetValue() {
     return pegOffsetValue_ != null;
   }
   /**
    * <code>.fix.Decimal64 peg_offset_value = 4 [(.fix.tag) = 211, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegOffsetValue.
    */
   public org.fixprotocol.components.Fix.Decimal64 getPegOffsetValue() {
     return pegOffsetValue_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : pegOffsetValue_;
@@ -239,12 +247,14 @@ private static final long serialVersionUID = 0L;
   private int pegPriceType_;
   /**
    * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegPriceType.
    */
   public int getPegPriceTypeValue() {
     return pegPriceType_;
   }
   /**
    * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegPriceType.
    */
   public org.fixprotocol.components.PegPriceTypeEnum getPegPriceType() {
     @SuppressWarnings("deprecation")
@@ -256,12 +266,14 @@ private static final long serialVersionUID = 0L;
   private int pegRoundDirection_;
   /**
    * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegRoundDirection.
    */
   public int getPegRoundDirectionValue() {
     return pegRoundDirection_;
   }
   /**
    * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegRoundDirection.
    */
   public org.fixprotocol.components.PegRoundDirectionEnum getPegRoundDirection() {
     @SuppressWarnings("deprecation")
@@ -273,12 +285,14 @@ private static final long serialVersionUID = 0L;
   private int pegScope_;
   /**
    * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegScope.
    */
   public int getPegScopeValue() {
     return pegScope_;
   }
   /**
    * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegScope.
    */
   public org.fixprotocol.components.PegScopeEnum getPegScope() {
     @SuppressWarnings("deprecation")
@@ -290,6 +304,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object pegSecurityDesc_;
   /**
    * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSecurityDesc.
    */
   public java.lang.String getPegSecurityDesc() {
     java.lang.Object ref = pegSecurityDesc_;
@@ -305,6 +320,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pegSecurityDesc.
    */
   public com.google.protobuf.ByteString
       getPegSecurityDescBytes() {
@@ -324,6 +340,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object pegSecurityId_;
   /**
    * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSecurityId.
    */
   public java.lang.String getPegSecurityId() {
     java.lang.Object ref = pegSecurityId_;
@@ -339,6 +356,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pegSecurityId.
    */
   public com.google.protobuf.ByteString
       getPegSecurityIdBytes() {
@@ -358,12 +376,14 @@ private static final long serialVersionUID = 0L;
   private int pegSecurityIdSource_;
   /**
    * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegSecurityIdSource.
    */
   public int getPegSecurityIdSourceValue() {
     return pegSecurityIdSource_;
   }
   /**
    * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSecurityIdSource.
    */
   public org.fixprotocol.components.PegSecurityIDSourceEnum getPegSecurityIdSource() {
     @SuppressWarnings("deprecation")
@@ -375,6 +395,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object pegSymbol_;
   /**
    * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSymbol.
    */
   public java.lang.String getPegSymbol() {
     java.lang.Object ref = pegSymbol_;
@@ -390,6 +411,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pegSymbol.
    */
   public com.google.protobuf.ByteString
       getPegSymbolBytes() {
@@ -886,12 +908,15 @@ private static final long serialVersionUID = 0L;
     private int pegLimitType_ = 0;
     /**
      * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegLimitType.
      */
     public int getPegLimitTypeValue() {
       return pegLimitType_;
     }
     /**
      * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegLimitTypeValue(int value) {
       pegLimitType_ = value;
@@ -900,6 +925,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegLimitType.
      */
     public org.fixprotocol.components.PegLimitTypeEnum getPegLimitType() {
       @SuppressWarnings("deprecation")
@@ -908,6 +934,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegLimitType(org.fixprotocol.components.PegLimitTypeEnum value) {
       if (value == null) {
@@ -920,6 +948,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegLimitType() {
       
@@ -931,12 +960,15 @@ private static final long serialVersionUID = 0L;
     private int pegMoveType_ = 0;
     /**
      * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegMoveType.
      */
     public int getPegMoveTypeValue() {
       return pegMoveType_;
     }
     /**
      * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegMoveType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegMoveTypeValue(int value) {
       pegMoveType_ = value;
@@ -945,6 +977,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegMoveType.
      */
     public org.fixprotocol.components.PegMoveTypeEnum getPegMoveType() {
       @SuppressWarnings("deprecation")
@@ -953,6 +986,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegMoveType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegMoveType(org.fixprotocol.components.PegMoveTypeEnum value) {
       if (value == null) {
@@ -965,6 +1000,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegMoveType() {
       
@@ -976,12 +1012,15 @@ private static final long serialVersionUID = 0L;
     private int pegOffsetType_ = 0;
     /**
      * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegOffsetType.
      */
     public int getPegOffsetTypeValue() {
       return pegOffsetType_;
     }
     /**
      * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegOffsetType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegOffsetTypeValue(int value) {
       pegOffsetType_ = value;
@@ -990,6 +1029,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegOffsetType.
      */
     public org.fixprotocol.components.PegOffsetTypeEnum getPegOffsetType() {
       @SuppressWarnings("deprecation")
@@ -998,6 +1038,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegOffsetType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegOffsetType(org.fixprotocol.components.PegOffsetTypeEnum value) {
       if (value == null) {
@@ -1010,6 +1052,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegOffsetType() {
       
@@ -1023,12 +1066,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> pegOffsetValueBuilder_;
     /**
      * <code>.fix.Decimal64 peg_offset_value = 4 [(.fix.tag) = 211, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the pegOffsetValue field is set.
      */
     public boolean hasPegOffsetValue() {
       return pegOffsetValueBuilder_ != null || pegOffsetValue_ != null;
     }
     /**
      * <code>.fix.Decimal64 peg_offset_value = 4 [(.fix.tag) = 211, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegOffsetValue.
      */
     public org.fixprotocol.components.Fix.Decimal64 getPegOffsetValue() {
       if (pegOffsetValueBuilder_ == null) {
@@ -1138,12 +1183,15 @@ private static final long serialVersionUID = 0L;
     private int pegPriceType_ = 0;
     /**
      * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegPriceType.
      */
     public int getPegPriceTypeValue() {
       return pegPriceType_;
     }
     /**
      * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegPriceTypeValue(int value) {
       pegPriceType_ = value;
@@ -1152,6 +1200,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegPriceType.
      */
     public org.fixprotocol.components.PegPriceTypeEnum getPegPriceType() {
       @SuppressWarnings("deprecation")
@@ -1160,6 +1209,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setPegPriceType(org.fixprotocol.components.PegPriceTypeEnum value) {
       if (value == null) {
@@ -1172,6 +1223,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegPriceType() {
       
@@ -1183,12 +1235,15 @@ private static final long serialVersionUID = 0L;
     private int pegRoundDirection_ = 0;
     /**
      * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegRoundDirection.
      */
     public int getPegRoundDirectionValue() {
       return pegRoundDirection_;
     }
     /**
      * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegRoundDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setPegRoundDirectionValue(int value) {
       pegRoundDirection_ = value;
@@ -1197,6 +1252,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegRoundDirection.
      */
     public org.fixprotocol.components.PegRoundDirectionEnum getPegRoundDirection() {
       @SuppressWarnings("deprecation")
@@ -1205,6 +1261,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegRoundDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setPegRoundDirection(org.fixprotocol.components.PegRoundDirectionEnum value) {
       if (value == null) {
@@ -1217,6 +1275,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegRoundDirection() {
       
@@ -1228,12 +1287,15 @@ private static final long serialVersionUID = 0L;
     private int pegScope_ = 0;
     /**
      * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegScope.
      */
     public int getPegScopeValue() {
       return pegScope_;
     }
     /**
      * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegScope to set.
+     * @return This builder for chaining.
      */
     public Builder setPegScopeValue(int value) {
       pegScope_ = value;
@@ -1242,6 +1304,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegScope.
      */
     public org.fixprotocol.components.PegScopeEnum getPegScope() {
       @SuppressWarnings("deprecation")
@@ -1250,6 +1313,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegScope to set.
+     * @return This builder for chaining.
      */
     public Builder setPegScope(org.fixprotocol.components.PegScopeEnum value) {
       if (value == null) {
@@ -1262,6 +1327,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegScope() {
       
@@ -1273,6 +1339,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object pegSecurityDesc_ = "";
     /**
      * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegSecurityDesc.
      */
     public java.lang.String getPegSecurityDesc() {
       java.lang.Object ref = pegSecurityDesc_;
@@ -1288,6 +1355,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for pegSecurityDesc.
      */
     public com.google.protobuf.ByteString
         getPegSecurityDescBytes() {
@@ -1304,6 +1372,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSecurityDesc(
         java.lang.String value) {
@@ -1317,6 +1387,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegSecurityDesc() {
       
@@ -1326,6 +1397,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for pegSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSecurityDescBytes(
         com.google.protobuf.ByteString value) {
@@ -1342,6 +1415,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object pegSecurityId_ = "";
     /**
      * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegSecurityId.
      */
     public java.lang.String getPegSecurityId() {
       java.lang.Object ref = pegSecurityId_;
@@ -1357,6 +1431,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for pegSecurityId.
      */
     public com.google.protobuf.ByteString
         getPegSecurityIdBytes() {
@@ -1373,6 +1448,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSecurityId(
         java.lang.String value) {
@@ -1386,6 +1463,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegSecurityId() {
       
@@ -1395,6 +1473,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for pegSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSecurityIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1411,12 +1491,15 @@ private static final long serialVersionUID = 0L;
     private int pegSecurityIdSource_ = 0;
     /**
      * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for pegSecurityIdSource.
      */
     public int getPegSecurityIdSourceValue() {
       return pegSecurityIdSource_;
     }
     /**
      * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for pegSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSecurityIdSourceValue(int value) {
       pegSecurityIdSource_ = value;
@@ -1425,6 +1508,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegSecurityIdSource.
      */
     public org.fixprotocol.components.PegSecurityIDSourceEnum getPegSecurityIdSource() {
       @SuppressWarnings("deprecation")
@@ -1433,6 +1517,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSecurityIdSource(org.fixprotocol.components.PegSecurityIDSourceEnum value) {
       if (value == null) {
@@ -1445,6 +1531,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegSecurityIdSource() {
       
@@ -1456,6 +1543,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object pegSymbol_ = "";
     /**
      * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pegSymbol.
      */
     public java.lang.String getPegSymbol() {
       java.lang.Object ref = pegSymbol_;
@@ -1471,6 +1559,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for pegSymbol.
      */
     public com.google.protobuf.ByteString
         getPegSymbolBytes() {
@@ -1487,6 +1576,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The pegSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSymbol(
         java.lang.String value) {
@@ -1500,6 +1591,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPegSymbol() {
       
@@ -1509,6 +1601,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for pegSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setPegSymbolBytes(
         com.google.protobuf.ByteString value) {

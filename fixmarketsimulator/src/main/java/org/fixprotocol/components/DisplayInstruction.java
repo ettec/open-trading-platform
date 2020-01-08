@@ -176,12 +176,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 displayHighQty_;
   /**
    * <code>.fix.Decimal64 display_high_qty = 1 [(.fix.tag) = 1086, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayHighQty field is set.
    */
   public boolean hasDisplayHighQty() {
     return displayHighQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 display_high_qty = 1 [(.fix.tag) = 1086, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayHighQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDisplayHighQty() {
     return displayHighQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : displayHighQty_;
@@ -197,12 +199,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 displayLowQty_;
   /**
    * <code>.fix.Decimal64 display_low_qty = 2 [(.fix.tag) = 1085, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayLowQty field is set.
    */
   public boolean hasDisplayLowQty() {
     return displayLowQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 display_low_qty = 2 [(.fix.tag) = 1085, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayLowQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDisplayLowQty() {
     return displayLowQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : displayLowQty_;
@@ -218,12 +222,14 @@ private static final long serialVersionUID = 0L;
   private int displayMethod_;
   /**
    * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for displayMethod.
    */
   public int getDisplayMethodValue() {
     return displayMethod_;
   }
   /**
    * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayMethod.
    */
   public org.fixprotocol.components.DisplayMethodEnum getDisplayMethod() {
     @SuppressWarnings("deprecation")
@@ -235,12 +241,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 displayMinIncr_;
   /**
    * <code>.fix.Decimal64 display_min_incr = 4 [(.fix.tag) = 1087, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayMinIncr field is set.
    */
   public boolean hasDisplayMinIncr() {
     return displayMinIncr_ != null;
   }
   /**
    * <code>.fix.Decimal64 display_min_incr = 4 [(.fix.tag) = 1087, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayMinIncr.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDisplayMinIncr() {
     return displayMinIncr_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : displayMinIncr_;
@@ -256,12 +264,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 displayQty_;
   /**
    * <code>.fix.Decimal64 display_qty = 5 [(.fix.tag) = 1138, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayQty field is set.
    */
   public boolean hasDisplayQty() {
     return displayQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 display_qty = 5 [(.fix.tag) = 1138, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDisplayQty() {
     return displayQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : displayQty_;
@@ -277,12 +287,14 @@ private static final long serialVersionUID = 0L;
   private int displayWhen_;
   /**
    * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for displayWhen.
    */
   public int getDisplayWhenValue() {
     return displayWhen_;
   }
   /**
    * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayWhen.
    */
   public org.fixprotocol.components.DisplayWhenEnum getDisplayWhen() {
     @SuppressWarnings("deprecation")
@@ -294,12 +306,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 refreshQty_;
   /**
    * <code>.fix.Decimal64 refresh_qty = 7 [(.fix.tag) = 1088, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the refreshQty field is set.
    */
   public boolean hasRefreshQty() {
     return refreshQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 refresh_qty = 7 [(.fix.tag) = 1088, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refreshQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getRefreshQty() {
     return refreshQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : refreshQty_;
@@ -315,12 +329,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 secondaryDisplayQty_;
   /**
    * <code>.fix.Decimal64 secondary_display_qty = 8 [(.fix.tag) = 1082, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the secondaryDisplayQty field is set.
    */
   public boolean hasSecondaryDisplayQty() {
     return secondaryDisplayQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 secondary_display_qty = 8 [(.fix.tag) = 1082, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The secondaryDisplayQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getSecondaryDisplayQty() {
     return secondaryDisplayQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : secondaryDisplayQty_;
@@ -834,12 +850,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> displayHighQtyBuilder_;
     /**
      * <code>.fix.Decimal64 display_high_qty = 1 [(.fix.tag) = 1086, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the displayHighQty field is set.
      */
     public boolean hasDisplayHighQty() {
       return displayHighQtyBuilder_ != null || displayHighQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 display_high_qty = 1 [(.fix.tag) = 1086, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The displayHighQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDisplayHighQty() {
       if (displayHighQtyBuilder_ == null) {
@@ -951,12 +969,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> displayLowQtyBuilder_;
     /**
      * <code>.fix.Decimal64 display_low_qty = 2 [(.fix.tag) = 1085, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the displayLowQty field is set.
      */
     public boolean hasDisplayLowQty() {
       return displayLowQtyBuilder_ != null || displayLowQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 display_low_qty = 2 [(.fix.tag) = 1085, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The displayLowQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDisplayLowQty() {
       if (displayLowQtyBuilder_ == null) {
@@ -1066,12 +1086,15 @@ private static final long serialVersionUID = 0L;
     private int displayMethod_ = 0;
     /**
      * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for displayMethod.
      */
     public int getDisplayMethodValue() {
       return displayMethod_;
     }
     /**
      * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for displayMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDisplayMethodValue(int value) {
       displayMethod_ = value;
@@ -1080,6 +1103,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The displayMethod.
      */
     public org.fixprotocol.components.DisplayMethodEnum getDisplayMethod() {
       @SuppressWarnings("deprecation")
@@ -1088,6 +1112,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The displayMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDisplayMethod(org.fixprotocol.components.DisplayMethodEnum value) {
       if (value == null) {
@@ -1100,6 +1126,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDisplayMethod() {
       
@@ -1113,12 +1140,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> displayMinIncrBuilder_;
     /**
      * <code>.fix.Decimal64 display_min_incr = 4 [(.fix.tag) = 1087, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the displayMinIncr field is set.
      */
     public boolean hasDisplayMinIncr() {
       return displayMinIncrBuilder_ != null || displayMinIncr_ != null;
     }
     /**
      * <code>.fix.Decimal64 display_min_incr = 4 [(.fix.tag) = 1087, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The displayMinIncr.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDisplayMinIncr() {
       if (displayMinIncrBuilder_ == null) {
@@ -1230,12 +1259,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> displayQtyBuilder_;
     /**
      * <code>.fix.Decimal64 display_qty = 5 [(.fix.tag) = 1138, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the displayQty field is set.
      */
     public boolean hasDisplayQty() {
       return displayQtyBuilder_ != null || displayQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 display_qty = 5 [(.fix.tag) = 1138, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The displayQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDisplayQty() {
       if (displayQtyBuilder_ == null) {
@@ -1345,12 +1376,15 @@ private static final long serialVersionUID = 0L;
     private int displayWhen_ = 0;
     /**
      * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for displayWhen.
      */
     public int getDisplayWhenValue() {
       return displayWhen_;
     }
     /**
      * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for displayWhen to set.
+     * @return This builder for chaining.
      */
     public Builder setDisplayWhenValue(int value) {
       displayWhen_ = value;
@@ -1359,6 +1393,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The displayWhen.
      */
     public org.fixprotocol.components.DisplayWhenEnum getDisplayWhen() {
       @SuppressWarnings("deprecation")
@@ -1367,6 +1402,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The displayWhen to set.
+     * @return This builder for chaining.
      */
     public Builder setDisplayWhen(org.fixprotocol.components.DisplayWhenEnum value) {
       if (value == null) {
@@ -1379,6 +1416,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDisplayWhen() {
       
@@ -1392,12 +1430,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> refreshQtyBuilder_;
     /**
      * <code>.fix.Decimal64 refresh_qty = 7 [(.fix.tag) = 1088, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the refreshQty field is set.
      */
     public boolean hasRefreshQty() {
       return refreshQtyBuilder_ != null || refreshQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 refresh_qty = 7 [(.fix.tag) = 1088, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The refreshQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getRefreshQty() {
       if (refreshQtyBuilder_ == null) {
@@ -1509,12 +1549,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> secondaryDisplayQtyBuilder_;
     /**
      * <code>.fix.Decimal64 secondary_display_qty = 8 [(.fix.tag) = 1082, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the secondaryDisplayQty field is set.
      */
     public boolean hasSecondaryDisplayQty() {
       return secondaryDisplayQtyBuilder_ != null || secondaryDisplayQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 secondary_display_qty = 8 [(.fix.tag) = 1082, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryDisplayQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getSecondaryDisplayQty() {
       if (secondaryDisplayQtyBuilder_ == null) {

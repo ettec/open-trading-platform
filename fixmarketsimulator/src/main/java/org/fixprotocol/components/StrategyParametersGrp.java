@@ -105,6 +105,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object strategyParameterName_;
   /**
    * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strategyParameterName.
    */
   public java.lang.String getStrategyParameterName() {
     java.lang.Object ref = strategyParameterName_;
@@ -120,6 +121,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for strategyParameterName.
    */
   public com.google.protobuf.ByteString
       getStrategyParameterNameBytes() {
@@ -139,12 +141,14 @@ private static final long serialVersionUID = 0L;
   private int strategyParameterType_;
   /**
    * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for strategyParameterType.
    */
   public int getStrategyParameterTypeValue() {
     return strategyParameterType_;
   }
   /**
    * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strategyParameterType.
    */
   public org.fixprotocol.components.StrategyParameterTypeEnum getStrategyParameterType() {
     @SuppressWarnings("deprecation")
@@ -156,6 +160,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object strategyParameterValue_;
   /**
    * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strategyParameterValue.
    */
   public java.lang.String getStrategyParameterValue() {
     java.lang.Object ref = strategyParameterValue_;
@@ -171,6 +176,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for strategyParameterValue.
    */
   public com.google.protobuf.ByteString
       getStrategyParameterValueBytes() {
@@ -524,6 +530,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object strategyParameterName_ = "";
     /**
      * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The strategyParameterName.
      */
     public java.lang.String getStrategyParameterName() {
       java.lang.Object ref = strategyParameterName_;
@@ -539,6 +546,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for strategyParameterName.
      */
     public com.google.protobuf.ByteString
         getStrategyParameterNameBytes() {
@@ -555,6 +563,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The strategyParameterName to set.
+     * @return This builder for chaining.
      */
     public Builder setStrategyParameterName(
         java.lang.String value) {
@@ -568,6 +578,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStrategyParameterName() {
       
@@ -577,6 +588,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for strategyParameterName to set.
+     * @return This builder for chaining.
      */
     public Builder setStrategyParameterNameBytes(
         com.google.protobuf.ByteString value) {
@@ -593,12 +606,15 @@ private static final long serialVersionUID = 0L;
     private int strategyParameterType_ = 0;
     /**
      * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for strategyParameterType.
      */
     public int getStrategyParameterTypeValue() {
       return strategyParameterType_;
     }
     /**
      * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for strategyParameterType to set.
+     * @return This builder for chaining.
      */
     public Builder setStrategyParameterTypeValue(int value) {
       strategyParameterType_ = value;
@@ -607,6 +623,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The strategyParameterType.
      */
     public org.fixprotocol.components.StrategyParameterTypeEnum getStrategyParameterType() {
       @SuppressWarnings("deprecation")
@@ -615,6 +632,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The strategyParameterType to set.
+     * @return This builder for chaining.
      */
     public Builder setStrategyParameterType(org.fixprotocol.components.StrategyParameterTypeEnum value) {
       if (value == null) {
@@ -627,6 +646,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStrategyParameterType() {
       
@@ -638,6 +658,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object strategyParameterValue_ = "";
     /**
      * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The strategyParameterValue.
      */
     public java.lang.String getStrategyParameterValue() {
       java.lang.Object ref = strategyParameterValue_;
@@ -653,6 +674,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for strategyParameterValue.
      */
     public com.google.protobuf.ByteString
         getStrategyParameterValueBytes() {
@@ -669,6 +691,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The strategyParameterValue to set.
+     * @return This builder for chaining.
      */
     public Builder setStrategyParameterValue(
         java.lang.String value) {
@@ -682,6 +706,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStrategyParameterValue() {
       
@@ -691,6 +716,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for strategyParameterValue to set.
+     * @return This builder for chaining.
      */
     public Builder setStrategyParameterValueBytes(
         com.google.protobuf.ByteString value) {

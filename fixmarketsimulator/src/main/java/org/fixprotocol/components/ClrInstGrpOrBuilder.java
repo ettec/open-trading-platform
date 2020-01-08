@@ -9,10 +9,12 @@ public interface ClrInstGrpOrBuilder extends
 
   /**
    * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for clearingInstruction.
    */
   int getClearingInstructionValue();
   /**
    * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The clearingInstruction.
    */
   org.fixprotocol.components.ClearingInstructionEnum getClearingInstruction();
 }

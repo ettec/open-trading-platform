@@ -111,6 +111,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object contAmtCurr_;
   /**
    * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contAmtCurr.
    */
   public java.lang.String getContAmtCurr() {
     java.lang.Object ref = contAmtCurr_;
@@ -126,6 +127,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contAmtCurr.
    */
   public com.google.protobuf.ByteString
       getContAmtCurrBytes() {
@@ -145,12 +147,14 @@ private static final long serialVersionUID = 0L;
   private int contAmtType_;
   /**
    * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for contAmtType.
    */
   public int getContAmtTypeValue() {
     return contAmtType_;
   }
   /**
    * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contAmtType.
    */
   public org.fixprotocol.components.ContAmtTypeEnum getContAmtType() {
     @SuppressWarnings("deprecation")
@@ -162,12 +166,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 contAmtValue_;
   /**
    * <code>.fix.Decimal64 cont_amt_value = 3 [(.fix.tag) = 520, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the contAmtValue field is set.
    */
   public boolean hasContAmtValue() {
     return contAmtValue_ != null;
   }
   /**
    * <code>.fix.Decimal64 cont_amt_value = 3 [(.fix.tag) = 520, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contAmtValue.
    */
   public org.fixprotocol.components.Fix.Decimal64 getContAmtValue() {
     return contAmtValue_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : contAmtValue_;
@@ -530,6 +536,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object contAmtCurr_ = "";
     /**
      * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contAmtCurr.
      */
     public java.lang.String getContAmtCurr() {
       java.lang.Object ref = contAmtCurr_;
@@ -545,6 +552,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for contAmtCurr.
      */
     public com.google.protobuf.ByteString
         getContAmtCurrBytes() {
@@ -561,6 +569,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The contAmtCurr to set.
+     * @return This builder for chaining.
      */
     public Builder setContAmtCurr(
         java.lang.String value) {
@@ -574,6 +584,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearContAmtCurr() {
       
@@ -583,6 +594,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cont_amt_curr = 1 [(.fix.tag) = 521, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for contAmtCurr to set.
+     * @return This builder for chaining.
      */
     public Builder setContAmtCurrBytes(
         com.google.protobuf.ByteString value) {
@@ -599,12 +612,15 @@ private static final long serialVersionUID = 0L;
     private int contAmtType_ = 0;
     /**
      * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for contAmtType.
      */
     public int getContAmtTypeValue() {
       return contAmtType_;
     }
     /**
      * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for contAmtType to set.
+     * @return This builder for chaining.
      */
     public Builder setContAmtTypeValue(int value) {
       contAmtType_ = value;
@@ -613,6 +629,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contAmtType.
      */
     public org.fixprotocol.components.ContAmtTypeEnum getContAmtType() {
       @SuppressWarnings("deprecation")
@@ -621,6 +638,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The contAmtType to set.
+     * @return This builder for chaining.
      */
     public Builder setContAmtType(org.fixprotocol.components.ContAmtTypeEnum value) {
       if (value == null) {
@@ -633,6 +652,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ContAmtTypeEnum cont_amt_type = 2 [(.fix.tag) = 519, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearContAmtType() {
       
@@ -646,12 +666,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> contAmtValueBuilder_;
     /**
      * <code>.fix.Decimal64 cont_amt_value = 3 [(.fix.tag) = 520, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the contAmtValue field is set.
      */
     public boolean hasContAmtValue() {
       return contAmtValueBuilder_ != null || contAmtValue_ != null;
     }
     /**
      * <code>.fix.Decimal64 cont_amt_value = 3 [(.fix.tag) = 520, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contAmtValue.
      */
     public org.fixprotocol.components.Fix.Decimal64 getContAmtValue() {
       if (contAmtValueBuilder_ == null) {

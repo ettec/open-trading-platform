@@ -9,29 +9,35 @@ public interface DerivativeInstrumentPartiesOrBuilder extends
 
   /**
    * <code>string derivative_instrument_party_id = 1 [(.fix.tag) = 1293, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrumentPartyId.
    */
   java.lang.String getDerivativeInstrumentPartyId();
   /**
    * <code>string derivative_instrument_party_id = 1 [(.fix.tag) = 1293, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeInstrumentPartyId.
    */
   com.google.protobuf.ByteString
       getDerivativeInstrumentPartyIdBytes();
 
   /**
    * <code>.Common.DerivativeInstrumentPartyIDSourceEnum derivative_instrument_party_id_source = 2 [(.fix.tag) = 1294, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeInstrumentPartyIdSource.
    */
   int getDerivativeInstrumentPartyIdSourceValue();
   /**
    * <code>.Common.DerivativeInstrumentPartyIDSourceEnum derivative_instrument_party_id_source = 2 [(.fix.tag) = 1294, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrumentPartyIdSource.
    */
   org.fixprotocol.components.DerivativeInstrumentPartyIDSourceEnum getDerivativeInstrumentPartyIdSource();
 
   /**
    * <code>.Common.DerivativeInstrumentPartyRoleEnum derivative_instrument_party_role = 3 [(.fix.tag) = 1295, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeInstrumentPartyRole.
    */
   int getDerivativeInstrumentPartyRoleValue();
   /**
    * <code>.Common.DerivativeInstrumentPartyRoleEnum derivative_instrument_party_role = 3 [(.fix.tag) = 1295, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrumentPartyRole.
    */
   org.fixprotocol.components.DerivativeInstrumentPartyRoleEnum getDerivativeInstrumentPartyRole();
 

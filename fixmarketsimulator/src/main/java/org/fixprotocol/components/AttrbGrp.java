@@ -101,7 +101,8 @@ private static final long serialVersionUID = 0L;
   private int instrAttribTypeUnionCase_ = 0;
   private java.lang.Object instrAttribTypeUnion_;
   public enum InstrAttribTypeUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     INSTR_ATTRIB_TYPE(1),
     INSTR_ATTRIB_TYPE_RESERVED100PLUS(2),
     INSTRATTRIBTYPEUNION_NOT_SET(0);
@@ -110,6 +111,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -139,6 +142,7 @@ private static final long serialVersionUID = 0L;
   public static final int INSTR_ATTRIB_TYPE_FIELD_NUMBER = 1;
   /**
    * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for instrAttribType.
    */
   public int getInstrAttribTypeValue() {
     if (instrAttribTypeUnionCase_ == 1) {
@@ -148,6 +152,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrAttribType.
    */
   public org.fixprotocol.components.InstrAttribTypeEnum getInstrAttribType() {
     if (instrAttribTypeUnionCase_ == 1) {
@@ -162,6 +167,7 @@ private static final long serialVersionUID = 0L;
   public static final int INSTR_ATTRIB_TYPE_RESERVED100PLUS_FIELD_NUMBER = 2;
   /**
    * <code>fixed32 instr_attrib_type_reserved100plus = 2 [(.fix.tag) = 871, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrAttribTypeReserved100plus.
    */
   public int getInstrAttribTypeReserved100Plus() {
     if (instrAttribTypeUnionCase_ == 2) {
@@ -174,6 +180,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object instrAttribValue_;
   /**
    * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrAttribValue.
    */
   public java.lang.String getInstrAttribValue() {
     java.lang.Object ref = instrAttribValue_;
@@ -189,6 +196,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for instrAttribValue.
    */
   public com.google.protobuf.ByteString
       getInstrAttribValueBytes() {
@@ -586,6 +594,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for instrAttribType.
      */
     public int getInstrAttribTypeValue() {
       if (instrAttribTypeUnionCase_ == 1) {
@@ -595,6 +604,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for instrAttribType to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrAttribTypeValue(int value) {
       instrAttribTypeUnionCase_ = 1;
@@ -604,6 +615,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrAttribType.
      */
     public org.fixprotocol.components.InstrAttribTypeEnum getInstrAttribType() {
       if (instrAttribTypeUnionCase_ == 1) {
@@ -616,6 +628,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The instrAttribType to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrAttribType(org.fixprotocol.components.InstrAttribTypeEnum value) {
       if (value == null) {
@@ -628,6 +642,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearInstrAttribType() {
       if (instrAttribTypeUnionCase_ == 1) {
@@ -640,6 +655,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 instr_attrib_type_reserved100plus = 2 [(.fix.tag) = 871, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrAttribTypeReserved100plus.
      */
     public int getInstrAttribTypeReserved100Plus() {
       if (instrAttribTypeUnionCase_ == 2) {
@@ -649,6 +665,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 instr_attrib_type_reserved100plus = 2 [(.fix.tag) = 871, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The instrAttribTypeReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrAttribTypeReserved100Plus(int value) {
       instrAttribTypeUnionCase_ = 2;
@@ -658,6 +676,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 instr_attrib_type_reserved100plus = 2 [(.fix.tag) = 871, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearInstrAttribTypeReserved100Plus() {
       if (instrAttribTypeUnionCase_ == 2) {
@@ -671,6 +690,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object instrAttribValue_ = "";
     /**
      * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrAttribValue.
      */
     public java.lang.String getInstrAttribValue() {
       java.lang.Object ref = instrAttribValue_;
@@ -686,6 +706,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for instrAttribValue.
      */
     public com.google.protobuf.ByteString
         getInstrAttribValueBytes() {
@@ -702,6 +723,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The instrAttribValue to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrAttribValue(
         java.lang.String value) {
@@ -715,6 +738,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearInstrAttribValue() {
       
@@ -724,6 +748,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for instrAttribValue to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrAttribValueBytes(
         com.google.protobuf.ByteString value) {

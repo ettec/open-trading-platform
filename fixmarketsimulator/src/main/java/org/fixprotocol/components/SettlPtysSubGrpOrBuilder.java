@@ -9,20 +9,24 @@ public interface SettlPtysSubGrpOrBuilder extends
 
   /**
    * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartySubId.
    */
   java.lang.String getSettlPartySubId();
   /**
    * <code>string settl_party_sub_id = 1 [(.fix.tag) = 785, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for settlPartySubId.
    */
   com.google.protobuf.ByteString
       getSettlPartySubIdBytes();
 
   /**
    * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlPartySubIdType.
    */
   int getSettlPartySubIdTypeValue();
   /**
    * <code>.Common.SettlPartySubIDTypeEnum settl_party_sub_id_type = 2 [(.fix.tag) = 786, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartySubIdType.
    */
   org.fixprotocol.components.SettlPartySubIDTypeEnum getSettlPartySubIdType();
 }

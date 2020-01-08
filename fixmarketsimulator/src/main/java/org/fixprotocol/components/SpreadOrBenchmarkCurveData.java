@@ -152,6 +152,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object benchmarkCurveCurrency_;
   /**
    * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The benchmarkCurveCurrency.
    */
   public java.lang.String getBenchmarkCurveCurrency() {
     java.lang.Object ref = benchmarkCurveCurrency_;
@@ -167,6 +168,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for benchmarkCurveCurrency.
    */
   public com.google.protobuf.ByteString
       getBenchmarkCurveCurrencyBytes() {
@@ -186,12 +188,14 @@ private static final long serialVersionUID = 0L;
   private int benchmarkCurveName_;
   /**
    * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for benchmarkCurveName.
    */
   public int getBenchmarkCurveNameValue() {
     return benchmarkCurveName_;
   }
   /**
    * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The benchmarkCurveName.
    */
   public org.fixprotocol.components.BenchmarkCurveNameEnum getBenchmarkCurveName() {
     @SuppressWarnings("deprecation")
@@ -203,6 +207,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object benchmarkCurvePoint_;
   /**
    * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The benchmarkCurvePoint.
    */
   public java.lang.String getBenchmarkCurvePoint() {
     java.lang.Object ref = benchmarkCurvePoint_;
@@ -218,6 +223,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for benchmarkCurvePoint.
    */
   public com.google.protobuf.ByteString
       getBenchmarkCurvePointBytes() {
@@ -237,12 +243,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 spread_;
   /**
    * <code>.fix.Decimal64 spread = 4 [(.fix.tag) = 218, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the spread field is set.
    */
   public boolean hasSpread() {
     return spread_ != null;
   }
   /**
    * <code>.fix.Decimal64 spread = 4 [(.fix.tag) = 218, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The spread.
    */
   public org.fixprotocol.components.Fix.Decimal64 getSpread() {
     return spread_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : spread_;
@@ -258,12 +266,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 benchmarkPrice_;
   /**
    * <code>.fix.Decimal64 benchmark_price = 5 [(.fix.tag) = 662, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the benchmarkPrice field is set.
    */
   public boolean hasBenchmarkPrice() {
     return benchmarkPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 benchmark_price = 5 [(.fix.tag) = 662, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getBenchmarkPrice() {
     return benchmarkPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : benchmarkPrice_;
@@ -279,12 +289,14 @@ private static final long serialVersionUID = 0L;
   private int benchmarkPriceType_;
   /**
    * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for benchmarkPriceType.
    */
   public int getBenchmarkPriceTypeValue() {
     return benchmarkPriceType_;
   }
   /**
    * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkPriceType.
    */
   public org.fixprotocol.components.BenchmarkPriceTypeEnum getBenchmarkPriceType() {
     @SuppressWarnings("deprecation")
@@ -296,6 +308,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object benchmarkSecurityId_;
   /**
    * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkSecurityId.
    */
   public java.lang.String getBenchmarkSecurityId() {
     java.lang.Object ref = benchmarkSecurityId_;
@@ -311,6 +324,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for benchmarkSecurityId.
    */
   public com.google.protobuf.ByteString
       getBenchmarkSecurityIdBytes() {
@@ -330,12 +344,14 @@ private static final long serialVersionUID = 0L;
   private int benchmarkSecurityIdSource_;
   /**
    * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for benchmarkSecurityIdSource.
    */
   public int getBenchmarkSecurityIdSourceValue() {
     return benchmarkSecurityIdSource_;
   }
   /**
    * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkSecurityIdSource.
    */
   public org.fixprotocol.components.BenchmarkSecurityIDSourceEnum getBenchmarkSecurityIdSource() {
     @SuppressWarnings("deprecation")
@@ -790,6 +806,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object benchmarkCurveCurrency_ = "";
     /**
      * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The benchmarkCurveCurrency.
      */
     public java.lang.String getBenchmarkCurveCurrency() {
       java.lang.Object ref = benchmarkCurveCurrency_;
@@ -805,6 +822,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for benchmarkCurveCurrency.
      */
     public com.google.protobuf.ByteString
         getBenchmarkCurveCurrencyBytes() {
@@ -821,6 +839,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The benchmarkCurveCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkCurveCurrency(
         java.lang.String value) {
@@ -834,6 +854,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearBenchmarkCurveCurrency() {
       
@@ -843,6 +864,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for benchmarkCurveCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkCurveCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -859,12 +882,15 @@ private static final long serialVersionUID = 0L;
     private int benchmarkCurveName_ = 0;
     /**
      * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for benchmarkCurveName.
      */
     public int getBenchmarkCurveNameValue() {
       return benchmarkCurveName_;
     }
     /**
      * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for benchmarkCurveName to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkCurveNameValue(int value) {
       benchmarkCurveName_ = value;
@@ -873,6 +899,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The benchmarkCurveName.
      */
     public org.fixprotocol.components.BenchmarkCurveNameEnum getBenchmarkCurveName() {
       @SuppressWarnings("deprecation")
@@ -881,6 +908,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The benchmarkCurveName to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkCurveName(org.fixprotocol.components.BenchmarkCurveNameEnum value) {
       if (value == null) {
@@ -893,6 +922,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearBenchmarkCurveName() {
       
@@ -904,6 +934,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object benchmarkCurvePoint_ = "";
     /**
      * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The benchmarkCurvePoint.
      */
     public java.lang.String getBenchmarkCurvePoint() {
       java.lang.Object ref = benchmarkCurvePoint_;
@@ -919,6 +950,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for benchmarkCurvePoint.
      */
     public com.google.protobuf.ByteString
         getBenchmarkCurvePointBytes() {
@@ -935,6 +967,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The benchmarkCurvePoint to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkCurvePoint(
         java.lang.String value) {
@@ -948,6 +982,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearBenchmarkCurvePoint() {
       
@@ -957,6 +992,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for benchmarkCurvePoint to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkCurvePointBytes(
         com.google.protobuf.ByteString value) {
@@ -975,12 +1012,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> spreadBuilder_;
     /**
      * <code>.fix.Decimal64 spread = 4 [(.fix.tag) = 218, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the spread field is set.
      */
     public boolean hasSpread() {
       return spreadBuilder_ != null || spread_ != null;
     }
     /**
      * <code>.fix.Decimal64 spread = 4 [(.fix.tag) = 218, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The spread.
      */
     public org.fixprotocol.components.Fix.Decimal64 getSpread() {
       if (spreadBuilder_ == null) {
@@ -1092,12 +1131,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> benchmarkPriceBuilder_;
     /**
      * <code>.fix.Decimal64 benchmark_price = 5 [(.fix.tag) = 662, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the benchmarkPrice field is set.
      */
     public boolean hasBenchmarkPrice() {
       return benchmarkPriceBuilder_ != null || benchmarkPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 benchmark_price = 5 [(.fix.tag) = 662, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The benchmarkPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getBenchmarkPrice() {
       if (benchmarkPriceBuilder_ == null) {
@@ -1207,12 +1248,15 @@ private static final long serialVersionUID = 0L;
     private int benchmarkPriceType_ = 0;
     /**
      * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for benchmarkPriceType.
      */
     public int getBenchmarkPriceTypeValue() {
       return benchmarkPriceType_;
     }
     /**
      * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for benchmarkPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkPriceTypeValue(int value) {
       benchmarkPriceType_ = value;
@@ -1221,6 +1265,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The benchmarkPriceType.
      */
     public org.fixprotocol.components.BenchmarkPriceTypeEnum getBenchmarkPriceType() {
       @SuppressWarnings("deprecation")
@@ -1229,6 +1274,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The benchmarkPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkPriceType(org.fixprotocol.components.BenchmarkPriceTypeEnum value) {
       if (value == null) {
@@ -1241,6 +1288,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearBenchmarkPriceType() {
       
@@ -1252,6 +1300,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object benchmarkSecurityId_ = "";
     /**
      * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The benchmarkSecurityId.
      */
     public java.lang.String getBenchmarkSecurityId() {
       java.lang.Object ref = benchmarkSecurityId_;
@@ -1267,6 +1316,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for benchmarkSecurityId.
      */
     public com.google.protobuf.ByteString
         getBenchmarkSecurityIdBytes() {
@@ -1283,6 +1333,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The benchmarkSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkSecurityId(
         java.lang.String value) {
@@ -1296,6 +1348,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearBenchmarkSecurityId() {
       
@@ -1305,6 +1358,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for benchmarkSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkSecurityIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1321,12 +1376,15 @@ private static final long serialVersionUID = 0L;
     private int benchmarkSecurityIdSource_ = 0;
     /**
      * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for benchmarkSecurityIdSource.
      */
     public int getBenchmarkSecurityIdSourceValue() {
       return benchmarkSecurityIdSource_;
     }
     /**
      * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for benchmarkSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkSecurityIdSourceValue(int value) {
       benchmarkSecurityIdSource_ = value;
@@ -1335,6 +1393,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The benchmarkSecurityIdSource.
      */
     public org.fixprotocol.components.BenchmarkSecurityIDSourceEnum getBenchmarkSecurityIdSource() {
       @SuppressWarnings("deprecation")
@@ -1343,6 +1402,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The benchmarkSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setBenchmarkSecurityIdSource(org.fixprotocol.components.BenchmarkSecurityIDSourceEnum value) {
       if (value == null) {
@@ -1355,6 +1416,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearBenchmarkSecurityIdSource() {
       

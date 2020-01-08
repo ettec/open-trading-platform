@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityXml_;
   /**
    * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityXml.
    */
   public java.lang.String getDerivativeSecurityXml() {
     java.lang.Object ref = derivativeSecurityXml_;
@@ -118,6 +119,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityXml.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityXmlBytes() {
@@ -137,6 +139,7 @@ private static final long serialVersionUID = 0L;
   private long derivativeSecurityXmlLen_;
   /**
    * <code>sfixed64 derivative_security_xml_len = 2 [(.fix.tag) = 1282, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityXmlLen.
    */
   public long getDerivativeSecurityXmlLen() {
     return derivativeSecurityXmlLen_;
@@ -146,6 +149,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityXmlSchema_;
   /**
    * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityXmlSchema.
    */
   public java.lang.String getDerivativeSecurityXmlSchema() {
     java.lang.Object ref = derivativeSecurityXmlSchema_;
@@ -161,6 +165,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityXmlSchema.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityXmlSchemaBytes() {
@@ -516,6 +521,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityXml_ = "";
     /**
      * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityXml.
      */
     public java.lang.String getDerivativeSecurityXml() {
       java.lang.Object ref = derivativeSecurityXml_;
@@ -531,6 +537,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityXml.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityXmlBytes() {
@@ -547,6 +554,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityXml to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityXml(
         java.lang.String value) {
@@ -560,6 +569,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityXml() {
       
@@ -569,6 +579,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml = 1 [(.fix.tag) = 1283, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityXml to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityXmlBytes(
         com.google.protobuf.ByteString value) {
@@ -585,12 +597,15 @@ private static final long serialVersionUID = 0L;
     private long derivativeSecurityXmlLen_ ;
     /**
      * <code>sfixed64 derivative_security_xml_len = 2 [(.fix.tag) = 1282, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityXmlLen.
      */
     public long getDerivativeSecurityXmlLen() {
       return derivativeSecurityXmlLen_;
     }
     /**
      * <code>sfixed64 derivative_security_xml_len = 2 [(.fix.tag) = 1282, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityXmlLen to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityXmlLen(long value) {
       
@@ -600,6 +615,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 derivative_security_xml_len = 2 [(.fix.tag) = 1282, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityXmlLen() {
       
@@ -611,6 +627,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityXmlSchema_ = "";
     /**
      * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityXmlSchema.
      */
     public java.lang.String getDerivativeSecurityXmlSchema() {
       java.lang.Object ref = derivativeSecurityXmlSchema_;
@@ -626,6 +643,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityXmlSchema.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityXmlSchemaBytes() {
@@ -642,6 +660,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityXmlSchema to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityXmlSchema(
         java.lang.String value) {
@@ -655,6 +675,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityXmlSchema() {
       
@@ -664,6 +685,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_xml_schema = 3 [(.fix.tag) = 1284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityXmlSchema to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityXmlSchemaBytes(
         com.google.protobuf.ByteString value) {

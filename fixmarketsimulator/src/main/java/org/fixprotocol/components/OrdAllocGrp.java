@@ -172,6 +172,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object clOrdId_;
   /**
    * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The clOrdId.
    */
   public java.lang.String getClOrdId() {
     java.lang.Object ref = clOrdId_;
@@ -187,6 +188,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for clOrdId.
    */
   public com.google.protobuf.ByteString
       getClOrdIdBytes() {
@@ -206,6 +208,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object listId_;
   /**
    * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The listId.
    */
   public java.lang.String getListId() {
     java.lang.Object ref = listId_;
@@ -221,6 +224,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for listId.
    */
   public com.google.protobuf.ByteString
       getListIdBytes() {
@@ -275,12 +279,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 orderAvgPx_;
   /**
    * <code>.fix.Decimal64 order_avg_px = 4 [(.fix.tag) = 799, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the orderAvgPx field is set.
    */
   public boolean hasOrderAvgPx() {
     return orderAvgPx_ != null;
   }
   /**
    * <code>.fix.Decimal64 order_avg_px = 4 [(.fix.tag) = 799, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The orderAvgPx.
    */
   public org.fixprotocol.components.Fix.Decimal64 getOrderAvgPx() {
     return orderAvgPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : orderAvgPx_;
@@ -296,12 +302,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 orderBookingQty_;
   /**
    * <code>.fix.Decimal64 order_booking_qty = 5 [(.fix.tag) = 800, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the orderBookingQty field is set.
    */
   public boolean hasOrderBookingQty() {
     return orderBookingQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 order_booking_qty = 5 [(.fix.tag) = 800, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The orderBookingQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getOrderBookingQty() {
     return orderBookingQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : orderBookingQty_;
@@ -317,6 +325,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object orderId_;
   /**
    * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The orderId.
    */
   public java.lang.String getOrderId() {
     java.lang.Object ref = orderId_;
@@ -332,6 +341,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for orderId.
    */
   public com.google.protobuf.ByteString
       getOrderIdBytes() {
@@ -351,12 +361,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 orderQty_;
   /**
    * <code>.fix.Decimal64 order_qty = 7 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the orderQty field is set.
    */
   public boolean hasOrderQty() {
     return orderQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 order_qty = 7 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The orderQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getOrderQty() {
     return orderQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : orderQty_;
@@ -372,6 +384,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object secondaryClOrdId_;
   /**
    * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The secondaryClOrdId.
    */
   public java.lang.String getSecondaryClOrdId() {
     java.lang.Object ref = secondaryClOrdId_;
@@ -387,6 +400,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for secondaryClOrdId.
    */
   public com.google.protobuf.ByteString
       getSecondaryClOrdIdBytes() {
@@ -406,6 +420,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object secondaryOrderId_;
   /**
    * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The secondaryOrderId.
    */
   public java.lang.String getSecondaryOrderId() {
     java.lang.Object ref = secondaryOrderId_;
@@ -421,6 +436,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for secondaryOrderId.
    */
   public com.google.protobuf.ByteString
       getSecondaryOrderIdBytes() {
@@ -956,6 +972,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object clOrdId_ = "";
     /**
      * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The clOrdId.
      */
     public java.lang.String getClOrdId() {
       java.lang.Object ref = clOrdId_;
@@ -971,6 +988,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for clOrdId.
      */
     public com.google.protobuf.ByteString
         getClOrdIdBytes() {
@@ -987,6 +1005,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The clOrdId to set.
+     * @return This builder for chaining.
      */
     public Builder setClOrdId(
         java.lang.String value) {
@@ -1000,6 +1020,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearClOrdId() {
       
@@ -1009,6 +1030,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string cl_ord_id = 1 [(.fix.tag) = 11, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for clOrdId to set.
+     * @return This builder for chaining.
      */
     public Builder setClOrdIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1025,6 +1048,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object listId_ = "";
     /**
      * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The listId.
      */
     public java.lang.String getListId() {
       java.lang.Object ref = listId_;
@@ -1040,6 +1064,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for listId.
      */
     public com.google.protobuf.ByteString
         getListIdBytes() {
@@ -1056,6 +1081,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The listId to set.
+     * @return This builder for chaining.
      */
     public Builder setListId(
         java.lang.String value) {
@@ -1069,6 +1096,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearListId() {
       
@@ -1078,6 +1106,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string list_id = 2 [(.fix.tag) = 66, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for listId to set.
+     * @return This builder for chaining.
      */
     public Builder setListIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1336,12 +1366,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> orderAvgPxBuilder_;
     /**
      * <code>.fix.Decimal64 order_avg_px = 4 [(.fix.tag) = 799, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the orderAvgPx field is set.
      */
     public boolean hasOrderAvgPx() {
       return orderAvgPxBuilder_ != null || orderAvgPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 order_avg_px = 4 [(.fix.tag) = 799, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderAvgPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getOrderAvgPx() {
       if (orderAvgPxBuilder_ == null) {
@@ -1453,12 +1485,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> orderBookingQtyBuilder_;
     /**
      * <code>.fix.Decimal64 order_booking_qty = 5 [(.fix.tag) = 800, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the orderBookingQty field is set.
      */
     public boolean hasOrderBookingQty() {
       return orderBookingQtyBuilder_ != null || orderBookingQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 order_booking_qty = 5 [(.fix.tag) = 800, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderBookingQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getOrderBookingQty() {
       if (orderBookingQtyBuilder_ == null) {
@@ -1568,6 +1602,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object orderId_ = "";
     /**
      * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderId.
      */
     public java.lang.String getOrderId() {
       java.lang.Object ref = orderId_;
@@ -1583,6 +1618,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for orderId.
      */
     public com.google.protobuf.ByteString
         getOrderIdBytes() {
@@ -1599,6 +1635,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The orderId to set.
+     * @return This builder for chaining.
      */
     public Builder setOrderId(
         java.lang.String value) {
@@ -1612,6 +1650,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearOrderId() {
       
@@ -1621,6 +1660,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string order_id = 6 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for orderId to set.
+     * @return This builder for chaining.
      */
     public Builder setOrderIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1639,12 +1680,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> orderQtyBuilder_;
     /**
      * <code>.fix.Decimal64 order_qty = 7 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the orderQty field is set.
      */
     public boolean hasOrderQty() {
       return orderQtyBuilder_ != null || orderQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 order_qty = 7 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getOrderQty() {
       if (orderQtyBuilder_ == null) {
@@ -1754,6 +1797,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object secondaryClOrdId_ = "";
     /**
      * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryClOrdId.
      */
     public java.lang.String getSecondaryClOrdId() {
       java.lang.Object ref = secondaryClOrdId_;
@@ -1769,6 +1813,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for secondaryClOrdId.
      */
     public com.google.protobuf.ByteString
         getSecondaryClOrdIdBytes() {
@@ -1785,6 +1830,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The secondaryClOrdId to set.
+     * @return This builder for chaining.
      */
     public Builder setSecondaryClOrdId(
         java.lang.String value) {
@@ -1798,6 +1845,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecondaryClOrdId() {
       
@@ -1807,6 +1855,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_cl_ord_id = 8 [(.fix.tag) = 526, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for secondaryClOrdId to set.
+     * @return This builder for chaining.
      */
     public Builder setSecondaryClOrdIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1823,6 +1873,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object secondaryOrderId_ = "";
     /**
      * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryOrderId.
      */
     public java.lang.String getSecondaryOrderId() {
       java.lang.Object ref = secondaryOrderId_;
@@ -1838,6 +1889,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for secondaryOrderId.
      */
     public com.google.protobuf.ByteString
         getSecondaryOrderIdBytes() {
@@ -1854,6 +1906,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The secondaryOrderId to set.
+     * @return This builder for chaining.
      */
     public Builder setSecondaryOrderId(
         java.lang.String value) {
@@ -1867,6 +1921,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecondaryOrderId() {
       
@@ -1876,6 +1931,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string secondary_order_id = 9 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for secondaryOrderId to set.
+     * @return This builder for chaining.
      */
     public Builder setSecondaryOrderIdBytes(
         com.google.protobuf.ByteString value) {

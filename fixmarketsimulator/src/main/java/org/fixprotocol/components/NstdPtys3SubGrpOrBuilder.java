@@ -9,20 +9,24 @@ public interface NstdPtys3SubGrpOrBuilder extends
 
   /**
    * <code>string nested3party_sub_id = 1 [(.fix.tag) = 953, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The nested3partySubId.
    */
   java.lang.String getNested3PartySubId();
   /**
    * <code>string nested3party_sub_id = 1 [(.fix.tag) = 953, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for nested3partySubId.
    */
   com.google.protobuf.ByteString
       getNested3PartySubIdBytes();
 
   /**
    * <code>.Common.Nested3PartySubIDTypeEnum nested3party_sub_id_type = 2 [(.fix.tag) = 954, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for nested3partySubIdType.
    */
   int getNested3PartySubIdTypeValue();
   /**
    * <code>.Common.Nested3PartySubIDTypeEnum nested3party_sub_id_type = 2 [(.fix.tag) = 954, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The nested3partySubIdType.
    */
   org.fixprotocol.components.Nested3PartySubIDTypeEnum getNested3PartySubIdType();
 }

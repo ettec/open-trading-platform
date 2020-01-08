@@ -206,6 +206,8 @@ public enum DerivativeSecurityAltIDSourceEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -213,6 +215,10 @@ public enum DerivativeSecurityAltIDSourceEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static DerivativeSecurityAltIDSourceEnum forNumber(int value) {
     switch (value) {
       case 0: return DERIVATIVE_SECURITY_ALT_ID_SOURCE_UNSPECIFIED;

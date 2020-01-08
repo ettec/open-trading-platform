@@ -9,10 +9,12 @@ public interface InstrmtMDReqGrpOrBuilder extends
 
   /**
    * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The currency.
    */
   java.lang.String getCurrency();
   /**
    * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for currency.
    */
   com.google.protobuf.ByteString
       getCurrencyBytes();
@@ -43,10 +45,12 @@ public interface InstrmtMDReqGrpOrBuilder extends
 
   /**
    * <code>.Common.Instrument instrument = 3 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrument field is set.
    */
   boolean hasInstrument();
   /**
    * <code>.Common.Instrument instrument = 3 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrument.
    */
   org.fixprotocol.components.Instrument getInstrument();
   /**
@@ -56,10 +60,12 @@ public interface InstrmtMDReqGrpOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 md_entry_size = 4 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the mdEntrySize field is set.
    */
   boolean hasMdEntrySize();
   /**
    * <code>.fix.Decimal64 md_entry_size = 4 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The mdEntrySize.
    */
   org.fixprotocol.components.Fix.Decimal64 getMdEntrySize();
   /**
@@ -69,33 +75,40 @@ public interface InstrmtMDReqGrpOrBuilder extends
 
   /**
    * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for quoteType.
    */
   int getQuoteTypeValue();
   /**
    * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The quoteType.
    */
   org.fixprotocol.components.QuoteTypeEnum getQuoteType();
 
   /**
    * <code>sfixed32 settl_date = 6 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlDate.
    */
   int getSettlDate();
 
   /**
    * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlType.
    */
   int getSettlTypeValue();
   /**
    * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlType.
    */
   org.fixprotocol.components.SettlTypeEnum getSettlType();
 
   /**
    * <code>.fix.Tenor settl_type_tenor = 8 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the settlTypeTenor field is set.
    */
   boolean hasSettlTypeTenor();
   /**
    * <code>.fix.Tenor settl_type_tenor = 8 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlTypeTenor.
    */
   org.fixprotocol.components.Fix.Tenor getSettlTypeTenor();
   /**
@@ -129,10 +142,12 @@ public interface InstrmtMDReqGrpOrBuilder extends
 
   /**
    * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+   * @return The mdStreamId.
    */
   java.lang.String getMdStreamId();
   /**
    * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+   * @return The bytes for mdStreamId.
    */
   com.google.protobuf.ByteString
       getMdStreamIdBytes();

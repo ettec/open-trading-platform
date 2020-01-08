@@ -9,29 +9,35 @@ public interface StrategyParametersGrpOrBuilder extends
 
   /**
    * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strategyParameterName.
    */
   java.lang.String getStrategyParameterName();
   /**
    * <code>string strategy_parameter_name = 1 [(.fix.tag) = 958, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for strategyParameterName.
    */
   com.google.protobuf.ByteString
       getStrategyParameterNameBytes();
 
   /**
    * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for strategyParameterType.
    */
   int getStrategyParameterTypeValue();
   /**
    * <code>.Common.StrategyParameterTypeEnum strategy_parameter_type = 2 [(.fix.tag) = 959, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strategyParameterType.
    */
   org.fixprotocol.components.StrategyParameterTypeEnum getStrategyParameterType();
 
   /**
    * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strategyParameterValue.
    */
   java.lang.String getStrategyParameterValue();
   /**
    * <code>string strategy_parameter_value = 3 [(.fix.tag) = 960, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for strategyParameterValue.
    */
   com.google.protobuf.ByteString
       getStrategyParameterValueBytes();

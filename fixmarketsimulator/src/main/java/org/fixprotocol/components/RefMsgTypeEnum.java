@@ -958,6 +958,8 @@ public enum RefMsgTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -965,6 +967,10 @@ public enum RefMsgTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static RefMsgTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return REF_MSG_TYPE_ADJUSTED_POSITION_REPORT;

@@ -9,44 +9,53 @@ public interface MaturityRulesOrBuilder extends
 
   /**
    * <code>sfixed32 end_maturity_month_year = 1 [(.fix.tag) = 1226, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The endMaturityMonthYear.
    */
   int getEndMaturityMonthYear();
 
   /**
    * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for maturityMonthYearFormat.
    */
   int getMaturityMonthYearFormatValue();
   /**
    * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityMonthYearFormat.
    */
   org.fixprotocol.components.MaturityMonthYearFormatEnum getMaturityMonthYearFormat();
 
   /**
    * <code>sfixed64 maturity_month_year_increment = 3 [(.fix.tag) = 1229, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityMonthYearIncrement.
    */
   long getMaturityMonthYearIncrement();
 
   /**
    * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for maturityMonthYearIncrementUnits.
    */
   int getMaturityMonthYearIncrementUnitsValue();
   /**
    * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityMonthYearIncrementUnits.
    */
   org.fixprotocol.components.MaturityMonthYearIncrementUnitsEnum getMaturityMonthYearIncrementUnits();
 
   /**
    * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityRuleId.
    */
   java.lang.String getMaturityRuleId();
   /**
    * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for maturityRuleId.
    */
   com.google.protobuf.ByteString
       getMaturityRuleIdBytes();
 
   /**
    * <code>sfixed32 start_maturity_month_year = 6 [(.fix.tag) = 1241, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The startMaturityMonthYear.
    */
   int getStartMaturityMonthYear();
 }

@@ -112,6 +112,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object deskId_;
   /**
    * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deskId.
    */
   public java.lang.String getDeskId() {
     java.lang.Object ref = deskId_;
@@ -127,6 +128,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for deskId.
    */
   public com.google.protobuf.ByteString
       getDeskIdBytes() {
@@ -146,6 +148,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object locationId_;
   /**
    * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The locationId.
    */
   public java.lang.String getLocationId() {
     java.lang.Object ref = locationId_;
@@ -161,6 +164,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for locationId.
    */
   public com.google.protobuf.ByteString
       getLocationIdBytes() {
@@ -180,6 +184,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object refCompId_;
   /**
    * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refCompId.
    */
   public java.lang.String getRefCompId() {
     java.lang.Object ref = refCompId_;
@@ -195,6 +200,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for refCompId.
    */
   public com.google.protobuf.ByteString
       getRefCompIdBytes() {
@@ -214,6 +220,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object refSubId_;
   /**
    * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refSubId.
    */
   public java.lang.String getRefSubId() {
     java.lang.Object ref = refSubId_;
@@ -229,6 +236,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for refSubId.
    */
   public com.google.protobuf.ByteString
       getRefSubIdBytes() {
@@ -600,6 +608,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object deskId_ = "";
     /**
      * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskId.
      */
     public java.lang.String getDeskId() {
       java.lang.Object ref = deskId_;
@@ -615,6 +624,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for deskId.
      */
     public com.google.protobuf.ByteString
         getDeskIdBytes() {
@@ -631,6 +641,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The deskId to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskId(
         java.lang.String value) {
@@ -644,6 +656,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDeskId() {
       
@@ -653,6 +666,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for deskId to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskIdBytes(
         com.google.protobuf.ByteString value) {
@@ -669,6 +684,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object locationId_ = "";
     /**
      * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The locationId.
      */
     public java.lang.String getLocationId() {
       java.lang.Object ref = locationId_;
@@ -684,6 +700,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for locationId.
      */
     public com.google.protobuf.ByteString
         getLocationIdBytes() {
@@ -700,6 +717,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The locationId to set.
+     * @return This builder for chaining.
      */
     public Builder setLocationId(
         java.lang.String value) {
@@ -713,6 +732,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLocationId() {
       
@@ -722,6 +742,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for locationId to set.
+     * @return This builder for chaining.
      */
     public Builder setLocationIdBytes(
         com.google.protobuf.ByteString value) {
@@ -738,6 +760,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object refCompId_ = "";
     /**
      * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The refCompId.
      */
     public java.lang.String getRefCompId() {
       java.lang.Object ref = refCompId_;
@@ -753,6 +776,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for refCompId.
      */
     public com.google.protobuf.ByteString
         getRefCompIdBytes() {
@@ -769,6 +793,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The refCompId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefCompId(
         java.lang.String value) {
@@ -782,6 +808,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRefCompId() {
       
@@ -791,6 +818,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for refCompId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefCompIdBytes(
         com.google.protobuf.ByteString value) {
@@ -807,6 +836,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object refSubId_ = "";
     /**
      * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The refSubId.
      */
     public java.lang.String getRefSubId() {
       java.lang.Object ref = refSubId_;
@@ -822,6 +852,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for refSubId.
      */
     public com.google.protobuf.ByteString
         getRefSubIdBytes() {
@@ -838,6 +869,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The refSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefSubId(
         java.lang.String value) {
@@ -851,6 +884,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRefSubId() {
       
@@ -860,6 +894,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for refSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefSubIdBytes(
         com.google.protobuf.ByteString value) {

@@ -9,10 +9,12 @@ public interface ComplexEventTimesOrBuilder extends
 
   /**
    * <code>.fix.TimeOnly complex_event_end_time = 1 [(.fix.tag) = 1496, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventEndTime field is set.
    */
   boolean hasComplexEventEndTime();
   /**
    * <code>.fix.TimeOnly complex_event_end_time = 1 [(.fix.tag) = 1496, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventEndTime.
    */
   org.fixprotocol.components.Fix.TimeOnly getComplexEventEndTime();
   /**
@@ -22,10 +24,12 @@ public interface ComplexEventTimesOrBuilder extends
 
   /**
    * <code>.fix.TimeOnly complex_event_start_time = 2 [(.fix.tag) = 1495, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventStartTime field is set.
    */
   boolean hasComplexEventStartTime();
   /**
    * <code>.fix.TimeOnly complex_event_start_time = 2 [(.fix.tag) = 1495, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventStartTime.
    */
   org.fixprotocol.components.Fix.TimeOnly getComplexEventStartTime();
   /**

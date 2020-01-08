@@ -9,45 +9,54 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedText.
    */
   java.lang.String getEncodedText();
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for encodedText.
    */
   com.google.protobuf.ByteString
       getEncodedTextBytes();
 
   /**
    * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedTextLen.
    */
   long getEncodedTextLen();
 
   /**
    * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityExchange.
    */
   java.lang.String getSecurityExchange();
   /**
    * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for securityExchange.
    */
   com.google.protobuf.ByteString
       getSecurityExchangeBytes();
 
   /**
    * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The text.
    */
   java.lang.String getText();
   /**
    * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for text.
    */
   com.google.protobuf.ByteString
       getTextBytes();
 
   /**
    * <code>.fix.Decimal64 total_volume_traded = 5 [(.fix.tag) = 387, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the totalVolumeTraded field is set.
    */
   boolean hasTotalVolumeTraded();
   /**
    * <code>.fix.Decimal64 total_volume_traded = 5 [(.fix.tag) = 387, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The totalVolumeTraded.
    */
   org.fixprotocol.components.Fix.Decimal64 getTotalVolumeTraded();
   /**
@@ -57,10 +66,12 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.fix.Timestamp trad_ses_close_time = 6 [(.fix.tag) = 344, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesCloseTime field is set.
    */
   boolean hasTradSesCloseTime();
   /**
    * <code>.fix.Timestamp trad_ses_close_time = 6 [(.fix.tag) = 344, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesCloseTime.
    */
   org.fixprotocol.components.Fix.Timestamp getTradSesCloseTime();
   /**
@@ -70,10 +81,12 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.fix.Timestamp trad_ses_end_time = 7 [(.fix.tag) = 345, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesEndTime field is set.
    */
   boolean hasTradSesEndTime();
   /**
    * <code>.fix.Timestamp trad_ses_end_time = 7 [(.fix.tag) = 345, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesEndTime.
    */
   org.fixprotocol.components.Fix.Timestamp getTradSesEndTime();
   /**
@@ -83,28 +96,34 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesMethod.
    */
   int getTradSesMethodValue();
   /**
    * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesMethod.
    */
   org.fixprotocol.components.TradSesMethodEnum getTradSesMethod();
 
   /**
    * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesMode.
    */
   int getTradSesModeValue();
   /**
    * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesMode.
    */
   org.fixprotocol.components.TradSesModeEnum getTradSesMode();
 
   /**
    * <code>.fix.Timestamp trad_ses_open_time = 10 [(.fix.tag) = 342, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesOpenTime field is set.
    */
   boolean hasTradSesOpenTime();
   /**
    * <code>.fix.Timestamp trad_ses_open_time = 10 [(.fix.tag) = 342, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesOpenTime.
    */
   org.fixprotocol.components.Fix.Timestamp getTradSesOpenTime();
   /**
@@ -114,10 +133,12 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.fix.Timestamp trad_ses_pre_close_time = 11 [(.fix.tag) = 343, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesPreCloseTime field is set.
    */
   boolean hasTradSesPreCloseTime();
   /**
    * <code>.fix.Timestamp trad_ses_pre_close_time = 11 [(.fix.tag) = 343, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesPreCloseTime.
    */
   org.fixprotocol.components.Fix.Timestamp getTradSesPreCloseTime();
   /**
@@ -127,10 +148,12 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.fix.Timestamp trad_ses_start_time = 12 [(.fix.tag) = 341, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesStartTime field is set.
    */
   boolean hasTradSesStartTime();
   /**
    * <code>.fix.Timestamp trad_ses_start_time = 12 [(.fix.tag) = 341, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStartTime.
    */
   org.fixprotocol.components.Fix.Timestamp getTradSesStartTime();
   /**
@@ -140,101 +163,122 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesStatus.
    */
   int getTradSesStatusValue();
   /**
    * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatus.
    */
   org.fixprotocol.components.TradSesStatusEnum getTradSesStatus();
 
   /**
    * <code>fixed32 trad_ses_status_reserved100plus = 16 [(.fix.tag) = 340, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatusReserved100plus.
    */
   int getTradSesStatusReserved100Plus();
 
   /**
    * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesStatusRejReason.
    */
   int getTradSesStatusRejReasonValue();
   /**
    * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatusRejReason.
    */
   org.fixprotocol.components.TradSesStatusRejReasonEnum getTradSesStatusRejReason();
 
   /**
    * <code>fixed32 trad_ses_status_rej_reason_reserved100plus = 15 [(.fix.tag) = 567, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatusRejReasonReserved100plus.
    */
   int getTradSesStatusRejReasonReserved100Plus();
 
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradingSessionId.
    */
   int getTradingSessionIdValue();
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionId.
    */
   org.fixprotocol.components.TradingSessionIDEnum getTradingSessionId();
 
   /**
    * <code>fixed32 trading_session_id_reserved100plus = 18 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionIdReserved100plus.
    */
   int getTradingSessionIdReserved100Plus();
 
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradingSessionSubId.
    */
   int getTradingSessionSubIdValue();
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionSubId.
    */
   org.fixprotocol.components.TradingSessionSubIDEnum getTradingSessionSubId();
 
   /**
    * <code>fixed32 trading_session_sub_id_reserved100plus = 20 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionSubIdReserved100plus.
    */
   int getTradingSessionSubIdReserved100Plus();
 
   /**
    * <code>bool unsolicited_indicator = 21 [(.fix.tag) = 325, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The unsolicitedIndicator.
    */
   boolean getUnsolicitedIndicator();
 
   /**
    * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketId.
    */
   java.lang.String getMarketId();
   /**
    * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketId.
    */
   com.google.protobuf.ByteString
       getMarketIdBytes();
 
   /**
    * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketSegmentId.
    */
   java.lang.String getMarketSegmentId();
   /**
    * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketSegmentId.
    */
   com.google.protobuf.ByteString
       getMarketSegmentIdBytes();
 
   /**
    * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionDesc.
    */
   java.lang.String getTradingSessionDesc();
   /**
    * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for tradingSessionDesc.
    */
   com.google.protobuf.ByteString
       getTradingSessionDescBytes();
 
   /**
    * <code>.Common.TradingSessionRules trading_session_rules = 25 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the tradingSessionRules field is set.
    */
   boolean hasTradingSessionRules();
   /**
    * <code>.Common.TradingSessionRules trading_session_rules = 25 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionRules.
    */
   org.fixprotocol.components.TradingSessionRules getTradingSessionRules();
   /**
@@ -244,19 +288,23 @@ public interface TrdSessLstGrpOrBuilder extends
 
   /**
    * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The enum numeric value on the wire for tradSesUpdateAction.
    */
   int getTradSesUpdateActionValue();
   /**
    * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The tradSesUpdateAction.
    */
   org.fixprotocol.components.TradSesUpdateActionEnum getTradSesUpdateAction();
 
   /**
    * <code>.fix.Timestamp transact_time = 27 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return Whether the transactTime field is set.
    */
   boolean hasTransactTime();
   /**
    * <code>.fix.Timestamp transact_time = 27 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The transactTime.
    */
   org.fixprotocol.components.Fix.Timestamp getTransactTime();
   /**

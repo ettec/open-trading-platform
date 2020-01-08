@@ -110,12 +110,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.TimeOnly complexEventEndTime_;
   /**
    * <code>.fix.TimeOnly complex_event_end_time = 1 [(.fix.tag) = 1496, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventEndTime field is set.
    */
   public boolean hasComplexEventEndTime() {
     return complexEventEndTime_ != null;
   }
   /**
    * <code>.fix.TimeOnly complex_event_end_time = 1 [(.fix.tag) = 1496, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventEndTime.
    */
   public org.fixprotocol.components.Fix.TimeOnly getComplexEventEndTime() {
     return complexEventEndTime_ == null ? org.fixprotocol.components.Fix.TimeOnly.getDefaultInstance() : complexEventEndTime_;
@@ -131,12 +133,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.TimeOnly complexEventStartTime_;
   /**
    * <code>.fix.TimeOnly complex_event_start_time = 2 [(.fix.tag) = 1495, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventStartTime field is set.
    */
   public boolean hasComplexEventStartTime() {
     return complexEventStartTime_ != null;
   }
   /**
    * <code>.fix.TimeOnly complex_event_start_time = 2 [(.fix.tag) = 1495, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventStartTime.
    */
   public org.fixprotocol.components.Fix.TimeOnly getComplexEventStartTime() {
     return complexEventStartTime_ == null ? org.fixprotocol.components.Fix.TimeOnly.getDefaultInstance() : complexEventStartTime_;
@@ -498,12 +502,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.TimeOnly, org.fixprotocol.components.Fix.TimeOnly.Builder, org.fixprotocol.components.Fix.TimeOnlyOrBuilder> complexEventEndTimeBuilder_;
     /**
      * <code>.fix.TimeOnly complex_event_end_time = 1 [(.fix.tag) = 1496, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexEventEndTime field is set.
      */
     public boolean hasComplexEventEndTime() {
       return complexEventEndTimeBuilder_ != null || complexEventEndTime_ != null;
     }
     /**
      * <code>.fix.TimeOnly complex_event_end_time = 1 [(.fix.tag) = 1496, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventEndTime.
      */
     public org.fixprotocol.components.Fix.TimeOnly getComplexEventEndTime() {
       if (complexEventEndTimeBuilder_ == null) {
@@ -615,12 +621,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.TimeOnly, org.fixprotocol.components.Fix.TimeOnly.Builder, org.fixprotocol.components.Fix.TimeOnlyOrBuilder> complexEventStartTimeBuilder_;
     /**
      * <code>.fix.TimeOnly complex_event_start_time = 2 [(.fix.tag) = 1495, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexEventStartTime field is set.
      */
     public boolean hasComplexEventStartTime() {
       return complexEventStartTimeBuilder_ != null || complexEventStartTime_ != null;
     }
     /**
      * <code>.fix.TimeOnly complex_event_start_time = 2 [(.fix.tag) = 1495, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventStartTime.
      */
     public org.fixprotocol.components.Fix.TimeOnly getComplexEventStartTime() {
       if (complexEventStartTimeBuilder_ == null) {

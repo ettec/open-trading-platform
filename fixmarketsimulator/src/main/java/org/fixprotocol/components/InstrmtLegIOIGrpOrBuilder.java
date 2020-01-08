@@ -9,10 +9,12 @@ public interface InstrmtLegIOIGrpOrBuilder extends
 
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrumentLeg field is set.
    */
   boolean hasInstrumentLeg();
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentLeg.
    */
   org.fixprotocol.components.InstrumentLeg getInstrumentLeg();
   /**
@@ -22,10 +24,12 @@ public interface InstrmtLegIOIGrpOrBuilder extends
 
   /**
    * <code>.Common.LegIOIQtyEnum leg_ioi_qty = 2 [(.fix.tag) = 682, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legIoiQty.
    */
   int getLegIoiQtyValue();
   /**
    * <code>.Common.LegIOIQtyEnum leg_ioi_qty = 2 [(.fix.tag) = 682, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legIoiQty.
    */
   org.fixprotocol.components.LegIOIQtyEnum getLegIoiQty();
 

@@ -139,6 +139,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legAllocAccount_;
   /**
    * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legAllocAccount.
    */
   public java.lang.String getLegAllocAccount() {
     java.lang.Object ref = legAllocAccount_;
@@ -154,6 +155,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legAllocAccount.
    */
   public com.google.protobuf.ByteString
       getLegAllocAccountBytes() {
@@ -173,6 +175,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legAllocAcctIdSource_;
   /**
    * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legAllocAcctIdSource.
    */
   public java.lang.String getLegAllocAcctIdSource() {
     java.lang.Object ref = legAllocAcctIdSource_;
@@ -188,6 +191,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legAllocAcctIdSource.
    */
   public com.google.protobuf.ByteString
       getLegAllocAcctIdSourceBytes() {
@@ -207,12 +211,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legAllocQty_;
   /**
    * <code>.fix.Decimal64 leg_alloc_qty = 3 [(.fix.tag) = 673, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legAllocQty field is set.
    */
   public boolean hasLegAllocQty() {
     return legAllocQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_alloc_qty = 3 [(.fix.tag) = 673, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legAllocQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegAllocQty() {
     return legAllocQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legAllocQty_;
@@ -228,6 +234,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legIndividualAllocId_;
   /**
    * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legIndividualAllocId.
    */
   public java.lang.String getLegIndividualAllocId() {
     java.lang.Object ref = legIndividualAllocId_;
@@ -243,6 +250,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legIndividualAllocId.
    */
   public com.google.protobuf.ByteString
       getLegIndividualAllocIdBytes() {
@@ -297,6 +305,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legAllocSettlCurrency_;
   /**
    * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legAllocSettlCurrency.
    */
   public java.lang.String getLegAllocSettlCurrency() {
     java.lang.Object ref = legAllocSettlCurrency_;
@@ -312,6 +321,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for legAllocSettlCurrency.
    */
   public com.google.protobuf.ByteString
       getLegAllocSettlCurrencyBytes() {
@@ -770,6 +780,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legAllocAccount_ = "";
     /**
      * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legAllocAccount.
      */
     public java.lang.String getLegAllocAccount() {
       java.lang.Object ref = legAllocAccount_;
@@ -785,6 +796,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legAllocAccount.
      */
     public com.google.protobuf.ByteString
         getLegAllocAccountBytes() {
@@ -801,6 +813,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legAllocAccount to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocAccount(
         java.lang.String value) {
@@ -814,6 +828,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegAllocAccount() {
       
@@ -823,6 +838,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legAllocAccount to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocAccountBytes(
         com.google.protobuf.ByteString value) {
@@ -839,6 +856,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legAllocAcctIdSource_ = "";
     /**
      * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legAllocAcctIdSource.
      */
     public java.lang.String getLegAllocAcctIdSource() {
       java.lang.Object ref = legAllocAcctIdSource_;
@@ -854,6 +872,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legAllocAcctIdSource.
      */
     public com.google.protobuf.ByteString
         getLegAllocAcctIdSourceBytes() {
@@ -870,6 +889,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legAllocAcctIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocAcctIdSource(
         java.lang.String value) {
@@ -883,6 +904,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegAllocAcctIdSource() {
       
@@ -892,6 +914,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legAllocAcctIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocAcctIdSourceBytes(
         com.google.protobuf.ByteString value) {
@@ -910,12 +934,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legAllocQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_alloc_qty = 3 [(.fix.tag) = 673, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legAllocQty field is set.
      */
     public boolean hasLegAllocQty() {
       return legAllocQtyBuilder_ != null || legAllocQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_alloc_qty = 3 [(.fix.tag) = 673, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legAllocQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegAllocQty() {
       if (legAllocQtyBuilder_ == null) {
@@ -1025,6 +1051,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legIndividualAllocId_ = "";
     /**
      * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legIndividualAllocId.
      */
     public java.lang.String getLegIndividualAllocId() {
       java.lang.Object ref = legIndividualAllocId_;
@@ -1040,6 +1067,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legIndividualAllocId.
      */
     public com.google.protobuf.ByteString
         getLegIndividualAllocIdBytes() {
@@ -1056,6 +1084,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legIndividualAllocId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegIndividualAllocId(
         java.lang.String value) {
@@ -1069,6 +1099,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegIndividualAllocId() {
       
@@ -1078,6 +1109,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legIndividualAllocId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegIndividualAllocIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1334,6 +1367,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legAllocSettlCurrency_ = "";
     /**
      * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legAllocSettlCurrency.
      */
     public java.lang.String getLegAllocSettlCurrency() {
       java.lang.Object ref = legAllocSettlCurrency_;
@@ -1349,6 +1383,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for legAllocSettlCurrency.
      */
     public com.google.protobuf.ByteString
         getLegAllocSettlCurrencyBytes() {
@@ -1365,6 +1400,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The legAllocSettlCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocSettlCurrency(
         java.lang.String value) {
@@ -1378,6 +1415,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegAllocSettlCurrency() {
       
@@ -1387,6 +1425,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for legAllocSettlCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegAllocSettlCurrencyBytes(
         com.google.protobuf.ByteString value) {

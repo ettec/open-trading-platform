@@ -54,6 +54,8 @@ public enum ContractMultiplierUnitEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -61,6 +63,10 @@ public enum ContractMultiplierUnitEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static ContractMultiplierUnitEnum forNumber(int value) {
     switch (value) {
       case 0: return CONTRACT_MULTIPLIER_UNIT_UNSPECIFIED;

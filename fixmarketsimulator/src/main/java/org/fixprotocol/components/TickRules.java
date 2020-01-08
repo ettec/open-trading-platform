@@ -130,12 +130,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 endTickPriceRange_;
   /**
    * <code>.fix.Decimal64 end_tick_price_range = 1 [(.fix.tag) = 1207, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the endTickPriceRange field is set.
    */
   public boolean hasEndTickPriceRange() {
     return endTickPriceRange_ != null;
   }
   /**
    * <code>.fix.Decimal64 end_tick_price_range = 1 [(.fix.tag) = 1207, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The endTickPriceRange.
    */
   public org.fixprotocol.components.Fix.Decimal64 getEndTickPriceRange() {
     return endTickPriceRange_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : endTickPriceRange_;
@@ -151,12 +153,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 startTickPriceRange_;
   /**
    * <code>.fix.Decimal64 start_tick_price_range = 2 [(.fix.tag) = 1206, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the startTickPriceRange field is set.
    */
   public boolean hasStartTickPriceRange() {
     return startTickPriceRange_ != null;
   }
   /**
    * <code>.fix.Decimal64 start_tick_price_range = 2 [(.fix.tag) = 1206, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The startTickPriceRange.
    */
   public org.fixprotocol.components.Fix.Decimal64 getStartTickPriceRange() {
     return startTickPriceRange_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : startTickPriceRange_;
@@ -172,12 +176,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 tickIncrement_;
   /**
    * <code>.fix.Decimal64 tick_increment = 3 [(.fix.tag) = 1208, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the tickIncrement field is set.
    */
   public boolean hasTickIncrement() {
     return tickIncrement_ != null;
   }
   /**
    * <code>.fix.Decimal64 tick_increment = 3 [(.fix.tag) = 1208, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tickIncrement.
    */
   public org.fixprotocol.components.Fix.Decimal64 getTickIncrement() {
     return tickIncrement_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : tickIncrement_;
@@ -193,12 +199,14 @@ private static final long serialVersionUID = 0L;
   private int tickRuleType_;
   /**
    * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for tickRuleType.
    */
   public int getTickRuleTypeValue() {
     return tickRuleType_;
   }
   /**
    * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tickRuleType.
    */
   public org.fixprotocol.components.TickRuleTypeEnum getTickRuleType() {
     @SuppressWarnings("deprecation")
@@ -602,12 +610,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> endTickPriceRangeBuilder_;
     /**
      * <code>.fix.Decimal64 end_tick_price_range = 1 [(.fix.tag) = 1207, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the endTickPriceRange field is set.
      */
     public boolean hasEndTickPriceRange() {
       return endTickPriceRangeBuilder_ != null || endTickPriceRange_ != null;
     }
     /**
      * <code>.fix.Decimal64 end_tick_price_range = 1 [(.fix.tag) = 1207, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The endTickPriceRange.
      */
     public org.fixprotocol.components.Fix.Decimal64 getEndTickPriceRange() {
       if (endTickPriceRangeBuilder_ == null) {
@@ -719,12 +729,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> startTickPriceRangeBuilder_;
     /**
      * <code>.fix.Decimal64 start_tick_price_range = 2 [(.fix.tag) = 1206, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the startTickPriceRange field is set.
      */
     public boolean hasStartTickPriceRange() {
       return startTickPriceRangeBuilder_ != null || startTickPriceRange_ != null;
     }
     /**
      * <code>.fix.Decimal64 start_tick_price_range = 2 [(.fix.tag) = 1206, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The startTickPriceRange.
      */
     public org.fixprotocol.components.Fix.Decimal64 getStartTickPriceRange() {
       if (startTickPriceRangeBuilder_ == null) {
@@ -836,12 +848,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> tickIncrementBuilder_;
     /**
      * <code>.fix.Decimal64 tick_increment = 3 [(.fix.tag) = 1208, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the tickIncrement field is set.
      */
     public boolean hasTickIncrement() {
       return tickIncrementBuilder_ != null || tickIncrement_ != null;
     }
     /**
      * <code>.fix.Decimal64 tick_increment = 3 [(.fix.tag) = 1208, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tickIncrement.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTickIncrement() {
       if (tickIncrementBuilder_ == null) {
@@ -951,12 +965,15 @@ private static final long serialVersionUID = 0L;
     private int tickRuleType_ = 0;
     /**
      * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for tickRuleType.
      */
     public int getTickRuleTypeValue() {
       return tickRuleType_;
     }
     /**
      * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for tickRuleType to set.
+     * @return This builder for chaining.
      */
     public Builder setTickRuleTypeValue(int value) {
       tickRuleType_ = value;
@@ -965,6 +982,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tickRuleType.
      */
     public org.fixprotocol.components.TickRuleTypeEnum getTickRuleType() {
       @SuppressWarnings("deprecation")
@@ -973,6 +991,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tickRuleType to set.
+     * @return This builder for chaining.
      */
     public Builder setTickRuleType(org.fixprotocol.components.TickRuleTypeEnum value) {
       if (value == null) {
@@ -985,6 +1005,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTickRuleType() {
       

@@ -97,12 +97,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.InstrumentLeg instrumentLeg_;
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrumentLeg field is set.
    */
   public boolean hasInstrumentLeg() {
     return instrumentLeg_ != null;
   }
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentLeg.
    */
   public org.fixprotocol.components.InstrumentLeg getInstrumentLeg() {
     return instrumentLeg_ == null ? org.fixprotocol.components.InstrumentLeg.getDefaultInstance() : instrumentLeg_;
@@ -434,12 +436,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.InstrumentLeg, org.fixprotocol.components.InstrumentLeg.Builder, org.fixprotocol.components.InstrumentLegOrBuilder> instrumentLegBuilder_;
     /**
      * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrumentLeg field is set.
      */
     public boolean hasInstrumentLeg() {
       return instrumentLegBuilder_ != null || instrumentLeg_ != null;
     }
     /**
      * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrumentLeg.
      */
     public org.fixprotocol.components.InstrumentLeg getInstrumentLeg() {
       if (instrumentLegBuilder_ == null) {

@@ -9,20 +9,24 @@ public interface MatchRulesOrBuilder extends
 
   /**
    * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The matchAlgorithm.
    */
   java.lang.String getMatchAlgorithm();
   /**
    * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for matchAlgorithm.
    */
   com.google.protobuf.ByteString
       getMatchAlgorithmBytes();
 
   /**
    * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for matchType.
    */
   int getMatchTypeValue();
   /**
    * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The matchType.
    */
   org.fixprotocol.components.MatchTypeEnum getMatchType();
 }

@@ -9,20 +9,24 @@ public interface DerivativeSecurityAltIDGrpOrBuilder extends
 
   /**
    * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityAltId.
    */
   java.lang.String getDerivativeSecurityAltId();
   /**
    * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityAltId.
    */
   com.google.protobuf.ByteString
       getDerivativeSecurityAltIdBytes();
 
   /**
    * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSecurityAltIdSource.
    */
   int getDerivativeSecurityAltIdSourceValue();
   /**
    * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityAltIdSource.
    */
   org.fixprotocol.components.DerivativeSecurityAltIDSourceEnum getDerivativeSecurityAltIdSource();
 }

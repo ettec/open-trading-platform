@@ -9,20 +9,24 @@ public interface SecAltIDGrpOrBuilder extends
 
   /**
    * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityAltId.
    */
   java.lang.String getSecurityAltId();
   /**
    * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for securityAltId.
    */
   com.google.protobuf.ByteString
       getSecurityAltIdBytes();
 
   /**
    * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for securityAltIdSource.
    */
   int getSecurityAltIdSourceValue();
   /**
    * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityAltIdSource.
    */
   org.fixprotocol.components.SecurityAltIDSourceEnum getSecurityAltIdSource();
 }

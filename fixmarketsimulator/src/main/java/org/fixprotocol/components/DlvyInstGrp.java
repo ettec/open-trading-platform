@@ -112,12 +112,14 @@ private static final long serialVersionUID = 0L;
   private int dlvyInstType_;
   /**
    * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for dlvyInstType.
    */
   public int getDlvyInstTypeValue() {
     return dlvyInstType_;
   }
   /**
    * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The dlvyInstType.
    */
   public org.fixprotocol.components.DlvyInstTypeEnum getDlvyInstType() {
     @SuppressWarnings("deprecation")
@@ -129,12 +131,14 @@ private static final long serialVersionUID = 0L;
   private int settlInstSource_;
   /**
    * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlInstSource.
    */
   public int getSettlInstSourceValue() {
     return settlInstSource_;
   }
   /**
    * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlInstSource.
    */
   public org.fixprotocol.components.SettlInstSourceEnum getSettlInstSource() {
     @SuppressWarnings("deprecation")
@@ -554,12 +558,15 @@ private static final long serialVersionUID = 0L;
     private int dlvyInstType_ = 0;
     /**
      * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for dlvyInstType.
      */
     public int getDlvyInstTypeValue() {
       return dlvyInstType_;
     }
     /**
      * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for dlvyInstType to set.
+     * @return This builder for chaining.
      */
     public Builder setDlvyInstTypeValue(int value) {
       dlvyInstType_ = value;
@@ -568,6 +575,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The dlvyInstType.
      */
     public org.fixprotocol.components.DlvyInstTypeEnum getDlvyInstType() {
       @SuppressWarnings("deprecation")
@@ -576,6 +584,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The dlvyInstType to set.
+     * @return This builder for chaining.
      */
     public Builder setDlvyInstType(org.fixprotocol.components.DlvyInstTypeEnum value) {
       if (value == null) {
@@ -588,6 +598,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DlvyInstTypeEnum dlvy_inst_type = 1 [(.fix.tag) = 787, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDlvyInstType() {
       
@@ -599,12 +610,15 @@ private static final long serialVersionUID = 0L;
     private int settlInstSource_ = 0;
     /**
      * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlInstSource.
      */
     public int getSettlInstSourceValue() {
       return settlInstSource_;
     }
     /**
      * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for settlInstSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlInstSourceValue(int value) {
       settlInstSource_ = value;
@@ -613,6 +627,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlInstSource.
      */
     public org.fixprotocol.components.SettlInstSourceEnum getSettlInstSource() {
       @SuppressWarnings("deprecation")
@@ -621,6 +636,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlInstSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlInstSource(org.fixprotocol.components.SettlInstSourceEnum value) {
       if (value == null) {
@@ -633,6 +650,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlInstSourceEnum settl_inst_source = 2 [(.fix.tag) = 165, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlInstSource() {
       

@@ -9,19 +9,23 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for expirationCycle.
    */
   int getExpirationCycleValue();
   /**
    * <code>.Common.ExpirationCycleEnum expiration_cycle = 1 [(.fix.tag) = 827, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The expirationCycle.
    */
   org.fixprotocol.components.ExpirationCycleEnum getExpirationCycle();
 
   /**
    * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for impliedMarketIndicator.
    */
   int getImpliedMarketIndicatorValue();
   /**
    * <code>.Common.ImpliedMarketIndicatorEnum implied_market_indicator = 2 [(.fix.tag) = 1144, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The impliedMarketIndicator.
    */
   org.fixprotocol.components.ImpliedMarketIndicatorEnum getImpliedMarketIndicator();
 
@@ -51,10 +55,12 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 max_price_variation = 4 [(.fix.tag) = 1143, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the maxPriceVariation field is set.
    */
   boolean hasMaxPriceVariation();
   /**
    * <code>.fix.Decimal64 max_price_variation = 4 [(.fix.tag) = 1143, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maxPriceVariation.
    */
   org.fixprotocol.components.Fix.Decimal64 getMaxPriceVariation();
   /**
@@ -64,10 +70,12 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 max_trade_vol = 5 [(.fix.tag) = 1140, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the maxTradeVol field is set.
    */
   boolean hasMaxTradeVol();
   /**
    * <code>.fix.Decimal64 max_trade_vol = 5 [(.fix.tag) = 1140, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maxTradeVol.
    */
   org.fixprotocol.components.Fix.Decimal64 getMaxTradeVol();
   /**
@@ -77,10 +85,12 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 min_trade_vol = 6 [(.fix.tag) = 562, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the minTradeVol field is set.
    */
   boolean hasMinTradeVol();
   /**
    * <code>.fix.Decimal64 min_trade_vol = 6 [(.fix.tag) = 562, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The minTradeVol.
    */
   org.fixprotocol.components.Fix.Decimal64 getMinTradeVol();
   /**
@@ -90,28 +100,34 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for multilegModel.
    */
   int getMultilegModelValue();
   /**
    * <code>.Common.MultilegModelEnum multileg_model = 7 [(.fix.tag) = 1377, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The multilegModel.
    */
   org.fixprotocol.components.MultilegModelEnum getMultilegModel();
 
   /**
    * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for multilegPriceMethod.
    */
   int getMultilegPriceMethodValue();
   /**
    * <code>.Common.MultilegPriceMethodEnum multileg_price_method = 8 [(.fix.tag) = 1378, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The multilegPriceMethod.
    */
   org.fixprotocol.components.MultilegPriceMethodEnum getMultilegPriceMethod();
 
   /**
    * <code>.Common.PriceLimits price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the priceLimits field is set.
    */
   boolean hasPriceLimits();
   /**
    * <code>.Common.PriceLimits price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceLimits.
    */
   org.fixprotocol.components.PriceLimits getPriceLimits();
   /**
@@ -121,19 +137,23 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for priceType.
    */
   int getPriceTypeValue();
   /**
    * <code>.Common.PriceTypeEnum price_type = 10 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceType.
    */
   org.fixprotocol.components.PriceTypeEnum getPriceType();
 
   /**
    * <code>.fix.Decimal64 round_lot = 11 [(.fix.tag) = 561, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the roundLot field is set.
    */
   boolean hasRoundLot();
   /**
    * <code>.fix.Decimal64 round_lot = 11 [(.fix.tag) = 561, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The roundLot.
    */
   org.fixprotocol.components.Fix.Decimal64 getRoundLot();
   /**
@@ -167,10 +187,12 @@ public interface BaseTradingRulesOrBuilder extends
 
   /**
    * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingCurrency.
    */
   java.lang.String getTradingCurrency();
   /**
    * <code>string trading_currency = 13 [(.fix.tag) = 1245, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for tradingCurrency.
    */
   com.google.protobuf.ByteString
       getTradingCurrencyBytes();

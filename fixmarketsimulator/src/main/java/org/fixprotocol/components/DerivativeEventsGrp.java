@@ -129,6 +129,7 @@ private static final long serialVersionUID = 0L;
   private int derivativeEventDate_;
   /**
    * <code>sfixed32 derivative_event_date = 1 [(.fix.tag) = 1288, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventDate.
    */
   public int getDerivativeEventDate() {
     return derivativeEventDate_;
@@ -138,12 +139,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeEventPx_;
   /**
    * <code>.fix.Decimal64 derivative_event_px = 2 [(.fix.tag) = 1290, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeEventPx field is set.
    */
   public boolean hasDerivativeEventPx() {
     return derivativeEventPx_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_event_px = 2 [(.fix.tag) = 1290, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventPx.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeEventPx() {
     return derivativeEventPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeEventPx_;
@@ -159,6 +162,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeEventText_;
   /**
    * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventText.
    */
   public java.lang.String getDerivativeEventText() {
     java.lang.Object ref = derivativeEventText_;
@@ -174,6 +178,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeEventText.
    */
   public com.google.protobuf.ByteString
       getDerivativeEventTextBytes() {
@@ -193,12 +198,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp derivativeEventTime_;
   /**
    * <code>.fix.Timestamp derivative_event_time = 4 [(.fix.tag) = 1289, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeEventTime field is set.
    */
   public boolean hasDerivativeEventTime() {
     return derivativeEventTime_ != null;
   }
   /**
    * <code>.fix.Timestamp derivative_event_time = 4 [(.fix.tag) = 1289, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getDerivativeEventTime() {
     return derivativeEventTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : derivativeEventTime_;
@@ -214,12 +221,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeEventType_;
   /**
    * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeEventType.
    */
   public int getDerivativeEventTypeValue() {
     return derivativeEventType_;
   }
   /**
    * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventType.
    */
   public org.fixprotocol.components.DerivativeEventTypeEnum getDerivativeEventType() {
     @SuppressWarnings("deprecation")
@@ -625,12 +634,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeEventDate_ ;
     /**
      * <code>sfixed32 derivative_event_date = 1 [(.fix.tag) = 1288, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEventDate.
      */
     public int getDerivativeEventDate() {
       return derivativeEventDate_;
     }
     /**
      * <code>sfixed32 derivative_event_date = 1 [(.fix.tag) = 1288, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEventDate to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEventDate(int value) {
       
@@ -640,6 +652,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 derivative_event_date = 1 [(.fix.tag) = 1288, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEventDate() {
       
@@ -653,12 +666,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeEventPxBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_event_px = 2 [(.fix.tag) = 1290, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeEventPx field is set.
      */
     public boolean hasDerivativeEventPx() {
       return derivativeEventPxBuilder_ != null || derivativeEventPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_event_px = 2 [(.fix.tag) = 1290, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEventPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeEventPx() {
       if (derivativeEventPxBuilder_ == null) {
@@ -768,6 +783,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeEventText_ = "";
     /**
      * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEventText.
      */
     public java.lang.String getDerivativeEventText() {
       java.lang.Object ref = derivativeEventText_;
@@ -783,6 +799,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeEventText.
      */
     public com.google.protobuf.ByteString
         getDerivativeEventTextBytes() {
@@ -799,6 +816,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEventText to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEventText(
         java.lang.String value) {
@@ -812,6 +831,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEventText() {
       
@@ -821,6 +841,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeEventText to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEventTextBytes(
         com.google.protobuf.ByteString value) {
@@ -839,12 +861,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> derivativeEventTimeBuilder_;
     /**
      * <code>.fix.Timestamp derivative_event_time = 4 [(.fix.tag) = 1289, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeEventTime field is set.
      */
     public boolean hasDerivativeEventTime() {
       return derivativeEventTimeBuilder_ != null || derivativeEventTime_ != null;
     }
     /**
      * <code>.fix.Timestamp derivative_event_time = 4 [(.fix.tag) = 1289, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEventTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getDerivativeEventTime() {
       if (derivativeEventTimeBuilder_ == null) {
@@ -954,12 +978,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeEventType_ = 0;
     /**
      * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeEventType.
      */
     public int getDerivativeEventTypeValue() {
       return derivativeEventType_;
     }
     /**
      * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeEventType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEventTypeValue(int value) {
       derivativeEventType_ = value;
@@ -968,6 +995,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEventType.
      */
     public org.fixprotocol.components.DerivativeEventTypeEnum getDerivativeEventType() {
       @SuppressWarnings("deprecation")
@@ -976,6 +1004,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEventType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEventType(org.fixprotocol.components.DerivativeEventTypeEnum value) {
       if (value == null) {
@@ -988,6 +1018,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEventType() {
       

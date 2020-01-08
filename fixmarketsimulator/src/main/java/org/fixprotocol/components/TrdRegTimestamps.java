@@ -163,6 +163,7 @@ private static final long serialVersionUID = 0L;
           };
   /**
    * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return A list containing the deskOrderHandlingInst.
    */
   public java.util.List<org.fixprotocol.components.DeskOrderHandlingInstEnum> getDeskOrderHandlingInstList() {
     return new com.google.protobuf.Internal.ListAdapter<
@@ -170,18 +171,22 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The count of deskOrderHandlingInst.
    */
   public int getDeskOrderHandlingInstCount() {
     return deskOrderHandlingInst_.size();
   }
   /**
    * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @param index The index of the element to return.
+   * @return The deskOrderHandlingInst at the given index.
    */
   public org.fixprotocol.components.DeskOrderHandlingInstEnum getDeskOrderHandlingInst(int index) {
     return deskOrderHandlingInst_converter_.convert(deskOrderHandlingInst_.get(index));
   }
   /**
    * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return A list containing the enum numeric values on the wire for deskOrderHandlingInst.
    */
   public java.util.List<java.lang.Integer>
   getDeskOrderHandlingInstValueList() {
@@ -189,6 +194,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @param index The index of the value to return.
+   * @return The enum numeric value on the wire of deskOrderHandlingInst at the given index.
    */
   public int getDeskOrderHandlingInstValue(int index) {
     return deskOrderHandlingInst_.get(index);
@@ -199,12 +206,14 @@ private static final long serialVersionUID = 0L;
   private int deskType_;
   /**
    * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for deskType.
    */
   public int getDeskTypeValue() {
     return deskType_;
   }
   /**
    * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deskType.
    */
   public org.fixprotocol.components.DeskTypeEnum getDeskType() {
     @SuppressWarnings("deprecation")
@@ -216,12 +225,14 @@ private static final long serialVersionUID = 0L;
   private int deskTypeSource_;
   /**
    * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for deskTypeSource.
    */
   public int getDeskTypeSourceValue() {
     return deskTypeSource_;
   }
   /**
    * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deskTypeSource.
    */
   public org.fixprotocol.components.DeskTypeSourceEnum getDeskTypeSource() {
     @SuppressWarnings("deprecation")
@@ -233,12 +244,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp trdRegTimestamp_;
   /**
    * <code>.fix.Timestamp trd_reg_timestamp = 4 [(.fix.tag) = 769, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the trdRegTimestamp field is set.
    */
   public boolean hasTrdRegTimestamp() {
     return trdRegTimestamp_ != null;
   }
   /**
    * <code>.fix.Timestamp trd_reg_timestamp = 4 [(.fix.tag) = 769, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The trdRegTimestamp.
    */
   public org.fixprotocol.components.Fix.Timestamp getTrdRegTimestamp() {
     return trdRegTimestamp_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : trdRegTimestamp_;
@@ -254,6 +267,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object trdRegTimestampOrigin_;
   /**
    * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The trdRegTimestampOrigin.
    */
   public java.lang.String getTrdRegTimestampOrigin() {
     java.lang.Object ref = trdRegTimestampOrigin_;
@@ -269,6 +283,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for trdRegTimestampOrigin.
    */
   public com.google.protobuf.ByteString
       getTrdRegTimestampOriginBytes() {
@@ -288,12 +303,14 @@ private static final long serialVersionUID = 0L;
   private int trdRegTimestampType_;
   /**
    * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for trdRegTimestampType.
    */
   public int getTrdRegTimestampTypeValue() {
     return trdRegTimestampType_;
   }
   /**
    * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The trdRegTimestampType.
    */
   public org.fixprotocol.components.TrdRegTimestampTypeEnum getTrdRegTimestampType() {
     @SuppressWarnings("deprecation")
@@ -735,6 +752,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the deskOrderHandlingInst.
      */
     public java.util.List<org.fixprotocol.components.DeskOrderHandlingInstEnum> getDeskOrderHandlingInstList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -742,18 +760,24 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of deskOrderHandlingInst.
      */
     public int getDeskOrderHandlingInstCount() {
       return deskOrderHandlingInst_.size();
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The deskOrderHandlingInst at the given index.
      */
     public org.fixprotocol.components.DeskOrderHandlingInstEnum getDeskOrderHandlingInst(int index) {
       return deskOrderHandlingInst_converter_.convert(deskOrderHandlingInst_.get(index));
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index to set the value at.
+     * @param value The deskOrderHandlingInst to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskOrderHandlingInst(
         int index, org.fixprotocol.components.DeskOrderHandlingInstEnum value) {
@@ -767,6 +791,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The deskOrderHandlingInst to add.
+     * @return This builder for chaining.
      */
     public Builder addDeskOrderHandlingInst(org.fixprotocol.components.DeskOrderHandlingInstEnum value) {
       if (value == null) {
@@ -779,6 +805,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param values The deskOrderHandlingInst to add.
+     * @return This builder for chaining.
      */
     public Builder addAllDeskOrderHandlingInst(
         java.lang.Iterable<? extends org.fixprotocol.components.DeskOrderHandlingInstEnum> values) {
@@ -791,6 +819,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDeskOrderHandlingInst() {
       deskOrderHandlingInst_ = java.util.Collections.emptyList();
@@ -800,6 +829,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for deskOrderHandlingInst.
      */
     public java.util.List<java.lang.Integer>
     getDeskOrderHandlingInstValueList() {
@@ -807,12 +837,17 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of deskOrderHandlingInst at the given index.
      */
     public int getDeskOrderHandlingInstValue(int index) {
       return deskOrderHandlingInst_.get(index);
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of deskOrderHandlingInst at the given index.
+     * @return This builder for chaining.
      */
     public Builder setDeskOrderHandlingInstValue(
         int index, int value) {
@@ -823,6 +858,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for deskOrderHandlingInst to add.
+     * @return This builder for chaining.
      */
     public Builder addDeskOrderHandlingInstValue(int value) {
       ensureDeskOrderHandlingInstIsMutable();
@@ -832,6 +869,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.DeskOrderHandlingInstEnum desk_order_handling_inst = 1 [(.fix.tag) = 1035, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param values The enum numeric values on the wire for deskOrderHandlingInst to add.
+     * @return This builder for chaining.
      */
     public Builder addAllDeskOrderHandlingInstValue(
         java.lang.Iterable<java.lang.Integer> values) {
@@ -846,12 +885,15 @@ private static final long serialVersionUID = 0L;
     private int deskType_ = 0;
     /**
      * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for deskType.
      */
     public int getDeskTypeValue() {
       return deskType_;
     }
     /**
      * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for deskType to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskTypeValue(int value) {
       deskType_ = value;
@@ -860,6 +902,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskType.
      */
     public org.fixprotocol.components.DeskTypeEnum getDeskType() {
       @SuppressWarnings("deprecation")
@@ -868,6 +911,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The deskType to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskType(org.fixprotocol.components.DeskTypeEnum value) {
       if (value == null) {
@@ -880,6 +925,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeskTypeEnum desk_type = 2 [(.fix.tag) = 1033, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDeskType() {
       
@@ -891,12 +937,15 @@ private static final long serialVersionUID = 0L;
     private int deskTypeSource_ = 0;
     /**
      * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for deskTypeSource.
      */
     public int getDeskTypeSourceValue() {
       return deskTypeSource_;
     }
     /**
      * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for deskTypeSource to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskTypeSourceValue(int value) {
       deskTypeSource_ = value;
@@ -905,6 +954,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskTypeSource.
      */
     public org.fixprotocol.components.DeskTypeSourceEnum getDeskTypeSource() {
       @SuppressWarnings("deprecation")
@@ -913,6 +963,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The deskTypeSource to set.
+     * @return This builder for chaining.
      */
     public Builder setDeskTypeSource(org.fixprotocol.components.DeskTypeSourceEnum value) {
       if (value == null) {
@@ -925,6 +977,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeskTypeSourceEnum desk_type_source = 3 [(.fix.tag) = 1034, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDeskTypeSource() {
       
@@ -938,12 +991,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> trdRegTimestampBuilder_;
     /**
      * <code>.fix.Timestamp trd_reg_timestamp = 4 [(.fix.tag) = 769, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the trdRegTimestamp field is set.
      */
     public boolean hasTrdRegTimestamp() {
       return trdRegTimestampBuilder_ != null || trdRegTimestamp_ != null;
     }
     /**
      * <code>.fix.Timestamp trd_reg_timestamp = 4 [(.fix.tag) = 769, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The trdRegTimestamp.
      */
     public org.fixprotocol.components.Fix.Timestamp getTrdRegTimestamp() {
       if (trdRegTimestampBuilder_ == null) {
@@ -1053,6 +1108,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object trdRegTimestampOrigin_ = "";
     /**
      * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The trdRegTimestampOrigin.
      */
     public java.lang.String getTrdRegTimestampOrigin() {
       java.lang.Object ref = trdRegTimestampOrigin_;
@@ -1068,6 +1124,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for trdRegTimestampOrigin.
      */
     public com.google.protobuf.ByteString
         getTrdRegTimestampOriginBytes() {
@@ -1084,6 +1141,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The trdRegTimestampOrigin to set.
+     * @return This builder for chaining.
      */
     public Builder setTrdRegTimestampOrigin(
         java.lang.String value) {
@@ -1097,6 +1156,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTrdRegTimestampOrigin() {
       
@@ -1106,6 +1166,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trd_reg_timestamp_origin = 5 [(.fix.tag) = 771, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for trdRegTimestampOrigin to set.
+     * @return This builder for chaining.
      */
     public Builder setTrdRegTimestampOriginBytes(
         com.google.protobuf.ByteString value) {
@@ -1122,12 +1184,15 @@ private static final long serialVersionUID = 0L;
     private int trdRegTimestampType_ = 0;
     /**
      * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for trdRegTimestampType.
      */
     public int getTrdRegTimestampTypeValue() {
       return trdRegTimestampType_;
     }
     /**
      * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for trdRegTimestampType to set.
+     * @return This builder for chaining.
      */
     public Builder setTrdRegTimestampTypeValue(int value) {
       trdRegTimestampType_ = value;
@@ -1136,6 +1201,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The trdRegTimestampType.
      */
     public org.fixprotocol.components.TrdRegTimestampTypeEnum getTrdRegTimestampType() {
       @SuppressWarnings("deprecation")
@@ -1144,6 +1210,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The trdRegTimestampType to set.
+     * @return This builder for chaining.
      */
     public Builder setTrdRegTimestampType(org.fixprotocol.components.TrdRegTimestampTypeEnum value) {
       if (value == null) {
@@ -1156,6 +1224,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TrdRegTimestampTypeEnum trd_reg_timestamp_type = 6 [(.fix.tag) = 770, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTrdRegTimestampType() {
       

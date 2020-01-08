@@ -46,6 +46,8 @@ public enum DiscretionRoundDirectionEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -53,6 +55,10 @@ public enum DiscretionRoundDirectionEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static DiscretionRoundDirectionEnum forNumber(int value) {
     switch (value) {
       case 0: return DISCRETION_ROUND_DIRECTION_UNSPECIFIED;

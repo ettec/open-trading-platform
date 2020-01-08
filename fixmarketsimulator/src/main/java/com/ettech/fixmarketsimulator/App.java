@@ -2,7 +2,7 @@ package com.ettech.fixmarketsimulator;
 
 import com.ettech.fixmarketsimulator.exchange.ExchangeSimulatorGuiceModule;
 import com.ettech.fixmarketsimulator.fix.ApplicationImpl;
-import com.ettech.fixmarketsimulator.marketdata.MarketDataServer;
+import com.ettech.fixmarketsimulator.marketdataserver.MarketDataService;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
@@ -23,29 +23,30 @@ import org.slf4j.LoggerFactory;
 import quickfix.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class App 
-{
+public class App {
     static Logger log = LoggerFactory.getLogger(App.class);
 
     public static Injector exchangeSimulatorInjector;
 
-    static MarketDataServer marketDataServer;
+    static MarketDataService marketDataServer;
 
     private static int fixServerPort = 9876;
 
+
     private static String fixConfig =
             "[default]\n" +
-                   // "FileStorePath=/usr/share/cnoms/fixmarketsimulator\n" +
-                "FileStorePath="+System.getenv("FIX_FILE_STORE_PATH")+"\n" +
-                //"FileStorePath=./fixlog\n" +
-                    "SocketAcceptPort="+fixServerPort+"\n" +
-                    "BeginString= FIXT.1.1\n"+
-                    "DefaultApplVerID= FIX.5.0SP2\n"+
+                    // "FileStorePath=/usr/share/cnoms/fixmarketsimulator\n" +
+                    "FileStorePath=" + System.getenv("FIX_FILE_STORE_PATH") + "\n" +
+                    //"FileStorePath=./fixlog\n" +
+                    "SocketAcceptPort=" + fixServerPort + "\n" +
+                    "BeginString= FIXT.1.1\n" +
+                    "DefaultApplVerID= FIX.5.0SP2\n" +
                     "\n" +
                     "[session]\n" +
                     "SenderCompID=EXEC\n" +
@@ -56,21 +57,20 @@ public class App
                     "EndTime=00:00:00";
 
 
-    public static void main( String[] args )
-    {
+    public static void main(String[] args) {
         int port = 8501;
 
         log.info("Starting api server on port:" + port);
         log.info("Starting fix server on port:" + fixServerPort);
 
-        exchangeSimulatorInjector = Guice.createInjector( new ExchangeSimulatorGuiceModule());
+        exchangeSimulatorInjector = Guice.createInjector(new ExchangeSimulatorGuiceModule());
 
 
         Server server = new Server(port);
 
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
-        resource_handler.setWelcomeFiles(new String[]{ "index.html" });
+        resource_handler.setWelcomeFiles(new String[]{"index.html"});
 
         resource_handler.setResourceBase("./swagger");
 
@@ -83,7 +83,7 @@ public class App
         ctx.setContextPath("/");
 
 
-        handlers.setHandlers(new Handler[] {resource_handler, ctx,  new DefaultHandler() });
+        handlers.setHandlers(new Handler[]{resource_handler, ctx, new DefaultHandler()});
         server.setHandler(handlers);
 
 
@@ -91,7 +91,6 @@ public class App
 
         apiServlet.setInitOrder(1);
         apiServlet.setInitParameter("jersey.config.server.provider.packages", "com.ettech.fixmarketsimulator.api,io.swagger.v3.jaxrs2.integration.resources");
-
 
 
         // Setup API resources
@@ -112,7 +111,13 @@ public class App
             throw new RuntimeException(e.getMessage(), e);
         }
 
-        marketDataServer = exchangeSimulatorInjector.getInstance(MarketDataServer.class);
+        marketDataServer = exchangeSimulatorInjector.getInstance(MarketDataService.class);
+        try {
+            marketDataServer.start();
+        } catch (IOException e) {
+            log.error("Failed to start market data server", e);
+        }
+
 
         Acceptor acceptor = null;
         try {
@@ -137,15 +142,15 @@ public class App
             log.error("Failed to start jetty server", ex);
         } finally {
             try {
-                if( marketDataServer != null) {
-                    marketDataServer.close();
+                if (marketDataServer != null) {
+                    marketDataServer.stop();
+                    marketDataServer.blockUntilShutdown();
                 }
             } catch (Throwable t) {
-                log.error("Anneee error whilst closing market data server", t);
+                log.error("error whilst closing market data server", t);
             }
 
-
-           server.destroy();
+            server.destroy();
         }
     }
 }

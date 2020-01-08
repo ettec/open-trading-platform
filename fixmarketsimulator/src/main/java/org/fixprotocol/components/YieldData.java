@@ -134,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 yield_;
   /**
    * <code>.fix.Decimal64 yield = 1 [(.fix.tag) = 236, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the yield field is set.
    */
   public boolean hasYield() {
     return yield_ != null;
   }
   /**
    * <code>.fix.Decimal64 yield = 1 [(.fix.tag) = 236, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The yield.
    */
   public org.fixprotocol.components.Fix.Decimal64 getYield() {
     return yield_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : yield_;
@@ -155,12 +157,14 @@ private static final long serialVersionUID = 0L;
   private int yieldType_;
   /**
    * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for yieldType.
    */
   public int getYieldTypeValue() {
     return yieldType_;
   }
   /**
    * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The yieldType.
    */
   public org.fixprotocol.components.YieldTypeEnum getYieldType() {
     @SuppressWarnings("deprecation")
@@ -172,6 +176,7 @@ private static final long serialVersionUID = 0L;
   private int yieldCalcDate_;
   /**
    * <code>sfixed32 yield_calc_date = 3 [(.fix.tag) = 701, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The yieldCalcDate.
    */
   public int getYieldCalcDate() {
     return yieldCalcDate_;
@@ -181,6 +186,7 @@ private static final long serialVersionUID = 0L;
   private int yieldRedemptionDate_;
   /**
    * <code>sfixed32 yield_redemption_date = 4 [(.fix.tag) = 696, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The yieldRedemptionDate.
    */
   public int getYieldRedemptionDate() {
     return yieldRedemptionDate_;
@@ -190,12 +196,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 yieldRedemptionPrice_;
   /**
    * <code>.fix.Decimal64 yield_redemption_price = 5 [(.fix.tag) = 697, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the yieldRedemptionPrice field is set.
    */
   public boolean hasYieldRedemptionPrice() {
     return yieldRedemptionPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 yield_redemption_price = 5 [(.fix.tag) = 697, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The yieldRedemptionPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getYieldRedemptionPrice() {
     return yieldRedemptionPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : yieldRedemptionPrice_;
@@ -211,12 +219,14 @@ private static final long serialVersionUID = 0L;
   private int yieldRedemptionPriceType_;
   /**
    * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for yieldRedemptionPriceType.
    */
   public int getYieldRedemptionPriceTypeValue() {
     return yieldRedemptionPriceType_;
   }
   /**
    * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The yieldRedemptionPriceType.
    */
   public org.fixprotocol.components.YieldRedemptionPriceTypeEnum getYieldRedemptionPriceType() {
     @SuppressWarnings("deprecation")
@@ -640,12 +650,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> yieldBuilder_;
     /**
      * <code>.fix.Decimal64 yield = 1 [(.fix.tag) = 236, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the yield field is set.
      */
     public boolean hasYield() {
       return yieldBuilder_ != null || yield_ != null;
     }
     /**
      * <code>.fix.Decimal64 yield = 1 [(.fix.tag) = 236, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The yield.
      */
     public org.fixprotocol.components.Fix.Decimal64 getYield() {
       if (yieldBuilder_ == null) {
@@ -755,12 +767,15 @@ private static final long serialVersionUID = 0L;
     private int yieldType_ = 0;
     /**
      * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for yieldType.
      */
     public int getYieldTypeValue() {
       return yieldType_;
     }
     /**
      * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for yieldType to set.
+     * @return This builder for chaining.
      */
     public Builder setYieldTypeValue(int value) {
       yieldType_ = value;
@@ -769,6 +784,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The yieldType.
      */
     public org.fixprotocol.components.YieldTypeEnum getYieldType() {
       @SuppressWarnings("deprecation")
@@ -777,6 +793,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The yieldType to set.
+     * @return This builder for chaining.
      */
     public Builder setYieldType(org.fixprotocol.components.YieldTypeEnum value) {
       if (value == null) {
@@ -789,6 +807,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.YieldTypeEnum yield_type = 2 [(.fix.tag) = 235, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearYieldType() {
       
@@ -800,12 +819,15 @@ private static final long serialVersionUID = 0L;
     private int yieldCalcDate_ ;
     /**
      * <code>sfixed32 yield_calc_date = 3 [(.fix.tag) = 701, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The yieldCalcDate.
      */
     public int getYieldCalcDate() {
       return yieldCalcDate_;
     }
     /**
      * <code>sfixed32 yield_calc_date = 3 [(.fix.tag) = 701, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The yieldCalcDate to set.
+     * @return This builder for chaining.
      */
     public Builder setYieldCalcDate(int value) {
       
@@ -815,6 +837,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 yield_calc_date = 3 [(.fix.tag) = 701, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearYieldCalcDate() {
       
@@ -826,12 +849,15 @@ private static final long serialVersionUID = 0L;
     private int yieldRedemptionDate_ ;
     /**
      * <code>sfixed32 yield_redemption_date = 4 [(.fix.tag) = 696, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The yieldRedemptionDate.
      */
     public int getYieldRedemptionDate() {
       return yieldRedemptionDate_;
     }
     /**
      * <code>sfixed32 yield_redemption_date = 4 [(.fix.tag) = 696, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The yieldRedemptionDate to set.
+     * @return This builder for chaining.
      */
     public Builder setYieldRedemptionDate(int value) {
       
@@ -841,6 +867,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 yield_redemption_date = 4 [(.fix.tag) = 696, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearYieldRedemptionDate() {
       
@@ -854,12 +881,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> yieldRedemptionPriceBuilder_;
     /**
      * <code>.fix.Decimal64 yield_redemption_price = 5 [(.fix.tag) = 697, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the yieldRedemptionPrice field is set.
      */
     public boolean hasYieldRedemptionPrice() {
       return yieldRedemptionPriceBuilder_ != null || yieldRedemptionPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 yield_redemption_price = 5 [(.fix.tag) = 697, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The yieldRedemptionPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getYieldRedemptionPrice() {
       if (yieldRedemptionPriceBuilder_ == null) {
@@ -969,12 +998,15 @@ private static final long serialVersionUID = 0L;
     private int yieldRedemptionPriceType_ = 0;
     /**
      * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for yieldRedemptionPriceType.
      */
     public int getYieldRedemptionPriceTypeValue() {
       return yieldRedemptionPriceType_;
     }
     /**
      * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for yieldRedemptionPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setYieldRedemptionPriceTypeValue(int value) {
       yieldRedemptionPriceType_ = value;
@@ -983,6 +1015,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The yieldRedemptionPriceType.
      */
     public org.fixprotocol.components.YieldRedemptionPriceTypeEnum getYieldRedemptionPriceType() {
       @SuppressWarnings("deprecation")
@@ -991,6 +1024,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The yieldRedemptionPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setYieldRedemptionPriceType(org.fixprotocol.components.YieldRedemptionPriceTypeEnum value) {
       if (value == null) {
@@ -1003,6 +1038,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.YieldRedemptionPriceTypeEnum yield_redemption_price_type = 6 [(.fix.tag) = 698, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearYieldRedemptionPriceType() {
       

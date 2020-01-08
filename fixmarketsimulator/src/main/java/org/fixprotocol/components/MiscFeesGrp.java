@@ -118,12 +118,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 miscFeeAmt_;
   /**
    * <code>.fix.Decimal64 misc_fee_amt = 1 [(.fix.tag) = 137, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the miscFeeAmt field is set.
    */
   public boolean hasMiscFeeAmt() {
     return miscFeeAmt_ != null;
   }
   /**
    * <code>.fix.Decimal64 misc_fee_amt = 1 [(.fix.tag) = 137, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeAmt.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMiscFeeAmt() {
     return miscFeeAmt_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : miscFeeAmt_;
@@ -139,12 +141,14 @@ private static final long serialVersionUID = 0L;
   private int miscFeeBasis_;
   /**
    * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for miscFeeBasis.
    */
   public int getMiscFeeBasisValue() {
     return miscFeeBasis_;
   }
   /**
    * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeBasis.
    */
   public org.fixprotocol.components.MiscFeeBasisEnum getMiscFeeBasis() {
     @SuppressWarnings("deprecation")
@@ -156,6 +160,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object miscFeeCurr_;
   /**
    * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeCurr.
    */
   public java.lang.String getMiscFeeCurr() {
     java.lang.Object ref = miscFeeCurr_;
@@ -171,6 +176,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for miscFeeCurr.
    */
   public com.google.protobuf.ByteString
       getMiscFeeCurrBytes() {
@@ -190,12 +196,14 @@ private static final long serialVersionUID = 0L;
   private int miscFeeType_;
   /**
    * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for miscFeeType.
    */
   public int getMiscFeeTypeValue() {
     return miscFeeType_;
   }
   /**
    * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeType.
    */
   public org.fixprotocol.components.MiscFeeTypeEnum getMiscFeeType() {
     @SuppressWarnings("deprecation")
@@ -572,12 +580,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> miscFeeAmtBuilder_;
     /**
      * <code>.fix.Decimal64 misc_fee_amt = 1 [(.fix.tag) = 137, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the miscFeeAmt field is set.
      */
     public boolean hasMiscFeeAmt() {
       return miscFeeAmtBuilder_ != null || miscFeeAmt_ != null;
     }
     /**
      * <code>.fix.Decimal64 misc_fee_amt = 1 [(.fix.tag) = 137, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The miscFeeAmt.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMiscFeeAmt() {
       if (miscFeeAmtBuilder_ == null) {
@@ -687,12 +697,15 @@ private static final long serialVersionUID = 0L;
     private int miscFeeBasis_ = 0;
     /**
      * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for miscFeeBasis.
      */
     public int getMiscFeeBasisValue() {
       return miscFeeBasis_;
     }
     /**
      * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for miscFeeBasis to set.
+     * @return This builder for chaining.
      */
     public Builder setMiscFeeBasisValue(int value) {
       miscFeeBasis_ = value;
@@ -701,6 +714,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The miscFeeBasis.
      */
     public org.fixprotocol.components.MiscFeeBasisEnum getMiscFeeBasis() {
       @SuppressWarnings("deprecation")
@@ -709,6 +723,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The miscFeeBasis to set.
+     * @return This builder for chaining.
      */
     public Builder setMiscFeeBasis(org.fixprotocol.components.MiscFeeBasisEnum value) {
       if (value == null) {
@@ -721,6 +737,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMiscFeeBasis() {
       
@@ -732,6 +749,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object miscFeeCurr_ = "";
     /**
      * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The miscFeeCurr.
      */
     public java.lang.String getMiscFeeCurr() {
       java.lang.Object ref = miscFeeCurr_;
@@ -747,6 +765,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for miscFeeCurr.
      */
     public com.google.protobuf.ByteString
         getMiscFeeCurrBytes() {
@@ -763,6 +782,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The miscFeeCurr to set.
+     * @return This builder for chaining.
      */
     public Builder setMiscFeeCurr(
         java.lang.String value) {
@@ -776,6 +797,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMiscFeeCurr() {
       
@@ -785,6 +807,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for miscFeeCurr to set.
+     * @return This builder for chaining.
      */
     public Builder setMiscFeeCurrBytes(
         com.google.protobuf.ByteString value) {
@@ -801,12 +825,15 @@ private static final long serialVersionUID = 0L;
     private int miscFeeType_ = 0;
     /**
      * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for miscFeeType.
      */
     public int getMiscFeeTypeValue() {
       return miscFeeType_;
     }
     /**
      * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for miscFeeType to set.
+     * @return This builder for chaining.
      */
     public Builder setMiscFeeTypeValue(int value) {
       miscFeeType_ = value;
@@ -815,6 +842,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The miscFeeType.
      */
     public org.fixprotocol.components.MiscFeeTypeEnum getMiscFeeType() {
       @SuppressWarnings("deprecation")
@@ -823,6 +851,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The miscFeeType to set.
+     * @return This builder for chaining.
      */
     public Builder setMiscFeeType(org.fixprotocol.components.MiscFeeTypeEnum value) {
       if (value == null) {
@@ -835,6 +865,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMiscFeeType() {
       

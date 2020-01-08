@@ -9,20 +9,24 @@ public interface InstrumentPtysSubGrpOrBuilder extends
 
   /**
    * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentPartySubId.
    */
   java.lang.String getInstrumentPartySubId();
   /**
    * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for instrumentPartySubId.
    */
   com.google.protobuf.ByteString
       getInstrumentPartySubIdBytes();
 
   /**
    * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for instrumentPartySubIdType.
    */
   int getInstrumentPartySubIdTypeValue();
   /**
    * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentPartySubIdType.
    */
   org.fixprotocol.components.InstrumentPartySubIDTypeEnum getInstrumentPartySubIdType();
 }

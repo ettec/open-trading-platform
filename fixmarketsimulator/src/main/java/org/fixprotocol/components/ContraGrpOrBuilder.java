@@ -9,30 +9,36 @@ public interface ContraGrpOrBuilder extends
 
   /**
    * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraBroker.
    */
   java.lang.String getContraBroker();
   /**
    * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contraBroker.
    */
   com.google.protobuf.ByteString
       getContraBrokerBytes();
 
   /**
    * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraLegRefId.
    */
   java.lang.String getContraLegRefId();
   /**
    * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contraLegRefId.
    */
   com.google.protobuf.ByteString
       getContraLegRefIdBytes();
 
   /**
    * <code>.fix.Decimal64 contra_trade_qty = 3 [(.fix.tag) = 437, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the contraTradeQty field is set.
    */
   boolean hasContraTradeQty();
   /**
    * <code>.fix.Decimal64 contra_trade_qty = 3 [(.fix.tag) = 437, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraTradeQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getContraTradeQty();
   /**
@@ -42,10 +48,12 @@ public interface ContraGrpOrBuilder extends
 
   /**
    * <code>.fix.Timestamp contra_trade_time = 4 [(.fix.tag) = 438, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the contraTradeTime field is set.
    */
   boolean hasContraTradeTime();
   /**
    * <code>.fix.Timestamp contra_trade_time = 4 [(.fix.tag) = 438, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraTradeTime.
    */
   org.fixprotocol.components.Fix.Timestamp getContraTradeTime();
   /**
@@ -55,10 +63,12 @@ public interface ContraGrpOrBuilder extends
 
   /**
    * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraTrader.
    */
   java.lang.String getContraTrader();
   /**
    * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contraTrader.
    */
   com.google.protobuf.ByteString
       getContraTraderBytes();

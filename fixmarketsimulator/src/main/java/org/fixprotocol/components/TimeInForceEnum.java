@@ -110,6 +110,8 @@ public enum TimeInForceEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -117,6 +119,10 @@ public enum TimeInForceEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static TimeInForceEnum forNumber(int value) {
     switch (value) {
       case 0: return TIME_IN_FORCE_UNSPECIFIED;

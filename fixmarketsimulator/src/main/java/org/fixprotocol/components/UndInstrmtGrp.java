@@ -97,12 +97,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.UnderlyingInstrument underlyingInstrument_;
   /**
    * <code>.Common.UnderlyingInstrument underlying_instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingInstrument field is set.
    */
   public boolean hasUnderlyingInstrument() {
     return underlyingInstrument_ != null;
   }
   /**
    * <code>.Common.UnderlyingInstrument underlying_instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrument.
    */
   public org.fixprotocol.components.UnderlyingInstrument getUnderlyingInstrument() {
     return underlyingInstrument_ == null ? org.fixprotocol.components.UnderlyingInstrument.getDefaultInstance() : underlyingInstrument_;
@@ -434,12 +436,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.UnderlyingInstrument, org.fixprotocol.components.UnderlyingInstrument.Builder, org.fixprotocol.components.UnderlyingInstrumentOrBuilder> underlyingInstrumentBuilder_;
     /**
      * <code>.Common.UnderlyingInstrument underlying_instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the underlyingInstrument field is set.
      */
     public boolean hasUnderlyingInstrument() {
       return underlyingInstrumentBuilder_ != null || underlyingInstrument_ != null;
     }
     /**
      * <code>.Common.UnderlyingInstrument underlying_instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingInstrument.
      */
     public org.fixprotocol.components.UnderlyingInstrument getUnderlyingInstrument() {
       if (underlyingInstrumentBuilder_ == null) {

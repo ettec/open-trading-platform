@@ -98,12 +98,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeInstrAttribType_;
   /**
    * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeInstrAttribType.
    */
   public int getDerivativeInstrAttribTypeValue() {
     return derivativeInstrAttribType_;
   }
   /**
    * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrAttribType.
    */
   public org.fixprotocol.components.DerivativeInstrAttribTypeEnum getDerivativeInstrAttribType() {
     @SuppressWarnings("deprecation")
@@ -115,6 +117,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeInstrAttribValue_;
   /**
    * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrAttribValue.
    */
   public java.lang.String getDerivativeInstrAttribValue() {
     java.lang.Object ref = derivativeInstrAttribValue_;
@@ -130,6 +133,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeInstrAttribValue.
    */
   public com.google.protobuf.ByteString
       getDerivativeInstrAttribValueBytes() {
@@ -466,12 +470,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeInstrAttribType_ = 0;
     /**
      * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeInstrAttribType.
      */
     public int getDerivativeInstrAttribTypeValue() {
       return derivativeInstrAttribType_;
     }
     /**
      * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeInstrAttribType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrAttribTypeValue(int value) {
       derivativeInstrAttribType_ = value;
@@ -480,6 +487,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeInstrAttribType.
      */
     public org.fixprotocol.components.DerivativeInstrAttribTypeEnum getDerivativeInstrAttribType() {
       @SuppressWarnings("deprecation")
@@ -488,6 +496,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeInstrAttribType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrAttribType(org.fixprotocol.components.DerivativeInstrAttribTypeEnum value) {
       if (value == null) {
@@ -500,6 +510,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeInstrAttribTypeEnum derivative_instr_attrib_type = 1 [(.fix.tag) = 1313, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeInstrAttribType() {
       
@@ -511,6 +522,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeInstrAttribValue_ = "";
     /**
      * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeInstrAttribValue.
      */
     public java.lang.String getDerivativeInstrAttribValue() {
       java.lang.Object ref = derivativeInstrAttribValue_;
@@ -526,6 +538,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeInstrAttribValue.
      */
     public com.google.protobuf.ByteString
         getDerivativeInstrAttribValueBytes() {
@@ -542,6 +555,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeInstrAttribValue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrAttribValue(
         java.lang.String value) {
@@ -555,6 +570,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeInstrAttribValue() {
       
@@ -564,6 +580,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_attrib_value = 2 [(.fix.tag) = 1314, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeInstrAttribValue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrAttribValueBytes(
         com.google.protobuf.ByteString value) {

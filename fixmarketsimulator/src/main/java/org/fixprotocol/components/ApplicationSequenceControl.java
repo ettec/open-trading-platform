@@ -106,6 +106,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object applId_;
   /**
    * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applId.
    */
   public java.lang.String getApplId() {
     java.lang.Object ref = applId_;
@@ -121,6 +122,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for applId.
    */
   public com.google.protobuf.ByteString
       getApplIdBytes() {
@@ -140,6 +142,7 @@ private static final long serialVersionUID = 0L;
   private long applLastSeqNum_;
   /**
    * <code>sfixed64 appl_last_seq_num = 2 [(.fix.tag) = 1350, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applLastSeqNum.
    */
   public long getApplLastSeqNum() {
     return applLastSeqNum_;
@@ -149,6 +152,7 @@ private static final long serialVersionUID = 0L;
   private boolean applResendFlag_;
   /**
    * <code>bool appl_resend_flag = 3 [(.fix.tag) = 1352, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applResendFlag.
    */
   public boolean getApplResendFlag() {
     return applResendFlag_;
@@ -158,6 +162,7 @@ private static final long serialVersionUID = 0L;
   private long applSeqNum_;
   /**
    * <code>sfixed64 appl_seq_num = 4 [(.fix.tag) = 1181, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The applSeqNum.
    */
   public long getApplSeqNum() {
     return applSeqNum_;
@@ -522,6 +527,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object applId_ = "";
     /**
      * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applId.
      */
     public java.lang.String getApplId() {
       java.lang.Object ref = applId_;
@@ -537,6 +543,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for applId.
      */
     public com.google.protobuf.ByteString
         getApplIdBytes() {
@@ -553,6 +560,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The applId to set.
+     * @return This builder for chaining.
      */
     public Builder setApplId(
         java.lang.String value) {
@@ -566,6 +575,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearApplId() {
       
@@ -575,6 +585,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string appl_id = 1 [(.fix.tag) = 1180, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for applId to set.
+     * @return This builder for chaining.
      */
     public Builder setApplIdBytes(
         com.google.protobuf.ByteString value) {
@@ -591,12 +603,15 @@ private static final long serialVersionUID = 0L;
     private long applLastSeqNum_ ;
     /**
      * <code>sfixed64 appl_last_seq_num = 2 [(.fix.tag) = 1350, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applLastSeqNum.
      */
     public long getApplLastSeqNum() {
       return applLastSeqNum_;
     }
     /**
      * <code>sfixed64 appl_last_seq_num = 2 [(.fix.tag) = 1350, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The applLastSeqNum to set.
+     * @return This builder for chaining.
      */
     public Builder setApplLastSeqNum(long value) {
       
@@ -606,6 +621,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 appl_last_seq_num = 2 [(.fix.tag) = 1350, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearApplLastSeqNum() {
       
@@ -617,12 +633,15 @@ private static final long serialVersionUID = 0L;
     private boolean applResendFlag_ ;
     /**
      * <code>bool appl_resend_flag = 3 [(.fix.tag) = 1352, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applResendFlag.
      */
     public boolean getApplResendFlag() {
       return applResendFlag_;
     }
     /**
      * <code>bool appl_resend_flag = 3 [(.fix.tag) = 1352, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The applResendFlag to set.
+     * @return This builder for chaining.
      */
     public Builder setApplResendFlag(boolean value) {
       
@@ -632,6 +651,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>bool appl_resend_flag = 3 [(.fix.tag) = 1352, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearApplResendFlag() {
       
@@ -643,12 +663,15 @@ private static final long serialVersionUID = 0L;
     private long applSeqNum_ ;
     /**
      * <code>sfixed64 appl_seq_num = 4 [(.fix.tag) = 1181, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applSeqNum.
      */
     public long getApplSeqNum() {
       return applSeqNum_;
     }
     /**
      * <code>sfixed64 appl_seq_num = 4 [(.fix.tag) = 1181, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The applSeqNum to set.
+     * @return This builder for chaining.
      */
     public Builder setApplSeqNum(long value) {
       
@@ -658,6 +681,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 appl_seq_num = 4 [(.fix.tag) = 1181, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearApplSeqNum() {
       

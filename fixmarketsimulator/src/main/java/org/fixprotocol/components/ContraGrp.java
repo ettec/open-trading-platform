@@ -131,6 +131,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object contraBroker_;
   /**
    * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraBroker.
    */
   public java.lang.String getContraBroker() {
     java.lang.Object ref = contraBroker_;
@@ -146,6 +147,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contraBroker.
    */
   public com.google.protobuf.ByteString
       getContraBrokerBytes() {
@@ -165,6 +167,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object contraLegRefId_;
   /**
    * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraLegRefId.
    */
   public java.lang.String getContraLegRefId() {
     java.lang.Object ref = contraLegRefId_;
@@ -180,6 +183,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contraLegRefId.
    */
   public com.google.protobuf.ByteString
       getContraLegRefIdBytes() {
@@ -199,12 +203,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 contraTradeQty_;
   /**
    * <code>.fix.Decimal64 contra_trade_qty = 3 [(.fix.tag) = 437, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the contraTradeQty field is set.
    */
   public boolean hasContraTradeQty() {
     return contraTradeQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 contra_trade_qty = 3 [(.fix.tag) = 437, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraTradeQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getContraTradeQty() {
     return contraTradeQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : contraTradeQty_;
@@ -220,12 +226,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp contraTradeTime_;
   /**
    * <code>.fix.Timestamp contra_trade_time = 4 [(.fix.tag) = 438, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the contraTradeTime field is set.
    */
   public boolean hasContraTradeTime() {
     return contraTradeTime_ != null;
   }
   /**
    * <code>.fix.Timestamp contra_trade_time = 4 [(.fix.tag) = 438, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraTradeTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getContraTradeTime() {
     return contraTradeTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : contraTradeTime_;
@@ -241,6 +249,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object contraTrader_;
   /**
    * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contraTrader.
    */
   public java.lang.String getContraTrader() {
     java.lang.Object ref = contraTrader_;
@@ -256,6 +265,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for contraTrader.
    */
   public com.google.protobuf.ByteString
       getContraTraderBytes() {
@@ -670,6 +680,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object contraBroker_ = "";
     /**
      * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contraBroker.
      */
     public java.lang.String getContraBroker() {
       java.lang.Object ref = contraBroker_;
@@ -685,6 +696,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for contraBroker.
      */
     public com.google.protobuf.ByteString
         getContraBrokerBytes() {
@@ -701,6 +713,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The contraBroker to set.
+     * @return This builder for chaining.
      */
     public Builder setContraBroker(
         java.lang.String value) {
@@ -714,6 +728,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearContraBroker() {
       
@@ -723,6 +738,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_broker = 1 [(.fix.tag) = 375, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for contraBroker to set.
+     * @return This builder for chaining.
      */
     public Builder setContraBrokerBytes(
         com.google.protobuf.ByteString value) {
@@ -739,6 +756,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object contraLegRefId_ = "";
     /**
      * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contraLegRefId.
      */
     public java.lang.String getContraLegRefId() {
       java.lang.Object ref = contraLegRefId_;
@@ -754,6 +772,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for contraLegRefId.
      */
     public com.google.protobuf.ByteString
         getContraLegRefIdBytes() {
@@ -770,6 +789,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The contraLegRefId to set.
+     * @return This builder for chaining.
      */
     public Builder setContraLegRefId(
         java.lang.String value) {
@@ -783,6 +804,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearContraLegRefId() {
       
@@ -792,6 +814,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_leg_ref_id = 2 [(.fix.tag) = 655, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for contraLegRefId to set.
+     * @return This builder for chaining.
      */
     public Builder setContraLegRefIdBytes(
         com.google.protobuf.ByteString value) {
@@ -810,12 +834,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> contraTradeQtyBuilder_;
     /**
      * <code>.fix.Decimal64 contra_trade_qty = 3 [(.fix.tag) = 437, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the contraTradeQty field is set.
      */
     public boolean hasContraTradeQty() {
       return contraTradeQtyBuilder_ != null || contraTradeQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 contra_trade_qty = 3 [(.fix.tag) = 437, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contraTradeQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getContraTradeQty() {
       if (contraTradeQtyBuilder_ == null) {
@@ -927,12 +953,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> contraTradeTimeBuilder_;
     /**
      * <code>.fix.Timestamp contra_trade_time = 4 [(.fix.tag) = 438, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the contraTradeTime field is set.
      */
     public boolean hasContraTradeTime() {
       return contraTradeTimeBuilder_ != null || contraTradeTime_ != null;
     }
     /**
      * <code>.fix.Timestamp contra_trade_time = 4 [(.fix.tag) = 438, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contraTradeTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getContraTradeTime() {
       if (contraTradeTimeBuilder_ == null) {
@@ -1042,6 +1070,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object contraTrader_ = "";
     /**
      * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The contraTrader.
      */
     public java.lang.String getContraTrader() {
       java.lang.Object ref = contraTrader_;
@@ -1057,6 +1086,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for contraTrader.
      */
     public com.google.protobuf.ByteString
         getContraTraderBytes() {
@@ -1073,6 +1103,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The contraTrader to set.
+     * @return This builder for chaining.
      */
     public Builder setContraTrader(
         java.lang.String value) {
@@ -1086,6 +1118,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearContraTrader() {
       
@@ -1095,6 +1128,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string contra_trader = 5 [(.fix.tag) = 337, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for contraTrader to set.
+     * @return This builder for chaining.
      */
     public Builder setContraTraderBytes(
         com.google.protobuf.ByteString value) {

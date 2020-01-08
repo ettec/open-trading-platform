@@ -98,12 +98,14 @@ private static final long serialVersionUID = 0L;
   private int nestedInstrAttribType_;
   /**
    * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nestedInstrAttribType.
    */
   public int getNestedInstrAttribTypeValue() {
     return nestedInstrAttribType_;
   }
   /**
    * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nestedInstrAttribType.
    */
   public org.fixprotocol.components.NestedInstrAttribTypeEnum getNestedInstrAttribType() {
     @SuppressWarnings("deprecation")
@@ -115,6 +117,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object nestedInstrAttribValue_;
   /**
    * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nestedInstrAttribValue.
    */
   public java.lang.String getNestedInstrAttribValue() {
     java.lang.Object ref = nestedInstrAttribValue_;
@@ -130,6 +133,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for nestedInstrAttribValue.
    */
   public com.google.protobuf.ByteString
       getNestedInstrAttribValueBytes() {
@@ -466,12 +470,15 @@ private static final long serialVersionUID = 0L;
     private int nestedInstrAttribType_ = 0;
     /**
      * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for nestedInstrAttribType.
      */
     public int getNestedInstrAttribTypeValue() {
       return nestedInstrAttribType_;
     }
     /**
      * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for nestedInstrAttribType to set.
+     * @return This builder for chaining.
      */
     public Builder setNestedInstrAttribTypeValue(int value) {
       nestedInstrAttribType_ = value;
@@ -480,6 +487,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nestedInstrAttribType.
      */
     public org.fixprotocol.components.NestedInstrAttribTypeEnum getNestedInstrAttribType() {
       @SuppressWarnings("deprecation")
@@ -488,6 +496,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nestedInstrAttribType to set.
+     * @return This builder for chaining.
      */
     public Builder setNestedInstrAttribType(org.fixprotocol.components.NestedInstrAttribTypeEnum value) {
       if (value == null) {
@@ -500,6 +510,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNestedInstrAttribType() {
       
@@ -511,6 +522,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object nestedInstrAttribValue_ = "";
     /**
      * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nestedInstrAttribValue.
      */
     public java.lang.String getNestedInstrAttribValue() {
       java.lang.Object ref = nestedInstrAttribValue_;
@@ -526,6 +538,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for nestedInstrAttribValue.
      */
     public com.google.protobuf.ByteString
         getNestedInstrAttribValueBytes() {
@@ -542,6 +555,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nestedInstrAttribValue to set.
+     * @return This builder for chaining.
      */
     public Builder setNestedInstrAttribValue(
         java.lang.String value) {
@@ -555,6 +570,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNestedInstrAttribValue() {
       
@@ -564,6 +580,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for nestedInstrAttribValue to set.
+     * @return This builder for chaining.
      */
     public Builder setNestedInstrAttribValueBytes(
         com.google.protobuf.ByteString value) {

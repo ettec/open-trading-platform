@@ -220,6 +220,7 @@ private static final long serialVersionUID = 0L;
           };
   /**
    * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return A list containing the corporateAction.
    */
   public java.util.List<org.fixprotocol.components.CorporateActionEnum> getCorporateActionList() {
     return new com.google.protobuf.Internal.ListAdapter<
@@ -227,18 +228,22 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The count of corporateAction.
    */
   public int getCorporateActionCount() {
     return corporateAction_.size();
   }
   /**
    * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @param index The index of the element to return.
+   * @return The corporateAction at the given index.
    */
   public org.fixprotocol.components.CorporateActionEnum getCorporateAction(int index) {
     return corporateAction_converter_.convert(corporateAction_.get(index));
   }
   /**
    * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return A list containing the enum numeric values on the wire for corporateAction.
    */
   public java.util.List<java.lang.Integer>
   getCorporateActionValueList() {
@@ -246,6 +251,8 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @param index The index of the value to return.
+   * @return The enum numeric value on the wire of corporateAction at the given index.
    */
   public int getCorporateActionValue(int index) {
     return corporateAction_.get(index);
@@ -256,6 +263,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object currency_;
   /**
    * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The currency.
    */
   public java.lang.String getCurrency() {
     java.lang.Object ref = currency_;
@@ -271,6 +279,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for currency.
    */
   public com.google.protobuf.ByteString
       getCurrencyBytes() {
@@ -290,6 +299,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object encodedText_;
   /**
    * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The encodedText.
    */
   public java.lang.String getEncodedText() {
     java.lang.Object ref = encodedText_;
@@ -305,6 +315,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for encodedText.
    */
   public com.google.protobuf.ByteString
       getEncodedTextBytes() {
@@ -324,6 +335,7 @@ private static final long serialVersionUID = 0L;
   private long encodedTextLen_;
   /**
    * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The encodedTextLen.
    */
   public long getEncodedTextLen() {
     return encodedTextLen_;
@@ -368,12 +380,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Instrument instrument_;
   /**
    * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the instrument field is set.
    */
   public boolean hasInstrument() {
     return instrument_ != null;
   }
   /**
    * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The instrument.
    */
   public org.fixprotocol.components.Instrument getInstrument() {
     return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -389,12 +403,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.InstrumentExtension instrumentExtension_;
   /**
    * <code>.Common.InstrumentExtension instrument_extension = 7 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the instrumentExtension field is set.
    */
   public boolean hasInstrumentExtension() {
     return instrumentExtension_ != null;
   }
   /**
    * <code>.Common.InstrumentExtension instrument_extension = 7 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The instrumentExtension.
    */
   public org.fixprotocol.components.InstrumentExtension getInstrumentExtension() {
     return instrumentExtension_ == null ? org.fixprotocol.components.InstrumentExtension.getDefaultInstance() : instrumentExtension_;
@@ -410,12 +426,14 @@ private static final long serialVersionUID = 0L;
   private int listUpdateAction_;
   /**
    * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for listUpdateAction.
    */
   public int getListUpdateActionValue() {
     return listUpdateAction_;
   }
   /**
    * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The listUpdateAction.
    */
   public org.fixprotocol.components.ListUpdateActionEnum getListUpdateAction() {
     @SuppressWarnings("deprecation")
@@ -427,12 +445,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.SecondaryPriceLimits secondaryPriceLimits_;
   /**
    * <code>.Common.SecondaryPriceLimits secondary_price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the secondaryPriceLimits field is set.
    */
   public boolean hasSecondaryPriceLimits() {
     return secondaryPriceLimits_ != null;
   }
   /**
    * <code>.Common.SecondaryPriceLimits secondary_price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The secondaryPriceLimits.
    */
   public org.fixprotocol.components.SecondaryPriceLimits getSecondaryPriceLimits() {
     return secondaryPriceLimits_ == null ? org.fixprotocol.components.SecondaryPriceLimits.getDefaultInstance() : secondaryPriceLimits_;
@@ -448,6 +468,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object text_;
   /**
    * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The text.
    */
   public java.lang.String getText() {
     java.lang.Object ref = text_;
@@ -463,6 +484,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for text.
    */
   public com.google.protobuf.ByteString
       getTextBytes() {
@@ -482,12 +504,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp relSymTransactTime_;
   /**
    * <code>.fix.Timestamp rel_sym_transact_time = 11 [(.fix.tag) = 1504, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return Whether the relSymTransactTime field is set.
    */
   public boolean hasRelSymTransactTime() {
     return relSymTransactTime_ != null;
   }
   /**
    * <code>.fix.Timestamp rel_sym_transact_time = 11 [(.fix.tag) = 1504, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The relSymTransactTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getRelSymTransactTime() {
     return relSymTransactTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : relSymTransactTime_;
@@ -1098,6 +1122,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return A list containing the corporateAction.
      */
     public java.util.List<org.fixprotocol.components.CorporateActionEnum> getCorporateActionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -1105,18 +1130,24 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The count of corporateAction.
      */
     public int getCorporateActionCount() {
       return corporateAction_.size();
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index of the element to return.
+     * @return The corporateAction at the given index.
      */
     public org.fixprotocol.components.CorporateActionEnum getCorporateAction(int index) {
       return corporateAction_converter_.convert(corporateAction_.get(index));
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index to set the value at.
+     * @param value The corporateAction to set.
+     * @return This builder for chaining.
      */
     public Builder setCorporateAction(
         int index, org.fixprotocol.components.CorporateActionEnum value) {
@@ -1130,6 +1161,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The corporateAction to add.
+     * @return This builder for chaining.
      */
     public Builder addCorporateAction(org.fixprotocol.components.CorporateActionEnum value) {
       if (value == null) {
@@ -1142,6 +1175,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param values The corporateAction to add.
+     * @return This builder for chaining.
      */
     public Builder addAllCorporateAction(
         java.lang.Iterable<? extends org.fixprotocol.components.CorporateActionEnum> values) {
@@ -1154,6 +1189,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearCorporateAction() {
       corporateAction_ = java.util.Collections.emptyList();
@@ -1163,6 +1199,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return A list containing the enum numeric values on the wire for corporateAction.
      */
     public java.util.List<java.lang.Integer>
     getCorporateActionValueList() {
@@ -1170,12 +1207,17 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of corporateAction at the given index.
      */
     public int getCorporateActionValue(int index) {
       return corporateAction_.get(index);
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of corporateAction at the given index.
+     * @return This builder for chaining.
      */
     public Builder setCorporateActionValue(
         int index, int value) {
@@ -1186,6 +1228,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for corporateAction to add.
+     * @return This builder for chaining.
      */
     public Builder addCorporateActionValue(int value) {
       ensureCorporateActionIsMutable();
@@ -1195,6 +1239,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>repeated .Common.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param values The enum numeric values on the wire for corporateAction to add.
+     * @return This builder for chaining.
      */
     public Builder addAllCorporateActionValue(
         java.lang.Iterable<java.lang.Integer> values) {
@@ -1209,6 +1255,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object currency_ = "";
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The currency.
      */
     public java.lang.String getCurrency() {
       java.lang.Object ref = currency_;
@@ -1224,6 +1271,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for currency.
      */
     public com.google.protobuf.ByteString
         getCurrencyBytes() {
@@ -1240,6 +1288,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The currency to set.
+     * @return This builder for chaining.
      */
     public Builder setCurrency(
         java.lang.String value) {
@@ -1253,6 +1303,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearCurrency() {
       
@@ -1262,6 +1313,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for currency to set.
+     * @return This builder for chaining.
      */
     public Builder setCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -1278,6 +1331,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object encodedText_ = "";
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -1293,6 +1347,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -1309,6 +1364,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The encodedText to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedText(
         java.lang.String value) {
@@ -1322,6 +1379,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedText() {
       
@@ -1331,6 +1389,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for encodedText to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedTextBytes(
         com.google.protobuf.ByteString value) {
@@ -1347,12 +1407,15 @@ private static final long serialVersionUID = 0L;
     private long encodedTextLen_ ;
     /**
      * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
     }
     /**
      * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The encodedTextLen to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedTextLen(long value) {
       
@@ -1362,6 +1425,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedTextLen() {
       
@@ -1615,12 +1679,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
     /**
      * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrumentBuilder_ != null || instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       if (instrumentBuilder_ == null) {
@@ -1732,12 +1798,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.InstrumentExtension, org.fixprotocol.components.InstrumentExtension.Builder, org.fixprotocol.components.InstrumentExtensionOrBuilder> instrumentExtensionBuilder_;
     /**
      * <code>.Common.InstrumentExtension instrument_extension = 7 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the instrumentExtension field is set.
      */
     public boolean hasInstrumentExtension() {
       return instrumentExtensionBuilder_ != null || instrumentExtension_ != null;
     }
     /**
      * <code>.Common.InstrumentExtension instrument_extension = 7 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The instrumentExtension.
      */
     public org.fixprotocol.components.InstrumentExtension getInstrumentExtension() {
       if (instrumentExtensionBuilder_ == null) {
@@ -1847,12 +1915,15 @@ private static final long serialVersionUID = 0L;
     private int listUpdateAction_ = 0;
     /**
      * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for listUpdateAction.
      */
     public int getListUpdateActionValue() {
       return listUpdateAction_;
     }
     /**
      * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for listUpdateAction to set.
+     * @return This builder for chaining.
      */
     public Builder setListUpdateActionValue(int value) {
       listUpdateAction_ = value;
@@ -1861,6 +1932,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The listUpdateAction.
      */
     public org.fixprotocol.components.ListUpdateActionEnum getListUpdateAction() {
       @SuppressWarnings("deprecation")
@@ -1869,6 +1941,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The listUpdateAction to set.
+     * @return This builder for chaining.
      */
     public Builder setListUpdateAction(org.fixprotocol.components.ListUpdateActionEnum value) {
       if (value == null) {
@@ -1881,6 +1955,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ListUpdateActionEnum list_update_action = 8 [(.fix.tag) = 1324, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearListUpdateAction() {
       
@@ -1894,12 +1969,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.SecondaryPriceLimits, org.fixprotocol.components.SecondaryPriceLimits.Builder, org.fixprotocol.components.SecondaryPriceLimitsOrBuilder> secondaryPriceLimitsBuilder_;
     /**
      * <code>.Common.SecondaryPriceLimits secondary_price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the secondaryPriceLimits field is set.
      */
     public boolean hasSecondaryPriceLimits() {
       return secondaryPriceLimitsBuilder_ != null || secondaryPriceLimits_ != null;
     }
     /**
      * <code>.Common.SecondaryPriceLimits secondary_price_limits = 9 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The secondaryPriceLimits.
      */
     public org.fixprotocol.components.SecondaryPriceLimits getSecondaryPriceLimits() {
       if (secondaryPriceLimitsBuilder_ == null) {
@@ -2009,6 +2086,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object text_ = "";
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -2024,6 +2102,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -2040,6 +2119,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The text to set.
+     * @return This builder for chaining.
      */
     public Builder setText(
         java.lang.String value) {
@@ -2053,6 +2134,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearText() {
       
@@ -2062,6 +2144,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for text to set.
+     * @return This builder for chaining.
      */
     public Builder setTextBytes(
         com.google.protobuf.ByteString value) {
@@ -2080,12 +2164,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> relSymTransactTimeBuilder_;
     /**
      * <code>.fix.Timestamp rel_sym_transact_time = 11 [(.fix.tag) = 1504, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return Whether the relSymTransactTime field is set.
      */
     public boolean hasRelSymTransactTime() {
       return relSymTransactTimeBuilder_ != null || relSymTransactTime_ != null;
     }
     /**
      * <code>.fix.Timestamp rel_sym_transact_time = 11 [(.fix.tag) = 1504, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return The relSymTransactTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getRelSymTransactTime() {
       if (relSymTransactTimeBuilder_ == null) {

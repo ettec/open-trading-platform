@@ -105,12 +105,14 @@ private static final long serialVersionUID = 0L;
   private int settlObligSource_;
   /**
    * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for settlObligSource.
    */
   public int getSettlObligSourceValue() {
     return settlObligSource_;
   }
   /**
    * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The settlObligSource.
    */
   public org.fixprotocol.components.SettlObligSourceEnum getSettlObligSource() {
     @SuppressWarnings("deprecation")
@@ -514,12 +516,15 @@ private static final long serialVersionUID = 0L;
     private int settlObligSource_ = 0;
     /**
      * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for settlObligSource.
      */
     public int getSettlObligSourceValue() {
       return settlObligSource_;
     }
     /**
      * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for settlObligSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlObligSourceValue(int value) {
       settlObligSource_ = value;
@@ -528,6 +533,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The settlObligSource.
      */
     public org.fixprotocol.components.SettlObligSourceEnum getSettlObligSource() {
       @SuppressWarnings("deprecation")
@@ -536,6 +542,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The settlObligSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlObligSource(org.fixprotocol.components.SettlObligSourceEnum value) {
       if (value == null) {
@@ -548,6 +556,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlObligSource() {
       

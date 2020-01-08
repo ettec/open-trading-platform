@@ -141,6 +141,8 @@ public final class Fix {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -148,6 +150,10 @@ public final class Fix {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static VersionEnum forNumber(int value) {
       switch (value) {
         case 0: return VERSION_UNSPECIFIED;
@@ -521,6 +527,8 @@ public final class Fix {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -528,6 +536,10 @@ public final class Fix {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static DatatypeEnum forNumber(int value) {
       switch (value) {
         case 0: return DATATYPE_UNSPECIFIED;
@@ -624,21 +636,25 @@ public final class Fix {
 
     /**
      * <code>uint32 days = 1;</code>
+     * @return The days.
      */
     int getDays();
 
     /**
      * <code>uint32 weeks = 2;</code>
+     * @return The weeks.
      */
     int getWeeks();
 
     /**
      * <code>uint32 months = 3;</code>
+     * @return The months.
      */
     int getMonths();
 
     /**
      * <code>uint32 years = 4;</code>
+     * @return The years.
      */
     int getYears();
   }
@@ -743,6 +759,7 @@ public final class Fix {
     private int days_;
     /**
      * <code>uint32 days = 1;</code>
+     * @return The days.
      */
     public int getDays() {
       return days_;
@@ -752,6 +769,7 @@ public final class Fix {
     private int weeks_;
     /**
      * <code>uint32 weeks = 2;</code>
+     * @return The weeks.
      */
     public int getWeeks() {
       return weeks_;
@@ -761,6 +779,7 @@ public final class Fix {
     private int months_;
     /**
      * <code>uint32 months = 3;</code>
+     * @return The months.
      */
     public int getMonths() {
       return months_;
@@ -770,6 +789,7 @@ public final class Fix {
     private int years_;
     /**
      * <code>uint32 years = 4;</code>
+     * @return The years.
      */
     public int getYears() {
       return years_;
@@ -1131,12 +1151,15 @@ public final class Fix {
       private int days_ ;
       /**
        * <code>uint32 days = 1;</code>
+       * @return The days.
        */
       public int getDays() {
         return days_;
       }
       /**
        * <code>uint32 days = 1;</code>
+       * @param value The days to set.
+       * @return This builder for chaining.
        */
       public Builder setDays(int value) {
         
@@ -1146,6 +1169,7 @@ public final class Fix {
       }
       /**
        * <code>uint32 days = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDays() {
         
@@ -1157,12 +1181,15 @@ public final class Fix {
       private int weeks_ ;
       /**
        * <code>uint32 weeks = 2;</code>
+       * @return The weeks.
        */
       public int getWeeks() {
         return weeks_;
       }
       /**
        * <code>uint32 weeks = 2;</code>
+       * @param value The weeks to set.
+       * @return This builder for chaining.
        */
       public Builder setWeeks(int value) {
         
@@ -1172,6 +1199,7 @@ public final class Fix {
       }
       /**
        * <code>uint32 weeks = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearWeeks() {
         
@@ -1183,12 +1211,15 @@ public final class Fix {
       private int months_ ;
       /**
        * <code>uint32 months = 3;</code>
+       * @return The months.
        */
       public int getMonths() {
         return months_;
       }
       /**
        * <code>uint32 months = 3;</code>
+       * @param value The months to set.
+       * @return This builder for chaining.
        */
       public Builder setMonths(int value) {
         
@@ -1198,6 +1229,7 @@ public final class Fix {
       }
       /**
        * <code>uint32 months = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMonths() {
         
@@ -1209,12 +1241,15 @@ public final class Fix {
       private int years_ ;
       /**
        * <code>uint32 years = 4;</code>
+       * @return The years.
        */
       public int getYears() {
         return years_;
       }
       /**
        * <code>uint32 years = 4;</code>
+       * @param value The years to set.
+       * @return This builder for chaining.
        */
       public Builder setYears(int value) {
         
@@ -1224,6 +1259,7 @@ public final class Fix {
       }
       /**
        * <code>uint32 years = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearYears() {
         
@@ -1290,11 +1326,13 @@ public final class Fix {
 
     /**
      * <code>sfixed32 mantissa = 1;</code>
+     * @return The mantissa.
      */
     int getMantissa();
 
     /**
      * <code>sfixed32 exponent = 2;</code>
+     * @return The exponent.
      */
     int getExponent();
   }
@@ -1389,6 +1427,7 @@ public final class Fix {
     private int mantissa_;
     /**
      * <code>sfixed32 mantissa = 1;</code>
+     * @return The mantissa.
      */
     public int getMantissa() {
       return mantissa_;
@@ -1398,6 +1437,7 @@ public final class Fix {
     private int exponent_;
     /**
      * <code>sfixed32 exponent = 2;</code>
+     * @return The exponent.
      */
     public int getExponent() {
       return exponent_;
@@ -1725,12 +1765,15 @@ public final class Fix {
       private int mantissa_ ;
       /**
        * <code>sfixed32 mantissa = 1;</code>
+       * @return The mantissa.
        */
       public int getMantissa() {
         return mantissa_;
       }
       /**
        * <code>sfixed32 mantissa = 1;</code>
+       * @param value The mantissa to set.
+       * @return This builder for chaining.
        */
       public Builder setMantissa(int value) {
         
@@ -1740,6 +1783,7 @@ public final class Fix {
       }
       /**
        * <code>sfixed32 mantissa = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMantissa() {
         
@@ -1751,12 +1795,15 @@ public final class Fix {
       private int exponent_ ;
       /**
        * <code>sfixed32 exponent = 2;</code>
+       * @return The exponent.
        */
       public int getExponent() {
         return exponent_;
       }
       /**
        * <code>sfixed32 exponent = 2;</code>
+       * @param value The exponent to set.
+       * @return This builder for chaining.
        */
       public Builder setExponent(int value) {
         
@@ -1766,6 +1813,7 @@ public final class Fix {
       }
       /**
        * <code>sfixed32 exponent = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearExponent() {
         
@@ -1832,11 +1880,13 @@ public final class Fix {
 
     /**
      * <code>sfixed64 mantissa = 1;</code>
+     * @return The mantissa.
      */
     long getMantissa();
 
     /**
      * <code>sfixed32 exponent = 2;</code>
+     * @return The exponent.
      */
     int getExponent();
   }
@@ -1931,6 +1981,7 @@ public final class Fix {
     private long mantissa_;
     /**
      * <code>sfixed64 mantissa = 1;</code>
+     * @return The mantissa.
      */
     public long getMantissa() {
       return mantissa_;
@@ -1940,6 +1991,7 @@ public final class Fix {
     private int exponent_;
     /**
      * <code>sfixed32 exponent = 2;</code>
+     * @return The exponent.
      */
     public int getExponent() {
       return exponent_;
@@ -2268,12 +2320,15 @@ public final class Fix {
       private long mantissa_ ;
       /**
        * <code>sfixed64 mantissa = 1;</code>
+       * @return The mantissa.
        */
       public long getMantissa() {
         return mantissa_;
       }
       /**
        * <code>sfixed64 mantissa = 1;</code>
+       * @param value The mantissa to set.
+       * @return This builder for chaining.
        */
       public Builder setMantissa(long value) {
         
@@ -2283,6 +2338,7 @@ public final class Fix {
       }
       /**
        * <code>sfixed64 mantissa = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMantissa() {
         
@@ -2294,12 +2350,15 @@ public final class Fix {
       private int exponent_ ;
       /**
        * <code>sfixed32 exponent = 2;</code>
+       * @return The exponent.
        */
       public int getExponent() {
         return exponent_;
       }
       /**
        * <code>sfixed32 exponent = 2;</code>
+       * @param value The exponent to set.
+       * @return This builder for chaining.
        */
       public Builder setExponent(int value) {
         
@@ -2309,6 +2368,7 @@ public final class Fix {
       }
       /**
        * <code>sfixed32 exponent = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearExponent() {
         
@@ -2375,11 +2435,13 @@ public final class Fix {
 
     /**
      * <code>int64 seconds = 1;</code>
+     * @return The seconds.
      */
     long getSeconds();
 
     /**
      * <code>int32 nanos = 2;</code>
+     * @return The nanos.
      */
     int getNanos();
   }
@@ -2474,6 +2536,7 @@ public final class Fix {
     private long seconds_;
     /**
      * <code>int64 seconds = 1;</code>
+     * @return The seconds.
      */
     public long getSeconds() {
       return seconds_;
@@ -2483,6 +2546,7 @@ public final class Fix {
     private int nanos_;
     /**
      * <code>int32 nanos = 2;</code>
+     * @return The nanos.
      */
     public int getNanos() {
       return nanos_;
@@ -2811,12 +2875,15 @@ public final class Fix {
       private long seconds_ ;
       /**
        * <code>int64 seconds = 1;</code>
+       * @return The seconds.
        */
       public long getSeconds() {
         return seconds_;
       }
       /**
        * <code>int64 seconds = 1;</code>
+       * @param value The seconds to set.
+       * @return This builder for chaining.
        */
       public Builder setSeconds(long value) {
         
@@ -2826,6 +2893,7 @@ public final class Fix {
       }
       /**
        * <code>int64 seconds = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSeconds() {
         
@@ -2837,12 +2905,15 @@ public final class Fix {
       private int nanos_ ;
       /**
        * <code>int32 nanos = 2;</code>
+       * @return The nanos.
        */
       public int getNanos() {
         return nanos_;
       }
       /**
        * <code>int32 nanos = 2;</code>
+       * @param value The nanos to set.
+       * @return This builder for chaining.
        */
       public Builder setNanos(int value) {
         
@@ -2852,6 +2923,7 @@ public final class Fix {
       }
       /**
        * <code>int32 nanos = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNanos() {
         
@@ -2918,11 +2990,13 @@ public final class Fix {
 
     /**
      * <code>int64 seconds = 1;</code>
+     * @return The seconds.
      */
     long getSeconds();
 
     /**
      * <code>int32 nanos = 2;</code>
+     * @return The nanos.
      */
     int getNanos();
   }
@@ -3017,6 +3091,7 @@ public final class Fix {
     private long seconds_;
     /**
      * <code>int64 seconds = 1;</code>
+     * @return The seconds.
      */
     public long getSeconds() {
       return seconds_;
@@ -3026,6 +3101,7 @@ public final class Fix {
     private int nanos_;
     /**
      * <code>int32 nanos = 2;</code>
+     * @return The nanos.
      */
     public int getNanos() {
       return nanos_;
@@ -3354,12 +3430,15 @@ public final class Fix {
       private long seconds_ ;
       /**
        * <code>int64 seconds = 1;</code>
+       * @return The seconds.
        */
       public long getSeconds() {
         return seconds_;
       }
       /**
        * <code>int64 seconds = 1;</code>
+       * @param value The seconds to set.
+       * @return This builder for chaining.
        */
       public Builder setSeconds(long value) {
         
@@ -3369,6 +3448,7 @@ public final class Fix {
       }
       /**
        * <code>int64 seconds = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSeconds() {
         
@@ -3380,12 +3460,15 @@ public final class Fix {
       private int nanos_ ;
       /**
        * <code>int32 nanos = 2;</code>
+       * @return The nanos.
        */
       public int getNanos() {
         return nanos_;
       }
       /**
        * <code>int32 nanos = 2;</code>
+       * @param value The nanos to set.
+       * @return This builder for chaining.
        */
       public Builder setNanos(int value) {
         
@@ -3395,6 +3478,7 @@ public final class Fix {
       }
       /**
        * <code>int32 nanos = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNanos() {
         
@@ -3461,36 +3545,43 @@ public final class Fix {
 
     /**
      * <code>sint32 date = 1;</code>
+     * @return The date.
      */
     int getDate();
 
     /**
      * <code>int32 hours = 2;</code>
+     * @return The hours.
      */
     int getHours();
 
     /**
      * <code>int32 minutes = 3;</code>
+     * @return The minutes.
      */
     int getMinutes();
 
     /**
      * <code>int32 seconds = 4;</code>
+     * @return The seconds.
      */
     int getSeconds();
 
     /**
      * <code>int32 nanos = 5;</code>
+     * @return The nanos.
      */
     int getNanos();
 
     /**
      * <code>sint32 hoursOffset = 6;</code>
+     * @return The hoursOffset.
      */
     int getHoursOffset();
 
     /**
      * <code>sint32 minutesOffset = 7;</code>
+     * @return The minutesOffset.
      */
     int getMinutesOffset();
   }
@@ -3610,6 +3701,7 @@ public final class Fix {
     private int date_;
     /**
      * <code>sint32 date = 1;</code>
+     * @return The date.
      */
     public int getDate() {
       return date_;
@@ -3619,6 +3711,7 @@ public final class Fix {
     private int hours_;
     /**
      * <code>int32 hours = 2;</code>
+     * @return The hours.
      */
     public int getHours() {
       return hours_;
@@ -3628,6 +3721,7 @@ public final class Fix {
     private int minutes_;
     /**
      * <code>int32 minutes = 3;</code>
+     * @return The minutes.
      */
     public int getMinutes() {
       return minutes_;
@@ -3637,6 +3731,7 @@ public final class Fix {
     private int seconds_;
     /**
      * <code>int32 seconds = 4;</code>
+     * @return The seconds.
      */
     public int getSeconds() {
       return seconds_;
@@ -3646,6 +3741,7 @@ public final class Fix {
     private int nanos_;
     /**
      * <code>int32 nanos = 5;</code>
+     * @return The nanos.
      */
     public int getNanos() {
       return nanos_;
@@ -3655,6 +3751,7 @@ public final class Fix {
     private int hoursOffset_;
     /**
      * <code>sint32 hoursOffset = 6;</code>
+     * @return The hoursOffset.
      */
     public int getHoursOffset() {
       return hoursOffset_;
@@ -3664,6 +3761,7 @@ public final class Fix {
     private int minutesOffset_;
     /**
      * <code>sint32 minutesOffset = 7;</code>
+     * @return The minutesOffset.
      */
     public int getMinutesOffset() {
       return minutesOffset_;
@@ -4076,12 +4174,15 @@ public final class Fix {
       private int date_ ;
       /**
        * <code>sint32 date = 1;</code>
+       * @return The date.
        */
       public int getDate() {
         return date_;
       }
       /**
        * <code>sint32 date = 1;</code>
+       * @param value The date to set.
+       * @return This builder for chaining.
        */
       public Builder setDate(int value) {
         
@@ -4091,6 +4192,7 @@ public final class Fix {
       }
       /**
        * <code>sint32 date = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearDate() {
         
@@ -4102,12 +4204,15 @@ public final class Fix {
       private int hours_ ;
       /**
        * <code>int32 hours = 2;</code>
+       * @return The hours.
        */
       public int getHours() {
         return hours_;
       }
       /**
        * <code>int32 hours = 2;</code>
+       * @param value The hours to set.
+       * @return This builder for chaining.
        */
       public Builder setHours(int value) {
         
@@ -4117,6 +4222,7 @@ public final class Fix {
       }
       /**
        * <code>int32 hours = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHours() {
         
@@ -4128,12 +4234,15 @@ public final class Fix {
       private int minutes_ ;
       /**
        * <code>int32 minutes = 3;</code>
+       * @return The minutes.
        */
       public int getMinutes() {
         return minutes_;
       }
       /**
        * <code>int32 minutes = 3;</code>
+       * @param value The minutes to set.
+       * @return This builder for chaining.
        */
       public Builder setMinutes(int value) {
         
@@ -4143,6 +4252,7 @@ public final class Fix {
       }
       /**
        * <code>int32 minutes = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMinutes() {
         
@@ -4154,12 +4264,15 @@ public final class Fix {
       private int seconds_ ;
       /**
        * <code>int32 seconds = 4;</code>
+       * @return The seconds.
        */
       public int getSeconds() {
         return seconds_;
       }
       /**
        * <code>int32 seconds = 4;</code>
+       * @param value The seconds to set.
+       * @return This builder for chaining.
        */
       public Builder setSeconds(int value) {
         
@@ -4169,6 +4282,7 @@ public final class Fix {
       }
       /**
        * <code>int32 seconds = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSeconds() {
         
@@ -4180,12 +4294,15 @@ public final class Fix {
       private int nanos_ ;
       /**
        * <code>int32 nanos = 5;</code>
+       * @return The nanos.
        */
       public int getNanos() {
         return nanos_;
       }
       /**
        * <code>int32 nanos = 5;</code>
+       * @param value The nanos to set.
+       * @return This builder for chaining.
        */
       public Builder setNanos(int value) {
         
@@ -4195,6 +4312,7 @@ public final class Fix {
       }
       /**
        * <code>int32 nanos = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNanos() {
         
@@ -4206,12 +4324,15 @@ public final class Fix {
       private int hoursOffset_ ;
       /**
        * <code>sint32 hoursOffset = 6;</code>
+       * @return The hoursOffset.
        */
       public int getHoursOffset() {
         return hoursOffset_;
       }
       /**
        * <code>sint32 hoursOffset = 6;</code>
+       * @param value The hoursOffset to set.
+       * @return This builder for chaining.
        */
       public Builder setHoursOffset(int value) {
         
@@ -4221,6 +4342,7 @@ public final class Fix {
       }
       /**
        * <code>sint32 hoursOffset = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHoursOffset() {
         
@@ -4232,12 +4354,15 @@ public final class Fix {
       private int minutesOffset_ ;
       /**
        * <code>sint32 minutesOffset = 7;</code>
+       * @return The minutesOffset.
        */
       public int getMinutesOffset() {
         return minutesOffset_;
       }
       /**
        * <code>sint32 minutesOffset = 7;</code>
+       * @param value The minutesOffset to set.
+       * @return This builder for chaining.
        */
       public Builder setMinutesOffset(int value) {
         
@@ -4247,6 +4372,7 @@ public final class Fix {
       }
       /**
        * <code>sint32 minutesOffset = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMinutesOffset() {
         
@@ -4313,31 +4439,37 @@ public final class Fix {
 
     /**
      * <code>int32 hours = 1;</code>
+     * @return The hours.
      */
     int getHours();
 
     /**
      * <code>int32 minutes = 2;</code>
+     * @return The minutes.
      */
     int getMinutes();
 
     /**
      * <code>int32 seconds = 3;</code>
+     * @return The seconds.
      */
     int getSeconds();
 
     /**
      * <code>int32 nanos = 4;</code>
+     * @return The nanos.
      */
     int getNanos();
 
     /**
      * <code>sint32 hoursOffset = 5;</code>
+     * @return The hoursOffset.
      */
     int getHoursOffset();
 
     /**
      * <code>sint32 minutesOffset = 6;</code>
+     * @return The minutesOffset.
      */
     int getMinutesOffset();
   }
@@ -4452,6 +4584,7 @@ public final class Fix {
     private int hours_;
     /**
      * <code>int32 hours = 1;</code>
+     * @return The hours.
      */
     public int getHours() {
       return hours_;
@@ -4461,6 +4594,7 @@ public final class Fix {
     private int minutes_;
     /**
      * <code>int32 minutes = 2;</code>
+     * @return The minutes.
      */
     public int getMinutes() {
       return minutes_;
@@ -4470,6 +4604,7 @@ public final class Fix {
     private int seconds_;
     /**
      * <code>int32 seconds = 3;</code>
+     * @return The seconds.
      */
     public int getSeconds() {
       return seconds_;
@@ -4479,6 +4614,7 @@ public final class Fix {
     private int nanos_;
     /**
      * <code>int32 nanos = 4;</code>
+     * @return The nanos.
      */
     public int getNanos() {
       return nanos_;
@@ -4488,6 +4624,7 @@ public final class Fix {
     private int hoursOffset_;
     /**
      * <code>sint32 hoursOffset = 5;</code>
+     * @return The hoursOffset.
      */
     public int getHoursOffset() {
       return hoursOffset_;
@@ -4497,6 +4634,7 @@ public final class Fix {
     private int minutesOffset_;
     /**
      * <code>sint32 minutesOffset = 6;</code>
+     * @return The minutesOffset.
      */
     public int getMinutesOffset() {
       return minutesOffset_;
@@ -4892,12 +5030,15 @@ public final class Fix {
       private int hours_ ;
       /**
        * <code>int32 hours = 1;</code>
+       * @return The hours.
        */
       public int getHours() {
         return hours_;
       }
       /**
        * <code>int32 hours = 1;</code>
+       * @param value The hours to set.
+       * @return This builder for chaining.
        */
       public Builder setHours(int value) {
         
@@ -4907,6 +5048,7 @@ public final class Fix {
       }
       /**
        * <code>int32 hours = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHours() {
         
@@ -4918,12 +5060,15 @@ public final class Fix {
       private int minutes_ ;
       /**
        * <code>int32 minutes = 2;</code>
+       * @return The minutes.
        */
       public int getMinutes() {
         return minutes_;
       }
       /**
        * <code>int32 minutes = 2;</code>
+       * @param value The minutes to set.
+       * @return This builder for chaining.
        */
       public Builder setMinutes(int value) {
         
@@ -4933,6 +5078,7 @@ public final class Fix {
       }
       /**
        * <code>int32 minutes = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMinutes() {
         
@@ -4944,12 +5090,15 @@ public final class Fix {
       private int seconds_ ;
       /**
        * <code>int32 seconds = 3;</code>
+       * @return The seconds.
        */
       public int getSeconds() {
         return seconds_;
       }
       /**
        * <code>int32 seconds = 3;</code>
+       * @param value The seconds to set.
+       * @return This builder for chaining.
        */
       public Builder setSeconds(int value) {
         
@@ -4959,6 +5108,7 @@ public final class Fix {
       }
       /**
        * <code>int32 seconds = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearSeconds() {
         
@@ -4970,12 +5120,15 @@ public final class Fix {
       private int nanos_ ;
       /**
        * <code>int32 nanos = 4;</code>
+       * @return The nanos.
        */
       public int getNanos() {
         return nanos_;
       }
       /**
        * <code>int32 nanos = 4;</code>
+       * @param value The nanos to set.
+       * @return This builder for chaining.
        */
       public Builder setNanos(int value) {
         
@@ -4985,6 +5138,7 @@ public final class Fix {
       }
       /**
        * <code>int32 nanos = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearNanos() {
         
@@ -4996,12 +5150,15 @@ public final class Fix {
       private int hoursOffset_ ;
       /**
        * <code>sint32 hoursOffset = 5;</code>
+       * @return The hoursOffset.
        */
       public int getHoursOffset() {
         return hoursOffset_;
       }
       /**
        * <code>sint32 hoursOffset = 5;</code>
+       * @param value The hoursOffset to set.
+       * @return This builder for chaining.
        */
       public Builder setHoursOffset(int value) {
         
@@ -5011,6 +5168,7 @@ public final class Fix {
       }
       /**
        * <code>sint32 hoursOffset = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHoursOffset() {
         
@@ -5022,12 +5180,15 @@ public final class Fix {
       private int minutesOffset_ ;
       /**
        * <code>sint32 minutesOffset = 6;</code>
+       * @return The minutesOffset.
        */
       public int getMinutesOffset() {
         return minutesOffset_;
       }
       /**
        * <code>sint32 minutesOffset = 6;</code>
+       * @param value The minutesOffset to set.
+       * @return This builder for chaining.
        */
       public Builder setMinutesOffset(int value) {
         
@@ -5037,6 +5198,7 @@ public final class Fix {
       }
       /**
        * <code>sint32 minutesOffset = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMinutesOffset() {
         

@@ -9,10 +9,12 @@ public interface InstrmtGrpOrBuilder extends
 
   /**
    * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrument field is set.
    */
   boolean hasInstrument();
   /**
    * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrument.
    */
   org.fixprotocol.components.Instrument getInstrument();
   /**

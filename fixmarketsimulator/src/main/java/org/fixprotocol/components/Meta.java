@@ -96,6 +96,8 @@ public final class Meta {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -103,6 +105,10 @@ public final class Meta {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TimeUnitEnum forNumber(int value) {
       switch (value) {
         case 0: return TIME_UNIT_UNSPECIFIED;
@@ -223,6 +229,8 @@ public final class Meta {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -230,6 +238,10 @@ public final class Meta {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static Epoch forNumber(int value) {
       switch (value) {
         case 0: return EPOCH_UNSPECIFIED;

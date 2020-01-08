@@ -123,6 +123,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legBenchmarkCurveCurrency_;
   /**
    * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkCurveCurrency.
    */
   public java.lang.String getLegBenchmarkCurveCurrency() {
     java.lang.Object ref = legBenchmarkCurveCurrency_;
@@ -138,6 +139,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legBenchmarkCurveCurrency.
    */
   public com.google.protobuf.ByteString
       getLegBenchmarkCurveCurrencyBytes() {
@@ -157,12 +159,14 @@ private static final long serialVersionUID = 0L;
   private int legBenchmarkCurveName_;
   /**
    * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legBenchmarkCurveName.
    */
   public int getLegBenchmarkCurveNameValue() {
     return legBenchmarkCurveName_;
   }
   /**
    * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkCurveName.
    */
   public org.fixprotocol.components.LegBenchmarkCurveNameEnum getLegBenchmarkCurveName() {
     @SuppressWarnings("deprecation")
@@ -174,6 +178,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legBenchmarkCurvePoint_;
   /**
    * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkCurvePoint.
    */
   public java.lang.String getLegBenchmarkCurvePoint() {
     java.lang.Object ref = legBenchmarkCurvePoint_;
@@ -189,6 +194,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legBenchmarkCurvePoint.
    */
   public com.google.protobuf.ByteString
       getLegBenchmarkCurvePointBytes() {
@@ -208,12 +214,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legBenchmarkPrice_;
   /**
    * <code>.fix.Decimal64 leg_benchmark_price = 4 [(.fix.tag) = 679, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legBenchmarkPrice field is set.
    */
   public boolean hasLegBenchmarkPrice() {
     return legBenchmarkPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_benchmark_price = 4 [(.fix.tag) = 679, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegBenchmarkPrice() {
     return legBenchmarkPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legBenchmarkPrice_;
@@ -229,6 +237,7 @@ private static final long serialVersionUID = 0L;
   private long legBenchmarkPriceType_;
   /**
    * <code>sfixed64 leg_benchmark_price_type = 5 [(.fix.tag) = 680, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkPriceType.
    */
   public long getLegBenchmarkPriceType() {
     return legBenchmarkPriceType_;
@@ -620,6 +629,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legBenchmarkCurveCurrency_ = "";
     /**
      * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legBenchmarkCurveCurrency.
      */
     public java.lang.String getLegBenchmarkCurveCurrency() {
       java.lang.Object ref = legBenchmarkCurveCurrency_;
@@ -635,6 +645,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legBenchmarkCurveCurrency.
      */
     public com.google.protobuf.ByteString
         getLegBenchmarkCurveCurrencyBytes() {
@@ -651,6 +662,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legBenchmarkCurveCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkCurveCurrency(
         java.lang.String value) {
@@ -664,6 +677,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegBenchmarkCurveCurrency() {
       
@@ -673,6 +687,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_currency = 1 [(.fix.tag) = 676, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legBenchmarkCurveCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkCurveCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -689,12 +705,15 @@ private static final long serialVersionUID = 0L;
     private int legBenchmarkCurveName_ = 0;
     /**
      * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legBenchmarkCurveName.
      */
     public int getLegBenchmarkCurveNameValue() {
       return legBenchmarkCurveName_;
     }
     /**
      * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legBenchmarkCurveName to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkCurveNameValue(int value) {
       legBenchmarkCurveName_ = value;
@@ -703,6 +722,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legBenchmarkCurveName.
      */
     public org.fixprotocol.components.LegBenchmarkCurveNameEnum getLegBenchmarkCurveName() {
       @SuppressWarnings("deprecation")
@@ -711,6 +731,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legBenchmarkCurveName to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkCurveName(org.fixprotocol.components.LegBenchmarkCurveNameEnum value) {
       if (value == null) {
@@ -723,6 +745,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegBenchmarkCurveNameEnum leg_benchmark_curve_name = 2 [(.fix.tag) = 677, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegBenchmarkCurveName() {
       
@@ -734,6 +757,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legBenchmarkCurvePoint_ = "";
     /**
      * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legBenchmarkCurvePoint.
      */
     public java.lang.String getLegBenchmarkCurvePoint() {
       java.lang.Object ref = legBenchmarkCurvePoint_;
@@ -749,6 +773,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legBenchmarkCurvePoint.
      */
     public com.google.protobuf.ByteString
         getLegBenchmarkCurvePointBytes() {
@@ -765,6 +790,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legBenchmarkCurvePoint to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkCurvePoint(
         java.lang.String value) {
@@ -778,6 +805,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegBenchmarkCurvePoint() {
       
@@ -787,6 +815,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_benchmark_curve_point = 3 [(.fix.tag) = 678, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legBenchmarkCurvePoint to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkCurvePointBytes(
         com.google.protobuf.ByteString value) {
@@ -805,12 +835,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legBenchmarkPriceBuilder_;
     /**
      * <code>.fix.Decimal64 leg_benchmark_price = 4 [(.fix.tag) = 679, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legBenchmarkPrice field is set.
      */
     public boolean hasLegBenchmarkPrice() {
       return legBenchmarkPriceBuilder_ != null || legBenchmarkPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_benchmark_price = 4 [(.fix.tag) = 679, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legBenchmarkPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegBenchmarkPrice() {
       if (legBenchmarkPriceBuilder_ == null) {
@@ -920,12 +952,15 @@ private static final long serialVersionUID = 0L;
     private long legBenchmarkPriceType_ ;
     /**
      * <code>sfixed64 leg_benchmark_price_type = 5 [(.fix.tag) = 680, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legBenchmarkPriceType.
      */
     public long getLegBenchmarkPriceType() {
       return legBenchmarkPriceType_;
     }
     /**
      * <code>sfixed64 leg_benchmark_price_type = 5 [(.fix.tag) = 680, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legBenchmarkPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegBenchmarkPriceType(long value) {
       
@@ -935,6 +970,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 leg_benchmark_price_type = 5 [(.fix.tag) = 680, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegBenchmarkPriceType() {
       

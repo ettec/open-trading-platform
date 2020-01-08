@@ -98,12 +98,14 @@ private static final long serialVersionUID = 0L;
   private int legStipulationType_;
   /**
    * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legStipulationType.
    */
   public int getLegStipulationTypeValue() {
     return legStipulationType_;
   }
   /**
    * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legStipulationType.
    */
   public org.fixprotocol.components.LegStipulationTypeEnum getLegStipulationType() {
     @SuppressWarnings("deprecation")
@@ -115,6 +117,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legStipulationValue_;
   /**
    * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legStipulationValue.
    */
   public java.lang.String getLegStipulationValue() {
     java.lang.Object ref = legStipulationValue_;
@@ -130,6 +133,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legStipulationValue.
    */
   public com.google.protobuf.ByteString
       getLegStipulationValueBytes() {
@@ -466,12 +470,15 @@ private static final long serialVersionUID = 0L;
     private int legStipulationType_ = 0;
     /**
      * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legStipulationType.
      */
     public int getLegStipulationTypeValue() {
       return legStipulationType_;
     }
     /**
      * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legStipulationType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStipulationTypeValue(int value) {
       legStipulationType_ = value;
@@ -480,6 +487,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legStipulationType.
      */
     public org.fixprotocol.components.LegStipulationTypeEnum getLegStipulationType() {
       @SuppressWarnings("deprecation")
@@ -488,6 +496,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legStipulationType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStipulationType(org.fixprotocol.components.LegStipulationTypeEnum value) {
       if (value == null) {
@@ -500,6 +510,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegStipulationTypeEnum leg_stipulation_type = 1 [(.fix.tag) = 688, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegStipulationType() {
       
@@ -511,6 +522,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legStipulationValue_ = "";
     /**
      * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legStipulationValue.
      */
     public java.lang.String getLegStipulationValue() {
       java.lang.Object ref = legStipulationValue_;
@@ -526,6 +538,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legStipulationValue.
      */
     public com.google.protobuf.ByteString
         getLegStipulationValueBytes() {
@@ -542,6 +555,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legStipulationValue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStipulationValue(
         java.lang.String value) {
@@ -555,6 +570,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegStipulationValue() {
       
@@ -564,6 +580,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_stipulation_value = 2 [(.fix.tag) = 689, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legStipulationValue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStipulationValueBytes(
         com.google.protobuf.ByteString value) {

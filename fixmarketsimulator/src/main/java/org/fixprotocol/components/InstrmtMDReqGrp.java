@@ -182,7 +182,8 @@ private static final long serialVersionUID = 0L;
   private int settlTypeUnionCase_ = 0;
   private java.lang.Object settlTypeUnion_;
   public enum SettlTypeUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     SETTL_TYPE(7),
     SETTL_TYPE_TENOR(8),
     SETTLTYPEUNION_NOT_SET(0);
@@ -191,6 +192,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -221,6 +224,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object currency_;
   /**
    * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The currency.
    */
   public java.lang.String getCurrency() {
     java.lang.Object ref = currency_;
@@ -236,6 +240,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for currency.
    */
   public com.google.protobuf.ByteString
       getCurrencyBytes() {
@@ -290,12 +295,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Instrument instrument_;
   /**
    * <code>.Common.Instrument instrument = 3 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrument field is set.
    */
   public boolean hasInstrument() {
     return instrument_ != null;
   }
   /**
    * <code>.Common.Instrument instrument = 3 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrument.
    */
   public org.fixprotocol.components.Instrument getInstrument() {
     return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -311,12 +318,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 mdEntrySize_;
   /**
    * <code>.fix.Decimal64 md_entry_size = 4 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the mdEntrySize field is set.
    */
   public boolean hasMdEntrySize() {
     return mdEntrySize_ != null;
   }
   /**
    * <code>.fix.Decimal64 md_entry_size = 4 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The mdEntrySize.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
     return mdEntrySize_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntrySize_;
@@ -332,12 +341,14 @@ private static final long serialVersionUID = 0L;
   private int quoteType_;
   /**
    * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for quoteType.
    */
   public int getQuoteTypeValue() {
     return quoteType_;
   }
   /**
    * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The quoteType.
    */
   public org.fixprotocol.components.QuoteTypeEnum getQuoteType() {
     @SuppressWarnings("deprecation")
@@ -349,6 +360,7 @@ private static final long serialVersionUID = 0L;
   private int settlDate_;
   /**
    * <code>sfixed32 settl_date = 6 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlDate.
    */
   public int getSettlDate() {
     return settlDate_;
@@ -357,6 +369,7 @@ private static final long serialVersionUID = 0L;
   public static final int SETTL_TYPE_FIELD_NUMBER = 7;
   /**
    * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlType.
    */
   public int getSettlTypeValue() {
     if (settlTypeUnionCase_ == 7) {
@@ -366,6 +379,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlType.
    */
   public org.fixprotocol.components.SettlTypeEnum getSettlType() {
     if (settlTypeUnionCase_ == 7) {
@@ -380,12 +394,14 @@ private static final long serialVersionUID = 0L;
   public static final int SETTL_TYPE_TENOR_FIELD_NUMBER = 8;
   /**
    * <code>.fix.Tenor settl_type_tenor = 8 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the settlTypeTenor field is set.
    */
   public boolean hasSettlTypeTenor() {
     return settlTypeUnionCase_ == 8;
   }
   /**
    * <code>.fix.Tenor settl_type_tenor = 8 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlTypeTenor.
    */
   public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
     if (settlTypeUnionCase_ == 8) {
@@ -442,6 +458,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object mdStreamId_;
   /**
    * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+   * @return The mdStreamId.
    */
   public java.lang.String getMdStreamId() {
     java.lang.Object ref = mdStreamId_;
@@ -457,6 +474,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+   * @return The bytes for mdStreamId.
    */
   public com.google.protobuf.ByteString
       getMdStreamIdBytes() {
@@ -1079,6 +1097,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object currency_ = "";
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The currency.
      */
     public java.lang.String getCurrency() {
       java.lang.Object ref = currency_;
@@ -1094,6 +1113,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for currency.
      */
     public com.google.protobuf.ByteString
         getCurrencyBytes() {
@@ -1110,6 +1130,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The currency to set.
+     * @return This builder for chaining.
      */
     public Builder setCurrency(
         java.lang.String value) {
@@ -1123,6 +1145,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearCurrency() {
       
@@ -1132,6 +1155,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for currency to set.
+     * @return This builder for chaining.
      */
     public Builder setCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -1390,12 +1415,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
     /**
      * <code>.Common.Instrument instrument = 3 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrumentBuilder_ != null || instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 3 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       if (instrumentBuilder_ == null) {
@@ -1507,12 +1534,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntrySizeBuilder_;
     /**
      * <code>.fix.Decimal64 md_entry_size = 4 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     public boolean hasMdEntrySize() {
       return mdEntrySizeBuilder_ != null || mdEntrySize_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_size = 4 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySize.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
       if (mdEntrySizeBuilder_ == null) {
@@ -1622,12 +1651,15 @@ private static final long serialVersionUID = 0L;
     private int quoteType_ = 0;
     /**
      * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for quoteType.
      */
     public int getQuoteTypeValue() {
       return quoteType_;
     }
     /**
      * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for quoteType to set.
+     * @return This builder for chaining.
      */
     public Builder setQuoteTypeValue(int value) {
       quoteType_ = value;
@@ -1636,6 +1668,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The quoteType.
      */
     public org.fixprotocol.components.QuoteTypeEnum getQuoteType() {
       @SuppressWarnings("deprecation")
@@ -1644,6 +1677,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The quoteType to set.
+     * @return This builder for chaining.
      */
     public Builder setQuoteType(org.fixprotocol.components.QuoteTypeEnum value) {
       if (value == null) {
@@ -1656,6 +1691,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.QuoteTypeEnum quote_type = 5 [(.fix.tag) = 537, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearQuoteType() {
       
@@ -1667,12 +1703,15 @@ private static final long serialVersionUID = 0L;
     private int settlDate_ ;
     /**
      * <code>sfixed32 settl_date = 6 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlDate.
      */
     public int getSettlDate() {
       return settlDate_;
     }
     /**
      * <code>sfixed32 settl_date = 6 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlDate to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlDate(int value) {
       
@@ -1682,6 +1721,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 settl_date = 6 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlDate() {
       
@@ -1692,6 +1732,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     public int getSettlTypeValue() {
       if (settlTypeUnionCase_ == 7) {
@@ -1701,6 +1742,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for settlType to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlTypeValue(int value) {
       settlTypeUnionCase_ = 7;
@@ -1710,6 +1753,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlType.
      */
     public org.fixprotocol.components.SettlTypeEnum getSettlType() {
       if (settlTypeUnionCase_ == 7) {
@@ -1722,6 +1766,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlType to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlType(org.fixprotocol.components.SettlTypeEnum value) {
       if (value == null) {
@@ -1734,6 +1780,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlTypeEnum settl_type = 7 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlType() {
       if (settlTypeUnionCase_ == 7) {
@@ -1748,12 +1795,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Tenor, org.fixprotocol.components.Fix.Tenor.Builder, org.fixprotocol.components.Fix.TenorOrBuilder> settlTypeTenorBuilder_;
     /**
      * <code>.fix.Tenor settl_type_tenor = 8 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     public boolean hasSettlTypeTenor() {
       return settlTypeUnionCase_ == 8;
     }
     /**
      * <code>.fix.Tenor settl_type_tenor = 8 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlTypeTenor.
      */
     public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
       if (settlTypeTenorBuilder_ == null) {
@@ -2123,6 +2172,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object mdStreamId_ = "";
     /**
      * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     public java.lang.String getMdStreamId() {
       java.lang.Object ref = mdStreamId_;
@@ -2138,6 +2188,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     public com.google.protobuf.ByteString
         getMdStreamIdBytes() {
@@ -2154,6 +2205,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @param value The mdStreamId to set.
+     * @return This builder for chaining.
      */
     public Builder setMdStreamId(
         java.lang.String value) {
@@ -2167,6 +2220,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMdStreamId() {
       
@@ -2176,6 +2230,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_stream_id = 10 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @param value The bytes for mdStreamId to set.
+     * @return This builder for chaining.
      */
     public Builder setMdStreamIdBytes(
         com.google.protobuf.ByteString value) {

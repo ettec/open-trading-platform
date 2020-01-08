@@ -101,7 +101,8 @@ private static final long serialVersionUID = 0L;
   private int partySubIdTypeUnionCase_ = 0;
   private java.lang.Object partySubIdTypeUnion_;
   public enum PartySubIdTypeUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     PARTY_SUB_ID_TYPE(2),
     PARTY_SUB_ID_TYPE_RESERVED4000PLUS(3),
     PARTYSUBIDTYPEUNION_NOT_SET(0);
@@ -110,6 +111,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -140,6 +143,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object partySubId_;
   /**
    * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The partySubId.
    */
   public java.lang.String getPartySubId() {
     java.lang.Object ref = partySubId_;
@@ -155,6 +159,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for partySubId.
    */
   public com.google.protobuf.ByteString
       getPartySubIdBytes() {
@@ -173,6 +178,7 @@ private static final long serialVersionUID = 0L;
   public static final int PARTY_SUB_ID_TYPE_FIELD_NUMBER = 2;
   /**
    * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for partySubIdType.
    */
   public int getPartySubIdTypeValue() {
     if (partySubIdTypeUnionCase_ == 2) {
@@ -182,6 +188,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The partySubIdType.
    */
   public org.fixprotocol.components.PartySubIDTypeEnum getPartySubIdType() {
     if (partySubIdTypeUnionCase_ == 2) {
@@ -196,6 +203,7 @@ private static final long serialVersionUID = 0L;
   public static final int PARTY_SUB_ID_TYPE_RESERVED4000PLUS_FIELD_NUMBER = 3;
   /**
    * <code>fixed32 party_sub_id_type_reserved4000plus = 3 [(.fix.tag) = 803, (.fix.type) = DATATYPE_RESERVED4000PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The partySubIdTypeReserved4000plus.
    */
   public int getPartySubIdTypeReserved4000Plus() {
     if (partySubIdTypeUnionCase_ == 3) {
@@ -587,6 +595,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object partySubId_ = "";
     /**
      * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The partySubId.
      */
     public java.lang.String getPartySubId() {
       java.lang.Object ref = partySubId_;
@@ -602,6 +611,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for partySubId.
      */
     public com.google.protobuf.ByteString
         getPartySubIdBytes() {
@@ -618,6 +628,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The partySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setPartySubId(
         java.lang.String value) {
@@ -631,6 +643,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPartySubId() {
       
@@ -640,6 +653,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_sub_id = 1 [(.fix.tag) = 523, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for partySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setPartySubIdBytes(
         com.google.protobuf.ByteString value) {
@@ -655,6 +670,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for partySubIdType.
      */
     public int getPartySubIdTypeValue() {
       if (partySubIdTypeUnionCase_ == 2) {
@@ -664,6 +680,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for partySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setPartySubIdTypeValue(int value) {
       partySubIdTypeUnionCase_ = 2;
@@ -673,6 +691,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The partySubIdType.
      */
     public org.fixprotocol.components.PartySubIDTypeEnum getPartySubIdType() {
       if (partySubIdTypeUnionCase_ == 2) {
@@ -685,6 +704,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The partySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setPartySubIdType(org.fixprotocol.components.PartySubIDTypeEnum value) {
       if (value == null) {
@@ -697,6 +718,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartySubIDTypeEnum party_sub_id_type = 2 [(.fix.tag) = 803, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPartySubIdType() {
       if (partySubIdTypeUnionCase_ == 2) {
@@ -709,6 +731,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 party_sub_id_type_reserved4000plus = 3 [(.fix.tag) = 803, (.fix.type) = DATATYPE_RESERVED4000PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The partySubIdTypeReserved4000plus.
      */
     public int getPartySubIdTypeReserved4000Plus() {
       if (partySubIdTypeUnionCase_ == 3) {
@@ -718,6 +741,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 party_sub_id_type_reserved4000plus = 3 [(.fix.tag) = 803, (.fix.type) = DATATYPE_RESERVED4000PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The partySubIdTypeReserved4000plus to set.
+     * @return This builder for chaining.
      */
     public Builder setPartySubIdTypeReserved4000Plus(int value) {
       partySubIdTypeUnionCase_ = 3;
@@ -727,6 +752,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 party_sub_id_type_reserved4000plus = 3 [(.fix.tag) = 803, (.fix.type) = DATATYPE_RESERVED4000PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPartySubIdTypeReserved4000Plus() {
       if (partySubIdTypeUnionCase_ == 3) {

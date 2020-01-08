@@ -9,19 +9,23 @@ public interface UnderlyingStipulationsOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingStipType.
    */
   int getUnderlyingStipTypeValue();
   /**
    * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingStipType.
    */
   org.fixprotocol.components.UnderlyingStipTypeEnum getUnderlyingStipType();
 
   /**
    * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingStipValue.
    */
   java.lang.String getUnderlyingStipValue();
   /**
    * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingStipValue.
    */
   com.google.protobuf.ByteString
       getUnderlyingStipValueBytes();

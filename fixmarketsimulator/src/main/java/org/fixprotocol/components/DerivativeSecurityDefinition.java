@@ -124,12 +124,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.DerivativeInstrument derivativeInstrument_;
   /**
    * <code>.Common.DerivativeInstrument derivative_instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeInstrument field is set.
    */
   public boolean hasDerivativeInstrument() {
     return derivativeInstrument_ != null;
   }
   /**
    * <code>.Common.DerivativeInstrument derivative_instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrument.
    */
   public org.fixprotocol.components.DerivativeInstrument getDerivativeInstrument() {
     return derivativeInstrument_ == null ? org.fixprotocol.components.DerivativeInstrument.getDefaultInstance() : derivativeInstrument_;
@@ -643,12 +645,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.DerivativeInstrument, org.fixprotocol.components.DerivativeInstrument.Builder, org.fixprotocol.components.DerivativeInstrumentOrBuilder> derivativeInstrumentBuilder_;
     /**
      * <code>.Common.DerivativeInstrument derivative_instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeInstrument field is set.
      */
     public boolean hasDerivativeInstrument() {
       return derivativeInstrumentBuilder_ != null || derivativeInstrument_ != null;
     }
     /**
      * <code>.Common.DerivativeInstrument derivative_instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeInstrument.
      */
     public org.fixprotocol.components.DerivativeInstrument getDerivativeInstrument() {
       if (derivativeInstrumentBuilder_ == null) {

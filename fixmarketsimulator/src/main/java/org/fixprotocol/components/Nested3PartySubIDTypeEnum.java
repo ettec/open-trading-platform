@@ -294,6 +294,8 @@ public enum Nested3PartySubIDTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -301,6 +303,10 @@ public enum Nested3PartySubIDTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static Nested3PartySubIDTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return NESTED3PARTY_SUB_ID_TYPE_UNSPECIFIED;

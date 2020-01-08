@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object instrumentPartySubId_;
   /**
    * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentPartySubId.
    */
   public java.lang.String getInstrumentPartySubId() {
     java.lang.Object ref = instrumentPartySubId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for instrumentPartySubId.
    */
   public com.google.protobuf.ByteString
       getInstrumentPartySubIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int instrumentPartySubIdType_;
   /**
    * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for instrumentPartySubIdType.
    */
   public int getInstrumentPartySubIdTypeValue() {
     return instrumentPartySubIdType_;
   }
   /**
    * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentPartySubIdType.
    */
   public org.fixprotocol.components.InstrumentPartySubIDTypeEnum getInstrumentPartySubIdType() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object instrumentPartySubId_ = "";
     /**
      * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrumentPartySubId.
      */
     public java.lang.String getInstrumentPartySubId() {
       java.lang.Object ref = instrumentPartySubId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for instrumentPartySubId.
      */
     public com.google.protobuf.ByteString
         getInstrumentPartySubIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The instrumentPartySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrumentPartySubId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearInstrumentPartySubId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string instrument_party_sub_id = 1 [(.fix.tag) = 1053, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for instrumentPartySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrumentPartySubIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int instrumentPartySubIdType_ = 0;
     /**
      * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for instrumentPartySubIdType.
      */
     public int getInstrumentPartySubIdTypeValue() {
       return instrumentPartySubIdType_;
     }
     /**
      * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for instrumentPartySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrumentPartySubIdTypeValue(int value) {
       instrumentPartySubIdType_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrumentPartySubIdType.
      */
     public org.fixprotocol.components.InstrumentPartySubIDTypeEnum getInstrumentPartySubIdType() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The instrumentPartySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setInstrumentPartySubIdType(org.fixprotocol.components.InstrumentPartySubIDTypeEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.InstrumentPartySubIDTypeEnum instrument_party_sub_id_type = 2 [(.fix.tag) = 1054, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearInstrumentPartySubIdType() {
       

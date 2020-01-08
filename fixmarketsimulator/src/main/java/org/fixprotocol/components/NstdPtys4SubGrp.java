@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object nested4PartySubId_;
   /**
    * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partySubId.
    */
   public java.lang.String getNested4PartySubId() {
     java.lang.Object ref = nested4PartySubId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for nested4partySubId.
    */
   public com.google.protobuf.ByteString
       getNested4PartySubIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int nested4PartySubIdType_;
   /**
    * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nested4partySubIdType.
    */
   public int getNested4PartySubIdTypeValue() {
     return nested4PartySubIdType_;
   }
   /**
    * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partySubIdType.
    */
   public org.fixprotocol.components.Nested4PartySubIDTypeEnum getNested4PartySubIdType() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object nested4PartySubId_ = "";
     /**
      * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nested4partySubId.
      */
     public java.lang.String getNested4PartySubId() {
       java.lang.Object ref = nested4PartySubId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for nested4partySubId.
      */
     public com.google.protobuf.ByteString
         getNested4PartySubIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nested4partySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartySubId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNested4PartySubId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for nested4partySubId to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartySubIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int nested4PartySubIdType_ = 0;
     /**
      * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for nested4partySubIdType.
      */
     public int getNested4PartySubIdTypeValue() {
       return nested4PartySubIdType_;
     }
     /**
      * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for nested4partySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartySubIdTypeValue(int value) {
       nested4PartySubIdType_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nested4partySubIdType.
      */
     public org.fixprotocol.components.Nested4PartySubIDTypeEnum getNested4PartySubIdType() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nested4partySubIdType to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartySubIdType(org.fixprotocol.components.Nested4PartySubIDTypeEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNested4PartySubIdType() {
       

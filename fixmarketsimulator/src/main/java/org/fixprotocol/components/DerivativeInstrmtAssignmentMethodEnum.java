@@ -30,6 +30,8 @@ public enum DerivativeInstrmtAssignmentMethodEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -37,6 +39,10 @@ public enum DerivativeInstrmtAssignmentMethodEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static DerivativeInstrmtAssignmentMethodEnum forNumber(int value) {
     switch (value) {
       case 0: return DERIVATIVE_INSTRMT_ASSIGNMENT_METHOD_UNSPECIFIED;

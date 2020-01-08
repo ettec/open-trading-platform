@@ -139,6 +139,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object allocAccount_;
   /**
    * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The allocAccount.
    */
   public java.lang.String getAllocAccount() {
     java.lang.Object ref = allocAccount_;
@@ -154,6 +155,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for allocAccount.
    */
   public com.google.protobuf.ByteString
       getAllocAccountBytes() {
@@ -173,12 +175,14 @@ private static final long serialVersionUID = 0L;
   private int allocAcctIdSource_;
   /**
    * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for allocAcctIdSource.
    */
   public int getAllocAcctIdSourceValue() {
     return allocAcctIdSource_;
   }
   /**
    * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The allocAcctIdSource.
    */
   public org.fixprotocol.components.AllocAcctIDSourceEnum getAllocAcctIdSource() {
     @SuppressWarnings("deprecation")
@@ -190,12 +194,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 allocQty_;
   /**
    * <code>.fix.Decimal64 alloc_qty = 3 [(.fix.tag) = 80, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the allocQty field is set.
    */
   public boolean hasAllocQty() {
     return allocQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 alloc_qty = 3 [(.fix.tag) = 80, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The allocQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getAllocQty() {
     return allocQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : allocQty_;
@@ -211,6 +217,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object allocSettlCurrency_;
   /**
    * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The allocSettlCurrency.
    */
   public java.lang.String getAllocSettlCurrency() {
     java.lang.Object ref = allocSettlCurrency_;
@@ -226,6 +233,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for allocSettlCurrency.
    */
   public com.google.protobuf.ByteString
       getAllocSettlCurrencyBytes() {
@@ -245,6 +253,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object individualAllocId_;
   /**
    * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The individualAllocId.
    */
   public java.lang.String getIndividualAllocId() {
     java.lang.Object ref = individualAllocId_;
@@ -260,6 +269,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for individualAllocId.
    */
   public com.google.protobuf.ByteString
       getIndividualAllocIdBytes() {
@@ -752,6 +762,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object allocAccount_ = "";
     /**
      * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The allocAccount.
      */
     public java.lang.String getAllocAccount() {
       java.lang.Object ref = allocAccount_;
@@ -767,6 +778,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for allocAccount.
      */
     public com.google.protobuf.ByteString
         getAllocAccountBytes() {
@@ -783,6 +795,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The allocAccount to set.
+     * @return This builder for chaining.
      */
     public Builder setAllocAccount(
         java.lang.String value) {
@@ -796,6 +810,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAllocAccount() {
       
@@ -805,6 +820,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_account = 1 [(.fix.tag) = 79, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for allocAccount to set.
+     * @return This builder for chaining.
      */
     public Builder setAllocAccountBytes(
         com.google.protobuf.ByteString value) {
@@ -821,12 +838,15 @@ private static final long serialVersionUID = 0L;
     private int allocAcctIdSource_ = 0;
     /**
      * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for allocAcctIdSource.
      */
     public int getAllocAcctIdSourceValue() {
       return allocAcctIdSource_;
     }
     /**
      * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for allocAcctIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setAllocAcctIdSourceValue(int value) {
       allocAcctIdSource_ = value;
@@ -835,6 +855,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The allocAcctIdSource.
      */
     public org.fixprotocol.components.AllocAcctIDSourceEnum getAllocAcctIdSource() {
       @SuppressWarnings("deprecation")
@@ -843,6 +864,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The allocAcctIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setAllocAcctIdSource(org.fixprotocol.components.AllocAcctIDSourceEnum value) {
       if (value == null) {
@@ -855,6 +878,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.AllocAcctIDSourceEnum alloc_acct_id_source = 2 [(.fix.tag) = 661, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAllocAcctIdSource() {
       
@@ -868,12 +892,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> allocQtyBuilder_;
     /**
      * <code>.fix.Decimal64 alloc_qty = 3 [(.fix.tag) = 80, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the allocQty field is set.
      */
     public boolean hasAllocQty() {
       return allocQtyBuilder_ != null || allocQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 alloc_qty = 3 [(.fix.tag) = 80, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The allocQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getAllocQty() {
       if (allocQtyBuilder_ == null) {
@@ -983,6 +1009,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object allocSettlCurrency_ = "";
     /**
      * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The allocSettlCurrency.
      */
     public java.lang.String getAllocSettlCurrency() {
       java.lang.Object ref = allocSettlCurrency_;
@@ -998,6 +1025,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for allocSettlCurrency.
      */
     public com.google.protobuf.ByteString
         getAllocSettlCurrencyBytes() {
@@ -1014,6 +1042,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The allocSettlCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setAllocSettlCurrency(
         java.lang.String value) {
@@ -1027,6 +1057,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAllocSettlCurrency() {
       
@@ -1036,6 +1067,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string alloc_settl_currency = 4 [(.fix.tag) = 736, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for allocSettlCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setAllocSettlCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -1052,6 +1085,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object individualAllocId_ = "";
     /**
      * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The individualAllocId.
      */
     public java.lang.String getIndividualAllocId() {
       java.lang.Object ref = individualAllocId_;
@@ -1067,6 +1101,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for individualAllocId.
      */
     public com.google.protobuf.ByteString
         getIndividualAllocIdBytes() {
@@ -1083,6 +1118,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The individualAllocId to set.
+     * @return This builder for chaining.
      */
     public Builder setIndividualAllocId(
         java.lang.String value) {
@@ -1096,6 +1133,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearIndividualAllocId() {
       
@@ -1105,6 +1143,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string individual_alloc_id = 5 [(.fix.tag) = 467, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for individualAllocId to set.
+     * @return This builder for chaining.
      */
     public Builder setIndividualAllocIdBytes(
         com.google.protobuf.ByteString value) {

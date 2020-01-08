@@ -9,10 +9,12 @@ public interface DerivativeSecurityDefinitionOrBuilder extends
 
   /**
    * <code>.Common.DerivativeInstrument derivative_instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeInstrument field is set.
    */
   boolean hasDerivativeInstrument();
   /**
    * <code>.Common.DerivativeInstrument derivative_instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrument.
    */
   org.fixprotocol.components.DerivativeInstrument getDerivativeInstrument();
   /**

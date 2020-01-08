@@ -119,6 +119,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object partyId_;
   /**
    * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The partyId.
    */
   public java.lang.String getPartyId() {
     java.lang.Object ref = partyId_;
@@ -134,6 +135,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for partyId.
    */
   public com.google.protobuf.ByteString
       getPartyIdBytes() {
@@ -153,12 +155,14 @@ private static final long serialVersionUID = 0L;
   private int partyIdSource_;
   /**
    * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for partyIdSource.
    */
   public int getPartyIdSourceValue() {
     return partyIdSource_;
   }
   /**
    * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The partyIdSource.
    */
   public org.fixprotocol.components.PartyIDSourceEnum getPartyIdSource() {
     @SuppressWarnings("deprecation")
@@ -170,12 +174,14 @@ private static final long serialVersionUID = 0L;
   private int partyRole_;
   /**
    * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for partyRole.
    */
   public int getPartyRoleValue() {
     return partyRole_;
   }
   /**
    * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The partyRole.
    */
   public org.fixprotocol.components.PartyRoleEnum getPartyRole() {
     @SuppressWarnings("deprecation")
@@ -612,6 +618,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object partyId_ = "";
     /**
      * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The partyId.
      */
     public java.lang.String getPartyId() {
       java.lang.Object ref = partyId_;
@@ -627,6 +634,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for partyId.
      */
     public com.google.protobuf.ByteString
         getPartyIdBytes() {
@@ -643,6 +651,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The partyId to set.
+     * @return This builder for chaining.
      */
     public Builder setPartyId(
         java.lang.String value) {
@@ -656,6 +666,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPartyId() {
       
@@ -665,6 +676,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string party_id = 1 [(.fix.tag) = 448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for partyId to set.
+     * @return This builder for chaining.
      */
     public Builder setPartyIdBytes(
         com.google.protobuf.ByteString value) {
@@ -681,12 +694,15 @@ private static final long serialVersionUID = 0L;
     private int partyIdSource_ = 0;
     /**
      * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for partyIdSource.
      */
     public int getPartyIdSourceValue() {
       return partyIdSource_;
     }
     /**
      * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for partyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setPartyIdSourceValue(int value) {
       partyIdSource_ = value;
@@ -695,6 +711,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The partyIdSource.
      */
     public org.fixprotocol.components.PartyIDSourceEnum getPartyIdSource() {
       @SuppressWarnings("deprecation")
@@ -703,6 +720,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The partyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setPartyIdSource(org.fixprotocol.components.PartyIDSourceEnum value) {
       if (value == null) {
@@ -715,6 +734,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartyIDSourceEnum party_id_source = 2 [(.fix.tag) = 447, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPartyIdSource() {
       
@@ -726,12 +746,15 @@ private static final long serialVersionUID = 0L;
     private int partyRole_ = 0;
     /**
      * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for partyRole.
      */
     public int getPartyRoleValue() {
       return partyRole_;
     }
     /**
      * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for partyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setPartyRoleValue(int value) {
       partyRole_ = value;
@@ -740,6 +763,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The partyRole.
      */
     public org.fixprotocol.components.PartyRoleEnum getPartyRole() {
       @SuppressWarnings("deprecation")
@@ -748,6 +772,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The partyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setPartyRole(org.fixprotocol.components.PartyRoleEnum value) {
       if (value == null) {
@@ -760,6 +786,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PartyRoleEnum party_role = 3 [(.fix.tag) = 452, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPartyRole() {
       

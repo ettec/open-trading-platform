@@ -9,59 +9,71 @@ public interface FinancingDetailsOrBuilder extends
 
   /**
    * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementCurrency.
    */
   java.lang.String getAgreementCurrency();
   /**
    * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for agreementCurrency.
    */
   com.google.protobuf.ByteString
       getAgreementCurrencyBytes();
 
   /**
    * <code>sfixed32 agreement_date = 2 [(.fix.tag) = 915, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementDate.
    */
   int getAgreementDate();
 
   /**
    * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementDesc.
    */
   java.lang.String getAgreementDesc();
   /**
    * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for agreementDesc.
    */
   com.google.protobuf.ByteString
       getAgreementDescBytes();
 
   /**
    * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementId.
    */
   java.lang.String getAgreementId();
   /**
    * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for agreementId.
    */
   com.google.protobuf.ByteString
       getAgreementIdBytes();
 
   /**
    * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for deliveryType.
    */
   int getDeliveryTypeValue();
   /**
    * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deliveryType.
    */
   org.fixprotocol.components.DeliveryTypeEnum getDeliveryType();
 
   /**
    * <code>sfixed32 end_date = 6 [(.fix.tag) = 917, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The endDate.
    */
   int getEndDate();
 
   /**
    * <code>.fix.Decimal64 margin_ratio = 7 [(.fix.tag) = 898, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the marginRatio field is set.
    */
   boolean hasMarginRatio();
   /**
    * <code>.fix.Decimal64 margin_ratio = 7 [(.fix.tag) = 898, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The marginRatio.
    */
   org.fixprotocol.components.Fix.Decimal64 getMarginRatio();
   /**
@@ -71,15 +83,18 @@ public interface FinancingDetailsOrBuilder extends
 
   /**
    * <code>sfixed32 start_date = 8 [(.fix.tag) = 916, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The startDate.
    */
   int getStartDate();
 
   /**
    * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for terminationType.
    */
   int getTerminationTypeValue();
   /**
    * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The terminationType.
    */
   org.fixprotocol.components.TerminationTypeEnum getTerminationType();
 }

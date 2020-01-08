@@ -214,6 +214,8 @@ public enum CorporateActionEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -221,6 +223,10 @@ public enum CorporateActionEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static CorporateActionEnum forNumber(int value) {
     switch (value) {
       case 0: return CORPORATE_ACTION_UNSPECIFIED;

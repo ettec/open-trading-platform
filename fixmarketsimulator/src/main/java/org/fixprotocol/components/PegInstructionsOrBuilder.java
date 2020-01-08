@@ -9,37 +9,45 @@ public interface PegInstructionsOrBuilder extends
 
   /**
    * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegLimitType.
    */
   int getPegLimitTypeValue();
   /**
    * <code>.Common.PegLimitTypeEnum peg_limit_type = 1 [(.fix.tag) = 837, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegLimitType.
    */
   org.fixprotocol.components.PegLimitTypeEnum getPegLimitType();
 
   /**
    * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegMoveType.
    */
   int getPegMoveTypeValue();
   /**
    * <code>.Common.PegMoveTypeEnum peg_move_type = 2 [(.fix.tag) = 835, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegMoveType.
    */
   org.fixprotocol.components.PegMoveTypeEnum getPegMoveType();
 
   /**
    * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegOffsetType.
    */
   int getPegOffsetTypeValue();
   /**
    * <code>.Common.PegOffsetTypeEnum peg_offset_type = 3 [(.fix.tag) = 836, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegOffsetType.
    */
   org.fixprotocol.components.PegOffsetTypeEnum getPegOffsetType();
 
   /**
    * <code>.fix.Decimal64 peg_offset_value = 4 [(.fix.tag) = 211, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the pegOffsetValue field is set.
    */
   boolean hasPegOffsetValue();
   /**
    * <code>.fix.Decimal64 peg_offset_value = 4 [(.fix.tag) = 211, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegOffsetValue.
    */
   org.fixprotocol.components.Fix.Decimal64 getPegOffsetValue();
   /**
@@ -49,66 +57,80 @@ public interface PegInstructionsOrBuilder extends
 
   /**
    * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegPriceType.
    */
   int getPegPriceTypeValue();
   /**
    * <code>.Common.PegPriceTypeEnum peg_price_type = 5 [(.fix.tag) = 1094, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegPriceType.
    */
   org.fixprotocol.components.PegPriceTypeEnum getPegPriceType();
 
   /**
    * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegRoundDirection.
    */
   int getPegRoundDirectionValue();
   /**
    * <code>.Common.PegRoundDirectionEnum peg_round_direction = 6 [(.fix.tag) = 838, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegRoundDirection.
    */
   org.fixprotocol.components.PegRoundDirectionEnum getPegRoundDirection();
 
   /**
    * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegScope.
    */
   int getPegScopeValue();
   /**
    * <code>.Common.PegScopeEnum peg_scope = 7 [(.fix.tag) = 840, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegScope.
    */
   org.fixprotocol.components.PegScopeEnum getPegScope();
 
   /**
    * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSecurityDesc.
    */
   java.lang.String getPegSecurityDesc();
   /**
    * <code>string peg_security_desc = 8 [(.fix.tag) = 1099, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pegSecurityDesc.
    */
   com.google.protobuf.ByteString
       getPegSecurityDescBytes();
 
   /**
    * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSecurityId.
    */
   java.lang.String getPegSecurityId();
   /**
    * <code>string peg_security_id = 9 [(.fix.tag) = 1097, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pegSecurityId.
    */
   com.google.protobuf.ByteString
       getPegSecurityIdBytes();
 
   /**
    * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for pegSecurityIdSource.
    */
   int getPegSecurityIdSourceValue();
   /**
    * <code>.Common.PegSecurityIDSourceEnum peg_security_id_source = 10 [(.fix.tag) = 1096, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSecurityIdSource.
    */
   org.fixprotocol.components.PegSecurityIDSourceEnum getPegSecurityIdSource();
 
   /**
    * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pegSymbol.
    */
   java.lang.String getPegSymbol();
   /**
    * <code>string peg_symbol = 11 [(.fix.tag) = 1098, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pegSymbol.
    */
   com.google.protobuf.ByteString
       getPegSymbolBytes();

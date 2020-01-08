@@ -9,25 +9,30 @@ public interface SecurityXMLOrBuilder extends
 
   /**
    * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXml.
    */
   java.lang.String getSecurityXml();
   /**
    * <code>string security_xml = 1 [(.fix.tag) = 1185, (.fix.type) = DATATYPE_XML_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for securityXml.
    */
   com.google.protobuf.ByteString
       getSecurityXmlBytes();
 
   /**
    * <code>sfixed64 security_xml_len = 2 [(.fix.tag) = 1184, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXmlLen.
    */
   long getSecurityXmlLen();
 
   /**
    * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXmlSchema.
    */
   java.lang.String getSecurityXmlSchema();
   /**
    * <code>string security_xml_schema = 3 [(.fix.tag) = 1186, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for securityXmlSchema.
    */
   com.google.protobuf.ByteString
       getSecurityXmlSchemaBytes();

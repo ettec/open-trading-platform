@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityAltId_;
   /**
    * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityAltId.
    */
   public java.lang.String getDerivativeSecurityAltId() {
     java.lang.Object ref = derivativeSecurityAltId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityAltId.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityAltIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeSecurityAltIdSource_;
   /**
    * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSecurityAltIdSource.
    */
   public int getDerivativeSecurityAltIdSourceValue() {
     return derivativeSecurityAltIdSource_;
   }
   /**
    * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityAltIdSource.
    */
   public org.fixprotocol.components.DerivativeSecurityAltIDSourceEnum getDerivativeSecurityAltIdSource() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityAltId_ = "";
     /**
      * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityAltId.
      */
     public java.lang.String getDerivativeSecurityAltId() {
       java.lang.Object ref = derivativeSecurityAltId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityAltId.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityAltIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityAltId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityAltId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_alt_id = 1 [(.fix.tag) = 1219, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityAltIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeSecurityAltIdSource_ = 0;
     /**
      * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeSecurityAltIdSource.
      */
     public int getDerivativeSecurityAltIdSourceValue() {
       return derivativeSecurityAltIdSource_;
     }
     /**
      * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeSecurityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityAltIdSourceValue(int value) {
       derivativeSecurityAltIdSource_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityAltIdSource.
      */
     public org.fixprotocol.components.DerivativeSecurityAltIDSourceEnum getDerivativeSecurityAltIdSource() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityAltIdSource(org.fixprotocol.components.DerivativeSecurityAltIDSourceEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityAltIDSourceEnum derivative_security_alt_id_source = 2 [(.fix.tag) = 1220, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityAltIdSource() {
       

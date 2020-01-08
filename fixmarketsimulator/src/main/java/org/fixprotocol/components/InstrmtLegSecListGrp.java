@@ -138,12 +138,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.InstrumentLeg instrumentLeg_;
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrumentLeg field is set.
    */
   public boolean hasInstrumentLeg() {
     return instrumentLeg_ != null;
   }
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentLeg.
    */
   public org.fixprotocol.components.InstrumentLeg getInstrumentLeg() {
     return instrumentLeg_ == null ? org.fixprotocol.components.InstrumentLeg.getDefaultInstance() : instrumentLeg_;
@@ -159,12 +161,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.LegBenchmarkCurveData legBenchmarkCurveData_;
   /**
    * <code>.Common.LegBenchmarkCurveData leg_benchmark_curve_data = 2 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legBenchmarkCurveData field is set.
    */
   public boolean hasLegBenchmarkCurveData() {
     return legBenchmarkCurveData_ != null;
   }
   /**
    * <code>.Common.LegBenchmarkCurveData leg_benchmark_curve_data = 2 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkCurveData.
    */
   public org.fixprotocol.components.LegBenchmarkCurveData getLegBenchmarkCurveData() {
     return legBenchmarkCurveData_ == null ? org.fixprotocol.components.LegBenchmarkCurveData.getDefaultInstance() : legBenchmarkCurveData_;
@@ -180,12 +184,14 @@ private static final long serialVersionUID = 0L;
   private int legSettlType_;
   /**
    * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSettlType.
    */
   public int getLegSettlTypeValue() {
     return legSettlType_;
   }
   /**
    * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSettlType.
    */
   public org.fixprotocol.components.LegSettlTypeEnum getLegSettlType() {
     @SuppressWarnings("deprecation")
@@ -232,12 +238,14 @@ private static final long serialVersionUID = 0L;
   private int legSwapType_;
   /**
    * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSwapType.
    */
   public int getLegSwapTypeValue() {
     return legSwapType_;
   }
   /**
    * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSwapType.
    */
   public org.fixprotocol.components.LegSwapTypeEnum getLegSwapType() {
     @SuppressWarnings("deprecation")
@@ -684,12 +692,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.InstrumentLeg, org.fixprotocol.components.InstrumentLeg.Builder, org.fixprotocol.components.InstrumentLegOrBuilder> instrumentLegBuilder_;
     /**
      * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrumentLeg field is set.
      */
     public boolean hasInstrumentLeg() {
       return instrumentLegBuilder_ != null || instrumentLeg_ != null;
     }
     /**
      * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrumentLeg.
      */
     public org.fixprotocol.components.InstrumentLeg getInstrumentLeg() {
       if (instrumentLegBuilder_ == null) {
@@ -801,12 +811,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.LegBenchmarkCurveData, org.fixprotocol.components.LegBenchmarkCurveData.Builder, org.fixprotocol.components.LegBenchmarkCurveDataOrBuilder> legBenchmarkCurveDataBuilder_;
     /**
      * <code>.Common.LegBenchmarkCurveData leg_benchmark_curve_data = 2 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legBenchmarkCurveData field is set.
      */
     public boolean hasLegBenchmarkCurveData() {
       return legBenchmarkCurveDataBuilder_ != null || legBenchmarkCurveData_ != null;
     }
     /**
      * <code>.Common.LegBenchmarkCurveData leg_benchmark_curve_data = 2 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legBenchmarkCurveData.
      */
     public org.fixprotocol.components.LegBenchmarkCurveData getLegBenchmarkCurveData() {
       if (legBenchmarkCurveDataBuilder_ == null) {
@@ -916,12 +928,15 @@ private static final long serialVersionUID = 0L;
     private int legSettlType_ = 0;
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legSettlType.
      */
     public int getLegSettlTypeValue() {
       return legSettlType_;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legSettlType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlTypeValue(int value) {
       legSettlType_ = value;
@@ -930,6 +945,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSettlType.
      */
     public org.fixprotocol.components.LegSettlTypeEnum getLegSettlType() {
       @SuppressWarnings("deprecation")
@@ -938,6 +954,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSettlType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSettlType(org.fixprotocol.components.LegSettlTypeEnum value) {
       if (value == null) {
@@ -950,6 +968,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSettlType() {
       
@@ -1201,12 +1220,15 @@ private static final long serialVersionUID = 0L;
     private int legSwapType_ = 0;
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legSwapType.
      */
     public int getLegSwapTypeValue() {
       return legSwapType_;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legSwapType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSwapTypeValue(int value) {
       legSwapType_ = value;
@@ -1215,6 +1237,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSwapType.
      */
     public org.fixprotocol.components.LegSwapTypeEnum getLegSwapType() {
       @SuppressWarnings("deprecation")
@@ -1223,6 +1246,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSwapType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSwapType(org.fixprotocol.components.LegSwapTypeEnum value) {
       if (value == null) {
@@ -1235,6 +1260,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSwapType() {
       

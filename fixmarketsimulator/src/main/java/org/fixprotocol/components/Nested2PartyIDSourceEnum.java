@@ -174,6 +174,8 @@ public enum Nested2PartyIDSourceEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -181,6 +183,10 @@ public enum Nested2PartyIDSourceEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static Nested2PartyIDSourceEnum forNumber(int value) {
     switch (value) {
       case 0: return NESTED2PARTY_ID_SOURCE_UNSPECIFIED;

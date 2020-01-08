@@ -329,6 +329,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -336,6 +338,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDEntryTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_ENTRY_TYPE_UNSPECIFIED;
@@ -598,6 +604,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -605,6 +613,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static PriceTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return PRICE_TYPE_UNSPECIFIED;
@@ -897,6 +909,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -904,6 +918,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static OrdTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return ORD_TYPE_UNSPECIFIED;
@@ -1042,6 +1060,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1049,6 +1069,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static LotTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return LOT_TYPE_UNSPECIFIED;
@@ -1167,6 +1191,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1174,6 +1200,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TickDirectionEnum forNumber(int value) {
       switch (value) {
         case 0: return TICK_DIRECTION_UNSPECIFIED;
@@ -1308,6 +1338,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1315,6 +1347,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TradingSessionIDEnum forNumber(int value) {
       switch (value) {
         case 0: return TRADING_SESSION_ID_UNSPECIFIED;
@@ -1459,6 +1495,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1466,6 +1504,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TradingSessionSubIDEnum forNumber(int value) {
       switch (value) {
         case 0: return TRADING_SESSION_SUB_ID_UNSPECIFIED;
@@ -1755,6 +1797,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1762,6 +1806,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static SecurityTradingStatusEnum forNumber(int value) {
       switch (value) {
         case 0: return SECURITY_TRADING_STATUS_UNSPECIFIED;
@@ -1917,6 +1965,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1924,6 +1974,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static HaltReasonEnum forNumber(int value) {
       switch (value) {
         case 0: return HALT_REASON_UNSPECIFIED;
@@ -2492,6 +2546,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -2499,6 +2555,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static QuoteConditionEnum forNumber(int value) {
       switch (value) {
         case 0: return QUOTE_CONDITION_UNSPECIFIED;
@@ -3257,6 +3317,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -3264,6 +3326,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TradeConditionEnum forNumber(int value) {
       switch (value) {
         case 0: return TRADE_CONDITION_UNSPECIFIED;
@@ -3471,6 +3537,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -3478,6 +3546,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static OpenCloseSettlFlagEnum forNumber(int value) {
       switch (value) {
         case 0: return OPEN_CLOSE_SETTL_FLAG_UNSPECIFIED;
@@ -3646,6 +3718,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -3653,6 +3727,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TimeInForceEnum forNumber(int value) {
       switch (value) {
         case 0: return TIME_IN_FORCE_UNSPECIFIED;
@@ -4193,6 +4271,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -4200,6 +4280,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static ExecInstEnum forNumber(int value) {
       switch (value) {
         case 0: return EXEC_INST_UNSPECIFIED;
@@ -4362,6 +4446,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -4369,6 +4455,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static ScopeEnum forNumber(int value) {
       switch (value) {
         case 0: return SCOPE_UNSPECIFIED;
@@ -4894,6 +4984,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -4901,6 +4993,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static TrdTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return TRD_TYPE_UNSPECIFIED;
@@ -5086,6 +5182,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5093,6 +5191,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static OrderCapacityEnum forNumber(int value) {
       switch (value) {
         case 0: return ORDER_CAPACITY_UNSPECIFIED;
@@ -5205,6 +5307,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5212,6 +5316,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDOriginTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_ORIGIN_TYPE_UNSPECIFIED;
@@ -5393,6 +5501,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5400,6 +5510,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static SettlTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return SETTL_TYPE_UNSPECIFIED;
@@ -5534,6 +5648,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5541,6 +5657,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDQuoteTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_QUOTE_TYPE_UNSPECIFIED;
@@ -5652,6 +5772,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5659,6 +5781,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static DealingCapacityEnum forNumber(int value) {
       switch (value) {
         case 0: return DEALING_CAPACITY_UNSPECIFIED;
@@ -5792,6 +5918,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5799,6 +5927,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDUpdateActionEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_UPDATE_ACTION_UNSPECIFIED;
@@ -5903,6 +6035,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -5910,6 +6044,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static DeleteReasonEnum forNumber(int value) {
       switch (value) {
         case 0: return DELETE_REASON_UNSPECIFIED;
@@ -6018,6 +6156,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -6025,6 +6165,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static FinancialStatusEnum forNumber(int value) {
       switch (value) {
         case 0: return FINANCIAL_STATUS_UNSPECIFIED;
@@ -6294,6 +6438,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -6301,6 +6447,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static CorporateActionEnum forNumber(int value) {
       switch (value) {
         case 0: return CORPORATE_ACTION_UNSPECIFIED;
@@ -6614,6 +6764,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -6621,6 +6773,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MatchTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MATCH_TYPE_UNSPECIFIED;
@@ -6737,6 +6893,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -6744,6 +6902,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDSecSizeTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_SEC_SIZE_TYPE_UNSPECIFIED;
@@ -6859,6 +7021,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -6866,6 +7030,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static StatsTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return STATS_TYPE_UNSPECIFIED;
@@ -6976,6 +7144,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -6983,6 +7153,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static StreamAsgnTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return STREAM_ASGN_TYPE_UNSPECIFIED;
@@ -7108,6 +7282,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7115,6 +7291,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static StreamAsgnRejReasonEnum forNumber(int value) {
       switch (value) {
         case 0: return STREAM_ASGN_REJ_REASON_UNSPECIFIED;
@@ -7226,6 +7406,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7233,6 +7415,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static SubscriptionRequestTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return SUBSCRIPTION_REQUEST_TYPE_UNSPECIFIED;
@@ -7334,6 +7520,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7341,6 +7529,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDUpdateTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_UPDATE_TYPE_UNSPECIFIED;
@@ -7457,6 +7649,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7464,6 +7658,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static ApplQueueActionEnum forNumber(int value) {
       switch (value) {
         case 0: return APPL_QUEUE_ACTION_UNSPECIFIED;
@@ -7574,6 +7772,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7581,6 +7781,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDBookTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_BOOK_TYPE_UNSPECIFIED;
@@ -7698,6 +7902,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7705,6 +7911,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static ApplQueueResolutionEnum forNumber(int value) {
       switch (value) {
         case 0: return APPL_QUEUE_RESOLUTION_UNSPECIFIED;
@@ -7903,6 +8113,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -7910,6 +8122,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MDReqRejReasonEnum forNumber(int value) {
       switch (value) {
         case 0: return MD_REQ_REJ_REASON_UNSPECIFIED;
@@ -8022,6 +8238,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -8029,6 +8247,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static StreamAsgnReqTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return STREAM_ASGN_REQ_TYPE_UNSPECIFIED;
@@ -8129,6 +8351,8 @@ public final class MarketData {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -8136,6 +8360,10 @@ public final class MarketData {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static StreamAsgnAckTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return STREAM_ASGN_ACK_TYPE_UNSPECIFIED;
@@ -8199,81 +8427,100 @@ public final class MarketData {
 
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The currency.
      */
     java.lang.String getCurrency();
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for currency.
      */
     com.google.protobuf.ByteString
         getCurrencyBytes();
 
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for dealingCapacity.
      */
     int getDealingCapacityValue();
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The dealingCapacity.
      */
     org.fixprotocol.components.MarketData.DealingCapacityEnum getDealingCapacity();
 
     /**
      * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskId.
      */
     java.lang.String getDeskId();
     /**
      * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for deskId.
      */
     com.google.protobuf.ByteString
         getDeskIdBytes();
 
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the execInst.
      */
     java.util.List<org.fixprotocol.components.MarketData.ExecInstEnum> getExecInstList();
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of execInst.
      */
     int getExecInstCount();
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The execInst at the given index.
      */
     org.fixprotocol.components.MarketData.ExecInstEnum getExecInst(int index);
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for execInst.
      */
     java.util.List<java.lang.Integer>
     getExecInstValueList();
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of execInst at the given index.
      */
     int getExecInstValue(int index);
 
     /**
      * <code>sfixed32 expire_date = 7 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireDate.
      */
     int getExpireDate();
 
     /**
      * <code>.fix.Timestamp expire_time = 8 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the expireTime field is set.
      */
     boolean hasExpireTime();
     /**
      * <code>.fix.Timestamp expire_time = 8 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireTime.
      */
     org.fixprotocol.components.Fix.Timestamp getExpireTime();
     /**
@@ -8283,10 +8530,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 high_px = 9 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the highPx field is set.
      */
     boolean hasHighPx();
     /**
      * <code>.fix.Decimal64 high_px = 9 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The highPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getHighPx();
     /**
@@ -8296,20 +8545,24 @@ public final class MarketData {
 
     /**
      * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The locationId.
      */
     java.lang.String getLocationId();
     /**
      * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for locationId.
      */
     com.google.protobuf.ByteString
         getLocationIdBytes();
 
     /**
      * <code>.fix.Decimal64 low_px = 11 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the lowPx field is set.
      */
     boolean hasLowPx();
     /**
      * <code>.fix.Decimal64 low_px = 11 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The lowPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getLowPx();
     /**
@@ -8319,25 +8572,30 @@ public final class MarketData {
 
     /**
      * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryBuyer.
      */
     java.lang.String getMdEntryBuyer();
     /**
      * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryBuyer.
      */
     com.google.protobuf.ByteString
         getMdEntryBuyerBytes();
 
     /**
      * <code>sfixed32 md_entry_date = 13 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryDate.
      */
     int getMdEntryDate();
 
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 14 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryForwardPoints field is set.
      */
     boolean hasMdEntryForwardPoints();
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 14 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryForwardPoints.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntryForwardPoints();
     /**
@@ -8347,35 +8605,42 @@ public final class MarketData {
 
     /**
      * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryId.
      */
     java.lang.String getMdEntryId();
     /**
      * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryId.
      */
     com.google.protobuf.ByteString
         getMdEntryIdBytes();
 
     /**
      * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryOriginator.
      */
     java.lang.String getMdEntryOriginator();
     /**
      * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryOriginator.
      */
     com.google.protobuf.ByteString
         getMdEntryOriginatorBytes();
 
     /**
      * <code>sfixed64 md_entry_position_no = 17 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPositionNo.
      */
     long getMdEntryPositionNo();
 
     /**
      * <code>.fix.Decimal64 md_entry_px = 18 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryPx field is set.
      */
     boolean hasMdEntryPx();
     /**
      * <code>.fix.Decimal64 md_entry_px = 18 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntryPx();
     /**
@@ -8385,20 +8650,24 @@ public final class MarketData {
 
     /**
      * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySeller.
      */
     java.lang.String getMdEntrySeller();
     /**
      * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntrySeller.
      */
     com.google.protobuf.ByteString
         getMdEntrySellerBytes();
 
     /**
      * <code>.fix.Decimal64 md_entry_size = 20 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     boolean hasMdEntrySize();
     /**
      * <code>.fix.Decimal64 md_entry_size = 20 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySize.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntrySize();
     /**
@@ -8408,10 +8677,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 21 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySpotRate field is set.
      */
     boolean hasMdEntrySpotRate();
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 21 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySpotRate.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntrySpotRate();
     /**
@@ -8421,10 +8692,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.TimeOnly md_entry_time = 22 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryTime field is set.
      */
     boolean hasMdEntryTime();
     /**
      * <code>.fix.TimeOnly md_entry_time = 22 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryTime.
      */
     org.fixprotocol.components.Fix.TimeOnly getMdEntryTime();
     /**
@@ -8434,52 +8707,63 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdEntryType.
      */
     int getMdEntryTypeValue();
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryType.
      */
     org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType();
 
     /**
      * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdMkt.
      */
     java.lang.String getMdMkt();
     /**
      * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdMkt.
      */
     com.google.protobuf.ByteString
         getMdMktBytes();
 
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdOriginType.
      */
     int getMdOriginTypeValue();
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdOriginType.
      */
     org.fixprotocol.components.MarketData.MDOriginTypeEnum getMdOriginType();
 
     /**
      * <code>sfixed64 md_price_level = 26 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdPriceLevel.
      */
     long getMdPriceLevel();
 
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdQuoteType.
      */
     int getMdQuoteTypeValue();
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdQuoteType.
      */
     org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType();
 
     /**
      * <code>.fix.Decimal64 min_qty = 28 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the minQty field is set.
      */
     boolean hasMinQty();
     /**
      * <code>.fix.Decimal64 min_qty = 28 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The minQty.
      */
     org.fixprotocol.components.Fix.Decimal64 getMinQty();
     /**
@@ -8489,55 +8773,69 @@ public final class MarketData {
 
     /**
      * <code>sfixed64 number_of_orders = 29 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The numberOfOrders.
      */
     long getNumberOfOrders();
 
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the openCloseSettlFlag.
      */
     java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of openCloseSettlFlag.
      */
     int getOpenCloseSettlFlagCount();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The openCloseSettlFlag at the given index.
      */
     org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index);
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
      */
     java.util.List<java.lang.Integer>
     getOpenCloseSettlFlagValueList();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
      */
     int getOpenCloseSettlFlagValue(int index);
 
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for ordType.
      */
     int getOrdTypeValue();
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The ordType.
      */
     org.fixprotocol.components.MarketData.OrdTypeEnum getOrdType();
 
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for orderCapacity.
      */
     int getOrderCapacityValue();
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderCapacity.
      */
     org.fixprotocol.components.MarketData.OrderCapacityEnum getOrderCapacity();
 
     /**
      * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderId.
      */
     java.lang.String getOrderId();
     /**
      * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for orderId.
      */
     com.google.protobuf.ByteString
         getOrderIdBytes();
@@ -8568,10 +8866,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 price_delta = 35 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the priceDelta field is set.
      */
     boolean hasPriceDelta();
     /**
      * <code>.fix.Decimal64 price_delta = 35 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The priceDelta.
      */
     org.fixprotocol.components.Fix.Decimal64 getPriceDelta();
     /**
@@ -8581,98 +8881,123 @@ public final class MarketData {
 
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the quoteCondition.
      */
     java.util.List<org.fixprotocol.components.MarketData.QuoteConditionEnum> getQuoteConditionList();
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of quoteCondition.
      */
     int getQuoteConditionCount();
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The quoteCondition at the given index.
      */
     org.fixprotocol.components.MarketData.QuoteConditionEnum getQuoteCondition(int index);
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for quoteCondition.
      */
     java.util.List<java.lang.Integer>
     getQuoteConditionValueList();
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of quoteCondition at the given index.
      */
     int getQuoteConditionValue(int index);
 
     /**
      * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The quoteEntryId.
      */
     java.lang.String getQuoteEntryId();
     /**
      * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for quoteEntryId.
      */
     com.google.protobuf.ByteString
         getQuoteEntryIdBytes();
 
     /**
      * <code>sfixed64 rpt_seq = 38 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rptSeq.
      */
     long getRptSeq();
 
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the scope.
      */
     java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of scope.
      */
     int getScopeCount();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The scope at the given index.
      */
     org.fixprotocol.components.MarketData.ScopeEnum getScope(int index);
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for scope.
      */
     java.util.List<java.lang.Integer>
     getScopeValueList();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of scope at the given index.
      */
     int getScopeValue(int index);
 
     /**
      * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryOrderId.
      */
     java.lang.String getSecondaryOrderId();
     /**
      * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for secondaryOrderId.
      */
     com.google.protobuf.ByteString
         getSecondaryOrderIdBytes();
 
     /**
      * <code>sfixed64 seller_days = 41 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The sellerDays.
      */
     long getSellerDays();
 
     /**
      * <code>sfixed32 settl_date = 42 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlDate.
      */
     int getSettlDate();
 
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     int getSettlTypeValue();
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlType.
      */
     org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType();
 
     /**
      * <code>.fix.Tenor settl_type_tenor = 44 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     boolean hasSettlTypeTenor();
     /**
      * <code>.fix.Tenor settl_type_tenor = 44 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlTypeTenor.
      */
     org.fixprotocol.components.Fix.Tenor getSettlTypeTenor();
     /**
@@ -8682,60 +9007,75 @@ public final class MarketData {
 
     /**
      * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
 
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tickDirection.
      */
     int getTickDirectionValue();
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tickDirection.
      */
     org.fixprotocol.components.MarketData.TickDirectionEnum getTickDirection();
 
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for timeInForce.
      */
     int getTimeInForceValue();
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The timeInForce.
      */
     org.fixprotocol.components.MarketData.TimeInForceEnum getTimeInForce();
 
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the tradeCondition.
      */
     java.util.List<org.fixprotocol.components.MarketData.TradeConditionEnum> getTradeConditionList();
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of tradeCondition.
      */
     int getTradeConditionCount();
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The tradeCondition at the given index.
      */
     org.fixprotocol.components.MarketData.TradeConditionEnum getTradeCondition(int index);
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for tradeCondition.
      */
     java.util.List<java.lang.Integer>
     getTradeConditionValueList();
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of tradeCondition at the given index.
      */
     int getTradeConditionValue(int index);
 
     /**
      * <code>.fix.Decimal64 trade_volume = 49 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradeVolume field is set.
      */
     boolean hasTradeVolume();
     /**
      * <code>.fix.Decimal64 trade_volume = 49 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeVolume.
      */
     org.fixprotocol.components.Fix.Decimal64 getTradeVolume();
     /**
@@ -8745,61 +9085,74 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionId.
      */
     int getTradingSessionIdValue();
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionId.
      */
     org.fixprotocol.components.MarketData.TradingSessionIDEnum getTradingSessionId();
 
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 51 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionIdReserved100plus.
      */
     int getTradingSessionIdReserved100Plus();
 
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionSubId.
      */
     int getTradingSessionSubIdValue();
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubId.
      */
     org.fixprotocol.components.MarketData.TradingSessionSubIDEnum getTradingSessionSubId();
 
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 53 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubIdReserved100plus.
      */
     int getTradingSessionSubIdReserved100Plus();
 
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for haltReason.
      */
     int getHaltReasonValue();
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReason.
      */
     org.fixprotocol.components.MarketData.HaltReasonEnum getHaltReason();
 
     /**
      * <code>fixed32 halt_reason_reserved100plus = 55 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReasonReserved100plus.
      */
     int getHaltReasonReserved100Plus();
 
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for lotType.
      */
     int getLotTypeValue();
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The lotType.
      */
     org.fixprotocol.components.MarketData.LotTypeEnum getLotType();
 
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for priceType.
      */
     int getPriceTypeValue();
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceType.
      */
     org.fixprotocol.components.MarketData.PriceTypeEnum getPriceType();
 
@@ -8829,24 +9182,29 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for securityTradingStatus.
      */
     int getSecurityTradingStatusValue();
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatus.
      */
     org.fixprotocol.components.MarketData.SecurityTradingStatusEnum getSecurityTradingStatus();
 
     /**
      * <code>fixed32 security_trading_status_reserved100plus = 60 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatusReserved100plus.
      */
     int getSecurityTradingStatusReserved100Plus();
 
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the spreadOrBenchmarkCurveData field is set.
      */
     boolean hasSpreadOrBenchmarkCurveData();
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The spreadOrBenchmarkCurveData.
      */
     org.fixprotocol.components.SpreadOrBenchmarkCurveData getSpreadOrBenchmarkCurveData();
     /**
@@ -8856,10 +9214,12 @@ public final class MarketData {
 
     /**
      * <code>.Common.YieldData yield_data = 62 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the yieldData field is set.
      */
     boolean hasYieldData();
     /**
      * <code>.Common.YieldData yield_data = 62 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The yieldData.
      */
     org.fixprotocol.components.YieldData getYieldData();
     /**
@@ -8893,20 +9253,24 @@ public final class MarketData {
 
     /**
      * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The settlCurrency.
      */
     java.lang.String getSettlCurrency();
     /**
      * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The bytes for settlCurrency.
      */
     com.google.protobuf.ByteString
         getSettlCurrencyBytes();
 
     /**
      * <code>.fix.Decimal64 first_px = 65 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the firstPx field is set.
      */
     boolean hasFirstPx();
     /**
      * <code>.fix.Decimal64 first_px = 65 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The firstPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getFirstPx();
     /**
@@ -8916,10 +9280,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 last_px = 66 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the lastPx field is set.
      */
     boolean hasLastPx();
     /**
      * <code>.fix.Decimal64 last_px = 66 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The lastPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getLastPx();
     /**
@@ -8929,15 +9295,18 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The enum numeric value on the wire for trdType.
      */
     int getTrdTypeValue();
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The trdType.
      */
     org.fixprotocol.components.MarketData.TrdTypeEnum getTrdType();
 
     /**
      * <code>fixed32 trd_type_reserved1000plus = 68 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The trdTypeReserved1000plus.
      */
     int getTrdTypeReserved1000Plus();
 
@@ -9691,7 +10060,8 @@ public final class MarketData {
     private int settlTypeUnionCase_ = 0;
     private java.lang.Object settlTypeUnion_;
     public enum SettlTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SETTL_TYPE(43),
       SETTL_TYPE_TENOR(44),
       SETTLTYPEUNION_NOT_SET(0);
@@ -9700,6 +10070,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -9729,7 +10101,8 @@ public final class MarketData {
     private int tradingSessionIdUnionCase_ = 0;
     private java.lang.Object tradingSessionIdUnion_;
     public enum TradingSessionIdUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       TRADING_SESSION_ID(50),
       TRADING_SESSION_ID_RESERVED100PLUS(51),
       TRADINGSESSIONIDUNION_NOT_SET(0);
@@ -9738,6 +10111,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -9767,7 +10142,8 @@ public final class MarketData {
     private int tradingSessionSubIdUnionCase_ = 0;
     private java.lang.Object tradingSessionSubIdUnion_;
     public enum TradingSessionSubIdUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       TRADING_SESSION_SUB_ID(52),
       TRADING_SESSION_SUB_ID_RESERVED100PLUS(53),
       TRADINGSESSIONSUBIDUNION_NOT_SET(0);
@@ -9776,6 +10152,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -9805,7 +10183,8 @@ public final class MarketData {
     private int haltReasonUnionCase_ = 0;
     private java.lang.Object haltReasonUnion_;
     public enum HaltReasonUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       HALT_REASON(54),
       HALT_REASON_RESERVED100PLUS(55),
       HALTREASONUNION_NOT_SET(0);
@@ -9814,6 +10193,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -9843,7 +10224,8 @@ public final class MarketData {
     private int securityTradingStatusUnionCase_ = 0;
     private java.lang.Object securityTradingStatusUnion_;
     public enum SecurityTradingStatusUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SECURITY_TRADING_STATUS(59),
       SECURITY_TRADING_STATUS_RESERVED100PLUS(60),
       SECURITYTRADINGSTATUSUNION_NOT_SET(0);
@@ -9852,6 +10234,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -9881,7 +10265,8 @@ public final class MarketData {
     private int trdTypeUnionCase_ = 0;
     private java.lang.Object trdTypeUnion_;
     public enum TrdTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       TRD_TYPE(67),
       TRD_TYPE_RESERVED1000PLUS(68),
       TRDTYPEUNION_NOT_SET(0);
@@ -9890,6 +10275,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -9920,6 +10307,7 @@ public final class MarketData {
     private volatile java.lang.Object currency_;
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The currency.
      */
     public java.lang.String getCurrency() {
       java.lang.Object ref = currency_;
@@ -9935,6 +10323,7 @@ public final class MarketData {
     }
     /**
      * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for currency.
      */
     public com.google.protobuf.ByteString
         getCurrencyBytes() {
@@ -9954,12 +10343,14 @@ public final class MarketData {
     private int dealingCapacity_;
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for dealingCapacity.
      */
     public int getDealingCapacityValue() {
       return dealingCapacity_;
     }
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The dealingCapacity.
      */
     public org.fixprotocol.components.MarketData.DealingCapacityEnum getDealingCapacity() {
       @SuppressWarnings("deprecation")
@@ -9971,6 +10362,7 @@ public final class MarketData {
     private volatile java.lang.Object deskId_;
     /**
      * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskId.
      */
     public java.lang.String getDeskId() {
       java.lang.Object ref = deskId_;
@@ -9986,6 +10378,7 @@ public final class MarketData {
     }
     /**
      * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for deskId.
      */
     public com.google.protobuf.ByteString
         getDeskIdBytes() {
@@ -10005,6 +10398,7 @@ public final class MarketData {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -10020,6 +10414,7 @@ public final class MarketData {
     }
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -10039,6 +10434,7 @@ public final class MarketData {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -10058,6 +10454,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the execInst.
      */
     public java.util.List<org.fixprotocol.components.MarketData.ExecInstEnum> getExecInstList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -10065,18 +10462,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of execInst.
      */
     public int getExecInstCount() {
       return execInst_.size();
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The execInst at the given index.
      */
     public org.fixprotocol.components.MarketData.ExecInstEnum getExecInst(int index) {
       return execInst_converter_.convert(execInst_.get(index));
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for execInst.
      */
     public java.util.List<java.lang.Integer>
     getExecInstValueList() {
@@ -10084,6 +10485,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of execInst at the given index.
      */
     public int getExecInstValue(int index) {
       return execInst_.get(index);
@@ -10094,6 +10497,7 @@ public final class MarketData {
     private int expireDate_;
     /**
      * <code>sfixed32 expire_date = 7 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireDate.
      */
     public int getExpireDate() {
       return expireDate_;
@@ -10103,12 +10507,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Timestamp expireTime_;
     /**
      * <code>.fix.Timestamp expire_time = 8 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the expireTime field is set.
      */
     public boolean hasExpireTime() {
       return expireTime_ != null;
     }
     /**
      * <code>.fix.Timestamp expire_time = 8 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getExpireTime() {
       return expireTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : expireTime_;
@@ -10124,12 +10530,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 highPx_;
     /**
      * <code>.fix.Decimal64 high_px = 9 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the highPx field is set.
      */
     public boolean hasHighPx() {
       return highPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 high_px = 9 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The highPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getHighPx() {
       return highPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : highPx_;
@@ -10145,6 +10553,7 @@ public final class MarketData {
     private volatile java.lang.Object locationId_;
     /**
      * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The locationId.
      */
     public java.lang.String getLocationId() {
       java.lang.Object ref = locationId_;
@@ -10160,6 +10569,7 @@ public final class MarketData {
     }
     /**
      * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for locationId.
      */
     public com.google.protobuf.ByteString
         getLocationIdBytes() {
@@ -10179,12 +10589,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 lowPx_;
     /**
      * <code>.fix.Decimal64 low_px = 11 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the lowPx field is set.
      */
     public boolean hasLowPx() {
       return lowPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 low_px = 11 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The lowPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLowPx() {
       return lowPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : lowPx_;
@@ -10200,6 +10612,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryBuyer_;
     /**
      * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryBuyer.
      */
     public java.lang.String getMdEntryBuyer() {
       java.lang.Object ref = mdEntryBuyer_;
@@ -10215,6 +10628,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryBuyer.
      */
     public com.google.protobuf.ByteString
         getMdEntryBuyerBytes() {
@@ -10234,6 +10648,7 @@ public final class MarketData {
     private int mdEntryDate_;
     /**
      * <code>sfixed32 md_entry_date = 13 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryDate.
      */
     public int getMdEntryDate() {
       return mdEntryDate_;
@@ -10243,12 +10658,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntryForwardPoints_;
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 14 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryForwardPoints field is set.
      */
     public boolean hasMdEntryForwardPoints() {
       return mdEntryForwardPoints_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 14 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryForwardPoints.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntryForwardPoints() {
       return mdEntryForwardPoints_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntryForwardPoints_;
@@ -10264,6 +10681,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryId_;
     /**
      * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryId.
      */
     public java.lang.String getMdEntryId() {
       java.lang.Object ref = mdEntryId_;
@@ -10279,6 +10697,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryId.
      */
     public com.google.protobuf.ByteString
         getMdEntryIdBytes() {
@@ -10298,6 +10717,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryOriginator_;
     /**
      * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryOriginator.
      */
     public java.lang.String getMdEntryOriginator() {
       java.lang.Object ref = mdEntryOriginator_;
@@ -10313,6 +10733,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryOriginator.
      */
     public com.google.protobuf.ByteString
         getMdEntryOriginatorBytes() {
@@ -10332,6 +10753,7 @@ public final class MarketData {
     private long mdEntryPositionNo_;
     /**
      * <code>sfixed64 md_entry_position_no = 17 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPositionNo.
      */
     public long getMdEntryPositionNo() {
       return mdEntryPositionNo_;
@@ -10341,12 +10763,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntryPx_;
     /**
      * <code>.fix.Decimal64 md_entry_px = 18 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryPx field is set.
      */
     public boolean hasMdEntryPx() {
       return mdEntryPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_px = 18 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntryPx() {
       return mdEntryPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntryPx_;
@@ -10362,6 +10786,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntrySeller_;
     /**
      * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySeller.
      */
     public java.lang.String getMdEntrySeller() {
       java.lang.Object ref = mdEntrySeller_;
@@ -10377,6 +10802,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntrySeller.
      */
     public com.google.protobuf.ByteString
         getMdEntrySellerBytes() {
@@ -10396,12 +10822,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntrySize_;
     /**
      * <code>.fix.Decimal64 md_entry_size = 20 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     public boolean hasMdEntrySize() {
       return mdEntrySize_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_size = 20 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySize.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
       return mdEntrySize_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntrySize_;
@@ -10417,12 +10845,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntrySpotRate_;
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 21 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySpotRate field is set.
      */
     public boolean hasMdEntrySpotRate() {
       return mdEntrySpotRate_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 21 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySpotRate.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntrySpotRate() {
       return mdEntrySpotRate_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntrySpotRate_;
@@ -10438,12 +10868,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.TimeOnly mdEntryTime_;
     /**
      * <code>.fix.TimeOnly md_entry_time = 22 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryTime field is set.
      */
     public boolean hasMdEntryTime() {
       return mdEntryTime_ != null;
     }
     /**
      * <code>.fix.TimeOnly md_entry_time = 22 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryTime.
      */
     public org.fixprotocol.components.Fix.TimeOnly getMdEntryTime() {
       return mdEntryTime_ == null ? org.fixprotocol.components.Fix.TimeOnly.getDefaultInstance() : mdEntryTime_;
@@ -10459,12 +10891,14 @@ public final class MarketData {
     private int mdEntryType_;
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdEntryType.
      */
     public int getMdEntryTypeValue() {
       return mdEntryType_;
     }
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryType.
      */
     public org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType() {
       @SuppressWarnings("deprecation")
@@ -10476,6 +10910,7 @@ public final class MarketData {
     private volatile java.lang.Object mdMkt_;
     /**
      * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdMkt.
      */
     public java.lang.String getMdMkt() {
       java.lang.Object ref = mdMkt_;
@@ -10491,6 +10926,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdMkt.
      */
     public com.google.protobuf.ByteString
         getMdMktBytes() {
@@ -10510,12 +10946,14 @@ public final class MarketData {
     private int mdOriginType_;
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdOriginType.
      */
     public int getMdOriginTypeValue() {
       return mdOriginType_;
     }
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdOriginType.
      */
     public org.fixprotocol.components.MarketData.MDOriginTypeEnum getMdOriginType() {
       @SuppressWarnings("deprecation")
@@ -10527,6 +10965,7 @@ public final class MarketData {
     private long mdPriceLevel_;
     /**
      * <code>sfixed64 md_price_level = 26 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdPriceLevel.
      */
     public long getMdPriceLevel() {
       return mdPriceLevel_;
@@ -10536,12 +10975,14 @@ public final class MarketData {
     private int mdQuoteType_;
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdQuoteType.
      */
     public int getMdQuoteTypeValue() {
       return mdQuoteType_;
     }
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdQuoteType.
      */
     public org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType() {
       @SuppressWarnings("deprecation")
@@ -10553,12 +10994,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 minQty_;
     /**
      * <code>.fix.Decimal64 min_qty = 28 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the minQty field is set.
      */
     public boolean hasMinQty() {
       return minQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 min_qty = 28 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The minQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMinQty() {
       return minQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : minQty_;
@@ -10574,6 +11017,7 @@ public final class MarketData {
     private long numberOfOrders_;
     /**
      * <code>sfixed64 number_of_orders = 29 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The numberOfOrders.
      */
     public long getNumberOfOrders() {
       return numberOfOrders_;
@@ -10593,6 +11037,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the openCloseSettlFlag.
      */
     public java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -10600,18 +11045,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of openCloseSettlFlag.
      */
     public int getOpenCloseSettlFlagCount() {
       return openCloseSettlFlag_.size();
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The openCloseSettlFlag at the given index.
      */
     public org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index) {
       return openCloseSettlFlag_converter_.convert(openCloseSettlFlag_.get(index));
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
      */
     public java.util.List<java.lang.Integer>
     getOpenCloseSettlFlagValueList() {
@@ -10619,6 +11068,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
      */
     public int getOpenCloseSettlFlagValue(int index) {
       return openCloseSettlFlag_.get(index);
@@ -10629,12 +11080,14 @@ public final class MarketData {
     private int ordType_;
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for ordType.
      */
     public int getOrdTypeValue() {
       return ordType_;
     }
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The ordType.
      */
     public org.fixprotocol.components.MarketData.OrdTypeEnum getOrdType() {
       @SuppressWarnings("deprecation")
@@ -10646,12 +11099,14 @@ public final class MarketData {
     private int orderCapacity_;
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for orderCapacity.
      */
     public int getOrderCapacityValue() {
       return orderCapacity_;
     }
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderCapacity.
      */
     public org.fixprotocol.components.MarketData.OrderCapacityEnum getOrderCapacity() {
       @SuppressWarnings("deprecation")
@@ -10663,6 +11118,7 @@ public final class MarketData {
     private volatile java.lang.Object orderId_;
     /**
      * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderId.
      */
     public java.lang.String getOrderId() {
       java.lang.Object ref = orderId_;
@@ -10678,6 +11134,7 @@ public final class MarketData {
     }
     /**
      * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for orderId.
      */
     public com.google.protobuf.ByteString
         getOrderIdBytes() {
@@ -10732,12 +11189,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 priceDelta_;
     /**
      * <code>.fix.Decimal64 price_delta = 35 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the priceDelta field is set.
      */
     public boolean hasPriceDelta() {
       return priceDelta_ != null;
     }
     /**
      * <code>.fix.Decimal64 price_delta = 35 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The priceDelta.
      */
     public org.fixprotocol.components.Fix.Decimal64 getPriceDelta() {
       return priceDelta_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : priceDelta_;
@@ -10763,6 +11222,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the quoteCondition.
      */
     public java.util.List<org.fixprotocol.components.MarketData.QuoteConditionEnum> getQuoteConditionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -10770,18 +11230,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of quoteCondition.
      */
     public int getQuoteConditionCount() {
       return quoteCondition_.size();
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The quoteCondition at the given index.
      */
     public org.fixprotocol.components.MarketData.QuoteConditionEnum getQuoteCondition(int index) {
       return quoteCondition_converter_.convert(quoteCondition_.get(index));
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for quoteCondition.
      */
     public java.util.List<java.lang.Integer>
     getQuoteConditionValueList() {
@@ -10789,6 +11253,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of quoteCondition at the given index.
      */
     public int getQuoteConditionValue(int index) {
       return quoteCondition_.get(index);
@@ -10799,6 +11265,7 @@ public final class MarketData {
     private volatile java.lang.Object quoteEntryId_;
     /**
      * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The quoteEntryId.
      */
     public java.lang.String getQuoteEntryId() {
       java.lang.Object ref = quoteEntryId_;
@@ -10814,6 +11281,7 @@ public final class MarketData {
     }
     /**
      * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for quoteEntryId.
      */
     public com.google.protobuf.ByteString
         getQuoteEntryIdBytes() {
@@ -10833,6 +11301,7 @@ public final class MarketData {
     private long rptSeq_;
     /**
      * <code>sfixed64 rpt_seq = 38 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rptSeq.
      */
     public long getRptSeq() {
       return rptSeq_;
@@ -10852,6 +11321,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the scope.
      */
     public java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -10859,18 +11329,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of scope.
      */
     public int getScopeCount() {
       return scope_.size();
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The scope at the given index.
      */
     public org.fixprotocol.components.MarketData.ScopeEnum getScope(int index) {
       return scope_converter_.convert(scope_.get(index));
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for scope.
      */
     public java.util.List<java.lang.Integer>
     getScopeValueList() {
@@ -10878,6 +11352,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of scope at the given index.
      */
     public int getScopeValue(int index) {
       return scope_.get(index);
@@ -10888,6 +11364,7 @@ public final class MarketData {
     private volatile java.lang.Object secondaryOrderId_;
     /**
      * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryOrderId.
      */
     public java.lang.String getSecondaryOrderId() {
       java.lang.Object ref = secondaryOrderId_;
@@ -10903,6 +11380,7 @@ public final class MarketData {
     }
     /**
      * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for secondaryOrderId.
      */
     public com.google.protobuf.ByteString
         getSecondaryOrderIdBytes() {
@@ -10922,6 +11400,7 @@ public final class MarketData {
     private long sellerDays_;
     /**
      * <code>sfixed64 seller_days = 41 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The sellerDays.
      */
     public long getSellerDays() {
       return sellerDays_;
@@ -10931,6 +11410,7 @@ public final class MarketData {
     private int settlDate_;
     /**
      * <code>sfixed32 settl_date = 42 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlDate.
      */
     public int getSettlDate() {
       return settlDate_;
@@ -10939,6 +11419,7 @@ public final class MarketData {
     public static final int SETTL_TYPE_FIELD_NUMBER = 43;
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     public int getSettlTypeValue() {
       if (settlTypeUnionCase_ == 43) {
@@ -10948,6 +11429,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlType.
      */
     public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
       if (settlTypeUnionCase_ == 43) {
@@ -10962,12 +11444,14 @@ public final class MarketData {
     public static final int SETTL_TYPE_TENOR_FIELD_NUMBER = 44;
     /**
      * <code>.fix.Tenor settl_type_tenor = 44 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     public boolean hasSettlTypeTenor() {
       return settlTypeUnionCase_ == 44;
     }
     /**
      * <code>.fix.Tenor settl_type_tenor = 44 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlTypeTenor.
      */
     public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
       if (settlTypeUnionCase_ == 44) {
@@ -10989,6 +11473,7 @@ public final class MarketData {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -11004,6 +11489,7 @@ public final class MarketData {
     }
     /**
      * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -11023,12 +11509,14 @@ public final class MarketData {
     private int tickDirection_;
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tickDirection.
      */
     public int getTickDirectionValue() {
       return tickDirection_;
     }
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tickDirection.
      */
     public org.fixprotocol.components.MarketData.TickDirectionEnum getTickDirection() {
       @SuppressWarnings("deprecation")
@@ -11040,12 +11528,14 @@ public final class MarketData {
     private int timeInForce_;
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for timeInForce.
      */
     public int getTimeInForceValue() {
       return timeInForce_;
     }
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The timeInForce.
      */
     public org.fixprotocol.components.MarketData.TimeInForceEnum getTimeInForce() {
       @SuppressWarnings("deprecation")
@@ -11067,6 +11557,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the tradeCondition.
      */
     public java.util.List<org.fixprotocol.components.MarketData.TradeConditionEnum> getTradeConditionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -11074,18 +11565,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of tradeCondition.
      */
     public int getTradeConditionCount() {
       return tradeCondition_.size();
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The tradeCondition at the given index.
      */
     public org.fixprotocol.components.MarketData.TradeConditionEnum getTradeCondition(int index) {
       return tradeCondition_converter_.convert(tradeCondition_.get(index));
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for tradeCondition.
      */
     public java.util.List<java.lang.Integer>
     getTradeConditionValueList() {
@@ -11093,6 +11588,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of tradeCondition at the given index.
      */
     public int getTradeConditionValue(int index) {
       return tradeCondition_.get(index);
@@ -11103,12 +11600,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 tradeVolume_;
     /**
      * <code>.fix.Decimal64 trade_volume = 49 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradeVolume field is set.
      */
     public boolean hasTradeVolume() {
       return tradeVolume_ != null;
     }
     /**
      * <code>.fix.Decimal64 trade_volume = 49 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeVolume.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTradeVolume() {
       return tradeVolume_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : tradeVolume_;
@@ -11123,6 +11622,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_ID_FIELD_NUMBER = 50;
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionId.
      */
     public int getTradingSessionIdValue() {
       if (tradingSessionIdUnionCase_ == 50) {
@@ -11132,6 +11632,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionId.
      */
     public org.fixprotocol.components.MarketData.TradingSessionIDEnum getTradingSessionId() {
       if (tradingSessionIdUnionCase_ == 50) {
@@ -11146,6 +11647,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_ID_RESERVED100PLUS_FIELD_NUMBER = 51;
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 51 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionIdReserved100plus.
      */
     public int getTradingSessionIdReserved100Plus() {
       if (tradingSessionIdUnionCase_ == 51) {
@@ -11157,6 +11659,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_SUB_ID_FIELD_NUMBER = 52;
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionSubId.
      */
     public int getTradingSessionSubIdValue() {
       if (tradingSessionSubIdUnionCase_ == 52) {
@@ -11166,6 +11669,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubId.
      */
     public org.fixprotocol.components.MarketData.TradingSessionSubIDEnum getTradingSessionSubId() {
       if (tradingSessionSubIdUnionCase_ == 52) {
@@ -11180,6 +11684,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_SUB_ID_RESERVED100PLUS_FIELD_NUMBER = 53;
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 53 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubIdReserved100plus.
      */
     public int getTradingSessionSubIdReserved100Plus() {
       if (tradingSessionSubIdUnionCase_ == 53) {
@@ -11191,6 +11696,7 @@ public final class MarketData {
     public static final int HALT_REASON_FIELD_NUMBER = 54;
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for haltReason.
      */
     public int getHaltReasonValue() {
       if (haltReasonUnionCase_ == 54) {
@@ -11200,6 +11706,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReason.
      */
     public org.fixprotocol.components.MarketData.HaltReasonEnum getHaltReason() {
       if (haltReasonUnionCase_ == 54) {
@@ -11214,6 +11721,7 @@ public final class MarketData {
     public static final int HALT_REASON_RESERVED100PLUS_FIELD_NUMBER = 55;
     /**
      * <code>fixed32 halt_reason_reserved100plus = 55 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReasonReserved100plus.
      */
     public int getHaltReasonReserved100Plus() {
       if (haltReasonUnionCase_ == 55) {
@@ -11226,12 +11734,14 @@ public final class MarketData {
     private int lotType_;
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for lotType.
      */
     public int getLotTypeValue() {
       return lotType_;
     }
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The lotType.
      */
     public org.fixprotocol.components.MarketData.LotTypeEnum getLotType() {
       @SuppressWarnings("deprecation")
@@ -11243,12 +11753,14 @@ public final class MarketData {
     private int priceType_;
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for priceType.
      */
     public int getPriceTypeValue() {
       return priceType_;
     }
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceType.
      */
     public org.fixprotocol.components.MarketData.PriceTypeEnum getPriceType() {
       @SuppressWarnings("deprecation")
@@ -11294,6 +11806,7 @@ public final class MarketData {
     public static final int SECURITY_TRADING_STATUS_FIELD_NUMBER = 59;
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for securityTradingStatus.
      */
     public int getSecurityTradingStatusValue() {
       if (securityTradingStatusUnionCase_ == 59) {
@@ -11303,6 +11816,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatus.
      */
     public org.fixprotocol.components.MarketData.SecurityTradingStatusEnum getSecurityTradingStatus() {
       if (securityTradingStatusUnionCase_ == 59) {
@@ -11317,6 +11831,7 @@ public final class MarketData {
     public static final int SECURITY_TRADING_STATUS_RESERVED100PLUS_FIELD_NUMBER = 60;
     /**
      * <code>fixed32 security_trading_status_reserved100plus = 60 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatusReserved100plus.
      */
     public int getSecurityTradingStatusReserved100Plus() {
       if (securityTradingStatusUnionCase_ == 60) {
@@ -11329,12 +11844,14 @@ public final class MarketData {
     private org.fixprotocol.components.SpreadOrBenchmarkCurveData spreadOrBenchmarkCurveData_;
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the spreadOrBenchmarkCurveData field is set.
      */
     public boolean hasSpreadOrBenchmarkCurveData() {
       return spreadOrBenchmarkCurveData_ != null;
     }
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The spreadOrBenchmarkCurveData.
      */
     public org.fixprotocol.components.SpreadOrBenchmarkCurveData getSpreadOrBenchmarkCurveData() {
       return spreadOrBenchmarkCurveData_ == null ? org.fixprotocol.components.SpreadOrBenchmarkCurveData.getDefaultInstance() : spreadOrBenchmarkCurveData_;
@@ -11350,12 +11867,14 @@ public final class MarketData {
     private org.fixprotocol.components.YieldData yieldData_;
     /**
      * <code>.Common.YieldData yield_data = 62 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the yieldData field is set.
      */
     public boolean hasYieldData() {
       return yieldData_ != null;
     }
     /**
      * <code>.Common.YieldData yield_data = 62 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The yieldData.
      */
     public org.fixprotocol.components.YieldData getYieldData() {
       return yieldData_ == null ? org.fixprotocol.components.YieldData.getDefaultInstance() : yieldData_;
@@ -11406,6 +11925,7 @@ public final class MarketData {
     private volatile java.lang.Object settlCurrency_;
     /**
      * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The settlCurrency.
      */
     public java.lang.String getSettlCurrency() {
       java.lang.Object ref = settlCurrency_;
@@ -11421,6 +11941,7 @@ public final class MarketData {
     }
     /**
      * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The bytes for settlCurrency.
      */
     public com.google.protobuf.ByteString
         getSettlCurrencyBytes() {
@@ -11440,12 +11961,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 firstPx_;
     /**
      * <code>.fix.Decimal64 first_px = 65 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the firstPx field is set.
      */
     public boolean hasFirstPx() {
       return firstPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 first_px = 65 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The firstPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getFirstPx() {
       return firstPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : firstPx_;
@@ -11461,12 +11984,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 lastPx_;
     /**
      * <code>.fix.Decimal64 last_px = 66 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the lastPx field is set.
      */
     public boolean hasLastPx() {
       return lastPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 last_px = 66 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The lastPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLastPx() {
       return lastPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : lastPx_;
@@ -11481,6 +12006,7 @@ public final class MarketData {
     public static final int TRD_TYPE_FIELD_NUMBER = 67;
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The enum numeric value on the wire for trdType.
      */
     public int getTrdTypeValue() {
       if (trdTypeUnionCase_ == 67) {
@@ -11490,6 +12016,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The trdType.
      */
     public org.fixprotocol.components.MarketData.TrdTypeEnum getTrdType() {
       if (trdTypeUnionCase_ == 67) {
@@ -11504,6 +12031,7 @@ public final class MarketData {
     public static final int TRD_TYPE_RESERVED1000PLUS_FIELD_NUMBER = 68;
     /**
      * <code>fixed32 trd_type_reserved1000plus = 68 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The trdTypeReserved1000plus.
      */
     public int getTrdTypeReserved1000Plus() {
       if (trdTypeUnionCase_ == 68) {
@@ -13650,6 +14178,7 @@ public final class MarketData {
       private java.lang.Object currency_ = "";
       /**
        * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The currency.
        */
       public java.lang.String getCurrency() {
         java.lang.Object ref = currency_;
@@ -13665,6 +14194,7 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for currency.
        */
       public com.google.protobuf.ByteString
           getCurrencyBytes() {
@@ -13681,6 +14211,8 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The currency to set.
+       * @return This builder for chaining.
        */
       public Builder setCurrency(
           java.lang.String value) {
@@ -13694,6 +14226,7 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearCurrency() {
         
@@ -13703,6 +14236,8 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 1 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for currency to set.
+       * @return This builder for chaining.
        */
       public Builder setCurrencyBytes(
           com.google.protobuf.ByteString value) {
@@ -13719,12 +14254,15 @@ public final class MarketData {
       private int dealingCapacity_ = 0;
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for dealingCapacity.
        */
       public int getDealingCapacityValue() {
         return dealingCapacity_;
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for dealingCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setDealingCapacityValue(int value) {
         dealingCapacity_ = value;
@@ -13733,6 +14271,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The dealingCapacity.
        */
       public org.fixprotocol.components.MarketData.DealingCapacityEnum getDealingCapacity() {
         @SuppressWarnings("deprecation")
@@ -13741,6 +14280,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The dealingCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setDealingCapacity(org.fixprotocol.components.MarketData.DealingCapacityEnum value) {
         if (value == null) {
@@ -13753,6 +14294,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 2 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDealingCapacity() {
         
@@ -13764,6 +14306,7 @@ public final class MarketData {
       private java.lang.Object deskId_ = "";
       /**
        * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The deskId.
        */
       public java.lang.String getDeskId() {
         java.lang.Object ref = deskId_;
@@ -13779,6 +14322,7 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for deskId.
        */
       public com.google.protobuf.ByteString
           getDeskIdBytes() {
@@ -13795,6 +14339,8 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The deskId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeskId(
           java.lang.String value) {
@@ -13808,6 +14354,7 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDeskId() {
         
@@ -13817,6 +14364,8 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 3 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for deskId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeskIdBytes(
           com.google.protobuf.ByteString value) {
@@ -13833,6 +14382,7 @@ public final class MarketData {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -13848,6 +14398,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -13864,6 +14415,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -13877,6 +14430,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -13886,6 +14440,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -13902,12 +14458,15 @@ public final class MarketData {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -13917,6 +14476,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -13935,6 +14495,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the execInst.
        */
       public java.util.List<org.fixprotocol.components.MarketData.ExecInstEnum> getExecInstList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -13942,18 +14503,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of execInst.
        */
       public int getExecInstCount() {
         return execInst_.size();
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The execInst at the given index.
        */
       public org.fixprotocol.components.MarketData.ExecInstEnum getExecInst(int index) {
         return execInst_converter_.convert(execInst_.get(index));
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The execInst to set.
+       * @return This builder for chaining.
        */
       public Builder setExecInst(
           int index, org.fixprotocol.components.MarketData.ExecInstEnum value) {
@@ -13967,6 +14534,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addExecInst(org.fixprotocol.components.MarketData.ExecInstEnum value) {
         if (value == null) {
@@ -13979,6 +14548,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addAllExecInst(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.ExecInstEnum> values) {
@@ -13991,6 +14562,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearExecInst() {
         execInst_ = java.util.Collections.emptyList();
@@ -14000,6 +14572,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for execInst.
        */
       public java.util.List<java.lang.Integer>
       getExecInstValueList() {
@@ -14007,12 +14580,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of execInst at the given index.
        */
       public int getExecInstValue(int index) {
         return execInst_.get(index);
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of execInst at the given index.
+       * @return This builder for chaining.
        */
       public Builder setExecInstValue(
           int index, int value) {
@@ -14023,6 +14601,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addExecInstValue(int value) {
         ensureExecInstIsMutable();
@@ -14032,6 +14612,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 6 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addAllExecInstValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -14046,12 +14628,15 @@ public final class MarketData {
       private int expireDate_ ;
       /**
        * <code>sfixed32 expire_date = 7 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The expireDate.
        */
       public int getExpireDate() {
         return expireDate_;
       }
       /**
        * <code>sfixed32 expire_date = 7 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The expireDate to set.
+       * @return This builder for chaining.
        */
       public Builder setExpireDate(int value) {
         
@@ -14061,6 +14646,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 expire_date = 7 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearExpireDate() {
         
@@ -14074,12 +14660,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> expireTimeBuilder_;
       /**
        * <code>.fix.Timestamp expire_time = 8 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the expireTime field is set.
        */
       public boolean hasExpireTime() {
         return expireTimeBuilder_ != null || expireTime_ != null;
       }
       /**
        * <code>.fix.Timestamp expire_time = 8 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The expireTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getExpireTime() {
         if (expireTimeBuilder_ == null) {
@@ -14191,12 +14779,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> highPxBuilder_;
       /**
        * <code>.fix.Decimal64 high_px = 9 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the highPx field is set.
        */
       public boolean hasHighPx() {
         return highPxBuilder_ != null || highPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 high_px = 9 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The highPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getHighPx() {
         if (highPxBuilder_ == null) {
@@ -14306,6 +14896,7 @@ public final class MarketData {
       private java.lang.Object locationId_ = "";
       /**
        * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The locationId.
        */
       public java.lang.String getLocationId() {
         java.lang.Object ref = locationId_;
@@ -14321,6 +14912,7 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for locationId.
        */
       public com.google.protobuf.ByteString
           getLocationIdBytes() {
@@ -14337,6 +14929,8 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The locationId to set.
+       * @return This builder for chaining.
        */
       public Builder setLocationId(
           java.lang.String value) {
@@ -14350,6 +14944,7 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearLocationId() {
         
@@ -14359,6 +14954,8 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 10 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for locationId to set.
+       * @return This builder for chaining.
        */
       public Builder setLocationIdBytes(
           com.google.protobuf.ByteString value) {
@@ -14377,12 +14974,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> lowPxBuilder_;
       /**
        * <code>.fix.Decimal64 low_px = 11 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the lowPx field is set.
        */
       public boolean hasLowPx() {
         return lowPxBuilder_ != null || lowPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 low_px = 11 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The lowPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getLowPx() {
         if (lowPxBuilder_ == null) {
@@ -14492,6 +15091,7 @@ public final class MarketData {
       private java.lang.Object mdEntryBuyer_ = "";
       /**
        * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryBuyer.
        */
       public java.lang.String getMdEntryBuyer() {
         java.lang.Object ref = mdEntryBuyer_;
@@ -14507,6 +15107,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryBuyer.
        */
       public com.google.protobuf.ByteString
           getMdEntryBuyerBytes() {
@@ -14523,6 +15124,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryBuyer to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryBuyer(
           java.lang.String value) {
@@ -14536,6 +15139,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryBuyer() {
         
@@ -14545,6 +15149,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 12 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryBuyer to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryBuyerBytes(
           com.google.protobuf.ByteString value) {
@@ -14561,12 +15167,15 @@ public final class MarketData {
       private int mdEntryDate_ ;
       /**
        * <code>sfixed32 md_entry_date = 13 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryDate.
        */
       public int getMdEntryDate() {
         return mdEntryDate_;
       }
       /**
        * <code>sfixed32 md_entry_date = 13 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryDate to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryDate(int value) {
         
@@ -14576,6 +15185,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 md_entry_date = 13 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryDate() {
         
@@ -14589,12 +15199,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntryForwardPointsBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_forward_points = 14 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntryForwardPoints field is set.
        */
       public boolean hasMdEntryForwardPoints() {
         return mdEntryForwardPointsBuilder_ != null || mdEntryForwardPoints_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_forward_points = 14 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryForwardPoints.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntryForwardPoints() {
         if (mdEntryForwardPointsBuilder_ == null) {
@@ -14704,6 +15316,7 @@ public final class MarketData {
       private java.lang.Object mdEntryId_ = "";
       /**
        * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryId.
        */
       public java.lang.String getMdEntryId() {
         java.lang.Object ref = mdEntryId_;
@@ -14719,6 +15332,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryId.
        */
       public com.google.protobuf.ByteString
           getMdEntryIdBytes() {
@@ -14735,6 +15349,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryId(
           java.lang.String value) {
@@ -14748,6 +15364,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryId() {
         
@@ -14757,6 +15374,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 15 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryIdBytes(
           com.google.protobuf.ByteString value) {
@@ -14773,6 +15392,7 @@ public final class MarketData {
       private java.lang.Object mdEntryOriginator_ = "";
       /**
        * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryOriginator.
        */
       public java.lang.String getMdEntryOriginator() {
         java.lang.Object ref = mdEntryOriginator_;
@@ -14788,6 +15408,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryOriginator.
        */
       public com.google.protobuf.ByteString
           getMdEntryOriginatorBytes() {
@@ -14804,6 +15425,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryOriginator to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryOriginator(
           java.lang.String value) {
@@ -14817,6 +15440,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryOriginator() {
         
@@ -14826,6 +15450,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 16 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryOriginator to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryOriginatorBytes(
           com.google.protobuf.ByteString value) {
@@ -14842,12 +15468,15 @@ public final class MarketData {
       private long mdEntryPositionNo_ ;
       /**
        * <code>sfixed64 md_entry_position_no = 17 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryPositionNo.
        */
       public long getMdEntryPositionNo() {
         return mdEntryPositionNo_;
       }
       /**
        * <code>sfixed64 md_entry_position_no = 17 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryPositionNo to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryPositionNo(long value) {
         
@@ -14857,6 +15486,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_entry_position_no = 17 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryPositionNo() {
         
@@ -14870,12 +15500,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntryPxBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_px = 18 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntryPx field is set.
        */
       public boolean hasMdEntryPx() {
         return mdEntryPxBuilder_ != null || mdEntryPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_px = 18 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntryPx() {
         if (mdEntryPxBuilder_ == null) {
@@ -14985,6 +15617,7 @@ public final class MarketData {
       private java.lang.Object mdEntrySeller_ = "";
       /**
        * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntrySeller.
        */
       public java.lang.String getMdEntrySeller() {
         java.lang.Object ref = mdEntrySeller_;
@@ -15000,6 +15633,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntrySeller.
        */
       public com.google.protobuf.ByteString
           getMdEntrySellerBytes() {
@@ -15016,6 +15650,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntrySeller to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntrySeller(
           java.lang.String value) {
@@ -15029,6 +15665,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntrySeller() {
         
@@ -15038,6 +15675,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 19 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntrySeller to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntrySellerBytes(
           com.google.protobuf.ByteString value) {
@@ -15056,12 +15695,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntrySizeBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_size = 20 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntrySize field is set.
        */
       public boolean hasMdEntrySize() {
         return mdEntrySizeBuilder_ != null || mdEntrySize_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_size = 20 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntrySize.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
         if (mdEntrySizeBuilder_ == null) {
@@ -15173,12 +15814,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntrySpotRateBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_spot_rate = 21 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntrySpotRate field is set.
        */
       public boolean hasMdEntrySpotRate() {
         return mdEntrySpotRateBuilder_ != null || mdEntrySpotRate_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_spot_rate = 21 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntrySpotRate.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntrySpotRate() {
         if (mdEntrySpotRateBuilder_ == null) {
@@ -15290,12 +15933,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.TimeOnly, org.fixprotocol.components.Fix.TimeOnly.Builder, org.fixprotocol.components.Fix.TimeOnlyOrBuilder> mdEntryTimeBuilder_;
       /**
        * <code>.fix.TimeOnly md_entry_time = 22 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntryTime field is set.
        */
       public boolean hasMdEntryTime() {
         return mdEntryTimeBuilder_ != null || mdEntryTime_ != null;
       }
       /**
        * <code>.fix.TimeOnly md_entry_time = 22 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryTime.
        */
       public org.fixprotocol.components.Fix.TimeOnly getMdEntryTime() {
         if (mdEntryTimeBuilder_ == null) {
@@ -15405,12 +16050,15 @@ public final class MarketData {
       private int mdEntryType_ = 0;
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdEntryType.
        */
       public int getMdEntryTypeValue() {
         return mdEntryType_;
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdEntryType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryTypeValue(int value) {
         mdEntryType_ = value;
@@ -15419,6 +16067,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryType.
        */
       public org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType() {
         @SuppressWarnings("deprecation")
@@ -15427,6 +16076,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryType(org.fixprotocol.components.MarketData.MDEntryTypeEnum value) {
         if (value == null) {
@@ -15439,6 +16090,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 23 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryType() {
         
@@ -15450,6 +16102,7 @@ public final class MarketData {
       private java.lang.Object mdMkt_ = "";
       /**
        * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdMkt.
        */
       public java.lang.String getMdMkt() {
         java.lang.Object ref = mdMkt_;
@@ -15465,6 +16118,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdMkt.
        */
       public com.google.protobuf.ByteString
           getMdMktBytes() {
@@ -15481,6 +16135,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdMkt to set.
+       * @return This builder for chaining.
        */
       public Builder setMdMkt(
           java.lang.String value) {
@@ -15494,6 +16150,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdMkt() {
         
@@ -15503,6 +16160,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 24 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdMkt to set.
+       * @return This builder for chaining.
        */
       public Builder setMdMktBytes(
           com.google.protobuf.ByteString value) {
@@ -15519,12 +16178,15 @@ public final class MarketData {
       private int mdOriginType_ = 0;
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdOriginType.
        */
       public int getMdOriginTypeValue() {
         return mdOriginType_;
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdOriginType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdOriginTypeValue(int value) {
         mdOriginType_ = value;
@@ -15533,6 +16195,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdOriginType.
        */
       public org.fixprotocol.components.MarketData.MDOriginTypeEnum getMdOriginType() {
         @SuppressWarnings("deprecation")
@@ -15541,6 +16204,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdOriginType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdOriginType(org.fixprotocol.components.MarketData.MDOriginTypeEnum value) {
         if (value == null) {
@@ -15553,6 +16218,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 25 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdOriginType() {
         
@@ -15564,12 +16230,15 @@ public final class MarketData {
       private long mdPriceLevel_ ;
       /**
        * <code>sfixed64 md_price_level = 26 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdPriceLevel.
        */
       public long getMdPriceLevel() {
         return mdPriceLevel_;
       }
       /**
        * <code>sfixed64 md_price_level = 26 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdPriceLevel to set.
+       * @return This builder for chaining.
        */
       public Builder setMdPriceLevel(long value) {
         
@@ -15579,6 +16248,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_price_level = 26 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdPriceLevel() {
         
@@ -15590,12 +16260,15 @@ public final class MarketData {
       private int mdQuoteType_ = 0;
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdQuoteType.
        */
       public int getMdQuoteTypeValue() {
         return mdQuoteType_;
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdQuoteType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdQuoteTypeValue(int value) {
         mdQuoteType_ = value;
@@ -15604,6 +16277,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdQuoteType.
        */
       public org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType() {
         @SuppressWarnings("deprecation")
@@ -15612,6 +16286,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdQuoteType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdQuoteType(org.fixprotocol.components.MarketData.MDQuoteTypeEnum value) {
         if (value == null) {
@@ -15624,6 +16300,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 27 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdQuoteType() {
         
@@ -15637,12 +16314,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> minQtyBuilder_;
       /**
        * <code>.fix.Decimal64 min_qty = 28 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the minQty field is set.
        */
       public boolean hasMinQty() {
         return minQtyBuilder_ != null || minQty_ != null;
       }
       /**
        * <code>.fix.Decimal64 min_qty = 28 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The minQty.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMinQty() {
         if (minQtyBuilder_ == null) {
@@ -15752,12 +16431,15 @@ public final class MarketData {
       private long numberOfOrders_ ;
       /**
        * <code>sfixed64 number_of_orders = 29 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The numberOfOrders.
        */
       public long getNumberOfOrders() {
         return numberOfOrders_;
       }
       /**
        * <code>sfixed64 number_of_orders = 29 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The numberOfOrders to set.
+       * @return This builder for chaining.
        */
       public Builder setNumberOfOrders(long value) {
         
@@ -15767,6 +16449,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 number_of_orders = 29 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumberOfOrders() {
         
@@ -15785,6 +16468,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the openCloseSettlFlag.
        */
       public java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -15792,18 +16476,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of openCloseSettlFlag.
        */
       public int getOpenCloseSettlFlagCount() {
         return openCloseSettlFlag_.size();
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The openCloseSettlFlag at the given index.
        */
       public org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index) {
         return openCloseSettlFlag_converter_.convert(openCloseSettlFlag_.get(index));
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The openCloseSettlFlag to set.
+       * @return This builder for chaining.
        */
       public Builder setOpenCloseSettlFlag(
           int index, org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum value) {
@@ -15817,6 +16507,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addOpenCloseSettlFlag(org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum value) {
         if (value == null) {
@@ -15829,6 +16521,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addAllOpenCloseSettlFlag(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> values) {
@@ -15841,6 +16535,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOpenCloseSettlFlag() {
         openCloseSettlFlag_ = java.util.Collections.emptyList();
@@ -15850,6 +16545,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
        */
       public java.util.List<java.lang.Integer>
       getOpenCloseSettlFlagValueList() {
@@ -15857,12 +16553,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
        */
       public int getOpenCloseSettlFlagValue(int index) {
         return openCloseSettlFlag_.get(index);
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
+       * @return This builder for chaining.
        */
       public Builder setOpenCloseSettlFlagValue(
           int index, int value) {
@@ -15873,6 +16574,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addOpenCloseSettlFlagValue(int value) {
         ensureOpenCloseSettlFlagIsMutable();
@@ -15882,6 +16585,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 30 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addAllOpenCloseSettlFlagValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -15896,12 +16601,15 @@ public final class MarketData {
       private int ordType_ = 0;
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for ordType.
        */
       public int getOrdTypeValue() {
         return ordType_;
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for ordType to set.
+       * @return This builder for chaining.
        */
       public Builder setOrdTypeValue(int value) {
         ordType_ = value;
@@ -15910,6 +16618,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The ordType.
        */
       public org.fixprotocol.components.MarketData.OrdTypeEnum getOrdType() {
         @SuppressWarnings("deprecation")
@@ -15918,6 +16627,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The ordType to set.
+       * @return This builder for chaining.
        */
       public Builder setOrdType(org.fixprotocol.components.MarketData.OrdTypeEnum value) {
         if (value == null) {
@@ -15930,6 +16641,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 31 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOrdType() {
         
@@ -15941,12 +16653,15 @@ public final class MarketData {
       private int orderCapacity_ = 0;
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for orderCapacity.
        */
       public int getOrderCapacityValue() {
         return orderCapacity_;
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for orderCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderCapacityValue(int value) {
         orderCapacity_ = value;
@@ -15955,6 +16670,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The orderCapacity.
        */
       public org.fixprotocol.components.MarketData.OrderCapacityEnum getOrderCapacity() {
         @SuppressWarnings("deprecation")
@@ -15963,6 +16679,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The orderCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderCapacity(org.fixprotocol.components.MarketData.OrderCapacityEnum value) {
         if (value == null) {
@@ -15975,6 +16693,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 32 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOrderCapacity() {
         
@@ -15986,6 +16705,7 @@ public final class MarketData {
       private java.lang.Object orderId_ = "";
       /**
        * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The orderId.
        */
       public java.lang.String getOrderId() {
         java.lang.Object ref = orderId_;
@@ -16001,6 +16721,7 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for orderId.
        */
       public com.google.protobuf.ByteString
           getOrderIdBytes() {
@@ -16017,6 +16738,8 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The orderId to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderId(
           java.lang.String value) {
@@ -16030,6 +16753,7 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOrderId() {
         
@@ -16039,6 +16763,8 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 33 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for orderId to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderIdBytes(
           com.google.protobuf.ByteString value) {
@@ -16297,12 +17023,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> priceDeltaBuilder_;
       /**
        * <code>.fix.Decimal64 price_delta = 35 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the priceDelta field is set.
        */
       public boolean hasPriceDelta() {
         return priceDeltaBuilder_ != null || priceDelta_ != null;
       }
       /**
        * <code>.fix.Decimal64 price_delta = 35 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The priceDelta.
        */
       public org.fixprotocol.components.Fix.Decimal64 getPriceDelta() {
         if (priceDeltaBuilder_ == null) {
@@ -16419,6 +17147,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the quoteCondition.
        */
       public java.util.List<org.fixprotocol.components.MarketData.QuoteConditionEnum> getQuoteConditionList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -16426,18 +17155,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of quoteCondition.
        */
       public int getQuoteConditionCount() {
         return quoteCondition_.size();
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The quoteCondition at the given index.
        */
       public org.fixprotocol.components.MarketData.QuoteConditionEnum getQuoteCondition(int index) {
         return quoteCondition_converter_.convert(quoteCondition_.get(index));
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The quoteCondition to set.
+       * @return This builder for chaining.
        */
       public Builder setQuoteCondition(
           int index, org.fixprotocol.components.MarketData.QuoteConditionEnum value) {
@@ -16451,6 +17186,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addQuoteCondition(org.fixprotocol.components.MarketData.QuoteConditionEnum value) {
         if (value == null) {
@@ -16463,6 +17200,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllQuoteCondition(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.QuoteConditionEnum> values) {
@@ -16475,6 +17214,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearQuoteCondition() {
         quoteCondition_ = java.util.Collections.emptyList();
@@ -16484,6 +17224,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for quoteCondition.
        */
       public java.util.List<java.lang.Integer>
       getQuoteConditionValueList() {
@@ -16491,12 +17232,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of quoteCondition at the given index.
        */
       public int getQuoteConditionValue(int index) {
         return quoteCondition_.get(index);
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of quoteCondition at the given index.
+       * @return This builder for chaining.
        */
       public Builder setQuoteConditionValue(
           int index, int value) {
@@ -16507,6 +17253,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addQuoteConditionValue(int value) {
         ensureQuoteConditionIsMutable();
@@ -16516,6 +17264,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 36 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllQuoteConditionValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -16530,6 +17280,7 @@ public final class MarketData {
       private java.lang.Object quoteEntryId_ = "";
       /**
        * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The quoteEntryId.
        */
       public java.lang.String getQuoteEntryId() {
         java.lang.Object ref = quoteEntryId_;
@@ -16545,6 +17296,7 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for quoteEntryId.
        */
       public com.google.protobuf.ByteString
           getQuoteEntryIdBytes() {
@@ -16561,6 +17313,8 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The quoteEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setQuoteEntryId(
           java.lang.String value) {
@@ -16574,6 +17328,7 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearQuoteEntryId() {
         
@@ -16583,6 +17338,8 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 37 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for quoteEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setQuoteEntryIdBytes(
           com.google.protobuf.ByteString value) {
@@ -16599,12 +17356,15 @@ public final class MarketData {
       private long rptSeq_ ;
       /**
        * <code>sfixed64 rpt_seq = 38 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The rptSeq.
        */
       public long getRptSeq() {
         return rptSeq_;
       }
       /**
        * <code>sfixed64 rpt_seq = 38 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The rptSeq to set.
+       * @return This builder for chaining.
        */
       public Builder setRptSeq(long value) {
         
@@ -16614,6 +17374,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 rpt_seq = 38 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRptSeq() {
         
@@ -16632,6 +17393,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the scope.
        */
       public java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -16639,18 +17401,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of scope.
        */
       public int getScopeCount() {
         return scope_.size();
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The scope at the given index.
        */
       public org.fixprotocol.components.MarketData.ScopeEnum getScope(int index) {
         return scope_converter_.convert(scope_.get(index));
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The scope to set.
+       * @return This builder for chaining.
        */
       public Builder setScope(
           int index, org.fixprotocol.components.MarketData.ScopeEnum value) {
@@ -16664,6 +17432,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The scope to add.
+       * @return This builder for chaining.
        */
       public Builder addScope(org.fixprotocol.components.MarketData.ScopeEnum value) {
         if (value == null) {
@@ -16676,6 +17446,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The scope to add.
+       * @return This builder for chaining.
        */
       public Builder addAllScope(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.ScopeEnum> values) {
@@ -16688,6 +17460,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearScope() {
         scope_ = java.util.Collections.emptyList();
@@ -16697,6 +17470,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for scope.
        */
       public java.util.List<java.lang.Integer>
       getScopeValueList() {
@@ -16704,12 +17478,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of scope at the given index.
        */
       public int getScopeValue(int index) {
         return scope_.get(index);
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of scope at the given index.
+       * @return This builder for chaining.
        */
       public Builder setScopeValue(
           int index, int value) {
@@ -16720,6 +17499,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for scope to add.
+       * @return This builder for chaining.
        */
       public Builder addScopeValue(int value) {
         ensureScopeIsMutable();
@@ -16729,6 +17510,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 39 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for scope to add.
+       * @return This builder for chaining.
        */
       public Builder addAllScopeValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -16743,6 +17526,7 @@ public final class MarketData {
       private java.lang.Object secondaryOrderId_ = "";
       /**
        * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The secondaryOrderId.
        */
       public java.lang.String getSecondaryOrderId() {
         java.lang.Object ref = secondaryOrderId_;
@@ -16758,6 +17542,7 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for secondaryOrderId.
        */
       public com.google.protobuf.ByteString
           getSecondaryOrderIdBytes() {
@@ -16774,6 +17559,8 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The secondaryOrderId to set.
+       * @return This builder for chaining.
        */
       public Builder setSecondaryOrderId(
           java.lang.String value) {
@@ -16787,6 +17574,7 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecondaryOrderId() {
         
@@ -16796,6 +17584,8 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 40 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for secondaryOrderId to set.
+       * @return This builder for chaining.
        */
       public Builder setSecondaryOrderIdBytes(
           com.google.protobuf.ByteString value) {
@@ -16812,12 +17602,15 @@ public final class MarketData {
       private long sellerDays_ ;
       /**
        * <code>sfixed64 seller_days = 41 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The sellerDays.
        */
       public long getSellerDays() {
         return sellerDays_;
       }
       /**
        * <code>sfixed64 seller_days = 41 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The sellerDays to set.
+       * @return This builder for chaining.
        */
       public Builder setSellerDays(long value) {
         
@@ -16827,6 +17620,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 seller_days = 41 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSellerDays() {
         
@@ -16838,12 +17632,15 @@ public final class MarketData {
       private int settlDate_ ;
       /**
        * <code>sfixed32 settl_date = 42 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The settlDate.
        */
       public int getSettlDate() {
         return settlDate_;
       }
       /**
        * <code>sfixed32 settl_date = 42 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The settlDate to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlDate(int value) {
         
@@ -16853,6 +17650,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 settl_date = 42 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlDate() {
         
@@ -16863,6 +17661,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for settlType.
        */
       public int getSettlTypeValue() {
         if (settlTypeUnionCase_ == 43) {
@@ -16872,6 +17671,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlTypeValue(int value) {
         settlTypeUnionCase_ = 43;
@@ -16881,6 +17682,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The settlType.
        */
       public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
         if (settlTypeUnionCase_ == 43) {
@@ -16893,6 +17695,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlType(org.fixprotocol.components.MarketData.SettlTypeEnum value) {
         if (value == null) {
@@ -16905,6 +17709,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 43 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlType() {
         if (settlTypeUnionCase_ == 43) {
@@ -16919,12 +17724,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Tenor, org.fixprotocol.components.Fix.Tenor.Builder, org.fixprotocol.components.Fix.TenorOrBuilder> settlTypeTenorBuilder_;
       /**
        * <code>.fix.Tenor settl_type_tenor = 44 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the settlTypeTenor field is set.
        */
       public boolean hasSettlTypeTenor() {
         return settlTypeUnionCase_ == 44;
       }
       /**
        * <code>.fix.Tenor settl_type_tenor = 44 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The settlTypeTenor.
        */
       public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
         if (settlTypeTenorBuilder_ == null) {
@@ -17054,6 +17861,7 @@ public final class MarketData {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -17069,6 +17877,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -17085,6 +17894,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -17098,6 +17909,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -17107,6 +17919,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 45 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -17123,12 +17937,15 @@ public final class MarketData {
       private int tickDirection_ = 0;
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for tickDirection.
        */
       public int getTickDirectionValue() {
         return tickDirection_;
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tickDirection to set.
+       * @return This builder for chaining.
        */
       public Builder setTickDirectionValue(int value) {
         tickDirection_ = value;
@@ -17137,6 +17954,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tickDirection.
        */
       public org.fixprotocol.components.MarketData.TickDirectionEnum getTickDirection() {
         @SuppressWarnings("deprecation")
@@ -17145,6 +17963,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tickDirection to set.
+       * @return This builder for chaining.
        */
       public Builder setTickDirection(org.fixprotocol.components.MarketData.TickDirectionEnum value) {
         if (value == null) {
@@ -17157,6 +17977,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 46 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTickDirection() {
         
@@ -17168,12 +17989,15 @@ public final class MarketData {
       private int timeInForce_ = 0;
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for timeInForce.
        */
       public int getTimeInForceValue() {
         return timeInForce_;
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for timeInForce to set.
+       * @return This builder for chaining.
        */
       public Builder setTimeInForceValue(int value) {
         timeInForce_ = value;
@@ -17182,6 +18006,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The timeInForce.
        */
       public org.fixprotocol.components.MarketData.TimeInForceEnum getTimeInForce() {
         @SuppressWarnings("deprecation")
@@ -17190,6 +18015,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The timeInForce to set.
+       * @return This builder for chaining.
        */
       public Builder setTimeInForce(org.fixprotocol.components.MarketData.TimeInForceEnum value) {
         if (value == null) {
@@ -17202,6 +18029,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 47 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTimeInForce() {
         
@@ -17220,6 +18048,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the tradeCondition.
        */
       public java.util.List<org.fixprotocol.components.MarketData.TradeConditionEnum> getTradeConditionList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -17227,18 +18056,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of tradeCondition.
        */
       public int getTradeConditionCount() {
         return tradeCondition_.size();
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The tradeCondition at the given index.
        */
       public org.fixprotocol.components.MarketData.TradeConditionEnum getTradeCondition(int index) {
         return tradeCondition_converter_.convert(tradeCondition_.get(index));
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The tradeCondition to set.
+       * @return This builder for chaining.
        */
       public Builder setTradeCondition(
           int index, org.fixprotocol.components.MarketData.TradeConditionEnum value) {
@@ -17252,6 +18087,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addTradeCondition(org.fixprotocol.components.MarketData.TradeConditionEnum value) {
         if (value == null) {
@@ -17264,6 +18101,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllTradeCondition(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.TradeConditionEnum> values) {
@@ -17276,6 +18115,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradeCondition() {
         tradeCondition_ = java.util.Collections.emptyList();
@@ -17285,6 +18125,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for tradeCondition.
        */
       public java.util.List<java.lang.Integer>
       getTradeConditionValueList() {
@@ -17292,12 +18133,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of tradeCondition at the given index.
        */
       public int getTradeConditionValue(int index) {
         return tradeCondition_.get(index);
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of tradeCondition at the given index.
+       * @return This builder for chaining.
        */
       public Builder setTradeConditionValue(
           int index, int value) {
@@ -17308,6 +18154,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addTradeConditionValue(int value) {
         ensureTradeConditionIsMutable();
@@ -17317,6 +18165,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 48 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllTradeConditionValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -17333,12 +18183,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> tradeVolumeBuilder_;
       /**
        * <code>.fix.Decimal64 trade_volume = 49 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the tradeVolume field is set.
        */
       public boolean hasTradeVolume() {
         return tradeVolumeBuilder_ != null || tradeVolume_ != null;
       }
       /**
        * <code>.fix.Decimal64 trade_volume = 49 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradeVolume.
        */
       public org.fixprotocol.components.Fix.Decimal64 getTradeVolume() {
         if (tradeVolumeBuilder_ == null) {
@@ -17447,6 +18299,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for tradingSessionId.
        */
       public int getTradingSessionIdValue() {
         if (tradingSessionIdUnionCase_ == 50) {
@@ -17456,6 +18309,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tradingSessionId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionIdValue(int value) {
         tradingSessionIdUnionCase_ = 50;
@@ -17465,6 +18320,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionId.
        */
       public org.fixprotocol.components.MarketData.TradingSessionIDEnum getTradingSessionId() {
         if (tradingSessionIdUnionCase_ == 50) {
@@ -17477,6 +18333,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionId(org.fixprotocol.components.MarketData.TradingSessionIDEnum value) {
         if (value == null) {
@@ -17489,6 +18347,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 50 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionId() {
         if (tradingSessionIdUnionCase_ == 50) {
@@ -17501,6 +18360,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 trading_session_id_reserved100plus = 51 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionIdReserved100plus.
        */
       public int getTradingSessionIdReserved100Plus() {
         if (tradingSessionIdUnionCase_ == 51) {
@@ -17510,6 +18370,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_id_reserved100plus = 51 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionIdReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionIdReserved100Plus(int value) {
         tradingSessionIdUnionCase_ = 51;
@@ -17519,6 +18381,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_id_reserved100plus = 51 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionIdReserved100Plus() {
         if (tradingSessionIdUnionCase_ == 51) {
@@ -17531,6 +18394,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for tradingSessionSubId.
        */
       public int getTradingSessionSubIdValue() {
         if (tradingSessionSubIdUnionCase_ == 52) {
@@ -17540,6 +18404,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tradingSessionSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionSubIdValue(int value) {
         tradingSessionSubIdUnionCase_ = 52;
@@ -17549,6 +18415,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionSubId.
        */
       public org.fixprotocol.components.MarketData.TradingSessionSubIDEnum getTradingSessionSubId() {
         if (tradingSessionSubIdUnionCase_ == 52) {
@@ -17561,6 +18428,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionSubId(org.fixprotocol.components.MarketData.TradingSessionSubIDEnum value) {
         if (value == null) {
@@ -17573,6 +18442,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 52 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionSubId() {
         if (tradingSessionSubIdUnionCase_ == 52) {
@@ -17585,6 +18455,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 trading_session_sub_id_reserved100plus = 53 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionSubIdReserved100plus.
        */
       public int getTradingSessionSubIdReserved100Plus() {
         if (tradingSessionSubIdUnionCase_ == 53) {
@@ -17594,6 +18465,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_sub_id_reserved100plus = 53 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionSubIdReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionSubIdReserved100Plus(int value) {
         tradingSessionSubIdUnionCase_ = 53;
@@ -17603,6 +18476,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_sub_id_reserved100plus = 53 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionSubIdReserved100Plus() {
         if (tradingSessionSubIdUnionCase_ == 53) {
@@ -17615,6 +18489,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for haltReason.
        */
       public int getHaltReasonValue() {
         if (haltReasonUnionCase_ == 54) {
@@ -17624,6 +18499,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for haltReason to set.
+       * @return This builder for chaining.
        */
       public Builder setHaltReasonValue(int value) {
         haltReasonUnionCase_ = 54;
@@ -17633,6 +18510,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The haltReason.
        */
       public org.fixprotocol.components.MarketData.HaltReasonEnum getHaltReason() {
         if (haltReasonUnionCase_ == 54) {
@@ -17645,6 +18523,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The haltReason to set.
+       * @return This builder for chaining.
        */
       public Builder setHaltReason(org.fixprotocol.components.MarketData.HaltReasonEnum value) {
         if (value == null) {
@@ -17657,6 +18537,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 54 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHaltReason() {
         if (haltReasonUnionCase_ == 54) {
@@ -17669,6 +18550,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 halt_reason_reserved100plus = 55 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The haltReasonReserved100plus.
        */
       public int getHaltReasonReserved100Plus() {
         if (haltReasonUnionCase_ == 55) {
@@ -17678,6 +18560,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 halt_reason_reserved100plus = 55 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The haltReasonReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setHaltReasonReserved100Plus(int value) {
         haltReasonUnionCase_ = 55;
@@ -17687,6 +18571,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 halt_reason_reserved100plus = 55 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHaltReasonReserved100Plus() {
         if (haltReasonUnionCase_ == 55) {
@@ -17700,12 +18585,15 @@ public final class MarketData {
       private int lotType_ = 0;
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for lotType.
        */
       public int getLotTypeValue() {
         return lotType_;
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for lotType to set.
+       * @return This builder for chaining.
        */
       public Builder setLotTypeValue(int value) {
         lotType_ = value;
@@ -17714,6 +18602,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The lotType.
        */
       public org.fixprotocol.components.MarketData.LotTypeEnum getLotType() {
         @SuppressWarnings("deprecation")
@@ -17722,6 +18611,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The lotType to set.
+       * @return This builder for chaining.
        */
       public Builder setLotType(org.fixprotocol.components.MarketData.LotTypeEnum value) {
         if (value == null) {
@@ -17734,6 +18625,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 56 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearLotType() {
         
@@ -17745,12 +18637,15 @@ public final class MarketData {
       private int priceType_ = 0;
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for priceType.
        */
       public int getPriceTypeValue() {
         return priceType_;
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for priceType to set.
+       * @return This builder for chaining.
        */
       public Builder setPriceTypeValue(int value) {
         priceType_ = value;
@@ -17759,6 +18654,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The priceType.
        */
       public org.fixprotocol.components.MarketData.PriceTypeEnum getPriceType() {
         @SuppressWarnings("deprecation")
@@ -17767,6 +18663,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The priceType to set.
+       * @return This builder for chaining.
        */
       public Builder setPriceType(org.fixprotocol.components.MarketData.PriceTypeEnum value) {
         if (value == null) {
@@ -17779,6 +18677,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 57 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearPriceType() {
         
@@ -18029,6 +18928,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for securityTradingStatus.
        */
       public int getSecurityTradingStatusValue() {
         if (securityTradingStatusUnionCase_ == 59) {
@@ -18038,6 +18938,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for securityTradingStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSecurityTradingStatusValue(int value) {
         securityTradingStatusUnionCase_ = 59;
@@ -18047,6 +18949,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The securityTradingStatus.
        */
       public org.fixprotocol.components.MarketData.SecurityTradingStatusEnum getSecurityTradingStatus() {
         if (securityTradingStatusUnionCase_ == 59) {
@@ -18059,6 +18962,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The securityTradingStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSecurityTradingStatus(org.fixprotocol.components.MarketData.SecurityTradingStatusEnum value) {
         if (value == null) {
@@ -18071,6 +18976,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 59 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecurityTradingStatus() {
         if (securityTradingStatusUnionCase_ == 59) {
@@ -18083,6 +18989,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 security_trading_status_reserved100plus = 60 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The securityTradingStatusReserved100plus.
        */
       public int getSecurityTradingStatusReserved100Plus() {
         if (securityTradingStatusUnionCase_ == 60) {
@@ -18092,6 +18999,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 security_trading_status_reserved100plus = 60 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The securityTradingStatusReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setSecurityTradingStatusReserved100Plus(int value) {
         securityTradingStatusUnionCase_ = 60;
@@ -18101,6 +19010,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 security_trading_status_reserved100plus = 60 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecurityTradingStatusReserved100Plus() {
         if (securityTradingStatusUnionCase_ == 60) {
@@ -18116,12 +19026,14 @@ public final class MarketData {
           org.fixprotocol.components.SpreadOrBenchmarkCurveData, org.fixprotocol.components.SpreadOrBenchmarkCurveData.Builder, org.fixprotocol.components.SpreadOrBenchmarkCurveDataOrBuilder> spreadOrBenchmarkCurveDataBuilder_;
       /**
        * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the spreadOrBenchmarkCurveData field is set.
        */
       public boolean hasSpreadOrBenchmarkCurveData() {
         return spreadOrBenchmarkCurveDataBuilder_ != null || spreadOrBenchmarkCurveData_ != null;
       }
       /**
        * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 61 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The spreadOrBenchmarkCurveData.
        */
       public org.fixprotocol.components.SpreadOrBenchmarkCurveData getSpreadOrBenchmarkCurveData() {
         if (spreadOrBenchmarkCurveDataBuilder_ == null) {
@@ -18233,12 +19145,14 @@ public final class MarketData {
           org.fixprotocol.components.YieldData, org.fixprotocol.components.YieldData.Builder, org.fixprotocol.components.YieldDataOrBuilder> yieldDataBuilder_;
       /**
        * <code>.Common.YieldData yield_data = 62 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the yieldData field is set.
        */
       public boolean hasYieldData() {
         return yieldDataBuilder_ != null || yieldData_ != null;
       }
       /**
        * <code>.Common.YieldData yield_data = 62 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The yieldData.
        */
       public org.fixprotocol.components.YieldData getYieldData() {
         if (yieldDataBuilder_ == null) {
@@ -18588,6 +19502,7 @@ public final class MarketData {
       private java.lang.Object settlCurrency_ = "";
       /**
        * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @return The settlCurrency.
        */
       public java.lang.String getSettlCurrency() {
         java.lang.Object ref = settlCurrency_;
@@ -18603,6 +19518,7 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @return The bytes for settlCurrency.
        */
       public com.google.protobuf.ByteString
           getSettlCurrencyBytes() {
@@ -18619,6 +19535,8 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @param value The settlCurrency to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlCurrency(
           java.lang.String value) {
@@ -18632,6 +19550,7 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlCurrency() {
         
@@ -18641,6 +19560,8 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 64 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @param value The bytes for settlCurrency to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlCurrencyBytes(
           com.google.protobuf.ByteString value) {
@@ -18659,12 +19580,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> firstPxBuilder_;
       /**
        * <code>.fix.Decimal64 first_px = 65 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return Whether the firstPx field is set.
        */
       public boolean hasFirstPx() {
         return firstPxBuilder_ != null || firstPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 first_px = 65 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The firstPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getFirstPx() {
         if (firstPxBuilder_ == null) {
@@ -18776,12 +19699,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> lastPxBuilder_;
       /**
        * <code>.fix.Decimal64 last_px = 66 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return Whether the lastPx field is set.
        */
       public boolean hasLastPx() {
         return lastPxBuilder_ != null || lastPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 last_px = 66 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The lastPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getLastPx() {
         if (lastPxBuilder_ == null) {
@@ -18890,6 +19815,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The enum numeric value on the wire for trdType.
        */
       public int getTrdTypeValue() {
         if (trdTypeUnionCase_ == 67) {
@@ -18899,6 +19825,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @param value The enum numeric value on the wire for trdType to set.
+       * @return This builder for chaining.
        */
       public Builder setTrdTypeValue(int value) {
         trdTypeUnionCase_ = 67;
@@ -18908,6 +19836,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The trdType.
        */
       public org.fixprotocol.components.MarketData.TrdTypeEnum getTrdType() {
         if (trdTypeUnionCase_ == 67) {
@@ -18920,6 +19849,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @param value The trdType to set.
+       * @return This builder for chaining.
        */
       public Builder setTrdType(org.fixprotocol.components.MarketData.TrdTypeEnum value) {
         if (value == null) {
@@ -18932,6 +19863,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 67 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTrdType() {
         if (trdTypeUnionCase_ == 67) {
@@ -18944,6 +19876,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 trd_type_reserved1000plus = 68 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The trdTypeReserved1000plus.
        */
       public int getTrdTypeReserved1000Plus() {
         if (trdTypeUnionCase_ == 68) {
@@ -18953,6 +19886,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trd_type_reserved1000plus = 68 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @param value The trdTypeReserved1000plus to set.
+       * @return This builder for chaining.
        */
       public Builder setTrdTypeReserved1000Plus(int value) {
         trdTypeUnionCase_ = 68;
@@ -18962,6 +19897,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trd_type_reserved1000plus = 68 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTrdTypeReserved1000Plus() {
         if (trdTypeUnionCase_ == 68) {
@@ -19030,112 +19966,140 @@ public final class MarketData {
 
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the corporateAction.
      */
     java.util.List<org.fixprotocol.components.MarketData.CorporateActionEnum> getCorporateActionList();
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of corporateAction.
      */
     int getCorporateActionCount();
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The corporateAction at the given index.
      */
     org.fixprotocol.components.MarketData.CorporateActionEnum getCorporateAction(int index);
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for corporateAction.
      */
     java.util.List<java.lang.Integer>
     getCorporateActionValueList();
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of corporateAction at the given index.
      */
     int getCorporateActionValue(int index);
 
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The currency.
      */
     java.lang.String getCurrency();
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for currency.
      */
     com.google.protobuf.ByteString
         getCurrencyBytes();
 
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for dealingCapacity.
      */
     int getDealingCapacityValue();
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The dealingCapacity.
      */
     org.fixprotocol.components.MarketData.DealingCapacityEnum getDealingCapacity();
 
     /**
      * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for deleteReason.
      */
     int getDeleteReasonValue();
     /**
      * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deleteReason.
      */
     org.fixprotocol.components.MarketData.DeleteReasonEnum getDeleteReason();
 
     /**
      * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskId.
      */
     java.lang.String getDeskId();
     /**
      * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for deskId.
      */
     com.google.protobuf.ByteString
         getDeskIdBytes();
 
     /**
      * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 7 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the execInst.
      */
     java.util.List<org.fixprotocol.components.MarketData.ExecInstEnum> getExecInstList();
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of execInst.
      */
     int getExecInstCount();
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The execInst at the given index.
      */
     org.fixprotocol.components.MarketData.ExecInstEnum getExecInst(int index);
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for execInst.
      */
     java.util.List<java.lang.Integer>
     getExecInstValueList();
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of execInst at the given index.
      */
     int getExecInstValue(int index);
 
     /**
      * <code>sfixed32 expire_date = 9 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireDate.
      */
     int getExpireDate();
 
     /**
      * <code>.fix.Timestamp expire_time = 10 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the expireTime field is set.
      */
     boolean hasExpireTime();
     /**
      * <code>.fix.Timestamp expire_time = 10 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireTime.
      */
     org.fixprotocol.components.Fix.Timestamp getExpireTime();
     /**
@@ -19145,32 +20109,41 @@ public final class MarketData {
 
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the financialStatus.
      */
     java.util.List<org.fixprotocol.components.MarketData.FinancialStatusEnum> getFinancialStatusList();
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of financialStatus.
      */
     int getFinancialStatusCount();
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The financialStatus at the given index.
      */
     org.fixprotocol.components.MarketData.FinancialStatusEnum getFinancialStatus(int index);
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for financialStatus.
      */
     java.util.List<java.lang.Integer>
     getFinancialStatusValueList();
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of financialStatus at the given index.
      */
     int getFinancialStatusValue(int index);
 
     /**
      * <code>.fix.Decimal64 high_px = 12 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the highPx field is set.
      */
     boolean hasHighPx();
     /**
      * <code>.fix.Decimal64 high_px = 12 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The highPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getHighPx();
     /**
@@ -19204,10 +20177,12 @@ public final class MarketData {
 
     /**
      * <code>.Common.Instrument instrument = 14 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrument field is set.
      */
     boolean hasInstrument();
     /**
      * <code>.Common.Instrument instrument = 14 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrument.
      */
     org.fixprotocol.components.Instrument getInstrument();
     /**
@@ -19217,20 +20192,24 @@ public final class MarketData {
 
     /**
      * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The locationId.
      */
     java.lang.String getLocationId();
     /**
      * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for locationId.
      */
     com.google.protobuf.ByteString
         getLocationIdBytes();
 
     /**
      * <code>.fix.Decimal64 low_px = 16 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the lowPx field is set.
      */
     boolean hasLowPx();
     /**
      * <code>.fix.Decimal64 low_px = 16 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The lowPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getLowPx();
     /**
@@ -19240,25 +20219,30 @@ public final class MarketData {
 
     /**
      * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryBuyer.
      */
     java.lang.String getMdEntryBuyer();
     /**
      * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryBuyer.
      */
     com.google.protobuf.ByteString
         getMdEntryBuyerBytes();
 
     /**
      * <code>sfixed32 md_entry_date = 18 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryDate.
      */
     int getMdEntryDate();
 
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 19 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryForwardPoints field is set.
      */
     boolean hasMdEntryForwardPoints();
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 19 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryForwardPoints.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntryForwardPoints();
     /**
@@ -19268,35 +20252,42 @@ public final class MarketData {
 
     /**
      * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryId.
      */
     java.lang.String getMdEntryId();
     /**
      * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryId.
      */
     com.google.protobuf.ByteString
         getMdEntryIdBytes();
 
     /**
      * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryOriginator.
      */
     java.lang.String getMdEntryOriginator();
     /**
      * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryOriginator.
      */
     com.google.protobuf.ByteString
         getMdEntryOriginatorBytes();
 
     /**
      * <code>sfixed64 md_entry_position_no = 22 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPositionNo.
      */
     long getMdEntryPositionNo();
 
     /**
      * <code>.fix.Decimal64 md_entry_px = 23 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryPx field is set.
      */
     boolean hasMdEntryPx();
     /**
      * <code>.fix.Decimal64 md_entry_px = 23 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntryPx();
     /**
@@ -19306,30 +20297,36 @@ public final class MarketData {
 
     /**
      * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryRefId.
      */
     java.lang.String getMdEntryRefId();
     /**
      * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryRefId.
      */
     com.google.protobuf.ByteString
         getMdEntryRefIdBytes();
 
     /**
      * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySeller.
      */
     java.lang.String getMdEntrySeller();
     /**
      * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntrySeller.
      */
     com.google.protobuf.ByteString
         getMdEntrySellerBytes();
 
     /**
      * <code>.fix.Decimal64 md_entry_size = 26 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     boolean hasMdEntrySize();
     /**
      * <code>.fix.Decimal64 md_entry_size = 26 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySize.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntrySize();
     /**
@@ -19339,10 +20336,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 27 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySpotRate field is set.
      */
     boolean hasMdEntrySpotRate();
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 27 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySpotRate.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntrySpotRate();
     /**
@@ -19352,10 +20351,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.TimeOnly md_entry_time = 28 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryTime field is set.
      */
     boolean hasMdEntryTime();
     /**
      * <code>.fix.TimeOnly md_entry_time = 28 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryTime.
      */
     org.fixprotocol.components.Fix.TimeOnly getMdEntryTime();
     /**
@@ -19365,61 +20366,74 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdEntryType.
      */
     int getMdEntryTypeValue();
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryType.
      */
     org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType();
 
     /**
      * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdMkt.
      */
     java.lang.String getMdMkt();
     /**
      * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdMkt.
      */
     com.google.protobuf.ByteString
         getMdMktBytes();
 
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdOriginType.
      */
     int getMdOriginTypeValue();
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdOriginType.
      */
     org.fixprotocol.components.MarketData.MDOriginTypeEnum getMdOriginType();
 
     /**
      * <code>sfixed64 md_price_level = 32 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdPriceLevel.
      */
     long getMdPriceLevel();
 
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdQuoteType.
      */
     int getMdQuoteTypeValue();
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdQuoteType.
      */
     org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType();
 
     /**
      * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdUpdateAction.
      */
     int getMdUpdateActionValue();
     /**
      * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdUpdateAction.
      */
     org.fixprotocol.components.MarketData.MDUpdateActionEnum getMdUpdateAction();
 
     /**
      * <code>.fix.Decimal64 min_qty = 35 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the minQty field is set.
      */
     boolean hasMinQty();
     /**
      * <code>.fix.Decimal64 min_qty = 35 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The minQty.
      */
     org.fixprotocol.components.Fix.Decimal64 getMinQty();
     /**
@@ -19429,10 +20443,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 36 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the netChgPrevDay field is set.
      */
     boolean hasNetChgPrevDay();
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 36 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The netChgPrevDay.
      */
     org.fixprotocol.components.Fix.Decimal64 getNetChgPrevDay();
     /**
@@ -19442,55 +20458,69 @@ public final class MarketData {
 
     /**
      * <code>sfixed64 number_of_orders = 37 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The numberOfOrders.
      */
     long getNumberOfOrders();
 
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the openCloseSettlFlag.
      */
     java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of openCloseSettlFlag.
      */
     int getOpenCloseSettlFlagCount();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The openCloseSettlFlag at the given index.
      */
     org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index);
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
      */
     java.util.List<java.lang.Integer>
     getOpenCloseSettlFlagValueList();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
      */
     int getOpenCloseSettlFlagValue(int index);
 
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for ordType.
      */
     int getOrdTypeValue();
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The ordType.
      */
     org.fixprotocol.components.MarketData.OrdTypeEnum getOrdType();
 
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for orderCapacity.
      */
     int getOrderCapacityValue();
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderCapacity.
      */
     org.fixprotocol.components.MarketData.OrderCapacityEnum getOrderCapacity();
 
     /**
      * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderId.
      */
     java.lang.String getOrderId();
     /**
      * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for orderId.
      */
     com.google.protobuf.ByteString
         getOrderIdBytes();
@@ -19521,10 +20551,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 price_delta = 43 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the priceDelta field is set.
      */
     boolean hasPriceDelta();
     /**
      * <code>.fix.Decimal64 price_delta = 43 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The priceDelta.
      */
     org.fixprotocol.components.Fix.Decimal64 getPriceDelta();
     /**
@@ -19534,98 +20566,123 @@ public final class MarketData {
 
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the quoteCondition.
      */
     java.util.List<org.fixprotocol.components.MarketData.QuoteConditionEnum> getQuoteConditionList();
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of quoteCondition.
      */
     int getQuoteConditionCount();
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The quoteCondition at the given index.
      */
     org.fixprotocol.components.MarketData.QuoteConditionEnum getQuoteCondition(int index);
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for quoteCondition.
      */
     java.util.List<java.lang.Integer>
     getQuoteConditionValueList();
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of quoteCondition at the given index.
      */
     int getQuoteConditionValue(int index);
 
     /**
      * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The quoteEntryId.
      */
     java.lang.String getQuoteEntryId();
     /**
      * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for quoteEntryId.
      */
     com.google.protobuf.ByteString
         getQuoteEntryIdBytes();
 
     /**
      * <code>sfixed64 rpt_seq = 46 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rptSeq.
      */
     long getRptSeq();
 
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the scope.
      */
     java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of scope.
      */
     int getScopeCount();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The scope at the given index.
      */
     org.fixprotocol.components.MarketData.ScopeEnum getScope(int index);
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for scope.
      */
     java.util.List<java.lang.Integer>
     getScopeValueList();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of scope at the given index.
      */
     int getScopeValue(int index);
 
     /**
      * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryOrderId.
      */
     java.lang.String getSecondaryOrderId();
     /**
      * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for secondaryOrderId.
      */
     com.google.protobuf.ByteString
         getSecondaryOrderIdBytes();
 
     /**
      * <code>sfixed64 seller_days = 49 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The sellerDays.
      */
     long getSellerDays();
 
     /**
      * <code>sfixed32 settl_date = 50 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlDate.
      */
     int getSettlDate();
 
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     int getSettlTypeValue();
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlType.
      */
     org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType();
 
     /**
      * <code>.fix.Tenor settl_type_tenor = 52 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     boolean hasSettlTypeTenor();
     /**
      * <code>.fix.Tenor settl_type_tenor = 52 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlTypeTenor.
      */
     org.fixprotocol.components.Fix.Tenor getSettlTypeTenor();
     /**
@@ -19635,60 +20692,75 @@ public final class MarketData {
 
     /**
      * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
 
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tickDirection.
      */
     int getTickDirectionValue();
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tickDirection.
      */
     org.fixprotocol.components.MarketData.TickDirectionEnum getTickDirection();
 
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for timeInForce.
      */
     int getTimeInForceValue();
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The timeInForce.
      */
     org.fixprotocol.components.MarketData.TimeInForceEnum getTimeInForce();
 
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the tradeCondition.
      */
     java.util.List<org.fixprotocol.components.MarketData.TradeConditionEnum> getTradeConditionList();
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of tradeCondition.
      */
     int getTradeConditionCount();
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The tradeCondition at the given index.
      */
     org.fixprotocol.components.MarketData.TradeConditionEnum getTradeCondition(int index);
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for tradeCondition.
      */
     java.util.List<java.lang.Integer>
     getTradeConditionValueList();
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of tradeCondition at the given index.
      */
     int getTradeConditionValue(int index);
 
     /**
      * <code>.fix.Decimal64 trade_volume = 57 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradeVolume field is set.
      */
     boolean hasTradeVolume();
     /**
      * <code>.fix.Decimal64 trade_volume = 57 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeVolume.
      */
     org.fixprotocol.components.Fix.Decimal64 getTradeVolume();
     /**
@@ -19698,29 +20770,35 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionId.
      */
     int getTradingSessionIdValue();
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionId.
      */
     org.fixprotocol.components.MarketData.TradingSessionIDEnum getTradingSessionId();
 
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 59 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionIdReserved100plus.
      */
     int getTradingSessionIdReserved100Plus();
 
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionSubId.
      */
     int getTradingSessionSubIdValue();
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubId.
      */
     org.fixprotocol.components.MarketData.TradingSessionSubIDEnum getTradingSessionSubId();
 
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 61 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubIdReserved100plus.
      */
     int getTradingSessionSubIdReserved100Plus();
 
@@ -19750,52 +20828,63 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for haltReason.
      */
     int getHaltReasonValue();
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReason.
      */
     org.fixprotocol.components.MarketData.HaltReasonEnum getHaltReason();
 
     /**
      * <code>fixed32 halt_reason_reserved100plus = 64 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReasonReserved100plus.
      */
     int getHaltReasonReserved100Plus();
 
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for lotType.
      */
     int getLotTypeValue();
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The lotType.
      */
     org.fixprotocol.components.MarketData.LotTypeEnum getLotType();
 
     /**
      * <code>sfixed64 market_depth = 66 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketDepth.
      */
     long getMarketDepth();
 
     /**
      * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for matchType.
      */
     int getMatchTypeValue();
     /**
      * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The matchType.
      */
     org.fixprotocol.components.MarketData.MatchTypeEnum getMatchType();
 
     /**
      * <code>sfixed64 md_sub_book_type = 68 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSubBookType.
      */
     long getMdSubBookType();
 
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for priceType.
      */
     int getPriceTypeValue();
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceType.
      */
     org.fixprotocol.components.MarketData.PriceTypeEnum getPriceType();
 
@@ -19825,24 +20914,29 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for securityTradingStatus.
      */
     int getSecurityTradingStatusValue();
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatus.
      */
     org.fixprotocol.components.MarketData.SecurityTradingStatusEnum getSecurityTradingStatus();
 
     /**
      * <code>fixed32 security_trading_status_reserved100plus = 72 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatusReserved100plus.
      */
     int getSecurityTradingStatusReserved100Plus();
 
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the spreadOrBenchmarkCurveData field is set.
      */
     boolean hasSpreadOrBenchmarkCurveData();
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The spreadOrBenchmarkCurveData.
      */
     org.fixprotocol.components.SpreadOrBenchmarkCurveData getSpreadOrBenchmarkCurveData();
     /**
@@ -19876,20 +20970,24 @@ public final class MarketData {
 
     /**
      * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradeId.
      */
     java.lang.String getTradeId();
     /**
      * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for tradeId.
      */
     com.google.protobuf.ByteString
         getTradeIdBytes();
 
     /**
      * <code>.fix.Timestamp trans_bkd_time = 76 [(.fix.tag) = 483, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the transBkdTime field is set.
      */
     boolean hasTransBkdTime();
     /**
      * <code>.fix.Timestamp trans_bkd_time = 76 [(.fix.tag) = 483, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The transBkdTime.
      */
     org.fixprotocol.components.Fix.Timestamp getTransBkdTime();
     /**
@@ -19899,10 +20997,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Timestamp transact_time = 77 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the transactTime field is set.
      */
     boolean hasTransactTime();
     /**
      * <code>.fix.Timestamp transact_time = 77 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The transactTime.
      */
     org.fixprotocol.components.Fix.Timestamp getTransactTime();
     /**
@@ -19912,24 +21012,29 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for trdType.
      */
     int getTrdTypeValue();
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The trdType.
      */
     org.fixprotocol.components.MarketData.TrdTypeEnum getTrdType();
 
     /**
      * <code>fixed32 trd_type_reserved1000plus = 79 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The trdTypeReserved1000plus.
      */
     int getTrdTypeReserved1000Plus();
 
     /**
      * <code>.Common.YieldData yield_data = 80 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the yieldData field is set.
      */
     boolean hasYieldData();
     /**
      * <code>.Common.YieldData yield_data = 80 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The yieldData.
      */
     org.fixprotocol.components.YieldData getYieldData();
     /**
@@ -19963,20 +21068,24 @@ public final class MarketData {
 
     /**
      * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The settlCurrency.
      */
     java.lang.String getSettlCurrency();
     /**
      * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The bytes for settlCurrency.
      */
     com.google.protobuf.ByteString
         getSettlCurrencyBytes();
 
     /**
      * <code>.fix.Decimal64 first_px = 83 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the firstPx field is set.
      */
     boolean hasFirstPx();
     /**
      * <code>.fix.Decimal64 first_px = 83 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The firstPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getFirstPx();
     /**
@@ -19986,10 +21095,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 last_px = 84 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the lastPx field is set.
      */
     boolean hasLastPx();
     /**
      * <code>.fix.Decimal64 last_px = 84 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The lastPx.
      */
     org.fixprotocol.components.Fix.Decimal64 getLastPx();
     /**
@@ -19999,10 +21110,12 @@ public final class MarketData {
 
     /**
      * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     java.lang.String getMdStreamId();
     /**
      * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     com.google.protobuf.ByteString
         getMdStreamIdBytes();
@@ -20954,7 +22067,8 @@ public final class MarketData {
     private int settlTypeUnionCase_ = 0;
     private java.lang.Object settlTypeUnion_;
     public enum SettlTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SETTL_TYPE(51),
       SETTL_TYPE_TENOR(52),
       SETTLTYPEUNION_NOT_SET(0);
@@ -20963,6 +22077,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -20992,7 +22108,8 @@ public final class MarketData {
     private int tradingSessionIdUnionCase_ = 0;
     private java.lang.Object tradingSessionIdUnion_;
     public enum TradingSessionIdUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       TRADING_SESSION_ID(58),
       TRADING_SESSION_ID_RESERVED100PLUS(59),
       TRADINGSESSIONIDUNION_NOT_SET(0);
@@ -21001,6 +22118,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -21030,7 +22149,8 @@ public final class MarketData {
     private int tradingSessionSubIdUnionCase_ = 0;
     private java.lang.Object tradingSessionSubIdUnion_;
     public enum TradingSessionSubIdUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       TRADING_SESSION_SUB_ID(60),
       TRADING_SESSION_SUB_ID_RESERVED100PLUS(61),
       TRADINGSESSIONSUBIDUNION_NOT_SET(0);
@@ -21039,6 +22159,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -21068,7 +22190,8 @@ public final class MarketData {
     private int haltReasonUnionCase_ = 0;
     private java.lang.Object haltReasonUnion_;
     public enum HaltReasonUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       HALT_REASON(63),
       HALT_REASON_RESERVED100PLUS(64),
       HALTREASONUNION_NOT_SET(0);
@@ -21077,6 +22200,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -21106,7 +22231,8 @@ public final class MarketData {
     private int securityTradingStatusUnionCase_ = 0;
     private java.lang.Object securityTradingStatusUnion_;
     public enum SecurityTradingStatusUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SECURITY_TRADING_STATUS(71),
       SECURITY_TRADING_STATUS_RESERVED100PLUS(72),
       SECURITYTRADINGSTATUSUNION_NOT_SET(0);
@@ -21115,6 +22241,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -21144,7 +22272,8 @@ public final class MarketData {
     private int trdTypeUnionCase_ = 0;
     private java.lang.Object trdTypeUnion_;
     public enum TrdTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       TRD_TYPE(78),
       TRD_TYPE_RESERVED1000PLUS(79),
       TRDTYPEUNION_NOT_SET(0);
@@ -21153,6 +22282,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -21193,6 +22324,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the corporateAction.
      */
     public java.util.List<org.fixprotocol.components.MarketData.CorporateActionEnum> getCorporateActionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -21200,18 +22332,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of corporateAction.
      */
     public int getCorporateActionCount() {
       return corporateAction_.size();
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The corporateAction at the given index.
      */
     public org.fixprotocol.components.MarketData.CorporateActionEnum getCorporateAction(int index) {
       return corporateAction_converter_.convert(corporateAction_.get(index));
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for corporateAction.
      */
     public java.util.List<java.lang.Integer>
     getCorporateActionValueList() {
@@ -21219,6 +22355,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of corporateAction at the given index.
      */
     public int getCorporateActionValue(int index) {
       return corporateAction_.get(index);
@@ -21229,6 +22367,7 @@ public final class MarketData {
     private volatile java.lang.Object currency_;
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The currency.
      */
     public java.lang.String getCurrency() {
       java.lang.Object ref = currency_;
@@ -21244,6 +22383,7 @@ public final class MarketData {
     }
     /**
      * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for currency.
      */
     public com.google.protobuf.ByteString
         getCurrencyBytes() {
@@ -21263,12 +22403,14 @@ public final class MarketData {
     private int dealingCapacity_;
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for dealingCapacity.
      */
     public int getDealingCapacityValue() {
       return dealingCapacity_;
     }
     /**
      * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The dealingCapacity.
      */
     public org.fixprotocol.components.MarketData.DealingCapacityEnum getDealingCapacity() {
       @SuppressWarnings("deprecation")
@@ -21280,12 +22422,14 @@ public final class MarketData {
     private int deleteReason_;
     /**
      * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for deleteReason.
      */
     public int getDeleteReasonValue() {
       return deleteReason_;
     }
     /**
      * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deleteReason.
      */
     public org.fixprotocol.components.MarketData.DeleteReasonEnum getDeleteReason() {
       @SuppressWarnings("deprecation")
@@ -21297,6 +22441,7 @@ public final class MarketData {
     private volatile java.lang.Object deskId_;
     /**
      * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deskId.
      */
     public java.lang.String getDeskId() {
       java.lang.Object ref = deskId_;
@@ -21312,6 +22457,7 @@ public final class MarketData {
     }
     /**
      * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for deskId.
      */
     public com.google.protobuf.ByteString
         getDeskIdBytes() {
@@ -21331,6 +22477,7 @@ public final class MarketData {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -21346,6 +22493,7 @@ public final class MarketData {
     }
     /**
      * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -21365,6 +22513,7 @@ public final class MarketData {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 7 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -21384,6 +22533,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the execInst.
      */
     public java.util.List<org.fixprotocol.components.MarketData.ExecInstEnum> getExecInstList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -21391,18 +22541,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of execInst.
      */
     public int getExecInstCount() {
       return execInst_.size();
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The execInst at the given index.
      */
     public org.fixprotocol.components.MarketData.ExecInstEnum getExecInst(int index) {
       return execInst_converter_.convert(execInst_.get(index));
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for execInst.
      */
     public java.util.List<java.lang.Integer>
     getExecInstValueList() {
@@ -21410,6 +22564,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of execInst at the given index.
      */
     public int getExecInstValue(int index) {
       return execInst_.get(index);
@@ -21420,6 +22576,7 @@ public final class MarketData {
     private int expireDate_;
     /**
      * <code>sfixed32 expire_date = 9 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireDate.
      */
     public int getExpireDate() {
       return expireDate_;
@@ -21429,12 +22586,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Timestamp expireTime_;
     /**
      * <code>.fix.Timestamp expire_time = 10 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the expireTime field is set.
      */
     public boolean hasExpireTime() {
       return expireTime_ != null;
     }
     /**
      * <code>.fix.Timestamp expire_time = 10 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The expireTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getExpireTime() {
       return expireTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : expireTime_;
@@ -21460,6 +22619,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the financialStatus.
      */
     public java.util.List<org.fixprotocol.components.MarketData.FinancialStatusEnum> getFinancialStatusList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -21467,18 +22627,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of financialStatus.
      */
     public int getFinancialStatusCount() {
       return financialStatus_.size();
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The financialStatus at the given index.
      */
     public org.fixprotocol.components.MarketData.FinancialStatusEnum getFinancialStatus(int index) {
       return financialStatus_converter_.convert(financialStatus_.get(index));
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for financialStatus.
      */
     public java.util.List<java.lang.Integer>
     getFinancialStatusValueList() {
@@ -21486,6 +22650,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of financialStatus at the given index.
      */
     public int getFinancialStatusValue(int index) {
       return financialStatus_.get(index);
@@ -21496,12 +22662,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 highPx_;
     /**
      * <code>.fix.Decimal64 high_px = 12 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the highPx field is set.
      */
     public boolean hasHighPx() {
       return highPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 high_px = 12 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The highPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getHighPx() {
       return highPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : highPx_;
@@ -21552,12 +22720,14 @@ public final class MarketData {
     private org.fixprotocol.components.Instrument instrument_;
     /**
      * <code>.Common.Instrument instrument = 14 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 14 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -21573,6 +22743,7 @@ public final class MarketData {
     private volatile java.lang.Object locationId_;
     /**
      * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The locationId.
      */
     public java.lang.String getLocationId() {
       java.lang.Object ref = locationId_;
@@ -21588,6 +22759,7 @@ public final class MarketData {
     }
     /**
      * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for locationId.
      */
     public com.google.protobuf.ByteString
         getLocationIdBytes() {
@@ -21607,12 +22779,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 lowPx_;
     /**
      * <code>.fix.Decimal64 low_px = 16 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the lowPx field is set.
      */
     public boolean hasLowPx() {
       return lowPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 low_px = 16 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The lowPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLowPx() {
       return lowPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : lowPx_;
@@ -21628,6 +22802,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryBuyer_;
     /**
      * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryBuyer.
      */
     public java.lang.String getMdEntryBuyer() {
       java.lang.Object ref = mdEntryBuyer_;
@@ -21643,6 +22818,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryBuyer.
      */
     public com.google.protobuf.ByteString
         getMdEntryBuyerBytes() {
@@ -21662,6 +22838,7 @@ public final class MarketData {
     private int mdEntryDate_;
     /**
      * <code>sfixed32 md_entry_date = 18 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryDate.
      */
     public int getMdEntryDate() {
       return mdEntryDate_;
@@ -21671,12 +22848,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntryForwardPoints_;
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 19 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryForwardPoints field is set.
      */
     public boolean hasMdEntryForwardPoints() {
       return mdEntryForwardPoints_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_forward_points = 19 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryForwardPoints.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntryForwardPoints() {
       return mdEntryForwardPoints_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntryForwardPoints_;
@@ -21692,6 +22871,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryId_;
     /**
      * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryId.
      */
     public java.lang.String getMdEntryId() {
       java.lang.Object ref = mdEntryId_;
@@ -21707,6 +22887,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryId.
      */
     public com.google.protobuf.ByteString
         getMdEntryIdBytes() {
@@ -21726,6 +22907,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryOriginator_;
     /**
      * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryOriginator.
      */
     public java.lang.String getMdEntryOriginator() {
       java.lang.Object ref = mdEntryOriginator_;
@@ -21741,6 +22923,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryOriginator.
      */
     public com.google.protobuf.ByteString
         getMdEntryOriginatorBytes() {
@@ -21760,6 +22943,7 @@ public final class MarketData {
     private long mdEntryPositionNo_;
     /**
      * <code>sfixed64 md_entry_position_no = 22 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPositionNo.
      */
     public long getMdEntryPositionNo() {
       return mdEntryPositionNo_;
@@ -21769,12 +22953,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntryPx_;
     /**
      * <code>.fix.Decimal64 md_entry_px = 23 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryPx field is set.
      */
     public boolean hasMdEntryPx() {
       return mdEntryPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_px = 23 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntryPx() {
       return mdEntryPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntryPx_;
@@ -21790,6 +22976,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntryRefId_;
     /**
      * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryRefId.
      */
     public java.lang.String getMdEntryRefId() {
       java.lang.Object ref = mdEntryRefId_;
@@ -21805,6 +22992,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntryRefId.
      */
     public com.google.protobuf.ByteString
         getMdEntryRefIdBytes() {
@@ -21824,6 +23012,7 @@ public final class MarketData {
     private volatile java.lang.Object mdEntrySeller_;
     /**
      * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySeller.
      */
     public java.lang.String getMdEntrySeller() {
       java.lang.Object ref = mdEntrySeller_;
@@ -21839,6 +23028,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdEntrySeller.
      */
     public com.google.protobuf.ByteString
         getMdEntrySellerBytes() {
@@ -21858,12 +23048,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntrySize_;
     /**
      * <code>.fix.Decimal64 md_entry_size = 26 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     public boolean hasMdEntrySize() {
       return mdEntrySize_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_size = 26 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySize.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
       return mdEntrySize_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntrySize_;
@@ -21879,12 +23071,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntrySpotRate_;
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 27 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntrySpotRate field is set.
      */
     public boolean hasMdEntrySpotRate() {
       return mdEntrySpotRate_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_spot_rate = 27 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntrySpotRate.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntrySpotRate() {
       return mdEntrySpotRate_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntrySpotRate_;
@@ -21900,12 +23094,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.TimeOnly mdEntryTime_;
     /**
      * <code>.fix.TimeOnly md_entry_time = 28 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the mdEntryTime field is set.
      */
     public boolean hasMdEntryTime() {
       return mdEntryTime_ != null;
     }
     /**
      * <code>.fix.TimeOnly md_entry_time = 28 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryTime.
      */
     public org.fixprotocol.components.Fix.TimeOnly getMdEntryTime() {
       return mdEntryTime_ == null ? org.fixprotocol.components.Fix.TimeOnly.getDefaultInstance() : mdEntryTime_;
@@ -21921,12 +23117,14 @@ public final class MarketData {
     private int mdEntryType_;
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdEntryType.
      */
     public int getMdEntryTypeValue() {
       return mdEntryType_;
     }
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryType.
      */
     public org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType() {
       @SuppressWarnings("deprecation")
@@ -21938,6 +23136,7 @@ public final class MarketData {
     private volatile java.lang.Object mdMkt_;
     /**
      * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdMkt.
      */
     public java.lang.String getMdMkt() {
       java.lang.Object ref = mdMkt_;
@@ -21953,6 +23152,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdMkt.
      */
     public com.google.protobuf.ByteString
         getMdMktBytes() {
@@ -21972,12 +23172,14 @@ public final class MarketData {
     private int mdOriginType_;
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdOriginType.
      */
     public int getMdOriginTypeValue() {
       return mdOriginType_;
     }
     /**
      * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdOriginType.
      */
     public org.fixprotocol.components.MarketData.MDOriginTypeEnum getMdOriginType() {
       @SuppressWarnings("deprecation")
@@ -21989,6 +23191,7 @@ public final class MarketData {
     private long mdPriceLevel_;
     /**
      * <code>sfixed64 md_price_level = 32 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdPriceLevel.
      */
     public long getMdPriceLevel() {
       return mdPriceLevel_;
@@ -21998,12 +23201,14 @@ public final class MarketData {
     private int mdQuoteType_;
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdQuoteType.
      */
     public int getMdQuoteTypeValue() {
       return mdQuoteType_;
     }
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdQuoteType.
      */
     public org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType() {
       @SuppressWarnings("deprecation")
@@ -22015,12 +23220,14 @@ public final class MarketData {
     private int mdUpdateAction_;
     /**
      * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdUpdateAction.
      */
     public int getMdUpdateActionValue() {
       return mdUpdateAction_;
     }
     /**
      * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdUpdateAction.
      */
     public org.fixprotocol.components.MarketData.MDUpdateActionEnum getMdUpdateAction() {
       @SuppressWarnings("deprecation")
@@ -22032,12 +23239,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 minQty_;
     /**
      * <code>.fix.Decimal64 min_qty = 35 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the minQty field is set.
      */
     public boolean hasMinQty() {
       return minQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 min_qty = 35 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The minQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMinQty() {
       return minQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : minQty_;
@@ -22053,12 +23262,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 netChgPrevDay_;
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 36 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the netChgPrevDay field is set.
      */
     public boolean hasNetChgPrevDay() {
       return netChgPrevDay_ != null;
     }
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 36 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The netChgPrevDay.
      */
     public org.fixprotocol.components.Fix.Decimal64 getNetChgPrevDay() {
       return netChgPrevDay_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : netChgPrevDay_;
@@ -22074,6 +23285,7 @@ public final class MarketData {
     private long numberOfOrders_;
     /**
      * <code>sfixed64 number_of_orders = 37 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The numberOfOrders.
      */
     public long getNumberOfOrders() {
       return numberOfOrders_;
@@ -22093,6 +23305,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the openCloseSettlFlag.
      */
     public java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -22100,18 +23313,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of openCloseSettlFlag.
      */
     public int getOpenCloseSettlFlagCount() {
       return openCloseSettlFlag_.size();
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The openCloseSettlFlag at the given index.
      */
     public org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index) {
       return openCloseSettlFlag_converter_.convert(openCloseSettlFlag_.get(index));
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
      */
     public java.util.List<java.lang.Integer>
     getOpenCloseSettlFlagValueList() {
@@ -22119,6 +23336,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
      */
     public int getOpenCloseSettlFlagValue(int index) {
       return openCloseSettlFlag_.get(index);
@@ -22129,12 +23348,14 @@ public final class MarketData {
     private int ordType_;
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for ordType.
      */
     public int getOrdTypeValue() {
       return ordType_;
     }
     /**
      * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The ordType.
      */
     public org.fixprotocol.components.MarketData.OrdTypeEnum getOrdType() {
       @SuppressWarnings("deprecation")
@@ -22146,12 +23367,14 @@ public final class MarketData {
     private int orderCapacity_;
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for orderCapacity.
      */
     public int getOrderCapacityValue() {
       return orderCapacity_;
     }
     /**
      * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderCapacity.
      */
     public org.fixprotocol.components.MarketData.OrderCapacityEnum getOrderCapacity() {
       @SuppressWarnings("deprecation")
@@ -22163,6 +23386,7 @@ public final class MarketData {
     private volatile java.lang.Object orderId_;
     /**
      * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The orderId.
      */
     public java.lang.String getOrderId() {
       java.lang.Object ref = orderId_;
@@ -22178,6 +23402,7 @@ public final class MarketData {
     }
     /**
      * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for orderId.
      */
     public com.google.protobuf.ByteString
         getOrderIdBytes() {
@@ -22232,12 +23457,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 priceDelta_;
     /**
      * <code>.fix.Decimal64 price_delta = 43 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the priceDelta field is set.
      */
     public boolean hasPriceDelta() {
       return priceDelta_ != null;
     }
     /**
      * <code>.fix.Decimal64 price_delta = 43 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The priceDelta.
      */
     public org.fixprotocol.components.Fix.Decimal64 getPriceDelta() {
       return priceDelta_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : priceDelta_;
@@ -22263,6 +23490,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the quoteCondition.
      */
     public java.util.List<org.fixprotocol.components.MarketData.QuoteConditionEnum> getQuoteConditionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -22270,18 +23498,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of quoteCondition.
      */
     public int getQuoteConditionCount() {
       return quoteCondition_.size();
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The quoteCondition at the given index.
      */
     public org.fixprotocol.components.MarketData.QuoteConditionEnum getQuoteCondition(int index) {
       return quoteCondition_converter_.convert(quoteCondition_.get(index));
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for quoteCondition.
      */
     public java.util.List<java.lang.Integer>
     getQuoteConditionValueList() {
@@ -22289,6 +23521,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of quoteCondition at the given index.
      */
     public int getQuoteConditionValue(int index) {
       return quoteCondition_.get(index);
@@ -22299,6 +23533,7 @@ public final class MarketData {
     private volatile java.lang.Object quoteEntryId_;
     /**
      * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The quoteEntryId.
      */
     public java.lang.String getQuoteEntryId() {
       java.lang.Object ref = quoteEntryId_;
@@ -22314,6 +23549,7 @@ public final class MarketData {
     }
     /**
      * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for quoteEntryId.
      */
     public com.google.protobuf.ByteString
         getQuoteEntryIdBytes() {
@@ -22333,6 +23569,7 @@ public final class MarketData {
     private long rptSeq_;
     /**
      * <code>sfixed64 rpt_seq = 46 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rptSeq.
      */
     public long getRptSeq() {
       return rptSeq_;
@@ -22352,6 +23589,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the scope.
      */
     public java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -22359,18 +23597,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of scope.
      */
     public int getScopeCount() {
       return scope_.size();
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The scope at the given index.
      */
     public org.fixprotocol.components.MarketData.ScopeEnum getScope(int index) {
       return scope_converter_.convert(scope_.get(index));
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for scope.
      */
     public java.util.List<java.lang.Integer>
     getScopeValueList() {
@@ -22378,6 +23620,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of scope at the given index.
      */
     public int getScopeValue(int index) {
       return scope_.get(index);
@@ -22388,6 +23632,7 @@ public final class MarketData {
     private volatile java.lang.Object secondaryOrderId_;
     /**
      * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The secondaryOrderId.
      */
     public java.lang.String getSecondaryOrderId() {
       java.lang.Object ref = secondaryOrderId_;
@@ -22403,6 +23648,7 @@ public final class MarketData {
     }
     /**
      * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for secondaryOrderId.
      */
     public com.google.protobuf.ByteString
         getSecondaryOrderIdBytes() {
@@ -22422,6 +23668,7 @@ public final class MarketData {
     private long sellerDays_;
     /**
      * <code>sfixed64 seller_days = 49 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The sellerDays.
      */
     public long getSellerDays() {
       return sellerDays_;
@@ -22431,6 +23678,7 @@ public final class MarketData {
     private int settlDate_;
     /**
      * <code>sfixed32 settl_date = 50 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlDate.
      */
     public int getSettlDate() {
       return settlDate_;
@@ -22439,6 +23687,7 @@ public final class MarketData {
     public static final int SETTL_TYPE_FIELD_NUMBER = 51;
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     public int getSettlTypeValue() {
       if (settlTypeUnionCase_ == 51) {
@@ -22448,6 +23697,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlType.
      */
     public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
       if (settlTypeUnionCase_ == 51) {
@@ -22462,12 +23712,14 @@ public final class MarketData {
     public static final int SETTL_TYPE_TENOR_FIELD_NUMBER = 52;
     /**
      * <code>.fix.Tenor settl_type_tenor = 52 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     public boolean hasSettlTypeTenor() {
       return settlTypeUnionCase_ == 52;
     }
     /**
      * <code>.fix.Tenor settl_type_tenor = 52 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlTypeTenor.
      */
     public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
       if (settlTypeUnionCase_ == 52) {
@@ -22489,6 +23741,7 @@ public final class MarketData {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -22504,6 +23757,7 @@ public final class MarketData {
     }
     /**
      * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -22523,12 +23777,14 @@ public final class MarketData {
     private int tickDirection_;
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tickDirection.
      */
     public int getTickDirectionValue() {
       return tickDirection_;
     }
     /**
      * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tickDirection.
      */
     public org.fixprotocol.components.MarketData.TickDirectionEnum getTickDirection() {
       @SuppressWarnings("deprecation")
@@ -22540,12 +23796,14 @@ public final class MarketData {
     private int timeInForce_;
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for timeInForce.
      */
     public int getTimeInForceValue() {
       return timeInForce_;
     }
     /**
      * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The timeInForce.
      */
     public org.fixprotocol.components.MarketData.TimeInForceEnum getTimeInForce() {
       @SuppressWarnings("deprecation")
@@ -22567,6 +23825,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the tradeCondition.
      */
     public java.util.List<org.fixprotocol.components.MarketData.TradeConditionEnum> getTradeConditionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -22574,18 +23833,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The count of tradeCondition.
      */
     public int getTradeConditionCount() {
       return tradeCondition_.size();
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the element to return.
+     * @return The tradeCondition at the given index.
      */
     public org.fixprotocol.components.MarketData.TradeConditionEnum getTradeCondition(int index) {
       return tradeCondition_converter_.convert(tradeCondition_.get(index));
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return A list containing the enum numeric values on the wire for tradeCondition.
      */
     public java.util.List<java.lang.Integer>
     getTradeConditionValueList() {
@@ -22593,6 +23856,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of tradeCondition at the given index.
      */
     public int getTradeConditionValue(int index) {
       return tradeCondition_.get(index);
@@ -22603,12 +23868,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 tradeVolume_;
     /**
      * <code>.fix.Decimal64 trade_volume = 57 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradeVolume field is set.
      */
     public boolean hasTradeVolume() {
       return tradeVolume_ != null;
     }
     /**
      * <code>.fix.Decimal64 trade_volume = 57 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeVolume.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTradeVolume() {
       return tradeVolume_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : tradeVolume_;
@@ -22623,6 +23890,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_ID_FIELD_NUMBER = 58;
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionId.
      */
     public int getTradingSessionIdValue() {
       if (tradingSessionIdUnionCase_ == 58) {
@@ -22632,6 +23900,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionId.
      */
     public org.fixprotocol.components.MarketData.TradingSessionIDEnum getTradingSessionId() {
       if (tradingSessionIdUnionCase_ == 58) {
@@ -22646,6 +23915,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_ID_RESERVED100PLUS_FIELD_NUMBER = 59;
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 59 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionIdReserved100plus.
      */
     public int getTradingSessionIdReserved100Plus() {
       if (tradingSessionIdUnionCase_ == 59) {
@@ -22657,6 +23927,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_SUB_ID_FIELD_NUMBER = 60;
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionSubId.
      */
     public int getTradingSessionSubIdValue() {
       if (tradingSessionSubIdUnionCase_ == 60) {
@@ -22666,6 +23937,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubId.
      */
     public org.fixprotocol.components.MarketData.TradingSessionSubIDEnum getTradingSessionSubId() {
       if (tradingSessionSubIdUnionCase_ == 60) {
@@ -22680,6 +23952,7 @@ public final class MarketData {
     public static final int TRADING_SESSION_SUB_ID_RESERVED100PLUS_FIELD_NUMBER = 61;
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 61 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubIdReserved100plus.
      */
     public int getTradingSessionSubIdReserved100Plus() {
       if (tradingSessionSubIdUnionCase_ == 61) {
@@ -22726,6 +23999,7 @@ public final class MarketData {
     public static final int HALT_REASON_FIELD_NUMBER = 63;
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for haltReason.
      */
     public int getHaltReasonValue() {
       if (haltReasonUnionCase_ == 63) {
@@ -22735,6 +24009,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReason.
      */
     public org.fixprotocol.components.MarketData.HaltReasonEnum getHaltReason() {
       if (haltReasonUnionCase_ == 63) {
@@ -22749,6 +24024,7 @@ public final class MarketData {
     public static final int HALT_REASON_RESERVED100PLUS_FIELD_NUMBER = 64;
     /**
      * <code>fixed32 halt_reason_reserved100plus = 64 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The haltReasonReserved100plus.
      */
     public int getHaltReasonReserved100Plus() {
       if (haltReasonUnionCase_ == 64) {
@@ -22761,12 +24037,14 @@ public final class MarketData {
     private int lotType_;
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for lotType.
      */
     public int getLotTypeValue() {
       return lotType_;
     }
     /**
      * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The lotType.
      */
     public org.fixprotocol.components.MarketData.LotTypeEnum getLotType() {
       @SuppressWarnings("deprecation")
@@ -22778,6 +24056,7 @@ public final class MarketData {
     private long marketDepth_;
     /**
      * <code>sfixed64 market_depth = 66 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketDepth.
      */
     public long getMarketDepth() {
       return marketDepth_;
@@ -22787,12 +24066,14 @@ public final class MarketData {
     private int matchType_;
     /**
      * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for matchType.
      */
     public int getMatchTypeValue() {
       return matchType_;
     }
     /**
      * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The matchType.
      */
     public org.fixprotocol.components.MarketData.MatchTypeEnum getMatchType() {
       @SuppressWarnings("deprecation")
@@ -22804,6 +24085,7 @@ public final class MarketData {
     private long mdSubBookType_;
     /**
      * <code>sfixed64 md_sub_book_type = 68 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSubBookType.
      */
     public long getMdSubBookType() {
       return mdSubBookType_;
@@ -22813,12 +24095,14 @@ public final class MarketData {
     private int priceType_;
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for priceType.
      */
     public int getPriceTypeValue() {
       return priceType_;
     }
     /**
      * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The priceType.
      */
     public org.fixprotocol.components.MarketData.PriceTypeEnum getPriceType() {
       @SuppressWarnings("deprecation")
@@ -22864,6 +24148,7 @@ public final class MarketData {
     public static final int SECURITY_TRADING_STATUS_FIELD_NUMBER = 71;
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for securityTradingStatus.
      */
     public int getSecurityTradingStatusValue() {
       if (securityTradingStatusUnionCase_ == 71) {
@@ -22873,6 +24158,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatus.
      */
     public org.fixprotocol.components.MarketData.SecurityTradingStatusEnum getSecurityTradingStatus() {
       if (securityTradingStatusUnionCase_ == 71) {
@@ -22887,6 +24173,7 @@ public final class MarketData {
     public static final int SECURITY_TRADING_STATUS_RESERVED100PLUS_FIELD_NUMBER = 72;
     /**
      * <code>fixed32 security_trading_status_reserved100plus = 72 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingStatusReserved100plus.
      */
     public int getSecurityTradingStatusReserved100Plus() {
       if (securityTradingStatusUnionCase_ == 72) {
@@ -22899,12 +24186,14 @@ public final class MarketData {
     private org.fixprotocol.components.SpreadOrBenchmarkCurveData spreadOrBenchmarkCurveData_;
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the spreadOrBenchmarkCurveData field is set.
      */
     public boolean hasSpreadOrBenchmarkCurveData() {
       return spreadOrBenchmarkCurveData_ != null;
     }
     /**
      * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The spreadOrBenchmarkCurveData.
      */
     public org.fixprotocol.components.SpreadOrBenchmarkCurveData getSpreadOrBenchmarkCurveData() {
       return spreadOrBenchmarkCurveData_ == null ? org.fixprotocol.components.SpreadOrBenchmarkCurveData.getDefaultInstance() : spreadOrBenchmarkCurveData_;
@@ -22955,6 +24244,7 @@ public final class MarketData {
     private volatile java.lang.Object tradeId_;
     /**
      * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradeId.
      */
     public java.lang.String getTradeId() {
       java.lang.Object ref = tradeId_;
@@ -22970,6 +24260,7 @@ public final class MarketData {
     }
     /**
      * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for tradeId.
      */
     public com.google.protobuf.ByteString
         getTradeIdBytes() {
@@ -22989,12 +24280,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Timestamp transBkdTime_;
     /**
      * <code>.fix.Timestamp trans_bkd_time = 76 [(.fix.tag) = 483, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the transBkdTime field is set.
      */
     public boolean hasTransBkdTime() {
       return transBkdTime_ != null;
     }
     /**
      * <code>.fix.Timestamp trans_bkd_time = 76 [(.fix.tag) = 483, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The transBkdTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTransBkdTime() {
       return transBkdTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : transBkdTime_;
@@ -23010,12 +24303,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Timestamp transactTime_;
     /**
      * <code>.fix.Timestamp transact_time = 77 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the transactTime field is set.
      */
     public boolean hasTransactTime() {
       return transactTime_ != null;
     }
     /**
      * <code>.fix.Timestamp transact_time = 77 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The transactTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTransactTime() {
       return transactTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : transactTime_;
@@ -23030,6 +24325,7 @@ public final class MarketData {
     public static final int TRD_TYPE_FIELD_NUMBER = 78;
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for trdType.
      */
     public int getTrdTypeValue() {
       if (trdTypeUnionCase_ == 78) {
@@ -23039,6 +24335,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The trdType.
      */
     public org.fixprotocol.components.MarketData.TrdTypeEnum getTrdType() {
       if (trdTypeUnionCase_ == 78) {
@@ -23053,6 +24350,7 @@ public final class MarketData {
     public static final int TRD_TYPE_RESERVED1000PLUS_FIELD_NUMBER = 79;
     /**
      * <code>fixed32 trd_type_reserved1000plus = 79 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The trdTypeReserved1000plus.
      */
     public int getTrdTypeReserved1000Plus() {
       if (trdTypeUnionCase_ == 79) {
@@ -23065,12 +24363,14 @@ public final class MarketData {
     private org.fixprotocol.components.YieldData yieldData_;
     /**
      * <code>.Common.YieldData yield_data = 80 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the yieldData field is set.
      */
     public boolean hasYieldData() {
       return yieldData_ != null;
     }
     /**
      * <code>.Common.YieldData yield_data = 80 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The yieldData.
      */
     public org.fixprotocol.components.YieldData getYieldData() {
       return yieldData_ == null ? org.fixprotocol.components.YieldData.getDefaultInstance() : yieldData_;
@@ -23121,6 +24421,7 @@ public final class MarketData {
     private volatile java.lang.Object settlCurrency_;
     /**
      * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The settlCurrency.
      */
     public java.lang.String getSettlCurrency() {
       java.lang.Object ref = settlCurrency_;
@@ -23136,6 +24437,7 @@ public final class MarketData {
     }
     /**
      * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The bytes for settlCurrency.
      */
     public com.google.protobuf.ByteString
         getSettlCurrencyBytes() {
@@ -23155,12 +24457,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 firstPx_;
     /**
      * <code>.fix.Decimal64 first_px = 83 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the firstPx field is set.
      */
     public boolean hasFirstPx() {
       return firstPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 first_px = 83 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The firstPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getFirstPx() {
       return firstPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : firstPx_;
@@ -23176,12 +24480,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 lastPx_;
     /**
      * <code>.fix.Decimal64 last_px = 84 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return Whether the lastPx field is set.
      */
     public boolean hasLastPx() {
       return lastPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 last_px = 84 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+     * @return The lastPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLastPx() {
       return lastPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : lastPx_;
@@ -23197,6 +24503,7 @@ public final class MarketData {
     private volatile java.lang.Object mdStreamId_;
     /**
      * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     public java.lang.String getMdStreamId() {
       java.lang.Object ref = mdStreamId_;
@@ -23212,6 +24519,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     public com.google.protobuf.ByteString
         getMdStreamIdBytes() {
@@ -25874,6 +27182,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the corporateAction.
        */
       public java.util.List<org.fixprotocol.components.MarketData.CorporateActionEnum> getCorporateActionList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -25881,18 +27190,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of corporateAction.
        */
       public int getCorporateActionCount() {
         return corporateAction_.size();
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The corporateAction at the given index.
        */
       public org.fixprotocol.components.MarketData.CorporateActionEnum getCorporateAction(int index) {
         return corporateAction_converter_.convert(corporateAction_.get(index));
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The corporateAction to set.
+       * @return This builder for chaining.
        */
       public Builder setCorporateAction(
           int index, org.fixprotocol.components.MarketData.CorporateActionEnum value) {
@@ -25906,6 +27221,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addCorporateAction(org.fixprotocol.components.MarketData.CorporateActionEnum value) {
         if (value == null) {
@@ -25918,6 +27235,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCorporateAction(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.CorporateActionEnum> values) {
@@ -25930,6 +27249,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearCorporateAction() {
         corporateAction_ = java.util.Collections.emptyList();
@@ -25939,6 +27259,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for corporateAction.
        */
       public java.util.List<java.lang.Integer>
       getCorporateActionValueList() {
@@ -25946,12 +27267,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of corporateAction at the given index.
        */
       public int getCorporateActionValue(int index) {
         return corporateAction_.get(index);
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of corporateAction at the given index.
+       * @return This builder for chaining.
        */
       public Builder setCorporateActionValue(
           int index, int value) {
@@ -25962,6 +27288,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addCorporateActionValue(int value) {
         ensureCorporateActionIsMutable();
@@ -25971,6 +27299,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCorporateActionValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -25985,6 +27315,7 @@ public final class MarketData {
       private java.lang.Object currency_ = "";
       /**
        * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The currency.
        */
       public java.lang.String getCurrency() {
         java.lang.Object ref = currency_;
@@ -26000,6 +27331,7 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for currency.
        */
       public com.google.protobuf.ByteString
           getCurrencyBytes() {
@@ -26016,6 +27348,8 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The currency to set.
+       * @return This builder for chaining.
        */
       public Builder setCurrency(
           java.lang.String value) {
@@ -26029,6 +27363,7 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearCurrency() {
         
@@ -26038,6 +27373,8 @@ public final class MarketData {
       }
       /**
        * <code>string currency = 2 [(.fix.tag) = 15, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for currency to set.
+       * @return This builder for chaining.
        */
       public Builder setCurrencyBytes(
           com.google.protobuf.ByteString value) {
@@ -26054,12 +27391,15 @@ public final class MarketData {
       private int dealingCapacity_ = 0;
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for dealingCapacity.
        */
       public int getDealingCapacityValue() {
         return dealingCapacity_;
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for dealingCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setDealingCapacityValue(int value) {
         dealingCapacity_ = value;
@@ -26068,6 +27408,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The dealingCapacity.
        */
       public org.fixprotocol.components.MarketData.DealingCapacityEnum getDealingCapacity() {
         @SuppressWarnings("deprecation")
@@ -26076,6 +27417,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The dealingCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setDealingCapacity(org.fixprotocol.components.MarketData.DealingCapacityEnum value) {
         if (value == null) {
@@ -26088,6 +27431,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DealingCapacityEnum dealing_capacity = 3 [(.fix.tag) = 1048, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDealingCapacity() {
         
@@ -26099,12 +27443,15 @@ public final class MarketData {
       private int deleteReason_ = 0;
       /**
        * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for deleteReason.
        */
       public int getDeleteReasonValue() {
         return deleteReason_;
       }
       /**
        * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for deleteReason to set.
+       * @return This builder for chaining.
        */
       public Builder setDeleteReasonValue(int value) {
         deleteReason_ = value;
@@ -26113,6 +27460,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The deleteReason.
        */
       public org.fixprotocol.components.MarketData.DeleteReasonEnum getDeleteReason() {
         @SuppressWarnings("deprecation")
@@ -26121,6 +27469,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The deleteReason to set.
+       * @return This builder for chaining.
        */
       public Builder setDeleteReason(org.fixprotocol.components.MarketData.DeleteReasonEnum value) {
         if (value == null) {
@@ -26133,6 +27483,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.DeleteReasonEnum delete_reason = 4 [(.fix.tag) = 285, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDeleteReason() {
         
@@ -26144,6 +27495,7 @@ public final class MarketData {
       private java.lang.Object deskId_ = "";
       /**
        * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The deskId.
        */
       public java.lang.String getDeskId() {
         java.lang.Object ref = deskId_;
@@ -26159,6 +27511,7 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for deskId.
        */
       public com.google.protobuf.ByteString
           getDeskIdBytes() {
@@ -26175,6 +27528,8 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The deskId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeskId(
           java.lang.String value) {
@@ -26188,6 +27543,7 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDeskId() {
         
@@ -26197,6 +27553,8 @@ public final class MarketData {
       }
       /**
        * <code>string desk_id = 5 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for deskId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeskIdBytes(
           com.google.protobuf.ByteString value) {
@@ -26213,6 +27571,7 @@ public final class MarketData {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -26228,6 +27587,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -26244,6 +27604,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -26257,6 +27619,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -26266,6 +27629,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 6 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -26282,12 +27647,15 @@ public final class MarketData {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 7 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 7 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -26297,6 +27665,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 encoded_text_len = 7 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -26315,6 +27684,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the execInst.
        */
       public java.util.List<org.fixprotocol.components.MarketData.ExecInstEnum> getExecInstList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -26322,18 +27692,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of execInst.
        */
       public int getExecInstCount() {
         return execInst_.size();
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The execInst at the given index.
        */
       public org.fixprotocol.components.MarketData.ExecInstEnum getExecInst(int index) {
         return execInst_converter_.convert(execInst_.get(index));
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The execInst to set.
+       * @return This builder for chaining.
        */
       public Builder setExecInst(
           int index, org.fixprotocol.components.MarketData.ExecInstEnum value) {
@@ -26347,6 +27723,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addExecInst(org.fixprotocol.components.MarketData.ExecInstEnum value) {
         if (value == null) {
@@ -26359,6 +27737,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addAllExecInst(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.ExecInstEnum> values) {
@@ -26371,6 +27751,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearExecInst() {
         execInst_ = java.util.Collections.emptyList();
@@ -26380,6 +27761,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for execInst.
        */
       public java.util.List<java.lang.Integer>
       getExecInstValueList() {
@@ -26387,12 +27769,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of execInst at the given index.
        */
       public int getExecInstValue(int index) {
         return execInst_.get(index);
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of execInst at the given index.
+       * @return This builder for chaining.
        */
       public Builder setExecInstValue(
           int index, int value) {
@@ -26403,6 +27790,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addExecInstValue(int value) {
         ensureExecInstIsMutable();
@@ -26412,6 +27801,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ExecInstEnum exec_inst = 8 [(.fix.tag) = 18, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for execInst to add.
+       * @return This builder for chaining.
        */
       public Builder addAllExecInstValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -26426,12 +27817,15 @@ public final class MarketData {
       private int expireDate_ ;
       /**
        * <code>sfixed32 expire_date = 9 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The expireDate.
        */
       public int getExpireDate() {
         return expireDate_;
       }
       /**
        * <code>sfixed32 expire_date = 9 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The expireDate to set.
+       * @return This builder for chaining.
        */
       public Builder setExpireDate(int value) {
         
@@ -26441,6 +27835,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 expire_date = 9 [(.fix.tag) = 432, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearExpireDate() {
         
@@ -26454,12 +27849,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> expireTimeBuilder_;
       /**
        * <code>.fix.Timestamp expire_time = 10 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the expireTime field is set.
        */
       public boolean hasExpireTime() {
         return expireTimeBuilder_ != null || expireTime_ != null;
       }
       /**
        * <code>.fix.Timestamp expire_time = 10 [(.fix.tag) = 126, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The expireTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getExpireTime() {
         if (expireTimeBuilder_ == null) {
@@ -26576,6 +27973,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the financialStatus.
        */
       public java.util.List<org.fixprotocol.components.MarketData.FinancialStatusEnum> getFinancialStatusList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -26583,18 +27981,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of financialStatus.
        */
       public int getFinancialStatusCount() {
         return financialStatus_.size();
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The financialStatus at the given index.
        */
       public org.fixprotocol.components.MarketData.FinancialStatusEnum getFinancialStatus(int index) {
         return financialStatus_converter_.convert(financialStatus_.get(index));
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The financialStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setFinancialStatus(
           int index, org.fixprotocol.components.MarketData.FinancialStatusEnum value) {
@@ -26608,6 +28012,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addFinancialStatus(org.fixprotocol.components.MarketData.FinancialStatusEnum value) {
         if (value == null) {
@@ -26620,6 +28026,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addAllFinancialStatus(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.FinancialStatusEnum> values) {
@@ -26632,6 +28040,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearFinancialStatus() {
         financialStatus_ = java.util.Collections.emptyList();
@@ -26641,6 +28050,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for financialStatus.
        */
       public java.util.List<java.lang.Integer>
       getFinancialStatusValueList() {
@@ -26648,12 +28058,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of financialStatus at the given index.
        */
       public int getFinancialStatusValue(int index) {
         return financialStatus_.get(index);
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of financialStatus at the given index.
+       * @return This builder for chaining.
        */
       public Builder setFinancialStatusValue(
           int index, int value) {
@@ -26664,6 +28079,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addFinancialStatusValue(int value) {
         ensureFinancialStatusIsMutable();
@@ -26673,6 +28090,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 11 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addAllFinancialStatusValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -26689,12 +28108,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> highPxBuilder_;
       /**
        * <code>.fix.Decimal64 high_px = 12 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the highPx field is set.
        */
       public boolean hasHighPx() {
         return highPxBuilder_ != null || highPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 high_px = 12 [(.fix.tag) = 332, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The highPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getHighPx() {
         if (highPxBuilder_ == null) {
@@ -27046,12 +28467,14 @@ public final class MarketData {
           org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
       /**
        * <code>.Common.Instrument instrument = 14 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the instrument field is set.
        */
       public boolean hasInstrument() {
         return instrumentBuilder_ != null || instrument_ != null;
       }
       /**
        * <code>.Common.Instrument instrument = 14 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The instrument.
        */
       public org.fixprotocol.components.Instrument getInstrument() {
         if (instrumentBuilder_ == null) {
@@ -27161,6 +28584,7 @@ public final class MarketData {
       private java.lang.Object locationId_ = "";
       /**
        * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The locationId.
        */
       public java.lang.String getLocationId() {
         java.lang.Object ref = locationId_;
@@ -27176,6 +28600,7 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for locationId.
        */
       public com.google.protobuf.ByteString
           getLocationIdBytes() {
@@ -27192,6 +28617,8 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The locationId to set.
+       * @return This builder for chaining.
        */
       public Builder setLocationId(
           java.lang.String value) {
@@ -27205,6 +28632,7 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearLocationId() {
         
@@ -27214,6 +28642,8 @@ public final class MarketData {
       }
       /**
        * <code>string location_id = 15 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for locationId to set.
+       * @return This builder for chaining.
        */
       public Builder setLocationIdBytes(
           com.google.protobuf.ByteString value) {
@@ -27232,12 +28662,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> lowPxBuilder_;
       /**
        * <code>.fix.Decimal64 low_px = 16 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the lowPx field is set.
        */
       public boolean hasLowPx() {
         return lowPxBuilder_ != null || lowPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 low_px = 16 [(.fix.tag) = 333, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The lowPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getLowPx() {
         if (lowPxBuilder_ == null) {
@@ -27347,6 +28779,7 @@ public final class MarketData {
       private java.lang.Object mdEntryBuyer_ = "";
       /**
        * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryBuyer.
        */
       public java.lang.String getMdEntryBuyer() {
         java.lang.Object ref = mdEntryBuyer_;
@@ -27362,6 +28795,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryBuyer.
        */
       public com.google.protobuf.ByteString
           getMdEntryBuyerBytes() {
@@ -27378,6 +28812,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryBuyer to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryBuyer(
           java.lang.String value) {
@@ -27391,6 +28827,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryBuyer() {
         
@@ -27400,6 +28837,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_buyer = 17 [(.fix.tag) = 288, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryBuyer to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryBuyerBytes(
           com.google.protobuf.ByteString value) {
@@ -27416,12 +28855,15 @@ public final class MarketData {
       private int mdEntryDate_ ;
       /**
        * <code>sfixed32 md_entry_date = 18 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryDate.
        */
       public int getMdEntryDate() {
         return mdEntryDate_;
       }
       /**
        * <code>sfixed32 md_entry_date = 18 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryDate to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryDate(int value) {
         
@@ -27431,6 +28873,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 md_entry_date = 18 [(.fix.tag) = 272, (.fix.type) = DATATYPE_UTC_DATE_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryDate() {
         
@@ -27444,12 +28887,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntryForwardPointsBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_forward_points = 19 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntryForwardPoints field is set.
        */
       public boolean hasMdEntryForwardPoints() {
         return mdEntryForwardPointsBuilder_ != null || mdEntryForwardPoints_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_forward_points = 19 [(.fix.tag) = 1027, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryForwardPoints.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntryForwardPoints() {
         if (mdEntryForwardPointsBuilder_ == null) {
@@ -27559,6 +29004,7 @@ public final class MarketData {
       private java.lang.Object mdEntryId_ = "";
       /**
        * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryId.
        */
       public java.lang.String getMdEntryId() {
         java.lang.Object ref = mdEntryId_;
@@ -27574,6 +29020,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryId.
        */
       public com.google.protobuf.ByteString
           getMdEntryIdBytes() {
@@ -27590,6 +29037,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryId(
           java.lang.String value) {
@@ -27603,6 +29052,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryId() {
         
@@ -27612,6 +29062,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_id = 20 [(.fix.tag) = 278, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryIdBytes(
           com.google.protobuf.ByteString value) {
@@ -27628,6 +29080,7 @@ public final class MarketData {
       private java.lang.Object mdEntryOriginator_ = "";
       /**
        * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryOriginator.
        */
       public java.lang.String getMdEntryOriginator() {
         java.lang.Object ref = mdEntryOriginator_;
@@ -27643,6 +29096,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryOriginator.
        */
       public com.google.protobuf.ByteString
           getMdEntryOriginatorBytes() {
@@ -27659,6 +29113,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryOriginator to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryOriginator(
           java.lang.String value) {
@@ -27672,6 +29128,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryOriginator() {
         
@@ -27681,6 +29138,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_originator = 21 [(.fix.tag) = 282, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryOriginator to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryOriginatorBytes(
           com.google.protobuf.ByteString value) {
@@ -27697,12 +29156,15 @@ public final class MarketData {
       private long mdEntryPositionNo_ ;
       /**
        * <code>sfixed64 md_entry_position_no = 22 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryPositionNo.
        */
       public long getMdEntryPositionNo() {
         return mdEntryPositionNo_;
       }
       /**
        * <code>sfixed64 md_entry_position_no = 22 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryPositionNo to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryPositionNo(long value) {
         
@@ -27712,6 +29174,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_entry_position_no = 22 [(.fix.tag) = 290, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryPositionNo() {
         
@@ -27725,12 +29188,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntryPxBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_px = 23 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntryPx field is set.
        */
       public boolean hasMdEntryPx() {
         return mdEntryPxBuilder_ != null || mdEntryPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_px = 23 [(.fix.tag) = 270, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntryPx() {
         if (mdEntryPxBuilder_ == null) {
@@ -27840,6 +29305,7 @@ public final class MarketData {
       private java.lang.Object mdEntryRefId_ = "";
       /**
        * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryRefId.
        */
       public java.lang.String getMdEntryRefId() {
         java.lang.Object ref = mdEntryRefId_;
@@ -27855,6 +29321,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntryRefId.
        */
       public com.google.protobuf.ByteString
           getMdEntryRefIdBytes() {
@@ -27871,6 +29338,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryRefId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryRefId(
           java.lang.String value) {
@@ -27884,6 +29353,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryRefId() {
         
@@ -27893,6 +29363,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_ref_id = 24 [(.fix.tag) = 280, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntryRefId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryRefIdBytes(
           com.google.protobuf.ByteString value) {
@@ -27909,6 +29381,7 @@ public final class MarketData {
       private java.lang.Object mdEntrySeller_ = "";
       /**
        * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntrySeller.
        */
       public java.lang.String getMdEntrySeller() {
         java.lang.Object ref = mdEntrySeller_;
@@ -27924,6 +29397,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdEntrySeller.
        */
       public com.google.protobuf.ByteString
           getMdEntrySellerBytes() {
@@ -27940,6 +29414,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntrySeller to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntrySeller(
           java.lang.String value) {
@@ -27953,6 +29429,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntrySeller() {
         
@@ -27962,6 +29439,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_entry_seller = 25 [(.fix.tag) = 289, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdEntrySeller to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntrySellerBytes(
           com.google.protobuf.ByteString value) {
@@ -27980,12 +29459,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntrySizeBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_size = 26 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntrySize field is set.
        */
       public boolean hasMdEntrySize() {
         return mdEntrySizeBuilder_ != null || mdEntrySize_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_size = 26 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntrySize.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
         if (mdEntrySizeBuilder_ == null) {
@@ -28097,12 +29578,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntrySpotRateBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_spot_rate = 27 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntrySpotRate field is set.
        */
       public boolean hasMdEntrySpotRate() {
         return mdEntrySpotRateBuilder_ != null || mdEntrySpotRate_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_spot_rate = 27 [(.fix.tag) = 1026, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntrySpotRate.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntrySpotRate() {
         if (mdEntrySpotRateBuilder_ == null) {
@@ -28214,12 +29697,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.TimeOnly, org.fixprotocol.components.Fix.TimeOnly.Builder, org.fixprotocol.components.Fix.TimeOnlyOrBuilder> mdEntryTimeBuilder_;
       /**
        * <code>.fix.TimeOnly md_entry_time = 28 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the mdEntryTime field is set.
        */
       public boolean hasMdEntryTime() {
         return mdEntryTimeBuilder_ != null || mdEntryTime_ != null;
       }
       /**
        * <code>.fix.TimeOnly md_entry_time = 28 [(.fix.tag) = 273, (.fix.type) = DATATYPE_UTC_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryTime.
        */
       public org.fixprotocol.components.Fix.TimeOnly getMdEntryTime() {
         if (mdEntryTimeBuilder_ == null) {
@@ -28329,12 +29814,15 @@ public final class MarketData {
       private int mdEntryType_ = 0;
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdEntryType.
        */
       public int getMdEntryTypeValue() {
         return mdEntryType_;
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdEntryType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryTypeValue(int value) {
         mdEntryType_ = value;
@@ -28343,6 +29831,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryType.
        */
       public org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType() {
         @SuppressWarnings("deprecation")
@@ -28351,6 +29840,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryType(org.fixprotocol.components.MarketData.MDEntryTypeEnum value) {
         if (value == null) {
@@ -28363,6 +29854,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 29 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryType() {
         
@@ -28374,6 +29866,7 @@ public final class MarketData {
       private java.lang.Object mdMkt_ = "";
       /**
        * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdMkt.
        */
       public java.lang.String getMdMkt() {
         java.lang.Object ref = mdMkt_;
@@ -28389,6 +29882,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdMkt.
        */
       public com.google.protobuf.ByteString
           getMdMktBytes() {
@@ -28405,6 +29899,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdMkt to set.
+       * @return This builder for chaining.
        */
       public Builder setMdMkt(
           java.lang.String value) {
@@ -28418,6 +29914,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdMkt() {
         
@@ -28427,6 +29924,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_mkt = 30 [(.fix.tag) = 275, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdMkt to set.
+       * @return This builder for chaining.
        */
       public Builder setMdMktBytes(
           com.google.protobuf.ByteString value) {
@@ -28443,12 +29942,15 @@ public final class MarketData {
       private int mdOriginType_ = 0;
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdOriginType.
        */
       public int getMdOriginTypeValue() {
         return mdOriginType_;
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdOriginType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdOriginTypeValue(int value) {
         mdOriginType_ = value;
@@ -28457,6 +29959,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdOriginType.
        */
       public org.fixprotocol.components.MarketData.MDOriginTypeEnum getMdOriginType() {
         @SuppressWarnings("deprecation")
@@ -28465,6 +29968,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdOriginType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdOriginType(org.fixprotocol.components.MarketData.MDOriginTypeEnum value) {
         if (value == null) {
@@ -28477,6 +29982,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDOriginTypeEnum md_origin_type = 31 [(.fix.tag) = 1024, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdOriginType() {
         
@@ -28488,12 +29994,15 @@ public final class MarketData {
       private long mdPriceLevel_ ;
       /**
        * <code>sfixed64 md_price_level = 32 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdPriceLevel.
        */
       public long getMdPriceLevel() {
         return mdPriceLevel_;
       }
       /**
        * <code>sfixed64 md_price_level = 32 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdPriceLevel to set.
+       * @return This builder for chaining.
        */
       public Builder setMdPriceLevel(long value) {
         
@@ -28503,6 +30012,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_price_level = 32 [(.fix.tag) = 1023, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdPriceLevel() {
         
@@ -28514,12 +30024,15 @@ public final class MarketData {
       private int mdQuoteType_ = 0;
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdQuoteType.
        */
       public int getMdQuoteTypeValue() {
         return mdQuoteType_;
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdQuoteType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdQuoteTypeValue(int value) {
         mdQuoteType_ = value;
@@ -28528,6 +30041,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdQuoteType.
        */
       public org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType() {
         @SuppressWarnings("deprecation")
@@ -28536,6 +30050,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdQuoteType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdQuoteType(org.fixprotocol.components.MarketData.MDQuoteTypeEnum value) {
         if (value == null) {
@@ -28548,6 +30064,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 33 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdQuoteType() {
         
@@ -28559,12 +30076,15 @@ public final class MarketData {
       private int mdUpdateAction_ = 0;
       /**
        * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdUpdateAction.
        */
       public int getMdUpdateActionValue() {
         return mdUpdateAction_;
       }
       /**
        * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdUpdateAction to set.
+       * @return This builder for chaining.
        */
       public Builder setMdUpdateActionValue(int value) {
         mdUpdateAction_ = value;
@@ -28573,6 +30093,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdUpdateAction.
        */
       public org.fixprotocol.components.MarketData.MDUpdateActionEnum getMdUpdateAction() {
         @SuppressWarnings("deprecation")
@@ -28581,6 +30102,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdUpdateAction to set.
+       * @return This builder for chaining.
        */
       public Builder setMdUpdateAction(org.fixprotocol.components.MarketData.MDUpdateActionEnum value) {
         if (value == null) {
@@ -28593,6 +30116,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDUpdateActionEnum md_update_action = 34 [(.fix.tag) = 279, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdUpdateAction() {
         
@@ -28606,12 +30130,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> minQtyBuilder_;
       /**
        * <code>.fix.Decimal64 min_qty = 35 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the minQty field is set.
        */
       public boolean hasMinQty() {
         return minQtyBuilder_ != null || minQty_ != null;
       }
       /**
        * <code>.fix.Decimal64 min_qty = 35 [(.fix.tag) = 110, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The minQty.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMinQty() {
         if (minQtyBuilder_ == null) {
@@ -28723,12 +30249,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> netChgPrevDayBuilder_;
       /**
        * <code>.fix.Decimal64 net_chg_prev_day = 36 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the netChgPrevDay field is set.
        */
       public boolean hasNetChgPrevDay() {
         return netChgPrevDayBuilder_ != null || netChgPrevDay_ != null;
       }
       /**
        * <code>.fix.Decimal64 net_chg_prev_day = 36 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The netChgPrevDay.
        */
       public org.fixprotocol.components.Fix.Decimal64 getNetChgPrevDay() {
         if (netChgPrevDayBuilder_ == null) {
@@ -28838,12 +30366,15 @@ public final class MarketData {
       private long numberOfOrders_ ;
       /**
        * <code>sfixed64 number_of_orders = 37 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The numberOfOrders.
        */
       public long getNumberOfOrders() {
         return numberOfOrders_;
       }
       /**
        * <code>sfixed64 number_of_orders = 37 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The numberOfOrders to set.
+       * @return This builder for chaining.
        */
       public Builder setNumberOfOrders(long value) {
         
@@ -28853,6 +30384,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 number_of_orders = 37 [(.fix.tag) = 346, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearNumberOfOrders() {
         
@@ -28871,6 +30403,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the openCloseSettlFlag.
        */
       public java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -28878,18 +30411,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of openCloseSettlFlag.
        */
       public int getOpenCloseSettlFlagCount() {
         return openCloseSettlFlag_.size();
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The openCloseSettlFlag at the given index.
        */
       public org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index) {
         return openCloseSettlFlag_converter_.convert(openCloseSettlFlag_.get(index));
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The openCloseSettlFlag to set.
+       * @return This builder for chaining.
        */
       public Builder setOpenCloseSettlFlag(
           int index, org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum value) {
@@ -28903,6 +30442,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addOpenCloseSettlFlag(org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum value) {
         if (value == null) {
@@ -28915,6 +30456,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addAllOpenCloseSettlFlag(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> values) {
@@ -28927,6 +30470,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOpenCloseSettlFlag() {
         openCloseSettlFlag_ = java.util.Collections.emptyList();
@@ -28936,6 +30480,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
        */
       public java.util.List<java.lang.Integer>
       getOpenCloseSettlFlagValueList() {
@@ -28943,12 +30488,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
        */
       public int getOpenCloseSettlFlagValue(int index) {
         return openCloseSettlFlag_.get(index);
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
+       * @return This builder for chaining.
        */
       public Builder setOpenCloseSettlFlagValue(
           int index, int value) {
@@ -28959,6 +30509,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addOpenCloseSettlFlagValue(int value) {
         ensureOpenCloseSettlFlagIsMutable();
@@ -28968,6 +30520,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 38 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addAllOpenCloseSettlFlagValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -28982,12 +30536,15 @@ public final class MarketData {
       private int ordType_ = 0;
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for ordType.
        */
       public int getOrdTypeValue() {
         return ordType_;
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for ordType to set.
+       * @return This builder for chaining.
        */
       public Builder setOrdTypeValue(int value) {
         ordType_ = value;
@@ -28996,6 +30553,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The ordType.
        */
       public org.fixprotocol.components.MarketData.OrdTypeEnum getOrdType() {
         @SuppressWarnings("deprecation")
@@ -29004,6 +30562,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The ordType to set.
+       * @return This builder for chaining.
        */
       public Builder setOrdType(org.fixprotocol.components.MarketData.OrdTypeEnum value) {
         if (value == null) {
@@ -29016,6 +30576,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrdTypeEnum ord_type = 39 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOrdType() {
         
@@ -29027,12 +30588,15 @@ public final class MarketData {
       private int orderCapacity_ = 0;
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for orderCapacity.
        */
       public int getOrderCapacityValue() {
         return orderCapacity_;
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for orderCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderCapacityValue(int value) {
         orderCapacity_ = value;
@@ -29041,6 +30605,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The orderCapacity.
        */
       public org.fixprotocol.components.MarketData.OrderCapacityEnum getOrderCapacity() {
         @SuppressWarnings("deprecation")
@@ -29049,6 +30614,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The orderCapacity to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderCapacity(org.fixprotocol.components.MarketData.OrderCapacityEnum value) {
         if (value == null) {
@@ -29061,6 +30628,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.OrderCapacityEnum order_capacity = 40 [(.fix.tag) = 528, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOrderCapacity() {
         
@@ -29072,6 +30640,7 @@ public final class MarketData {
       private java.lang.Object orderId_ = "";
       /**
        * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The orderId.
        */
       public java.lang.String getOrderId() {
         java.lang.Object ref = orderId_;
@@ -29087,6 +30656,7 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for orderId.
        */
       public com.google.protobuf.ByteString
           getOrderIdBytes() {
@@ -29103,6 +30673,8 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The orderId to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderId(
           java.lang.String value) {
@@ -29116,6 +30688,7 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOrderId() {
         
@@ -29125,6 +30698,8 @@ public final class MarketData {
       }
       /**
        * <code>string order_id = 41 [(.fix.tag) = 37, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for orderId to set.
+       * @return This builder for chaining.
        */
       public Builder setOrderIdBytes(
           com.google.protobuf.ByteString value) {
@@ -29383,12 +30958,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> priceDeltaBuilder_;
       /**
        * <code>.fix.Decimal64 price_delta = 43 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the priceDelta field is set.
        */
       public boolean hasPriceDelta() {
         return priceDeltaBuilder_ != null || priceDelta_ != null;
       }
       /**
        * <code>.fix.Decimal64 price_delta = 43 [(.fix.tag) = 811, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The priceDelta.
        */
       public org.fixprotocol.components.Fix.Decimal64 getPriceDelta() {
         if (priceDeltaBuilder_ == null) {
@@ -29505,6 +31082,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the quoteCondition.
        */
       public java.util.List<org.fixprotocol.components.MarketData.QuoteConditionEnum> getQuoteConditionList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -29512,18 +31090,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of quoteCondition.
        */
       public int getQuoteConditionCount() {
         return quoteCondition_.size();
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The quoteCondition at the given index.
        */
       public org.fixprotocol.components.MarketData.QuoteConditionEnum getQuoteCondition(int index) {
         return quoteCondition_converter_.convert(quoteCondition_.get(index));
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The quoteCondition to set.
+       * @return This builder for chaining.
        */
       public Builder setQuoteCondition(
           int index, org.fixprotocol.components.MarketData.QuoteConditionEnum value) {
@@ -29537,6 +31121,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addQuoteCondition(org.fixprotocol.components.MarketData.QuoteConditionEnum value) {
         if (value == null) {
@@ -29549,6 +31135,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllQuoteCondition(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.QuoteConditionEnum> values) {
@@ -29561,6 +31149,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearQuoteCondition() {
         quoteCondition_ = java.util.Collections.emptyList();
@@ -29570,6 +31159,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for quoteCondition.
        */
       public java.util.List<java.lang.Integer>
       getQuoteConditionValueList() {
@@ -29577,12 +31167,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of quoteCondition at the given index.
        */
       public int getQuoteConditionValue(int index) {
         return quoteCondition_.get(index);
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of quoteCondition at the given index.
+       * @return This builder for chaining.
        */
       public Builder setQuoteConditionValue(
           int index, int value) {
@@ -29593,6 +31188,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addQuoteConditionValue(int value) {
         ensureQuoteConditionIsMutable();
@@ -29602,6 +31199,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.QuoteConditionEnum quote_condition = 44 [(.fix.tag) = 276, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for quoteCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllQuoteConditionValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -29616,6 +31215,7 @@ public final class MarketData {
       private java.lang.Object quoteEntryId_ = "";
       /**
        * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The quoteEntryId.
        */
       public java.lang.String getQuoteEntryId() {
         java.lang.Object ref = quoteEntryId_;
@@ -29631,6 +31231,7 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for quoteEntryId.
        */
       public com.google.protobuf.ByteString
           getQuoteEntryIdBytes() {
@@ -29647,6 +31248,8 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The quoteEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setQuoteEntryId(
           java.lang.String value) {
@@ -29660,6 +31263,7 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearQuoteEntryId() {
         
@@ -29669,6 +31273,8 @@ public final class MarketData {
       }
       /**
        * <code>string quote_entry_id = 45 [(.fix.tag) = 299, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for quoteEntryId to set.
+       * @return This builder for chaining.
        */
       public Builder setQuoteEntryIdBytes(
           com.google.protobuf.ByteString value) {
@@ -29685,12 +31291,15 @@ public final class MarketData {
       private long rptSeq_ ;
       /**
        * <code>sfixed64 rpt_seq = 46 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The rptSeq.
        */
       public long getRptSeq() {
         return rptSeq_;
       }
       /**
        * <code>sfixed64 rpt_seq = 46 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The rptSeq to set.
+       * @return This builder for chaining.
        */
       public Builder setRptSeq(long value) {
         
@@ -29700,6 +31309,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 rpt_seq = 46 [(.fix.tag) = 83, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRptSeq() {
         
@@ -29718,6 +31328,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the scope.
        */
       public java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -29725,18 +31336,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of scope.
        */
       public int getScopeCount() {
         return scope_.size();
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The scope at the given index.
        */
       public org.fixprotocol.components.MarketData.ScopeEnum getScope(int index) {
         return scope_converter_.convert(scope_.get(index));
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The scope to set.
+       * @return This builder for chaining.
        */
       public Builder setScope(
           int index, org.fixprotocol.components.MarketData.ScopeEnum value) {
@@ -29750,6 +31367,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The scope to add.
+       * @return This builder for chaining.
        */
       public Builder addScope(org.fixprotocol.components.MarketData.ScopeEnum value) {
         if (value == null) {
@@ -29762,6 +31381,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The scope to add.
+       * @return This builder for chaining.
        */
       public Builder addAllScope(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.ScopeEnum> values) {
@@ -29774,6 +31395,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearScope() {
         scope_ = java.util.Collections.emptyList();
@@ -29783,6 +31405,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for scope.
        */
       public java.util.List<java.lang.Integer>
       getScopeValueList() {
@@ -29790,12 +31413,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of scope at the given index.
        */
       public int getScopeValue(int index) {
         return scope_.get(index);
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of scope at the given index.
+       * @return This builder for chaining.
        */
       public Builder setScopeValue(
           int index, int value) {
@@ -29806,6 +31434,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for scope to add.
+       * @return This builder for chaining.
        */
       public Builder addScopeValue(int value) {
         ensureScopeIsMutable();
@@ -29815,6 +31445,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 47 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for scope to add.
+       * @return This builder for chaining.
        */
       public Builder addAllScopeValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -29829,6 +31461,7 @@ public final class MarketData {
       private java.lang.Object secondaryOrderId_ = "";
       /**
        * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The secondaryOrderId.
        */
       public java.lang.String getSecondaryOrderId() {
         java.lang.Object ref = secondaryOrderId_;
@@ -29844,6 +31477,7 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for secondaryOrderId.
        */
       public com.google.protobuf.ByteString
           getSecondaryOrderIdBytes() {
@@ -29860,6 +31494,8 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The secondaryOrderId to set.
+       * @return This builder for chaining.
        */
       public Builder setSecondaryOrderId(
           java.lang.String value) {
@@ -29873,6 +31509,7 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecondaryOrderId() {
         
@@ -29882,6 +31519,8 @@ public final class MarketData {
       }
       /**
        * <code>string secondary_order_id = 48 [(.fix.tag) = 198, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for secondaryOrderId to set.
+       * @return This builder for chaining.
        */
       public Builder setSecondaryOrderIdBytes(
           com.google.protobuf.ByteString value) {
@@ -29898,12 +31537,15 @@ public final class MarketData {
       private long sellerDays_ ;
       /**
        * <code>sfixed64 seller_days = 49 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The sellerDays.
        */
       public long getSellerDays() {
         return sellerDays_;
       }
       /**
        * <code>sfixed64 seller_days = 49 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The sellerDays to set.
+       * @return This builder for chaining.
        */
       public Builder setSellerDays(long value) {
         
@@ -29913,6 +31555,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 seller_days = 49 [(.fix.tag) = 287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSellerDays() {
         
@@ -29924,12 +31567,15 @@ public final class MarketData {
       private int settlDate_ ;
       /**
        * <code>sfixed32 settl_date = 50 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The settlDate.
        */
       public int getSettlDate() {
         return settlDate_;
       }
       /**
        * <code>sfixed32 settl_date = 50 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The settlDate to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlDate(int value) {
         
@@ -29939,6 +31585,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 settl_date = 50 [(.fix.tag) = 64, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlDate() {
         
@@ -29949,6 +31596,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for settlType.
        */
       public int getSettlTypeValue() {
         if (settlTypeUnionCase_ == 51) {
@@ -29958,6 +31606,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlTypeValue(int value) {
         settlTypeUnionCase_ = 51;
@@ -29967,6 +31617,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The settlType.
        */
       public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
         if (settlTypeUnionCase_ == 51) {
@@ -29979,6 +31630,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlType(org.fixprotocol.components.MarketData.SettlTypeEnum value) {
         if (value == null) {
@@ -29991,6 +31644,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 51 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlType() {
         if (settlTypeUnionCase_ == 51) {
@@ -30005,12 +31659,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Tenor, org.fixprotocol.components.Fix.Tenor.Builder, org.fixprotocol.components.Fix.TenorOrBuilder> settlTypeTenorBuilder_;
       /**
        * <code>.fix.Tenor settl_type_tenor = 52 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the settlTypeTenor field is set.
        */
       public boolean hasSettlTypeTenor() {
         return settlTypeUnionCase_ == 52;
       }
       /**
        * <code>.fix.Tenor settl_type_tenor = 52 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The settlTypeTenor.
        */
       public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
         if (settlTypeTenorBuilder_ == null) {
@@ -30140,6 +31796,7 @@ public final class MarketData {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -30155,6 +31812,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -30171,6 +31829,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -30184,6 +31844,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -30193,6 +31854,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 53 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -30209,12 +31872,15 @@ public final class MarketData {
       private int tickDirection_ = 0;
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for tickDirection.
        */
       public int getTickDirectionValue() {
         return tickDirection_;
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tickDirection to set.
+       * @return This builder for chaining.
        */
       public Builder setTickDirectionValue(int value) {
         tickDirection_ = value;
@@ -30223,6 +31889,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tickDirection.
        */
       public org.fixprotocol.components.MarketData.TickDirectionEnum getTickDirection() {
         @SuppressWarnings("deprecation")
@@ -30231,6 +31898,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tickDirection to set.
+       * @return This builder for chaining.
        */
       public Builder setTickDirection(org.fixprotocol.components.MarketData.TickDirectionEnum value) {
         if (value == null) {
@@ -30243,6 +31912,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TickDirectionEnum tick_direction = 54 [(.fix.tag) = 274, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTickDirection() {
         
@@ -30254,12 +31924,15 @@ public final class MarketData {
       private int timeInForce_ = 0;
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for timeInForce.
        */
       public int getTimeInForceValue() {
         return timeInForce_;
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for timeInForce to set.
+       * @return This builder for chaining.
        */
       public Builder setTimeInForceValue(int value) {
         timeInForce_ = value;
@@ -30268,6 +31941,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The timeInForce.
        */
       public org.fixprotocol.components.MarketData.TimeInForceEnum getTimeInForce() {
         @SuppressWarnings("deprecation")
@@ -30276,6 +31950,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The timeInForce to set.
+       * @return This builder for chaining.
        */
       public Builder setTimeInForce(org.fixprotocol.components.MarketData.TimeInForceEnum value) {
         if (value == null) {
@@ -30288,6 +31964,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TimeInForceEnum time_in_force = 55 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTimeInForce() {
         
@@ -30306,6 +31983,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the tradeCondition.
        */
       public java.util.List<org.fixprotocol.components.MarketData.TradeConditionEnum> getTradeConditionList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -30313,18 +31991,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The count of tradeCondition.
        */
       public int getTradeConditionCount() {
         return tradeCondition_.size();
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the element to return.
+       * @return The tradeCondition at the given index.
        */
       public org.fixprotocol.components.MarketData.TradeConditionEnum getTradeCondition(int index) {
         return tradeCondition_converter_.convert(tradeCondition_.get(index));
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index to set the value at.
+       * @param value The tradeCondition to set.
+       * @return This builder for chaining.
        */
       public Builder setTradeCondition(
           int index, org.fixprotocol.components.MarketData.TradeConditionEnum value) {
@@ -30338,6 +32022,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addTradeCondition(org.fixprotocol.components.MarketData.TradeConditionEnum value) {
         if (value == null) {
@@ -30350,6 +32036,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllTradeCondition(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.TradeConditionEnum> values) {
@@ -30362,6 +32050,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradeCondition() {
         tradeCondition_ = java.util.Collections.emptyList();
@@ -30371,6 +32060,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return A list containing the enum numeric values on the wire for tradeCondition.
        */
       public java.util.List<java.lang.Integer>
       getTradeConditionValueList() {
@@ -30378,12 +32068,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of tradeCondition at the given index.
        */
       public int getTradeConditionValue(int index) {
         return tradeCondition_.get(index);
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of tradeCondition at the given index.
+       * @return This builder for chaining.
        */
       public Builder setTradeConditionValue(
           int index, int value) {
@@ -30394,6 +32089,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addTradeConditionValue(int value) {
         ensureTradeConditionIsMutable();
@@ -30403,6 +32100,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.TradeConditionEnum trade_condition = 56 [(.fix.tag) = 277, (.fix.type) = DATATYPE_MULTIPLE_STRING_VALUE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param values The enum numeric values on the wire for tradeCondition to add.
+       * @return This builder for chaining.
        */
       public Builder addAllTradeConditionValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -30419,12 +32118,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> tradeVolumeBuilder_;
       /**
        * <code>.fix.Decimal64 trade_volume = 57 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the tradeVolume field is set.
        */
       public boolean hasTradeVolume() {
         return tradeVolumeBuilder_ != null || tradeVolume_ != null;
       }
       /**
        * <code>.fix.Decimal64 trade_volume = 57 [(.fix.tag) = 1020, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradeVolume.
        */
       public org.fixprotocol.components.Fix.Decimal64 getTradeVolume() {
         if (tradeVolumeBuilder_ == null) {
@@ -30533,6 +32234,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for tradingSessionId.
        */
       public int getTradingSessionIdValue() {
         if (tradingSessionIdUnionCase_ == 58) {
@@ -30542,6 +32244,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tradingSessionId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionIdValue(int value) {
         tradingSessionIdUnionCase_ = 58;
@@ -30551,6 +32255,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionId.
        */
       public org.fixprotocol.components.MarketData.TradingSessionIDEnum getTradingSessionId() {
         if (tradingSessionIdUnionCase_ == 58) {
@@ -30563,6 +32268,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionId(org.fixprotocol.components.MarketData.TradingSessionIDEnum value) {
         if (value == null) {
@@ -30575,6 +32282,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionIDEnum trading_session_id = 58 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionId() {
         if (tradingSessionIdUnionCase_ == 58) {
@@ -30587,6 +32295,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 trading_session_id_reserved100plus = 59 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionIdReserved100plus.
        */
       public int getTradingSessionIdReserved100Plus() {
         if (tradingSessionIdUnionCase_ == 59) {
@@ -30596,6 +32305,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_id_reserved100plus = 59 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionIdReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionIdReserved100Plus(int value) {
         tradingSessionIdUnionCase_ = 59;
@@ -30605,6 +32316,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_id_reserved100plus = 59 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionIdReserved100Plus() {
         if (tradingSessionIdUnionCase_ == 59) {
@@ -30617,6 +32329,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for tradingSessionSubId.
        */
       public int getTradingSessionSubIdValue() {
         if (tradingSessionSubIdUnionCase_ == 60) {
@@ -30626,6 +32339,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for tradingSessionSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionSubIdValue(int value) {
         tradingSessionSubIdUnionCase_ = 60;
@@ -30635,6 +32350,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionSubId.
        */
       public org.fixprotocol.components.MarketData.TradingSessionSubIDEnum getTradingSessionSubId() {
         if (tradingSessionSubIdUnionCase_ == 60) {
@@ -30647,6 +32363,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionSubId(org.fixprotocol.components.MarketData.TradingSessionSubIDEnum value) {
         if (value == null) {
@@ -30659,6 +32377,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TradingSessionSubIDEnum trading_session_sub_id = 60 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionSubId() {
         if (tradingSessionSubIdUnionCase_ == 60) {
@@ -30671,6 +32390,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 trading_session_sub_id_reserved100plus = 61 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradingSessionSubIdReserved100plus.
        */
       public int getTradingSessionSubIdReserved100Plus() {
         if (tradingSessionSubIdUnionCase_ == 61) {
@@ -30680,6 +32400,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_sub_id_reserved100plus = 61 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradingSessionSubIdReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setTradingSessionSubIdReserved100Plus(int value) {
         tradingSessionSubIdUnionCase_ = 61;
@@ -30689,6 +32411,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trading_session_sub_id_reserved100plus = 61 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradingSessionSubIdReserved100Plus() {
         if (tradingSessionSubIdUnionCase_ == 61) {
@@ -30941,6 +32664,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for haltReason.
        */
       public int getHaltReasonValue() {
         if (haltReasonUnionCase_ == 63) {
@@ -30950,6 +32674,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for haltReason to set.
+       * @return This builder for chaining.
        */
       public Builder setHaltReasonValue(int value) {
         haltReasonUnionCase_ = 63;
@@ -30959,6 +32685,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The haltReason.
        */
       public org.fixprotocol.components.MarketData.HaltReasonEnum getHaltReason() {
         if (haltReasonUnionCase_ == 63) {
@@ -30971,6 +32698,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The haltReason to set.
+       * @return This builder for chaining.
        */
       public Builder setHaltReason(org.fixprotocol.components.MarketData.HaltReasonEnum value) {
         if (value == null) {
@@ -30983,6 +32712,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.HaltReasonEnum halt_reason = 63 [(.fix.tag) = 327, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHaltReason() {
         if (haltReasonUnionCase_ == 63) {
@@ -30995,6 +32725,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 halt_reason_reserved100plus = 64 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The haltReasonReserved100plus.
        */
       public int getHaltReasonReserved100Plus() {
         if (haltReasonUnionCase_ == 64) {
@@ -31004,6 +32735,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 halt_reason_reserved100plus = 64 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The haltReasonReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setHaltReasonReserved100Plus(int value) {
         haltReasonUnionCase_ = 64;
@@ -31013,6 +32746,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 halt_reason_reserved100plus = 64 [(.fix.tag) = 327, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHaltReasonReserved100Plus() {
         if (haltReasonUnionCase_ == 64) {
@@ -31026,12 +32760,15 @@ public final class MarketData {
       private int lotType_ = 0;
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for lotType.
        */
       public int getLotTypeValue() {
         return lotType_;
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for lotType to set.
+       * @return This builder for chaining.
        */
       public Builder setLotTypeValue(int value) {
         lotType_ = value;
@@ -31040,6 +32777,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The lotType.
        */
       public org.fixprotocol.components.MarketData.LotTypeEnum getLotType() {
         @SuppressWarnings("deprecation")
@@ -31048,6 +32786,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The lotType to set.
+       * @return This builder for chaining.
        */
       public Builder setLotType(org.fixprotocol.components.MarketData.LotTypeEnum value) {
         if (value == null) {
@@ -31060,6 +32800,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.LotTypeEnum lot_type = 65 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearLotType() {
         
@@ -31071,12 +32812,15 @@ public final class MarketData {
       private long marketDepth_ ;
       /**
        * <code>sfixed64 market_depth = 66 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The marketDepth.
        */
       public long getMarketDepth() {
         return marketDepth_;
       }
       /**
        * <code>sfixed64 market_depth = 66 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The marketDepth to set.
+       * @return This builder for chaining.
        */
       public Builder setMarketDepth(long value) {
         
@@ -31086,6 +32830,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 market_depth = 66 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMarketDepth() {
         
@@ -31097,12 +32842,15 @@ public final class MarketData {
       private int matchType_ = 0;
       /**
        * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for matchType.
        */
       public int getMatchTypeValue() {
         return matchType_;
       }
       /**
        * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for matchType to set.
+       * @return This builder for chaining.
        */
       public Builder setMatchTypeValue(int value) {
         matchType_ = value;
@@ -31111,6 +32859,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The matchType.
        */
       public org.fixprotocol.components.MarketData.MatchTypeEnum getMatchType() {
         @SuppressWarnings("deprecation")
@@ -31119,6 +32868,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The matchType to set.
+       * @return This builder for chaining.
        */
       public Builder setMatchType(org.fixprotocol.components.MarketData.MatchTypeEnum value) {
         if (value == null) {
@@ -31131,6 +32882,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MatchTypeEnum match_type = 67 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMatchType() {
         
@@ -31142,12 +32894,15 @@ public final class MarketData {
       private long mdSubBookType_ ;
       /**
        * <code>sfixed64 md_sub_book_type = 68 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The mdSubBookType.
        */
       public long getMdSubBookType() {
         return mdSubBookType_;
       }
       /**
        * <code>sfixed64 md_sub_book_type = 68 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The mdSubBookType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdSubBookType(long value) {
         
@@ -31157,6 +32912,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_sub_book_type = 68 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdSubBookType() {
         
@@ -31168,12 +32924,15 @@ public final class MarketData {
       private int priceType_ = 0;
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for priceType.
        */
       public int getPriceTypeValue() {
         return priceType_;
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for priceType to set.
+       * @return This builder for chaining.
        */
       public Builder setPriceTypeValue(int value) {
         priceType_ = value;
@@ -31182,6 +32941,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The priceType.
        */
       public org.fixprotocol.components.MarketData.PriceTypeEnum getPriceType() {
         @SuppressWarnings("deprecation")
@@ -31190,6 +32950,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The priceType to set.
+       * @return This builder for chaining.
        */
       public Builder setPriceType(org.fixprotocol.components.MarketData.PriceTypeEnum value) {
         if (value == null) {
@@ -31202,6 +32964,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.PriceTypeEnum price_type = 69 [(.fix.tag) = 423, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearPriceType() {
         
@@ -31452,6 +33215,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for securityTradingStatus.
        */
       public int getSecurityTradingStatusValue() {
         if (securityTradingStatusUnionCase_ == 71) {
@@ -31461,6 +33225,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for securityTradingStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSecurityTradingStatusValue(int value) {
         securityTradingStatusUnionCase_ = 71;
@@ -31470,6 +33236,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The securityTradingStatus.
        */
       public org.fixprotocol.components.MarketData.SecurityTradingStatusEnum getSecurityTradingStatus() {
         if (securityTradingStatusUnionCase_ == 71) {
@@ -31482,6 +33249,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The securityTradingStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSecurityTradingStatus(org.fixprotocol.components.MarketData.SecurityTradingStatusEnum value) {
         if (value == null) {
@@ -31494,6 +33263,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SecurityTradingStatusEnum security_trading_status = 71 [(.fix.tag) = 326, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecurityTradingStatus() {
         if (securityTradingStatusUnionCase_ == 71) {
@@ -31506,6 +33276,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 security_trading_status_reserved100plus = 72 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The securityTradingStatusReserved100plus.
        */
       public int getSecurityTradingStatusReserved100Plus() {
         if (securityTradingStatusUnionCase_ == 72) {
@@ -31515,6 +33286,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 security_trading_status_reserved100plus = 72 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The securityTradingStatusReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setSecurityTradingStatusReserved100Plus(int value) {
         securityTradingStatusUnionCase_ = 72;
@@ -31524,6 +33297,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 security_trading_status_reserved100plus = 72 [(.fix.tag) = 326, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecurityTradingStatusReserved100Plus() {
         if (securityTradingStatusUnionCase_ == 72) {
@@ -31539,12 +33313,14 @@ public final class MarketData {
           org.fixprotocol.components.SpreadOrBenchmarkCurveData, org.fixprotocol.components.SpreadOrBenchmarkCurveData.Builder, org.fixprotocol.components.SpreadOrBenchmarkCurveDataOrBuilder> spreadOrBenchmarkCurveDataBuilder_;
       /**
        * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the spreadOrBenchmarkCurveData field is set.
        */
       public boolean hasSpreadOrBenchmarkCurveData() {
         return spreadOrBenchmarkCurveDataBuilder_ != null || spreadOrBenchmarkCurveData_ != null;
       }
       /**
        * <code>.Common.SpreadOrBenchmarkCurveData spread_or_benchmark_curve_data = 73 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The spreadOrBenchmarkCurveData.
        */
       public org.fixprotocol.components.SpreadOrBenchmarkCurveData getSpreadOrBenchmarkCurveData() {
         if (spreadOrBenchmarkCurveDataBuilder_ == null) {
@@ -31894,6 +33670,7 @@ public final class MarketData {
       private java.lang.Object tradeId_ = "";
       /**
        * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The tradeId.
        */
       public java.lang.String getTradeId() {
         java.lang.Object ref = tradeId_;
@@ -31909,6 +33686,7 @@ public final class MarketData {
       }
       /**
        * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for tradeId.
        */
       public com.google.protobuf.ByteString
           getTradeIdBytes() {
@@ -31925,6 +33703,8 @@ public final class MarketData {
       }
       /**
        * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The tradeId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradeId(
           java.lang.String value) {
@@ -31938,6 +33718,7 @@ public final class MarketData {
       }
       /**
        * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradeId() {
         
@@ -31947,6 +33728,8 @@ public final class MarketData {
       }
       /**
        * <code>string trade_id = 75 [(.fix.tag) = 1003, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for tradeId to set.
+       * @return This builder for chaining.
        */
       public Builder setTradeIdBytes(
           com.google.protobuf.ByteString value) {
@@ -31965,12 +33748,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> transBkdTimeBuilder_;
       /**
        * <code>.fix.Timestamp trans_bkd_time = 76 [(.fix.tag) = 483, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the transBkdTime field is set.
        */
       public boolean hasTransBkdTime() {
         return transBkdTimeBuilder_ != null || transBkdTime_ != null;
       }
       /**
        * <code>.fix.Timestamp trans_bkd_time = 76 [(.fix.tag) = 483, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The transBkdTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getTransBkdTime() {
         if (transBkdTimeBuilder_ == null) {
@@ -32082,12 +33867,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> transactTimeBuilder_;
       /**
        * <code>.fix.Timestamp transact_time = 77 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the transactTime field is set.
        */
       public boolean hasTransactTime() {
         return transactTimeBuilder_ != null || transactTime_ != null;
       }
       /**
        * <code>.fix.Timestamp transact_time = 77 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The transactTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getTransactTime() {
         if (transactTimeBuilder_ == null) {
@@ -32196,6 +33983,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for trdType.
        */
       public int getTrdTypeValue() {
         if (trdTypeUnionCase_ == 78) {
@@ -32205,6 +33993,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for trdType to set.
+       * @return This builder for chaining.
        */
       public Builder setTrdTypeValue(int value) {
         trdTypeUnionCase_ = 78;
@@ -32214,6 +34004,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The trdType.
        */
       public org.fixprotocol.components.MarketData.TrdTypeEnum getTrdType() {
         if (trdTypeUnionCase_ == 78) {
@@ -32226,6 +34017,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The trdType to set.
+       * @return This builder for chaining.
        */
       public Builder setTrdType(org.fixprotocol.components.MarketData.TrdTypeEnum value) {
         if (value == null) {
@@ -32238,6 +34031,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.TrdTypeEnum trd_type = 78 [(.fix.tag) = 828, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTrdType() {
         if (trdTypeUnionCase_ == 78) {
@@ -32250,6 +34044,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 trd_type_reserved1000plus = 79 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The trdTypeReserved1000plus.
        */
       public int getTrdTypeReserved1000Plus() {
         if (trdTypeUnionCase_ == 79) {
@@ -32259,6 +34054,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trd_type_reserved1000plus = 79 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The trdTypeReserved1000plus to set.
+       * @return This builder for chaining.
        */
       public Builder setTrdTypeReserved1000Plus(int value) {
         trdTypeUnionCase_ = 79;
@@ -32268,6 +34065,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 trd_type_reserved1000plus = 79 [(.fix.tag) = 828, (.fix.type) = DATATYPE_RESERVED1000PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTrdTypeReserved1000Plus() {
         if (trdTypeUnionCase_ == 79) {
@@ -32283,12 +34081,14 @@ public final class MarketData {
           org.fixprotocol.components.YieldData, org.fixprotocol.components.YieldData.Builder, org.fixprotocol.components.YieldDataOrBuilder> yieldDataBuilder_;
       /**
        * <code>.Common.YieldData yield_data = 80 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the yieldData field is set.
        */
       public boolean hasYieldData() {
         return yieldDataBuilder_ != null || yieldData_ != null;
       }
       /**
        * <code>.Common.YieldData yield_data = 80 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The yieldData.
        */
       public org.fixprotocol.components.YieldData getYieldData() {
         if (yieldDataBuilder_ == null) {
@@ -32638,6 +34438,7 @@ public final class MarketData {
       private java.lang.Object settlCurrency_ = "";
       /**
        * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @return The settlCurrency.
        */
       public java.lang.String getSettlCurrency() {
         java.lang.Object ref = settlCurrency_;
@@ -32653,6 +34454,7 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @return The bytes for settlCurrency.
        */
       public com.google.protobuf.ByteString
           getSettlCurrencyBytes() {
@@ -32669,6 +34471,8 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @param value The settlCurrency to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlCurrency(
           java.lang.String value) {
@@ -32682,6 +34486,7 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlCurrency() {
         
@@ -32691,6 +34496,8 @@ public final class MarketData {
       }
       /**
        * <code>string settl_currency = 82 [(.fix.tag) = 120, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+       * @param value The bytes for settlCurrency to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlCurrencyBytes(
           com.google.protobuf.ByteString value) {
@@ -32709,12 +34516,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> firstPxBuilder_;
       /**
        * <code>.fix.Decimal64 first_px = 83 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return Whether the firstPx field is set.
        */
       public boolean hasFirstPx() {
         return firstPxBuilder_ != null || firstPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 first_px = 83 [(.fix.tag) = 1025, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The firstPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getFirstPx() {
         if (firstPxBuilder_ == null) {
@@ -32826,12 +34635,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> lastPxBuilder_;
       /**
        * <code>.fix.Decimal64 last_px = 84 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return Whether the lastPx field is set.
        */
       public boolean hasLastPx() {
         return lastPxBuilder_ != null || lastPx_ != null;
       }
       /**
        * <code>.fix.Decimal64 last_px = 84 [(.fix.tag) = 31, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 84];</code>
+       * @return The lastPx.
        */
       public org.fixprotocol.components.Fix.Decimal64 getLastPx() {
         if (lastPxBuilder_ == null) {
@@ -32941,6 +34752,7 @@ public final class MarketData {
       private java.lang.Object mdStreamId_ = "";
       /**
        * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The mdStreamId.
        */
       public java.lang.String getMdStreamId() {
         java.lang.Object ref = mdStreamId_;
@@ -32956,6 +34768,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for mdStreamId.
        */
       public com.google.protobuf.ByteString
           getMdStreamIdBytes() {
@@ -32972,6 +34785,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamId(
           java.lang.String value) {
@@ -32985,6 +34800,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdStreamId() {
         
@@ -32994,6 +34810,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 85 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamIdBytes(
           com.google.protobuf.ByteString value) {
@@ -33065,10 +34883,12 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdEntryType.
      */
     int getMdEntryTypeValue();
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryType.
      */
     org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType();
   }
@@ -33160,12 +34980,14 @@ public final class MarketData {
     private int mdEntryType_;
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdEntryType.
      */
     public int getMdEntryTypeValue() {
       return mdEntryType_;
     }
     /**
      * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdEntryType.
      */
     public org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType() {
       @SuppressWarnings("deprecation")
@@ -33477,12 +35299,15 @@ public final class MarketData {
       private int mdEntryType_ = 0;
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdEntryType.
        */
       public int getMdEntryTypeValue() {
         return mdEntryType_;
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdEntryType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryTypeValue(int value) {
         mdEntryType_ = value;
@@ -33491,6 +35316,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdEntryType.
        */
       public org.fixprotocol.components.MarketData.MDEntryTypeEnum getMdEntryType() {
         @SuppressWarnings("deprecation")
@@ -33499,6 +35325,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdEntryType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdEntryType(org.fixprotocol.components.MarketData.MDEntryTypeEnum value) {
         if (value == null) {
@@ -33511,6 +35339,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDEntryTypeEnum md_entry_type = 1 [(.fix.tag) = 269, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdEntryType() {
         
@@ -33577,10 +35406,12 @@ public final class MarketData {
 
     /**
      * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The altMdSourceId.
      */
     java.lang.String getAltMdSourceId();
     /**
      * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for altMdSourceId.
      */
     com.google.protobuf.ByteString
         getAltMdSourceIdBytes();
@@ -33673,6 +35504,7 @@ public final class MarketData {
     private volatile java.lang.Object altMdSourceId_;
     /**
      * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The altMdSourceId.
      */
     public java.lang.String getAltMdSourceId() {
       java.lang.Object ref = altMdSourceId_;
@@ -33688,6 +35520,7 @@ public final class MarketData {
     }
     /**
      * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for altMdSourceId.
      */
     public com.google.protobuf.ByteString
         getAltMdSourceIdBytes() {
@@ -34008,6 +35841,7 @@ public final class MarketData {
       private java.lang.Object altMdSourceId_ = "";
       /**
        * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The altMdSourceId.
        */
       public java.lang.String getAltMdSourceId() {
         java.lang.Object ref = altMdSourceId_;
@@ -34023,6 +35857,7 @@ public final class MarketData {
       }
       /**
        * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for altMdSourceId.
        */
       public com.google.protobuf.ByteString
           getAltMdSourceIdBytes() {
@@ -34039,6 +35874,8 @@ public final class MarketData {
       }
       /**
        * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The altMdSourceId to set.
+       * @return This builder for chaining.
        */
       public Builder setAltMdSourceId(
           java.lang.String value) {
@@ -34052,6 +35889,7 @@ public final class MarketData {
       }
       /**
        * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearAltMdSourceId() {
         
@@ -34061,6 +35899,8 @@ public final class MarketData {
       }
       /**
        * <code>string alt_md_source_id = 1 [(.fix.tag) = 817, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for altMdSourceId to set.
+       * @return This builder for chaining.
        */
       public Builder setAltMdSourceIdBytes(
           com.google.protobuf.ByteString value) {
@@ -34132,10 +35972,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 md_sec_size = 1 [(.fix.tag) = 1179, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the mdSecSize field is set.
      */
     boolean hasMdSecSize();
     /**
      * <code>.fix.Decimal64 md_sec_size = 1 [(.fix.tag) = 1179, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSecSize.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdSecSize();
     /**
@@ -34145,15 +35987,18 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for mdSecSizeType.
      */
     int getMdSecSizeTypeValue();
     /**
      * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSecSizeType.
      */
     org.fixprotocol.components.MarketData.MDSecSizeTypeEnum getMdSecSizeType();
 
     /**
      * <code>fixed32 md_sec_size_type_reserved100plus = 3 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSecSizeTypeReserved100plus.
      */
     int getMdSecSizeTypeReserved100Plus();
 
@@ -34263,7 +36108,8 @@ public final class MarketData {
     private int mdSecSizeTypeUnionCase_ = 0;
     private java.lang.Object mdSecSizeTypeUnion_;
     public enum MdSecSizeTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       MD_SEC_SIZE_TYPE(2),
       MD_SEC_SIZE_TYPE_RESERVED100PLUS(3),
       MDSECSIZETYPEUNION_NOT_SET(0);
@@ -34272,6 +36118,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -34302,12 +36150,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdSecSize_;
     /**
      * <code>.fix.Decimal64 md_sec_size = 1 [(.fix.tag) = 1179, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the mdSecSize field is set.
      */
     public boolean hasMdSecSize() {
       return mdSecSize_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_sec_size = 1 [(.fix.tag) = 1179, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSecSize.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdSecSize() {
       return mdSecSize_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdSecSize_;
@@ -34322,6 +36172,7 @@ public final class MarketData {
     public static final int MD_SEC_SIZE_TYPE_FIELD_NUMBER = 2;
     /**
      * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for mdSecSizeType.
      */
     public int getMdSecSizeTypeValue() {
       if (mdSecSizeTypeUnionCase_ == 2) {
@@ -34331,6 +36182,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSecSizeType.
      */
     public org.fixprotocol.components.MarketData.MDSecSizeTypeEnum getMdSecSizeType() {
       if (mdSecSizeTypeUnionCase_ == 2) {
@@ -34345,6 +36197,7 @@ public final class MarketData {
     public static final int MD_SEC_SIZE_TYPE_RESERVED100PLUS_FIELD_NUMBER = 3;
     /**
      * <code>fixed32 md_sec_size_type_reserved100plus = 3 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSecSizeTypeReserved100plus.
      */
     public int getMdSecSizeTypeReserved100Plus() {
       if (mdSecSizeTypeUnionCase_ == 3) {
@@ -34751,12 +36604,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdSecSizeBuilder_;
       /**
        * <code>.fix.Decimal64 md_sec_size = 1 [(.fix.tag) = 1179, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the mdSecSize field is set.
        */
       public boolean hasMdSecSize() {
         return mdSecSizeBuilder_ != null || mdSecSize_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_sec_size = 1 [(.fix.tag) = 1179, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The mdSecSize.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdSecSize() {
         if (mdSecSizeBuilder_ == null) {
@@ -34865,6 +36720,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for mdSecSizeType.
        */
       public int getMdSecSizeTypeValue() {
         if (mdSecSizeTypeUnionCase_ == 2) {
@@ -34874,6 +36730,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for mdSecSizeType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdSecSizeTypeValue(int value) {
         mdSecSizeTypeUnionCase_ = 2;
@@ -34883,6 +36741,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The mdSecSizeType.
        */
       public org.fixprotocol.components.MarketData.MDSecSizeTypeEnum getMdSecSizeType() {
         if (mdSecSizeTypeUnionCase_ == 2) {
@@ -34895,6 +36754,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The mdSecSizeType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdSecSizeType(org.fixprotocol.components.MarketData.MDSecSizeTypeEnum value) {
         if (value == null) {
@@ -34907,6 +36768,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDSecSizeTypeEnum md_sec_size_type = 2 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdSecSizeType() {
         if (mdSecSizeTypeUnionCase_ == 2) {
@@ -34919,6 +36781,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 md_sec_size_type_reserved100plus = 3 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The mdSecSizeTypeReserved100plus.
        */
       public int getMdSecSizeTypeReserved100Plus() {
         if (mdSecSizeTypeUnionCase_ == 3) {
@@ -34928,6 +36791,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 md_sec_size_type_reserved100plus = 3 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The mdSecSizeTypeReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setMdSecSizeTypeReserved100Plus(int value) {
         mdSecSizeTypeUnionCase_ = 3;
@@ -34937,6 +36802,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 md_sec_size_type_reserved100plus = 3 [(.fix.tag) = 1178, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdSecSizeTypeReserved100Plus() {
         if (mdSecSizeTypeUnionCase_ == 3) {
@@ -35005,10 +36871,12 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for statsType.
      */
     int getStatsTypeValue();
     /**
      * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The statsType.
      */
     org.fixprotocol.components.MarketData.StatsTypeEnum getStatsType();
   }
@@ -35100,12 +36968,14 @@ public final class MarketData {
     private int statsType_;
     /**
      * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for statsType.
      */
     public int getStatsTypeValue() {
       return statsType_;
     }
     /**
      * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The statsType.
      */
     public org.fixprotocol.components.MarketData.StatsTypeEnum getStatsType() {
       @SuppressWarnings("deprecation")
@@ -35417,12 +37287,15 @@ public final class MarketData {
       private int statsType_ = 0;
       /**
        * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for statsType.
        */
       public int getStatsTypeValue() {
         return statsType_;
       }
       /**
        * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for statsType to set.
+       * @return This builder for chaining.
        */
       public Builder setStatsTypeValue(int value) {
         statsType_ = value;
@@ -35431,6 +37304,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The statsType.
        */
       public org.fixprotocol.components.MarketData.StatsTypeEnum getStatsType() {
         @SuppressWarnings("deprecation")
@@ -35439,6 +37313,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The statsType to set.
+       * @return This builder for chaining.
        */
       public Builder setStatsType(org.fixprotocol.components.MarketData.StatsTypeEnum value) {
         if (value == null) {
@@ -35451,6 +37327,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StatsTypeEnum stats_type = 1 [(.fix.tag) = 1176, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStatsType() {
         
@@ -37827,10 +39704,12 @@ public final class MarketData {
 
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the instrument field is set.
      */
     boolean hasInstrument();
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The instrument.
      */
     org.fixprotocol.components.Instrument getInstrument();
     /**
@@ -37840,10 +39719,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 md_entry_size = 2 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     boolean hasMdEntrySize();
     /**
      * <code>.fix.Decimal64 md_entry_size = 2 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdEntrySize.
      */
     org.fixprotocol.components.Fix.Decimal64 getMdEntrySize();
     /**
@@ -37853,29 +39734,35 @@ public final class MarketData {
 
     /**
      * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     java.lang.String getMdStreamId();
     /**
      * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     com.google.protobuf.ByteString
         getMdStreamIdBytes();
 
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     int getSettlTypeValue();
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlType.
      */
     org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType();
 
     /**
      * <code>.fix.Tenor settl_type_tenor = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     boolean hasSettlTypeTenor();
     /**
      * <code>.fix.Tenor settl_type_tenor = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlTypeTenor.
      */
     org.fixprotocol.components.Fix.Tenor getSettlTypeTenor();
     /**
@@ -38018,7 +39905,8 @@ public final class MarketData {
     private int settlTypeUnionCase_ = 0;
     private java.lang.Object settlTypeUnion_;
     public enum SettlTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SETTL_TYPE(4),
       SETTL_TYPE_TENOR(5),
       SETTLTYPEUNION_NOT_SET(0);
@@ -38027,6 +39915,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -38057,12 +39947,14 @@ public final class MarketData {
     private org.fixprotocol.components.Instrument instrument_;
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -38078,12 +39970,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 mdEntrySize_;
     /**
      * <code>.fix.Decimal64 md_entry_size = 2 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return Whether the mdEntrySize field is set.
      */
     public boolean hasMdEntrySize() {
       return mdEntrySize_ != null;
     }
     /**
      * <code>.fix.Decimal64 md_entry_size = 2 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdEntrySize.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
       return mdEntrySize_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : mdEntrySize_;
@@ -38099,6 +39993,7 @@ public final class MarketData {
     private volatile java.lang.Object mdStreamId_;
     /**
      * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     public java.lang.String getMdStreamId() {
       java.lang.Object ref = mdStreamId_;
@@ -38114,6 +40009,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     public com.google.protobuf.ByteString
         getMdStreamIdBytes() {
@@ -38132,6 +40028,7 @@ public final class MarketData {
     public static final int SETTL_TYPE_FIELD_NUMBER = 4;
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     public int getSettlTypeValue() {
       if (settlTypeUnionCase_ == 4) {
@@ -38141,6 +40038,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlType.
      */
     public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
       if (settlTypeUnionCase_ == 4) {
@@ -38155,12 +40053,14 @@ public final class MarketData {
     public static final int SETTL_TYPE_TENOR_FIELD_NUMBER = 5;
     /**
      * <code>.fix.Tenor settl_type_tenor = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     public boolean hasSettlTypeTenor() {
       return settlTypeUnionCase_ == 5;
     }
     /**
      * <code>.fix.Tenor settl_type_tenor = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlTypeTenor.
      */
     public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
       if (settlTypeUnionCase_ == 5) {
@@ -38625,12 +40525,14 @@ public final class MarketData {
           org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
       /**
        * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the instrument field is set.
        */
       public boolean hasInstrument() {
         return instrumentBuilder_ != null || instrument_ != null;
       }
       /**
        * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The instrument.
        */
       public org.fixprotocol.components.Instrument getInstrument() {
         if (instrumentBuilder_ == null) {
@@ -38742,12 +40644,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> mdEntrySizeBuilder_;
       /**
        * <code>.fix.Decimal64 md_entry_size = 2 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return Whether the mdEntrySize field is set.
        */
       public boolean hasMdEntrySize() {
         return mdEntrySizeBuilder_ != null || mdEntrySize_ != null;
       }
       /**
        * <code>.fix.Decimal64 md_entry_size = 2 [(.fix.tag) = 271, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The mdEntrySize.
        */
       public org.fixprotocol.components.Fix.Decimal64 getMdEntrySize() {
         if (mdEntrySizeBuilder_ == null) {
@@ -38857,6 +40761,7 @@ public final class MarketData {
       private java.lang.Object mdStreamId_ = "";
       /**
        * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The mdStreamId.
        */
       public java.lang.String getMdStreamId() {
         java.lang.Object ref = mdStreamId_;
@@ -38872,6 +40777,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for mdStreamId.
        */
       public com.google.protobuf.ByteString
           getMdStreamIdBytes() {
@@ -38888,6 +40794,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamId(
           java.lang.String value) {
@@ -38901,6 +40809,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdStreamId() {
         
@@ -38910,6 +40819,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 3 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamIdBytes(
           com.google.protobuf.ByteString value) {
@@ -38925,6 +40836,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for settlType.
        */
       public int getSettlTypeValue() {
         if (settlTypeUnionCase_ == 4) {
@@ -38934,6 +40846,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlTypeValue(int value) {
         settlTypeUnionCase_ = 4;
@@ -38943,6 +40857,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The settlType.
        */
       public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
         if (settlTypeUnionCase_ == 4) {
@@ -38955,6 +40870,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlType(org.fixprotocol.components.MarketData.SettlTypeEnum value) {
         if (value == null) {
@@ -38967,6 +40884,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 4 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlType() {
         if (settlTypeUnionCase_ == 4) {
@@ -38981,12 +40899,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Tenor, org.fixprotocol.components.Fix.Tenor.Builder, org.fixprotocol.components.Fix.TenorOrBuilder> settlTypeTenorBuilder_;
       /**
        * <code>.fix.Tenor settl_type_tenor = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return Whether the settlTypeTenor field is set.
        */
       public boolean hasSettlTypeTenor() {
         return settlTypeUnionCase_ == 5;
       }
       /**
        * <code>.fix.Tenor settl_type_tenor = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The settlTypeTenor.
        */
       public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
         if (settlTypeTenorBuilder_ == null) {
@@ -39171,10 +41091,12 @@ public final class MarketData {
 
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the instrument field is set.
      */
     boolean hasInstrument();
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The instrument.
      */
     org.fixprotocol.components.Instrument getInstrument();
     /**
@@ -39184,44 +41106,53 @@ public final class MarketData {
 
     /**
      * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 3 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     java.lang.String getMdStreamId();
     /**
      * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     com.google.protobuf.ByteString
         getMdStreamIdBytes();
 
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     int getSettlTypeValue();
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlType.
      */
     org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType();
 
     /**
      * <code>.fix.Tenor settl_type_tenor = 6 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     boolean hasSettlTypeTenor();
     /**
      * <code>.fix.Tenor settl_type_tenor = 6 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlTypeTenor.
      */
     org.fixprotocol.components.Fix.Tenor getSettlTypeTenor();
     /**
@@ -39231,33 +41162,40 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnRejReason.
      */
     int getStreamAsgnRejReasonValue();
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReason.
      */
     org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum getStreamAsgnRejReason();
 
     /**
      * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 8 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReasonReserved100plus.
      */
     int getStreamAsgnRejReasonReserved100Plus();
 
     /**
      * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnType.
      */
     int getStreamAsgnTypeValue();
     /**
      * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnType.
      */
     org.fixprotocol.components.MarketData.StreamAsgnTypeEnum getStreamAsgnType();
 
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
@@ -39423,7 +41361,8 @@ public final class MarketData {
     private int settlTypeUnionCase_ = 0;
     private java.lang.Object settlTypeUnion_;
     public enum SettlTypeUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SETTL_TYPE(5),
       SETTL_TYPE_TENOR(6),
       SETTLTYPEUNION_NOT_SET(0);
@@ -39432,6 +41371,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -39461,7 +41402,8 @@ public final class MarketData {
     private int streamAsgnRejReasonUnionCase_ = 0;
     private java.lang.Object streamAsgnRejReasonUnion_;
     public enum StreamAsgnRejReasonUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       STREAM_ASGN_REJ_REASON(7),
       STREAM_ASGN_REJ_REASON_RESERVED100PLUS(8),
       STREAMASGNREJREASONUNION_NOT_SET(0);
@@ -39470,6 +41412,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -39500,12 +41444,14 @@ public final class MarketData {
     private org.fixprotocol.components.Instrument instrument_;
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -39521,6 +41467,7 @@ public final class MarketData {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -39536,6 +41483,7 @@ public final class MarketData {
     }
     /**
      * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -39555,6 +41503,7 @@ public final class MarketData {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 3 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -39564,6 +41513,7 @@ public final class MarketData {
     private volatile java.lang.Object mdStreamId_;
     /**
      * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     public java.lang.String getMdStreamId() {
       java.lang.Object ref = mdStreamId_;
@@ -39579,6 +41529,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     public com.google.protobuf.ByteString
         getMdStreamIdBytes() {
@@ -39597,6 +41548,7 @@ public final class MarketData {
     public static final int SETTL_TYPE_FIELD_NUMBER = 5;
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for settlType.
      */
     public int getSettlTypeValue() {
       if (settlTypeUnionCase_ == 5) {
@@ -39606,6 +41558,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlType.
      */
     public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
       if (settlTypeUnionCase_ == 5) {
@@ -39620,12 +41573,14 @@ public final class MarketData {
     public static final int SETTL_TYPE_TENOR_FIELD_NUMBER = 6;
     /**
      * <code>.fix.Tenor settl_type_tenor = 6 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return Whether the settlTypeTenor field is set.
      */
     public boolean hasSettlTypeTenor() {
       return settlTypeUnionCase_ == 6;
     }
     /**
      * <code>.fix.Tenor settl_type_tenor = 6 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The settlTypeTenor.
      */
     public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
       if (settlTypeUnionCase_ == 6) {
@@ -39646,6 +41601,7 @@ public final class MarketData {
     public static final int STREAM_ASGN_REJ_REASON_FIELD_NUMBER = 7;
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnRejReason.
      */
     public int getStreamAsgnRejReasonValue() {
       if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -39655,6 +41611,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReason.
      */
     public org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum getStreamAsgnRejReason() {
       if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -39669,6 +41626,7 @@ public final class MarketData {
     public static final int STREAM_ASGN_REJ_REASON_RESERVED100PLUS_FIELD_NUMBER = 8;
     /**
      * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 8 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReasonReserved100plus.
      */
     public int getStreamAsgnRejReasonReserved100Plus() {
       if (streamAsgnRejReasonUnionCase_ == 8) {
@@ -39681,12 +41639,14 @@ public final class MarketData {
     private int streamAsgnType_;
     /**
      * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnType.
      */
     public int getStreamAsgnTypeValue() {
       return streamAsgnType_;
     }
     /**
      * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnType.
      */
     public org.fixprotocol.components.MarketData.StreamAsgnTypeEnum getStreamAsgnType() {
       @SuppressWarnings("deprecation")
@@ -39698,6 +41658,7 @@ public final class MarketData {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -39713,6 +41674,7 @@ public final class MarketData {
     }
     /**
      * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -40291,12 +42253,14 @@ public final class MarketData {
           org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
       /**
        * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the instrument field is set.
        */
       public boolean hasInstrument() {
         return instrumentBuilder_ != null || instrument_ != null;
       }
       /**
        * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The instrument.
        */
       public org.fixprotocol.components.Instrument getInstrument() {
         if (instrumentBuilder_ == null) {
@@ -40406,6 +42370,7 @@ public final class MarketData {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -40421,6 +42386,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -40437,6 +42403,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -40450,6 +42418,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -40459,6 +42428,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 2 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -40475,12 +42446,15 @@ public final class MarketData {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 3 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 3 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -40490,6 +42464,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 encoded_text_len = 3 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -40501,6 +42476,7 @@ public final class MarketData {
       private java.lang.Object mdStreamId_ = "";
       /**
        * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The mdStreamId.
        */
       public java.lang.String getMdStreamId() {
         java.lang.Object ref = mdStreamId_;
@@ -40516,6 +42492,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for mdStreamId.
        */
       public com.google.protobuf.ByteString
           getMdStreamIdBytes() {
@@ -40532,6 +42509,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamId(
           java.lang.String value) {
@@ -40545,6 +42524,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdStreamId() {
         
@@ -40554,6 +42534,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 4 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamIdBytes(
           com.google.protobuf.ByteString value) {
@@ -40569,6 +42551,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for settlType.
        */
       public int getSettlTypeValue() {
         if (settlTypeUnionCase_ == 5) {
@@ -40578,6 +42561,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlTypeValue(int value) {
         settlTypeUnionCase_ = 5;
@@ -40587,6 +42572,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The settlType.
        */
       public org.fixprotocol.components.MarketData.SettlTypeEnum getSettlType() {
         if (settlTypeUnionCase_ == 5) {
@@ -40599,6 +42585,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The settlType to set.
+       * @return This builder for chaining.
        */
       public Builder setSettlType(org.fixprotocol.components.MarketData.SettlTypeEnum value) {
         if (value == null) {
@@ -40611,6 +42599,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SettlTypeEnum settl_type = 5 [(.fix.tag) = 63, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSettlType() {
         if (settlTypeUnionCase_ == 5) {
@@ -40625,12 +42614,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Tenor, org.fixprotocol.components.Fix.Tenor.Builder, org.fixprotocol.components.Fix.TenorOrBuilder> settlTypeTenorBuilder_;
       /**
        * <code>.fix.Tenor settl_type_tenor = 6 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return Whether the settlTypeTenor field is set.
        */
       public boolean hasSettlTypeTenor() {
         return settlTypeUnionCase_ == 6;
       }
       /**
        * <code>.fix.Tenor settl_type_tenor = 6 [(.fix.tag) = 63, (.fix.type) = DATATYPE_TENOR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The settlTypeTenor.
        */
       public org.fixprotocol.components.Fix.Tenor getSettlTypeTenor() {
         if (settlTypeTenorBuilder_ == null) {
@@ -40759,6 +42750,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for streamAsgnRejReason.
        */
       public int getStreamAsgnRejReasonValue() {
         if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -40768,6 +42760,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for streamAsgnRejReason to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRejReasonValue(int value) {
         streamAsgnRejReasonUnionCase_ = 7;
@@ -40777,6 +42771,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnRejReason.
        */
       public org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum getStreamAsgnRejReason() {
         if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -40789,6 +42784,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnRejReason to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRejReason(org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum value) {
         if (value == null) {
@@ -40801,6 +42798,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnRejReason() {
         if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -40813,6 +42811,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 8 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnRejReasonReserved100plus.
        */
       public int getStreamAsgnRejReasonReserved100Plus() {
         if (streamAsgnRejReasonUnionCase_ == 8) {
@@ -40822,6 +42821,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 8 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnRejReasonReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRejReasonReserved100Plus(int value) {
         streamAsgnRejReasonUnionCase_ = 8;
@@ -40831,6 +42832,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 8 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnRejReasonReserved100Plus() {
         if (streamAsgnRejReasonUnionCase_ == 8) {
@@ -40844,12 +42846,15 @@ public final class MarketData {
       private int streamAsgnType_ = 0;
       /**
        * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for streamAsgnType.
        */
       public int getStreamAsgnTypeValue() {
         return streamAsgnType_;
       }
       /**
        * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for streamAsgnType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnTypeValue(int value) {
         streamAsgnType_ = value;
@@ -40858,6 +42863,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnType.
        */
       public org.fixprotocol.components.MarketData.StreamAsgnTypeEnum getStreamAsgnType() {
         @SuppressWarnings("deprecation")
@@ -40866,6 +42872,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnType(org.fixprotocol.components.MarketData.StreamAsgnTypeEnum value) {
         if (value == null) {
@@ -40878,6 +42886,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnTypeEnum stream_asgn_type = 9 [(.fix.tag) = 1617, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnType() {
         
@@ -40889,6 +42898,7 @@ public final class MarketData {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -40904,6 +42914,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -40920,6 +42931,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -40933,6 +42946,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -40942,6 +42956,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 10 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -41013,39 +43029,47 @@ public final class MarketData {
 
     /**
      * <code>bool aggregated_book = 1 [(.fix.tag) = 266, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The aggregatedBook.
      */
     boolean getAggregatedBook();
 
     /**
      * <code>sfixed64 market_depth = 2 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The marketDepth.
      */
     long getMarketDepth();
 
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     java.lang.String getMdReqId();
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     com.google.protobuf.ByteString
         getMdReqIdBytes();
 
     /**
      * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for mdUpdateType.
      */
     int getMdUpdateTypeValue();
     /**
      * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdUpdateType.
      */
     org.fixprotocol.components.MarketData.MDUpdateTypeEnum getMdUpdateType();
 
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -41055,10 +43079,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -41068,73 +43094,93 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for subscriptionRequestType.
      */
     int getSubscriptionRequestTypeValue();
     /**
      * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The subscriptionRequestType.
      */
     org.fixprotocol.components.MarketData.SubscriptionRequestTypeEnum getSubscriptionRequestType();
 
     /**
      * <code>bool md_implicit_delete = 8 [(.fix.tag) = 547, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The mdImplicitDelete.
      */
     boolean getMdImplicitDelete();
 
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the openCloseSettlFlag.
      */
     java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The count of openCloseSettlFlag.
      */
     int getOpenCloseSettlFlagCount();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the element to return.
+     * @return The openCloseSettlFlag at the given index.
      */
     org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index);
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
      */
     java.util.List<java.lang.Integer>
     getOpenCloseSettlFlagValueList();
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
      */
     int getOpenCloseSettlFlagValue(int index);
 
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the scope.
      */
     java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The count of scope.
      */
     int getScopeCount();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the element to return.
+     * @return The scope at the given index.
      */
     org.fixprotocol.components.MarketData.ScopeEnum getScope(int index);
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the enum numeric values on the wire for scope.
      */
     java.util.List<java.lang.Integer>
     getScopeValueList();
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of scope at the given index.
      */
     int getScopeValue(int index);
 
     /**
      * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applQueueAction.
      */
     int getApplQueueActionValue();
     /**
      * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueAction.
      */
     org.fixprotocol.components.MarketData.ApplQueueActionEnum getApplQueueAction();
 
     /**
      * <code>sfixed64 appl_queue_max = 12 [(.fix.tag) = 812, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueMax.
      */
     long getApplQueueMax();
 
@@ -41164,10 +43210,12 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdQuoteType.
      */
     int getMdQuoteTypeValue();
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdQuoteType.
      */
     org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType();
 
@@ -41512,6 +43560,7 @@ public final class MarketData {
     private boolean aggregatedBook_;
     /**
      * <code>bool aggregated_book = 1 [(.fix.tag) = 266, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The aggregatedBook.
      */
     public boolean getAggregatedBook() {
       return aggregatedBook_;
@@ -41521,6 +43570,7 @@ public final class MarketData {
     private long marketDepth_;
     /**
      * <code>sfixed64 market_depth = 2 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The marketDepth.
      */
     public long getMarketDepth() {
       return marketDepth_;
@@ -41530,6 +43580,7 @@ public final class MarketData {
     private volatile java.lang.Object mdReqId_;
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     public java.lang.String getMdReqId() {
       java.lang.Object ref = mdReqId_;
@@ -41545,6 +43596,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     public com.google.protobuf.ByteString
         getMdReqIdBytes() {
@@ -41564,12 +43616,14 @@ public final class MarketData {
     private int mdUpdateType_;
     /**
      * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for mdUpdateType.
      */
     public int getMdUpdateTypeValue() {
       return mdUpdateType_;
     }
     /**
      * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdUpdateType.
      */
     public org.fixprotocol.components.MarketData.MDUpdateTypeEnum getMdUpdateType() {
       @SuppressWarnings("deprecation")
@@ -41581,12 +43635,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -41602,12 +43658,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -41623,12 +43681,14 @@ public final class MarketData {
     private int subscriptionRequestType_;
     /**
      * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for subscriptionRequestType.
      */
     public int getSubscriptionRequestTypeValue() {
       return subscriptionRequestType_;
     }
     /**
      * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The subscriptionRequestType.
      */
     public org.fixprotocol.components.MarketData.SubscriptionRequestTypeEnum getSubscriptionRequestType() {
       @SuppressWarnings("deprecation")
@@ -41640,6 +43700,7 @@ public final class MarketData {
     private boolean mdImplicitDelete_;
     /**
      * <code>bool md_implicit_delete = 8 [(.fix.tag) = 547, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The mdImplicitDelete.
      */
     public boolean getMdImplicitDelete() {
       return mdImplicitDelete_;
@@ -41659,6 +43720,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the openCloseSettlFlag.
      */
     public java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -41666,18 +43728,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The count of openCloseSettlFlag.
      */
     public int getOpenCloseSettlFlagCount() {
       return openCloseSettlFlag_.size();
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the element to return.
+     * @return The openCloseSettlFlag at the given index.
      */
     public org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index) {
       return openCloseSettlFlag_converter_.convert(openCloseSettlFlag_.get(index));
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
      */
     public java.util.List<java.lang.Integer>
     getOpenCloseSettlFlagValueList() {
@@ -41685,6 +43751,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
      */
     public int getOpenCloseSettlFlagValue(int index) {
       return openCloseSettlFlag_.get(index);
@@ -41705,6 +43773,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the scope.
      */
     public java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -41712,18 +43781,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The count of scope.
      */
     public int getScopeCount() {
       return scope_.size();
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the element to return.
+     * @return The scope at the given index.
      */
     public org.fixprotocol.components.MarketData.ScopeEnum getScope(int index) {
       return scope_converter_.convert(scope_.get(index));
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return A list containing the enum numeric values on the wire for scope.
      */
     public java.util.List<java.lang.Integer>
     getScopeValueList() {
@@ -41731,6 +43804,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of scope at the given index.
      */
     public int getScopeValue(int index) {
       return scope_.get(index);
@@ -41741,12 +43816,14 @@ public final class MarketData {
     private int applQueueAction_;
     /**
      * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applQueueAction.
      */
     public int getApplQueueActionValue() {
       return applQueueAction_;
     }
     /**
      * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueAction.
      */
     public org.fixprotocol.components.MarketData.ApplQueueActionEnum getApplQueueAction() {
       @SuppressWarnings("deprecation")
@@ -41758,6 +43835,7 @@ public final class MarketData {
     private long applQueueMax_;
     /**
      * <code>sfixed64 appl_queue_max = 12 [(.fix.tag) = 812, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueMax.
      */
     public long getApplQueueMax() {
       return applQueueMax_;
@@ -41802,12 +43880,14 @@ public final class MarketData {
     private int mdQuoteType_;
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdQuoteType.
      */
     public int getMdQuoteTypeValue() {
       return mdQuoteType_;
     }
     /**
      * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdQuoteType.
      */
     public org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType() {
       @SuppressWarnings("deprecation")
@@ -42726,12 +44806,15 @@ public final class MarketData {
       private boolean aggregatedBook_ ;
       /**
        * <code>bool aggregated_book = 1 [(.fix.tag) = 266, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The aggregatedBook.
        */
       public boolean getAggregatedBook() {
         return aggregatedBook_;
       }
       /**
        * <code>bool aggregated_book = 1 [(.fix.tag) = 266, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The aggregatedBook to set.
+       * @return This builder for chaining.
        */
       public Builder setAggregatedBook(boolean value) {
         
@@ -42741,6 +44824,7 @@ public final class MarketData {
       }
       /**
        * <code>bool aggregated_book = 1 [(.fix.tag) = 266, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearAggregatedBook() {
         
@@ -42752,12 +44836,15 @@ public final class MarketData {
       private long marketDepth_ ;
       /**
        * <code>sfixed64 market_depth = 2 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The marketDepth.
        */
       public long getMarketDepth() {
         return marketDepth_;
       }
       /**
        * <code>sfixed64 market_depth = 2 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The marketDepth to set.
+       * @return This builder for chaining.
        */
       public Builder setMarketDepth(long value) {
         
@@ -42767,6 +44854,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 market_depth = 2 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMarketDepth() {
         
@@ -42778,6 +44866,7 @@ public final class MarketData {
       private java.lang.Object mdReqId_ = "";
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The mdReqId.
        */
       public java.lang.String getMdReqId() {
         java.lang.Object ref = mdReqId_;
@@ -42793,6 +44882,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for mdReqId.
        */
       public com.google.protobuf.ByteString
           getMdReqIdBytes() {
@@ -42809,6 +44899,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqId(
           java.lang.String value) {
@@ -42822,6 +44914,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdReqId() {
         
@@ -42831,6 +44924,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -42847,12 +44942,15 @@ public final class MarketData {
       private int mdUpdateType_ = 0;
       /**
        * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The enum numeric value on the wire for mdUpdateType.
        */
       public int getMdUpdateTypeValue() {
         return mdUpdateType_;
       }
       /**
        * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for mdUpdateType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdUpdateTypeValue(int value) {
         mdUpdateType_ = value;
@@ -42861,6 +44959,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The mdUpdateType.
        */
       public org.fixprotocol.components.MarketData.MDUpdateTypeEnum getMdUpdateType() {
         @SuppressWarnings("deprecation")
@@ -42869,6 +44968,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The mdUpdateType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdUpdateType(org.fixprotocol.components.MarketData.MDUpdateTypeEnum value) {
         if (value == null) {
@@ -42881,6 +44982,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDUpdateTypeEnum md_update_type = 4 [(.fix.tag) = 265, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdUpdateType() {
         
@@ -42894,12 +44996,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -43011,12 +45115,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -43126,12 +45232,15 @@ public final class MarketData {
       private int subscriptionRequestType_ = 0;
       /**
        * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The enum numeric value on the wire for subscriptionRequestType.
        */
       public int getSubscriptionRequestTypeValue() {
         return subscriptionRequestType_;
       }
       /**
        * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for subscriptionRequestType to set.
+       * @return This builder for chaining.
        */
       public Builder setSubscriptionRequestTypeValue(int value) {
         subscriptionRequestType_ = value;
@@ -43140,6 +45249,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The subscriptionRequestType.
        */
       public org.fixprotocol.components.MarketData.SubscriptionRequestTypeEnum getSubscriptionRequestType() {
         @SuppressWarnings("deprecation")
@@ -43148,6 +45258,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The subscriptionRequestType to set.
+       * @return This builder for chaining.
        */
       public Builder setSubscriptionRequestType(org.fixprotocol.components.MarketData.SubscriptionRequestTypeEnum value) {
         if (value == null) {
@@ -43160,6 +45272,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.SubscriptionRequestTypeEnum subscription_request_type = 7 [(.fix.tag) = 263, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSubscriptionRequestType() {
         
@@ -43171,12 +45284,15 @@ public final class MarketData {
       private boolean mdImplicitDelete_ ;
       /**
        * <code>bool md_implicit_delete = 8 [(.fix.tag) = 547, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The mdImplicitDelete.
        */
       public boolean getMdImplicitDelete() {
         return mdImplicitDelete_;
       }
       /**
        * <code>bool md_implicit_delete = 8 [(.fix.tag) = 547, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The mdImplicitDelete to set.
+       * @return This builder for chaining.
        */
       public Builder setMdImplicitDelete(boolean value) {
         
@@ -43186,6 +45302,7 @@ public final class MarketData {
       }
       /**
        * <code>bool md_implicit_delete = 8 [(.fix.tag) = 547, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdImplicitDelete() {
         
@@ -43204,6 +45321,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return A list containing the openCloseSettlFlag.
        */
       public java.util.List<org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> getOpenCloseSettlFlagList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -43211,18 +45329,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The count of openCloseSettlFlag.
        */
       public int getOpenCloseSettlFlagCount() {
         return openCloseSettlFlag_.size();
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index of the element to return.
+       * @return The openCloseSettlFlag at the given index.
        */
       public org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum getOpenCloseSettlFlag(int index) {
         return openCloseSettlFlag_converter_.convert(openCloseSettlFlag_.get(index));
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index to set the value at.
+       * @param value The openCloseSettlFlag to set.
+       * @return This builder for chaining.
        */
       public Builder setOpenCloseSettlFlag(
           int index, org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum value) {
@@ -43236,6 +45360,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addOpenCloseSettlFlag(org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum value) {
         if (value == null) {
@@ -43248,6 +45374,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param values The openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addAllOpenCloseSettlFlag(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.OpenCloseSettlFlagEnum> values) {
@@ -43260,6 +45388,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOpenCloseSettlFlag() {
         openCloseSettlFlag_ = java.util.Collections.emptyList();
@@ -43269,6 +45398,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return A list containing the enum numeric values on the wire for openCloseSettlFlag.
        */
       public java.util.List<java.lang.Integer>
       getOpenCloseSettlFlagValueList() {
@@ -43276,12 +45406,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
        */
       public int getOpenCloseSettlFlagValue(int index) {
         return openCloseSettlFlag_.get(index);
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of openCloseSettlFlag at the given index.
+       * @return This builder for chaining.
        */
       public Builder setOpenCloseSettlFlagValue(
           int index, int value) {
@@ -43292,6 +45427,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The enum numeric value on the wire for openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addOpenCloseSettlFlagValue(int value) {
         ensureOpenCloseSettlFlagIsMutable();
@@ -43301,6 +45438,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.OpenCloseSettlFlagEnum open_close_settl_flag = 9 [(.fix.tag) = 286, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param values The enum numeric values on the wire for openCloseSettlFlag to add.
+       * @return This builder for chaining.
        */
       public Builder addAllOpenCloseSettlFlagValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -43322,6 +45461,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return A list containing the scope.
        */
       public java.util.List<org.fixprotocol.components.MarketData.ScopeEnum> getScopeList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -43329,18 +45469,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The count of scope.
        */
       public int getScopeCount() {
         return scope_.size();
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index of the element to return.
+       * @return The scope at the given index.
        */
       public org.fixprotocol.components.MarketData.ScopeEnum getScope(int index) {
         return scope_converter_.convert(scope_.get(index));
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index to set the value at.
+       * @param value The scope to set.
+       * @return This builder for chaining.
        */
       public Builder setScope(
           int index, org.fixprotocol.components.MarketData.ScopeEnum value) {
@@ -43354,6 +45500,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The scope to add.
+       * @return This builder for chaining.
        */
       public Builder addScope(org.fixprotocol.components.MarketData.ScopeEnum value) {
         if (value == null) {
@@ -43366,6 +45514,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param values The scope to add.
+       * @return This builder for chaining.
        */
       public Builder addAllScope(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.ScopeEnum> values) {
@@ -43378,6 +45528,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return This builder for chaining.
        */
       public Builder clearScope() {
         scope_ = java.util.Collections.emptyList();
@@ -43387,6 +45538,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return A list containing the enum numeric values on the wire for scope.
        */
       public java.util.List<java.lang.Integer>
       getScopeValueList() {
@@ -43394,12 +45546,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of scope at the given index.
        */
       public int getScopeValue(int index) {
         return scope_.get(index);
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of scope at the given index.
+       * @return This builder for chaining.
        */
       public Builder setScopeValue(
           int index, int value) {
@@ -43410,6 +45567,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The enum numeric value on the wire for scope to add.
+       * @return This builder for chaining.
        */
       public Builder addScopeValue(int value) {
         ensureScopeIsMutable();
@@ -43419,6 +45578,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.ScopeEnum scope = 10 [(.fix.tag) = 546, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param values The enum numeric values on the wire for scope to add.
+       * @return This builder for chaining.
        */
       public Builder addAllScopeValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -43433,12 +45594,15 @@ public final class MarketData {
       private int applQueueAction_ = 0;
       /**
        * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for applQueueAction.
        */
       public int getApplQueueActionValue() {
         return applQueueAction_;
       }
       /**
        * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for applQueueAction to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueActionValue(int value) {
         applQueueAction_ = value;
@@ -43447,6 +45611,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applQueueAction.
        */
       public org.fixprotocol.components.MarketData.ApplQueueActionEnum getApplQueueAction() {
         @SuppressWarnings("deprecation")
@@ -43455,6 +45620,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applQueueAction to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueAction(org.fixprotocol.components.MarketData.ApplQueueActionEnum value) {
         if (value == null) {
@@ -43467,6 +45634,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueActionEnum appl_queue_action = 11 [(.fix.tag) = 815, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplQueueAction() {
         
@@ -43478,12 +45646,15 @@ public final class MarketData {
       private long applQueueMax_ ;
       /**
        * <code>sfixed64 appl_queue_max = 12 [(.fix.tag) = 812, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applQueueMax.
        */
       public long getApplQueueMax() {
         return applQueueMax_;
       }
       /**
        * <code>sfixed64 appl_queue_max = 12 [(.fix.tag) = 812, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applQueueMax to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueMax(long value) {
         
@@ -43493,6 +45664,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 appl_queue_max = 12 [(.fix.tag) = 812, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplQueueMax() {
         
@@ -43744,12 +45916,15 @@ public final class MarketData {
       private int mdQuoteType_ = 0;
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdQuoteType.
        */
       public int getMdQuoteTypeValue() {
         return mdQuoteType_;
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdQuoteType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdQuoteTypeValue(int value) {
         mdQuoteType_ = value;
@@ -43758,6 +45933,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdQuoteType.
        */
       public org.fixprotocol.components.MarketData.MDQuoteTypeEnum getMdQuoteType() {
         @SuppressWarnings("deprecation")
@@ -43766,6 +45942,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdQuoteType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdQuoteType(org.fixprotocol.components.MarketData.MDQuoteTypeEnum value) {
         if (value == null) {
@@ -43778,6 +45956,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDQuoteTypeEnum md_quote_type = 14 [(.fix.tag) = 1070, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdQuoteType() {
         
@@ -44564,64 +46743,82 @@ public final class MarketData {
 
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the corporateAction.
      */
     java.util.List<org.fixprotocol.components.MarketData.CorporateActionEnum> getCorporateActionList();
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The count of corporateAction.
      */
     int getCorporateActionCount();
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the element to return.
+     * @return The corporateAction at the given index.
      */
     org.fixprotocol.components.MarketData.CorporateActionEnum getCorporateAction(int index);
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the enum numeric values on the wire for corporateAction.
      */
     java.util.List<java.lang.Integer>
     getCorporateActionValueList();
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of corporateAction at the given index.
      */
     int getCorporateActionValue(int index);
 
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the financialStatus.
      */
     java.util.List<org.fixprotocol.components.MarketData.FinancialStatusEnum> getFinancialStatusList();
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The count of financialStatus.
      */
     int getFinancialStatusCount();
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the element to return.
+     * @return The financialStatus at the given index.
      */
     org.fixprotocol.components.MarketData.FinancialStatusEnum getFinancialStatus(int index);
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the enum numeric values on the wire for financialStatus.
      */
     java.util.List<java.lang.Integer>
     getFinancialStatusValueList();
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of financialStatus at the given index.
      */
     int getFinancialStatusValue(int index);
 
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     java.lang.String getMdReqId();
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     com.google.protobuf.ByteString
         getMdReqIdBytes();
 
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -44631,10 +46828,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -44644,10 +46843,12 @@ public final class MarketData {
 
     /**
      * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the instrument field is set.
      */
     boolean hasInstrument();
     /**
      * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The instrument.
      */
     org.fixprotocol.components.Instrument getInstrument();
     /**
@@ -44657,10 +46858,12 @@ public final class MarketData {
 
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 7 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the netChgPrevDay field is set.
      */
     boolean hasNetChgPrevDay();
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 7 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The netChgPrevDay.
      */
     org.fixprotocol.components.Fix.Decimal64 getNetChgPrevDay();
     /**
@@ -44670,20 +46873,24 @@ public final class MarketData {
 
     /**
      * <code>sfixed64 appl_queue_depth = 8 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueDepth.
      */
     long getApplQueueDepth();
 
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applQueueResolution.
      */
     int getApplQueueResolutionValue();
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueResolution.
      */
     org.fixprotocol.components.MarketData.ApplQueueResolutionEnum getApplQueueResolution();
 
     /**
      * <code>sfixed32 clearing_business_date = 10 [(.fix.tag) = 715, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The clearingBusinessDate.
      */
     int getClearingBusinessDate();
 
@@ -44713,19 +46920,23 @@ public final class MarketData {
 
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdBookType.
      */
     int getMdBookTypeValue();
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdBookType.
      */
     org.fixprotocol.components.MarketData.MDBookTypeEnum getMdBookType();
 
     /**
      * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdFeedType.
      */
     java.lang.String getMdFeedType();
     /**
      * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdFeedType.
      */
     com.google.protobuf.ByteString
         getMdFeedTypeBytes();
@@ -44756,6 +46967,7 @@ public final class MarketData {
 
     /**
      * <code>sfixed64 md_report_id = 15 [(.fix.tag) = 963, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdReportId.
      */
     long getMdReportId();
 
@@ -44785,6 +46997,7 @@ public final class MarketData {
 
     /**
      * <code>sfixed32 trade_date = 17 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeDate.
      */
     int getTradeDate();
 
@@ -44814,10 +47027,12 @@ public final class MarketData {
 
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 19 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the applicationSequenceControl field is set.
      */
     boolean hasApplicationSequenceControl();
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 19 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applicationSequenceControl.
      */
     org.fixprotocol.components.ApplicationSequenceControl getApplicationSequenceControl();
     /**
@@ -44827,30 +47042,36 @@ public final class MarketData {
 
     /**
      * <code>sfixed64 market_depth = 20 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketDepth.
      */
     long getMarketDepth();
 
     /**
      * <code>sfixed64 md_sub_book_type = 21 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSubBookType.
      */
     long getMdSubBookType();
 
     /**
      * <code>bool refresh_indicator = 22 [(.fix.tag) = 1187, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refreshIndicator.
      */
     boolean getRefreshIndicator();
 
     /**
      * <code>sfixed64 tot_num_reports = 23 [(.fix.tag) = 911, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The totNumReports.
      */
     long getTotNumReports();
 
     /**
      * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     java.lang.String getMdStreamId();
     /**
      * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     com.google.protobuf.ByteString
         getMdStreamIdBytes();
@@ -45193,6 +47414,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the corporateAction.
      */
     public java.util.List<org.fixprotocol.components.MarketData.CorporateActionEnum> getCorporateActionList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -45200,18 +47422,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The count of corporateAction.
      */
     public int getCorporateActionCount() {
       return corporateAction_.size();
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the element to return.
+     * @return The corporateAction at the given index.
      */
     public org.fixprotocol.components.MarketData.CorporateActionEnum getCorporateAction(int index) {
       return corporateAction_converter_.convert(corporateAction_.get(index));
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the enum numeric values on the wire for corporateAction.
      */
     public java.util.List<java.lang.Integer>
     getCorporateActionValueList() {
@@ -45219,6 +47445,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of corporateAction at the given index.
      */
     public int getCorporateActionValue(int index) {
       return corporateAction_.get(index);
@@ -45239,6 +47467,7 @@ public final class MarketData {
             };
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the financialStatus.
      */
     public java.util.List<org.fixprotocol.components.MarketData.FinancialStatusEnum> getFinancialStatusList() {
       return new com.google.protobuf.Internal.ListAdapter<
@@ -45246,18 +47475,22 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The count of financialStatus.
      */
     public int getFinancialStatusCount() {
       return financialStatus_.size();
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the element to return.
+     * @return The financialStatus at the given index.
      */
     public org.fixprotocol.components.MarketData.FinancialStatusEnum getFinancialStatus(int index) {
       return financialStatus_converter_.convert(financialStatus_.get(index));
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return A list containing the enum numeric values on the wire for financialStatus.
      */
     public java.util.List<java.lang.Integer>
     getFinancialStatusValueList() {
@@ -45265,6 +47498,8 @@ public final class MarketData {
     }
     /**
      * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @param index The index of the value to return.
+     * @return The enum numeric value on the wire of financialStatus at the given index.
      */
     public int getFinancialStatusValue(int index) {
       return financialStatus_.get(index);
@@ -45275,6 +47510,7 @@ public final class MarketData {
     private volatile java.lang.Object mdReqId_;
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     public java.lang.String getMdReqId() {
       java.lang.Object ref = mdReqId_;
@@ -45290,6 +47526,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     public com.google.protobuf.ByteString
         getMdReqIdBytes() {
@@ -45309,12 +47546,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -45330,12 +47569,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -45351,12 +47592,14 @@ public final class MarketData {
     private org.fixprotocol.components.Instrument instrument_;
     /**
      * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -45372,12 +47615,14 @@ public final class MarketData {
     private org.fixprotocol.components.Fix.Decimal64 netChgPrevDay_;
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 7 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the netChgPrevDay field is set.
      */
     public boolean hasNetChgPrevDay() {
       return netChgPrevDay_ != null;
     }
     /**
      * <code>.fix.Decimal64 net_chg_prev_day = 7 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The netChgPrevDay.
      */
     public org.fixprotocol.components.Fix.Decimal64 getNetChgPrevDay() {
       return netChgPrevDay_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : netChgPrevDay_;
@@ -45393,6 +47638,7 @@ public final class MarketData {
     private long applQueueDepth_;
     /**
      * <code>sfixed64 appl_queue_depth = 8 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueDepth.
      */
     public long getApplQueueDepth() {
       return applQueueDepth_;
@@ -45402,12 +47648,14 @@ public final class MarketData {
     private int applQueueResolution_;
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applQueueResolution.
      */
     public int getApplQueueResolutionValue() {
       return applQueueResolution_;
     }
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueResolution.
      */
     public org.fixprotocol.components.MarketData.ApplQueueResolutionEnum getApplQueueResolution() {
       @SuppressWarnings("deprecation")
@@ -45419,6 +47667,7 @@ public final class MarketData {
     private int clearingBusinessDate_;
     /**
      * <code>sfixed32 clearing_business_date = 10 [(.fix.tag) = 715, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The clearingBusinessDate.
      */
     public int getClearingBusinessDate() {
       return clearingBusinessDate_;
@@ -45463,12 +47712,14 @@ public final class MarketData {
     private int mdBookType_;
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdBookType.
      */
     public int getMdBookTypeValue() {
       return mdBookType_;
     }
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdBookType.
      */
     public org.fixprotocol.components.MarketData.MDBookTypeEnum getMdBookType() {
       @SuppressWarnings("deprecation")
@@ -45480,6 +47731,7 @@ public final class MarketData {
     private volatile java.lang.Object mdFeedType_;
     /**
      * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdFeedType.
      */
     public java.lang.String getMdFeedType() {
       java.lang.Object ref = mdFeedType_;
@@ -45495,6 +47747,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdFeedType.
      */
     public com.google.protobuf.ByteString
         getMdFeedTypeBytes() {
@@ -45549,6 +47802,7 @@ public final class MarketData {
     private long mdReportId_;
     /**
      * <code>sfixed64 md_report_id = 15 [(.fix.tag) = 963, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdReportId.
      */
     public long getMdReportId() {
       return mdReportId_;
@@ -45593,6 +47847,7 @@ public final class MarketData {
     private int tradeDate_;
     /**
      * <code>sfixed32 trade_date = 17 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeDate.
      */
     public int getTradeDate() {
       return tradeDate_;
@@ -45637,12 +47892,14 @@ public final class MarketData {
     private org.fixprotocol.components.ApplicationSequenceControl applicationSequenceControl_;
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 19 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the applicationSequenceControl field is set.
      */
     public boolean hasApplicationSequenceControl() {
       return applicationSequenceControl_ != null;
     }
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 19 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applicationSequenceControl.
      */
     public org.fixprotocol.components.ApplicationSequenceControl getApplicationSequenceControl() {
       return applicationSequenceControl_ == null ? org.fixprotocol.components.ApplicationSequenceControl.getDefaultInstance() : applicationSequenceControl_;
@@ -45658,6 +47915,7 @@ public final class MarketData {
     private long marketDepth_;
     /**
      * <code>sfixed64 market_depth = 20 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketDepth.
      */
     public long getMarketDepth() {
       return marketDepth_;
@@ -45667,6 +47925,7 @@ public final class MarketData {
     private long mdSubBookType_;
     /**
      * <code>sfixed64 md_sub_book_type = 21 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdSubBookType.
      */
     public long getMdSubBookType() {
       return mdSubBookType_;
@@ -45676,6 +47935,7 @@ public final class MarketData {
     private boolean refreshIndicator_;
     /**
      * <code>bool refresh_indicator = 22 [(.fix.tag) = 1187, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refreshIndicator.
      */
     public boolean getRefreshIndicator() {
       return refreshIndicator_;
@@ -45685,6 +47945,7 @@ public final class MarketData {
     private long totNumReports_;
     /**
      * <code>sfixed64 tot_num_reports = 23 [(.fix.tag) = 911, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The totNumReports.
      */
     public long getTotNumReports() {
       return totNumReports_;
@@ -45694,6 +47955,7 @@ public final class MarketData {
     private volatile java.lang.Object mdStreamId_;
     /**
      * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The mdStreamId.
      */
     public java.lang.String getMdStreamId() {
       java.lang.Object ref = mdStreamId_;
@@ -45709,6 +47971,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for mdStreamId.
      */
     public com.google.protobuf.ByteString
         getMdStreamIdBytes() {
@@ -46699,6 +48962,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return A list containing the corporateAction.
        */
       public java.util.List<org.fixprotocol.components.MarketData.CorporateActionEnum> getCorporateActionList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -46706,18 +48970,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The count of corporateAction.
        */
       public int getCorporateActionCount() {
         return corporateAction_.size();
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index of the element to return.
+       * @return The corporateAction at the given index.
        */
       public org.fixprotocol.components.MarketData.CorporateActionEnum getCorporateAction(int index) {
         return corporateAction_converter_.convert(corporateAction_.get(index));
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index to set the value at.
+       * @param value The corporateAction to set.
+       * @return This builder for chaining.
        */
       public Builder setCorporateAction(
           int index, org.fixprotocol.components.MarketData.CorporateActionEnum value) {
@@ -46731,6 +49001,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addCorporateAction(org.fixprotocol.components.MarketData.CorporateActionEnum value) {
         if (value == null) {
@@ -46743,6 +49015,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param values The corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCorporateAction(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.CorporateActionEnum> values) {
@@ -46755,6 +49029,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearCorporateAction() {
         corporateAction_ = java.util.Collections.emptyList();
@@ -46764,6 +49039,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return A list containing the enum numeric values on the wire for corporateAction.
        */
       public java.util.List<java.lang.Integer>
       getCorporateActionValueList() {
@@ -46771,12 +49047,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of corporateAction at the given index.
        */
       public int getCorporateActionValue(int index) {
         return corporateAction_.get(index);
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of corporateAction at the given index.
+       * @return This builder for chaining.
        */
       public Builder setCorporateActionValue(
           int index, int value) {
@@ -46787,6 +49068,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addCorporateActionValue(int value) {
         ensureCorporateActionIsMutable();
@@ -46796,6 +49079,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.CorporateActionEnum corporate_action = 1 [(.fix.tag) = 292, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param values The enum numeric values on the wire for corporateAction to add.
+       * @return This builder for chaining.
        */
       public Builder addAllCorporateActionValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -46817,6 +49102,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return A list containing the financialStatus.
        */
       public java.util.List<org.fixprotocol.components.MarketData.FinancialStatusEnum> getFinancialStatusList() {
         return new com.google.protobuf.Internal.ListAdapter<
@@ -46824,18 +49110,24 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The count of financialStatus.
        */
       public int getFinancialStatusCount() {
         return financialStatus_.size();
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index of the element to return.
+       * @return The financialStatus at the given index.
        */
       public org.fixprotocol.components.MarketData.FinancialStatusEnum getFinancialStatus(int index) {
         return financialStatus_converter_.convert(financialStatus_.get(index));
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index to set the value at.
+       * @param value The financialStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setFinancialStatus(
           int index, org.fixprotocol.components.MarketData.FinancialStatusEnum value) {
@@ -46849,6 +49141,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addFinancialStatus(org.fixprotocol.components.MarketData.FinancialStatusEnum value) {
         if (value == null) {
@@ -46861,6 +49155,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param values The financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addAllFinancialStatus(
           java.lang.Iterable<? extends org.fixprotocol.components.MarketData.FinancialStatusEnum> values) {
@@ -46873,6 +49169,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearFinancialStatus() {
         financialStatus_ = java.util.Collections.emptyList();
@@ -46882,6 +49179,7 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return A list containing the enum numeric values on the wire for financialStatus.
        */
       public java.util.List<java.lang.Integer>
       getFinancialStatusValueList() {
@@ -46889,12 +49187,17 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of financialStatus at the given index.
        */
       public int getFinancialStatusValue(int index) {
         return financialStatus_.get(index);
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param index The index of the value to return.
+       * @return The enum numeric value on the wire of financialStatus at the given index.
+       * @return This builder for chaining.
        */
       public Builder setFinancialStatusValue(
           int index, int value) {
@@ -46905,6 +49208,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addFinancialStatusValue(int value) {
         ensureFinancialStatusIsMutable();
@@ -46914,6 +49219,8 @@ public final class MarketData {
       }
       /**
        * <code>repeated .MarketData.FinancialStatusEnum financial_status = 2 [(.fix.tag) = 291, (.fix.type) = DATATYPE_MULTIPLE_CHAR_VALUE, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param values The enum numeric values on the wire for financialStatus to add.
+       * @return This builder for chaining.
        */
       public Builder addAllFinancialStatusValue(
           java.lang.Iterable<java.lang.Integer> values) {
@@ -46928,6 +49235,7 @@ public final class MarketData {
       private java.lang.Object mdReqId_ = "";
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The mdReqId.
        */
       public java.lang.String getMdReqId() {
         java.lang.Object ref = mdReqId_;
@@ -46943,6 +49251,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for mdReqId.
        */
       public com.google.protobuf.ByteString
           getMdReqIdBytes() {
@@ -46959,6 +49268,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqId(
           java.lang.String value) {
@@ -46972,6 +49283,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdReqId() {
         
@@ -46981,6 +49293,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -46999,12 +49313,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -47116,12 +49432,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -47233,12 +49551,14 @@ public final class MarketData {
           org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
       /**
        * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return Whether the instrument field is set.
        */
       public boolean hasInstrument() {
         return instrumentBuilder_ != null || instrument_ != null;
       }
       /**
        * <code>.Common.Instrument instrument = 6 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The instrument.
        */
       public org.fixprotocol.components.Instrument getInstrument() {
         if (instrumentBuilder_ == null) {
@@ -47350,12 +49670,14 @@ public final class MarketData {
           org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> netChgPrevDayBuilder_;
       /**
        * <code>.fix.Decimal64 net_chg_prev_day = 7 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return Whether the netChgPrevDay field is set.
        */
       public boolean hasNetChgPrevDay() {
         return netChgPrevDayBuilder_ != null || netChgPrevDay_ != null;
       }
       /**
        * <code>.fix.Decimal64 net_chg_prev_day = 7 [(.fix.tag) = 451, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The netChgPrevDay.
        */
       public org.fixprotocol.components.Fix.Decimal64 getNetChgPrevDay() {
         if (netChgPrevDayBuilder_ == null) {
@@ -47465,12 +49787,15 @@ public final class MarketData {
       private long applQueueDepth_ ;
       /**
        * <code>sfixed64 appl_queue_depth = 8 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applQueueDepth.
        */
       public long getApplQueueDepth() {
         return applQueueDepth_;
       }
       /**
        * <code>sfixed64 appl_queue_depth = 8 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applQueueDepth to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueDepth(long value) {
         
@@ -47480,6 +49805,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 appl_queue_depth = 8 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplQueueDepth() {
         
@@ -47491,12 +49817,15 @@ public final class MarketData {
       private int applQueueResolution_ = 0;
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for applQueueResolution.
        */
       public int getApplQueueResolutionValue() {
         return applQueueResolution_;
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for applQueueResolution to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueResolutionValue(int value) {
         applQueueResolution_ = value;
@@ -47505,6 +49834,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applQueueResolution.
        */
       public org.fixprotocol.components.MarketData.ApplQueueResolutionEnum getApplQueueResolution() {
         @SuppressWarnings("deprecation")
@@ -47513,6 +49843,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applQueueResolution to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueResolution(org.fixprotocol.components.MarketData.ApplQueueResolutionEnum value) {
         if (value == null) {
@@ -47525,6 +49857,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 9 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplQueueResolution() {
         
@@ -47536,12 +49869,15 @@ public final class MarketData {
       private int clearingBusinessDate_ ;
       /**
        * <code>sfixed32 clearing_business_date = 10 [(.fix.tag) = 715, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The clearingBusinessDate.
        */
       public int getClearingBusinessDate() {
         return clearingBusinessDate_;
       }
       /**
        * <code>sfixed32 clearing_business_date = 10 [(.fix.tag) = 715, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The clearingBusinessDate to set.
+       * @return This builder for chaining.
        */
       public Builder setClearingBusinessDate(int value) {
         
@@ -47551,6 +49887,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 clearing_business_date = 10 [(.fix.tag) = 715, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearClearingBusinessDate() {
         
@@ -47802,12 +50139,15 @@ public final class MarketData {
       private int mdBookType_ = 0;
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdBookType.
        */
       public int getMdBookTypeValue() {
         return mdBookType_;
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdBookType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdBookTypeValue(int value) {
         mdBookType_ = value;
@@ -47816,6 +50156,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdBookType.
        */
       public org.fixprotocol.components.MarketData.MDBookTypeEnum getMdBookType() {
         @SuppressWarnings("deprecation")
@@ -47824,6 +50165,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdBookType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdBookType(org.fixprotocol.components.MarketData.MDBookTypeEnum value) {
         if (value == null) {
@@ -47836,6 +50179,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 12 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdBookType() {
         
@@ -47847,6 +50191,7 @@ public final class MarketData {
       private java.lang.Object mdFeedType_ = "";
       /**
        * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdFeedType.
        */
       public java.lang.String getMdFeedType() {
         java.lang.Object ref = mdFeedType_;
@@ -47862,6 +50207,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdFeedType.
        */
       public com.google.protobuf.ByteString
           getMdFeedTypeBytes() {
@@ -47878,6 +50224,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdFeedType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdFeedType(
           java.lang.String value) {
@@ -47891,6 +50239,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdFeedType() {
         
@@ -47900,6 +50249,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 13 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdFeedType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdFeedTypeBytes(
           com.google.protobuf.ByteString value) {
@@ -48156,12 +50507,15 @@ public final class MarketData {
       private long mdReportId_ ;
       /**
        * <code>sfixed64 md_report_id = 15 [(.fix.tag) = 963, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdReportId.
        */
       public long getMdReportId() {
         return mdReportId_;
       }
       /**
        * <code>sfixed64 md_report_id = 15 [(.fix.tag) = 963, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdReportId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReportId(long value) {
         
@@ -48171,6 +50525,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_report_id = 15 [(.fix.tag) = 963, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdReportId() {
         
@@ -48422,12 +50777,15 @@ public final class MarketData {
       private int tradeDate_ ;
       /**
        * <code>sfixed32 trade_date = 17 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradeDate.
        */
       public int getTradeDate() {
         return tradeDate_;
       }
       /**
        * <code>sfixed32 trade_date = 17 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradeDate to set.
+       * @return This builder for chaining.
        */
       public Builder setTradeDate(int value) {
         
@@ -48437,6 +50795,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 trade_date = 17 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradeDate() {
         
@@ -48690,12 +51049,14 @@ public final class MarketData {
           org.fixprotocol.components.ApplicationSequenceControl, org.fixprotocol.components.ApplicationSequenceControl.Builder, org.fixprotocol.components.ApplicationSequenceControlOrBuilder> applicationSequenceControlBuilder_;
       /**
        * <code>.Common.ApplicationSequenceControl application_sequence_control = 19 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the applicationSequenceControl field is set.
        */
       public boolean hasApplicationSequenceControl() {
         return applicationSequenceControlBuilder_ != null || applicationSequenceControl_ != null;
       }
       /**
        * <code>.Common.ApplicationSequenceControl application_sequence_control = 19 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The applicationSequenceControl.
        */
       public org.fixprotocol.components.ApplicationSequenceControl getApplicationSequenceControl() {
         if (applicationSequenceControlBuilder_ == null) {
@@ -48805,12 +51166,15 @@ public final class MarketData {
       private long marketDepth_ ;
       /**
        * <code>sfixed64 market_depth = 20 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The marketDepth.
        */
       public long getMarketDepth() {
         return marketDepth_;
       }
       /**
        * <code>sfixed64 market_depth = 20 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The marketDepth to set.
+       * @return This builder for chaining.
        */
       public Builder setMarketDepth(long value) {
         
@@ -48820,6 +51184,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 market_depth = 20 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMarketDepth() {
         
@@ -48831,12 +51196,15 @@ public final class MarketData {
       private long mdSubBookType_ ;
       /**
        * <code>sfixed64 md_sub_book_type = 21 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The mdSubBookType.
        */
       public long getMdSubBookType() {
         return mdSubBookType_;
       }
       /**
        * <code>sfixed64 md_sub_book_type = 21 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The mdSubBookType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdSubBookType(long value) {
         
@@ -48846,6 +51214,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 md_sub_book_type = 21 [(.fix.tag) = 1173, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdSubBookType() {
         
@@ -48857,12 +51226,15 @@ public final class MarketData {
       private boolean refreshIndicator_ ;
       /**
        * <code>bool refresh_indicator = 22 [(.fix.tag) = 1187, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The refreshIndicator.
        */
       public boolean getRefreshIndicator() {
         return refreshIndicator_;
       }
       /**
        * <code>bool refresh_indicator = 22 [(.fix.tag) = 1187, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The refreshIndicator to set.
+       * @return This builder for chaining.
        */
       public Builder setRefreshIndicator(boolean value) {
         
@@ -48872,6 +51244,7 @@ public final class MarketData {
       }
       /**
        * <code>bool refresh_indicator = 22 [(.fix.tag) = 1187, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefreshIndicator() {
         
@@ -48883,12 +51256,15 @@ public final class MarketData {
       private long totNumReports_ ;
       /**
        * <code>sfixed64 tot_num_reports = 23 [(.fix.tag) = 911, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The totNumReports.
        */
       public long getTotNumReports() {
         return totNumReports_;
       }
       /**
        * <code>sfixed64 tot_num_reports = 23 [(.fix.tag) = 911, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The totNumReports to set.
+       * @return This builder for chaining.
        */
       public Builder setTotNumReports(long value) {
         
@@ -48898,6 +51274,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 tot_num_reports = 23 [(.fix.tag) = 911, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTotNumReports() {
         
@@ -48909,6 +51286,7 @@ public final class MarketData {
       private java.lang.Object mdStreamId_ = "";
       /**
        * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The mdStreamId.
        */
       public java.lang.String getMdStreamId() {
         java.lang.Object ref = mdStreamId_;
@@ -48924,6 +51302,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for mdStreamId.
        */
       public com.google.protobuf.ByteString
           getMdStreamIdBytes() {
@@ -48940,6 +51319,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamId(
           java.lang.String value) {
@@ -48953,6 +51334,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdStreamId() {
         
@@ -48962,6 +51344,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_stream_id = 24 [(.fix.tag) = 1500, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for mdStreamId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdStreamIdBytes(
           com.google.protobuf.ByteString value) {
@@ -49033,20 +51417,24 @@ public final class MarketData {
 
     /**
      * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     java.lang.String getMdReqId();
     /**
      * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     com.google.protobuf.ByteString
         getMdReqIdBytes();
 
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -49056,10 +51444,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -49069,33 +51459,40 @@ public final class MarketData {
 
     /**
      * <code>sfixed64 appl_queue_depth = 4 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueDepth.
      */
     long getApplQueueDepth();
 
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applQueueResolution.
      */
     int getApplQueueResolutionValue();
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueResolution.
      */
     org.fixprotocol.components.MarketData.ApplQueueResolutionEnum getApplQueueResolution();
 
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdBookType.
      */
     int getMdBookTypeValue();
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdBookType.
      */
     org.fixprotocol.components.MarketData.MDBookTypeEnum getMdBookType();
 
     /**
      * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdFeedType.
      */
     java.lang.String getMdFeedType();
     /**
      * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdFeedType.
      */
     com.google.protobuf.ByteString
         getMdFeedTypeBytes();
@@ -49150,15 +51547,18 @@ public final class MarketData {
 
     /**
      * <code>sfixed32 trade_date = 10 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeDate.
      */
     int getTradeDate();
 
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 11 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the applicationSequenceControl field is set.
      */
     boolean hasApplicationSequenceControl();
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 11 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applicationSequenceControl.
      */
     org.fixprotocol.components.ApplicationSequenceControl getApplicationSequenceControl();
     /**
@@ -49351,6 +51751,7 @@ public final class MarketData {
     private volatile java.lang.Object mdReqId_;
     /**
      * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     public java.lang.String getMdReqId() {
       java.lang.Object ref = mdReqId_;
@@ -49366,6 +51767,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     public com.google.protobuf.ByteString
         getMdReqIdBytes() {
@@ -49385,12 +51787,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -49406,12 +51810,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -49427,6 +51833,7 @@ public final class MarketData {
     private long applQueueDepth_;
     /**
      * <code>sfixed64 appl_queue_depth = 4 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueDepth.
      */
     public long getApplQueueDepth() {
       return applQueueDepth_;
@@ -49436,12 +51843,14 @@ public final class MarketData {
     private int applQueueResolution_;
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applQueueResolution.
      */
     public int getApplQueueResolutionValue() {
       return applQueueResolution_;
     }
     /**
      * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applQueueResolution.
      */
     public org.fixprotocol.components.MarketData.ApplQueueResolutionEnum getApplQueueResolution() {
       @SuppressWarnings("deprecation")
@@ -49453,12 +51862,14 @@ public final class MarketData {
     private int mdBookType_;
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for mdBookType.
      */
     public int getMdBookTypeValue() {
       return mdBookType_;
     }
     /**
      * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdBookType.
      */
     public org.fixprotocol.components.MarketData.MDBookTypeEnum getMdBookType() {
       @SuppressWarnings("deprecation")
@@ -49470,6 +51881,7 @@ public final class MarketData {
     private volatile java.lang.Object mdFeedType_;
     /**
      * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The mdFeedType.
      */
     public java.lang.String getMdFeedType() {
       java.lang.Object ref = mdFeedType_;
@@ -49485,6 +51897,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for mdFeedType.
      */
     public com.google.protobuf.ByteString
         getMdFeedTypeBytes() {
@@ -49574,6 +51987,7 @@ public final class MarketData {
     private int tradeDate_;
     /**
      * <code>sfixed32 trade_date = 10 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradeDate.
      */
     public int getTradeDate() {
       return tradeDate_;
@@ -49583,12 +51997,14 @@ public final class MarketData {
     private org.fixprotocol.components.ApplicationSequenceControl applicationSequenceControl_;
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 11 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the applicationSequenceControl field is set.
      */
     public boolean hasApplicationSequenceControl() {
       return applicationSequenceControl_ != null;
     }
     /**
      * <code>.Common.ApplicationSequenceControl application_sequence_control = 11 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applicationSequenceControl.
      */
     public org.fixprotocol.components.ApplicationSequenceControl getApplicationSequenceControl() {
       return applicationSequenceControl_ == null ? org.fixprotocol.components.ApplicationSequenceControl.getDefaultInstance() : applicationSequenceControl_;
@@ -50191,6 +52607,7 @@ public final class MarketData {
       private java.lang.Object mdReqId_ = "";
       /**
        * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The mdReqId.
        */
       public java.lang.String getMdReqId() {
         java.lang.Object ref = mdReqId_;
@@ -50206,6 +52623,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for mdReqId.
        */
       public com.google.protobuf.ByteString
           getMdReqIdBytes() {
@@ -50222,6 +52640,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqId(
           java.lang.String value) {
@@ -50235,6 +52655,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdReqId() {
         
@@ -50244,6 +52665,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 1 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -50262,12 +52685,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -50379,12 +52804,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -50494,12 +52921,15 @@ public final class MarketData {
       private long applQueueDepth_ ;
       /**
        * <code>sfixed64 appl_queue_depth = 4 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applQueueDepth.
        */
       public long getApplQueueDepth() {
         return applQueueDepth_;
       }
       /**
        * <code>sfixed64 appl_queue_depth = 4 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applQueueDepth to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueDepth(long value) {
         
@@ -50509,6 +52939,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 appl_queue_depth = 4 [(.fix.tag) = 813, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplQueueDepth() {
         
@@ -50520,12 +52951,15 @@ public final class MarketData {
       private int applQueueResolution_ = 0;
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for applQueueResolution.
        */
       public int getApplQueueResolutionValue() {
         return applQueueResolution_;
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for applQueueResolution to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueResolutionValue(int value) {
         applQueueResolution_ = value;
@@ -50534,6 +52968,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applQueueResolution.
        */
       public org.fixprotocol.components.MarketData.ApplQueueResolutionEnum getApplQueueResolution() {
         @SuppressWarnings("deprecation")
@@ -50542,6 +52977,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applQueueResolution to set.
+       * @return This builder for chaining.
        */
       public Builder setApplQueueResolution(org.fixprotocol.components.MarketData.ApplQueueResolutionEnum value) {
         if (value == null) {
@@ -50554,6 +52991,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.ApplQueueResolutionEnum appl_queue_resolution = 5 [(.fix.tag) = 814, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplQueueResolution() {
         
@@ -50565,12 +53003,15 @@ public final class MarketData {
       private int mdBookType_ = 0;
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for mdBookType.
        */
       public int getMdBookTypeValue() {
         return mdBookType_;
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for mdBookType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdBookTypeValue(int value) {
         mdBookType_ = value;
@@ -50579,6 +53020,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdBookType.
        */
       public org.fixprotocol.components.MarketData.MDBookTypeEnum getMdBookType() {
         @SuppressWarnings("deprecation")
@@ -50587,6 +53029,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdBookType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdBookType(org.fixprotocol.components.MarketData.MDBookTypeEnum value) {
         if (value == null) {
@@ -50599,6 +53043,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDBookTypeEnum md_book_type = 6 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdBookType() {
         
@@ -50610,6 +53055,7 @@ public final class MarketData {
       private java.lang.Object mdFeedType_ = "";
       /**
        * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The mdFeedType.
        */
       public java.lang.String getMdFeedType() {
         java.lang.Object ref = mdFeedType_;
@@ -50625,6 +53071,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for mdFeedType.
        */
       public com.google.protobuf.ByteString
           getMdFeedTypeBytes() {
@@ -50641,6 +53088,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The mdFeedType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdFeedType(
           java.lang.String value) {
@@ -50654,6 +53103,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdFeedType() {
         
@@ -50663,6 +53113,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_feed_type = 7 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for mdFeedType to set.
+       * @return This builder for chaining.
        */
       public Builder setMdFeedTypeBytes(
           com.google.protobuf.ByteString value) {
@@ -51159,12 +53611,15 @@ public final class MarketData {
       private int tradeDate_ ;
       /**
        * <code>sfixed32 trade_date = 10 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The tradeDate.
        */
       public int getTradeDate() {
         return tradeDate_;
       }
       /**
        * <code>sfixed32 trade_date = 10 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The tradeDate to set.
+       * @return This builder for chaining.
        */
       public Builder setTradeDate(int value) {
         
@@ -51174,6 +53629,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed32 trade_date = 10 [(.fix.tag) = 75, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTradeDate() {
         
@@ -51187,12 +53643,14 @@ public final class MarketData {
           org.fixprotocol.components.ApplicationSequenceControl, org.fixprotocol.components.ApplicationSequenceControl.Builder, org.fixprotocol.components.ApplicationSequenceControlOrBuilder> applicationSequenceControlBuilder_;
       /**
        * <code>.Common.ApplicationSequenceControl application_sequence_control = 11 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return Whether the applicationSequenceControl field is set.
        */
       public boolean hasApplicationSequenceControl() {
         return applicationSequenceControlBuilder_ != null || applicationSequenceControl_ != null;
       }
       /**
        * <code>.Common.ApplicationSequenceControl application_sequence_control = 11 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The applicationSequenceControl.
        */
       public org.fixprotocol.components.ApplicationSequenceControl getApplicationSequenceControl() {
         if (applicationSequenceControlBuilder_ == null) {
@@ -51357,44 +53815,53 @@ public final class MarketData {
 
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     java.lang.String getMdReqId();
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     com.google.protobuf.ByteString
         getMdReqIdBytes();
 
     /**
      * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for mdReqRejReason.
      */
     int getMdReqRejReasonValue();
     /**
      * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqRejReason.
      */
     org.fixprotocol.components.MarketData.MDReqRejReasonEnum getMdReqRejReason();
 
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -51404,10 +53871,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -51417,10 +53886,12 @@ public final class MarketData {
 
     /**
      * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
@@ -51640,6 +54111,7 @@ public final class MarketData {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -51655,6 +54127,7 @@ public final class MarketData {
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -51674,6 +54147,7 @@ public final class MarketData {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -51683,6 +54157,7 @@ public final class MarketData {
     private volatile java.lang.Object mdReqId_;
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqId.
      */
     public java.lang.String getMdReqId() {
       java.lang.Object ref = mdReqId_;
@@ -51698,6 +54173,7 @@ public final class MarketData {
     }
     /**
      * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for mdReqId.
      */
     public com.google.protobuf.ByteString
         getMdReqIdBytes() {
@@ -51717,12 +54193,14 @@ public final class MarketData {
     private int mdReqRejReason_;
     /**
      * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for mdReqRejReason.
      */
     public int getMdReqRejReasonValue() {
       return mdReqRejReason_;
     }
     /**
      * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The mdReqRejReason.
      */
     public org.fixprotocol.components.MarketData.MDReqRejReasonEnum getMdReqRejReason() {
       @SuppressWarnings("deprecation")
@@ -51734,12 +54212,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -51755,12 +54235,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -51776,6 +54258,7 @@ public final class MarketData {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -51791,6 +54274,7 @@ public final class MarketData {
     }
     /**
      * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -52421,6 +54905,7 @@ public final class MarketData {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -52436,6 +54921,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -52452,6 +54938,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -52465,6 +54953,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -52474,6 +54963,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -52490,12 +54981,15 @@ public final class MarketData {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -52505,6 +54999,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -52516,6 +55011,7 @@ public final class MarketData {
       private java.lang.Object mdReqId_ = "";
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The mdReqId.
        */
       public java.lang.String getMdReqId() {
         java.lang.Object ref = mdReqId_;
@@ -52531,6 +55027,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for mdReqId.
        */
       public com.google.protobuf.ByteString
           getMdReqIdBytes() {
@@ -52547,6 +55044,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqId(
           java.lang.String value) {
@@ -52560,6 +55059,7 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdReqId() {
         
@@ -52569,6 +55069,8 @@ public final class MarketData {
       }
       /**
        * <code>string md_req_id = 3 [(.fix.tag) = 262, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for mdReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -52585,12 +55087,15 @@ public final class MarketData {
       private int mdReqRejReason_ = 0;
       /**
        * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The enum numeric value on the wire for mdReqRejReason.
        */
       public int getMdReqRejReasonValue() {
         return mdReqRejReason_;
       }
       /**
        * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for mdReqRejReason to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqRejReasonValue(int value) {
         mdReqRejReason_ = value;
@@ -52599,6 +55104,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The mdReqRejReason.
        */
       public org.fixprotocol.components.MarketData.MDReqRejReasonEnum getMdReqRejReason() {
         @SuppressWarnings("deprecation")
@@ -52607,6 +55113,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The mdReqRejReason to set.
+       * @return This builder for chaining.
        */
       public Builder setMdReqRejReason(org.fixprotocol.components.MarketData.MDReqRejReasonEnum value) {
         if (value == null) {
@@ -52619,6 +55127,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.MDReqRejReasonEnum md_req_rej_reason = 4 [(.fix.tag) = 281, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMdReqRejReason() {
         
@@ -52632,12 +55141,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 5 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -52749,12 +55260,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 6 [(.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -52864,6 +55377,7 @@ public final class MarketData {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -52879,6 +55393,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -52895,6 +55410,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -52908,6 +55425,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -52917,6 +55435,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 7 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -53468,10 +55988,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -53481,10 +56003,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -53518,20 +56042,24 @@ public final class MarketData {
 
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqId.
      */
     java.lang.String getStreamAsgnReqId();
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnReqId.
      */
     com.google.protobuf.ByteString
         getStreamAsgnReqIdBytes();
 
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnReqType.
      */
     int getStreamAsgnReqTypeValue();
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqType.
      */
     org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum getStreamAsgnReqType();
   }
@@ -53670,12 +56198,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -53691,12 +56221,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -53747,6 +56279,7 @@ public final class MarketData {
     private volatile java.lang.Object streamAsgnReqId_;
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqId.
      */
     public java.lang.String getStreamAsgnReqId() {
       java.lang.Object ref = streamAsgnReqId_;
@@ -53762,6 +56295,7 @@ public final class MarketData {
     }
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnReqId.
      */
     public com.google.protobuf.ByteString
         getStreamAsgnReqIdBytes() {
@@ -53781,12 +56315,14 @@ public final class MarketData {
     private int streamAsgnReqType_;
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnReqType.
      */
     public int getStreamAsgnReqTypeValue() {
       return streamAsgnReqType_;
     }
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqType.
      */
     public org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum getStreamAsgnReqType() {
       @SuppressWarnings("deprecation")
@@ -54234,12 +56770,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -54351,12 +56889,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -54706,6 +57246,7 @@ public final class MarketData {
       private java.lang.Object streamAsgnReqId_ = "";
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnReqId.
        */
       public java.lang.String getStreamAsgnReqId() {
         java.lang.Object ref = streamAsgnReqId_;
@@ -54721,6 +57262,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for streamAsgnReqId.
        */
       public com.google.protobuf.ByteString
           getStreamAsgnReqIdBytes() {
@@ -54737,6 +57279,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqId(
           java.lang.String value) {
@@ -54750,6 +57294,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnReqId() {
         
@@ -54759,6 +57304,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for streamAsgnReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -54775,12 +57322,15 @@ public final class MarketData {
       private int streamAsgnReqType_ = 0;
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for streamAsgnReqType.
        */
       public int getStreamAsgnReqTypeValue() {
         return streamAsgnReqType_;
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for streamAsgnReqType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqTypeValue(int value) {
         streamAsgnReqType_ = value;
@@ -54789,6 +57339,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnReqType.
        */
       public org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum getStreamAsgnReqType() {
         @SuppressWarnings("deprecation")
@@ -54797,6 +57348,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnReqType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqType(org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum value) {
         if (value == null) {
@@ -54809,6 +57362,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnReqType() {
         
@@ -54875,10 +57429,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -54888,10 +57444,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -54925,29 +57483,35 @@ public final class MarketData {
 
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqId.
      */
     java.lang.String getStreamAsgnReqId();
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnReqId.
      */
     com.google.protobuf.ByteString
         getStreamAsgnReqIdBytes();
 
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnReqType.
      */
     int getStreamAsgnReqTypeValue();
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqType.
      */
     org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum getStreamAsgnReqType();
 
     /**
      * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRptId.
      */
     java.lang.String getStreamAsgnRptId();
     /**
      * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnRptId.
      */
     com.google.protobuf.ByteString
         getStreamAsgnRptIdBytes();
@@ -55094,12 +57658,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -55115,12 +57681,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -55171,6 +57739,7 @@ public final class MarketData {
     private volatile java.lang.Object streamAsgnReqId_;
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqId.
      */
     public java.lang.String getStreamAsgnReqId() {
       java.lang.Object ref = streamAsgnReqId_;
@@ -55186,6 +57755,7 @@ public final class MarketData {
     }
     /**
      * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnReqId.
      */
     public com.google.protobuf.ByteString
         getStreamAsgnReqIdBytes() {
@@ -55205,12 +57775,14 @@ public final class MarketData {
     private int streamAsgnReqType_;
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnReqType.
      */
     public int getStreamAsgnReqTypeValue() {
       return streamAsgnReqType_;
     }
     /**
      * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnReqType.
      */
     public org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum getStreamAsgnReqType() {
       @SuppressWarnings("deprecation")
@@ -55222,6 +57794,7 @@ public final class MarketData {
     private volatile java.lang.Object streamAsgnRptId_;
     /**
      * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRptId.
      */
     public java.lang.String getStreamAsgnRptId() {
       java.lang.Object ref = streamAsgnRptId_;
@@ -55237,6 +57810,7 @@ public final class MarketData {
     }
     /**
      * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnRptId.
      */
     public com.google.protobuf.ByteString
         getStreamAsgnRptIdBytes() {
@@ -55709,12 +58283,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -55826,12 +58402,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -56181,6 +58759,7 @@ public final class MarketData {
       private java.lang.Object streamAsgnReqId_ = "";
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnReqId.
        */
       public java.lang.String getStreamAsgnReqId() {
         java.lang.Object ref = streamAsgnReqId_;
@@ -56196,6 +58775,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for streamAsgnReqId.
        */
       public com.google.protobuf.ByteString
           getStreamAsgnReqIdBytes() {
@@ -56212,6 +58792,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqId(
           java.lang.String value) {
@@ -56225,6 +58807,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnReqId() {
         
@@ -56234,6 +58817,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_req_id = 4 [(.fix.tag) = 1497, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for streamAsgnReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -56250,12 +58835,15 @@ public final class MarketData {
       private int streamAsgnReqType_ = 0;
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for streamAsgnReqType.
        */
       public int getStreamAsgnReqTypeValue() {
         return streamAsgnReqType_;
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for streamAsgnReqType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqTypeValue(int value) {
         streamAsgnReqType_ = value;
@@ -56264,6 +58852,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnReqType.
        */
       public org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum getStreamAsgnReqType() {
         @SuppressWarnings("deprecation")
@@ -56272,6 +58861,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnReqType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnReqType(org.fixprotocol.components.MarketData.StreamAsgnReqTypeEnum value) {
         if (value == null) {
@@ -56284,6 +58875,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnReqTypeEnum stream_asgn_req_type = 5 [(.fix.tag) = 1498, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnReqType() {
         
@@ -56295,6 +58887,7 @@ public final class MarketData {
       private java.lang.Object streamAsgnRptId_ = "";
       /**
        * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnRptId.
        */
       public java.lang.String getStreamAsgnRptId() {
         java.lang.Object ref = streamAsgnRptId_;
@@ -56310,6 +58903,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for streamAsgnRptId.
        */
       public com.google.protobuf.ByteString
           getStreamAsgnRptIdBytes() {
@@ -56326,6 +58920,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnRptId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRptId(
           java.lang.String value) {
@@ -56339,6 +58935,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnRptId() {
         
@@ -56348,6 +58945,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 6 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for streamAsgnRptId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRptIdBytes(
           com.google.protobuf.ByteString value) {
@@ -56419,10 +59018,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -56432,10 +59033,12 @@ public final class MarketData {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -56445,58 +59048,70 @@ public final class MarketData {
 
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnAckType.
      */
     int getStreamAsgnAckTypeValue();
     /**
      * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnAckType.
      */
     org.fixprotocol.components.MarketData.StreamAsgnAckTypeEnum getStreamAsgnAckType();
 
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnRejReason.
      */
     int getStreamAsgnRejReasonValue();
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReason.
      */
     org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum getStreamAsgnRejReason();
 
     /**
      * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReasonReserved100plus.
      */
     int getStreamAsgnRejReasonReserved100Plus();
 
     /**
      * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRptId.
      */
     java.lang.String getStreamAsgnRptId();
     /**
      * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnRptId.
      */
     com.google.protobuf.ByteString
         getStreamAsgnRptIdBytes();
 
     /**
      * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
@@ -56653,7 +59268,8 @@ public final class MarketData {
     private int streamAsgnRejReasonUnionCase_ = 0;
     private java.lang.Object streamAsgnRejReasonUnion_;
     public enum StreamAsgnRejReasonUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       STREAM_ASGN_REJ_REASON(6),
       STREAM_ASGN_REJ_REASON_RESERVED100PLUS(7),
       STREAMASGNREJREASONUNION_NOT_SET(0);
@@ -56662,6 +59278,8 @@ public final class MarketData {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -56692,12 +59310,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -56713,12 +59333,14 @@ public final class MarketData {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -56734,6 +59356,7 @@ public final class MarketData {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -56749,6 +59372,7 @@ public final class MarketData {
     }
     /**
      * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -56768,6 +59392,7 @@ public final class MarketData {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -56777,12 +59402,14 @@ public final class MarketData {
     private int streamAsgnAckType_;
     /**
      * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnAckType.
      */
     public int getStreamAsgnAckTypeValue() {
       return streamAsgnAckType_;
     }
     /**
      * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnAckType.
      */
     public org.fixprotocol.components.MarketData.StreamAsgnAckTypeEnum getStreamAsgnAckType() {
       @SuppressWarnings("deprecation")
@@ -56793,6 +59420,7 @@ public final class MarketData {
     public static final int STREAM_ASGN_REJ_REASON_FIELD_NUMBER = 6;
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The enum numeric value on the wire for streamAsgnRejReason.
      */
     public int getStreamAsgnRejReasonValue() {
       if (streamAsgnRejReasonUnionCase_ == 6) {
@@ -56802,6 +59430,7 @@ public final class MarketData {
     }
     /**
      * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReason.
      */
     public org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum getStreamAsgnRejReason() {
       if (streamAsgnRejReasonUnionCase_ == 6) {
@@ -56816,6 +59445,7 @@ public final class MarketData {
     public static final int STREAM_ASGN_REJ_REASON_RESERVED100PLUS_FIELD_NUMBER = 7;
     /**
      * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRejReasonReserved100plus.
      */
     public int getStreamAsgnRejReasonReserved100Plus() {
       if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -56828,6 +59458,7 @@ public final class MarketData {
     private volatile java.lang.Object streamAsgnRptId_;
     /**
      * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The streamAsgnRptId.
      */
     public java.lang.String getStreamAsgnRptId() {
       java.lang.Object ref = streamAsgnRptId_;
@@ -56843,6 +59474,7 @@ public final class MarketData {
     }
     /**
      * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for streamAsgnRptId.
      */
     public com.google.protobuf.ByteString
         getStreamAsgnRptIdBytes() {
@@ -56862,6 +59494,7 @@ public final class MarketData {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -56877,6 +59510,7 @@ public final class MarketData {
     }
     /**
      * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -57405,12 +60039,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -57522,12 +60158,14 @@ public final class MarketData {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_5_0SP1];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -57637,6 +60275,7 @@ public final class MarketData {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -57652,6 +60291,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -57668,6 +60308,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -57681,6 +60323,7 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -57690,6 +60333,8 @@ public final class MarketData {
       }
       /**
        * <code>string encoded_text = 3 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -57706,12 +60351,15 @@ public final class MarketData {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -57721,6 +60369,7 @@ public final class MarketData {
       }
       /**
        * <code>sfixed64 encoded_text_len = 4 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -57732,12 +60381,15 @@ public final class MarketData {
       private int streamAsgnAckType_ = 0;
       /**
        * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for streamAsgnAckType.
        */
       public int getStreamAsgnAckTypeValue() {
         return streamAsgnAckType_;
       }
       /**
        * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for streamAsgnAckType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnAckTypeValue(int value) {
         streamAsgnAckType_ = value;
@@ -57746,6 +60398,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnAckType.
        */
       public org.fixprotocol.components.MarketData.StreamAsgnAckTypeEnum getStreamAsgnAckType() {
         @SuppressWarnings("deprecation")
@@ -57754,6 +60407,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnAckType to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnAckType(org.fixprotocol.components.MarketData.StreamAsgnAckTypeEnum value) {
         if (value == null) {
@@ -57766,6 +60421,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnAckTypeEnum stream_asgn_ack_type = 5 [(.fix.tag) = 1503, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnAckType() {
         
@@ -57776,6 +60432,7 @@ public final class MarketData {
 
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The enum numeric value on the wire for streamAsgnRejReason.
        */
       public int getStreamAsgnRejReasonValue() {
         if (streamAsgnRejReasonUnionCase_ == 6) {
@@ -57785,6 +60442,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The enum numeric value on the wire for streamAsgnRejReason to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRejReasonValue(int value) {
         streamAsgnRejReasonUnionCase_ = 6;
@@ -57794,6 +60453,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnRejReason.
        */
       public org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum getStreamAsgnRejReason() {
         if (streamAsgnRejReasonUnionCase_ == 6) {
@@ -57806,6 +60466,8 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnRejReason to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRejReason(org.fixprotocol.components.MarketData.StreamAsgnRejReasonEnum value) {
         if (value == null) {
@@ -57818,6 +60480,7 @@ public final class MarketData {
       }
       /**
        * <code>.MarketData.StreamAsgnRejReasonEnum stream_asgn_rej_reason = 6 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnRejReason() {
         if (streamAsgnRejReasonUnionCase_ == 6) {
@@ -57830,6 +60493,7 @@ public final class MarketData {
 
       /**
        * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnRejReasonReserved100plus.
        */
       public int getStreamAsgnRejReasonReserved100Plus() {
         if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -57839,6 +60503,8 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnRejReasonReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRejReasonReserved100Plus(int value) {
         streamAsgnRejReasonUnionCase_ = 7;
@@ -57848,6 +60514,7 @@ public final class MarketData {
       }
       /**
        * <code>fixed32 stream_asgn_rej_reason_reserved100plus = 7 [(.fix.tag) = 1502, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnRejReasonReserved100Plus() {
         if (streamAsgnRejReasonUnionCase_ == 7) {
@@ -57861,6 +60528,7 @@ public final class MarketData {
       private java.lang.Object streamAsgnRptId_ = "";
       /**
        * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The streamAsgnRptId.
        */
       public java.lang.String getStreamAsgnRptId() {
         java.lang.Object ref = streamAsgnRptId_;
@@ -57876,6 +60544,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for streamAsgnRptId.
        */
       public com.google.protobuf.ByteString
           getStreamAsgnRptIdBytes() {
@@ -57892,6 +60561,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The streamAsgnRptId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRptId(
           java.lang.String value) {
@@ -57905,6 +60576,7 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearStreamAsgnRptId() {
         
@@ -57914,6 +60586,8 @@ public final class MarketData {
       }
       /**
        * <code>string stream_asgn_rpt_id = 8 [(.fix.tag) = 1501, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for streamAsgnRptId to set.
+       * @return This builder for chaining.
        */
       public Builder setStreamAsgnRptIdBytes(
           com.google.protobuf.ByteString value) {
@@ -57930,6 +60604,7 @@ public final class MarketData {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -57945,6 +60620,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -57961,6 +60637,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -57974,6 +60652,7 @@ public final class MarketData {
       }
       /**
        * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -57983,6 +60662,8 @@ public final class MarketData {
       }
       /**
        * <code>string text = 9 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 93];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {

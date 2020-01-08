@@ -9,20 +9,24 @@ public interface RootSubPartiesOrBuilder extends
 
   /**
    * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartySubId.
    */
   java.lang.String getRootPartySubId();
   /**
    * <code>string root_party_sub_id = 1 [(.fix.tag) = 1121, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for rootPartySubId.
    */
   com.google.protobuf.ByteString
       getRootPartySubIdBytes();
 
   /**
    * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for rootPartySubIdType.
    */
   int getRootPartySubIdTypeValue();
   /**
    * <code>.Common.RootPartySubIDTypeEnum root_party_sub_id_type = 2 [(.fix.tag) = 1122, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartySubIdType.
    */
   org.fixprotocol.components.RootPartySubIDTypeEnum getRootPartySubIdType();
 }

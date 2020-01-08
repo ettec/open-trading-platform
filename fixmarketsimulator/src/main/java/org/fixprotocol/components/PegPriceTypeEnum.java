@@ -94,6 +94,8 @@ public enum PegPriceTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -101,6 +103,10 @@ public enum PegPriceTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static PegPriceTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return PEG_PRICE_TYPE_UNSPECIFIED;

@@ -585,7 +585,8 @@ private static final long serialVersionUID = 0L;
   private int derivativeFlowScheduleTypeUnionCase_ = 0;
   private java.lang.Object derivativeFlowScheduleTypeUnion_;
   public enum DerivativeFlowScheduleTypeUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     DERIVATIVE_FLOW_SCHEDULE_TYPE(60),
     DERIVATIVE_FLOW_SCHEDULE_TYPE_RESERVED100PLUS(61),
     DERIVATIVEFLOWSCHEDULETYPEUNION_NOT_SET(0);
@@ -594,6 +595,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -624,6 +627,7 @@ private static final long serialVersionUID = 0L;
   private boolean derivFlexProductEligibilityIndicator_;
   /**
    * <code>bool deriv_flex_product_eligibility_indicator = 1 [(.fix.tag) = 1243, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivFlexProductEligibilityIndicator.
    */
   public boolean getDerivFlexProductEligibilityIndicator() {
     return derivFlexProductEligibilityIndicator_;
@@ -633,12 +637,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeCapPrice_;
   /**
    * <code>.fix.Decimal64 derivative_cap_price = 2 [(.fix.tag) = 1321, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeCapPrice field is set.
    */
   public boolean hasDerivativeCapPrice() {
     return derivativeCapPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_cap_price = 2 [(.fix.tag) = 1321, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeCapPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeCapPrice() {
     return derivativeCapPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeCapPrice_;
@@ -654,6 +660,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeCfiCode_;
   /**
    * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeCfiCode.
    */
   public java.lang.String getDerivativeCfiCode() {
     java.lang.Object ref = derivativeCfiCode_;
@@ -669,6 +676,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeCfiCode.
    */
   public com.google.protobuf.ByteString
       getDerivativeCfiCodeBytes() {
@@ -688,12 +696,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeContractMultiplier_;
   /**
    * <code>.fix.Decimal64 derivative_contract_multiplier = 4 [(.fix.tag) = 1266, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeContractMultiplier field is set.
    */
   public boolean hasDerivativeContractMultiplier() {
     return derivativeContractMultiplier_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_contract_multiplier = 4 [(.fix.tag) = 1266, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeContractMultiplier.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeContractMultiplier() {
     return derivativeContractMultiplier_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeContractMultiplier_;
@@ -709,6 +719,7 @@ private static final long serialVersionUID = 0L;
   private int derivativeContractSettlMonth_;
   /**
    * <code>sfixed32 derivative_contract_settl_month = 5 [(.fix.tag) = 1285, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeContractSettlMonth.
    */
   public int getDerivativeContractSettlMonth() {
     return derivativeContractSettlMonth_;
@@ -718,6 +729,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeCountryOfIssue_;
   /**
    * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeCountryOfIssue.
    */
   public java.lang.String getDerivativeCountryOfIssue() {
     java.lang.Object ref = derivativeCountryOfIssue_;
@@ -733,6 +745,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeCountryOfIssue.
    */
   public com.google.protobuf.ByteString
       getDerivativeCountryOfIssueBytes() {
@@ -752,6 +765,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeEncodedIssuer_;
   /**
    * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEncodedIssuer.
    */
   public java.lang.String getDerivativeEncodedIssuer() {
     java.lang.Object ref = derivativeEncodedIssuer_;
@@ -767,6 +781,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeEncodedIssuer.
    */
   public com.google.protobuf.ByteString
       getDerivativeEncodedIssuerBytes() {
@@ -786,6 +801,7 @@ private static final long serialVersionUID = 0L;
   private long derivativeEncodedIssuerLen_;
   /**
    * <code>sfixed64 derivative_encoded_issuer_len = 8 [(.fix.tag) = 1277, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEncodedIssuerLen.
    */
   public long getDerivativeEncodedIssuerLen() {
     return derivativeEncodedIssuerLen_;
@@ -795,6 +811,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeEncodedSecurityDesc_;
   /**
    * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEncodedSecurityDesc.
    */
   public java.lang.String getDerivativeEncodedSecurityDesc() {
     java.lang.Object ref = derivativeEncodedSecurityDesc_;
@@ -810,6 +827,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeEncodedSecurityDesc.
    */
   public com.google.protobuf.ByteString
       getDerivativeEncodedSecurityDescBytes() {
@@ -829,6 +847,7 @@ private static final long serialVersionUID = 0L;
   private long derivativeEncodedSecurityDescLen_;
   /**
    * <code>sfixed64 derivative_encoded_security_desc_len = 10 [(.fix.tag) = 1280, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEncodedSecurityDescLen.
    */
   public long getDerivativeEncodedSecurityDescLen() {
     return derivativeEncodedSecurityDescLen_;
@@ -873,12 +892,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeExerciseStyle_;
   /**
    * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeExerciseStyle.
    */
   public int getDerivativeExerciseStyleValue() {
     return derivativeExerciseStyle_;
   }
   /**
    * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeExerciseStyle.
    */
   public org.fixprotocol.components.DerivativeExerciseStyleEnum getDerivativeExerciseStyle() {
     @SuppressWarnings("deprecation")
@@ -890,12 +911,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeFloorPrice_;
   /**
    * <code>.fix.Decimal64 derivative_floor_price = 13 [(.fix.tag) = 1322, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeFloorPrice field is set.
    */
   public boolean hasDerivativeFloorPrice() {
     return derivativeFloorPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_floor_price = 13 [(.fix.tag) = 1322, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeFloorPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeFloorPrice() {
     return derivativeFloorPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeFloorPrice_;
@@ -911,6 +934,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeInstrRegistry_;
   /**
    * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrRegistry.
    */
   public java.lang.String getDerivativeInstrRegistry() {
     java.lang.Object ref = derivativeInstrRegistry_;
@@ -926,6 +950,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeInstrRegistry.
    */
   public com.google.protobuf.ByteString
       getDerivativeInstrRegistryBytes() {
@@ -945,12 +970,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeInstrmtAssignmentMethod_;
   /**
    * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeInstrmtAssignmentMethod.
    */
   public int getDerivativeInstrmtAssignmentMethodValue() {
     return derivativeInstrmtAssignmentMethod_;
   }
   /**
    * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeInstrmtAssignmentMethod.
    */
   public org.fixprotocol.components.DerivativeInstrmtAssignmentMethodEnum getDerivativeInstrmtAssignmentMethod() {
     @SuppressWarnings("deprecation")
@@ -997,6 +1024,7 @@ private static final long serialVersionUID = 0L;
   private int derivativeIssueDate_;
   /**
    * <code>sfixed32 derivative_issue_date = 17 [(.fix.tag) = 1276, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeIssueDate.
    */
   public int getDerivativeIssueDate() {
     return derivativeIssueDate_;
@@ -1006,6 +1034,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeIssuer_;
   /**
    * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeIssuer.
    */
   public java.lang.String getDerivativeIssuer() {
     java.lang.Object ref = derivativeIssuer_;
@@ -1021,6 +1050,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeIssuer.
    */
   public com.google.protobuf.ByteString
       getDerivativeIssuerBytes() {
@@ -1040,12 +1070,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeListMethod_;
   /**
    * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeListMethod.
    */
   public int getDerivativeListMethodValue() {
     return derivativeListMethod_;
   }
   /**
    * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeListMethod.
    */
   public org.fixprotocol.components.DerivativeListMethodEnum getDerivativeListMethod() {
     @SuppressWarnings("deprecation")
@@ -1057,6 +1089,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeLocaleOfIssue_;
   /**
    * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeLocaleOfIssue.
    */
   public java.lang.String getDerivativeLocaleOfIssue() {
     java.lang.Object ref = derivativeLocaleOfIssue_;
@@ -1072,6 +1105,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeLocaleOfIssue.
    */
   public com.google.protobuf.ByteString
       getDerivativeLocaleOfIssueBytes() {
@@ -1091,6 +1125,7 @@ private static final long serialVersionUID = 0L;
   private int derivativeMaturityDate_;
   /**
    * <code>sfixed32 derivative_maturity_date = 21 [(.fix.tag) = 1252, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeMaturityDate.
    */
   public int getDerivativeMaturityDate() {
     return derivativeMaturityDate_;
@@ -1100,6 +1135,7 @@ private static final long serialVersionUID = 0L;
   private int derivativeMaturityMonthYear_;
   /**
    * <code>sfixed32 derivative_maturity_month_year = 22 [(.fix.tag) = 1251, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeMaturityMonthYear.
    */
   public int getDerivativeMaturityMonthYear() {
     return derivativeMaturityMonthYear_;
@@ -1109,12 +1145,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.LocalTimeOnly derivativeMaturityTime_;
   /**
    * <code>.fix.LocalTimeOnly derivative_maturity_time = 23 [(.fix.tag) = 1253, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeMaturityTime field is set.
    */
   public boolean hasDerivativeMaturityTime() {
     return derivativeMaturityTime_ != null;
   }
   /**
    * <code>.fix.LocalTimeOnly derivative_maturity_time = 23 [(.fix.tag) = 1253, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeMaturityTime.
    */
   public org.fixprotocol.components.Fix.LocalTimeOnly getDerivativeMaturityTime() {
     return derivativeMaturityTime_ == null ? org.fixprotocol.components.Fix.LocalTimeOnly.getDefaultInstance() : derivativeMaturityTime_;
@@ -1130,12 +1168,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeMinPriceIncrement_;
   /**
    * <code>.fix.Decimal64 derivative_min_price_increment = 24 [(.fix.tag) = 1267, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeMinPriceIncrement field is set.
    */
   public boolean hasDerivativeMinPriceIncrement() {
     return derivativeMinPriceIncrement_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_min_price_increment = 24 [(.fix.tag) = 1267, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeMinPriceIncrement.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeMinPriceIncrement() {
     return derivativeMinPriceIncrement_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeMinPriceIncrement_;
@@ -1151,12 +1191,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeMinPriceIncrementAmount_;
   /**
    * <code>.fix.Decimal64 derivative_min_price_increment_amount = 25 [(.fix.tag) = 1268, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeMinPriceIncrementAmount field is set.
    */
   public boolean hasDerivativeMinPriceIncrementAmount() {
     return derivativeMinPriceIncrementAmount_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_min_price_increment_amount = 25 [(.fix.tag) = 1268, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeMinPriceIncrementAmount.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeMinPriceIncrementAmount() {
     return derivativeMinPriceIncrementAmount_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeMinPriceIncrementAmount_;
@@ -1172,6 +1214,7 @@ private static final long serialVersionUID = 0L;
   private long derivativeNtPositionLimit_;
   /**
    * <code>sfixed64 derivative_nt_position_limit = 26 [(.fix.tag) = 1274, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeNtPositionLimit.
    */
   public long getDerivativeNtPositionLimit() {
     return derivativeNtPositionLimit_;
@@ -1181,6 +1224,7 @@ private static final long serialVersionUID = 0L;
   private com.google.protobuf.ByteString derivativeOptAttribute_;
   /**
    * <code>bytes derivative_opt_attribute = 27 [(.fix.tag) = 1265, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeOptAttribute.
    */
   public com.google.protobuf.ByteString getDerivativeOptAttribute() {
     return derivativeOptAttribute_;
@@ -1190,12 +1234,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeOptPayAmount_;
   /**
    * <code>.fix.Decimal64 derivative_opt_pay_amount = 28 [(.fix.tag) = 1225, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeOptPayAmount field is set.
    */
   public boolean hasDerivativeOptPayAmount() {
     return derivativeOptPayAmount_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_opt_pay_amount = 28 [(.fix.tag) = 1225, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeOptPayAmount.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeOptPayAmount() {
     return derivativeOptPayAmount_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeOptPayAmount_;
@@ -1211,6 +1257,7 @@ private static final long serialVersionUID = 0L;
   private long derivativePositionLimit_;
   /**
    * <code>sfixed64 derivative_position_limit = 29 [(.fix.tag) = 1273, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativePositionLimit.
    */
   public long getDerivativePositionLimit() {
     return derivativePositionLimit_;
@@ -1220,12 +1267,14 @@ private static final long serialVersionUID = 0L;
   private int derivativePriceQuoteMethod_;
   /**
    * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativePriceQuoteMethod.
    */
   public int getDerivativePriceQuoteMethodValue() {
     return derivativePriceQuoteMethod_;
   }
   /**
    * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativePriceQuoteMethod.
    */
   public org.fixprotocol.components.DerivativePriceQuoteMethodEnum getDerivativePriceQuoteMethod() {
     @SuppressWarnings("deprecation")
@@ -1237,12 +1286,14 @@ private static final long serialVersionUID = 0L;
   private int derivativePriceUnitOfMeasure_;
   /**
    * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativePriceUnitOfMeasure.
    */
   public int getDerivativePriceUnitOfMeasureValue() {
     return derivativePriceUnitOfMeasure_;
   }
   /**
    * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativePriceUnitOfMeasure.
    */
   public org.fixprotocol.components.DerivativePriceUnitOfMeasureEnum getDerivativePriceUnitOfMeasure() {
     @SuppressWarnings("deprecation")
@@ -1254,12 +1305,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativePriceUnitOfMeasureQty_;
   /**
    * <code>.fix.Decimal64 derivative_price_unit_of_measure_qty = 32 [(.fix.tag) = 1316, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativePriceUnitOfMeasureQty field is set.
    */
   public boolean hasDerivativePriceUnitOfMeasureQty() {
     return derivativePriceUnitOfMeasureQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_price_unit_of_measure_qty = 32 [(.fix.tag) = 1316, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativePriceUnitOfMeasureQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativePriceUnitOfMeasureQty() {
     return derivativePriceUnitOfMeasureQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativePriceUnitOfMeasureQty_;
@@ -1275,12 +1328,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeProduct_;
   /**
    * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeProduct.
    */
   public int getDerivativeProductValue() {
     return derivativeProduct_;
   }
   /**
    * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeProduct.
    */
   public org.fixprotocol.components.DerivativeProductEnum getDerivativeProduct() {
     @SuppressWarnings("deprecation")
@@ -1292,6 +1347,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeProductComplex_;
   /**
    * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeProductComplex.
    */
   public java.lang.String getDerivativeProductComplex() {
     java.lang.Object ref = derivativeProductComplex_;
@@ -1307,6 +1363,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeProductComplex.
    */
   public com.google.protobuf.ByteString
       getDerivativeProductComplexBytes() {
@@ -1326,12 +1383,14 @@ private static final long serialVersionUID = 0L;
   private int derivativePutOrCall_;
   /**
    * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativePutOrCall.
    */
   public int getDerivativePutOrCallValue() {
     return derivativePutOrCall_;
   }
   /**
    * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativePutOrCall.
    */
   public org.fixprotocol.components.DerivativePutOrCallEnum getDerivativePutOrCall() {
     @SuppressWarnings("deprecation")
@@ -1378,6 +1437,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityDesc_;
   /**
    * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityDesc.
    */
   public java.lang.String getDerivativeSecurityDesc() {
     java.lang.Object ref = derivativeSecurityDesc_;
@@ -1393,6 +1453,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityDesc.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityDescBytes() {
@@ -1412,6 +1473,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityExchange_;
   /**
    * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityExchange.
    */
   public java.lang.String getDerivativeSecurityExchange() {
     java.lang.Object ref = derivativeSecurityExchange_;
@@ -1427,6 +1489,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityExchange.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityExchangeBytes() {
@@ -1446,6 +1509,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityGroup_;
   /**
    * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityGroup.
    */
   public java.lang.String getDerivativeSecurityGroup() {
     java.lang.Object ref = derivativeSecurityGroup_;
@@ -1461,6 +1525,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityGroup.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityGroupBytes() {
@@ -1480,6 +1545,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecurityId_;
   /**
    * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityId.
    */
   public java.lang.String getDerivativeSecurityId() {
     java.lang.Object ref = derivativeSecurityId_;
@@ -1495,6 +1561,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecurityId.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecurityIdBytes() {
@@ -1514,12 +1581,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeSecurityIdSource_;
   /**
    * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSecurityIdSource.
    */
   public int getDerivativeSecurityIdSourceValue() {
     return derivativeSecurityIdSource_;
   }
   /**
    * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityIdSource.
    */
   public org.fixprotocol.components.DerivativeSecurityIDSourceEnum getDerivativeSecurityIdSource() {
     @SuppressWarnings("deprecation")
@@ -1531,12 +1600,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeSecurityStatus_;
   /**
    * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSecurityStatus.
    */
   public int getDerivativeSecurityStatusValue() {
     return derivativeSecurityStatus_;
   }
   /**
    * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityStatus.
    */
   public org.fixprotocol.components.DerivativeSecurityStatusEnum getDerivativeSecurityStatus() {
     @SuppressWarnings("deprecation")
@@ -1548,6 +1619,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSecuritySubType_;
   /**
    * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecuritySubType.
    */
   public java.lang.String getDerivativeSecuritySubType() {
     java.lang.Object ref = derivativeSecuritySubType_;
@@ -1563,6 +1635,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSecuritySubType.
    */
   public com.google.protobuf.ByteString
       getDerivativeSecuritySubTypeBytes() {
@@ -1582,12 +1655,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeSecurityType_;
   /**
    * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSecurityType.
    */
   public int getDerivativeSecurityTypeValue() {
     return derivativeSecurityType_;
   }
   /**
    * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityType.
    */
   public org.fixprotocol.components.DerivativeSecurityTypeEnum getDerivativeSecurityType() {
     @SuppressWarnings("deprecation")
@@ -1599,12 +1674,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.DerivativeSecurityXML derivativeSecurityXml_;
   /**
    * <code>.Common.DerivativeSecurityXML derivative_security_xml = 45 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeSecurityXml field is set.
    */
   public boolean hasDerivativeSecurityXml() {
     return derivativeSecurityXml_ != null;
   }
   /**
    * <code>.Common.DerivativeSecurityXML derivative_security_xml = 45 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSecurityXml.
    */
   public org.fixprotocol.components.DerivativeSecurityXML getDerivativeSecurityXml() {
     return derivativeSecurityXml_ == null ? org.fixprotocol.components.DerivativeSecurityXML.getDefaultInstance() : derivativeSecurityXml_;
@@ -1620,12 +1697,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeSettlMethod_;
   /**
    * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSettlMethod.
    */
   public int getDerivativeSettlMethodValue() {
     return derivativeSettlMethod_;
   }
   /**
    * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSettlMethod.
    */
   public org.fixprotocol.components.DerivativeSettlMethodEnum getDerivativeSettlMethod() {
     @SuppressWarnings("deprecation")
@@ -1637,6 +1716,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSettleOnOpenFlag_;
   /**
    * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSettleOnOpenFlag.
    */
   public java.lang.String getDerivativeSettleOnOpenFlag() {
     java.lang.Object ref = derivativeSettleOnOpenFlag_;
@@ -1652,6 +1732,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSettleOnOpenFlag.
    */
   public com.google.protobuf.ByteString
       getDerivativeSettleOnOpenFlagBytes() {
@@ -1671,6 +1752,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeStateOrProvinceOfIssue_;
   /**
    * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeStateOrProvinceOfIssue.
    */
   public java.lang.String getDerivativeStateOrProvinceOfIssue() {
     java.lang.Object ref = derivativeStateOrProvinceOfIssue_;
@@ -1686,6 +1768,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeStateOrProvinceOfIssue.
    */
   public com.google.protobuf.ByteString
       getDerivativeStateOrProvinceOfIssueBytes() {
@@ -1705,6 +1788,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeStrikeCurrency_;
   /**
    * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeStrikeCurrency.
    */
   public java.lang.String getDerivativeStrikeCurrency() {
     java.lang.Object ref = derivativeStrikeCurrency_;
@@ -1720,6 +1804,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeStrikeCurrency.
    */
   public com.google.protobuf.ByteString
       getDerivativeStrikeCurrencyBytes() {
@@ -1739,12 +1824,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeStrikeMultiplier_;
   /**
    * <code>.fix.Decimal64 derivative_strike_multiplier = 50 [(.fix.tag) = 1263, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeStrikeMultiplier field is set.
    */
   public boolean hasDerivativeStrikeMultiplier() {
     return derivativeStrikeMultiplier_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_strike_multiplier = 50 [(.fix.tag) = 1263, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeStrikeMultiplier.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeStrikeMultiplier() {
     return derivativeStrikeMultiplier_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeStrikeMultiplier_;
@@ -1760,12 +1847,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeStrikePrice_;
   /**
    * <code>.fix.Decimal64 derivative_strike_price = 51 [(.fix.tag) = 1261, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeStrikePrice field is set.
    */
   public boolean hasDerivativeStrikePrice() {
     return derivativeStrikePrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_strike_price = 51 [(.fix.tag) = 1261, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeStrikePrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeStrikePrice() {
     return derivativeStrikePrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeStrikePrice_;
@@ -1781,12 +1870,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeStrikeValue_;
   /**
    * <code>.fix.Decimal64 derivative_strike_value = 52 [(.fix.tag) = 1264, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeStrikeValue field is set.
    */
   public boolean hasDerivativeStrikeValue() {
     return derivativeStrikeValue_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_strike_value = 52 [(.fix.tag) = 1264, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeStrikeValue.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeStrikeValue() {
     return derivativeStrikeValue_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeStrikeValue_;
@@ -1802,6 +1893,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object derivativeSymbol_;
   /**
    * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSymbol.
    */
   public java.lang.String getDerivativeSymbol() {
     java.lang.Object ref = derivativeSymbol_;
@@ -1817,6 +1909,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeSymbol.
    */
   public com.google.protobuf.ByteString
       getDerivativeSymbolBytes() {
@@ -1836,12 +1929,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeSymbolSfx_;
   /**
    * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeSymbolSfx.
    */
   public int getDerivativeSymbolSfxValue() {
     return derivativeSymbolSfx_;
   }
   /**
    * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeSymbolSfx.
    */
   public org.fixprotocol.components.DerivativeSymbolSfxEnum getDerivativeSymbolSfx() {
     @SuppressWarnings("deprecation")
@@ -1853,12 +1948,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeTimeUnit_;
   /**
    * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeTimeUnit.
    */
   public int getDerivativeTimeUnitValue() {
     return derivativeTimeUnit_;
   }
   /**
    * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeTimeUnit.
    */
   public org.fixprotocol.components.DerivativeTimeUnitEnum getDerivativeTimeUnit() {
     @SuppressWarnings("deprecation")
@@ -1870,12 +1967,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeUnitOfMeasure_;
   /**
    * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeUnitOfMeasure.
    */
   public int getDerivativeUnitOfMeasureValue() {
     return derivativeUnitOfMeasure_;
   }
   /**
    * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeUnitOfMeasure.
    */
   public org.fixprotocol.components.DerivativeUnitOfMeasureEnum getDerivativeUnitOfMeasure() {
     @SuppressWarnings("deprecation")
@@ -1887,12 +1986,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 derivativeUnitOfMeasureQty_;
   /**
    * <code>.fix.Decimal64 derivative_unit_of_measure_qty = 57 [(.fix.tag) = 1270, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeUnitOfMeasureQty field is set.
    */
   public boolean hasDerivativeUnitOfMeasureQty() {
     return derivativeUnitOfMeasureQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 derivative_unit_of_measure_qty = 57 [(.fix.tag) = 1270, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeUnitOfMeasureQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDerivativeUnitOfMeasureQty() {
     return derivativeUnitOfMeasureQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : derivativeUnitOfMeasureQty_;
@@ -1908,12 +2009,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeValuationMethod_;
   /**
    * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeValuationMethod.
    */
   public int getDerivativeValuationMethodValue() {
     return derivativeValuationMethod_;
   }
   /**
    * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeValuationMethod.
    */
   public org.fixprotocol.components.DerivativeValuationMethodEnum getDerivativeValuationMethod() {
     @SuppressWarnings("deprecation")
@@ -1925,12 +2028,14 @@ private static final long serialVersionUID = 0L;
   private int derivativeContractMultiplierUnit_;
   /**
    * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for derivativeContractMultiplierUnit.
    */
   public int getDerivativeContractMultiplierUnitValue() {
     return derivativeContractMultiplierUnit_;
   }
   /**
    * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The derivativeContractMultiplierUnit.
    */
   public org.fixprotocol.components.DerivativeContractMultiplierUnitEnum getDerivativeContractMultiplierUnit() {
     @SuppressWarnings("deprecation")
@@ -1941,6 +2046,7 @@ private static final long serialVersionUID = 0L;
   public static final int DERIVATIVE_FLOW_SCHEDULE_TYPE_FIELD_NUMBER = 60;
   /**
    * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for derivativeFlowScheduleType.
    */
   public int getDerivativeFlowScheduleTypeValue() {
     if (derivativeFlowScheduleTypeUnionCase_ == 60) {
@@ -1950,6 +2056,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The derivativeFlowScheduleType.
    */
   public org.fixprotocol.components.DerivativeFlowScheduleTypeEnum getDerivativeFlowScheduleType() {
     if (derivativeFlowScheduleTypeUnionCase_ == 60) {
@@ -1964,6 +2071,7 @@ private static final long serialVersionUID = 0L;
   public static final int DERIVATIVE_FLOW_SCHEDULE_TYPE_RESERVED100PLUS_FIELD_NUMBER = 61;
   /**
    * <code>fixed32 derivative_flow_schedule_type_reserved100plus = 61 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The derivativeFlowScheduleTypeReserved100plus.
    */
   public int getDerivativeFlowScheduleTypeReserved100Plus() {
     if (derivativeFlowScheduleTypeUnionCase_ == 61) {
@@ -3615,12 +3723,15 @@ private static final long serialVersionUID = 0L;
     private boolean derivFlexProductEligibilityIndicator_ ;
     /**
      * <code>bool deriv_flex_product_eligibility_indicator = 1 [(.fix.tag) = 1243, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivFlexProductEligibilityIndicator.
      */
     public boolean getDerivFlexProductEligibilityIndicator() {
       return derivFlexProductEligibilityIndicator_;
     }
     /**
      * <code>bool deriv_flex_product_eligibility_indicator = 1 [(.fix.tag) = 1243, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivFlexProductEligibilityIndicator to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivFlexProductEligibilityIndicator(boolean value) {
       
@@ -3630,6 +3741,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>bool deriv_flex_product_eligibility_indicator = 1 [(.fix.tag) = 1243, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivFlexProductEligibilityIndicator() {
       
@@ -3643,12 +3755,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeCapPriceBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_cap_price = 2 [(.fix.tag) = 1321, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeCapPrice field is set.
      */
     public boolean hasDerivativeCapPrice() {
       return derivativeCapPriceBuilder_ != null || derivativeCapPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_cap_price = 2 [(.fix.tag) = 1321, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeCapPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeCapPrice() {
       if (derivativeCapPriceBuilder_ == null) {
@@ -3758,6 +3872,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeCfiCode_ = "";
     /**
      * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeCfiCode.
      */
     public java.lang.String getDerivativeCfiCode() {
       java.lang.Object ref = derivativeCfiCode_;
@@ -3773,6 +3888,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeCfiCode.
      */
     public com.google.protobuf.ByteString
         getDerivativeCfiCodeBytes() {
@@ -3789,6 +3905,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeCfiCode to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeCfiCode(
         java.lang.String value) {
@@ -3802,6 +3920,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeCfiCode() {
       
@@ -3811,6 +3930,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_cfi_code = 3 [(.fix.tag) = 1248, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeCfiCode to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeCfiCodeBytes(
         com.google.protobuf.ByteString value) {
@@ -3829,12 +3950,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeContractMultiplierBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_contract_multiplier = 4 [(.fix.tag) = 1266, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeContractMultiplier field is set.
      */
     public boolean hasDerivativeContractMultiplier() {
       return derivativeContractMultiplierBuilder_ != null || derivativeContractMultiplier_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_contract_multiplier = 4 [(.fix.tag) = 1266, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeContractMultiplier.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeContractMultiplier() {
       if (derivativeContractMultiplierBuilder_ == null) {
@@ -3944,12 +4067,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeContractSettlMonth_ ;
     /**
      * <code>sfixed32 derivative_contract_settl_month = 5 [(.fix.tag) = 1285, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeContractSettlMonth.
      */
     public int getDerivativeContractSettlMonth() {
       return derivativeContractSettlMonth_;
     }
     /**
      * <code>sfixed32 derivative_contract_settl_month = 5 [(.fix.tag) = 1285, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeContractSettlMonth to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeContractSettlMonth(int value) {
       
@@ -3959,6 +4085,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 derivative_contract_settl_month = 5 [(.fix.tag) = 1285, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeContractSettlMonth() {
       
@@ -3970,6 +4097,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeCountryOfIssue_ = "";
     /**
      * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeCountryOfIssue.
      */
     public java.lang.String getDerivativeCountryOfIssue() {
       java.lang.Object ref = derivativeCountryOfIssue_;
@@ -3985,6 +4113,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeCountryOfIssue.
      */
     public com.google.protobuf.ByteString
         getDerivativeCountryOfIssueBytes() {
@@ -4001,6 +4130,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeCountryOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeCountryOfIssue(
         java.lang.String value) {
@@ -4014,6 +4145,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeCountryOfIssue() {
       
@@ -4023,6 +4155,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_country_of_issue = 6 [(.fix.tag) = 1258, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeCountryOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeCountryOfIssueBytes(
         com.google.protobuf.ByteString value) {
@@ -4039,6 +4173,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeEncodedIssuer_ = "";
     /**
      * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEncodedIssuer.
      */
     public java.lang.String getDerivativeEncodedIssuer() {
       java.lang.Object ref = derivativeEncodedIssuer_;
@@ -4054,6 +4189,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeEncodedIssuer.
      */
     public com.google.protobuf.ByteString
         getDerivativeEncodedIssuerBytes() {
@@ -4070,6 +4206,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEncodedIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEncodedIssuer(
         java.lang.String value) {
@@ -4083,6 +4221,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEncodedIssuer() {
       
@@ -4092,6 +4231,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_issuer = 7 [(.fix.tag) = 1278, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeEncodedIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEncodedIssuerBytes(
         com.google.protobuf.ByteString value) {
@@ -4108,12 +4249,15 @@ private static final long serialVersionUID = 0L;
     private long derivativeEncodedIssuerLen_ ;
     /**
      * <code>sfixed64 derivative_encoded_issuer_len = 8 [(.fix.tag) = 1277, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEncodedIssuerLen.
      */
     public long getDerivativeEncodedIssuerLen() {
       return derivativeEncodedIssuerLen_;
     }
     /**
      * <code>sfixed64 derivative_encoded_issuer_len = 8 [(.fix.tag) = 1277, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEncodedIssuerLen to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEncodedIssuerLen(long value) {
       
@@ -4123,6 +4267,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 derivative_encoded_issuer_len = 8 [(.fix.tag) = 1277, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEncodedIssuerLen() {
       
@@ -4134,6 +4279,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeEncodedSecurityDesc_ = "";
     /**
      * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEncodedSecurityDesc.
      */
     public java.lang.String getDerivativeEncodedSecurityDesc() {
       java.lang.Object ref = derivativeEncodedSecurityDesc_;
@@ -4149,6 +4295,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeEncodedSecurityDesc.
      */
     public com.google.protobuf.ByteString
         getDerivativeEncodedSecurityDescBytes() {
@@ -4165,6 +4312,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEncodedSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEncodedSecurityDesc(
         java.lang.String value) {
@@ -4178,6 +4327,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEncodedSecurityDesc() {
       
@@ -4187,6 +4337,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_encoded_security_desc = 9 [(.fix.tag) = 1281, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeEncodedSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEncodedSecurityDescBytes(
         com.google.protobuf.ByteString value) {
@@ -4203,12 +4355,15 @@ private static final long serialVersionUID = 0L;
     private long derivativeEncodedSecurityDescLen_ ;
     /**
      * <code>sfixed64 derivative_encoded_security_desc_len = 10 [(.fix.tag) = 1280, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeEncodedSecurityDescLen.
      */
     public long getDerivativeEncodedSecurityDescLen() {
       return derivativeEncodedSecurityDescLen_;
     }
     /**
      * <code>sfixed64 derivative_encoded_security_desc_len = 10 [(.fix.tag) = 1280, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeEncodedSecurityDescLen to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeEncodedSecurityDescLen(long value) {
       
@@ -4218,6 +4373,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 derivative_encoded_security_desc_len = 10 [(.fix.tag) = 1280, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeEncodedSecurityDescLen() {
       
@@ -4469,12 +4625,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeExerciseStyle_ = 0;
     /**
      * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeExerciseStyle.
      */
     public int getDerivativeExerciseStyleValue() {
       return derivativeExerciseStyle_;
     }
     /**
      * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeExerciseStyle to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeExerciseStyleValue(int value) {
       derivativeExerciseStyle_ = value;
@@ -4483,6 +4642,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeExerciseStyle.
      */
     public org.fixprotocol.components.DerivativeExerciseStyleEnum getDerivativeExerciseStyle() {
       @SuppressWarnings("deprecation")
@@ -4491,6 +4651,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeExerciseStyle to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeExerciseStyle(org.fixprotocol.components.DerivativeExerciseStyleEnum value) {
       if (value == null) {
@@ -4503,6 +4665,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeExerciseStyleEnum derivative_exercise_style = 12 [(.fix.tag) = 1299, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeExerciseStyle() {
       
@@ -4516,12 +4679,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeFloorPriceBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_floor_price = 13 [(.fix.tag) = 1322, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeFloorPrice field is set.
      */
     public boolean hasDerivativeFloorPrice() {
       return derivativeFloorPriceBuilder_ != null || derivativeFloorPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_floor_price = 13 [(.fix.tag) = 1322, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeFloorPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeFloorPrice() {
       if (derivativeFloorPriceBuilder_ == null) {
@@ -4631,6 +4796,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeInstrRegistry_ = "";
     /**
      * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeInstrRegistry.
      */
     public java.lang.String getDerivativeInstrRegistry() {
       java.lang.Object ref = derivativeInstrRegistry_;
@@ -4646,6 +4812,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeInstrRegistry.
      */
     public com.google.protobuf.ByteString
         getDerivativeInstrRegistryBytes() {
@@ -4662,6 +4829,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeInstrRegistry to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrRegistry(
         java.lang.String value) {
@@ -4675,6 +4844,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeInstrRegistry() {
       
@@ -4684,6 +4854,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_instr_registry = 14 [(.fix.tag) = 1257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeInstrRegistry to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrRegistryBytes(
         com.google.protobuf.ByteString value) {
@@ -4700,12 +4872,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeInstrmtAssignmentMethod_ = 0;
     /**
      * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeInstrmtAssignmentMethod.
      */
     public int getDerivativeInstrmtAssignmentMethodValue() {
       return derivativeInstrmtAssignmentMethod_;
     }
     /**
      * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeInstrmtAssignmentMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrmtAssignmentMethodValue(int value) {
       derivativeInstrmtAssignmentMethod_ = value;
@@ -4714,6 +4889,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeInstrmtAssignmentMethod.
      */
     public org.fixprotocol.components.DerivativeInstrmtAssignmentMethodEnum getDerivativeInstrmtAssignmentMethod() {
       @SuppressWarnings("deprecation")
@@ -4722,6 +4898,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeInstrmtAssignmentMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeInstrmtAssignmentMethod(org.fixprotocol.components.DerivativeInstrmtAssignmentMethodEnum value) {
       if (value == null) {
@@ -4734,6 +4912,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeInstrmtAssignmentMethodEnum derivative_instrmt_assignment_method = 15 [(.fix.tag) = 1255, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeInstrmtAssignmentMethod() {
       
@@ -4985,12 +5164,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeIssueDate_ ;
     /**
      * <code>sfixed32 derivative_issue_date = 17 [(.fix.tag) = 1276, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeIssueDate.
      */
     public int getDerivativeIssueDate() {
       return derivativeIssueDate_;
     }
     /**
      * <code>sfixed32 derivative_issue_date = 17 [(.fix.tag) = 1276, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeIssueDate to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeIssueDate(int value) {
       
@@ -5000,6 +5182,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 derivative_issue_date = 17 [(.fix.tag) = 1276, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeIssueDate() {
       
@@ -5011,6 +5194,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeIssuer_ = "";
     /**
      * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeIssuer.
      */
     public java.lang.String getDerivativeIssuer() {
       java.lang.Object ref = derivativeIssuer_;
@@ -5026,6 +5210,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeIssuer.
      */
     public com.google.protobuf.ByteString
         getDerivativeIssuerBytes() {
@@ -5042,6 +5227,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeIssuer(
         java.lang.String value) {
@@ -5055,6 +5242,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeIssuer() {
       
@@ -5064,6 +5252,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_issuer = 18 [(.fix.tag) = 1275, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeIssuerBytes(
         com.google.protobuf.ByteString value) {
@@ -5080,12 +5270,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeListMethod_ = 0;
     /**
      * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeListMethod.
      */
     public int getDerivativeListMethodValue() {
       return derivativeListMethod_;
     }
     /**
      * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeListMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeListMethodValue(int value) {
       derivativeListMethod_ = value;
@@ -5094,6 +5287,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeListMethod.
      */
     public org.fixprotocol.components.DerivativeListMethodEnum getDerivativeListMethod() {
       @SuppressWarnings("deprecation")
@@ -5102,6 +5296,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeListMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeListMethod(org.fixprotocol.components.DerivativeListMethodEnum value) {
       if (value == null) {
@@ -5114,6 +5310,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeListMethodEnum derivative_list_method = 19 [(.fix.tag) = 1320, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeListMethod() {
       
@@ -5125,6 +5322,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeLocaleOfIssue_ = "";
     /**
      * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeLocaleOfIssue.
      */
     public java.lang.String getDerivativeLocaleOfIssue() {
       java.lang.Object ref = derivativeLocaleOfIssue_;
@@ -5140,6 +5338,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeLocaleOfIssue.
      */
     public com.google.protobuf.ByteString
         getDerivativeLocaleOfIssueBytes() {
@@ -5156,6 +5355,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeLocaleOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeLocaleOfIssue(
         java.lang.String value) {
@@ -5169,6 +5370,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeLocaleOfIssue() {
       
@@ -5178,6 +5380,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_locale_of_issue = 20 [(.fix.tag) = 1260, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeLocaleOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeLocaleOfIssueBytes(
         com.google.protobuf.ByteString value) {
@@ -5194,12 +5398,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeMaturityDate_ ;
     /**
      * <code>sfixed32 derivative_maturity_date = 21 [(.fix.tag) = 1252, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeMaturityDate.
      */
     public int getDerivativeMaturityDate() {
       return derivativeMaturityDate_;
     }
     /**
      * <code>sfixed32 derivative_maturity_date = 21 [(.fix.tag) = 1252, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeMaturityDate to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeMaturityDate(int value) {
       
@@ -5209,6 +5416,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 derivative_maturity_date = 21 [(.fix.tag) = 1252, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeMaturityDate() {
       
@@ -5220,12 +5428,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeMaturityMonthYear_ ;
     /**
      * <code>sfixed32 derivative_maturity_month_year = 22 [(.fix.tag) = 1251, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeMaturityMonthYear.
      */
     public int getDerivativeMaturityMonthYear() {
       return derivativeMaturityMonthYear_;
     }
     /**
      * <code>sfixed32 derivative_maturity_month_year = 22 [(.fix.tag) = 1251, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeMaturityMonthYear to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeMaturityMonthYear(int value) {
       
@@ -5235,6 +5446,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 derivative_maturity_month_year = 22 [(.fix.tag) = 1251, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeMaturityMonthYear() {
       
@@ -5248,12 +5460,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.LocalTimeOnly, org.fixprotocol.components.Fix.LocalTimeOnly.Builder, org.fixprotocol.components.Fix.LocalTimeOnlyOrBuilder> derivativeMaturityTimeBuilder_;
     /**
      * <code>.fix.LocalTimeOnly derivative_maturity_time = 23 [(.fix.tag) = 1253, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeMaturityTime field is set.
      */
     public boolean hasDerivativeMaturityTime() {
       return derivativeMaturityTimeBuilder_ != null || derivativeMaturityTime_ != null;
     }
     /**
      * <code>.fix.LocalTimeOnly derivative_maturity_time = 23 [(.fix.tag) = 1253, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeMaturityTime.
      */
     public org.fixprotocol.components.Fix.LocalTimeOnly getDerivativeMaturityTime() {
       if (derivativeMaturityTimeBuilder_ == null) {
@@ -5365,12 +5579,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeMinPriceIncrementBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_min_price_increment = 24 [(.fix.tag) = 1267, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeMinPriceIncrement field is set.
      */
     public boolean hasDerivativeMinPriceIncrement() {
       return derivativeMinPriceIncrementBuilder_ != null || derivativeMinPriceIncrement_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_min_price_increment = 24 [(.fix.tag) = 1267, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeMinPriceIncrement.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeMinPriceIncrement() {
       if (derivativeMinPriceIncrementBuilder_ == null) {
@@ -5482,12 +5698,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeMinPriceIncrementAmountBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_min_price_increment_amount = 25 [(.fix.tag) = 1268, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeMinPriceIncrementAmount field is set.
      */
     public boolean hasDerivativeMinPriceIncrementAmount() {
       return derivativeMinPriceIncrementAmountBuilder_ != null || derivativeMinPriceIncrementAmount_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_min_price_increment_amount = 25 [(.fix.tag) = 1268, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeMinPriceIncrementAmount.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeMinPriceIncrementAmount() {
       if (derivativeMinPriceIncrementAmountBuilder_ == null) {
@@ -5597,12 +5815,15 @@ private static final long serialVersionUID = 0L;
     private long derivativeNtPositionLimit_ ;
     /**
      * <code>sfixed64 derivative_nt_position_limit = 26 [(.fix.tag) = 1274, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeNtPositionLimit.
      */
     public long getDerivativeNtPositionLimit() {
       return derivativeNtPositionLimit_;
     }
     /**
      * <code>sfixed64 derivative_nt_position_limit = 26 [(.fix.tag) = 1274, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeNtPositionLimit to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeNtPositionLimit(long value) {
       
@@ -5612,6 +5833,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 derivative_nt_position_limit = 26 [(.fix.tag) = 1274, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeNtPositionLimit() {
       
@@ -5623,12 +5845,15 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.ByteString derivativeOptAttribute_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <code>bytes derivative_opt_attribute = 27 [(.fix.tag) = 1265, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeOptAttribute.
      */
     public com.google.protobuf.ByteString getDerivativeOptAttribute() {
       return derivativeOptAttribute_;
     }
     /**
      * <code>bytes derivative_opt_attribute = 27 [(.fix.tag) = 1265, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeOptAttribute to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeOptAttribute(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -5641,6 +5866,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>bytes derivative_opt_attribute = 27 [(.fix.tag) = 1265, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeOptAttribute() {
       
@@ -5654,12 +5880,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeOptPayAmountBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_opt_pay_amount = 28 [(.fix.tag) = 1225, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeOptPayAmount field is set.
      */
     public boolean hasDerivativeOptPayAmount() {
       return derivativeOptPayAmountBuilder_ != null || derivativeOptPayAmount_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_opt_pay_amount = 28 [(.fix.tag) = 1225, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeOptPayAmount.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeOptPayAmount() {
       if (derivativeOptPayAmountBuilder_ == null) {
@@ -5769,12 +5997,15 @@ private static final long serialVersionUID = 0L;
     private long derivativePositionLimit_ ;
     /**
      * <code>sfixed64 derivative_position_limit = 29 [(.fix.tag) = 1273, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativePositionLimit.
      */
     public long getDerivativePositionLimit() {
       return derivativePositionLimit_;
     }
     /**
      * <code>sfixed64 derivative_position_limit = 29 [(.fix.tag) = 1273, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativePositionLimit to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePositionLimit(long value) {
       
@@ -5784,6 +6015,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 derivative_position_limit = 29 [(.fix.tag) = 1273, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativePositionLimit() {
       
@@ -5795,12 +6027,15 @@ private static final long serialVersionUID = 0L;
     private int derivativePriceQuoteMethod_ = 0;
     /**
      * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativePriceQuoteMethod.
      */
     public int getDerivativePriceQuoteMethodValue() {
       return derivativePriceQuoteMethod_;
     }
     /**
      * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativePriceQuoteMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePriceQuoteMethodValue(int value) {
       derivativePriceQuoteMethod_ = value;
@@ -5809,6 +6044,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativePriceQuoteMethod.
      */
     public org.fixprotocol.components.DerivativePriceQuoteMethodEnum getDerivativePriceQuoteMethod() {
       @SuppressWarnings("deprecation")
@@ -5817,6 +6053,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativePriceQuoteMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePriceQuoteMethod(org.fixprotocol.components.DerivativePriceQuoteMethodEnum value) {
       if (value == null) {
@@ -5829,6 +6067,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePriceQuoteMethodEnum derivative_price_quote_method = 30 [(.fix.tag) = 1318, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativePriceQuoteMethod() {
       
@@ -5840,12 +6079,15 @@ private static final long serialVersionUID = 0L;
     private int derivativePriceUnitOfMeasure_ = 0;
     /**
      * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativePriceUnitOfMeasure.
      */
     public int getDerivativePriceUnitOfMeasureValue() {
       return derivativePriceUnitOfMeasure_;
     }
     /**
      * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativePriceUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePriceUnitOfMeasureValue(int value) {
       derivativePriceUnitOfMeasure_ = value;
@@ -5854,6 +6096,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativePriceUnitOfMeasure.
      */
     public org.fixprotocol.components.DerivativePriceUnitOfMeasureEnum getDerivativePriceUnitOfMeasure() {
       @SuppressWarnings("deprecation")
@@ -5862,6 +6105,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativePriceUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePriceUnitOfMeasure(org.fixprotocol.components.DerivativePriceUnitOfMeasureEnum value) {
       if (value == null) {
@@ -5874,6 +6119,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePriceUnitOfMeasureEnum derivative_price_unit_of_measure = 31 [(.fix.tag) = 1315, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativePriceUnitOfMeasure() {
       
@@ -5887,12 +6133,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativePriceUnitOfMeasureQtyBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_price_unit_of_measure_qty = 32 [(.fix.tag) = 1316, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativePriceUnitOfMeasureQty field is set.
      */
     public boolean hasDerivativePriceUnitOfMeasureQty() {
       return derivativePriceUnitOfMeasureQtyBuilder_ != null || derivativePriceUnitOfMeasureQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_price_unit_of_measure_qty = 32 [(.fix.tag) = 1316, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativePriceUnitOfMeasureQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativePriceUnitOfMeasureQty() {
       if (derivativePriceUnitOfMeasureQtyBuilder_ == null) {
@@ -6002,12 +6250,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeProduct_ = 0;
     /**
      * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeProduct.
      */
     public int getDerivativeProductValue() {
       return derivativeProduct_;
     }
     /**
      * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeProduct to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeProductValue(int value) {
       derivativeProduct_ = value;
@@ -6016,6 +6267,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeProduct.
      */
     public org.fixprotocol.components.DerivativeProductEnum getDerivativeProduct() {
       @SuppressWarnings("deprecation")
@@ -6024,6 +6276,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeProduct to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeProduct(org.fixprotocol.components.DerivativeProductEnum value) {
       if (value == null) {
@@ -6036,6 +6290,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeProductEnum derivative_product = 33 [(.fix.tag) = 1246, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeProduct() {
       
@@ -6047,6 +6302,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeProductComplex_ = "";
     /**
      * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeProductComplex.
      */
     public java.lang.String getDerivativeProductComplex() {
       java.lang.Object ref = derivativeProductComplex_;
@@ -6062,6 +6318,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeProductComplex.
      */
     public com.google.protobuf.ByteString
         getDerivativeProductComplexBytes() {
@@ -6078,6 +6335,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeProductComplex to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeProductComplex(
         java.lang.String value) {
@@ -6091,6 +6350,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeProductComplex() {
       
@@ -6100,6 +6360,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_product_complex = 34 [(.fix.tag) = 1228, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeProductComplex to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeProductComplexBytes(
         com.google.protobuf.ByteString value) {
@@ -6116,12 +6378,15 @@ private static final long serialVersionUID = 0L;
     private int derivativePutOrCall_ = 0;
     /**
      * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativePutOrCall.
      */
     public int getDerivativePutOrCallValue() {
       return derivativePutOrCall_;
     }
     /**
      * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativePutOrCall to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePutOrCallValue(int value) {
       derivativePutOrCall_ = value;
@@ -6130,6 +6395,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativePutOrCall.
      */
     public org.fixprotocol.components.DerivativePutOrCallEnum getDerivativePutOrCall() {
       @SuppressWarnings("deprecation")
@@ -6138,6 +6404,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativePutOrCall to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativePutOrCall(org.fixprotocol.components.DerivativePutOrCallEnum value) {
       if (value == null) {
@@ -6150,6 +6418,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativePutOrCallEnum derivative_put_or_call = 35 [(.fix.tag) = 1323, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativePutOrCall() {
       
@@ -6401,6 +6670,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityDesc_ = "";
     /**
      * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityDesc.
      */
     public java.lang.String getDerivativeSecurityDesc() {
       java.lang.Object ref = derivativeSecurityDesc_;
@@ -6416,6 +6686,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityDesc.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityDescBytes() {
@@ -6432,6 +6703,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityDesc(
         java.lang.String value) {
@@ -6445,6 +6718,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityDesc() {
       
@@ -6454,6 +6728,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_desc = 37 [(.fix.tag) = 1279, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityDescBytes(
         com.google.protobuf.ByteString value) {
@@ -6470,6 +6746,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityExchange_ = "";
     /**
      * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityExchange.
      */
     public java.lang.String getDerivativeSecurityExchange() {
       java.lang.Object ref = derivativeSecurityExchange_;
@@ -6485,6 +6762,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityExchange.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityExchangeBytes() {
@@ -6501,6 +6779,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityExchange to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityExchange(
         java.lang.String value) {
@@ -6514,6 +6794,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityExchange() {
       
@@ -6523,6 +6804,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_exchange = 38 [(.fix.tag) = 1272, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityExchange to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityExchangeBytes(
         com.google.protobuf.ByteString value) {
@@ -6539,6 +6822,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityGroup_ = "";
     /**
      * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityGroup.
      */
     public java.lang.String getDerivativeSecurityGroup() {
       java.lang.Object ref = derivativeSecurityGroup_;
@@ -6554,6 +6838,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityGroup.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityGroupBytes() {
@@ -6570,6 +6855,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityGroup to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityGroup(
         java.lang.String value) {
@@ -6583,6 +6870,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityGroup() {
       
@@ -6592,6 +6880,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_group = 39 [(.fix.tag) = 1247, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityGroup to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityGroupBytes(
         com.google.protobuf.ByteString value) {
@@ -6608,6 +6898,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecurityId_ = "";
     /**
      * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityId.
      */
     public java.lang.String getDerivativeSecurityId() {
       java.lang.Object ref = derivativeSecurityId_;
@@ -6623,6 +6914,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecurityId.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecurityIdBytes() {
@@ -6639,6 +6931,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityId(
         java.lang.String value) {
@@ -6652,6 +6946,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityId() {
       
@@ -6661,6 +6956,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_id = 40 [(.fix.tag) = 1216, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityIdBytes(
         com.google.protobuf.ByteString value) {
@@ -6677,12 +6974,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeSecurityIdSource_ = 0;
     /**
      * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeSecurityIdSource.
      */
     public int getDerivativeSecurityIdSourceValue() {
       return derivativeSecurityIdSource_;
     }
     /**
      * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityIdSourceValue(int value) {
       derivativeSecurityIdSource_ = value;
@@ -6691,6 +6991,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityIdSource.
      */
     public org.fixprotocol.components.DerivativeSecurityIDSourceEnum getDerivativeSecurityIdSource() {
       @SuppressWarnings("deprecation")
@@ -6699,6 +7000,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityIdSource(org.fixprotocol.components.DerivativeSecurityIDSourceEnum value) {
       if (value == null) {
@@ -6711,6 +7014,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityIDSourceEnum derivative_security_id_source = 41 [(.fix.tag) = 1217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityIdSource() {
       
@@ -6722,12 +7026,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeSecurityStatus_ = 0;
     /**
      * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeSecurityStatus.
      */
     public int getDerivativeSecurityStatusValue() {
       return derivativeSecurityStatus_;
     }
     /**
      * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeSecurityStatus to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityStatusValue(int value) {
       derivativeSecurityStatus_ = value;
@@ -6736,6 +7043,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityStatus.
      */
     public org.fixprotocol.components.DerivativeSecurityStatusEnum getDerivativeSecurityStatus() {
       @SuppressWarnings("deprecation")
@@ -6744,6 +7052,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityStatus to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityStatus(org.fixprotocol.components.DerivativeSecurityStatusEnum value) {
       if (value == null) {
@@ -6756,6 +7066,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityStatusEnum derivative_security_status = 42 [(.fix.tag) = 1256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityStatus() {
       
@@ -6767,6 +7078,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSecuritySubType_ = "";
     /**
      * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecuritySubType.
      */
     public java.lang.String getDerivativeSecuritySubType() {
       java.lang.Object ref = derivativeSecuritySubType_;
@@ -6782,6 +7094,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSecuritySubType.
      */
     public com.google.protobuf.ByteString
         getDerivativeSecuritySubTypeBytes() {
@@ -6798,6 +7111,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecuritySubType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecuritySubType(
         java.lang.String value) {
@@ -6811,6 +7126,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecuritySubType() {
       
@@ -6820,6 +7136,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_security_sub_type = 43 [(.fix.tag) = 1250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSecuritySubType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecuritySubTypeBytes(
         com.google.protobuf.ByteString value) {
@@ -6836,12 +7154,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeSecurityType_ = 0;
     /**
      * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeSecurityType.
      */
     public int getDerivativeSecurityTypeValue() {
       return derivativeSecurityType_;
     }
     /**
      * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeSecurityType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityTypeValue(int value) {
       derivativeSecurityType_ = value;
@@ -6850,6 +7171,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityType.
      */
     public org.fixprotocol.components.DerivativeSecurityTypeEnum getDerivativeSecurityType() {
       @SuppressWarnings("deprecation")
@@ -6858,6 +7180,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSecurityType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSecurityType(org.fixprotocol.components.DerivativeSecurityTypeEnum value) {
       if (value == null) {
@@ -6870,6 +7194,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSecurityTypeEnum derivative_security_type = 44 [(.fix.tag) = 1249, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSecurityType() {
       
@@ -6883,12 +7208,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.DerivativeSecurityXML, org.fixprotocol.components.DerivativeSecurityXML.Builder, org.fixprotocol.components.DerivativeSecurityXMLOrBuilder> derivativeSecurityXmlBuilder_;
     /**
      * <code>.Common.DerivativeSecurityXML derivative_security_xml = 45 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeSecurityXml field is set.
      */
     public boolean hasDerivativeSecurityXml() {
       return derivativeSecurityXmlBuilder_ != null || derivativeSecurityXml_ != null;
     }
     /**
      * <code>.Common.DerivativeSecurityXML derivative_security_xml = 45 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSecurityXml.
      */
     public org.fixprotocol.components.DerivativeSecurityXML getDerivativeSecurityXml() {
       if (derivativeSecurityXmlBuilder_ == null) {
@@ -6998,12 +7325,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeSettlMethod_ = 0;
     /**
      * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeSettlMethod.
      */
     public int getDerivativeSettlMethodValue() {
       return derivativeSettlMethod_;
     }
     /**
      * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeSettlMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSettlMethodValue(int value) {
       derivativeSettlMethod_ = value;
@@ -7012,6 +7342,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSettlMethod.
      */
     public org.fixprotocol.components.DerivativeSettlMethodEnum getDerivativeSettlMethod() {
       @SuppressWarnings("deprecation")
@@ -7020,6 +7351,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSettlMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSettlMethod(org.fixprotocol.components.DerivativeSettlMethodEnum value) {
       if (value == null) {
@@ -7032,6 +7365,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSettlMethodEnum derivative_settl_method = 46 [(.fix.tag) = 1317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSettlMethod() {
       
@@ -7043,6 +7377,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSettleOnOpenFlag_ = "";
     /**
      * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSettleOnOpenFlag.
      */
     public java.lang.String getDerivativeSettleOnOpenFlag() {
       java.lang.Object ref = derivativeSettleOnOpenFlag_;
@@ -7058,6 +7393,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSettleOnOpenFlag.
      */
     public com.google.protobuf.ByteString
         getDerivativeSettleOnOpenFlagBytes() {
@@ -7074,6 +7410,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSettleOnOpenFlag to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSettleOnOpenFlag(
         java.lang.String value) {
@@ -7087,6 +7425,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSettleOnOpenFlag() {
       
@@ -7096,6 +7435,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_settle_on_open_flag = 47 [(.fix.tag) = 1254, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSettleOnOpenFlag to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSettleOnOpenFlagBytes(
         com.google.protobuf.ByteString value) {
@@ -7112,6 +7453,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeStateOrProvinceOfIssue_ = "";
     /**
      * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeStateOrProvinceOfIssue.
      */
     public java.lang.String getDerivativeStateOrProvinceOfIssue() {
       java.lang.Object ref = derivativeStateOrProvinceOfIssue_;
@@ -7127,6 +7469,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeStateOrProvinceOfIssue.
      */
     public com.google.protobuf.ByteString
         getDerivativeStateOrProvinceOfIssueBytes() {
@@ -7143,6 +7486,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeStateOrProvinceOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeStateOrProvinceOfIssue(
         java.lang.String value) {
@@ -7156,6 +7501,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeStateOrProvinceOfIssue() {
       
@@ -7165,6 +7511,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_state_or_province_of_issue = 48 [(.fix.tag) = 1259, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeStateOrProvinceOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeStateOrProvinceOfIssueBytes(
         com.google.protobuf.ByteString value) {
@@ -7181,6 +7529,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeStrikeCurrency_ = "";
     /**
      * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeStrikeCurrency.
      */
     public java.lang.String getDerivativeStrikeCurrency() {
       java.lang.Object ref = derivativeStrikeCurrency_;
@@ -7196,6 +7545,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeStrikeCurrency.
      */
     public com.google.protobuf.ByteString
         getDerivativeStrikeCurrencyBytes() {
@@ -7212,6 +7562,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeStrikeCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeStrikeCurrency(
         java.lang.String value) {
@@ -7225,6 +7577,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeStrikeCurrency() {
       
@@ -7234,6 +7587,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_strike_currency = 49 [(.fix.tag) = 1262, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeStrikeCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeStrikeCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -7252,12 +7607,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeStrikeMultiplierBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_strike_multiplier = 50 [(.fix.tag) = 1263, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeStrikeMultiplier field is set.
      */
     public boolean hasDerivativeStrikeMultiplier() {
       return derivativeStrikeMultiplierBuilder_ != null || derivativeStrikeMultiplier_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_strike_multiplier = 50 [(.fix.tag) = 1263, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeStrikeMultiplier.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeStrikeMultiplier() {
       if (derivativeStrikeMultiplierBuilder_ == null) {
@@ -7369,12 +7726,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeStrikePriceBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_strike_price = 51 [(.fix.tag) = 1261, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeStrikePrice field is set.
      */
     public boolean hasDerivativeStrikePrice() {
       return derivativeStrikePriceBuilder_ != null || derivativeStrikePrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_strike_price = 51 [(.fix.tag) = 1261, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeStrikePrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeStrikePrice() {
       if (derivativeStrikePriceBuilder_ == null) {
@@ -7486,12 +7845,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeStrikeValueBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_strike_value = 52 [(.fix.tag) = 1264, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeStrikeValue field is set.
      */
     public boolean hasDerivativeStrikeValue() {
       return derivativeStrikeValueBuilder_ != null || derivativeStrikeValue_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_strike_value = 52 [(.fix.tag) = 1264, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeStrikeValue.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeStrikeValue() {
       if (derivativeStrikeValueBuilder_ == null) {
@@ -7601,6 +7962,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object derivativeSymbol_ = "";
     /**
      * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSymbol.
      */
     public java.lang.String getDerivativeSymbol() {
       java.lang.Object ref = derivativeSymbol_;
@@ -7616,6 +7978,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for derivativeSymbol.
      */
     public com.google.protobuf.ByteString
         getDerivativeSymbolBytes() {
@@ -7632,6 +7995,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSymbol(
         java.lang.String value) {
@@ -7645,6 +8010,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSymbol() {
       
@@ -7654,6 +8020,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string derivative_symbol = 53 [(.fix.tag) = 1214, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for derivativeSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSymbolBytes(
         com.google.protobuf.ByteString value) {
@@ -7670,12 +8038,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeSymbolSfx_ = 0;
     /**
      * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeSymbolSfx.
      */
     public int getDerivativeSymbolSfxValue() {
       return derivativeSymbolSfx_;
     }
     /**
      * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeSymbolSfx to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSymbolSfxValue(int value) {
       derivativeSymbolSfx_ = value;
@@ -7684,6 +8055,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeSymbolSfx.
      */
     public org.fixprotocol.components.DerivativeSymbolSfxEnum getDerivativeSymbolSfx() {
       @SuppressWarnings("deprecation")
@@ -7692,6 +8064,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeSymbolSfx to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeSymbolSfx(org.fixprotocol.components.DerivativeSymbolSfxEnum value) {
       if (value == null) {
@@ -7704,6 +8078,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeSymbolSfxEnum derivative_symbol_sfx = 54 [(.fix.tag) = 1215, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeSymbolSfx() {
       
@@ -7715,12 +8090,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeTimeUnit_ = 0;
     /**
      * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeTimeUnit.
      */
     public int getDerivativeTimeUnitValue() {
       return derivativeTimeUnit_;
     }
     /**
      * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeTimeUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeTimeUnitValue(int value) {
       derivativeTimeUnit_ = value;
@@ -7729,6 +8107,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeTimeUnit.
      */
     public org.fixprotocol.components.DerivativeTimeUnitEnum getDerivativeTimeUnit() {
       @SuppressWarnings("deprecation")
@@ -7737,6 +8116,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeTimeUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeTimeUnit(org.fixprotocol.components.DerivativeTimeUnitEnum value) {
       if (value == null) {
@@ -7749,6 +8130,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeTimeUnitEnum derivative_time_unit = 55 [(.fix.tag) = 1271, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeTimeUnit() {
       
@@ -7760,12 +8142,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeUnitOfMeasure_ = 0;
     /**
      * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeUnitOfMeasure.
      */
     public int getDerivativeUnitOfMeasureValue() {
       return derivativeUnitOfMeasure_;
     }
     /**
      * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeUnitOfMeasureValue(int value) {
       derivativeUnitOfMeasure_ = value;
@@ -7774,6 +8159,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeUnitOfMeasure.
      */
     public org.fixprotocol.components.DerivativeUnitOfMeasureEnum getDerivativeUnitOfMeasure() {
       @SuppressWarnings("deprecation")
@@ -7782,6 +8168,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeUnitOfMeasure(org.fixprotocol.components.DerivativeUnitOfMeasureEnum value) {
       if (value == null) {
@@ -7794,6 +8182,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeUnitOfMeasureEnum derivative_unit_of_measure = 56 [(.fix.tag) = 1269, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeUnitOfMeasure() {
       
@@ -7807,12 +8196,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> derivativeUnitOfMeasureQtyBuilder_;
     /**
      * <code>.fix.Decimal64 derivative_unit_of_measure_qty = 57 [(.fix.tag) = 1270, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the derivativeUnitOfMeasureQty field is set.
      */
     public boolean hasDerivativeUnitOfMeasureQty() {
       return derivativeUnitOfMeasureQtyBuilder_ != null || derivativeUnitOfMeasureQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 derivative_unit_of_measure_qty = 57 [(.fix.tag) = 1270, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeUnitOfMeasureQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDerivativeUnitOfMeasureQty() {
       if (derivativeUnitOfMeasureQtyBuilder_ == null) {
@@ -7922,12 +8313,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeValuationMethod_ = 0;
     /**
      * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for derivativeValuationMethod.
      */
     public int getDerivativeValuationMethodValue() {
       return derivativeValuationMethod_;
     }
     /**
      * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for derivativeValuationMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeValuationMethodValue(int value) {
       derivativeValuationMethod_ = value;
@@ -7936,6 +8330,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The derivativeValuationMethod.
      */
     public org.fixprotocol.components.DerivativeValuationMethodEnum getDerivativeValuationMethod() {
       @SuppressWarnings("deprecation")
@@ -7944,6 +8339,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The derivativeValuationMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeValuationMethod(org.fixprotocol.components.DerivativeValuationMethodEnum value) {
       if (value == null) {
@@ -7956,6 +8353,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeValuationMethodEnum derivative_valuation_method = 58 [(.fix.tag) = 1319, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeValuationMethod() {
       
@@ -7967,12 +8365,15 @@ private static final long serialVersionUID = 0L;
     private int derivativeContractMultiplierUnit_ = 0;
     /**
      * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The enum numeric value on the wire for derivativeContractMultiplierUnit.
      */
     public int getDerivativeContractMultiplierUnitValue() {
       return derivativeContractMultiplierUnit_;
     }
     /**
      * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The enum numeric value on the wire for derivativeContractMultiplierUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeContractMultiplierUnitValue(int value) {
       derivativeContractMultiplierUnit_ = value;
@@ -7981,6 +8382,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The derivativeContractMultiplierUnit.
      */
     public org.fixprotocol.components.DerivativeContractMultiplierUnitEnum getDerivativeContractMultiplierUnit() {
       @SuppressWarnings("deprecation")
@@ -7989,6 +8391,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The derivativeContractMultiplierUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeContractMultiplierUnit(org.fixprotocol.components.DerivativeContractMultiplierUnitEnum value) {
       if (value == null) {
@@ -8001,6 +8405,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeContractMultiplierUnitEnum derivative_contract_multiplier_unit = 59 [(.fix.tag) = 1438, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeContractMultiplierUnit() {
       
@@ -8011,6 +8416,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The enum numeric value on the wire for derivativeFlowScheduleType.
      */
     public int getDerivativeFlowScheduleTypeValue() {
       if (derivativeFlowScheduleTypeUnionCase_ == 60) {
@@ -8020,6 +8426,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The enum numeric value on the wire for derivativeFlowScheduleType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeFlowScheduleTypeValue(int value) {
       derivativeFlowScheduleTypeUnionCase_ = 60;
@@ -8029,6 +8437,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The derivativeFlowScheduleType.
      */
     public org.fixprotocol.components.DerivativeFlowScheduleTypeEnum getDerivativeFlowScheduleType() {
       if (derivativeFlowScheduleTypeUnionCase_ == 60) {
@@ -8041,6 +8450,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The derivativeFlowScheduleType to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeFlowScheduleType(org.fixprotocol.components.DerivativeFlowScheduleTypeEnum value) {
       if (value == null) {
@@ -8053,6 +8464,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DerivativeFlowScheduleTypeEnum derivative_flow_schedule_type = 60 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeFlowScheduleType() {
       if (derivativeFlowScheduleTypeUnionCase_ == 60) {
@@ -8065,6 +8477,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 derivative_flow_schedule_type_reserved100plus = 61 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The derivativeFlowScheduleTypeReserved100plus.
      */
     public int getDerivativeFlowScheduleTypeReserved100Plus() {
       if (derivativeFlowScheduleTypeUnionCase_ == 61) {
@@ -8074,6 +8487,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 derivative_flow_schedule_type_reserved100plus = 61 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The derivativeFlowScheduleTypeReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setDerivativeFlowScheduleTypeReserved100Plus(int value) {
       derivativeFlowScheduleTypeUnionCase_ = 61;
@@ -8083,6 +8498,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 derivative_flow_schedule_type_reserved100plus = 61 [(.fix.tag) = 1442, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDerivativeFlowScheduleTypeReserved100Plus() {
       if (derivativeFlowScheduleTypeUnionCase_ == 61) {

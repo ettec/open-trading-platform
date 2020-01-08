@@ -120,6 +120,7 @@ private static final long serialVersionUID = 0L;
   private int endMaturityMonthYear_;
   /**
    * <code>sfixed32 end_maturity_month_year = 1 [(.fix.tag) = 1226, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The endMaturityMonthYear.
    */
   public int getEndMaturityMonthYear() {
     return endMaturityMonthYear_;
@@ -129,12 +130,14 @@ private static final long serialVersionUID = 0L;
   private int maturityMonthYearFormat_;
   /**
    * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for maturityMonthYearFormat.
    */
   public int getMaturityMonthYearFormatValue() {
     return maturityMonthYearFormat_;
   }
   /**
    * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityMonthYearFormat.
    */
   public org.fixprotocol.components.MaturityMonthYearFormatEnum getMaturityMonthYearFormat() {
     @SuppressWarnings("deprecation")
@@ -146,6 +149,7 @@ private static final long serialVersionUID = 0L;
   private long maturityMonthYearIncrement_;
   /**
    * <code>sfixed64 maturity_month_year_increment = 3 [(.fix.tag) = 1229, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityMonthYearIncrement.
    */
   public long getMaturityMonthYearIncrement() {
     return maturityMonthYearIncrement_;
@@ -155,12 +159,14 @@ private static final long serialVersionUID = 0L;
   private int maturityMonthYearIncrementUnits_;
   /**
    * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for maturityMonthYearIncrementUnits.
    */
   public int getMaturityMonthYearIncrementUnitsValue() {
     return maturityMonthYearIncrementUnits_;
   }
   /**
    * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityMonthYearIncrementUnits.
    */
   public org.fixprotocol.components.MaturityMonthYearIncrementUnitsEnum getMaturityMonthYearIncrementUnits() {
     @SuppressWarnings("deprecation")
@@ -172,6 +178,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object maturityRuleId_;
   /**
    * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The maturityRuleId.
    */
   public java.lang.String getMaturityRuleId() {
     java.lang.Object ref = maturityRuleId_;
@@ -187,6 +194,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for maturityRuleId.
    */
   public com.google.protobuf.ByteString
       getMaturityRuleIdBytes() {
@@ -206,6 +214,7 @@ private static final long serialVersionUID = 0L;
   private int startMaturityMonthYear_;
   /**
    * <code>sfixed32 start_maturity_month_year = 6 [(.fix.tag) = 1241, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The startMaturityMonthYear.
    */
   public int getStartMaturityMonthYear() {
     return startMaturityMonthYear_;
@@ -600,12 +609,15 @@ private static final long serialVersionUID = 0L;
     private int endMaturityMonthYear_ ;
     /**
      * <code>sfixed32 end_maturity_month_year = 1 [(.fix.tag) = 1226, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The endMaturityMonthYear.
      */
     public int getEndMaturityMonthYear() {
       return endMaturityMonthYear_;
     }
     /**
      * <code>sfixed32 end_maturity_month_year = 1 [(.fix.tag) = 1226, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The endMaturityMonthYear to set.
+     * @return This builder for chaining.
      */
     public Builder setEndMaturityMonthYear(int value) {
       
@@ -615,6 +627,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 end_maturity_month_year = 1 [(.fix.tag) = 1226, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEndMaturityMonthYear() {
       
@@ -626,12 +639,15 @@ private static final long serialVersionUID = 0L;
     private int maturityMonthYearFormat_ = 0;
     /**
      * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for maturityMonthYearFormat.
      */
     public int getMaturityMonthYearFormatValue() {
       return maturityMonthYearFormat_;
     }
     /**
      * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for maturityMonthYearFormat to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityMonthYearFormatValue(int value) {
       maturityMonthYearFormat_ = value;
@@ -640,6 +656,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The maturityMonthYearFormat.
      */
     public org.fixprotocol.components.MaturityMonthYearFormatEnum getMaturityMonthYearFormat() {
       @SuppressWarnings("deprecation")
@@ -648,6 +665,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The maturityMonthYearFormat to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityMonthYearFormat(org.fixprotocol.components.MaturityMonthYearFormatEnum value) {
       if (value == null) {
@@ -660,6 +679,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MaturityMonthYearFormatEnum maturity_month_year_format = 2 [(.fix.tag) = 1303, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMaturityMonthYearFormat() {
       
@@ -671,12 +691,15 @@ private static final long serialVersionUID = 0L;
     private long maturityMonthYearIncrement_ ;
     /**
      * <code>sfixed64 maturity_month_year_increment = 3 [(.fix.tag) = 1229, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The maturityMonthYearIncrement.
      */
     public long getMaturityMonthYearIncrement() {
       return maturityMonthYearIncrement_;
     }
     /**
      * <code>sfixed64 maturity_month_year_increment = 3 [(.fix.tag) = 1229, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The maturityMonthYearIncrement to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityMonthYearIncrement(long value) {
       
@@ -686,6 +709,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 maturity_month_year_increment = 3 [(.fix.tag) = 1229, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMaturityMonthYearIncrement() {
       
@@ -697,12 +721,15 @@ private static final long serialVersionUID = 0L;
     private int maturityMonthYearIncrementUnits_ = 0;
     /**
      * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for maturityMonthYearIncrementUnits.
      */
     public int getMaturityMonthYearIncrementUnitsValue() {
       return maturityMonthYearIncrementUnits_;
     }
     /**
      * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for maturityMonthYearIncrementUnits to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityMonthYearIncrementUnitsValue(int value) {
       maturityMonthYearIncrementUnits_ = value;
@@ -711,6 +738,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The maturityMonthYearIncrementUnits.
      */
     public org.fixprotocol.components.MaturityMonthYearIncrementUnitsEnum getMaturityMonthYearIncrementUnits() {
       @SuppressWarnings("deprecation")
@@ -719,6 +747,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The maturityMonthYearIncrementUnits to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityMonthYearIncrementUnits(org.fixprotocol.components.MaturityMonthYearIncrementUnitsEnum value) {
       if (value == null) {
@@ -731,6 +761,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MaturityMonthYearIncrementUnitsEnum maturity_month_year_increment_units = 4 [(.fix.tag) = 1302, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMaturityMonthYearIncrementUnits() {
       
@@ -742,6 +773,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object maturityRuleId_ = "";
     /**
      * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The maturityRuleId.
      */
     public java.lang.String getMaturityRuleId() {
       java.lang.Object ref = maturityRuleId_;
@@ -757,6 +789,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for maturityRuleId.
      */
     public com.google.protobuf.ByteString
         getMaturityRuleIdBytes() {
@@ -773,6 +806,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The maturityRuleId to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityRuleId(
         java.lang.String value) {
@@ -786,6 +821,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMaturityRuleId() {
       
@@ -795,6 +831,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string maturity_rule_id = 5 [(.fix.tag) = 1222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for maturityRuleId to set.
+     * @return This builder for chaining.
      */
     public Builder setMaturityRuleIdBytes(
         com.google.protobuf.ByteString value) {
@@ -811,12 +849,15 @@ private static final long serialVersionUID = 0L;
     private int startMaturityMonthYear_ ;
     /**
      * <code>sfixed32 start_maturity_month_year = 6 [(.fix.tag) = 1241, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The startMaturityMonthYear.
      */
     public int getStartMaturityMonthYear() {
       return startMaturityMonthYear_;
     }
     /**
      * <code>sfixed32 start_maturity_month_year = 6 [(.fix.tag) = 1241, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The startMaturityMonthYear to set.
+     * @return This builder for chaining.
      */
     public Builder setStartMaturityMonthYear(int value) {
       
@@ -826,6 +867,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 start_maturity_month_year = 6 [(.fix.tag) = 1241, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStartMaturityMonthYear() {
       

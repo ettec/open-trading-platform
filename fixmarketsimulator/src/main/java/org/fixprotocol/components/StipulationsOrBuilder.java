@@ -9,19 +9,23 @@ public interface StipulationsOrBuilder extends
 
   /**
    * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for stipulationType.
    */
   int getStipulationTypeValue();
   /**
    * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The stipulationType.
    */
   org.fixprotocol.components.StipulationTypeEnum getStipulationType();
 
   /**
    * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The stipulationValue.
    */
   java.lang.String getStipulationValue();
   /**
    * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for stipulationValue.
    */
   com.google.protobuf.ByteString
       getStipulationValueBytes();

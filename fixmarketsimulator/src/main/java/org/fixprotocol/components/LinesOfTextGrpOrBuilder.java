@@ -9,25 +9,30 @@ public interface LinesOfTextGrpOrBuilder extends
 
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedText.
    */
   java.lang.String getEncodedText();
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for encodedText.
    */
   com.google.protobuf.ByteString
       getEncodedTextBytes();
 
   /**
    * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedTextLen.
    */
   long getEncodedTextLen();
 
   /**
    * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The text.
    */
   java.lang.String getText();
   /**
    * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for text.
    */
   com.google.protobuf.ByteString
       getTextBytes();

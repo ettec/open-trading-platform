@@ -139,12 +139,14 @@ private static final long serialVersionUID = 0L;
   private int discretionInst_;
   /**
    * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for discretionInst.
    */
   public int getDiscretionInstValue() {
     return discretionInst_;
   }
   /**
    * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionInst.
    */
   public org.fixprotocol.components.DiscretionInstEnum getDiscretionInst() {
     @SuppressWarnings("deprecation")
@@ -156,12 +158,14 @@ private static final long serialVersionUID = 0L;
   private int discretionLimitType_;
   /**
    * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for discretionLimitType.
    */
   public int getDiscretionLimitTypeValue() {
     return discretionLimitType_;
   }
   /**
    * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionLimitType.
    */
   public org.fixprotocol.components.DiscretionLimitTypeEnum getDiscretionLimitType() {
     @SuppressWarnings("deprecation")
@@ -173,12 +177,14 @@ private static final long serialVersionUID = 0L;
   private int discretionMoveType_;
   /**
    * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for discretionMoveType.
    */
   public int getDiscretionMoveTypeValue() {
     return discretionMoveType_;
   }
   /**
    * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionMoveType.
    */
   public org.fixprotocol.components.DiscretionMoveTypeEnum getDiscretionMoveType() {
     @SuppressWarnings("deprecation")
@@ -190,12 +196,14 @@ private static final long serialVersionUID = 0L;
   private int discretionOffsetType_;
   /**
    * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for discretionOffsetType.
    */
   public int getDiscretionOffsetTypeValue() {
     return discretionOffsetType_;
   }
   /**
    * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionOffsetType.
    */
   public org.fixprotocol.components.DiscretionOffsetTypeEnum getDiscretionOffsetType() {
     @SuppressWarnings("deprecation")
@@ -207,12 +215,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 discretionOffsetValue_;
   /**
    * <code>.fix.Decimal64 discretion_offset_value = 5 [(.fix.tag) = 389, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the discretionOffsetValue field is set.
    */
   public boolean hasDiscretionOffsetValue() {
     return discretionOffsetValue_ != null;
   }
   /**
    * <code>.fix.Decimal64 discretion_offset_value = 5 [(.fix.tag) = 389, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionOffsetValue.
    */
   public org.fixprotocol.components.Fix.Decimal64 getDiscretionOffsetValue() {
     return discretionOffsetValue_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : discretionOffsetValue_;
@@ -228,12 +238,14 @@ private static final long serialVersionUID = 0L;
   private int discretionRoundDirection_;
   /**
    * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for discretionRoundDirection.
    */
   public int getDiscretionRoundDirectionValue() {
     return discretionRoundDirection_;
   }
   /**
    * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionRoundDirection.
    */
   public org.fixprotocol.components.DiscretionRoundDirectionEnum getDiscretionRoundDirection() {
     @SuppressWarnings("deprecation")
@@ -245,12 +257,14 @@ private static final long serialVersionUID = 0L;
   private int discretionScope_;
   /**
    * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for discretionScope.
    */
   public int getDiscretionScopeValue() {
     return discretionScope_;
   }
   /**
    * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The discretionScope.
    */
   public org.fixprotocol.components.DiscretionScopeEnum getDiscretionScope() {
     @SuppressWarnings("deprecation")
@@ -672,12 +686,15 @@ private static final long serialVersionUID = 0L;
     private int discretionInst_ = 0;
     /**
      * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for discretionInst.
      */
     public int getDiscretionInstValue() {
       return discretionInst_;
     }
     /**
      * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for discretionInst to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionInstValue(int value) {
       discretionInst_ = value;
@@ -686,6 +703,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionInst.
      */
     public org.fixprotocol.components.DiscretionInstEnum getDiscretionInst() {
       @SuppressWarnings("deprecation")
@@ -694,6 +712,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The discretionInst to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionInst(org.fixprotocol.components.DiscretionInstEnum value) {
       if (value == null) {
@@ -706,6 +726,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionInstEnum discretion_inst = 1 [(.fix.tag) = 388, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDiscretionInst() {
       
@@ -717,12 +738,15 @@ private static final long serialVersionUID = 0L;
     private int discretionLimitType_ = 0;
     /**
      * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for discretionLimitType.
      */
     public int getDiscretionLimitTypeValue() {
       return discretionLimitType_;
     }
     /**
      * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for discretionLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionLimitTypeValue(int value) {
       discretionLimitType_ = value;
@@ -731,6 +755,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionLimitType.
      */
     public org.fixprotocol.components.DiscretionLimitTypeEnum getDiscretionLimitType() {
       @SuppressWarnings("deprecation")
@@ -739,6 +764,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The discretionLimitType to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionLimitType(org.fixprotocol.components.DiscretionLimitTypeEnum value) {
       if (value == null) {
@@ -751,6 +778,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionLimitTypeEnum discretion_limit_type = 2 [(.fix.tag) = 843, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDiscretionLimitType() {
       
@@ -762,12 +790,15 @@ private static final long serialVersionUID = 0L;
     private int discretionMoveType_ = 0;
     /**
      * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for discretionMoveType.
      */
     public int getDiscretionMoveTypeValue() {
       return discretionMoveType_;
     }
     /**
      * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for discretionMoveType to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionMoveTypeValue(int value) {
       discretionMoveType_ = value;
@@ -776,6 +807,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionMoveType.
      */
     public org.fixprotocol.components.DiscretionMoveTypeEnum getDiscretionMoveType() {
       @SuppressWarnings("deprecation")
@@ -784,6 +816,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The discretionMoveType to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionMoveType(org.fixprotocol.components.DiscretionMoveTypeEnum value) {
       if (value == null) {
@@ -796,6 +830,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionMoveTypeEnum discretion_move_type = 3 [(.fix.tag) = 841, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDiscretionMoveType() {
       
@@ -807,12 +842,15 @@ private static final long serialVersionUID = 0L;
     private int discretionOffsetType_ = 0;
     /**
      * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for discretionOffsetType.
      */
     public int getDiscretionOffsetTypeValue() {
       return discretionOffsetType_;
     }
     /**
      * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for discretionOffsetType to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionOffsetTypeValue(int value) {
       discretionOffsetType_ = value;
@@ -821,6 +859,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionOffsetType.
      */
     public org.fixprotocol.components.DiscretionOffsetTypeEnum getDiscretionOffsetType() {
       @SuppressWarnings("deprecation")
@@ -829,6 +868,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The discretionOffsetType to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionOffsetType(org.fixprotocol.components.DiscretionOffsetTypeEnum value) {
       if (value == null) {
@@ -841,6 +882,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionOffsetTypeEnum discretion_offset_type = 4 [(.fix.tag) = 842, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDiscretionOffsetType() {
       
@@ -854,12 +896,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> discretionOffsetValueBuilder_;
     /**
      * <code>.fix.Decimal64 discretion_offset_value = 5 [(.fix.tag) = 389, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the discretionOffsetValue field is set.
      */
     public boolean hasDiscretionOffsetValue() {
       return discretionOffsetValueBuilder_ != null || discretionOffsetValue_ != null;
     }
     /**
      * <code>.fix.Decimal64 discretion_offset_value = 5 [(.fix.tag) = 389, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionOffsetValue.
      */
     public org.fixprotocol.components.Fix.Decimal64 getDiscretionOffsetValue() {
       if (discretionOffsetValueBuilder_ == null) {
@@ -969,12 +1013,15 @@ private static final long serialVersionUID = 0L;
     private int discretionRoundDirection_ = 0;
     /**
      * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for discretionRoundDirection.
      */
     public int getDiscretionRoundDirectionValue() {
       return discretionRoundDirection_;
     }
     /**
      * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for discretionRoundDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionRoundDirectionValue(int value) {
       discretionRoundDirection_ = value;
@@ -983,6 +1030,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionRoundDirection.
      */
     public org.fixprotocol.components.DiscretionRoundDirectionEnum getDiscretionRoundDirection() {
       @SuppressWarnings("deprecation")
@@ -991,6 +1039,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The discretionRoundDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionRoundDirection(org.fixprotocol.components.DiscretionRoundDirectionEnum value) {
       if (value == null) {
@@ -1003,6 +1053,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionRoundDirectionEnum discretion_round_direction = 6 [(.fix.tag) = 844, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDiscretionRoundDirection() {
       
@@ -1014,12 +1065,15 @@ private static final long serialVersionUID = 0L;
     private int discretionScope_ = 0;
     /**
      * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for discretionScope.
      */
     public int getDiscretionScopeValue() {
       return discretionScope_;
     }
     /**
      * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for discretionScope to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionScopeValue(int value) {
       discretionScope_ = value;
@@ -1028,6 +1082,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The discretionScope.
      */
     public org.fixprotocol.components.DiscretionScopeEnum getDiscretionScope() {
       @SuppressWarnings("deprecation")
@@ -1036,6 +1091,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The discretionScope to set.
+     * @return This builder for chaining.
      */
     public Builder setDiscretionScope(org.fixprotocol.components.DiscretionScopeEnum value) {
       if (value == null) {
@@ -1048,6 +1105,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DiscretionScopeEnum discretion_scope = 7 [(.fix.tag) = 846, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDiscretionScope() {
       

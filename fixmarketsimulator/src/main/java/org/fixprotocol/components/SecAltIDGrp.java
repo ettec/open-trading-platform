@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object securityAltId_;
   /**
    * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityAltId.
    */
   public java.lang.String getSecurityAltId() {
     java.lang.Object ref = securityAltId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for securityAltId.
    */
   public com.google.protobuf.ByteString
       getSecurityAltIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int securityAltIdSource_;
   /**
    * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for securityAltIdSource.
    */
   public int getSecurityAltIdSourceValue() {
     return securityAltIdSource_;
   }
   /**
    * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityAltIdSource.
    */
   public org.fixprotocol.components.SecurityAltIDSourceEnum getSecurityAltIdSource() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object securityAltId_ = "";
     /**
      * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The securityAltId.
      */
     public java.lang.String getSecurityAltId() {
       java.lang.Object ref = securityAltId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for securityAltId.
      */
     public com.google.protobuf.ByteString
         getSecurityAltIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The securityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityAltId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecurityAltId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_alt_id = 1 [(.fix.tag) = 455, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for securityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityAltIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int securityAltIdSource_ = 0;
     /**
      * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for securityAltIdSource.
      */
     public int getSecurityAltIdSourceValue() {
       return securityAltIdSource_;
     }
     /**
      * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for securityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityAltIdSourceValue(int value) {
       securityAltIdSource_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The securityAltIdSource.
      */
     public org.fixprotocol.components.SecurityAltIDSourceEnum getSecurityAltIdSource() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The securityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityAltIdSource(org.fixprotocol.components.SecurityAltIDSourceEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SecurityAltIDSourceEnum security_alt_id_source = 2 [(.fix.tag) = 456, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecurityAltIdSource() {
       

@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object underlyingSecurityAltId_;
   /**
    * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSecurityAltId.
    */
   public java.lang.String getUnderlyingSecurityAltId() {
     java.lang.Object ref = underlyingSecurityAltId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingSecurityAltId.
    */
   public com.google.protobuf.ByteString
       getUnderlyingSecurityAltIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int underlyingSecurityAltIdSource_;
   /**
    * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingSecurityAltIdSource.
    */
   public int getUnderlyingSecurityAltIdSourceValue() {
     return underlyingSecurityAltIdSource_;
   }
   /**
    * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSecurityAltIdSource.
    */
   public org.fixprotocol.components.UnderlyingSecurityAltIDSourceEnum getUnderlyingSecurityAltIdSource() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object underlyingSecurityAltId_ = "";
     /**
      * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingSecurityAltId.
      */
     public java.lang.String getUnderlyingSecurityAltId() {
       java.lang.Object ref = underlyingSecurityAltId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for underlyingSecurityAltId.
      */
     public com.google.protobuf.ByteString
         getUnderlyingSecurityAltIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingSecurityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingSecurityAltId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingSecurityAltId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_security_alt_id = 1 [(.fix.tag) = 458, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for underlyingSecurityAltId to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingSecurityAltIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int underlyingSecurityAltIdSource_ = 0;
     /**
      * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for underlyingSecurityAltIdSource.
      */
     public int getUnderlyingSecurityAltIdSourceValue() {
       return underlyingSecurityAltIdSource_;
     }
     /**
      * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for underlyingSecurityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingSecurityAltIdSourceValue(int value) {
       underlyingSecurityAltIdSource_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingSecurityAltIdSource.
      */
     public org.fixprotocol.components.UnderlyingSecurityAltIDSourceEnum getUnderlyingSecurityAltIdSource() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingSecurityAltIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingSecurityAltIdSource(org.fixprotocol.components.UnderlyingSecurityAltIDSourceEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingSecurityAltIDSourceEnum underlying_security_alt_id_source = 2 [(.fix.tag) = 459, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingSecurityAltIdSource() {
       

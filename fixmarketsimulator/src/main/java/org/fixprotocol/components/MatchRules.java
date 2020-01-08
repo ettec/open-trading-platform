@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object matchAlgorithm_;
   /**
    * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The matchAlgorithm.
    */
   public java.lang.String getMatchAlgorithm() {
     java.lang.Object ref = matchAlgorithm_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for matchAlgorithm.
    */
   public com.google.protobuf.ByteString
       getMatchAlgorithmBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int matchType_;
   /**
    * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for matchType.
    */
   public int getMatchTypeValue() {
     return matchType_;
   }
   /**
    * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The matchType.
    */
   public org.fixprotocol.components.MatchTypeEnum getMatchType() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object matchAlgorithm_ = "";
     /**
      * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The matchAlgorithm.
      */
     public java.lang.String getMatchAlgorithm() {
       java.lang.Object ref = matchAlgorithm_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for matchAlgorithm.
      */
     public com.google.protobuf.ByteString
         getMatchAlgorithmBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The matchAlgorithm to set.
+     * @return This builder for chaining.
      */
     public Builder setMatchAlgorithm(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMatchAlgorithm() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string match_algorithm = 1 [(.fix.tag) = 1142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for matchAlgorithm to set.
+     * @return This builder for chaining.
      */
     public Builder setMatchAlgorithmBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int matchType_ = 0;
     /**
      * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for matchType.
      */
     public int getMatchTypeValue() {
       return matchType_;
     }
     /**
      * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for matchType to set.
+     * @return This builder for chaining.
      */
     public Builder setMatchTypeValue(int value) {
       matchType_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The matchType.
      */
     public org.fixprotocol.components.MatchTypeEnum getMatchType() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The matchType to set.
+     * @return This builder for chaining.
      */
     public Builder setMatchType(org.fixprotocol.components.MatchTypeEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MatchTypeEnum match_type = 2 [(.fix.tag) = 574, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMatchType() {
       

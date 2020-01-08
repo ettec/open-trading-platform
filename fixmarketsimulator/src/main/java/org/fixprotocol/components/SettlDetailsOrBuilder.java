@@ -9,10 +9,12 @@ public interface SettlDetailsOrBuilder extends
 
   /**
    * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for settlObligSource.
    */
   int getSettlObligSourceValue();
   /**
    * <code>.Common.SettlObligSourceEnum settl_oblig_source = 1 [(.fix.tag) = 1164, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The settlObligSource.
    */
   org.fixprotocol.components.SettlObligSourceEnum getSettlObligSource();
 

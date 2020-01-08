@@ -9,10 +9,12 @@ public interface PositionQtyOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 long_qty = 1 [(.fix.tag) = 704, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the longQty field is set.
    */
   boolean hasLongQty();
   /**
    * <code>.fix.Decimal64 long_qty = 1 [(.fix.tag) = 704, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The longQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getLongQty();
   /**
@@ -46,33 +48,40 @@ public interface PositionQtyOrBuilder extends
 
   /**
    * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for posQtyStatus.
    */
   int getPosQtyStatusValue();
   /**
    * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posQtyStatus.
    */
   org.fixprotocol.components.PosQtyStatusEnum getPosQtyStatus();
 
   /**
    * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for posType.
    */
   int getPosTypeValue();
   /**
    * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posType.
    */
   org.fixprotocol.components.PosTypeEnum getPosType();
 
   /**
    * <code>sfixed32 quantity_date = 5 [(.fix.tag) = 976, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The quantityDate.
    */
   int getQuantityDate();
 
   /**
    * <code>.fix.Decimal64 short_qty = 6 [(.fix.tag) = 705, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the shortQty field is set.
    */
   boolean hasShortQty();
   /**
    * <code>.fix.Decimal64 short_qty = 6 [(.fix.tag) = 705, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The shortQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getShortQty();
   /**

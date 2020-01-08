@@ -270,6 +270,8 @@ public enum NestedInstrAttribTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -277,6 +279,10 @@ public enum NestedInstrAttribTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static NestedInstrAttribTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return NESTED_INSTR_ATTRIB_TYPE_UNSPECIFIED;

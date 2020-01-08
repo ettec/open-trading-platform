@@ -91,12 +91,14 @@ private static final long serialVersionUID = 0L;
   private int execInstValue_;
   /**
    * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for execInstValue.
    */
   public int getExecInstValueValue() {
     return execInstValue_;
   }
   /**
    * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The execInstValue.
    */
   public org.fixprotocol.components.ExecInstValueEnum getExecInstValue() {
     @SuppressWarnings("deprecation")
@@ -408,12 +410,15 @@ private static final long serialVersionUID = 0L;
     private int execInstValue_ = 0;
     /**
      * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for execInstValue.
      */
     public int getExecInstValueValue() {
       return execInstValue_;
     }
     /**
      * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for execInstValue to set.
+     * @return This builder for chaining.
      */
     public Builder setExecInstValueValue(int value) {
       execInstValue_ = value;
@@ -422,6 +427,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The execInstValue.
      */
     public org.fixprotocol.components.ExecInstValueEnum getExecInstValue() {
       @SuppressWarnings("deprecation")
@@ -430,6 +436,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The execInstValue to set.
+     * @return This builder for chaining.
      */
     public Builder setExecInstValue(org.fixprotocol.components.ExecInstValueEnum value) {
       if (value == null) {
@@ -442,6 +450,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearExecInstValue() {
       

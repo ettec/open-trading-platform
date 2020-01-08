@@ -9,29 +9,35 @@ public interface CommissionDataOrBuilder extends
 
   /**
    * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The commCurrency.
    */
   java.lang.String getCommCurrency();
   /**
    * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for commCurrency.
    */
   com.google.protobuf.ByteString
       getCommCurrencyBytes();
 
   /**
    * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for commType.
    */
   int getCommTypeValue();
   /**
    * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The commType.
    */
   org.fixprotocol.components.CommTypeEnum getCommType();
 
   /**
    * <code>.fix.Decimal64 commission = 3 [(.fix.tag) = 12, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the commission field is set.
    */
   boolean hasCommission();
   /**
    * <code>.fix.Decimal64 commission = 3 [(.fix.tag) = 12, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The commission.
    */
   org.fixprotocol.components.Fix.Decimal64 getCommission();
   /**
@@ -41,10 +47,12 @@ public interface CommissionDataOrBuilder extends
 
   /**
    * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for fundRenewWaiv.
    */
   int getFundRenewWaivValue();
   /**
    * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The fundRenewWaiv.
    */
   org.fixprotocol.components.FundRenewWaivEnum getFundRenewWaiv();
 }

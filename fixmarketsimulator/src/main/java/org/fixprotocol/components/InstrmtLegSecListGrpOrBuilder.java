@@ -9,10 +9,12 @@ public interface InstrmtLegSecListGrpOrBuilder extends
 
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrumentLeg field is set.
    */
   boolean hasInstrumentLeg();
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentLeg.
    */
   org.fixprotocol.components.InstrumentLeg getInstrumentLeg();
   /**
@@ -22,10 +24,12 @@ public interface InstrmtLegSecListGrpOrBuilder extends
 
   /**
    * <code>.Common.LegBenchmarkCurveData leg_benchmark_curve_data = 2 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legBenchmarkCurveData field is set.
    */
   boolean hasLegBenchmarkCurveData();
   /**
    * <code>.Common.LegBenchmarkCurveData leg_benchmark_curve_data = 2 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legBenchmarkCurveData.
    */
   org.fixprotocol.components.LegBenchmarkCurveData getLegBenchmarkCurveData();
   /**
@@ -35,10 +39,12 @@ public interface InstrmtLegSecListGrpOrBuilder extends
 
   /**
    * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSettlType.
    */
   int getLegSettlTypeValue();
   /**
    * <code>.Common.LegSettlTypeEnum leg_settl_type = 3 [(.fix.tag) = 587, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSettlType.
    */
   org.fixprotocol.components.LegSettlTypeEnum getLegSettlType();
 
@@ -68,10 +74,12 @@ public interface InstrmtLegSecListGrpOrBuilder extends
 
   /**
    * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSwapType.
    */
   int getLegSwapTypeValue();
   /**
    * <code>.Common.LegSwapTypeEnum leg_swap_type = 5 [(.fix.tag) = 690, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSwapType.
    */
   org.fixprotocol.components.LegSwapTypeEnum getLegSwapType();
 }

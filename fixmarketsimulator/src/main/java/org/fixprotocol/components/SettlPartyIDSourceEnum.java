@@ -174,6 +174,8 @@ public enum SettlPartyIDSourceEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -181,6 +183,10 @@ public enum SettlPartyIDSourceEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static SettlPartyIDSourceEnum forNumber(int value) {
     switch (value) {
       case 0: return SETTL_PARTY_ID_SOURCE_UNSPECIFIED;

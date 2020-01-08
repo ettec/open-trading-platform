@@ -70,6 +70,8 @@ public enum StandInstDbTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -77,6 +79,10 @@ public enum StandInstDbTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static StandInstDbTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return STAND_INST_DB_TYPE_UNSPECIFIED;

@@ -119,6 +119,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object settlPartyId_;
   /**
    * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartyId.
    */
   public java.lang.String getSettlPartyId() {
     java.lang.Object ref = settlPartyId_;
@@ -134,6 +135,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for settlPartyId.
    */
   public com.google.protobuf.ByteString
       getSettlPartyIdBytes() {
@@ -153,12 +155,14 @@ private static final long serialVersionUID = 0L;
   private int settlPartyIdSource_;
   /**
    * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlPartyIdSource.
    */
   public int getSettlPartyIdSourceValue() {
     return settlPartyIdSource_;
   }
   /**
    * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartyIdSource.
    */
   public org.fixprotocol.components.SettlPartyIDSourceEnum getSettlPartyIdSource() {
     @SuppressWarnings("deprecation")
@@ -170,12 +174,14 @@ private static final long serialVersionUID = 0L;
   private int settlPartyRole_;
   /**
    * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlPartyRole.
    */
   public int getSettlPartyRoleValue() {
     return settlPartyRole_;
   }
   /**
    * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartyRole.
    */
   public org.fixprotocol.components.SettlPartyRoleEnum getSettlPartyRole() {
     @SuppressWarnings("deprecation")
@@ -612,6 +618,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object settlPartyId_ = "";
     /**
      * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlPartyId.
      */
     public java.lang.String getSettlPartyId() {
       java.lang.Object ref = settlPartyId_;
@@ -627,6 +634,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for settlPartyId.
      */
     public com.google.protobuf.ByteString
         getSettlPartyIdBytes() {
@@ -643,6 +651,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlPartyId to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartyId(
         java.lang.String value) {
@@ -656,6 +666,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlPartyId() {
       
@@ -665,6 +676,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for settlPartyId to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartyIdBytes(
         com.google.protobuf.ByteString value) {
@@ -681,12 +694,15 @@ private static final long serialVersionUID = 0L;
     private int settlPartyIdSource_ = 0;
     /**
      * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlPartyIdSource.
      */
     public int getSettlPartyIdSourceValue() {
       return settlPartyIdSource_;
     }
     /**
      * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for settlPartyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartyIdSourceValue(int value) {
       settlPartyIdSource_ = value;
@@ -695,6 +711,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlPartyIdSource.
      */
     public org.fixprotocol.components.SettlPartyIDSourceEnum getSettlPartyIdSource() {
       @SuppressWarnings("deprecation")
@@ -703,6 +720,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlPartyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartyIdSource(org.fixprotocol.components.SettlPartyIDSourceEnum value) {
       if (value == null) {
@@ -715,6 +734,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlPartyIdSource() {
       
@@ -726,12 +746,15 @@ private static final long serialVersionUID = 0L;
     private int settlPartyRole_ = 0;
     /**
      * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for settlPartyRole.
      */
     public int getSettlPartyRoleValue() {
       return settlPartyRole_;
     }
     /**
      * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for settlPartyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartyRoleValue(int value) {
       settlPartyRole_ = value;
@@ -740,6 +763,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The settlPartyRole.
      */
     public org.fixprotocol.components.SettlPartyRoleEnum getSettlPartyRole() {
       @SuppressWarnings("deprecation")
@@ -748,6 +772,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The settlPartyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setSettlPartyRole(org.fixprotocol.components.SettlPartyRoleEnum value) {
       if (value == null) {
@@ -760,6 +786,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSettlPartyRole() {
       

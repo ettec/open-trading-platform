@@ -969,6 +969,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -976,6 +978,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static MsgTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return MSG_TYPE_ADJUSTED_POSITION_REPORT;
@@ -1254,6 +1260,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -1261,6 +1269,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static ApplVerIDEnum forNumber(int value) {
       switch (value) {
         case 0: return APPL_VER_ID_UNSPECIFIED;
@@ -2281,6 +2293,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -2288,6 +2302,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static RefMsgTypeEnum forNumber(int value) {
       switch (value) {
         case 0: return REF_MSG_TYPE_ADJUSTED_POSITION_REPORT;
@@ -2566,6 +2584,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -2573,6 +2593,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static RefApplVerIDEnum forNumber(int value) {
       switch (value) {
         case 0: return REF_APPL_VER_ID_UNSPECIFIED;
@@ -2825,6 +2849,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -2832,6 +2858,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static SessionRejectReasonEnum forNumber(int value) {
       switch (value) {
         case 0: return SESSION_REJECT_REASON_UNSPECIFIED;
@@ -3006,6 +3036,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -3013,6 +3045,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static SessionStatusEnum forNumber(int value) {
       switch (value) {
         case 0: return SESSION_STATUS_UNSPECIFIED;
@@ -3160,6 +3196,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -3167,6 +3205,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static EncryptMethodEnum forNumber(int value) {
       switch (value) {
         case 0: return ENCRYPT_METHOD_UNSPECIFIED;
@@ -3336,6 +3378,8 @@ public final class Session {
     }
 
     /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -3343,6 +3387,10 @@ public final class Session {
       return forNumber(value);
     }
 
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
     public static DefaultApplVerIDEnum forNumber(int value) {
       switch (value) {
         case 0: return DEFAULT_APPL_VER_ID_UNSPECIFIED;
@@ -3414,79 +3462,95 @@ public final class Session {
 
     /**
      * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The beginString.
      */
     java.lang.String getBeginString();
     /**
      * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for beginString.
      */
     com.google.protobuf.ByteString
         getBeginStringBytes();
 
     /**
      * <code>sfixed64 body_length = 2 [(.fix.tag) = 9, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bodyLength.
      */
     long getBodyLength();
 
     /**
      * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The deliverToCompId.
      */
     java.lang.String getDeliverToCompId();
     /**
      * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for deliverToCompId.
      */
     com.google.protobuf.ByteString
         getDeliverToCompIdBytes();
 
     /**
      * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The deliverToSubId.
      */
     java.lang.String getDeliverToSubId();
     /**
      * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for deliverToSubId.
      */
     com.google.protobuf.ByteString
         getDeliverToSubIdBytes();
 
     /**
      * <code>sfixed64 msg_seq_num = 5 [(.fix.tag) = 34, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The msgSeqNum.
      */
     long getMsgSeqNum();
 
     /**
      * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The enum numeric value on the wire for msgType.
      */
     int getMsgTypeValue();
     /**
      * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The msgType.
      */
     org.fixprotocol.components.Session.MsgTypeEnum getMsgType();
 
     /**
      * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The onBehalfOfCompId.
      */
     java.lang.String getOnBehalfOfCompId();
     /**
      * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for onBehalfOfCompId.
      */
     com.google.protobuf.ByteString
         getOnBehalfOfCompIdBytes();
 
     /**
      * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The onBehalfOfSubId.
      */
     java.lang.String getOnBehalfOfSubId();
     /**
      * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for onBehalfOfSubId.
      */
     com.google.protobuf.ByteString
         getOnBehalfOfSubIdBytes();
 
     /**
      * <code>.fix.Timestamp orig_sending_time = 9 [(.fix.tag) = 122, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return Whether the origSendingTime field is set.
      */
     boolean hasOrigSendingTime();
     /**
      * <code>.fix.Timestamp orig_sending_time = 9 [(.fix.tag) = 122, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The origSendingTime.
      */
     org.fixprotocol.components.Fix.Timestamp getOrigSendingTime();
     /**
@@ -3496,55 +3560,66 @@ public final class Session {
 
     /**
      * <code>bool poss_dup_flag = 10 [(.fix.tag) = 43, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The possDupFlag.
      */
     boolean getPossDupFlag();
 
     /**
      * <code>bool poss_resend = 11 [(.fix.tag) = 97, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The possResend.
      */
     boolean getPossResend();
 
     /**
      * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The secureData.
      */
     java.lang.String getSecureData();
     /**
      * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for secureData.
      */
     com.google.protobuf.ByteString
         getSecureDataBytes();
 
     /**
      * <code>sfixed64 secure_data_len = 13 [(.fix.tag) = 90, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The secureDataLen.
      */
     long getSecureDataLen();
 
     /**
      * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The senderCompId.
      */
     java.lang.String getSenderCompId();
     /**
      * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for senderCompId.
      */
     com.google.protobuf.ByteString
         getSenderCompIdBytes();
 
     /**
      * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The senderSubId.
      */
     java.lang.String getSenderSubId();
     /**
      * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for senderSubId.
      */
     com.google.protobuf.ByteString
         getSenderSubIdBytes();
 
     /**
      * <code>.fix.Timestamp sending_time = 16 [(.fix.tag) = 52, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return Whether the sendingTime field is set.
      */
     boolean hasSendingTime();
     /**
      * <code>.fix.Timestamp sending_time = 16 [(.fix.tag) = 52, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The sendingTime.
      */
     org.fixprotocol.components.Fix.Timestamp getSendingTime();
     /**
@@ -3554,109 +3629,131 @@ public final class Session {
 
     /**
      * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The targetCompId.
      */
     java.lang.String getTargetCompId();
     /**
      * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for targetCompId.
      */
     com.google.protobuf.ByteString
         getTargetCompIdBytes();
 
     /**
      * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The targetSubId.
      */
     java.lang.String getTargetSubId();
     /**
      * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for targetSubId.
      */
     com.google.protobuf.ByteString
         getTargetSubIdBytes();
 
     /**
      * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The deliverToLocationId.
      */
     java.lang.String getDeliverToLocationId();
     /**
      * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for deliverToLocationId.
      */
     com.google.protobuf.ByteString
         getDeliverToLocationIdBytes();
 
     /**
      * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The onBehalfOfLocationId.
      */
     java.lang.String getOnBehalfOfLocationId();
     /**
      * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for onBehalfOfLocationId.
      */
     com.google.protobuf.ByteString
         getOnBehalfOfLocationIdBytes();
 
     /**
      * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The senderLocationId.
      */
     java.lang.String getSenderLocationId();
     /**
      * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for senderLocationId.
      */
     com.google.protobuf.ByteString
         getSenderLocationIdBytes();
 
     /**
      * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The targetLocationId.
      */
     java.lang.String getTargetLocationId();
     /**
      * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for targetLocationId.
      */
     com.google.protobuf.ByteString
         getTargetLocationIdBytes();
 
     /**
      * <code>sfixed64 last_msg_seq_num_processed = 23 [(.fix.tag) = 369, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The lastMsgSeqNumProcessed.
      */
     long getLastMsgSeqNumProcessed();
 
     /**
      * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The messageEncoding.
      */
     java.lang.String getMessageEncoding();
     /**
      * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for messageEncoding.
      */
     com.google.protobuf.ByteString
         getMessageEncodingBytes();
 
     /**
      * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The xmlData.
      */
     java.lang.String getXmlData();
     /**
      * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for xmlData.
      */
     com.google.protobuf.ByteString
         getXmlDataBytes();
 
     /**
      * <code>sfixed64 xml_data_len = 26 [(.fix.tag) = 212, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The xmlDataLen.
      */
     long getXmlDataLen();
 
     /**
      * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applVerId.
      */
     int getApplVerIdValue();
     /**
      * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applVerId.
      */
     org.fixprotocol.components.Session.ApplVerIDEnum getApplVerId();
 
     /**
      * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The cstmApplVerId.
      */
     java.lang.String getCstmApplVerId();
     /**
      * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for cstmApplVerId.
      */
     com.google.protobuf.ByteString
         getCstmApplVerIdBytes();
@@ -3687,6 +3784,7 @@ public final class Session {
 
     /**
      * <code>sfixed64 appl_ext_id = 30 [(.fix.tag) = 1156, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applExtId.
      */
     long getApplExtId();
   }
@@ -3984,6 +4082,7 @@ public final class Session {
     private volatile java.lang.Object beginString_;
     /**
      * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The beginString.
      */
     public java.lang.String getBeginString() {
       java.lang.Object ref = beginString_;
@@ -3999,6 +4098,7 @@ public final class Session {
     }
     /**
      * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for beginString.
      */
     public com.google.protobuf.ByteString
         getBeginStringBytes() {
@@ -4018,6 +4118,7 @@ public final class Session {
     private long bodyLength_;
     /**
      * <code>sfixed64 body_length = 2 [(.fix.tag) = 9, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bodyLength.
      */
     public long getBodyLength() {
       return bodyLength_;
@@ -4027,6 +4128,7 @@ public final class Session {
     private volatile java.lang.Object deliverToCompId_;
     /**
      * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The deliverToCompId.
      */
     public java.lang.String getDeliverToCompId() {
       java.lang.Object ref = deliverToCompId_;
@@ -4042,6 +4144,7 @@ public final class Session {
     }
     /**
      * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for deliverToCompId.
      */
     public com.google.protobuf.ByteString
         getDeliverToCompIdBytes() {
@@ -4061,6 +4164,7 @@ public final class Session {
     private volatile java.lang.Object deliverToSubId_;
     /**
      * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The deliverToSubId.
      */
     public java.lang.String getDeliverToSubId() {
       java.lang.Object ref = deliverToSubId_;
@@ -4076,6 +4180,7 @@ public final class Session {
     }
     /**
      * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for deliverToSubId.
      */
     public com.google.protobuf.ByteString
         getDeliverToSubIdBytes() {
@@ -4095,6 +4200,7 @@ public final class Session {
     private long msgSeqNum_;
     /**
      * <code>sfixed64 msg_seq_num = 5 [(.fix.tag) = 34, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The msgSeqNum.
      */
     public long getMsgSeqNum() {
       return msgSeqNum_;
@@ -4104,12 +4210,14 @@ public final class Session {
     private int msgType_;
     /**
      * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The enum numeric value on the wire for msgType.
      */
     public int getMsgTypeValue() {
       return msgType_;
     }
     /**
      * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The msgType.
      */
     public org.fixprotocol.components.Session.MsgTypeEnum getMsgType() {
       @SuppressWarnings("deprecation")
@@ -4121,6 +4229,7 @@ public final class Session {
     private volatile java.lang.Object onBehalfOfCompId_;
     /**
      * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The onBehalfOfCompId.
      */
     public java.lang.String getOnBehalfOfCompId() {
       java.lang.Object ref = onBehalfOfCompId_;
@@ -4136,6 +4245,7 @@ public final class Session {
     }
     /**
      * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for onBehalfOfCompId.
      */
     public com.google.protobuf.ByteString
         getOnBehalfOfCompIdBytes() {
@@ -4155,6 +4265,7 @@ public final class Session {
     private volatile java.lang.Object onBehalfOfSubId_;
     /**
      * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The onBehalfOfSubId.
      */
     public java.lang.String getOnBehalfOfSubId() {
       java.lang.Object ref = onBehalfOfSubId_;
@@ -4170,6 +4281,7 @@ public final class Session {
     }
     /**
      * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for onBehalfOfSubId.
      */
     public com.google.protobuf.ByteString
         getOnBehalfOfSubIdBytes() {
@@ -4189,12 +4301,14 @@ public final class Session {
     private org.fixprotocol.components.Fix.Timestamp origSendingTime_;
     /**
      * <code>.fix.Timestamp orig_sending_time = 9 [(.fix.tag) = 122, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return Whether the origSendingTime field is set.
      */
     public boolean hasOrigSendingTime() {
       return origSendingTime_ != null;
     }
     /**
      * <code>.fix.Timestamp orig_sending_time = 9 [(.fix.tag) = 122, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The origSendingTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getOrigSendingTime() {
       return origSendingTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : origSendingTime_;
@@ -4210,6 +4324,7 @@ public final class Session {
     private boolean possDupFlag_;
     /**
      * <code>bool poss_dup_flag = 10 [(.fix.tag) = 43, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The possDupFlag.
      */
     public boolean getPossDupFlag() {
       return possDupFlag_;
@@ -4219,6 +4334,7 @@ public final class Session {
     private boolean possResend_;
     /**
      * <code>bool poss_resend = 11 [(.fix.tag) = 97, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The possResend.
      */
     public boolean getPossResend() {
       return possResend_;
@@ -4228,6 +4344,7 @@ public final class Session {
     private volatile java.lang.Object secureData_;
     /**
      * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The secureData.
      */
     public java.lang.String getSecureData() {
       java.lang.Object ref = secureData_;
@@ -4243,6 +4360,7 @@ public final class Session {
     }
     /**
      * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for secureData.
      */
     public com.google.protobuf.ByteString
         getSecureDataBytes() {
@@ -4262,6 +4380,7 @@ public final class Session {
     private long secureDataLen_;
     /**
      * <code>sfixed64 secure_data_len = 13 [(.fix.tag) = 90, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The secureDataLen.
      */
     public long getSecureDataLen() {
       return secureDataLen_;
@@ -4271,6 +4390,7 @@ public final class Session {
     private volatile java.lang.Object senderCompId_;
     /**
      * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The senderCompId.
      */
     public java.lang.String getSenderCompId() {
       java.lang.Object ref = senderCompId_;
@@ -4286,6 +4406,7 @@ public final class Session {
     }
     /**
      * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for senderCompId.
      */
     public com.google.protobuf.ByteString
         getSenderCompIdBytes() {
@@ -4305,6 +4426,7 @@ public final class Session {
     private volatile java.lang.Object senderSubId_;
     /**
      * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The senderSubId.
      */
     public java.lang.String getSenderSubId() {
       java.lang.Object ref = senderSubId_;
@@ -4320,6 +4442,7 @@ public final class Session {
     }
     /**
      * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for senderSubId.
      */
     public com.google.protobuf.ByteString
         getSenderSubIdBytes() {
@@ -4339,12 +4462,14 @@ public final class Session {
     private org.fixprotocol.components.Fix.Timestamp sendingTime_;
     /**
      * <code>.fix.Timestamp sending_time = 16 [(.fix.tag) = 52, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return Whether the sendingTime field is set.
      */
     public boolean hasSendingTime() {
       return sendingTime_ != null;
     }
     /**
      * <code>.fix.Timestamp sending_time = 16 [(.fix.tag) = 52, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The sendingTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getSendingTime() {
       return sendingTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : sendingTime_;
@@ -4360,6 +4485,7 @@ public final class Session {
     private volatile java.lang.Object targetCompId_;
     /**
      * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The targetCompId.
      */
     public java.lang.String getTargetCompId() {
       java.lang.Object ref = targetCompId_;
@@ -4375,6 +4501,7 @@ public final class Session {
     }
     /**
      * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for targetCompId.
      */
     public com.google.protobuf.ByteString
         getTargetCompIdBytes() {
@@ -4394,6 +4521,7 @@ public final class Session {
     private volatile java.lang.Object targetSubId_;
     /**
      * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The targetSubId.
      */
     public java.lang.String getTargetSubId() {
       java.lang.Object ref = targetSubId_;
@@ -4409,6 +4537,7 @@ public final class Session {
     }
     /**
      * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for targetSubId.
      */
     public com.google.protobuf.ByteString
         getTargetSubIdBytes() {
@@ -4428,6 +4557,7 @@ public final class Session {
     private volatile java.lang.Object deliverToLocationId_;
     /**
      * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The deliverToLocationId.
      */
     public java.lang.String getDeliverToLocationId() {
       java.lang.Object ref = deliverToLocationId_;
@@ -4443,6 +4573,7 @@ public final class Session {
     }
     /**
      * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for deliverToLocationId.
      */
     public com.google.protobuf.ByteString
         getDeliverToLocationIdBytes() {
@@ -4462,6 +4593,7 @@ public final class Session {
     private volatile java.lang.Object onBehalfOfLocationId_;
     /**
      * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The onBehalfOfLocationId.
      */
     public java.lang.String getOnBehalfOfLocationId() {
       java.lang.Object ref = onBehalfOfLocationId_;
@@ -4477,6 +4609,7 @@ public final class Session {
     }
     /**
      * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for onBehalfOfLocationId.
      */
     public com.google.protobuf.ByteString
         getOnBehalfOfLocationIdBytes() {
@@ -4496,6 +4629,7 @@ public final class Session {
     private volatile java.lang.Object senderLocationId_;
     /**
      * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The senderLocationId.
      */
     public java.lang.String getSenderLocationId() {
       java.lang.Object ref = senderLocationId_;
@@ -4511,6 +4645,7 @@ public final class Session {
     }
     /**
      * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for senderLocationId.
      */
     public com.google.protobuf.ByteString
         getSenderLocationIdBytes() {
@@ -4530,6 +4665,7 @@ public final class Session {
     private volatile java.lang.Object targetLocationId_;
     /**
      * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The targetLocationId.
      */
     public java.lang.String getTargetLocationId() {
       java.lang.Object ref = targetLocationId_;
@@ -4545,6 +4681,7 @@ public final class Session {
     }
     /**
      * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The bytes for targetLocationId.
      */
     public com.google.protobuf.ByteString
         getTargetLocationIdBytes() {
@@ -4564,6 +4701,7 @@ public final class Session {
     private long lastMsgSeqNumProcessed_;
     /**
      * <code>sfixed64 last_msg_seq_num_processed = 23 [(.fix.tag) = 369, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The lastMsgSeqNumProcessed.
      */
     public long getLastMsgSeqNumProcessed() {
       return lastMsgSeqNumProcessed_;
@@ -4573,6 +4711,7 @@ public final class Session {
     private volatile java.lang.Object messageEncoding_;
     /**
      * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The messageEncoding.
      */
     public java.lang.String getMessageEncoding() {
       java.lang.Object ref = messageEncoding_;
@@ -4588,6 +4727,7 @@ public final class Session {
     }
     /**
      * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for messageEncoding.
      */
     public com.google.protobuf.ByteString
         getMessageEncodingBytes() {
@@ -4607,6 +4747,7 @@ public final class Session {
     private volatile java.lang.Object xmlData_;
     /**
      * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The xmlData.
      */
     public java.lang.String getXmlData() {
       java.lang.Object ref = xmlData_;
@@ -4622,6 +4763,7 @@ public final class Session {
     }
     /**
      * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for xmlData.
      */
     public com.google.protobuf.ByteString
         getXmlDataBytes() {
@@ -4641,6 +4783,7 @@ public final class Session {
     private long xmlDataLen_;
     /**
      * <code>sfixed64 xml_data_len = 26 [(.fix.tag) = 212, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The xmlDataLen.
      */
     public long getXmlDataLen() {
       return xmlDataLen_;
@@ -4650,12 +4793,14 @@ public final class Session {
     private int applVerId_;
     /**
      * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for applVerId.
      */
     public int getApplVerIdValue() {
       return applVerId_;
     }
     /**
      * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The applVerId.
      */
     public org.fixprotocol.components.Session.ApplVerIDEnum getApplVerId() {
       @SuppressWarnings("deprecation")
@@ -4667,6 +4812,7 @@ public final class Session {
     private volatile java.lang.Object cstmApplVerId_;
     /**
      * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The cstmApplVerId.
      */
     public java.lang.String getCstmApplVerId() {
       java.lang.Object ref = cstmApplVerId_;
@@ -4682,6 +4828,7 @@ public final class Session {
     }
     /**
      * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for cstmApplVerId.
      */
     public com.google.protobuf.ByteString
         getCstmApplVerIdBytes() {
@@ -4736,6 +4883,7 @@ public final class Session {
     private long applExtId_;
     /**
      * <code>sfixed64 appl_ext_id = 30 [(.fix.tag) = 1156, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The applExtId.
      */
     public long getApplExtId() {
       return applExtId_;
@@ -5611,6 +5759,7 @@ public final class Session {
       private java.lang.Object beginString_ = "";
       /**
        * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The beginString.
        */
       public java.lang.String getBeginString() {
         java.lang.Object ref = beginString_;
@@ -5626,6 +5775,7 @@ public final class Session {
       }
       /**
        * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for beginString.
        */
       public com.google.protobuf.ByteString
           getBeginStringBytes() {
@@ -5642,6 +5792,8 @@ public final class Session {
       }
       /**
        * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The beginString to set.
+       * @return This builder for chaining.
        */
       public Builder setBeginString(
           java.lang.String value) {
@@ -5655,6 +5807,7 @@ public final class Session {
       }
       /**
        * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearBeginString() {
         
@@ -5664,6 +5817,8 @@ public final class Session {
       }
       /**
        * <code>string begin_string = 1 [(.fix.tag) = 8, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for beginString to set.
+       * @return This builder for chaining.
        */
       public Builder setBeginStringBytes(
           com.google.protobuf.ByteString value) {
@@ -5680,12 +5835,15 @@ public final class Session {
       private long bodyLength_ ;
       /**
        * <code>sfixed64 body_length = 2 [(.fix.tag) = 9, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bodyLength.
        */
       public long getBodyLength() {
         return bodyLength_;
       }
       /**
        * <code>sfixed64 body_length = 2 [(.fix.tag) = 9, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bodyLength to set.
+       * @return This builder for chaining.
        */
       public Builder setBodyLength(long value) {
         
@@ -5695,6 +5853,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 body_length = 2 [(.fix.tag) = 9, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearBodyLength() {
         
@@ -5706,6 +5865,7 @@ public final class Session {
       private java.lang.Object deliverToCompId_ = "";
       /**
        * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The deliverToCompId.
        */
       public java.lang.String getDeliverToCompId() {
         java.lang.Object ref = deliverToCompId_;
@@ -5721,6 +5881,7 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for deliverToCompId.
        */
       public com.google.protobuf.ByteString
           getDeliverToCompIdBytes() {
@@ -5737,6 +5898,8 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The deliverToCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeliverToCompId(
           java.lang.String value) {
@@ -5750,6 +5913,7 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDeliverToCompId() {
         
@@ -5759,6 +5923,8 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_comp_id = 3 [(.fix.tag) = 128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for deliverToCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeliverToCompIdBytes(
           com.google.protobuf.ByteString value) {
@@ -5775,6 +5941,7 @@ public final class Session {
       private java.lang.Object deliverToSubId_ = "";
       /**
        * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The deliverToSubId.
        */
       public java.lang.String getDeliverToSubId() {
         java.lang.Object ref = deliverToSubId_;
@@ -5790,6 +5957,7 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for deliverToSubId.
        */
       public com.google.protobuf.ByteString
           getDeliverToSubIdBytes() {
@@ -5806,6 +5974,8 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The deliverToSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeliverToSubId(
           java.lang.String value) {
@@ -5819,6 +5989,7 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDeliverToSubId() {
         
@@ -5828,6 +5999,8 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_sub_id = 4 [(.fix.tag) = 129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for deliverToSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeliverToSubIdBytes(
           com.google.protobuf.ByteString value) {
@@ -5844,12 +6017,15 @@ public final class Session {
       private long msgSeqNum_ ;
       /**
        * <code>sfixed64 msg_seq_num = 5 [(.fix.tag) = 34, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The msgSeqNum.
        */
       public long getMsgSeqNum() {
         return msgSeqNum_;
       }
       /**
        * <code>sfixed64 msg_seq_num = 5 [(.fix.tag) = 34, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The msgSeqNum to set.
+       * @return This builder for chaining.
        */
       public Builder setMsgSeqNum(long value) {
         
@@ -5859,6 +6035,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 msg_seq_num = 5 [(.fix.tag) = 34, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMsgSeqNum() {
         
@@ -5870,12 +6047,15 @@ public final class Session {
       private int msgType_ = 0;
       /**
        * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The enum numeric value on the wire for msgType.
        */
       public int getMsgTypeValue() {
         return msgType_;
       }
       /**
        * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The enum numeric value on the wire for msgType to set.
+       * @return This builder for chaining.
        */
       public Builder setMsgTypeValue(int value) {
         msgType_ = value;
@@ -5884,6 +6064,7 @@ public final class Session {
       }
       /**
        * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The msgType.
        */
       public org.fixprotocol.components.Session.MsgTypeEnum getMsgType() {
         @SuppressWarnings("deprecation")
@@ -5892,6 +6073,8 @@ public final class Session {
       }
       /**
        * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The msgType to set.
+       * @return This builder for chaining.
        */
       public Builder setMsgType(org.fixprotocol.components.Session.MsgTypeEnum value) {
         if (value == null) {
@@ -5904,6 +6087,7 @@ public final class Session {
       }
       /**
        * <code>.Session.MsgTypeEnum msg_type = 6 [(.fix.tag) = 35, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMsgType() {
         
@@ -5915,6 +6099,7 @@ public final class Session {
       private java.lang.Object onBehalfOfCompId_ = "";
       /**
        * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The onBehalfOfCompId.
        */
       public java.lang.String getOnBehalfOfCompId() {
         java.lang.Object ref = onBehalfOfCompId_;
@@ -5930,6 +6115,7 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for onBehalfOfCompId.
        */
       public com.google.protobuf.ByteString
           getOnBehalfOfCompIdBytes() {
@@ -5946,6 +6132,8 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The onBehalfOfCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setOnBehalfOfCompId(
           java.lang.String value) {
@@ -5959,6 +6147,7 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOnBehalfOfCompId() {
         
@@ -5968,6 +6157,8 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_comp_id = 7 [(.fix.tag) = 115, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for onBehalfOfCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setOnBehalfOfCompIdBytes(
           com.google.protobuf.ByteString value) {
@@ -5984,6 +6175,7 @@ public final class Session {
       private java.lang.Object onBehalfOfSubId_ = "";
       /**
        * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The onBehalfOfSubId.
        */
       public java.lang.String getOnBehalfOfSubId() {
         java.lang.Object ref = onBehalfOfSubId_;
@@ -5999,6 +6191,7 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for onBehalfOfSubId.
        */
       public com.google.protobuf.ByteString
           getOnBehalfOfSubIdBytes() {
@@ -6015,6 +6208,8 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The onBehalfOfSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setOnBehalfOfSubId(
           java.lang.String value) {
@@ -6028,6 +6223,7 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOnBehalfOfSubId() {
         
@@ -6037,6 +6233,8 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_sub_id = 8 [(.fix.tag) = 116, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for onBehalfOfSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setOnBehalfOfSubIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6055,12 +6253,14 @@ public final class Session {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> origSendingTimeBuilder_;
       /**
        * <code>.fix.Timestamp orig_sending_time = 9 [(.fix.tag) = 122, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return Whether the origSendingTime field is set.
        */
       public boolean hasOrigSendingTime() {
         return origSendingTimeBuilder_ != null || origSendingTime_ != null;
       }
       /**
        * <code>.fix.Timestamp orig_sending_time = 9 [(.fix.tag) = 122, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The origSendingTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getOrigSendingTime() {
         if (origSendingTimeBuilder_ == null) {
@@ -6170,12 +6370,15 @@ public final class Session {
       private boolean possDupFlag_ ;
       /**
        * <code>bool poss_dup_flag = 10 [(.fix.tag) = 43, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The possDupFlag.
        */
       public boolean getPossDupFlag() {
         return possDupFlag_;
       }
       /**
        * <code>bool poss_dup_flag = 10 [(.fix.tag) = 43, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The possDupFlag to set.
+       * @return This builder for chaining.
        */
       public Builder setPossDupFlag(boolean value) {
         
@@ -6185,6 +6388,7 @@ public final class Session {
       }
       /**
        * <code>bool poss_dup_flag = 10 [(.fix.tag) = 43, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearPossDupFlag() {
         
@@ -6196,12 +6400,15 @@ public final class Session {
       private boolean possResend_ ;
       /**
        * <code>bool poss_resend = 11 [(.fix.tag) = 97, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The possResend.
        */
       public boolean getPossResend() {
         return possResend_;
       }
       /**
        * <code>bool poss_resend = 11 [(.fix.tag) = 97, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The possResend to set.
+       * @return This builder for chaining.
        */
       public Builder setPossResend(boolean value) {
         
@@ -6211,6 +6418,7 @@ public final class Session {
       }
       /**
        * <code>bool poss_resend = 11 [(.fix.tag) = 97, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearPossResend() {
         
@@ -6222,6 +6430,7 @@ public final class Session {
       private java.lang.Object secureData_ = "";
       /**
        * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The secureData.
        */
       public java.lang.String getSecureData() {
         java.lang.Object ref = secureData_;
@@ -6237,6 +6446,7 @@ public final class Session {
       }
       /**
        * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for secureData.
        */
       public com.google.protobuf.ByteString
           getSecureDataBytes() {
@@ -6253,6 +6463,8 @@ public final class Session {
       }
       /**
        * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The secureData to set.
+       * @return This builder for chaining.
        */
       public Builder setSecureData(
           java.lang.String value) {
@@ -6266,6 +6478,7 @@ public final class Session {
       }
       /**
        * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecureData() {
         
@@ -6275,6 +6488,8 @@ public final class Session {
       }
       /**
        * <code>string secure_data = 12 [(.fix.tag) = 91, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for secureData to set.
+       * @return This builder for chaining.
        */
       public Builder setSecureDataBytes(
           com.google.protobuf.ByteString value) {
@@ -6291,12 +6506,15 @@ public final class Session {
       private long secureDataLen_ ;
       /**
        * <code>sfixed64 secure_data_len = 13 [(.fix.tag) = 90, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The secureDataLen.
        */
       public long getSecureDataLen() {
         return secureDataLen_;
       }
       /**
        * <code>sfixed64 secure_data_len = 13 [(.fix.tag) = 90, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The secureDataLen to set.
+       * @return This builder for chaining.
        */
       public Builder setSecureDataLen(long value) {
         
@@ -6306,6 +6524,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 secure_data_len = 13 [(.fix.tag) = 90, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSecureDataLen() {
         
@@ -6317,6 +6536,7 @@ public final class Session {
       private java.lang.Object senderCompId_ = "";
       /**
        * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The senderCompId.
        */
       public java.lang.String getSenderCompId() {
         java.lang.Object ref = senderCompId_;
@@ -6332,6 +6552,7 @@ public final class Session {
       }
       /**
        * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for senderCompId.
        */
       public com.google.protobuf.ByteString
           getSenderCompIdBytes() {
@@ -6348,6 +6569,8 @@ public final class Session {
       }
       /**
        * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The senderCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderCompId(
           java.lang.String value) {
@@ -6361,6 +6584,7 @@ public final class Session {
       }
       /**
        * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSenderCompId() {
         
@@ -6370,6 +6594,8 @@ public final class Session {
       }
       /**
        * <code>string sender_comp_id = 14 [(.fix.tag) = 49, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for senderCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderCompIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6386,6 +6612,7 @@ public final class Session {
       private java.lang.Object senderSubId_ = "";
       /**
        * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The senderSubId.
        */
       public java.lang.String getSenderSubId() {
         java.lang.Object ref = senderSubId_;
@@ -6401,6 +6628,7 @@ public final class Session {
       }
       /**
        * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for senderSubId.
        */
       public com.google.protobuf.ByteString
           getSenderSubIdBytes() {
@@ -6417,6 +6645,8 @@ public final class Session {
       }
       /**
        * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The senderSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderSubId(
           java.lang.String value) {
@@ -6430,6 +6660,7 @@ public final class Session {
       }
       /**
        * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSenderSubId() {
         
@@ -6439,6 +6670,8 @@ public final class Session {
       }
       /**
        * <code>string sender_sub_id = 15 [(.fix.tag) = 50, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for senderSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderSubIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6457,12 +6690,14 @@ public final class Session {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> sendingTimeBuilder_;
       /**
        * <code>.fix.Timestamp sending_time = 16 [(.fix.tag) = 52, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return Whether the sendingTime field is set.
        */
       public boolean hasSendingTime() {
         return sendingTimeBuilder_ != null || sendingTime_ != null;
       }
       /**
        * <code>.fix.Timestamp sending_time = 16 [(.fix.tag) = 52, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The sendingTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getSendingTime() {
         if (sendingTimeBuilder_ == null) {
@@ -6572,6 +6807,7 @@ public final class Session {
       private java.lang.Object targetCompId_ = "";
       /**
        * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The targetCompId.
        */
       public java.lang.String getTargetCompId() {
         java.lang.Object ref = targetCompId_;
@@ -6587,6 +6823,7 @@ public final class Session {
       }
       /**
        * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for targetCompId.
        */
       public com.google.protobuf.ByteString
           getTargetCompIdBytes() {
@@ -6603,6 +6840,8 @@ public final class Session {
       }
       /**
        * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The targetCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetCompId(
           java.lang.String value) {
@@ -6616,6 +6855,7 @@ public final class Session {
       }
       /**
        * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargetCompId() {
         
@@ -6625,6 +6865,8 @@ public final class Session {
       }
       /**
        * <code>string target_comp_id = 17 [(.fix.tag) = 56, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for targetCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetCompIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6641,6 +6883,7 @@ public final class Session {
       private java.lang.Object targetSubId_ = "";
       /**
        * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The targetSubId.
        */
       public java.lang.String getTargetSubId() {
         java.lang.Object ref = targetSubId_;
@@ -6656,6 +6899,7 @@ public final class Session {
       }
       /**
        * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for targetSubId.
        */
       public com.google.protobuf.ByteString
           getTargetSubIdBytes() {
@@ -6672,6 +6916,8 @@ public final class Session {
       }
       /**
        * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The targetSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetSubId(
           java.lang.String value) {
@@ -6685,6 +6931,7 @@ public final class Session {
       }
       /**
        * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargetSubId() {
         
@@ -6694,6 +6941,8 @@ public final class Session {
       }
       /**
        * <code>string target_sub_id = 18 [(.fix.tag) = 57, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for targetSubId to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetSubIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6710,6 +6959,7 @@ public final class Session {
       private java.lang.Object deliverToLocationId_ = "";
       /**
        * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The deliverToLocationId.
        */
       public java.lang.String getDeliverToLocationId() {
         java.lang.Object ref = deliverToLocationId_;
@@ -6725,6 +6975,7 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The bytes for deliverToLocationId.
        */
       public com.google.protobuf.ByteString
           getDeliverToLocationIdBytes() {
@@ -6741,6 +6992,8 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The deliverToLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeliverToLocationId(
           java.lang.String value) {
@@ -6754,6 +7007,7 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDeliverToLocationId() {
         
@@ -6763,6 +7017,8 @@ public final class Session {
       }
       /**
        * <code>string deliver_to_location_id = 19 [(.fix.tag) = 145, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The bytes for deliverToLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setDeliverToLocationIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6779,6 +7035,7 @@ public final class Session {
       private java.lang.Object onBehalfOfLocationId_ = "";
       /**
        * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The onBehalfOfLocationId.
        */
       public java.lang.String getOnBehalfOfLocationId() {
         java.lang.Object ref = onBehalfOfLocationId_;
@@ -6794,6 +7051,7 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The bytes for onBehalfOfLocationId.
        */
       public com.google.protobuf.ByteString
           getOnBehalfOfLocationIdBytes() {
@@ -6810,6 +7068,8 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The onBehalfOfLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setOnBehalfOfLocationId(
           java.lang.String value) {
@@ -6823,6 +7083,7 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return This builder for chaining.
        */
       public Builder clearOnBehalfOfLocationId() {
         
@@ -6832,6 +7093,8 @@ public final class Session {
       }
       /**
        * <code>string on_behalf_of_location_id = 20 [(.fix.tag) = 144, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The bytes for onBehalfOfLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setOnBehalfOfLocationIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6848,6 +7111,7 @@ public final class Session {
       private java.lang.Object senderLocationId_ = "";
       /**
        * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The senderLocationId.
        */
       public java.lang.String getSenderLocationId() {
         java.lang.Object ref = senderLocationId_;
@@ -6863,6 +7127,7 @@ public final class Session {
       }
       /**
        * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The bytes for senderLocationId.
        */
       public com.google.protobuf.ByteString
           getSenderLocationIdBytes() {
@@ -6879,6 +7144,8 @@ public final class Session {
       }
       /**
        * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The senderLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderLocationId(
           java.lang.String value) {
@@ -6892,6 +7159,7 @@ public final class Session {
       }
       /**
        * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSenderLocationId() {
         
@@ -6901,6 +7169,8 @@ public final class Session {
       }
       /**
        * <code>string sender_location_id = 21 [(.fix.tag) = 142, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The bytes for senderLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setSenderLocationIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6917,6 +7187,7 @@ public final class Session {
       private java.lang.Object targetLocationId_ = "";
       /**
        * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The targetLocationId.
        */
       public java.lang.String getTargetLocationId() {
         java.lang.Object ref = targetLocationId_;
@@ -6932,6 +7203,7 @@ public final class Session {
       }
       /**
        * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The bytes for targetLocationId.
        */
       public com.google.protobuf.ByteString
           getTargetLocationIdBytes() {
@@ -6948,6 +7220,8 @@ public final class Session {
       }
       /**
        * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The targetLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetLocationId(
           java.lang.String value) {
@@ -6961,6 +7235,7 @@ public final class Session {
       }
       /**
        * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTargetLocationId() {
         
@@ -6970,6 +7245,8 @@ public final class Session {
       }
       /**
        * <code>string target_location_id = 22 [(.fix.tag) = 143, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The bytes for targetLocationId to set.
+       * @return This builder for chaining.
        */
       public Builder setTargetLocationIdBytes(
           com.google.protobuf.ByteString value) {
@@ -6986,12 +7263,15 @@ public final class Session {
       private long lastMsgSeqNumProcessed_ ;
       /**
        * <code>sfixed64 last_msg_seq_num_processed = 23 [(.fix.tag) = 369, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The lastMsgSeqNumProcessed.
        */
       public long getLastMsgSeqNumProcessed() {
         return lastMsgSeqNumProcessed_;
       }
       /**
        * <code>sfixed64 last_msg_seq_num_processed = 23 [(.fix.tag) = 369, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The lastMsgSeqNumProcessed to set.
+       * @return This builder for chaining.
        */
       public Builder setLastMsgSeqNumProcessed(long value) {
         
@@ -7001,6 +7281,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 last_msg_seq_num_processed = 23 [(.fix.tag) = 369, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearLastMsgSeqNumProcessed() {
         
@@ -7012,6 +7293,7 @@ public final class Session {
       private java.lang.Object messageEncoding_ = "";
       /**
        * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The messageEncoding.
        */
       public java.lang.String getMessageEncoding() {
         java.lang.Object ref = messageEncoding_;
@@ -7027,6 +7309,7 @@ public final class Session {
       }
       /**
        * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for messageEncoding.
        */
       public com.google.protobuf.ByteString
           getMessageEncodingBytes() {
@@ -7043,6 +7326,8 @@ public final class Session {
       }
       /**
        * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The messageEncoding to set.
+       * @return This builder for chaining.
        */
       public Builder setMessageEncoding(
           java.lang.String value) {
@@ -7056,6 +7341,7 @@ public final class Session {
       }
       /**
        * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMessageEncoding() {
         
@@ -7065,6 +7351,8 @@ public final class Session {
       }
       /**
        * <code>string message_encoding = 24 [(.fix.tag) = 347, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for messageEncoding to set.
+       * @return This builder for chaining.
        */
       public Builder setMessageEncodingBytes(
           com.google.protobuf.ByteString value) {
@@ -7081,6 +7369,7 @@ public final class Session {
       private java.lang.Object xmlData_ = "";
       /**
        * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The xmlData.
        */
       public java.lang.String getXmlData() {
         java.lang.Object ref = xmlData_;
@@ -7096,6 +7385,7 @@ public final class Session {
       }
       /**
        * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for xmlData.
        */
       public com.google.protobuf.ByteString
           getXmlDataBytes() {
@@ -7112,6 +7402,8 @@ public final class Session {
       }
       /**
        * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The xmlData to set.
+       * @return This builder for chaining.
        */
       public Builder setXmlData(
           java.lang.String value) {
@@ -7125,6 +7417,7 @@ public final class Session {
       }
       /**
        * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearXmlData() {
         
@@ -7134,6 +7427,8 @@ public final class Session {
       }
       /**
        * <code>string xml_data = 25 [(.fix.tag) = 213, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for xmlData to set.
+       * @return This builder for chaining.
        */
       public Builder setXmlDataBytes(
           com.google.protobuf.ByteString value) {
@@ -7150,12 +7445,15 @@ public final class Session {
       private long xmlDataLen_ ;
       /**
        * <code>sfixed64 xml_data_len = 26 [(.fix.tag) = 212, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The xmlDataLen.
        */
       public long getXmlDataLen() {
         return xmlDataLen_;
       }
       /**
        * <code>sfixed64 xml_data_len = 26 [(.fix.tag) = 212, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The xmlDataLen to set.
+       * @return This builder for chaining.
        */
       public Builder setXmlDataLen(long value) {
         
@@ -7165,6 +7463,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 xml_data_len = 26 [(.fix.tag) = 212, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearXmlDataLen() {
         
@@ -7176,12 +7475,15 @@ public final class Session {
       private int applVerId_ = 0;
       /**
        * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for applVerId.
        */
       public int getApplVerIdValue() {
         return applVerId_;
       }
       /**
        * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for applVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setApplVerIdValue(int value) {
         applVerId_ = value;
@@ -7190,6 +7492,7 @@ public final class Session {
       }
       /**
        * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The applVerId.
        */
       public org.fixprotocol.components.Session.ApplVerIDEnum getApplVerId() {
         @SuppressWarnings("deprecation")
@@ -7198,6 +7501,8 @@ public final class Session {
       }
       /**
        * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The applVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setApplVerId(org.fixprotocol.components.Session.ApplVerIDEnum value) {
         if (value == null) {
@@ -7210,6 +7515,7 @@ public final class Session {
       }
       /**
        * <code>.Session.ApplVerIDEnum appl_ver_id = 27 [(.fix.tag) = 1128, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplVerId() {
         
@@ -7221,6 +7527,7 @@ public final class Session {
       private java.lang.Object cstmApplVerId_ = "";
       /**
        * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The cstmApplVerId.
        */
       public java.lang.String getCstmApplVerId() {
         java.lang.Object ref = cstmApplVerId_;
@@ -7236,6 +7543,7 @@ public final class Session {
       }
       /**
        * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for cstmApplVerId.
        */
       public com.google.protobuf.ByteString
           getCstmApplVerIdBytes() {
@@ -7252,6 +7560,8 @@ public final class Session {
       }
       /**
        * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The cstmApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setCstmApplVerId(
           java.lang.String value) {
@@ -7265,6 +7575,7 @@ public final class Session {
       }
       /**
        * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearCstmApplVerId() {
         
@@ -7274,6 +7585,8 @@ public final class Session {
       }
       /**
        * <code>string cstm_appl_ver_id = 28 [(.fix.tag) = 1129, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for cstmApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setCstmApplVerIdBytes(
           com.google.protobuf.ByteString value) {
@@ -7530,12 +7843,15 @@ public final class Session {
       private long applExtId_ ;
       /**
        * <code>sfixed64 appl_ext_id = 30 [(.fix.tag) = 1156, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The applExtId.
        */
       public long getApplExtId() {
         return applExtId_;
       }
       /**
        * <code>sfixed64 appl_ext_id = 30 [(.fix.tag) = 1156, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The applExtId to set.
+       * @return This builder for chaining.
        */
       public Builder setApplExtId(long value) {
         
@@ -7545,6 +7861,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 appl_ext_id = 30 [(.fix.tag) = 1156, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearApplExtId() {
         
@@ -7611,26 +7928,31 @@ public final class Session {
 
     /**
      * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The checkSum.
      */
     java.lang.String getCheckSum();
     /**
      * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for checkSum.
      */
     com.google.protobuf.ByteString
         getCheckSumBytes();
 
     /**
      * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The signature.
      */
     java.lang.String getSignature();
     /**
      * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for signature.
      */
     com.google.protobuf.ByteString
         getSignatureBytes();
 
     /**
      * <code>sfixed64 signature_length = 3 [(.fix.tag) = 93, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The signatureLength.
      */
     long getSignatureLength();
   }
@@ -7734,6 +8056,7 @@ public final class Session {
     private volatile java.lang.Object checkSum_;
     /**
      * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The checkSum.
      */
     public java.lang.String getCheckSum() {
       java.lang.Object ref = checkSum_;
@@ -7749,6 +8072,7 @@ public final class Session {
     }
     /**
      * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for checkSum.
      */
     public com.google.protobuf.ByteString
         getCheckSumBytes() {
@@ -7768,6 +8092,7 @@ public final class Session {
     private volatile java.lang.Object signature_;
     /**
      * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The signature.
      */
     public java.lang.String getSignature() {
       java.lang.Object ref = signature_;
@@ -7783,6 +8108,7 @@ public final class Session {
     }
     /**
      * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for signature.
      */
     public com.google.protobuf.ByteString
         getSignatureBytes() {
@@ -7802,6 +8128,7 @@ public final class Session {
     private long signatureLength_;
     /**
      * <code>sfixed64 signature_length = 3 [(.fix.tag) = 93, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The signatureLength.
      */
     public long getSignatureLength() {
       return signatureLength_;
@@ -8147,6 +8474,7 @@ public final class Session {
       private java.lang.Object checkSum_ = "";
       /**
        * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The checkSum.
        */
       public java.lang.String getCheckSum() {
         java.lang.Object ref = checkSum_;
@@ -8162,6 +8490,7 @@ public final class Session {
       }
       /**
        * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for checkSum.
        */
       public com.google.protobuf.ByteString
           getCheckSumBytes() {
@@ -8178,6 +8507,8 @@ public final class Session {
       }
       /**
        * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The checkSum to set.
+       * @return This builder for chaining.
        */
       public Builder setCheckSum(
           java.lang.String value) {
@@ -8191,6 +8522,7 @@ public final class Session {
       }
       /**
        * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearCheckSum() {
         
@@ -8200,6 +8532,8 @@ public final class Session {
       }
       /**
        * <code>string check_sum = 1 [(.fix.tag) = 10, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for checkSum to set.
+       * @return This builder for chaining.
        */
       public Builder setCheckSumBytes(
           com.google.protobuf.ByteString value) {
@@ -8216,6 +8550,7 @@ public final class Session {
       private java.lang.Object signature_ = "";
       /**
        * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The signature.
        */
       public java.lang.String getSignature() {
         java.lang.Object ref = signature_;
@@ -8231,6 +8566,7 @@ public final class Session {
       }
       /**
        * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for signature.
        */
       public com.google.protobuf.ByteString
           getSignatureBytes() {
@@ -8247,6 +8583,8 @@ public final class Session {
       }
       /**
        * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The signature to set.
+       * @return This builder for chaining.
        */
       public Builder setSignature(
           java.lang.String value) {
@@ -8260,6 +8598,7 @@ public final class Session {
       }
       /**
        * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSignature() {
         
@@ -8269,6 +8608,8 @@ public final class Session {
       }
       /**
        * <code>string signature = 2 [(.fix.tag) = 89, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for signature to set.
+       * @return This builder for chaining.
        */
       public Builder setSignatureBytes(
           com.google.protobuf.ByteString value) {
@@ -8285,12 +8626,15 @@ public final class Session {
       private long signatureLength_ ;
       /**
        * <code>sfixed64 signature_length = 3 [(.fix.tag) = 93, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The signatureLength.
        */
       public long getSignatureLength() {
         return signatureLength_;
       }
       /**
        * <code>sfixed64 signature_length = 3 [(.fix.tag) = 93, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The signatureLength to set.
+       * @return This builder for chaining.
        */
       public Builder setSignatureLength(long value) {
         
@@ -8300,6 +8644,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 signature_length = 3 [(.fix.tag) = 93, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSignatureLength() {
         
@@ -8366,25 +8711,30 @@ public final class Session {
 
     /**
      * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The hopCompId.
      */
     java.lang.String getHopCompId();
     /**
      * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for hopCompId.
      */
     com.google.protobuf.ByteString
         getHopCompIdBytes();
 
     /**
      * <code>sfixed64 hop_ref_id = 2 [(.fix.tag) = 630, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The hopRefId.
      */
     long getHopRefId();
 
     /**
      * <code>.fix.Timestamp hop_sending_time = 3 [(.fix.tag) = 629, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the hopSendingTime field is set.
      */
     boolean hasHopSendingTime();
     /**
      * <code>.fix.Timestamp hop_sending_time = 3 [(.fix.tag) = 629, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The hopSendingTime.
      */
     org.fixprotocol.components.Fix.Timestamp getHopSendingTime();
     /**
@@ -8498,6 +8848,7 @@ public final class Session {
     private volatile java.lang.Object hopCompId_;
     /**
      * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The hopCompId.
      */
     public java.lang.String getHopCompId() {
       java.lang.Object ref = hopCompId_;
@@ -8513,6 +8864,7 @@ public final class Session {
     }
     /**
      * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for hopCompId.
      */
     public com.google.protobuf.ByteString
         getHopCompIdBytes() {
@@ -8532,6 +8884,7 @@ public final class Session {
     private long hopRefId_;
     /**
      * <code>sfixed64 hop_ref_id = 2 [(.fix.tag) = 630, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The hopRefId.
      */
     public long getHopRefId() {
       return hopRefId_;
@@ -8541,12 +8894,14 @@ public final class Session {
     private org.fixprotocol.components.Fix.Timestamp hopSendingTime_;
     /**
      * <code>.fix.Timestamp hop_sending_time = 3 [(.fix.tag) = 629, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the hopSendingTime field is set.
      */
     public boolean hasHopSendingTime() {
       return hopSendingTime_ != null;
     }
     /**
      * <code>.fix.Timestamp hop_sending_time = 3 [(.fix.tag) = 629, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The hopSendingTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getHopSendingTime() {
       return hopSendingTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : hopSendingTime_;
@@ -8911,6 +9266,7 @@ public final class Session {
       private java.lang.Object hopCompId_ = "";
       /**
        * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The hopCompId.
        */
       public java.lang.String getHopCompId() {
         java.lang.Object ref = hopCompId_;
@@ -8926,6 +9282,7 @@ public final class Session {
       }
       /**
        * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The bytes for hopCompId.
        */
       public com.google.protobuf.ByteString
           getHopCompIdBytes() {
@@ -8942,6 +9299,8 @@ public final class Session {
       }
       /**
        * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The hopCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setHopCompId(
           java.lang.String value) {
@@ -8955,6 +9314,7 @@ public final class Session {
       }
       /**
        * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHopCompId() {
         
@@ -8964,6 +9324,8 @@ public final class Session {
       }
       /**
        * <code>string hop_comp_id = 1 [(.fix.tag) = 628, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The bytes for hopCompId to set.
+       * @return This builder for chaining.
        */
       public Builder setHopCompIdBytes(
           com.google.protobuf.ByteString value) {
@@ -8980,12 +9342,15 @@ public final class Session {
       private long hopRefId_ ;
       /**
        * <code>sfixed64 hop_ref_id = 2 [(.fix.tag) = 630, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The hopRefId.
        */
       public long getHopRefId() {
         return hopRefId_;
       }
       /**
        * <code>sfixed64 hop_ref_id = 2 [(.fix.tag) = 630, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The hopRefId to set.
+       * @return This builder for chaining.
        */
       public Builder setHopRefId(long value) {
         
@@ -8995,6 +9360,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 hop_ref_id = 2 [(.fix.tag) = 630, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHopRefId() {
         
@@ -9008,12 +9374,14 @@ public final class Session {
           org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> hopSendingTimeBuilder_;
       /**
        * <code>.fix.Timestamp hop_sending_time = 3 [(.fix.tag) = 629, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return Whether the hopSendingTime field is set.
        */
       public boolean hasHopSendingTime() {
         return hopSendingTimeBuilder_ != null || hopSendingTime_ != null;
       }
       /**
        * <code>.fix.Timestamp hop_sending_time = 3 [(.fix.tag) = 629, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The hopSendingTime.
        */
       public org.fixprotocol.components.Fix.Timestamp getHopSendingTime() {
         if (hopSendingTimeBuilder_ == null) {
@@ -9178,10 +9546,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -9191,10 +9561,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -9204,10 +9576,12 @@ public final class Session {
 
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The testReqId.
      */
     java.lang.String getTestReqId();
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for testReqId.
      */
     com.google.protobuf.ByteString
         getTestReqIdBytes();
@@ -9326,12 +9700,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -9347,12 +9723,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -9368,6 +9746,7 @@ public final class Session {
     private volatile java.lang.Object testReqId_;
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The testReqId.
      */
     public java.lang.String getTestReqId() {
       java.lang.Object ref = testReqId_;
@@ -9383,6 +9762,7 @@ public final class Session {
     }
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for testReqId.
      */
     public com.google.protobuf.ByteString
         getTestReqIdBytes() {
@@ -9765,12 +10145,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -9882,12 +10264,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -9997,6 +10381,7 @@ public final class Session {
       private java.lang.Object testReqId_ = "";
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The testReqId.
        */
       public java.lang.String getTestReqId() {
         java.lang.Object ref = testReqId_;
@@ -10012,6 +10397,7 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for testReqId.
        */
       public com.google.protobuf.ByteString
           getTestReqIdBytes() {
@@ -10028,6 +10414,8 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The testReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setTestReqId(
           java.lang.String value) {
@@ -10041,6 +10429,7 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTestReqId() {
         
@@ -10050,6 +10439,8 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for testReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setTestReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -10121,10 +10512,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -10134,10 +10527,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -10147,10 +10542,12 @@ public final class Session {
 
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The testReqId.
      */
     java.lang.String getTestReqId();
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for testReqId.
      */
     com.google.protobuf.ByteString
         getTestReqIdBytes();
@@ -10269,12 +10666,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -10290,12 +10689,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -10311,6 +10712,7 @@ public final class Session {
     private volatile java.lang.Object testReqId_;
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The testReqId.
      */
     public java.lang.String getTestReqId() {
       java.lang.Object ref = testReqId_;
@@ -10326,6 +10728,7 @@ public final class Session {
     }
     /**
      * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The bytes for testReqId.
      */
     public com.google.protobuf.ByteString
         getTestReqIdBytes() {
@@ -10708,12 +11111,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -10825,12 +11230,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -10940,6 +11347,7 @@ public final class Session {
       private java.lang.Object testReqId_ = "";
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The testReqId.
        */
       public java.lang.String getTestReqId() {
         java.lang.Object ref = testReqId_;
@@ -10955,6 +11363,7 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The bytes for testReqId.
        */
       public com.google.protobuf.ByteString
           getTestReqIdBytes() {
@@ -10971,6 +11380,8 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The testReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setTestReqId(
           java.lang.String value) {
@@ -10984,6 +11395,7 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTestReqId() {
         
@@ -10993,6 +11405,8 @@ public final class Session {
       }
       /**
        * <code>string test_req_id = 3 [(.fix.tag) = 112, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The bytes for testReqId to set.
+       * @return This builder for chaining.
        */
       public Builder setTestReqIdBytes(
           com.google.protobuf.ByteString value) {
@@ -11064,20 +11478,24 @@ public final class Session {
 
     /**
      * <code>sfixed64 begin_seq_no = 1 [(.fix.tag) = 7, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The beginSeqNo.
      */
     long getBeginSeqNo();
 
     /**
      * <code>sfixed64 end_seq_no = 2 [(.fix.tag) = 16, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The endSeqNo.
      */
     long getEndSeqNo();
 
     /**
      * <code>.Session.StandardHeader standard_header = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -11087,10 +11505,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -11215,6 +11635,7 @@ public final class Session {
     private long beginSeqNo_;
     /**
      * <code>sfixed64 begin_seq_no = 1 [(.fix.tag) = 7, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The beginSeqNo.
      */
     public long getBeginSeqNo() {
       return beginSeqNo_;
@@ -11224,6 +11645,7 @@ public final class Session {
     private long endSeqNo_;
     /**
      * <code>sfixed64 end_seq_no = 2 [(.fix.tag) = 16, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The endSeqNo.
      */
     public long getEndSeqNo() {
       return endSeqNo_;
@@ -11233,12 +11655,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -11254,12 +11678,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -11655,12 +12081,15 @@ public final class Session {
       private long beginSeqNo_ ;
       /**
        * <code>sfixed64 begin_seq_no = 1 [(.fix.tag) = 7, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The beginSeqNo.
        */
       public long getBeginSeqNo() {
         return beginSeqNo_;
       }
       /**
        * <code>sfixed64 begin_seq_no = 1 [(.fix.tag) = 7, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The beginSeqNo to set.
+       * @return This builder for chaining.
        */
       public Builder setBeginSeqNo(long value) {
         
@@ -11670,6 +12099,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 begin_seq_no = 1 [(.fix.tag) = 7, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearBeginSeqNo() {
         
@@ -11681,12 +12111,15 @@ public final class Session {
       private long endSeqNo_ ;
       /**
        * <code>sfixed64 end_seq_no = 2 [(.fix.tag) = 16, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The endSeqNo.
        */
       public long getEndSeqNo() {
         return endSeqNo_;
       }
       /**
        * <code>sfixed64 end_seq_no = 2 [(.fix.tag) = 16, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The endSeqNo to set.
+       * @return This builder for chaining.
        */
       public Builder setEndSeqNo(long value) {
         
@@ -11696,6 +12129,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 end_seq_no = 2 [(.fix.tag) = 16, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEndSeqNo() {
         
@@ -11709,12 +12143,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -11826,12 +12262,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -11996,15 +12434,18 @@ public final class Session {
 
     /**
      * <code>sfixed64 ref_seq_num = 1 [(.fix.tag) = 45, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The refSeqNum.
      */
     long getRefSeqNum();
 
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -12014,10 +12455,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -12027,77 +12470,93 @@ public final class Session {
 
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
 
     /**
      * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 6 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for refMsgType.
      */
     int getRefMsgTypeValue();
     /**
      * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The refMsgType.
      */
     org.fixprotocol.components.Session.RefMsgTypeEnum getRefMsgType();
 
     /**
      * <code>sfixed64 ref_tag_id = 8 [(.fix.tag) = 371, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The refTagId.
      */
     long getRefTagId();
 
     /**
      * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for sessionRejectReason.
      */
     int getSessionRejectReasonValue();
     /**
      * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The sessionRejectReason.
      */
     org.fixprotocol.components.Session.SessionRejectReasonEnum getSessionRejectReason();
 
     /**
      * <code>fixed32 session_reject_reason_reserved100plus = 10 [(.fix.tag) = 373, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The sessionRejectReasonReserved100plus.
      */
     int getSessionRejectReasonReserved100Plus();
 
     /**
      * <code>sfixed64 ref_appl_ext_id = 11 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refApplExtId.
      */
     long getRefApplExtId();
 
     /**
      * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for refApplVerId.
      */
     int getRefApplVerIdValue();
     /**
      * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refApplVerId.
      */
     org.fixprotocol.components.Session.RefApplVerIDEnum getRefApplVerId();
 
     /**
      * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refCstmApplVerId.
      */
     java.lang.String getRefCstmApplVerId();
     /**
      * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for refCstmApplVerId.
      */
     com.google.protobuf.ByteString
         getRefCstmApplVerIdBytes();
@@ -12276,7 +12735,8 @@ public final class Session {
     private int sessionRejectReasonUnionCase_ = 0;
     private java.lang.Object sessionRejectReasonUnion_;
     public enum SessionRejectReasonUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SESSION_REJECT_REASON(9),
       SESSION_REJECT_REASON_RESERVED100PLUS(10),
       SESSIONREJECTREASONUNION_NOT_SET(0);
@@ -12285,6 +12745,8 @@ public final class Session {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -12315,6 +12777,7 @@ public final class Session {
     private long refSeqNum_;
     /**
      * <code>sfixed64 ref_seq_num = 1 [(.fix.tag) = 45, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The refSeqNum.
      */
     public long getRefSeqNum() {
       return refSeqNum_;
@@ -12324,12 +12787,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -12345,12 +12810,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -12366,6 +12833,7 @@ public final class Session {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -12381,6 +12849,7 @@ public final class Session {
     }
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -12400,6 +12869,7 @@ public final class Session {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -12415,6 +12885,7 @@ public final class Session {
     }
     /**
      * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -12434,6 +12905,7 @@ public final class Session {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 6 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -12443,12 +12915,14 @@ public final class Session {
     private int refMsgType_;
     /**
      * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for refMsgType.
      */
     public int getRefMsgTypeValue() {
       return refMsgType_;
     }
     /**
      * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The refMsgType.
      */
     public org.fixprotocol.components.Session.RefMsgTypeEnum getRefMsgType() {
       @SuppressWarnings("deprecation")
@@ -12460,6 +12934,7 @@ public final class Session {
     private long refTagId_;
     /**
      * <code>sfixed64 ref_tag_id = 8 [(.fix.tag) = 371, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The refTagId.
      */
     public long getRefTagId() {
       return refTagId_;
@@ -12468,6 +12943,7 @@ public final class Session {
     public static final int SESSION_REJECT_REASON_FIELD_NUMBER = 9;
     /**
      * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The enum numeric value on the wire for sessionRejectReason.
      */
     public int getSessionRejectReasonValue() {
       if (sessionRejectReasonUnionCase_ == 9) {
@@ -12477,6 +12953,7 @@ public final class Session {
     }
     /**
      * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The sessionRejectReason.
      */
     public org.fixprotocol.components.Session.SessionRejectReasonEnum getSessionRejectReason() {
       if (sessionRejectReasonUnionCase_ == 9) {
@@ -12491,6 +12968,7 @@ public final class Session {
     public static final int SESSION_REJECT_REASON_RESERVED100PLUS_FIELD_NUMBER = 10;
     /**
      * <code>fixed32 session_reject_reason_reserved100plus = 10 [(.fix.tag) = 373, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The sessionRejectReasonReserved100plus.
      */
     public int getSessionRejectReasonReserved100Plus() {
       if (sessionRejectReasonUnionCase_ == 10) {
@@ -12503,6 +12981,7 @@ public final class Session {
     private long refApplExtId_;
     /**
      * <code>sfixed64 ref_appl_ext_id = 11 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refApplExtId.
      */
     public long getRefApplExtId() {
       return refApplExtId_;
@@ -12512,12 +12991,14 @@ public final class Session {
     private int refApplVerId_;
     /**
      * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for refApplVerId.
      */
     public int getRefApplVerIdValue() {
       return refApplVerId_;
     }
     /**
      * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refApplVerId.
      */
     public org.fixprotocol.components.Session.RefApplVerIDEnum getRefApplVerId() {
       @SuppressWarnings("deprecation")
@@ -12529,6 +13010,7 @@ public final class Session {
     private volatile java.lang.Object refCstmApplVerId_;
     /**
      * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refCstmApplVerId.
      */
     public java.lang.String getRefCstmApplVerId() {
       java.lang.Object ref = refCstmApplVerId_;
@@ -12544,6 +13026,7 @@ public final class Session {
     }
     /**
      * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for refCstmApplVerId.
      */
     public com.google.protobuf.ByteString
         getRefCstmApplVerIdBytes() {
@@ -13140,12 +13623,15 @@ public final class Session {
       private long refSeqNum_ ;
       /**
        * <code>sfixed64 ref_seq_num = 1 [(.fix.tag) = 45, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The refSeqNum.
        */
       public long getRefSeqNum() {
         return refSeqNum_;
       }
       /**
        * <code>sfixed64 ref_seq_num = 1 [(.fix.tag) = 45, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The refSeqNum to set.
+       * @return This builder for chaining.
        */
       public Builder setRefSeqNum(long value) {
         
@@ -13155,6 +13641,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 ref_seq_num = 1 [(.fix.tag) = 45, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefSeqNum() {
         
@@ -13168,12 +13655,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -13285,12 +13774,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -13400,6 +13891,7 @@ public final class Session {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -13415,6 +13907,7 @@ public final class Session {
       }
       /**
        * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -13431,6 +13924,8 @@ public final class Session {
       }
       /**
        * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -13444,6 +13939,7 @@ public final class Session {
       }
       /**
        * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -13453,6 +13949,8 @@ public final class Session {
       }
       /**
        * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -13469,6 +13967,7 @@ public final class Session {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -13484,6 +13983,7 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -13500,6 +14000,8 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -13513,6 +14015,7 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -13522,6 +14025,8 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 5 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -13538,12 +14043,15 @@ public final class Session {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 6 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 6 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -13553,6 +14061,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encoded_text_len = 6 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -13564,12 +14073,15 @@ public final class Session {
       private int refMsgType_ = 0;
       /**
        * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The enum numeric value on the wire for refMsgType.
        */
       public int getRefMsgTypeValue() {
         return refMsgType_;
       }
       /**
        * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for refMsgType to set.
+       * @return This builder for chaining.
        */
       public Builder setRefMsgTypeValue(int value) {
         refMsgType_ = value;
@@ -13578,6 +14090,7 @@ public final class Session {
       }
       /**
        * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The refMsgType.
        */
       public org.fixprotocol.components.Session.RefMsgTypeEnum getRefMsgType() {
         @SuppressWarnings("deprecation")
@@ -13586,6 +14099,8 @@ public final class Session {
       }
       /**
        * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The refMsgType to set.
+       * @return This builder for chaining.
        */
       public Builder setRefMsgType(org.fixprotocol.components.Session.RefMsgTypeEnum value) {
         if (value == null) {
@@ -13598,6 +14113,7 @@ public final class Session {
       }
       /**
        * <code>.Session.RefMsgTypeEnum ref_msg_type = 7 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefMsgType() {
         
@@ -13609,12 +14125,15 @@ public final class Session {
       private long refTagId_ ;
       /**
        * <code>sfixed64 ref_tag_id = 8 [(.fix.tag) = 371, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The refTagId.
        */
       public long getRefTagId() {
         return refTagId_;
       }
       /**
        * <code>sfixed64 ref_tag_id = 8 [(.fix.tag) = 371, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The refTagId to set.
+       * @return This builder for chaining.
        */
       public Builder setRefTagId(long value) {
         
@@ -13624,6 +14143,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 ref_tag_id = 8 [(.fix.tag) = 371, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefTagId() {
         
@@ -13634,6 +14154,7 @@ public final class Session {
 
       /**
        * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The enum numeric value on the wire for sessionRejectReason.
        */
       public int getSessionRejectReasonValue() {
         if (sessionRejectReasonUnionCase_ == 9) {
@@ -13643,6 +14164,8 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The enum numeric value on the wire for sessionRejectReason to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionRejectReasonValue(int value) {
         sessionRejectReasonUnionCase_ = 9;
@@ -13652,6 +14175,7 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The sessionRejectReason.
        */
       public org.fixprotocol.components.Session.SessionRejectReasonEnum getSessionRejectReason() {
         if (sessionRejectReasonUnionCase_ == 9) {
@@ -13664,6 +14188,8 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The sessionRejectReason to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionRejectReason(org.fixprotocol.components.Session.SessionRejectReasonEnum value) {
         if (value == null) {
@@ -13676,6 +14202,7 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionRejectReasonEnum session_reject_reason = 9 [(.fix.tag) = 373, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSessionRejectReason() {
         if (sessionRejectReasonUnionCase_ == 9) {
@@ -13688,6 +14215,7 @@ public final class Session {
 
       /**
        * <code>fixed32 session_reject_reason_reserved100plus = 10 [(.fix.tag) = 373, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The sessionRejectReasonReserved100plus.
        */
       public int getSessionRejectReasonReserved100Plus() {
         if (sessionRejectReasonUnionCase_ == 10) {
@@ -13697,6 +14225,8 @@ public final class Session {
       }
       /**
        * <code>fixed32 session_reject_reason_reserved100plus = 10 [(.fix.tag) = 373, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The sessionRejectReasonReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionRejectReasonReserved100Plus(int value) {
         sessionRejectReasonUnionCase_ = 10;
@@ -13706,6 +14236,7 @@ public final class Session {
       }
       /**
        * <code>fixed32 session_reject_reason_reserved100plus = 10 [(.fix.tag) = 373, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSessionRejectReasonReserved100Plus() {
         if (sessionRejectReasonUnionCase_ == 10) {
@@ -13719,12 +14250,15 @@ public final class Session {
       private long refApplExtId_ ;
       /**
        * <code>sfixed64 ref_appl_ext_id = 11 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The refApplExtId.
        */
       public long getRefApplExtId() {
         return refApplExtId_;
       }
       /**
        * <code>sfixed64 ref_appl_ext_id = 11 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The refApplExtId to set.
+       * @return This builder for chaining.
        */
       public Builder setRefApplExtId(long value) {
         
@@ -13734,6 +14268,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 ref_appl_ext_id = 11 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefApplExtId() {
         
@@ -13745,12 +14280,15 @@ public final class Session {
       private int refApplVerId_ = 0;
       /**
        * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for refApplVerId.
        */
       public int getRefApplVerIdValue() {
         return refApplVerId_;
       }
       /**
        * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for refApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setRefApplVerIdValue(int value) {
         refApplVerId_ = value;
@@ -13759,6 +14297,7 @@ public final class Session {
       }
       /**
        * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The refApplVerId.
        */
       public org.fixprotocol.components.Session.RefApplVerIDEnum getRefApplVerId() {
         @SuppressWarnings("deprecation")
@@ -13767,6 +14306,8 @@ public final class Session {
       }
       /**
        * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The refApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setRefApplVerId(org.fixprotocol.components.Session.RefApplVerIDEnum value) {
         if (value == null) {
@@ -13779,6 +14320,7 @@ public final class Session {
       }
       /**
        * <code>.Session.RefApplVerIDEnum ref_appl_ver_id = 12 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefApplVerId() {
         
@@ -13790,6 +14332,7 @@ public final class Session {
       private java.lang.Object refCstmApplVerId_ = "";
       /**
        * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The refCstmApplVerId.
        */
       public java.lang.String getRefCstmApplVerId() {
         java.lang.Object ref = refCstmApplVerId_;
@@ -13805,6 +14348,7 @@ public final class Session {
       }
       /**
        * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for refCstmApplVerId.
        */
       public com.google.protobuf.ByteString
           getRefCstmApplVerIdBytes() {
@@ -13821,6 +14365,8 @@ public final class Session {
       }
       /**
        * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The refCstmApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setRefCstmApplVerId(
           java.lang.String value) {
@@ -13834,6 +14380,7 @@ public final class Session {
       }
       /**
        * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRefCstmApplVerId() {
         
@@ -13843,6 +14390,8 @@ public final class Session {
       }
       /**
        * <code>string ref_cstm_appl_ver_id = 13 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for refCstmApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setRefCstmApplVerIdBytes(
           com.google.protobuf.ByteString value) {
@@ -13914,15 +14463,18 @@ public final class Session {
 
     /**
      * <code>sfixed64 new_seq_no = 1 [(.fix.tag) = 36, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The newSeqNo.
      */
     long getNewSeqNo();
 
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -13932,10 +14484,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -13945,6 +14499,7 @@ public final class Session {
 
     /**
      * <code>bool gap_fill_flag = 4 [(.fix.tag) = 123, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The gapFillFlag.
      */
     boolean getGapFillFlag();
   }
@@ -14065,6 +14620,7 @@ public final class Session {
     private long newSeqNo_;
     /**
      * <code>sfixed64 new_seq_no = 1 [(.fix.tag) = 36, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The newSeqNo.
      */
     public long getNewSeqNo() {
       return newSeqNo_;
@@ -14074,12 +14630,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -14095,12 +14653,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -14116,6 +14676,7 @@ public final class Session {
     private boolean gapFillFlag_;
     /**
      * <code>bool gap_fill_flag = 4 [(.fix.tag) = 123, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+     * @return The gapFillFlag.
      */
     public boolean getGapFillFlag() {
       return gapFillFlag_;
@@ -14505,12 +15066,15 @@ public final class Session {
       private long newSeqNo_ ;
       /**
        * <code>sfixed64 new_seq_no = 1 [(.fix.tag) = 36, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The newSeqNo.
        */
       public long getNewSeqNo() {
         return newSeqNo_;
       }
       /**
        * <code>sfixed64 new_seq_no = 1 [(.fix.tag) = 36, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The newSeqNo to set.
+       * @return This builder for chaining.
        */
       public Builder setNewSeqNo(long value) {
         
@@ -14520,6 +15084,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 new_seq_no = 1 [(.fix.tag) = 36, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearNewSeqNo() {
         
@@ -14533,12 +15098,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -14650,12 +15217,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 3 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -14765,12 +15334,15 @@ public final class Session {
       private boolean gapFillFlag_ ;
       /**
        * <code>bool gap_fill_flag = 4 [(.fix.tag) = 123, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return The gapFillFlag.
        */
       public boolean getGapFillFlag() {
         return gapFillFlag_;
       }
       /**
        * <code>bool gap_fill_flag = 4 [(.fix.tag) = 123, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @param value The gapFillFlag to set.
+       * @return This builder for chaining.
        */
       public Builder setGapFillFlag(boolean value) {
         
@@ -14780,6 +15352,7 @@ public final class Session {
       }
       /**
        * <code>bool gap_fill_flag = 4 [(.fix.tag) = 123, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearGapFillFlag() {
         
@@ -14846,10 +15419,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -14859,10 +15434,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -14872,40 +15449,48 @@ public final class Session {
 
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
 
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for sessionStatus.
      */
     int getSessionStatusValue();
     /**
      * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatus.
      */
     org.fixprotocol.components.Session.SessionStatusEnum getSessionStatus();
 
     /**
      * <code>fixed32 session_status_reserved100plus = 7 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatusReserved100plus.
      */
     int getSessionStatusReserved100Plus();
 
@@ -15047,7 +15632,8 @@ public final class Session {
     private int sessionStatusUnionCase_ = 0;
     private java.lang.Object sessionStatusUnion_;
     public enum SessionStatusUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SESSION_STATUS(6),
       SESSION_STATUS_RESERVED100PLUS(7),
       SESSIONSTATUSUNION_NOT_SET(0);
@@ -15056,6 +15642,8 @@ public final class Session {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -15086,12 +15674,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -15107,12 +15697,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -15128,6 +15720,7 @@ public final class Session {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -15143,6 +15736,7 @@ public final class Session {
     }
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -15162,6 +15756,7 @@ public final class Session {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -15177,6 +15772,7 @@ public final class Session {
     }
     /**
      * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -15196,6 +15792,7 @@ public final class Session {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -15204,6 +15801,7 @@ public final class Session {
     public static final int SESSION_STATUS_FIELD_NUMBER = 6;
     /**
      * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for sessionStatus.
      */
     public int getSessionStatusValue() {
       if (sessionStatusUnionCase_ == 6) {
@@ -15213,6 +15811,7 @@ public final class Session {
     }
     /**
      * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatus.
      */
     public org.fixprotocol.components.Session.SessionStatusEnum getSessionStatus() {
       if (sessionStatusUnionCase_ == 6) {
@@ -15227,6 +15826,7 @@ public final class Session {
     public static final int SESSION_STATUS_RESERVED100PLUS_FIELD_NUMBER = 7;
     /**
      * <code>fixed32 session_status_reserved100plus = 7 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatusReserved100plus.
      */
     public int getSessionStatusReserved100Plus() {
       if (sessionStatusUnionCase_ == 7) {
@@ -15715,12 +16315,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -15832,12 +16434,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -15947,6 +16551,7 @@ public final class Session {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -15962,6 +16567,7 @@ public final class Session {
       }
       /**
        * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -15978,6 +16584,8 @@ public final class Session {
       }
       /**
        * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -15991,6 +16599,7 @@ public final class Session {
       }
       /**
        * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -16000,6 +16609,8 @@ public final class Session {
       }
       /**
        * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -16016,6 +16627,7 @@ public final class Session {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -16031,6 +16643,7 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -16047,6 +16660,8 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -16060,6 +16675,7 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -16069,6 +16685,8 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 4 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -16085,12 +16703,15 @@ public final class Session {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -16100,6 +16721,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encoded_text_len = 5 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -16110,6 +16732,7 @@ public final class Session {
 
       /**
        * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for sessionStatus.
        */
       public int getSessionStatusValue() {
         if (sessionStatusUnionCase_ == 6) {
@@ -16119,6 +16742,8 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for sessionStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionStatusValue(int value) {
         sessionStatusUnionCase_ = 6;
@@ -16128,6 +16753,7 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The sessionStatus.
        */
       public org.fixprotocol.components.Session.SessionStatusEnum getSessionStatus() {
         if (sessionStatusUnionCase_ == 6) {
@@ -16140,6 +16766,8 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The sessionStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionStatus(org.fixprotocol.components.Session.SessionStatusEnum value) {
         if (value == null) {
@@ -16152,6 +16780,7 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 6 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSessionStatus() {
         if (sessionStatusUnionCase_ == 6) {
@@ -16164,6 +16793,7 @@ public final class Session {
 
       /**
        * <code>fixed32 session_status_reserved100plus = 7 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The sessionStatusReserved100plus.
        */
       public int getSessionStatusReserved100Plus() {
         if (sessionStatusUnionCase_ == 7) {
@@ -16173,6 +16803,8 @@ public final class Session {
       }
       /**
        * <code>fixed32 session_status_reserved100plus = 7 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The sessionStatusReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionStatusReserved100Plus(int value) {
         sessionStatusUnionCase_ = 7;
@@ -16182,6 +16814,7 @@ public final class Session {
       }
       /**
        * <code>fixed32 session_status_reserved100plus = 7 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSessionStatusReserved100Plus() {
         if (sessionStatusUnionCase_ == 7) {
@@ -16250,34 +16883,41 @@ public final class Session {
 
     /**
      * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The enum numeric value on the wire for encryptMethod.
      */
     int getEncryptMethodValue();
     /**
      * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The encryptMethod.
      */
     org.fixprotocol.components.Session.EncryptMethodEnum getEncryptMethod();
 
     /**
      * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The rawData.
      */
     java.lang.String getRawData();
     /**
      * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The bytes for rawData.
      */
     com.google.protobuf.ByteString
         getRawDataBytes();
 
     /**
      * <code>sfixed64 raw_data_length = 3 [(.fix.tag) = 95, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The rawDataLength.
      */
     long getRawDataLength();
 
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -16287,10 +16927,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -16300,50 +16942,60 @@ public final class Session {
 
     /**
      * <code>sfixed64 heart_bt_int = 6 [(.fix.tag) = 108, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_3_0];</code>
+     * @return The heartBtInt.
      */
     long getHeartBtInt();
 
     /**
      * <code>bool reset_seq_num_flag = 7 [(.fix.tag) = 141, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The resetSeqNumFlag.
      */
     boolean getResetSeqNumFlag();
 
     /**
      * <code>sfixed64 max_message_size = 8 [(.fix.tag) = 383, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The maxMessageSize.
      */
     long getMaxMessageSize();
 
     /**
      * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The password.
      */
     java.lang.String getPassword();
     /**
      * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for password.
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
 
     /**
      * <code>bool test_message_indicator = 10 [(.fix.tag) = 464, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The testMessageIndicator.
      */
     boolean getTestMessageIndicator();
 
     /**
      * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The username.
      */
     java.lang.String getUsername();
     /**
      * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for username.
      */
     com.google.protobuf.ByteString
         getUsernameBytes();
 
     /**
      * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for defaultApplVerId.
      */
     int getDefaultApplVerIdValue();
     /**
      * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The defaultApplVerId.
      */
     org.fixprotocol.components.Session.DefaultApplVerIDEnum getDefaultApplVerId();
 
@@ -16373,109 +17025,131 @@ public final class Session {
 
     /**
      * <code>sfixed64 next_expected_msg_seq_num = 14 [(.fix.tag) = 789, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The nextExpectedMsgSeqNum.
      */
     long getNextExpectedMsgSeqNum();
 
     /**
      * <code>sfixed64 default_appl_ext_id = 15 [(.fix.tag) = 1407, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The defaultApplExtId.
      */
     long getDefaultApplExtId();
 
     /**
      * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The defaultCstmApplVerId.
      */
     java.lang.String getDefaultCstmApplVerId();
     /**
      * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for defaultCstmApplVerId.
      */
     com.google.protobuf.ByteString
         getDefaultCstmApplVerIdBytes();
 
     /**
      * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encodedText.
      */
     java.lang.String getEncodedText();
     /**
      * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encodedText.
      */
     com.google.protobuf.ByteString
         getEncodedTextBytes();
 
     /**
      * <code>sfixed64 encoded_text_len = 18 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encodedTextLen.
      */
     long getEncodedTextLen();
 
     /**
      * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedNewPassword.
      */
     java.lang.String getEncryptedNewPassword();
     /**
      * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encryptedNewPassword.
      */
     com.google.protobuf.ByteString
         getEncryptedNewPasswordBytes();
 
     /**
      * <code>sfixed64 encrypted_new_password_len = 20 [(.fix.tag) = 1403, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedNewPasswordLen.
      */
     long getEncryptedNewPasswordLen();
 
     /**
      * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPassword.
      */
     java.lang.String getEncryptedPassword();
     /**
      * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encryptedPassword.
      */
     com.google.protobuf.ByteString
         getEncryptedPasswordBytes();
 
     /**
      * <code>sfixed64 encrypted_password_len = 22 [(.fix.tag) = 1401, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPasswordLen.
      */
     long getEncryptedPasswordLen();
 
     /**
      * <code>sfixed64 encrypted_password_method = 23 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPasswordMethod.
      */
     long getEncryptedPasswordMethod();
 
     /**
      * <code>fixed32 encrypted_password_method_reserved100plus = 24 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPasswordMethodReserved100plus.
      */
     int getEncryptedPasswordMethodReserved100Plus();
 
     /**
      * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The newPassword.
      */
     java.lang.String getNewPassword();
     /**
      * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for newPassword.
      */
     com.google.protobuf.ByteString
         getNewPasswordBytes();
 
     /**
      * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for sessionStatus.
      */
     int getSessionStatusValue();
     /**
      * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatus.
      */
     org.fixprotocol.components.Session.SessionStatusEnum getSessionStatus();
 
     /**
      * <code>fixed32 session_status_reserved100plus = 27 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatusReserved100plus.
      */
     int getSessionStatusReserved100Plus();
 
     /**
      * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The text.
      */
     java.lang.String getText();
     /**
      * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for text.
      */
     com.google.protobuf.ByteString
         getTextBytes();
@@ -16752,7 +17426,8 @@ public final class Session {
     private int encryptedPasswordMethodUnionCase_ = 0;
     private java.lang.Object encryptedPasswordMethodUnion_;
     public enum EncryptedPasswordMethodUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       ENCRYPTED_PASSWORD_METHOD(23),
       ENCRYPTED_PASSWORD_METHOD_RESERVED100PLUS(24),
       ENCRYPTEDPASSWORDMETHODUNION_NOT_SET(0);
@@ -16761,6 +17436,8 @@ public final class Session {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -16790,7 +17467,8 @@ public final class Session {
     private int sessionStatusUnionCase_ = 0;
     private java.lang.Object sessionStatusUnion_;
     public enum SessionStatusUnionCase
-        implements com.google.protobuf.Internal.EnumLite {
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       SESSION_STATUS(26),
       SESSION_STATUS_RESERVED100PLUS(27),
       SESSIONSTATUSUNION_NOT_SET(0);
@@ -16799,6 +17477,8 @@ public final class Session {
         this.value = value;
       }
       /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -16829,12 +17509,14 @@ public final class Session {
     private int encryptMethod_;
     /**
      * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The enum numeric value on the wire for encryptMethod.
      */
     public int getEncryptMethodValue() {
       return encryptMethod_;
     }
     /**
      * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The encryptMethod.
      */
     public org.fixprotocol.components.Session.EncryptMethodEnum getEncryptMethod() {
       @SuppressWarnings("deprecation")
@@ -16846,6 +17528,7 @@ public final class Session {
     private volatile java.lang.Object rawData_;
     /**
      * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The rawData.
      */
     public java.lang.String getRawData() {
       java.lang.Object ref = rawData_;
@@ -16861,6 +17544,7 @@ public final class Session {
     }
     /**
      * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The bytes for rawData.
      */
     public com.google.protobuf.ByteString
         getRawDataBytes() {
@@ -16880,6 +17564,7 @@ public final class Session {
     private long rawDataLength_;
     /**
      * <code>sfixed64 raw_data_length = 3 [(.fix.tag) = 95, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The rawDataLength.
      */
     public long getRawDataLength() {
       return rawDataLength_;
@@ -16889,12 +17574,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -16910,12 +17597,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -16931,6 +17620,7 @@ public final class Session {
     private long heartBtInt_;
     /**
      * <code>sfixed64 heart_bt_int = 6 [(.fix.tag) = 108, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_3_0];</code>
+     * @return The heartBtInt.
      */
     public long getHeartBtInt() {
       return heartBtInt_;
@@ -16940,6 +17630,7 @@ public final class Session {
     private boolean resetSeqNumFlag_;
     /**
      * <code>bool reset_seq_num_flag = 7 [(.fix.tag) = 141, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_1];</code>
+     * @return The resetSeqNumFlag.
      */
     public boolean getResetSeqNumFlag() {
       return resetSeqNumFlag_;
@@ -16949,6 +17640,7 @@ public final class Session {
     private long maxMessageSize_;
     /**
      * <code>sfixed64 max_message_size = 8 [(.fix.tag) = 383, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+     * @return The maxMessageSize.
      */
     public long getMaxMessageSize() {
       return maxMessageSize_;
@@ -16958,6 +17650,7 @@ public final class Session {
     private volatile java.lang.Object password_;
     /**
      * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The password.
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -16973,6 +17666,7 @@ public final class Session {
     }
     /**
      * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for password.
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -16992,6 +17686,7 @@ public final class Session {
     private boolean testMessageIndicator_;
     /**
      * <code>bool test_message_indicator = 10 [(.fix.tag) = 464, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The testMessageIndicator.
      */
     public boolean getTestMessageIndicator() {
       return testMessageIndicator_;
@@ -17001,6 +17696,7 @@ public final class Session {
     private volatile java.lang.Object username_;
     /**
      * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The username.
      */
     public java.lang.String getUsername() {
       java.lang.Object ref = username_;
@@ -17016,6 +17712,7 @@ public final class Session {
     }
     /**
      * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for username.
      */
     public com.google.protobuf.ByteString
         getUsernameBytes() {
@@ -17035,12 +17732,14 @@ public final class Session {
     private int defaultApplVerId_;
     /**
      * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for defaultApplVerId.
      */
     public int getDefaultApplVerIdValue() {
       return defaultApplVerId_;
     }
     /**
      * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The defaultApplVerId.
      */
     public org.fixprotocol.components.Session.DefaultApplVerIDEnum getDefaultApplVerId() {
       @SuppressWarnings("deprecation")
@@ -17087,6 +17786,7 @@ public final class Session {
     private long nextExpectedMsgSeqNum_;
     /**
      * <code>sfixed64 next_expected_msg_seq_num = 14 [(.fix.tag) = 789, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The nextExpectedMsgSeqNum.
      */
     public long getNextExpectedMsgSeqNum() {
       return nextExpectedMsgSeqNum_;
@@ -17096,6 +17796,7 @@ public final class Session {
     private long defaultApplExtId_;
     /**
      * <code>sfixed64 default_appl_ext_id = 15 [(.fix.tag) = 1407, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The defaultApplExtId.
      */
     public long getDefaultApplExtId() {
       return defaultApplExtId_;
@@ -17105,6 +17806,7 @@ public final class Session {
     private volatile java.lang.Object defaultCstmApplVerId_;
     /**
      * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The defaultCstmApplVerId.
      */
     public java.lang.String getDefaultCstmApplVerId() {
       java.lang.Object ref = defaultCstmApplVerId_;
@@ -17120,6 +17822,7 @@ public final class Session {
     }
     /**
      * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for defaultCstmApplVerId.
      */
     public com.google.protobuf.ByteString
         getDefaultCstmApplVerIdBytes() {
@@ -17139,6 +17842,7 @@ public final class Session {
     private volatile java.lang.Object encodedText_;
     /**
      * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -17154,6 +17858,7 @@ public final class Session {
     }
     /**
      * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -17173,6 +17878,7 @@ public final class Session {
     private long encodedTextLen_;
     /**
      * <code>sfixed64 encoded_text_len = 18 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
@@ -17182,6 +17888,7 @@ public final class Session {
     private volatile java.lang.Object encryptedNewPassword_;
     /**
      * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedNewPassword.
      */
     public java.lang.String getEncryptedNewPassword() {
       java.lang.Object ref = encryptedNewPassword_;
@@ -17197,6 +17904,7 @@ public final class Session {
     }
     /**
      * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encryptedNewPassword.
      */
     public com.google.protobuf.ByteString
         getEncryptedNewPasswordBytes() {
@@ -17216,6 +17924,7 @@ public final class Session {
     private long encryptedNewPasswordLen_;
     /**
      * <code>sfixed64 encrypted_new_password_len = 20 [(.fix.tag) = 1403, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedNewPasswordLen.
      */
     public long getEncryptedNewPasswordLen() {
       return encryptedNewPasswordLen_;
@@ -17225,6 +17934,7 @@ public final class Session {
     private volatile java.lang.Object encryptedPassword_;
     /**
      * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPassword.
      */
     public java.lang.String getEncryptedPassword() {
       java.lang.Object ref = encryptedPassword_;
@@ -17240,6 +17950,7 @@ public final class Session {
     }
     /**
      * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for encryptedPassword.
      */
     public com.google.protobuf.ByteString
         getEncryptedPasswordBytes() {
@@ -17259,6 +17970,7 @@ public final class Session {
     private long encryptedPasswordLen_;
     /**
      * <code>sfixed64 encrypted_password_len = 22 [(.fix.tag) = 1401, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPasswordLen.
      */
     public long getEncryptedPasswordLen() {
       return encryptedPasswordLen_;
@@ -17267,6 +17979,7 @@ public final class Session {
     public static final int ENCRYPTED_PASSWORD_METHOD_FIELD_NUMBER = 23;
     /**
      * <code>sfixed64 encrypted_password_method = 23 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPasswordMethod.
      */
     public long getEncryptedPasswordMethod() {
       if (encryptedPasswordMethodUnionCase_ == 23) {
@@ -17278,6 +17991,7 @@ public final class Session {
     public static final int ENCRYPTED_PASSWORD_METHOD_RESERVED100PLUS_FIELD_NUMBER = 24;
     /**
      * <code>fixed32 encrypted_password_method_reserved100plus = 24 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The encryptedPasswordMethodReserved100plus.
      */
     public int getEncryptedPasswordMethodReserved100Plus() {
       if (encryptedPasswordMethodUnionCase_ == 24) {
@@ -17290,6 +18004,7 @@ public final class Session {
     private volatile java.lang.Object newPassword_;
     /**
      * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The newPassword.
      */
     public java.lang.String getNewPassword() {
       java.lang.Object ref = newPassword_;
@@ -17305,6 +18020,7 @@ public final class Session {
     }
     /**
      * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for newPassword.
      */
     public com.google.protobuf.ByteString
         getNewPasswordBytes() {
@@ -17323,6 +18039,7 @@ public final class Session {
     public static final int SESSION_STATUS_FIELD_NUMBER = 26;
     /**
      * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for sessionStatus.
      */
     public int getSessionStatusValue() {
       if (sessionStatusUnionCase_ == 26) {
@@ -17332,6 +18049,7 @@ public final class Session {
     }
     /**
      * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatus.
      */
     public org.fixprotocol.components.Session.SessionStatusEnum getSessionStatus() {
       if (sessionStatusUnionCase_ == 26) {
@@ -17346,6 +18064,7 @@ public final class Session {
     public static final int SESSION_STATUS_RESERVED100PLUS_FIELD_NUMBER = 27;
     /**
      * <code>fixed32 session_status_reserved100plus = 27 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The sessionStatusReserved100plus.
      */
     public int getSessionStatusReserved100Plus() {
       if (sessionStatusUnionCase_ == 27) {
@@ -17358,6 +18077,7 @@ public final class Session {
     private volatile java.lang.Object text_;
     /**
      * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -17373,6 +18093,7 @@ public final class Session {
     }
     /**
      * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -18317,12 +19038,15 @@ public final class Session {
       private int encryptMethod_ = 0;
       /**
        * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The enum numeric value on the wire for encryptMethod.
        */
       public int getEncryptMethodValue() {
         return encryptMethod_;
       }
       /**
        * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The enum numeric value on the wire for encryptMethod to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptMethodValue(int value) {
         encryptMethod_ = value;
@@ -18331,6 +19055,7 @@ public final class Session {
       }
       /**
        * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The encryptMethod.
        */
       public org.fixprotocol.components.Session.EncryptMethodEnum getEncryptMethod() {
         @SuppressWarnings("deprecation")
@@ -18339,6 +19064,8 @@ public final class Session {
       }
       /**
        * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The encryptMethod to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptMethod(org.fixprotocol.components.Session.EncryptMethodEnum value) {
         if (value == null) {
@@ -18351,6 +19078,7 @@ public final class Session {
       }
       /**
        * <code>.Session.EncryptMethodEnum encrypt_method = 1 [(.fix.tag) = 98, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptMethod() {
         
@@ -18362,6 +19090,7 @@ public final class Session {
       private java.lang.Object rawData_ = "";
       /**
        * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The rawData.
        */
       public java.lang.String getRawData() {
         java.lang.Object ref = rawData_;
@@ -18377,6 +19106,7 @@ public final class Session {
       }
       /**
        * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The bytes for rawData.
        */
       public com.google.protobuf.ByteString
           getRawDataBytes() {
@@ -18393,6 +19123,8 @@ public final class Session {
       }
       /**
        * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The rawData to set.
+       * @return This builder for chaining.
        */
       public Builder setRawData(
           java.lang.String value) {
@@ -18406,6 +19138,7 @@ public final class Session {
       }
       /**
        * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRawData() {
         
@@ -18415,6 +19148,8 @@ public final class Session {
       }
       /**
        * <code>string raw_data = 2 [(.fix.tag) = 96, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The bytes for rawData to set.
+       * @return This builder for chaining.
        */
       public Builder setRawDataBytes(
           com.google.protobuf.ByteString value) {
@@ -18431,12 +19166,15 @@ public final class Session {
       private long rawDataLength_ ;
       /**
        * <code>sfixed64 raw_data_length = 3 [(.fix.tag) = 95, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The rawDataLength.
        */
       public long getRawDataLength() {
         return rawDataLength_;
       }
       /**
        * <code>sfixed64 raw_data_length = 3 [(.fix.tag) = 95, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @param value The rawDataLength to set.
+       * @return This builder for chaining.
        */
       public Builder setRawDataLength(long value) {
         
@@ -18446,6 +19184,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 raw_data_length = 3 [(.fix.tag) = 95, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return This builder for chaining.
        */
       public Builder clearRawDataLength() {
         
@@ -18459,12 +19198,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 4 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -18576,12 +19317,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 5 [(.fix.field_added) = VERSION_FIX_2_7];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {
@@ -18691,12 +19434,15 @@ public final class Session {
       private long heartBtInt_ ;
       /**
        * <code>sfixed64 heart_bt_int = 6 [(.fix.tag) = 108, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_3_0];</code>
+       * @return The heartBtInt.
        */
       public long getHeartBtInt() {
         return heartBtInt_;
       }
       /**
        * <code>sfixed64 heart_bt_int = 6 [(.fix.tag) = 108, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_3_0];</code>
+       * @param value The heartBtInt to set.
+       * @return This builder for chaining.
        */
       public Builder setHeartBtInt(long value) {
         
@@ -18706,6 +19452,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 heart_bt_int = 6 [(.fix.tag) = 108, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_3_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearHeartBtInt() {
         
@@ -18717,12 +19464,15 @@ public final class Session {
       private boolean resetSeqNumFlag_ ;
       /**
        * <code>bool reset_seq_num_flag = 7 [(.fix.tag) = 141, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return The resetSeqNumFlag.
        */
       public boolean getResetSeqNumFlag() {
         return resetSeqNumFlag_;
       }
       /**
        * <code>bool reset_seq_num_flag = 7 [(.fix.tag) = 141, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @param value The resetSeqNumFlag to set.
+       * @return This builder for chaining.
        */
       public Builder setResetSeqNumFlag(boolean value) {
         
@@ -18732,6 +19482,7 @@ public final class Session {
       }
       /**
        * <code>bool reset_seq_num_flag = 7 [(.fix.tag) = 141, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_1];</code>
+       * @return This builder for chaining.
        */
       public Builder clearResetSeqNumFlag() {
         
@@ -18743,12 +19494,15 @@ public final class Session {
       private long maxMessageSize_ ;
       /**
        * <code>sfixed64 max_message_size = 8 [(.fix.tag) = 383, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return The maxMessageSize.
        */
       public long getMaxMessageSize() {
         return maxMessageSize_;
       }
       /**
        * <code>sfixed64 max_message_size = 8 [(.fix.tag) = 383, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @param value The maxMessageSize to set.
+       * @return This builder for chaining.
        */
       public Builder setMaxMessageSize(long value) {
         
@@ -18758,6 +19512,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 max_message_size = 8 [(.fix.tag) = 383, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_2];</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaxMessageSize() {
         
@@ -18769,6 +19524,7 @@ public final class Session {
       private java.lang.Object password_ = "";
       /**
        * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The password.
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -18784,6 +19540,7 @@ public final class Session {
       }
       /**
        * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The bytes for password.
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -18800,6 +19557,8 @@ public final class Session {
       }
       /**
        * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The password to set.
+       * @return This builder for chaining.
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -18813,6 +19572,7 @@ public final class Session {
       }
       /**
        * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return This builder for chaining.
        */
       public Builder clearPassword() {
         
@@ -18822,6 +19582,8 @@ public final class Session {
       }
       /**
        * <code>string password = 9 [(.fix.tag) = 554, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The bytes for password to set.
+       * @return This builder for chaining.
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -18838,12 +19600,15 @@ public final class Session {
       private boolean testMessageIndicator_ ;
       /**
        * <code>bool test_message_indicator = 10 [(.fix.tag) = 464, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The testMessageIndicator.
        */
       public boolean getTestMessageIndicator() {
         return testMessageIndicator_;
       }
       /**
        * <code>bool test_message_indicator = 10 [(.fix.tag) = 464, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The testMessageIndicator to set.
+       * @return This builder for chaining.
        */
       public Builder setTestMessageIndicator(boolean value) {
         
@@ -18853,6 +19618,7 @@ public final class Session {
       }
       /**
        * <code>bool test_message_indicator = 10 [(.fix.tag) = 464, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return This builder for chaining.
        */
       public Builder clearTestMessageIndicator() {
         
@@ -18864,6 +19630,7 @@ public final class Session {
       private java.lang.Object username_ = "";
       /**
        * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The username.
        */
       public java.lang.String getUsername() {
         java.lang.Object ref = username_;
@@ -18879,6 +19646,7 @@ public final class Session {
       }
       /**
        * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The bytes for username.
        */
       public com.google.protobuf.ByteString
           getUsernameBytes() {
@@ -18895,6 +19663,8 @@ public final class Session {
       }
       /**
        * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The username to set.
+       * @return This builder for chaining.
        */
       public Builder setUsername(
           java.lang.String value) {
@@ -18908,6 +19678,7 @@ public final class Session {
       }
       /**
        * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return This builder for chaining.
        */
       public Builder clearUsername() {
         
@@ -18917,6 +19688,8 @@ public final class Session {
       }
       /**
        * <code>string username = 11 [(.fix.tag) = 553, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @param value The bytes for username to set.
+       * @return This builder for chaining.
        */
       public Builder setUsernameBytes(
           com.google.protobuf.ByteString value) {
@@ -18933,12 +19706,15 @@ public final class Session {
       private int defaultApplVerId_ = 0;
       /**
        * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The enum numeric value on the wire for defaultApplVerId.
        */
       public int getDefaultApplVerIdValue() {
         return defaultApplVerId_;
       }
       /**
        * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The enum numeric value on the wire for defaultApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setDefaultApplVerIdValue(int value) {
         defaultApplVerId_ = value;
@@ -18947,6 +19723,7 @@ public final class Session {
       }
       /**
        * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The defaultApplVerId.
        */
       public org.fixprotocol.components.Session.DefaultApplVerIDEnum getDefaultApplVerId() {
         @SuppressWarnings("deprecation")
@@ -18955,6 +19732,8 @@ public final class Session {
       }
       /**
        * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The defaultApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setDefaultApplVerId(org.fixprotocol.components.Session.DefaultApplVerIDEnum value) {
         if (value == null) {
@@ -18967,6 +19746,7 @@ public final class Session {
       }
       /**
        * <code>.Session.DefaultApplVerIDEnum default_appl_ver_id = 12 [(.fix.tag) = 1137, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDefaultApplVerId() {
         
@@ -19218,12 +19998,15 @@ public final class Session {
       private long nextExpectedMsgSeqNum_ ;
       /**
        * <code>sfixed64 next_expected_msg_seq_num = 14 [(.fix.tag) = 789, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return The nextExpectedMsgSeqNum.
        */
       public long getNextExpectedMsgSeqNum() {
         return nextExpectedMsgSeqNum_;
       }
       /**
        * <code>sfixed64 next_expected_msg_seq_num = 14 [(.fix.tag) = 789, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @param value The nextExpectedMsgSeqNum to set.
+       * @return This builder for chaining.
        */
       public Builder setNextExpectedMsgSeqNum(long value) {
         
@@ -19233,6 +20016,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 next_expected_msg_seq_num = 14 [(.fix.tag) = 789, (.fix.type) = DATATYPE_SEQ_NUM, (.fix.field_added) = VERSION_FIX_4_4];</code>
+       * @return This builder for chaining.
        */
       public Builder clearNextExpectedMsgSeqNum() {
         
@@ -19244,12 +20028,15 @@ public final class Session {
       private long defaultApplExtId_ ;
       /**
        * <code>sfixed64 default_appl_ext_id = 15 [(.fix.tag) = 1407, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The defaultApplExtId.
        */
       public long getDefaultApplExtId() {
         return defaultApplExtId_;
       }
       /**
        * <code>sfixed64 default_appl_ext_id = 15 [(.fix.tag) = 1407, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The defaultApplExtId to set.
+       * @return This builder for chaining.
        */
       public Builder setDefaultApplExtId(long value) {
         
@@ -19259,6 +20046,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 default_appl_ext_id = 15 [(.fix.tag) = 1407, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDefaultApplExtId() {
         
@@ -19270,6 +20058,7 @@ public final class Session {
       private java.lang.Object defaultCstmApplVerId_ = "";
       /**
        * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The defaultCstmApplVerId.
        */
       public java.lang.String getDefaultCstmApplVerId() {
         java.lang.Object ref = defaultCstmApplVerId_;
@@ -19285,6 +20074,7 @@ public final class Session {
       }
       /**
        * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for defaultCstmApplVerId.
        */
       public com.google.protobuf.ByteString
           getDefaultCstmApplVerIdBytes() {
@@ -19301,6 +20091,8 @@ public final class Session {
       }
       /**
        * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The defaultCstmApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setDefaultCstmApplVerId(
           java.lang.String value) {
@@ -19314,6 +20106,7 @@ public final class Session {
       }
       /**
        * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearDefaultCstmApplVerId() {
         
@@ -19323,6 +20116,8 @@ public final class Session {
       }
       /**
        * <code>string default_cstm_appl_ver_id = 16 [(.fix.tag) = 1408, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for defaultCstmApplVerId to set.
+       * @return This builder for chaining.
        */
       public Builder setDefaultCstmApplVerIdBytes(
           com.google.protobuf.ByteString value) {
@@ -19339,6 +20134,7 @@ public final class Session {
       private java.lang.Object encodedText_ = "";
       /**
        * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encodedText.
        */
       public java.lang.String getEncodedText() {
         java.lang.Object ref = encodedText_;
@@ -19354,6 +20150,7 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for encodedText.
        */
       public com.google.protobuf.ByteString
           getEncodedTextBytes() {
@@ -19370,6 +20167,8 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedText(
           java.lang.String value) {
@@ -19383,6 +20182,7 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedText() {
         
@@ -19392,6 +20192,8 @@ public final class Session {
       }
       /**
        * <code>string encoded_text = 17 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for encodedText to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextBytes(
           com.google.protobuf.ByteString value) {
@@ -19408,12 +20210,15 @@ public final class Session {
       private long encodedTextLen_ ;
       /**
        * <code>sfixed64 encoded_text_len = 18 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encodedTextLen.
        */
       public long getEncodedTextLen() {
         return encodedTextLen_;
       }
       /**
        * <code>sfixed64 encoded_text_len = 18 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encodedTextLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncodedTextLen(long value) {
         
@@ -19423,6 +20228,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encoded_text_len = 18 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncodedTextLen() {
         
@@ -19434,6 +20240,7 @@ public final class Session {
       private java.lang.Object encryptedNewPassword_ = "";
       /**
        * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encryptedNewPassword.
        */
       public java.lang.String getEncryptedNewPassword() {
         java.lang.Object ref = encryptedNewPassword_;
@@ -19449,6 +20256,7 @@ public final class Session {
       }
       /**
        * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for encryptedNewPassword.
        */
       public com.google.protobuf.ByteString
           getEncryptedNewPasswordBytes() {
@@ -19465,6 +20273,8 @@ public final class Session {
       }
       /**
        * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encryptedNewPassword to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedNewPassword(
           java.lang.String value) {
@@ -19478,6 +20288,7 @@ public final class Session {
       }
       /**
        * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptedNewPassword() {
         
@@ -19487,6 +20298,8 @@ public final class Session {
       }
       /**
        * <code>string encrypted_new_password = 19 [(.fix.tag) = 1404, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for encryptedNewPassword to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedNewPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -19503,12 +20316,15 @@ public final class Session {
       private long encryptedNewPasswordLen_ ;
       /**
        * <code>sfixed64 encrypted_new_password_len = 20 [(.fix.tag) = 1403, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encryptedNewPasswordLen.
        */
       public long getEncryptedNewPasswordLen() {
         return encryptedNewPasswordLen_;
       }
       /**
        * <code>sfixed64 encrypted_new_password_len = 20 [(.fix.tag) = 1403, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encryptedNewPasswordLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedNewPasswordLen(long value) {
         
@@ -19518,6 +20334,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encrypted_new_password_len = 20 [(.fix.tag) = 1403, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptedNewPasswordLen() {
         
@@ -19529,6 +20346,7 @@ public final class Session {
       private java.lang.Object encryptedPassword_ = "";
       /**
        * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encryptedPassword.
        */
       public java.lang.String getEncryptedPassword() {
         java.lang.Object ref = encryptedPassword_;
@@ -19544,6 +20362,7 @@ public final class Session {
       }
       /**
        * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for encryptedPassword.
        */
       public com.google.protobuf.ByteString
           getEncryptedPasswordBytes() {
@@ -19560,6 +20379,8 @@ public final class Session {
       }
       /**
        * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encryptedPassword to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedPassword(
           java.lang.String value) {
@@ -19573,6 +20394,7 @@ public final class Session {
       }
       /**
        * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptedPassword() {
         
@@ -19582,6 +20404,8 @@ public final class Session {
       }
       /**
        * <code>string encrypted_password = 21 [(.fix.tag) = 1402, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for encryptedPassword to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -19598,12 +20422,15 @@ public final class Session {
       private long encryptedPasswordLen_ ;
       /**
        * <code>sfixed64 encrypted_password_len = 22 [(.fix.tag) = 1401, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encryptedPasswordLen.
        */
       public long getEncryptedPasswordLen() {
         return encryptedPasswordLen_;
       }
       /**
        * <code>sfixed64 encrypted_password_len = 22 [(.fix.tag) = 1401, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encryptedPasswordLen to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedPasswordLen(long value) {
         
@@ -19613,6 +20440,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encrypted_password_len = 22 [(.fix.tag) = 1401, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptedPasswordLen() {
         
@@ -19623,6 +20451,7 @@ public final class Session {
 
       /**
        * <code>sfixed64 encrypted_password_method = 23 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encryptedPasswordMethod.
        */
       public long getEncryptedPasswordMethod() {
         if (encryptedPasswordMethodUnionCase_ == 23) {
@@ -19632,6 +20461,8 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encrypted_password_method = 23 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encryptedPasswordMethod to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedPasswordMethod(long value) {
         encryptedPasswordMethodUnionCase_ = 23;
@@ -19641,6 +20472,7 @@ public final class Session {
       }
       /**
        * <code>sfixed64 encrypted_password_method = 23 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptedPasswordMethod() {
         if (encryptedPasswordMethodUnionCase_ == 23) {
@@ -19653,6 +20485,7 @@ public final class Session {
 
       /**
        * <code>fixed32 encrypted_password_method_reserved100plus = 24 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The encryptedPasswordMethodReserved100plus.
        */
       public int getEncryptedPasswordMethodReserved100Plus() {
         if (encryptedPasswordMethodUnionCase_ == 24) {
@@ -19662,6 +20495,8 @@ public final class Session {
       }
       /**
        * <code>fixed32 encrypted_password_method_reserved100plus = 24 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The encryptedPasswordMethodReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setEncryptedPasswordMethodReserved100Plus(int value) {
         encryptedPasswordMethodUnionCase_ = 24;
@@ -19671,6 +20506,7 @@ public final class Session {
       }
       /**
        * <code>fixed32 encrypted_password_method_reserved100plus = 24 [(.fix.tag) = 1400, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearEncryptedPasswordMethodReserved100Plus() {
         if (encryptedPasswordMethodUnionCase_ == 24) {
@@ -19684,6 +20520,7 @@ public final class Session {
       private java.lang.Object newPassword_ = "";
       /**
        * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The newPassword.
        */
       public java.lang.String getNewPassword() {
         java.lang.Object ref = newPassword_;
@@ -19699,6 +20536,7 @@ public final class Session {
       }
       /**
        * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for newPassword.
        */
       public com.google.protobuf.ByteString
           getNewPasswordBytes() {
@@ -19715,6 +20553,8 @@ public final class Session {
       }
       /**
        * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The newPassword to set.
+       * @return This builder for chaining.
        */
       public Builder setNewPassword(
           java.lang.String value) {
@@ -19728,6 +20568,7 @@ public final class Session {
       }
       /**
        * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearNewPassword() {
         
@@ -19737,6 +20578,8 @@ public final class Session {
       }
       /**
        * <code>string new_password = 25 [(.fix.tag) = 925, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for newPassword to set.
+       * @return This builder for chaining.
        */
       public Builder setNewPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -19752,6 +20595,7 @@ public final class Session {
 
       /**
        * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The enum numeric value on the wire for sessionStatus.
        */
       public int getSessionStatusValue() {
         if (sessionStatusUnionCase_ == 26) {
@@ -19761,6 +20605,8 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The enum numeric value on the wire for sessionStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionStatusValue(int value) {
         sessionStatusUnionCase_ = 26;
@@ -19770,6 +20616,7 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The sessionStatus.
        */
       public org.fixprotocol.components.Session.SessionStatusEnum getSessionStatus() {
         if (sessionStatusUnionCase_ == 26) {
@@ -19782,6 +20629,8 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The sessionStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionStatus(org.fixprotocol.components.Session.SessionStatusEnum value) {
         if (value == null) {
@@ -19794,6 +20643,7 @@ public final class Session {
       }
       /**
        * <code>.Session.SessionStatusEnum session_status = 26 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSessionStatus() {
         if (sessionStatusUnionCase_ == 26) {
@@ -19806,6 +20656,7 @@ public final class Session {
 
       /**
        * <code>fixed32 session_status_reserved100plus = 27 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The sessionStatusReserved100plus.
        */
       public int getSessionStatusReserved100Plus() {
         if (sessionStatusUnionCase_ == 27) {
@@ -19815,6 +20666,8 @@ public final class Session {
       }
       /**
        * <code>fixed32 session_status_reserved100plus = 27 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The sessionStatusReserved100plus to set.
+       * @return This builder for chaining.
        */
       public Builder setSessionStatusReserved100Plus(int value) {
         sessionStatusUnionCase_ = 27;
@@ -19824,6 +20677,7 @@ public final class Session {
       }
       /**
        * <code>fixed32 session_status_reserved100plus = 27 [(.fix.tag) = 1409, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearSessionStatusReserved100Plus() {
         if (sessionStatusUnionCase_ == 27) {
@@ -19837,6 +20691,7 @@ public final class Session {
       private java.lang.Object text_ = "";
       /**
        * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The text.
        */
       public java.lang.String getText() {
         java.lang.Object ref = text_;
@@ -19852,6 +20707,7 @@ public final class Session {
       }
       /**
        * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return The bytes for text.
        */
       public com.google.protobuf.ByteString
           getTextBytes() {
@@ -19868,6 +20724,8 @@ public final class Session {
       }
       /**
        * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The text to set.
+       * @return This builder for chaining.
        */
       public Builder setText(
           java.lang.String value) {
@@ -19881,6 +20739,7 @@ public final class Session {
       }
       /**
        * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @return This builder for chaining.
        */
       public Builder clearText() {
         
@@ -19890,6 +20749,8 @@ public final class Session {
       }
       /**
        * <code>string text = 28 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+       * @param value The bytes for text to set.
+       * @return This builder for chaining.
        */
       public Builder setTextBytes(
           com.google.protobuf.ByteString value) {
@@ -19961,10 +20822,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the standardHeader field is set.
      */
     boolean hasStandardHeader();
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The standardHeader.
      */
     org.fixprotocol.components.Session.StandardHeader getStandardHeader();
     /**
@@ -19974,10 +20837,12 @@ public final class Session {
 
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the standardTrailer field is set.
      */
     boolean hasStandardTrailer();
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The standardTrailer.
      */
     org.fixprotocol.components.Session.StandardTrailer getStandardTrailer();
     /**
@@ -20092,12 +20957,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardHeader standardHeader_;
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the standardHeader field is set.
      */
     public boolean hasStandardHeader() {
       return standardHeader_ != null;
     }
     /**
      * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The standardHeader.
      */
     public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
       return standardHeader_ == null ? org.fixprotocol.components.Session.StandardHeader.getDefaultInstance() : standardHeader_;
@@ -20113,12 +20980,14 @@ public final class Session {
     private org.fixprotocol.components.Session.StandardTrailer standardTrailer_;
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the standardTrailer field is set.
      */
     public boolean hasStandardTrailer() {
       return standardTrailer_ != null;
     }
     /**
      * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The standardTrailer.
      */
     public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
       return standardTrailer_ == null ? org.fixprotocol.components.Session.StandardTrailer.getDefaultInstance() : standardTrailer_;
@@ -20480,12 +21349,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardHeader, org.fixprotocol.components.Session.StandardHeader.Builder, org.fixprotocol.components.Session.StandardHeaderOrBuilder> standardHeaderBuilder_;
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return Whether the standardHeader field is set.
        */
       public boolean hasStandardHeader() {
         return standardHeaderBuilder_ != null || standardHeader_ != null;
       }
       /**
        * <code>.Session.StandardHeader standard_header = 1 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The standardHeader.
        */
       public org.fixprotocol.components.Session.StandardHeader getStandardHeader() {
         if (standardHeaderBuilder_ == null) {
@@ -20597,12 +21468,14 @@ public final class Session {
           org.fixprotocol.components.Session.StandardTrailer, org.fixprotocol.components.Session.StandardTrailer.Builder, org.fixprotocol.components.Session.StandardTrailerOrBuilder> standardTrailerBuilder_;
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return Whether the standardTrailer field is set.
        */
       public boolean hasStandardTrailer() {
         return standardTrailerBuilder_ != null || standardTrailer_ != null;
       }
       /**
        * <code>.Session.StandardTrailer standard_trailer = 2 [(.fix.field_added) = VERSION_FIX_4_3];</code>
+       * @return The standardTrailer.
        */
       public org.fixprotocol.components.Session.StandardTrailer getStandardTrailer() {
         if (standardTrailerBuilder_ == null) {

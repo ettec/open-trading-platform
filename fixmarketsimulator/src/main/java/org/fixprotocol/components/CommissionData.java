@@ -118,6 +118,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object commCurrency_;
   /**
    * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The commCurrency.
    */
   public java.lang.String getCommCurrency() {
     java.lang.Object ref = commCurrency_;
@@ -133,6 +134,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for commCurrency.
    */
   public com.google.protobuf.ByteString
       getCommCurrencyBytes() {
@@ -152,12 +154,14 @@ private static final long serialVersionUID = 0L;
   private int commType_;
   /**
    * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for commType.
    */
   public int getCommTypeValue() {
     return commType_;
   }
   /**
    * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The commType.
    */
   public org.fixprotocol.components.CommTypeEnum getCommType() {
     @SuppressWarnings("deprecation")
@@ -169,12 +173,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 commission_;
   /**
    * <code>.fix.Decimal64 commission = 3 [(.fix.tag) = 12, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the commission field is set.
    */
   public boolean hasCommission() {
     return commission_ != null;
   }
   /**
    * <code>.fix.Decimal64 commission = 3 [(.fix.tag) = 12, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The commission.
    */
   public org.fixprotocol.components.Fix.Decimal64 getCommission() {
     return commission_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : commission_;
@@ -190,12 +196,14 @@ private static final long serialVersionUID = 0L;
   private int fundRenewWaiv_;
   /**
    * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for fundRenewWaiv.
    */
   public int getFundRenewWaivValue() {
     return fundRenewWaiv_;
   }
   /**
    * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The fundRenewWaiv.
    */
   public org.fixprotocol.components.FundRenewWaivEnum getFundRenewWaiv() {
     @SuppressWarnings("deprecation")
@@ -570,6 +578,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object commCurrency_ = "";
     /**
      * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The commCurrency.
      */
     public java.lang.String getCommCurrency() {
       java.lang.Object ref = commCurrency_;
@@ -585,6 +594,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for commCurrency.
      */
     public com.google.protobuf.ByteString
         getCommCurrencyBytes() {
@@ -601,6 +611,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The commCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setCommCurrency(
         java.lang.String value) {
@@ -614,6 +626,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearCommCurrency() {
       
@@ -623,6 +636,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string comm_currency = 1 [(.fix.tag) = 479, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for commCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setCommCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -639,12 +654,15 @@ private static final long serialVersionUID = 0L;
     private int commType_ = 0;
     /**
      * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for commType.
      */
     public int getCommTypeValue() {
       return commType_;
     }
     /**
      * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for commType to set.
+     * @return This builder for chaining.
      */
     public Builder setCommTypeValue(int value) {
       commType_ = value;
@@ -653,6 +671,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The commType.
      */
     public org.fixprotocol.components.CommTypeEnum getCommType() {
       @SuppressWarnings("deprecation")
@@ -661,6 +680,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The commType to set.
+     * @return This builder for chaining.
      */
     public Builder setCommType(org.fixprotocol.components.CommTypeEnum value) {
       if (value == null) {
@@ -673,6 +694,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.CommTypeEnum comm_type = 2 [(.fix.tag) = 13, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearCommType() {
       
@@ -686,12 +708,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> commissionBuilder_;
     /**
      * <code>.fix.Decimal64 commission = 3 [(.fix.tag) = 12, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the commission field is set.
      */
     public boolean hasCommission() {
       return commissionBuilder_ != null || commission_ != null;
     }
     /**
      * <code>.fix.Decimal64 commission = 3 [(.fix.tag) = 12, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The commission.
      */
     public org.fixprotocol.components.Fix.Decimal64 getCommission() {
       if (commissionBuilder_ == null) {
@@ -801,12 +825,15 @@ private static final long serialVersionUID = 0L;
     private int fundRenewWaiv_ = 0;
     /**
      * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for fundRenewWaiv.
      */
     public int getFundRenewWaivValue() {
       return fundRenewWaiv_;
     }
     /**
      * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for fundRenewWaiv to set.
+     * @return This builder for chaining.
      */
     public Builder setFundRenewWaivValue(int value) {
       fundRenewWaiv_ = value;
@@ -815,6 +842,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The fundRenewWaiv.
      */
     public org.fixprotocol.components.FundRenewWaivEnum getFundRenewWaiv() {
       @SuppressWarnings("deprecation")
@@ -823,6 +851,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The fundRenewWaiv to set.
+     * @return This builder for chaining.
      */
     public Builder setFundRenewWaiv(org.fixprotocol.components.FundRenewWaivEnum value) {
       if (value == null) {
@@ -835,6 +865,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.FundRenewWaivEnum fund_renew_waiv = 4 [(.fix.tag) = 497, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearFundRenewWaiv() {
       

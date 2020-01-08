@@ -132,7 +132,8 @@ private static final long serialVersionUID = 0L;
   private int eventTypeUnionCase_ = 0;
   private java.lang.Object eventTypeUnion_;
   public enum EventTypeUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     EVENT_TYPE(4),
     EVENT_TYPE_RESERVED100PLUS(5),
     EVENTTYPEUNION_NOT_SET(0);
@@ -141,6 +142,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -171,6 +174,7 @@ private static final long serialVersionUID = 0L;
   private int eventDate_;
   /**
    * <code>sfixed32 event_date = 1 [(.fix.tag) = 866, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventDate.
    */
   public int getEventDate() {
     return eventDate_;
@@ -180,12 +184,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 eventPx_;
   /**
    * <code>.fix.Decimal64 event_px = 2 [(.fix.tag) = 867, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the eventPx field is set.
    */
   public boolean hasEventPx() {
     return eventPx_ != null;
   }
   /**
    * <code>.fix.Decimal64 event_px = 2 [(.fix.tag) = 867, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventPx.
    */
   public org.fixprotocol.components.Fix.Decimal64 getEventPx() {
     return eventPx_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : eventPx_;
@@ -201,6 +207,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object eventText_;
   /**
    * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventText.
    */
   public java.lang.String getEventText() {
     java.lang.Object ref = eventText_;
@@ -216,6 +223,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for eventText.
    */
   public com.google.protobuf.ByteString
       getEventTextBytes() {
@@ -234,6 +242,7 @@ private static final long serialVersionUID = 0L;
   public static final int EVENT_TYPE_FIELD_NUMBER = 4;
   /**
    * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for eventType.
    */
   public int getEventTypeValue() {
     if (eventTypeUnionCase_ == 4) {
@@ -243,6 +252,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventType.
    */
   public org.fixprotocol.components.EventTypeEnum getEventType() {
     if (eventTypeUnionCase_ == 4) {
@@ -257,6 +267,7 @@ private static final long serialVersionUID = 0L;
   public static final int EVENT_TYPE_RESERVED100PLUS_FIELD_NUMBER = 5;
   /**
    * <code>fixed32 event_type_reserved100plus = 5 [(.fix.tag) = 865, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The eventTypeReserved100plus.
    */
   public int getEventTypeReserved100Plus() {
     if (eventTypeUnionCase_ == 5) {
@@ -269,12 +280,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp eventTime_;
   /**
    * <code>.fix.Timestamp event_time = 6 [(.fix.tag) = 1145, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the eventTime field is set.
    */
   public boolean hasEventTime() {
     return eventTime_ != null;
   }
   /**
    * <code>.fix.Timestamp event_time = 6 [(.fix.tag) = 1145, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The eventTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getEventTime() {
     return eventTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : eventTime_;
@@ -746,12 +759,15 @@ private static final long serialVersionUID = 0L;
     private int eventDate_ ;
     /**
      * <code>sfixed32 event_date = 1 [(.fix.tag) = 866, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The eventDate.
      */
     public int getEventDate() {
       return eventDate_;
     }
     /**
      * <code>sfixed32 event_date = 1 [(.fix.tag) = 866, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The eventDate to set.
+     * @return This builder for chaining.
      */
     public Builder setEventDate(int value) {
       
@@ -761,6 +777,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 event_date = 1 [(.fix.tag) = 866, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEventDate() {
       
@@ -774,12 +791,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> eventPxBuilder_;
     /**
      * <code>.fix.Decimal64 event_px = 2 [(.fix.tag) = 867, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the eventPx field is set.
      */
     public boolean hasEventPx() {
       return eventPxBuilder_ != null || eventPx_ != null;
     }
     /**
      * <code>.fix.Decimal64 event_px = 2 [(.fix.tag) = 867, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The eventPx.
      */
     public org.fixprotocol.components.Fix.Decimal64 getEventPx() {
       if (eventPxBuilder_ == null) {
@@ -889,6 +908,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object eventText_ = "";
     /**
      * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The eventText.
      */
     public java.lang.String getEventText() {
       java.lang.Object ref = eventText_;
@@ -904,6 +924,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for eventText.
      */
     public com.google.protobuf.ByteString
         getEventTextBytes() {
@@ -920,6 +941,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The eventText to set.
+     * @return This builder for chaining.
      */
     public Builder setEventText(
         java.lang.String value) {
@@ -933,6 +956,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEventText() {
       
@@ -942,6 +966,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string event_text = 3 [(.fix.tag) = 868, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for eventText to set.
+     * @return This builder for chaining.
      */
     public Builder setEventTextBytes(
         com.google.protobuf.ByteString value) {
@@ -957,6 +983,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for eventType.
      */
     public int getEventTypeValue() {
       if (eventTypeUnionCase_ == 4) {
@@ -966,6 +993,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for eventType to set.
+     * @return This builder for chaining.
      */
     public Builder setEventTypeValue(int value) {
       eventTypeUnionCase_ = 4;
@@ -975,6 +1004,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The eventType.
      */
     public org.fixprotocol.components.EventTypeEnum getEventType() {
       if (eventTypeUnionCase_ == 4) {
@@ -987,6 +1017,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The eventType to set.
+     * @return This builder for chaining.
      */
     public Builder setEventType(org.fixprotocol.components.EventTypeEnum value) {
       if (value == null) {
@@ -999,6 +1031,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.EventTypeEnum event_type = 4 [(.fix.tag) = 865, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEventType() {
       if (eventTypeUnionCase_ == 4) {
@@ -1011,6 +1044,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 event_type_reserved100plus = 5 [(.fix.tag) = 865, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The eventTypeReserved100plus.
      */
     public int getEventTypeReserved100Plus() {
       if (eventTypeUnionCase_ == 5) {
@@ -1020,6 +1054,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 event_type_reserved100plus = 5 [(.fix.tag) = 865, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The eventTypeReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setEventTypeReserved100Plus(int value) {
       eventTypeUnionCase_ = 5;
@@ -1029,6 +1065,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 event_type_reserved100plus = 5 [(.fix.tag) = 865, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEventTypeReserved100Plus() {
       if (eventTypeUnionCase_ == 5) {
@@ -1044,12 +1081,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> eventTimeBuilder_;
     /**
      * <code>.fix.Timestamp event_time = 6 [(.fix.tag) = 1145, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the eventTime field is set.
      */
     public boolean hasEventTime() {
       return eventTimeBuilder_ != null || eventTime_ != null;
     }
     /**
      * <code>.fix.Timestamp event_time = 6 [(.fix.tag) = 1145, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The eventTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getEventTime() {
       if (eventTimeBuilder_ == null) {

@@ -62,6 +62,8 @@ public enum TriggerPriceTypeScopeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -69,6 +71,10 @@ public enum TriggerPriceTypeScopeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static TriggerPriceTypeScopeEnum forNumber(int value) {
     switch (value) {
       case 0: return TRIGGER_PRICE_TYPE_SCOPE_UNSPECIFIED;

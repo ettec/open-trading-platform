@@ -9,48 +9,58 @@ public interface MsgTypeGrpOrBuilder extends
 
   /**
    * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for msgDirection.
    */
   int getMsgDirectionValue();
   /**
    * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The msgDirection.
    */
   org.fixprotocol.components.MsgDirectionEnum getMsgDirection();
 
   /**
    * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for refApplVerId.
    */
   int getRefApplVerIdValue();
   /**
    * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refApplVerId.
    */
   org.fixprotocol.components.RefApplVerIDEnum getRefApplVerId();
 
   /**
    * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refCstmApplVerId.
    */
   java.lang.String getRefCstmApplVerId();
   /**
    * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for refCstmApplVerId.
    */
   com.google.protobuf.ByteString
       getRefCstmApplVerIdBytes();
 
   /**
    * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for refMsgType.
    */
   int getRefMsgTypeValue();
   /**
    * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refMsgType.
    */
   org.fixprotocol.components.RefMsgTypeEnum getRefMsgType();
 
   /**
    * <code>bool default_ver_indicator = 5 [(.fix.tag) = 1410, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The defaultVerIndicator.
    */
   boolean getDefaultVerIndicator();
 
   /**
    * <code>sfixed64 ref_appl_ext_id = 6 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The refApplExtId.
    */
   long getRefApplExtId();
 }

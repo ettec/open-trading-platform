@@ -97,12 +97,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Instrument instrument_;
   /**
    * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrument field is set.
    */
   public boolean hasInstrument() {
     return instrument_ != null;
   }
   /**
    * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrument.
    */
   public org.fixprotocol.components.Instrument getInstrument() {
     return instrument_ == null ? org.fixprotocol.components.Instrument.getDefaultInstance() : instrument_;
@@ -434,12 +436,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Instrument, org.fixprotocol.components.Instrument.Builder, org.fixprotocol.components.InstrumentOrBuilder> instrumentBuilder_;
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the instrument field is set.
      */
     public boolean hasInstrument() {
       return instrumentBuilder_ != null || instrument_ != null;
     }
     /**
      * <code>.Common.Instrument instrument = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The instrument.
      */
     public org.fixprotocol.components.Instrument getInstrument() {
       if (instrumentBuilder_ == null) {

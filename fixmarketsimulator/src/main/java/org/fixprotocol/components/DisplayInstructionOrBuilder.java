@@ -9,10 +9,12 @@ public interface DisplayInstructionOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 display_high_qty = 1 [(.fix.tag) = 1086, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayHighQty field is set.
    */
   boolean hasDisplayHighQty();
   /**
    * <code>.fix.Decimal64 display_high_qty = 1 [(.fix.tag) = 1086, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayHighQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getDisplayHighQty();
   /**
@@ -22,10 +24,12 @@ public interface DisplayInstructionOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 display_low_qty = 2 [(.fix.tag) = 1085, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayLowQty field is set.
    */
   boolean hasDisplayLowQty();
   /**
    * <code>.fix.Decimal64 display_low_qty = 2 [(.fix.tag) = 1085, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayLowQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getDisplayLowQty();
   /**
@@ -35,19 +39,23 @@ public interface DisplayInstructionOrBuilder extends
 
   /**
    * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for displayMethod.
    */
   int getDisplayMethodValue();
   /**
    * <code>.Common.DisplayMethodEnum display_method = 3 [(.fix.tag) = 1084, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayMethod.
    */
   org.fixprotocol.components.DisplayMethodEnum getDisplayMethod();
 
   /**
    * <code>.fix.Decimal64 display_min_incr = 4 [(.fix.tag) = 1087, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayMinIncr field is set.
    */
   boolean hasDisplayMinIncr();
   /**
    * <code>.fix.Decimal64 display_min_incr = 4 [(.fix.tag) = 1087, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayMinIncr.
    */
   org.fixprotocol.components.Fix.Decimal64 getDisplayMinIncr();
   /**
@@ -57,10 +65,12 @@ public interface DisplayInstructionOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 display_qty = 5 [(.fix.tag) = 1138, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the displayQty field is set.
    */
   boolean hasDisplayQty();
   /**
    * <code>.fix.Decimal64 display_qty = 5 [(.fix.tag) = 1138, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getDisplayQty();
   /**
@@ -70,19 +80,23 @@ public interface DisplayInstructionOrBuilder extends
 
   /**
    * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for displayWhen.
    */
   int getDisplayWhenValue();
   /**
    * <code>.Common.DisplayWhenEnum display_when = 6 [(.fix.tag) = 1083, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The displayWhen.
    */
   org.fixprotocol.components.DisplayWhenEnum getDisplayWhen();
 
   /**
    * <code>.fix.Decimal64 refresh_qty = 7 [(.fix.tag) = 1088, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the refreshQty field is set.
    */
   boolean hasRefreshQty();
   /**
    * <code>.fix.Decimal64 refresh_qty = 7 [(.fix.tag) = 1088, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refreshQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getRefreshQty();
   /**
@@ -92,10 +106,12 @@ public interface DisplayInstructionOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 secondary_display_qty = 8 [(.fix.tag) = 1082, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the secondaryDisplayQty field is set.
    */
   boolean hasSecondaryDisplayQty();
   /**
    * <code>.fix.Decimal64 secondary_display_qty = 8 [(.fix.tag) = 1082, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The secondaryDisplayQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getSecondaryDisplayQty();
   /**

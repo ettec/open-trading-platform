@@ -9,20 +9,24 @@ public interface LegSecAltIDGrpOrBuilder extends
 
   /**
    * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSecurityAltId.
    */
   java.lang.String getLegSecurityAltId();
   /**
    * <code>string leg_security_alt_id = 1 [(.fix.tag) = 605, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legSecurityAltId.
    */
   com.google.protobuf.ByteString
       getLegSecurityAltIdBytes();
 
   /**
    * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legSecurityAltIdSource.
    */
   int getLegSecurityAltIdSourceValue();
   /**
    * <code>.Common.LegSecurityAltIDSourceEnum leg_security_alt_id_source = 2 [(.fix.tag) = 606, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSecurityAltIdSource.
    */
   org.fixprotocol.components.LegSecurityAltIDSourceEnum getLegSecurityAltIdSource();
 }

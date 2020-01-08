@@ -33,19 +33,23 @@ public interface InstrumentExtensionOrBuilder extends
 
   /**
    * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for deliveryForm.
    */
   int getDeliveryFormValue();
   /**
    * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deliveryForm.
    */
   org.fixprotocol.components.DeliveryFormEnum getDeliveryForm();
 
   /**
    * <code>.fix.Decimal64 pct_at_risk = 3 [(.fix.tag) = 869, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the pctAtRisk field is set.
    */
   boolean hasPctAtRisk();
   /**
    * <code>.fix.Decimal64 pct_at_risk = 3 [(.fix.tag) = 869, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pctAtRisk.
    */
   org.fixprotocol.components.Fix.Decimal64 getPctAtRisk();
   /**

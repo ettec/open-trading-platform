@@ -143,12 +143,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 longQty_;
   /**
    * <code>.fix.Decimal64 long_qty = 1 [(.fix.tag) = 704, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the longQty field is set.
    */
   public boolean hasLongQty() {
     return longQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 long_qty = 1 [(.fix.tag) = 704, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The longQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLongQty() {
     return longQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : longQty_;
@@ -199,12 +201,14 @@ private static final long serialVersionUID = 0L;
   private int posQtyStatus_;
   /**
    * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for posQtyStatus.
    */
   public int getPosQtyStatusValue() {
     return posQtyStatus_;
   }
   /**
    * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posQtyStatus.
    */
   public org.fixprotocol.components.PosQtyStatusEnum getPosQtyStatus() {
     @SuppressWarnings("deprecation")
@@ -216,12 +220,14 @@ private static final long serialVersionUID = 0L;
   private int posType_;
   /**
    * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for posType.
    */
   public int getPosTypeValue() {
     return posType_;
   }
   /**
    * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posType.
    */
   public org.fixprotocol.components.PosTypeEnum getPosType() {
     @SuppressWarnings("deprecation")
@@ -233,6 +239,7 @@ private static final long serialVersionUID = 0L;
   private int quantityDate_;
   /**
    * <code>sfixed32 quantity_date = 5 [(.fix.tag) = 976, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The quantityDate.
    */
   public int getQuantityDate() {
     return quantityDate_;
@@ -242,12 +249,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 shortQty_;
   /**
    * <code>.fix.Decimal64 short_qty = 6 [(.fix.tag) = 705, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the shortQty field is set.
    */
   public boolean hasShortQty() {
     return shortQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 short_qty = 6 [(.fix.tag) = 705, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The shortQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getShortQty() {
     return shortQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : shortQty_;
@@ -715,12 +724,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> longQtyBuilder_;
     /**
      * <code>.fix.Decimal64 long_qty = 1 [(.fix.tag) = 704, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the longQty field is set.
      */
     public boolean hasLongQty() {
       return longQtyBuilder_ != null || longQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 long_qty = 1 [(.fix.tag) = 704, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The longQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLongQty() {
       if (longQtyBuilder_ == null) {
@@ -1070,12 +1081,15 @@ private static final long serialVersionUID = 0L;
     private int posQtyStatus_ = 0;
     /**
      * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for posQtyStatus.
      */
     public int getPosQtyStatusValue() {
       return posQtyStatus_;
     }
     /**
      * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for posQtyStatus to set.
+     * @return This builder for chaining.
      */
     public Builder setPosQtyStatusValue(int value) {
       posQtyStatus_ = value;
@@ -1084,6 +1098,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The posQtyStatus.
      */
     public org.fixprotocol.components.PosQtyStatusEnum getPosQtyStatus() {
       @SuppressWarnings("deprecation")
@@ -1092,6 +1107,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The posQtyStatus to set.
+     * @return This builder for chaining.
      */
     public Builder setPosQtyStatus(org.fixprotocol.components.PosQtyStatusEnum value) {
       if (value == null) {
@@ -1104,6 +1121,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosQtyStatusEnum pos_qty_status = 3 [(.fix.tag) = 706, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPosQtyStatus() {
       
@@ -1115,12 +1133,15 @@ private static final long serialVersionUID = 0L;
     private int posType_ = 0;
     /**
      * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for posType.
      */
     public int getPosTypeValue() {
       return posType_;
     }
     /**
      * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for posType to set.
+     * @return This builder for chaining.
      */
     public Builder setPosTypeValue(int value) {
       posType_ = value;
@@ -1129,6 +1150,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The posType.
      */
     public org.fixprotocol.components.PosTypeEnum getPosType() {
       @SuppressWarnings("deprecation")
@@ -1137,6 +1159,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The posType to set.
+     * @return This builder for chaining.
      */
     public Builder setPosType(org.fixprotocol.components.PosTypeEnum value) {
       if (value == null) {
@@ -1149,6 +1173,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosTypeEnum pos_type = 4 [(.fix.tag) = 703, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPosType() {
       
@@ -1160,12 +1185,15 @@ private static final long serialVersionUID = 0L;
     private int quantityDate_ ;
     /**
      * <code>sfixed32 quantity_date = 5 [(.fix.tag) = 976, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The quantityDate.
      */
     public int getQuantityDate() {
       return quantityDate_;
     }
     /**
      * <code>sfixed32 quantity_date = 5 [(.fix.tag) = 976, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The quantityDate to set.
+     * @return This builder for chaining.
      */
     public Builder setQuantityDate(int value) {
       
@@ -1175,6 +1203,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 quantity_date = 5 [(.fix.tag) = 976, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearQuantityDate() {
       
@@ -1188,12 +1217,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> shortQtyBuilder_;
     /**
      * <code>.fix.Decimal64 short_qty = 6 [(.fix.tag) = 705, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the shortQty field is set.
      */
     public boolean hasShortQty() {
       return shortQtyBuilder_ != null || shortQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 short_qty = 6 [(.fix.tag) = 705, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The shortQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getShortQty() {
       if (shortQtyBuilder_ == null) {

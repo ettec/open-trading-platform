@@ -118,7 +118,8 @@ private static final long serialVersionUID = 0L;
   private int tradingSessionIdUnionCase_ = 0;
   private java.lang.Object tradingSessionIdUnion_;
   public enum TradingSessionIdUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     TRADING_SESSION_ID(1),
     TRADING_SESSION_ID_RESERVED100PLUS(2),
     TRADINGSESSIONIDUNION_NOT_SET(0);
@@ -127,6 +128,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -156,7 +159,8 @@ private static final long serialVersionUID = 0L;
   private int tradingSessionSubIdUnionCase_ = 0;
   private java.lang.Object tradingSessionSubIdUnion_;
   public enum TradingSessionSubIdUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     TRADING_SESSION_SUB_ID(4),
     TRADING_SESSION_SUB_ID_RESERVED100PLUS(5),
     TRADINGSESSIONSUBIDUNION_NOT_SET(0);
@@ -165,6 +169,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -194,6 +200,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_ID_FIELD_NUMBER = 1;
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for tradingSessionId.
    */
   public int getTradingSessionIdValue() {
     if (tradingSessionIdUnionCase_ == 1) {
@@ -203,6 +210,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionId.
    */
   public org.fixprotocol.components.TradingSessionIDEnum getTradingSessionId() {
     if (tradingSessionIdUnionCase_ == 1) {
@@ -217,6 +225,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_ID_RESERVED100PLUS_FIELD_NUMBER = 2;
   /**
    * <code>fixed32 trading_session_id_reserved100plus = 2 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionIdReserved100plus.
    */
   public int getTradingSessionIdReserved100Plus() {
     if (tradingSessionIdUnionCase_ == 2) {
@@ -229,12 +238,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.TradingSessionRules tradingSessionRules_;
   /**
    * <code>.Common.TradingSessionRules trading_session_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the tradingSessionRules field is set.
    */
   public boolean hasTradingSessionRules() {
     return tradingSessionRules_ != null;
   }
   /**
    * <code>.Common.TradingSessionRules trading_session_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionRules.
    */
   public org.fixprotocol.components.TradingSessionRules getTradingSessionRules() {
     return tradingSessionRules_ == null ? org.fixprotocol.components.TradingSessionRules.getDefaultInstance() : tradingSessionRules_;
@@ -249,6 +260,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_SUB_ID_FIELD_NUMBER = 4;
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for tradingSessionSubId.
    */
   public int getTradingSessionSubIdValue() {
     if (tradingSessionSubIdUnionCase_ == 4) {
@@ -258,6 +270,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionSubId.
    */
   public org.fixprotocol.components.TradingSessionSubIDEnum getTradingSessionSubId() {
     if (tradingSessionSubIdUnionCase_ == 4) {
@@ -272,6 +285,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_SUB_ID_RESERVED100PLUS_FIELD_NUMBER = 5;
   /**
    * <code>fixed32 trading_session_sub_id_reserved100plus = 5 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionSubIdReserved100plus.
    */
   public int getTradingSessionSubIdReserved100Plus() {
     if (tradingSessionSubIdUnionCase_ == 5) {
@@ -753,6 +767,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for tradingSessionId.
      */
     public int getTradingSessionIdValue() {
       if (tradingSessionIdUnionCase_ == 1) {
@@ -762,6 +777,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for tradingSessionId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionIdValue(int value) {
       tradingSessionIdUnionCase_ = 1;
@@ -771,6 +788,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionId.
      */
     public org.fixprotocol.components.TradingSessionIDEnum getTradingSessionId() {
       if (tradingSessionIdUnionCase_ == 1) {
@@ -783,6 +801,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tradingSessionId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionId(org.fixprotocol.components.TradingSessionIDEnum value) {
       if (value == null) {
@@ -795,6 +815,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionId() {
       if (tradingSessionIdUnionCase_ == 1) {
@@ -807,6 +828,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 2 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionIdReserved100plus.
      */
     public int getTradingSessionIdReserved100Plus() {
       if (tradingSessionIdUnionCase_ == 2) {
@@ -816,6 +838,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 2 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tradingSessionIdReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionIdReserved100Plus(int value) {
       tradingSessionIdUnionCase_ = 2;
@@ -825,6 +849,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 2 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionIdReserved100Plus() {
       if (tradingSessionIdUnionCase_ == 2) {
@@ -840,12 +865,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.TradingSessionRules, org.fixprotocol.components.TradingSessionRules.Builder, org.fixprotocol.components.TradingSessionRulesOrBuilder> tradingSessionRulesBuilder_;
     /**
      * <code>.Common.TradingSessionRules trading_session_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the tradingSessionRules field is set.
      */
     public boolean hasTradingSessionRules() {
       return tradingSessionRulesBuilder_ != null || tradingSessionRules_ != null;
     }
     /**
      * <code>.Common.TradingSessionRules trading_session_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionRules.
      */
     public org.fixprotocol.components.TradingSessionRules getTradingSessionRules() {
       if (tradingSessionRulesBuilder_ == null) {
@@ -954,6 +981,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for tradingSessionSubId.
      */
     public int getTradingSessionSubIdValue() {
       if (tradingSessionSubIdUnionCase_ == 4) {
@@ -963,6 +991,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for tradingSessionSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionSubIdValue(int value) {
       tradingSessionSubIdUnionCase_ = 4;
@@ -972,6 +1002,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionSubId.
      */
     public org.fixprotocol.components.TradingSessionSubIDEnum getTradingSessionSubId() {
       if (tradingSessionSubIdUnionCase_ == 4) {
@@ -984,6 +1015,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tradingSessionSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionSubId(org.fixprotocol.components.TradingSessionSubIDEnum value) {
       if (value == null) {
@@ -996,6 +1029,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionSubId() {
       if (tradingSessionSubIdUnionCase_ == 4) {
@@ -1008,6 +1042,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 5 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionSubIdReserved100plus.
      */
     public int getTradingSessionSubIdReserved100Plus() {
       if (tradingSessionSubIdUnionCase_ == 5) {
@@ -1017,6 +1052,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 5 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tradingSessionSubIdReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionSubIdReserved100Plus(int value) {
       tradingSessionSubIdUnionCase_ = 5;
@@ -1026,6 +1063,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 5 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionSubIdReserved100Plus() {
       if (tradingSessionSubIdUnionCase_ == 5) {

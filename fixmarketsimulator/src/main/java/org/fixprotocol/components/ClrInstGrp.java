@@ -91,12 +91,14 @@ private static final long serialVersionUID = 0L;
   private int clearingInstruction_;
   /**
    * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for clearingInstruction.
    */
   public int getClearingInstructionValue() {
     return clearingInstruction_;
   }
   /**
    * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The clearingInstruction.
    */
   public org.fixprotocol.components.ClearingInstructionEnum getClearingInstruction() {
     @SuppressWarnings("deprecation")
@@ -408,12 +410,15 @@ private static final long serialVersionUID = 0L;
     private int clearingInstruction_ = 0;
     /**
      * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for clearingInstruction.
      */
     public int getClearingInstructionValue() {
       return clearingInstruction_;
     }
     /**
      * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for clearingInstruction to set.
+     * @return This builder for chaining.
      */
     public Builder setClearingInstructionValue(int value) {
       clearingInstruction_ = value;
@@ -422,6 +427,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The clearingInstruction.
      */
     public org.fixprotocol.components.ClearingInstructionEnum getClearingInstruction() {
       @SuppressWarnings("deprecation")
@@ -430,6 +436,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The clearingInstruction to set.
+     * @return This builder for chaining.
      */
     public Builder setClearingInstruction(org.fixprotocol.components.ClearingInstructionEnum value) {
       if (value == null) {
@@ -442,6 +450,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ClearingInstructionEnum clearing_instruction = 1 [(.fix.tag) = 577, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearClearingInstruction() {
       

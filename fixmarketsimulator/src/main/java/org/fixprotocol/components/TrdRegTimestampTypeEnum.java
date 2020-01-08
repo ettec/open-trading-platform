@@ -86,6 +86,8 @@ public enum TrdRegTimestampTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -93,6 +95,10 @@ public enum TrdRegTimestampTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static TrdRegTimestampTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED;

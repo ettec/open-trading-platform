@@ -46,6 +46,8 @@ public enum UnderlyingSymbolSfxEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -53,6 +55,10 @@ public enum UnderlyingSymbolSfxEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static UnderlyingSymbolSfxEnum forNumber(int value) {
     switch (value) {
       case 0: return UNDERLYING_SYMBOL_SFX_UNSPECIFIED;

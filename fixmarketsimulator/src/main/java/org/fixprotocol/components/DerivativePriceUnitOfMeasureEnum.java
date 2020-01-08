@@ -134,6 +134,8 @@ public enum DerivativePriceUnitOfMeasureEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -141,6 +143,10 @@ public enum DerivativePriceUnitOfMeasureEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static DerivativePriceUnitOfMeasureEnum forNumber(int value) {
     switch (value) {
       case 0: return DERIVATIVE_PRICE_UNIT_OF_MEASURE_UNSPECIFIED;

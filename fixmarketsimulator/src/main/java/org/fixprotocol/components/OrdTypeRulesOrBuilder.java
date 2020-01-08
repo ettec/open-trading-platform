@@ -9,10 +9,12 @@ public interface OrdTypeRulesOrBuilder extends
 
   /**
    * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for ordType.
    */
   int getOrdTypeValue();
   /**
    * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The ordType.
    */
   org.fixprotocol.components.OrdTypeEnum getOrdType();
 }

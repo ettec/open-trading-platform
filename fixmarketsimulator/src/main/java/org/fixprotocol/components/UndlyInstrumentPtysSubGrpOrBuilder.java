@@ -9,20 +9,24 @@ public interface UndlyInstrumentPtysSubGrpOrBuilder extends
 
   /**
    * <code>string underlying_instrument_party_sub_id = 1 [(.fix.tag) = 1063, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartySubId.
    */
   java.lang.String getUnderlyingInstrumentPartySubId();
   /**
    * <code>string underlying_instrument_party_sub_id = 1 [(.fix.tag) = 1063, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingInstrumentPartySubId.
    */
   com.google.protobuf.ByteString
       getUnderlyingInstrumentPartySubIdBytes();
 
   /**
    * <code>.Common.UnderlyingInstrumentPartySubIDTypeEnum underlying_instrument_party_sub_id_type = 2 [(.fix.tag) = 1064, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingInstrumentPartySubIdType.
    */
   int getUnderlyingInstrumentPartySubIdTypeValue();
   /**
    * <code>.Common.UnderlyingInstrumentPartySubIDTypeEnum underlying_instrument_party_sub_id_type = 2 [(.fix.tag) = 1064, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartySubIdType.
    */
   org.fixprotocol.components.UnderlyingInstrumentPartySubIDTypeEnum getUnderlyingInstrumentPartySubIdType();
 }

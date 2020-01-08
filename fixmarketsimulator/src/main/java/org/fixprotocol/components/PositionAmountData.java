@@ -111,12 +111,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 posAmt_;
   /**
    * <code>.fix.Decimal64 pos_amt = 1 [(.fix.tag) = 708, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the posAmt field is set.
    */
   public boolean hasPosAmt() {
     return posAmt_ != null;
   }
   /**
    * <code>.fix.Decimal64 pos_amt = 1 [(.fix.tag) = 708, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posAmt.
    */
   public org.fixprotocol.components.Fix.Decimal64 getPosAmt() {
     return posAmt_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : posAmt_;
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int posAmtType_;
   /**
    * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for posAmtType.
    */
   public int getPosAmtTypeValue() {
     return posAmtType_;
   }
   /**
    * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posAmtType.
    */
   public org.fixprotocol.components.PosAmtTypeEnum getPosAmtType() {
     @SuppressWarnings("deprecation")
@@ -149,6 +153,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object positionCurrency_;
   /**
    * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The positionCurrency.
    */
   public java.lang.String getPositionCurrency() {
     java.lang.Object ref = positionCurrency_;
@@ -164,6 +169,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for positionCurrency.
    */
   public com.google.protobuf.ByteString
       getPositionCurrencyBytes() {
@@ -532,12 +538,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> posAmtBuilder_;
     /**
      * <code>.fix.Decimal64 pos_amt = 1 [(.fix.tag) = 708, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the posAmt field is set.
      */
     public boolean hasPosAmt() {
       return posAmtBuilder_ != null || posAmt_ != null;
     }
     /**
      * <code>.fix.Decimal64 pos_amt = 1 [(.fix.tag) = 708, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The posAmt.
      */
     public org.fixprotocol.components.Fix.Decimal64 getPosAmt() {
       if (posAmtBuilder_ == null) {
@@ -647,12 +655,15 @@ private static final long serialVersionUID = 0L;
     private int posAmtType_ = 0;
     /**
      * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for posAmtType.
      */
     public int getPosAmtTypeValue() {
       return posAmtType_;
     }
     /**
      * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for posAmtType to set.
+     * @return This builder for chaining.
      */
     public Builder setPosAmtTypeValue(int value) {
       posAmtType_ = value;
@@ -661,6 +672,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The posAmtType.
      */
     public org.fixprotocol.components.PosAmtTypeEnum getPosAmtType() {
       @SuppressWarnings("deprecation")
@@ -669,6 +681,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The posAmtType to set.
+     * @return This builder for chaining.
      */
     public Builder setPosAmtType(org.fixprotocol.components.PosAmtTypeEnum value) {
       if (value == null) {
@@ -681,6 +695,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPosAmtType() {
       
@@ -692,6 +707,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object positionCurrency_ = "";
     /**
      * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The positionCurrency.
      */
     public java.lang.String getPositionCurrency() {
       java.lang.Object ref = positionCurrency_;
@@ -707,6 +723,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for positionCurrency.
      */
     public com.google.protobuf.ByteString
         getPositionCurrencyBytes() {
@@ -723,6 +740,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The positionCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setPositionCurrency(
         java.lang.String value) {
@@ -736,6 +755,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearPositionCurrency() {
       
@@ -745,6 +765,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for positionCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setPositionCurrencyBytes(
         com.google.protobuf.ByteString value) {

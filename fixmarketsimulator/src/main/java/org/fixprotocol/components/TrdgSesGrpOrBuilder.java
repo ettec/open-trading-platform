@@ -9,29 +9,35 @@ public interface TrdgSesGrpOrBuilder extends
 
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradingSessionId.
    */
   int getTradingSessionIdValue();
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 1 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionId.
    */
   org.fixprotocol.components.TradingSessionIDEnum getTradingSessionId();
 
   /**
    * <code>fixed32 trading_session_id_reserved100plus = 2 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionIdReserved100plus.
    */
   int getTradingSessionIdReserved100Plus();
 
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 3 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradingSessionSubId.
    */
   int getTradingSessionSubIdValue();
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 3 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionSubId.
    */
   org.fixprotocol.components.TradingSessionSubIDEnum getTradingSessionSubId();
 
   /**
    * <code>fixed32 trading_session_sub_id_reserved100plus = 4 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionSubIdReserved100plus.
    */
   int getTradingSessionSubIdReserved100Plus();
 

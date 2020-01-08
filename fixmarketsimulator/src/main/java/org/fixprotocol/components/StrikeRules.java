@@ -151,12 +151,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 endStrikePxRange_;
   /**
    * <code>.fix.Decimal64 end_strike_px_range = 1 [(.fix.tag) = 1203, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the endStrikePxRange field is set.
    */
   public boolean hasEndStrikePxRange() {
     return endStrikePxRange_ != null;
   }
   /**
    * <code>.fix.Decimal64 end_strike_px_range = 1 [(.fix.tag) = 1203, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The endStrikePxRange.
    */
   public org.fixprotocol.components.Fix.Decimal64 getEndStrikePxRange() {
     return endStrikePxRange_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : endStrikePxRange_;
@@ -207,12 +209,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 startStrikePxRange_;
   /**
    * <code>.fix.Decimal64 start_strike_px_range = 3 [(.fix.tag) = 1202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the startStrikePxRange field is set.
    */
   public boolean hasStartStrikePxRange() {
     return startStrikePxRange_ != null;
   }
   /**
    * <code>.fix.Decimal64 start_strike_px_range = 3 [(.fix.tag) = 1202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The startStrikePxRange.
    */
   public org.fixprotocol.components.Fix.Decimal64 getStartStrikePxRange() {
     return startStrikePxRange_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : startStrikePxRange_;
@@ -228,12 +232,14 @@ private static final long serialVersionUID = 0L;
   private int strikeExerciseStyle_;
   /**
    * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for strikeExerciseStyle.
    */
   public int getStrikeExerciseStyleValue() {
     return strikeExerciseStyle_;
   }
   /**
    * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The strikeExerciseStyle.
    */
   public org.fixprotocol.components.StrikeExerciseStyleEnum getStrikeExerciseStyle() {
     @SuppressWarnings("deprecation")
@@ -245,12 +251,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 strikeIncrement_;
   /**
    * <code>.fix.Decimal64 strike_increment = 5 [(.fix.tag) = 1204, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the strikeIncrement field is set.
    */
   public boolean hasStrikeIncrement() {
     return strikeIncrement_ != null;
   }
   /**
    * <code>.fix.Decimal64 strike_increment = 5 [(.fix.tag) = 1204, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The strikeIncrement.
    */
   public org.fixprotocol.components.Fix.Decimal64 getStrikeIncrement() {
     return strikeIncrement_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : strikeIncrement_;
@@ -266,6 +274,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object strikeRuleId_;
   /**
    * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The strikeRuleId.
    */
   public java.lang.String getStrikeRuleId() {
     java.lang.Object ref = strikeRuleId_;
@@ -281,6 +290,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for strikeRuleId.
    */
   public com.google.protobuf.ByteString
       getStrikeRuleIdBytes() {
@@ -766,12 +776,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> endStrikePxRangeBuilder_;
     /**
      * <code>.fix.Decimal64 end_strike_px_range = 1 [(.fix.tag) = 1203, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the endStrikePxRange field is set.
      */
     public boolean hasEndStrikePxRange() {
       return endStrikePxRangeBuilder_ != null || endStrikePxRange_ != null;
     }
     /**
      * <code>.fix.Decimal64 end_strike_px_range = 1 [(.fix.tag) = 1203, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The endStrikePxRange.
      */
     public org.fixprotocol.components.Fix.Decimal64 getEndStrikePxRange() {
       if (endStrikePxRangeBuilder_ == null) {
@@ -1123,12 +1135,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> startStrikePxRangeBuilder_;
     /**
      * <code>.fix.Decimal64 start_strike_px_range = 3 [(.fix.tag) = 1202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the startStrikePxRange field is set.
      */
     public boolean hasStartStrikePxRange() {
       return startStrikePxRangeBuilder_ != null || startStrikePxRange_ != null;
     }
     /**
      * <code>.fix.Decimal64 start_strike_px_range = 3 [(.fix.tag) = 1202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The startStrikePxRange.
      */
     public org.fixprotocol.components.Fix.Decimal64 getStartStrikePxRange() {
       if (startStrikePxRangeBuilder_ == null) {
@@ -1238,12 +1252,15 @@ private static final long serialVersionUID = 0L;
     private int strikeExerciseStyle_ = 0;
     /**
      * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for strikeExerciseStyle.
      */
     public int getStrikeExerciseStyleValue() {
       return strikeExerciseStyle_;
     }
     /**
      * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for strikeExerciseStyle to set.
+     * @return This builder for chaining.
      */
     public Builder setStrikeExerciseStyleValue(int value) {
       strikeExerciseStyle_ = value;
@@ -1252,6 +1269,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The strikeExerciseStyle.
      */
     public org.fixprotocol.components.StrikeExerciseStyleEnum getStrikeExerciseStyle() {
       @SuppressWarnings("deprecation")
@@ -1260,6 +1278,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The strikeExerciseStyle to set.
+     * @return This builder for chaining.
      */
     public Builder setStrikeExerciseStyle(org.fixprotocol.components.StrikeExerciseStyleEnum value) {
       if (value == null) {
@@ -1272,6 +1292,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStrikeExerciseStyle() {
       
@@ -1285,12 +1306,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> strikeIncrementBuilder_;
     /**
      * <code>.fix.Decimal64 strike_increment = 5 [(.fix.tag) = 1204, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the strikeIncrement field is set.
      */
     public boolean hasStrikeIncrement() {
       return strikeIncrementBuilder_ != null || strikeIncrement_ != null;
     }
     /**
      * <code>.fix.Decimal64 strike_increment = 5 [(.fix.tag) = 1204, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The strikeIncrement.
      */
     public org.fixprotocol.components.Fix.Decimal64 getStrikeIncrement() {
       if (strikeIncrementBuilder_ == null) {
@@ -1400,6 +1423,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object strikeRuleId_ = "";
     /**
      * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The strikeRuleId.
      */
     public java.lang.String getStrikeRuleId() {
       java.lang.Object ref = strikeRuleId_;
@@ -1415,6 +1439,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for strikeRuleId.
      */
     public com.google.protobuf.ByteString
         getStrikeRuleIdBytes() {
@@ -1431,6 +1456,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The strikeRuleId to set.
+     * @return This builder for chaining.
      */
     public Builder setStrikeRuleId(
         java.lang.String value) {
@@ -1444,6 +1471,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStrikeRuleId() {
       
@@ -1453,6 +1481,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for strikeRuleId to set.
+     * @return This builder for chaining.
      */
     public Builder setStrikeRuleIdBytes(
         com.google.protobuf.ByteString value) {

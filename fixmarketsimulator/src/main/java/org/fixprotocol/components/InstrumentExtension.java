@@ -153,12 +153,14 @@ private static final long serialVersionUID = 0L;
   private int deliveryForm_;
   /**
    * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for deliveryForm.
    */
   public int getDeliveryFormValue() {
     return deliveryForm_;
   }
   /**
    * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deliveryForm.
    */
   public org.fixprotocol.components.DeliveryFormEnum getDeliveryForm() {
     @SuppressWarnings("deprecation")
@@ -170,12 +172,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 pctAtRisk_;
   /**
    * <code>.fix.Decimal64 pct_at_risk = 3 [(.fix.tag) = 869, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the pctAtRisk field is set.
    */
   public boolean hasPctAtRisk() {
     return pctAtRisk_ != null;
   }
   /**
    * <code>.fix.Decimal64 pct_at_risk = 3 [(.fix.tag) = 869, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pctAtRisk.
    */
   public org.fixprotocol.components.Fix.Decimal64 getPctAtRisk() {
     return pctAtRisk_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : pctAtRisk_;
@@ -818,12 +822,15 @@ private static final long serialVersionUID = 0L;
     private int deliveryForm_ = 0;
     /**
      * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for deliveryForm.
      */
     public int getDeliveryFormValue() {
       return deliveryForm_;
     }
     /**
      * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for deliveryForm to set.
+     * @return This builder for chaining.
      */
     public Builder setDeliveryFormValue(int value) {
       deliveryForm_ = value;
@@ -832,6 +839,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deliveryForm.
      */
     public org.fixprotocol.components.DeliveryFormEnum getDeliveryForm() {
       @SuppressWarnings("deprecation")
@@ -840,6 +848,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The deliveryForm to set.
+     * @return This builder for chaining.
      */
     public Builder setDeliveryForm(org.fixprotocol.components.DeliveryFormEnum value) {
       if (value == null) {
@@ -852,6 +862,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeliveryFormEnum delivery_form = 2 [(.fix.tag) = 668, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDeliveryForm() {
       
@@ -865,12 +876,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> pctAtRiskBuilder_;
     /**
      * <code>.fix.Decimal64 pct_at_risk = 3 [(.fix.tag) = 869, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the pctAtRisk field is set.
      */
     public boolean hasPctAtRisk() {
       return pctAtRiskBuilder_ != null || pctAtRisk_ != null;
     }
     /**
      * <code>.fix.Decimal64 pct_at_risk = 3 [(.fix.tag) = 869, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The pctAtRisk.
      */
     public org.fixprotocol.components.Fix.Decimal64 getPctAtRisk() {
       if (pctAtRiskBuilder_ == null) {

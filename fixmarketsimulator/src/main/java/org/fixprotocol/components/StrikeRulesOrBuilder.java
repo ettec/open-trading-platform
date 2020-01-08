@@ -9,10 +9,12 @@ public interface StrikeRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 end_strike_px_range = 1 [(.fix.tag) = 1203, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the endStrikePxRange field is set.
    */
   boolean hasEndStrikePxRange();
   /**
    * <code>.fix.Decimal64 end_strike_px_range = 1 [(.fix.tag) = 1203, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The endStrikePxRange.
    */
   org.fixprotocol.components.Fix.Decimal64 getEndStrikePxRange();
   /**
@@ -46,10 +48,12 @@ public interface StrikeRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 start_strike_px_range = 3 [(.fix.tag) = 1202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the startStrikePxRange field is set.
    */
   boolean hasStartStrikePxRange();
   /**
    * <code>.fix.Decimal64 start_strike_px_range = 3 [(.fix.tag) = 1202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The startStrikePxRange.
    */
   org.fixprotocol.components.Fix.Decimal64 getStartStrikePxRange();
   /**
@@ -59,19 +63,23 @@ public interface StrikeRulesOrBuilder extends
 
   /**
    * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for strikeExerciseStyle.
    */
   int getStrikeExerciseStyleValue();
   /**
    * <code>.Common.StrikeExerciseStyleEnum strike_exercise_style = 4 [(.fix.tag) = 1304, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The strikeExerciseStyle.
    */
   org.fixprotocol.components.StrikeExerciseStyleEnum getStrikeExerciseStyle();
 
   /**
    * <code>.fix.Decimal64 strike_increment = 5 [(.fix.tag) = 1204, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the strikeIncrement field is set.
    */
   boolean hasStrikeIncrement();
   /**
    * <code>.fix.Decimal64 strike_increment = 5 [(.fix.tag) = 1204, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The strikeIncrement.
    */
   org.fixprotocol.components.Fix.Decimal64 getStrikeIncrement();
   /**
@@ -81,10 +89,12 @@ public interface StrikeRulesOrBuilder extends
 
   /**
    * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The strikeRuleId.
    */
   java.lang.String getStrikeRuleId();
   /**
    * <code>string strike_rule_id = 6 [(.fix.tag) = 1223, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for strikeRuleId.
    */
   com.google.protobuf.ByteString
       getStrikeRuleIdBytes();

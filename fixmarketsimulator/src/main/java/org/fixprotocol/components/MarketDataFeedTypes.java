@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
   private long marketDepth_;
   /**
    * <code>sfixed64 market_depth = 1 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketDepth.
    */
   public long getMarketDepth() {
     return marketDepth_;
@@ -112,12 +113,14 @@ private static final long serialVersionUID = 0L;
   private int mdBookType_;
   /**
    * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for mdBookType.
    */
   public int getMdBookTypeValue() {
     return mdBookType_;
   }
   /**
    * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The mdBookType.
    */
   public org.fixprotocol.components.MDBookTypeEnum getMdBookType() {
     @SuppressWarnings("deprecation")
@@ -129,6 +132,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object mdFeedType_;
   /**
    * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The mdFeedType.
    */
   public java.lang.String getMdFeedType() {
     java.lang.Object ref = mdFeedType_;
@@ -144,6 +148,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for mdFeedType.
    */
   public com.google.protobuf.ByteString
       getMdFeedTypeBytes() {
@@ -498,12 +503,15 @@ private static final long serialVersionUID = 0L;
     private long marketDepth_ ;
     /**
      * <code>sfixed64 market_depth = 1 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketDepth.
      */
     public long getMarketDepth() {
       return marketDepth_;
     }
     /**
      * <code>sfixed64 market_depth = 1 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The marketDepth to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketDepth(long value) {
       
@@ -513,6 +521,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 market_depth = 1 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMarketDepth() {
       
@@ -524,12 +533,15 @@ private static final long serialVersionUID = 0L;
     private int mdBookType_ = 0;
     /**
      * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for mdBookType.
      */
     public int getMdBookTypeValue() {
       return mdBookType_;
     }
     /**
      * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for mdBookType to set.
+     * @return This builder for chaining.
      */
     public Builder setMdBookTypeValue(int value) {
       mdBookType_ = value;
@@ -538,6 +550,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdBookType.
      */
     public org.fixprotocol.components.MDBookTypeEnum getMdBookType() {
       @SuppressWarnings("deprecation")
@@ -546,6 +559,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The mdBookType to set.
+     * @return This builder for chaining.
      */
     public Builder setMdBookType(org.fixprotocol.components.MDBookTypeEnum value) {
       if (value == null) {
@@ -558,6 +573,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMdBookType() {
       
@@ -569,6 +585,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object mdFeedType_ = "";
     /**
      * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The mdFeedType.
      */
     public java.lang.String getMdFeedType() {
       java.lang.Object ref = mdFeedType_;
@@ -584,6 +601,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for mdFeedType.
      */
     public com.google.protobuf.ByteString
         getMdFeedTypeBytes() {
@@ -600,6 +618,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The mdFeedType to set.
+     * @return This builder for chaining.
      */
     public Builder setMdFeedType(
         java.lang.String value) {
@@ -613,6 +633,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMdFeedType() {
       
@@ -622,6 +643,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for mdFeedType to set.
+     * @return This builder for chaining.
      */
     public Builder setMdFeedTypeBytes(
         com.google.protobuf.ByteString value) {

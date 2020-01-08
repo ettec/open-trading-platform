@@ -9,10 +9,12 @@ public interface MiscFeesGrpOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 misc_fee_amt = 1 [(.fix.tag) = 137, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the miscFeeAmt field is set.
    */
   boolean hasMiscFeeAmt();
   /**
    * <code>.fix.Decimal64 misc_fee_amt = 1 [(.fix.tag) = 137, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeAmt.
    */
   org.fixprotocol.components.Fix.Decimal64 getMiscFeeAmt();
   /**
@@ -22,29 +24,35 @@ public interface MiscFeesGrpOrBuilder extends
 
   /**
    * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for miscFeeBasis.
    */
   int getMiscFeeBasisValue();
   /**
    * <code>.Common.MiscFeeBasisEnum misc_fee_basis = 2 [(.fix.tag) = 891, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeBasis.
    */
   org.fixprotocol.components.MiscFeeBasisEnum getMiscFeeBasis();
 
   /**
    * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeCurr.
    */
   java.lang.String getMiscFeeCurr();
   /**
    * <code>string misc_fee_curr = 3 [(.fix.tag) = 138, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for miscFeeCurr.
    */
   com.google.protobuf.ByteString
       getMiscFeeCurrBytes();
 
   /**
    * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for miscFeeType.
    */
   int getMiscFeeTypeValue();
   /**
    * <code>.Common.MiscFeeTypeEnum misc_fee_type = 4 [(.fix.tag) = 139, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The miscFeeType.
    */
   org.fixprotocol.components.MiscFeeTypeEnum getMiscFeeType();
 }

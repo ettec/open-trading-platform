@@ -126,6 +126,8 @@ public enum LegBenchmarkCurveNameEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -133,6 +135,10 @@ public enum LegBenchmarkCurveNameEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static LegBenchmarkCurveNameEnum forNumber(int value) {
     switch (value) {
       case 0: return LEG_BENCHMARK_CURVE_NAME_UNSPECIFIED;

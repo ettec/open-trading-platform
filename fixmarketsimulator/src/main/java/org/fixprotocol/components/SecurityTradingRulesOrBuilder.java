@@ -9,10 +9,12 @@ public interface SecurityTradingRulesOrBuilder extends
 
   /**
    * <code>.Common.BaseTradingRules base_trading_rules = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the baseTradingRules field is set.
    */
   boolean hasBaseTradingRules();
   /**
    * <code>.Common.BaseTradingRules base_trading_rules = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The baseTradingRules.
    */
   org.fixprotocol.components.BaseTradingRules getBaseTradingRules();
   /**

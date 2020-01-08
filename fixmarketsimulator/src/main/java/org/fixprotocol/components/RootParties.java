@@ -119,6 +119,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object rootPartyId_;
   /**
    * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartyId.
    */
   public java.lang.String getRootPartyId() {
     java.lang.Object ref = rootPartyId_;
@@ -134,6 +135,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for rootPartyId.
    */
   public com.google.protobuf.ByteString
       getRootPartyIdBytes() {
@@ -153,12 +155,14 @@ private static final long serialVersionUID = 0L;
   private int rootPartyIdSource_;
   /**
    * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for rootPartyIdSource.
    */
   public int getRootPartyIdSourceValue() {
     return rootPartyIdSource_;
   }
   /**
    * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartyIdSource.
    */
   public org.fixprotocol.components.RootPartyIDSourceEnum getRootPartyIdSource() {
     @SuppressWarnings("deprecation")
@@ -170,12 +174,14 @@ private static final long serialVersionUID = 0L;
   private int rootPartyRole_;
   /**
    * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for rootPartyRole.
    */
   public int getRootPartyRoleValue() {
     return rootPartyRole_;
   }
   /**
    * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartyRole.
    */
   public org.fixprotocol.components.RootPartyRoleEnum getRootPartyRole() {
     @SuppressWarnings("deprecation")
@@ -612,6 +618,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object rootPartyId_ = "";
     /**
      * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rootPartyId.
      */
     public java.lang.String getRootPartyId() {
       java.lang.Object ref = rootPartyId_;
@@ -627,6 +634,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for rootPartyId.
      */
     public com.google.protobuf.ByteString
         getRootPartyIdBytes() {
@@ -643,6 +651,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The rootPartyId to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartyId(
         java.lang.String value) {
@@ -656,6 +666,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRootPartyId() {
       
@@ -665,6 +676,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for rootPartyId to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartyIdBytes(
         com.google.protobuf.ByteString value) {
@@ -681,12 +694,15 @@ private static final long serialVersionUID = 0L;
     private int rootPartyIdSource_ = 0;
     /**
      * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for rootPartyIdSource.
      */
     public int getRootPartyIdSourceValue() {
       return rootPartyIdSource_;
     }
     /**
      * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for rootPartyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartyIdSourceValue(int value) {
       rootPartyIdSource_ = value;
@@ -695,6 +711,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rootPartyIdSource.
      */
     public org.fixprotocol.components.RootPartyIDSourceEnum getRootPartyIdSource() {
       @SuppressWarnings("deprecation")
@@ -703,6 +720,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The rootPartyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartyIdSource(org.fixprotocol.components.RootPartyIDSourceEnum value) {
       if (value == null) {
@@ -715,6 +734,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRootPartyIdSource() {
       
@@ -726,12 +746,15 @@ private static final long serialVersionUID = 0L;
     private int rootPartyRole_ = 0;
     /**
      * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for rootPartyRole.
      */
     public int getRootPartyRoleValue() {
       return rootPartyRole_;
     }
     /**
      * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for rootPartyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartyRoleValue(int value) {
       rootPartyRole_ = value;
@@ -740,6 +763,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The rootPartyRole.
      */
     public org.fixprotocol.components.RootPartyRoleEnum getRootPartyRole() {
       @SuppressWarnings("deprecation")
@@ -748,6 +772,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The rootPartyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setRootPartyRole(org.fixprotocol.components.RootPartyRoleEnum value) {
       if (value == null) {
@@ -760,6 +786,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRootPartyRole() {
       

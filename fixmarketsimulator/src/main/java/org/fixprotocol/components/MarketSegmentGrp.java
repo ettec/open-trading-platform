@@ -125,6 +125,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object marketId_;
   /**
    * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketId.
    */
   public java.lang.String getMarketId() {
     java.lang.Object ref = marketId_;
@@ -140,6 +141,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketId.
    */
   public com.google.protobuf.ByteString
       getMarketIdBytes() {
@@ -159,6 +161,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object marketSegmentId_;
   /**
    * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketSegmentId.
    */
   public java.lang.String getMarketSegmentId() {
     java.lang.Object ref = marketSegmentId_;
@@ -174,6 +177,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketSegmentId.
    */
   public com.google.protobuf.ByteString
       getMarketSegmentIdBytes() {
@@ -193,12 +197,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.SecurityTradingRules securityTradingRules_;
   /**
    * <code>.Common.SecurityTradingRules security_trading_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the securityTradingRules field is set.
    */
   public boolean hasSecurityTradingRules() {
     return securityTradingRules_ != null;
   }
   /**
    * <code>.Common.SecurityTradingRules security_trading_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityTradingRules.
    */
   public org.fixprotocol.components.SecurityTradingRules getSecurityTradingRules() {
     return securityTradingRules_ == null ? org.fixprotocol.components.SecurityTradingRules.getDefaultInstance() : securityTradingRules_;
@@ -654,6 +660,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object marketId_ = "";
     /**
      * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketId.
      */
     public java.lang.String getMarketId() {
       java.lang.Object ref = marketId_;
@@ -669,6 +676,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for marketId.
      */
     public com.google.protobuf.ByteString
         getMarketIdBytes() {
@@ -685,6 +693,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The marketId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketId(
         java.lang.String value) {
@@ -698,6 +708,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMarketId() {
       
@@ -707,6 +718,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 1 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for marketId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketIdBytes(
         com.google.protobuf.ByteString value) {
@@ -723,6 +736,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object marketSegmentId_ = "";
     /**
      * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketSegmentId.
      */
     public java.lang.String getMarketSegmentId() {
       java.lang.Object ref = marketSegmentId_;
@@ -738,6 +752,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for marketSegmentId.
      */
     public com.google.protobuf.ByteString
         getMarketSegmentIdBytes() {
@@ -754,6 +769,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The marketSegmentId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketSegmentId(
         java.lang.String value) {
@@ -767,6 +784,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMarketSegmentId() {
       
@@ -776,6 +794,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 2 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for marketSegmentId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketSegmentIdBytes(
         com.google.protobuf.ByteString value) {
@@ -794,12 +814,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.SecurityTradingRules, org.fixprotocol.components.SecurityTradingRules.Builder, org.fixprotocol.components.SecurityTradingRulesOrBuilder> securityTradingRulesBuilder_;
     /**
      * <code>.Common.SecurityTradingRules security_trading_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the securityTradingRules field is set.
      */
     public boolean hasSecurityTradingRules() {
       return securityTradingRulesBuilder_ != null || securityTradingRules_ != null;
     }
     /**
      * <code>.Common.SecurityTradingRules security_trading_rules = 3 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The securityTradingRules.
      */
     public org.fixprotocol.components.SecurityTradingRules getSecurityTradingRules() {
       if (securityTradingRulesBuilder_ == null) {

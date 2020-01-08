@@ -119,6 +119,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object nested4PartyId_;
   /**
    * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partyId.
    */
   public java.lang.String getNested4PartyId() {
     java.lang.Object ref = nested4PartyId_;
@@ -134,6 +135,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for nested4partyId.
    */
   public com.google.protobuf.ByteString
       getNested4PartyIdBytes() {
@@ -153,12 +155,14 @@ private static final long serialVersionUID = 0L;
   private int nested4PartyIdSource_;
   /**
    * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nested4partyIdSource.
    */
   public int getNested4PartyIdSourceValue() {
     return nested4PartyIdSource_;
   }
   /**
    * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partyIdSource.
    */
   public org.fixprotocol.components.Nested4PartyIDSourceEnum getNested4PartyIdSource() {
     @SuppressWarnings("deprecation")
@@ -170,12 +174,14 @@ private static final long serialVersionUID = 0L;
   private int nested4PartyRole_;
   /**
    * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nested4partyRole.
    */
   public int getNested4PartyRoleValue() {
     return nested4PartyRole_;
   }
   /**
    * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partyRole.
    */
   public org.fixprotocol.components.Nested4PartyRoleEnum getNested4PartyRole() {
     @SuppressWarnings("deprecation")
@@ -612,6 +618,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object nested4PartyId_ = "";
     /**
      * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nested4partyId.
      */
     public java.lang.String getNested4PartyId() {
       java.lang.Object ref = nested4PartyId_;
@@ -627,6 +634,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for nested4partyId.
      */
     public com.google.protobuf.ByteString
         getNested4PartyIdBytes() {
@@ -643,6 +651,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nested4partyId to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartyId(
         java.lang.String value) {
@@ -656,6 +666,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNested4PartyId() {
       
@@ -665,6 +676,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for nested4partyId to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartyIdBytes(
         com.google.protobuf.ByteString value) {
@@ -681,12 +694,15 @@ private static final long serialVersionUID = 0L;
     private int nested4PartyIdSource_ = 0;
     /**
      * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for nested4partyIdSource.
      */
     public int getNested4PartyIdSourceValue() {
       return nested4PartyIdSource_;
     }
     /**
      * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for nested4partyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartyIdSourceValue(int value) {
       nested4PartyIdSource_ = value;
@@ -695,6 +711,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nested4partyIdSource.
      */
     public org.fixprotocol.components.Nested4PartyIDSourceEnum getNested4PartyIdSource() {
       @SuppressWarnings("deprecation")
@@ -703,6 +720,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nested4partyIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartyIdSource(org.fixprotocol.components.Nested4PartyIDSourceEnum value) {
       if (value == null) {
@@ -715,6 +734,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNested4PartyIdSource() {
       
@@ -726,12 +746,15 @@ private static final long serialVersionUID = 0L;
     private int nested4PartyRole_ = 0;
     /**
      * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for nested4partyRole.
      */
     public int getNested4PartyRoleValue() {
       return nested4PartyRole_;
     }
     /**
      * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for nested4partyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartyRoleValue(int value) {
       nested4PartyRole_ = value;
@@ -740,6 +763,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The nested4partyRole.
      */
     public org.fixprotocol.components.Nested4PartyRoleEnum getNested4PartyRole() {
       @SuppressWarnings("deprecation")
@@ -748,6 +772,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The nested4partyRole to set.
+     * @return This builder for chaining.
      */
     public Builder setNested4PartyRole(org.fixprotocol.components.Nested4PartyRoleEnum value) {
       if (value == null) {
@@ -760,6 +786,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearNested4PartyRole() {
       

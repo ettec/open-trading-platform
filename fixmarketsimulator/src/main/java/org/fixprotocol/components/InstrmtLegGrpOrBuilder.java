@@ -9,10 +9,12 @@ public interface InstrmtLegGrpOrBuilder extends
 
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the instrumentLeg field is set.
    */
   boolean hasInstrumentLeg();
   /**
    * <code>.Common.InstrumentLeg instrument_leg = 1 [(.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrumentLeg.
    */
   org.fixprotocol.components.InstrumentLeg getInstrumentLeg();
   /**

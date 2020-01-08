@@ -98,12 +98,14 @@ private static final long serialVersionUID = 0L;
   private int stipulationType_;
   /**
    * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for stipulationType.
    */
   public int getStipulationTypeValue() {
     return stipulationType_;
   }
   /**
    * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The stipulationType.
    */
   public org.fixprotocol.components.StipulationTypeEnum getStipulationType() {
     @SuppressWarnings("deprecation")
@@ -115,6 +117,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object stipulationValue_;
   /**
    * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The stipulationValue.
    */
   public java.lang.String getStipulationValue() {
     java.lang.Object ref = stipulationValue_;
@@ -130,6 +133,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for stipulationValue.
    */
   public com.google.protobuf.ByteString
       getStipulationValueBytes() {
@@ -466,12 +470,15 @@ private static final long serialVersionUID = 0L;
     private int stipulationType_ = 0;
     /**
      * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for stipulationType.
      */
     public int getStipulationTypeValue() {
       return stipulationType_;
     }
     /**
      * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for stipulationType to set.
+     * @return This builder for chaining.
      */
     public Builder setStipulationTypeValue(int value) {
       stipulationType_ = value;
@@ -480,6 +487,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The stipulationType.
      */
     public org.fixprotocol.components.StipulationTypeEnum getStipulationType() {
       @SuppressWarnings("deprecation")
@@ -488,6 +496,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The stipulationType to set.
+     * @return This builder for chaining.
      */
     public Builder setStipulationType(org.fixprotocol.components.StipulationTypeEnum value) {
       if (value == null) {
@@ -500,6 +510,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.StipulationTypeEnum stipulation_type = 1 [(.fix.tag) = 233, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStipulationType() {
       
@@ -511,6 +522,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object stipulationValue_ = "";
     /**
      * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The stipulationValue.
      */
     public java.lang.String getStipulationValue() {
       java.lang.Object ref = stipulationValue_;
@@ -526,6 +538,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for stipulationValue.
      */
     public com.google.protobuf.ByteString
         getStipulationValueBytes() {
@@ -542,6 +555,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The stipulationValue to set.
+     * @return This builder for chaining.
      */
     public Builder setStipulationValue(
         java.lang.String value) {
@@ -555,6 +570,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStipulationValue() {
       
@@ -564,6 +580,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string stipulation_value = 2 [(.fix.tag) = 234, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for stipulationValue to set.
+     * @return This builder for chaining.
      */
     public Builder setStipulationValueBytes(
         com.google.protobuf.ByteString value) {

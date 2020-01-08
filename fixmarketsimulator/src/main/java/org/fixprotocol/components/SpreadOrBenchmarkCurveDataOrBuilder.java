@@ -9,39 +9,47 @@ public interface SpreadOrBenchmarkCurveDataOrBuilder extends
 
   /**
    * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The benchmarkCurveCurrency.
    */
   java.lang.String getBenchmarkCurveCurrency();
   /**
    * <code>string benchmark_curve_currency = 1 [(.fix.tag) = 220, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for benchmarkCurveCurrency.
    */
   com.google.protobuf.ByteString
       getBenchmarkCurveCurrencyBytes();
 
   /**
    * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for benchmarkCurveName.
    */
   int getBenchmarkCurveNameValue();
   /**
    * <code>.Common.BenchmarkCurveNameEnum benchmark_curve_name = 2 [(.fix.tag) = 221, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The benchmarkCurveName.
    */
   org.fixprotocol.components.BenchmarkCurveNameEnum getBenchmarkCurveName();
 
   /**
    * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The benchmarkCurvePoint.
    */
   java.lang.String getBenchmarkCurvePoint();
   /**
    * <code>string benchmark_curve_point = 3 [(.fix.tag) = 222, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for benchmarkCurvePoint.
    */
   com.google.protobuf.ByteString
       getBenchmarkCurvePointBytes();
 
   /**
    * <code>.fix.Decimal64 spread = 4 [(.fix.tag) = 218, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the spread field is set.
    */
   boolean hasSpread();
   /**
    * <code>.fix.Decimal64 spread = 4 [(.fix.tag) = 218, (.fix.type) = DATATYPE_PRICE_OFFSET, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The spread.
    */
   org.fixprotocol.components.Fix.Decimal64 getSpread();
   /**
@@ -51,10 +59,12 @@ public interface SpreadOrBenchmarkCurveDataOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 benchmark_price = 5 [(.fix.tag) = 662, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the benchmarkPrice field is set.
    */
   boolean hasBenchmarkPrice();
   /**
    * <code>.fix.Decimal64 benchmark_price = 5 [(.fix.tag) = 662, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkPrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getBenchmarkPrice();
   /**
@@ -64,29 +74,35 @@ public interface SpreadOrBenchmarkCurveDataOrBuilder extends
 
   /**
    * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for benchmarkPriceType.
    */
   int getBenchmarkPriceTypeValue();
   /**
    * <code>.Common.BenchmarkPriceTypeEnum benchmark_price_type = 6 [(.fix.tag) = 663, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkPriceType.
    */
   org.fixprotocol.components.BenchmarkPriceTypeEnum getBenchmarkPriceType();
 
   /**
    * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkSecurityId.
    */
   java.lang.String getBenchmarkSecurityId();
   /**
    * <code>string benchmark_security_id = 7 [(.fix.tag) = 699, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for benchmarkSecurityId.
    */
   com.google.protobuf.ByteString
       getBenchmarkSecurityIdBytes();
 
   /**
    * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for benchmarkSecurityIdSource.
    */
   int getBenchmarkSecurityIdSourceValue();
   /**
    * <code>.Common.BenchmarkSecurityIDSourceEnum benchmark_security_id_source = 8 [(.fix.tag) = 761, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The benchmarkSecurityIdSource.
    */
   org.fixprotocol.components.BenchmarkSecurityIDSourceEnum getBenchmarkSecurityIdSource();
 }

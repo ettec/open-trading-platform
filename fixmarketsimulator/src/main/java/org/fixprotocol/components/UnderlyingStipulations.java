@@ -98,12 +98,14 @@ private static final long serialVersionUID = 0L;
   private int underlyingStipType_;
   /**
    * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingStipType.
    */
   public int getUnderlyingStipTypeValue() {
     return underlyingStipType_;
   }
   /**
    * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingStipType.
    */
   public org.fixprotocol.components.UnderlyingStipTypeEnum getUnderlyingStipType() {
     @SuppressWarnings("deprecation")
@@ -115,6 +117,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object underlyingStipValue_;
   /**
    * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingStipValue.
    */
   public java.lang.String getUnderlyingStipValue() {
     java.lang.Object ref = underlyingStipValue_;
@@ -130,6 +133,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingStipValue.
    */
   public com.google.protobuf.ByteString
       getUnderlyingStipValueBytes() {
@@ -466,12 +470,15 @@ private static final long serialVersionUID = 0L;
     private int underlyingStipType_ = 0;
     /**
      * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for underlyingStipType.
      */
     public int getUnderlyingStipTypeValue() {
       return underlyingStipType_;
     }
     /**
      * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for underlyingStipType to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingStipTypeValue(int value) {
       underlyingStipType_ = value;
@@ -480,6 +487,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingStipType.
      */
     public org.fixprotocol.components.UnderlyingStipTypeEnum getUnderlyingStipType() {
       @SuppressWarnings("deprecation")
@@ -488,6 +496,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingStipType to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingStipType(org.fixprotocol.components.UnderlyingStipTypeEnum value) {
       if (value == null) {
@@ -500,6 +510,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.UnderlyingStipTypeEnum underlying_stip_type = 1 [(.fix.tag) = 888, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingStipType() {
       
@@ -511,6 +522,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object underlyingStipValue_ = "";
     /**
      * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The underlyingStipValue.
      */
     public java.lang.String getUnderlyingStipValue() {
       java.lang.Object ref = underlyingStipValue_;
@@ -526,6 +538,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for underlyingStipValue.
      */
     public com.google.protobuf.ByteString
         getUnderlyingStipValueBytes() {
@@ -542,6 +555,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The underlyingStipValue to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingStipValue(
         java.lang.String value) {
@@ -555,6 +570,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnderlyingStipValue() {
       
@@ -564,6 +580,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string underlying_stip_value = 2 [(.fix.tag) = 889, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for underlyingStipValue to set.
+     * @return This builder for chaining.
      */
     public Builder setUnderlyingStipValueBytes(
         com.google.protobuf.ByteString value) {

@@ -9,29 +9,35 @@ public interface SettlPartiesOrBuilder extends
 
   /**
    * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartyId.
    */
   java.lang.String getSettlPartyId();
   /**
    * <code>string settl_party_id = 1 [(.fix.tag) = 782, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for settlPartyId.
    */
   com.google.protobuf.ByteString
       getSettlPartyIdBytes();
 
   /**
    * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlPartyIdSource.
    */
   int getSettlPartyIdSourceValue();
   /**
    * <code>.Common.SettlPartyIDSourceEnum settl_party_id_source = 2 [(.fix.tag) = 783, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartyIdSource.
    */
   org.fixprotocol.components.SettlPartyIDSourceEnum getSettlPartyIdSource();
 
   /**
    * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for settlPartyRole.
    */
   int getSettlPartyRoleValue();
   /**
    * <code>.Common.SettlPartyRoleEnum settl_party_role = 3 [(.fix.tag) = 784, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settlPartyRole.
    */
   org.fixprotocol.components.SettlPartyRoleEnum getSettlPartyRole();
 

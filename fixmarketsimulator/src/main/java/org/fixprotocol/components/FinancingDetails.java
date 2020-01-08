@@ -147,6 +147,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object agreementCurrency_;
   /**
    * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementCurrency.
    */
   public java.lang.String getAgreementCurrency() {
     java.lang.Object ref = agreementCurrency_;
@@ -162,6 +163,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for agreementCurrency.
    */
   public com.google.protobuf.ByteString
       getAgreementCurrencyBytes() {
@@ -181,6 +183,7 @@ private static final long serialVersionUID = 0L;
   private int agreementDate_;
   /**
    * <code>sfixed32 agreement_date = 2 [(.fix.tag) = 915, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementDate.
    */
   public int getAgreementDate() {
     return agreementDate_;
@@ -190,6 +193,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object agreementDesc_;
   /**
    * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementDesc.
    */
   public java.lang.String getAgreementDesc() {
     java.lang.Object ref = agreementDesc_;
@@ -205,6 +209,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for agreementDesc.
    */
   public com.google.protobuf.ByteString
       getAgreementDescBytes() {
@@ -224,6 +229,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object agreementId_;
   /**
    * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The agreementId.
    */
   public java.lang.String getAgreementId() {
     java.lang.Object ref = agreementId_;
@@ -239,6 +245,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for agreementId.
    */
   public com.google.protobuf.ByteString
       getAgreementIdBytes() {
@@ -258,12 +265,14 @@ private static final long serialVersionUID = 0L;
   private int deliveryType_;
   /**
    * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for deliveryType.
    */
   public int getDeliveryTypeValue() {
     return deliveryType_;
   }
   /**
    * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deliveryType.
    */
   public org.fixprotocol.components.DeliveryTypeEnum getDeliveryType() {
     @SuppressWarnings("deprecation")
@@ -275,6 +284,7 @@ private static final long serialVersionUID = 0L;
   private int endDate_;
   /**
    * <code>sfixed32 end_date = 6 [(.fix.tag) = 917, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The endDate.
    */
   public int getEndDate() {
     return endDate_;
@@ -284,12 +294,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 marginRatio_;
   /**
    * <code>.fix.Decimal64 margin_ratio = 7 [(.fix.tag) = 898, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the marginRatio field is set.
    */
   public boolean hasMarginRatio() {
     return marginRatio_ != null;
   }
   /**
    * <code>.fix.Decimal64 margin_ratio = 7 [(.fix.tag) = 898, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The marginRatio.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMarginRatio() {
     return marginRatio_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : marginRatio_;
@@ -305,6 +317,7 @@ private static final long serialVersionUID = 0L;
   private int startDate_;
   /**
    * <code>sfixed32 start_date = 8 [(.fix.tag) = 916, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The startDate.
    */
   public int getStartDate() {
     return startDate_;
@@ -314,12 +327,14 @@ private static final long serialVersionUID = 0L;
   private int terminationType_;
   /**
    * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for terminationType.
    */
   public int getTerminationTypeValue() {
     return terminationType_;
   }
   /**
    * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The terminationType.
    */
   public org.fixprotocol.components.TerminationTypeEnum getTerminationType() {
     @SuppressWarnings("deprecation")
@@ -779,6 +794,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object agreementCurrency_ = "";
     /**
      * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The agreementCurrency.
      */
     public java.lang.String getAgreementCurrency() {
       java.lang.Object ref = agreementCurrency_;
@@ -794,6 +810,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for agreementCurrency.
      */
     public com.google.protobuf.ByteString
         getAgreementCurrencyBytes() {
@@ -810,6 +827,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The agreementCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementCurrency(
         java.lang.String value) {
@@ -823,6 +842,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAgreementCurrency() {
       
@@ -832,6 +852,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_currency = 1 [(.fix.tag) = 918, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for agreementCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -848,12 +870,15 @@ private static final long serialVersionUID = 0L;
     private int agreementDate_ ;
     /**
      * <code>sfixed32 agreement_date = 2 [(.fix.tag) = 915, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The agreementDate.
      */
     public int getAgreementDate() {
       return agreementDate_;
     }
     /**
      * <code>sfixed32 agreement_date = 2 [(.fix.tag) = 915, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The agreementDate to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementDate(int value) {
       
@@ -863,6 +888,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 agreement_date = 2 [(.fix.tag) = 915, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAgreementDate() {
       
@@ -874,6 +900,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object agreementDesc_ = "";
     /**
      * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The agreementDesc.
      */
     public java.lang.String getAgreementDesc() {
       java.lang.Object ref = agreementDesc_;
@@ -889,6 +916,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for agreementDesc.
      */
     public com.google.protobuf.ByteString
         getAgreementDescBytes() {
@@ -905,6 +933,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The agreementDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementDesc(
         java.lang.String value) {
@@ -918,6 +948,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAgreementDesc() {
       
@@ -927,6 +958,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_desc = 3 [(.fix.tag) = 913, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for agreementDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementDescBytes(
         com.google.protobuf.ByteString value) {
@@ -943,6 +976,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object agreementId_ = "";
     /**
      * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The agreementId.
      */
     public java.lang.String getAgreementId() {
       java.lang.Object ref = agreementId_;
@@ -958,6 +992,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for agreementId.
      */
     public com.google.protobuf.ByteString
         getAgreementIdBytes() {
@@ -974,6 +1009,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The agreementId to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementId(
         java.lang.String value) {
@@ -987,6 +1024,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearAgreementId() {
       
@@ -996,6 +1034,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string agreement_id = 4 [(.fix.tag) = 914, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for agreementId to set.
+     * @return This builder for chaining.
      */
     public Builder setAgreementIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1012,12 +1052,15 @@ private static final long serialVersionUID = 0L;
     private int deliveryType_ = 0;
     /**
      * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for deliveryType.
      */
     public int getDeliveryTypeValue() {
       return deliveryType_;
     }
     /**
      * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for deliveryType to set.
+     * @return This builder for chaining.
      */
     public Builder setDeliveryTypeValue(int value) {
       deliveryType_ = value;
@@ -1026,6 +1069,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The deliveryType.
      */
     public org.fixprotocol.components.DeliveryTypeEnum getDeliveryType() {
       @SuppressWarnings("deprecation")
@@ -1034,6 +1078,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The deliveryType to set.
+     * @return This builder for chaining.
      */
     public Builder setDeliveryType(org.fixprotocol.components.DeliveryTypeEnum value) {
       if (value == null) {
@@ -1046,6 +1092,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.DeliveryTypeEnum delivery_type = 5 [(.fix.tag) = 919, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDeliveryType() {
       
@@ -1057,12 +1104,15 @@ private static final long serialVersionUID = 0L;
     private int endDate_ ;
     /**
      * <code>sfixed32 end_date = 6 [(.fix.tag) = 917, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The endDate.
      */
     public int getEndDate() {
       return endDate_;
     }
     /**
      * <code>sfixed32 end_date = 6 [(.fix.tag) = 917, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The endDate to set.
+     * @return This builder for chaining.
      */
     public Builder setEndDate(int value) {
       
@@ -1072,6 +1122,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 end_date = 6 [(.fix.tag) = 917, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEndDate() {
       
@@ -1085,12 +1136,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> marginRatioBuilder_;
     /**
      * <code>.fix.Decimal64 margin_ratio = 7 [(.fix.tag) = 898, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the marginRatio field is set.
      */
     public boolean hasMarginRatio() {
       return marginRatioBuilder_ != null || marginRatio_ != null;
     }
     /**
      * <code>.fix.Decimal64 margin_ratio = 7 [(.fix.tag) = 898, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The marginRatio.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMarginRatio() {
       if (marginRatioBuilder_ == null) {
@@ -1200,12 +1253,15 @@ private static final long serialVersionUID = 0L;
     private int startDate_ ;
     /**
      * <code>sfixed32 start_date = 8 [(.fix.tag) = 916, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The startDate.
      */
     public int getStartDate() {
       return startDate_;
     }
     /**
      * <code>sfixed32 start_date = 8 [(.fix.tag) = 916, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The startDate to set.
+     * @return This builder for chaining.
      */
     public Builder setStartDate(int value) {
       
@@ -1215,6 +1271,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 start_date = 8 [(.fix.tag) = 916, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearStartDate() {
       
@@ -1226,12 +1283,15 @@ private static final long serialVersionUID = 0L;
     private int terminationType_ = 0;
     /**
      * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for terminationType.
      */
     public int getTerminationTypeValue() {
       return terminationType_;
     }
     /**
      * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for terminationType to set.
+     * @return This builder for chaining.
      */
     public Builder setTerminationTypeValue(int value) {
       terminationType_ = value;
@@ -1240,6 +1300,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The terminationType.
      */
     public org.fixprotocol.components.TerminationTypeEnum getTerminationType() {
       @SuppressWarnings("deprecation")
@@ -1248,6 +1309,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The terminationType to set.
+     * @return This builder for chaining.
      */
     public Builder setTerminationType(org.fixprotocol.components.TerminationTypeEnum value) {
       if (value == null) {
@@ -1260,6 +1323,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TerminationTypeEnum termination_type = 9 [(.fix.tag) = 788, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTerminationType() {
       

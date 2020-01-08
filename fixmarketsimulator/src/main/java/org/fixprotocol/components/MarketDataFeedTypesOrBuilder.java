@@ -9,24 +9,29 @@ public interface MarketDataFeedTypesOrBuilder extends
 
   /**
    * <code>sfixed64 market_depth = 1 [(.fix.tag) = 264, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketDepth.
    */
   long getMarketDepth();
 
   /**
    * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for mdBookType.
    */
   int getMdBookTypeValue();
   /**
    * <code>.Common.MDBookTypeEnum md_book_type = 2 [(.fix.tag) = 1021, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The mdBookType.
    */
   org.fixprotocol.components.MDBookTypeEnum getMdBookType();
 
   /**
    * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The mdFeedType.
    */
   java.lang.String getMdFeedType();
   /**
    * <code>string md_feed_type = 3 [(.fix.tag) = 1022, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for mdFeedType.
    */
   com.google.protobuf.ByteString
       getMdFeedTypeBytes();

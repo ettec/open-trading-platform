@@ -9,10 +9,12 @@ public interface PositionAmountDataOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 pos_amt = 1 [(.fix.tag) = 708, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the posAmt field is set.
    */
   boolean hasPosAmt();
   /**
    * <code>.fix.Decimal64 pos_amt = 1 [(.fix.tag) = 708, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posAmt.
    */
   org.fixprotocol.components.Fix.Decimal64 getPosAmt();
   /**
@@ -22,19 +24,23 @@ public interface PositionAmountDataOrBuilder extends
 
   /**
    * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for posAmtType.
    */
   int getPosAmtTypeValue();
   /**
    * <code>.Common.PosAmtTypeEnum pos_amt_type = 2 [(.fix.tag) = 707, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The posAmtType.
    */
   org.fixprotocol.components.PosAmtTypeEnum getPosAmtType();
 
   /**
    * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The positionCurrency.
    */
   java.lang.String getPositionCurrency();
   /**
    * <code>string position_currency = 3 [(.fix.tag) = 1055, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for positionCurrency.
    */
   com.google.protobuf.ByteString
       getPositionCurrencyBytes();

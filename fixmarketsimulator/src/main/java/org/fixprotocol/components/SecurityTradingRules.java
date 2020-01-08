@@ -124,12 +124,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.BaseTradingRules baseTradingRules_;
   /**
    * <code>.Common.BaseTradingRules base_trading_rules = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the baseTradingRules field is set.
    */
   public boolean hasBaseTradingRules() {
     return baseTradingRules_ != null;
   }
   /**
    * <code>.Common.BaseTradingRules base_trading_rules = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The baseTradingRules.
    */
   public org.fixprotocol.components.BaseTradingRules getBaseTradingRules() {
     return baseTradingRules_ == null ? org.fixprotocol.components.BaseTradingRules.getDefaultInstance() : baseTradingRules_;
@@ -643,12 +645,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.BaseTradingRules, org.fixprotocol.components.BaseTradingRules.Builder, org.fixprotocol.components.BaseTradingRulesOrBuilder> baseTradingRulesBuilder_;
     /**
      * <code>.Common.BaseTradingRules base_trading_rules = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the baseTradingRules field is set.
      */
     public boolean hasBaseTradingRules() {
       return baseTradingRulesBuilder_ != null || baseTradingRules_ != null;
     }
     /**
      * <code>.Common.BaseTradingRules base_trading_rules = 1 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The baseTradingRules.
      */
     public org.fixprotocol.components.BaseTradingRules getBaseTradingRules() {
       if (baseTradingRulesBuilder_ == null) {

@@ -9,10 +9,12 @@ public interface ExecInstRulesOrBuilder extends
 
   /**
    * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for execInstValue.
    */
   int getExecInstValueValue();
   /**
    * <code>.Common.ExecInstValueEnum exec_inst_value = 1 [(.fix.tag) = 1308, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The execInstValue.
    */
   org.fixprotocol.components.ExecInstValueEnum getExecInstValue();
 }

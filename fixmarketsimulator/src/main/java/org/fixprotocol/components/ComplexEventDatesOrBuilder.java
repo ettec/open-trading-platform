@@ -33,10 +33,12 @@ public interface ComplexEventDatesOrBuilder extends
 
   /**
    * <code>.fix.Timestamp complex_event_end_date = 2 [(.fix.tag) = 1493, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventEndDate field is set.
    */
   boolean hasComplexEventEndDate();
   /**
    * <code>.fix.Timestamp complex_event_end_date = 2 [(.fix.tag) = 1493, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventEndDate.
    */
   org.fixprotocol.components.Fix.Timestamp getComplexEventEndDate();
   /**
@@ -46,10 +48,12 @@ public interface ComplexEventDatesOrBuilder extends
 
   /**
    * <code>.fix.Timestamp complex_event_start_date = 3 [(.fix.tag) = 1492, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventStartDate field is set.
    */
   boolean hasComplexEventStartDate();
   /**
    * <code>.fix.Timestamp complex_event_start_date = 3 [(.fix.tag) = 1492, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventStartDate.
    */
   org.fixprotocol.components.Fix.Timestamp getComplexEventStartDate();
   /**

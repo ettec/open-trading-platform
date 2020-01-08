@@ -9,15 +9,18 @@ public interface DerivativeEventsGrpOrBuilder extends
 
   /**
    * <code>sfixed32 derivative_event_date = 1 [(.fix.tag) = 1288, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventDate.
    */
   int getDerivativeEventDate();
 
   /**
    * <code>.fix.Decimal64 derivative_event_px = 2 [(.fix.tag) = 1290, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeEventPx field is set.
    */
   boolean hasDerivativeEventPx();
   /**
    * <code>.fix.Decimal64 derivative_event_px = 2 [(.fix.tag) = 1290, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventPx.
    */
   org.fixprotocol.components.Fix.Decimal64 getDerivativeEventPx();
   /**
@@ -27,20 +30,24 @@ public interface DerivativeEventsGrpOrBuilder extends
 
   /**
    * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventText.
    */
   java.lang.String getDerivativeEventText();
   /**
    * <code>string derivative_event_text = 3 [(.fix.tag) = 1291, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for derivativeEventText.
    */
   com.google.protobuf.ByteString
       getDerivativeEventTextBytes();
 
   /**
    * <code>.fix.Timestamp derivative_event_time = 4 [(.fix.tag) = 1289, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the derivativeEventTime field is set.
    */
   boolean hasDerivativeEventTime();
   /**
    * <code>.fix.Timestamp derivative_event_time = 4 [(.fix.tag) = 1289, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventTime.
    */
   org.fixprotocol.components.Fix.Timestamp getDerivativeEventTime();
   /**
@@ -50,10 +57,12 @@ public interface DerivativeEventsGrpOrBuilder extends
 
   /**
    * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for derivativeEventType.
    */
   int getDerivativeEventTypeValue();
   /**
    * <code>.Common.DerivativeEventTypeEnum derivative_event_type = 5 [(.fix.tag) = 1287, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The derivativeEventType.
    */
   org.fixprotocol.components.DerivativeEventTypeEnum getDerivativeEventType();
 }

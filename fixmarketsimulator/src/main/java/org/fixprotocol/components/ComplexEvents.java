@@ -200,12 +200,14 @@ private static final long serialVersionUID = 0L;
   private int complexEventCondition_;
   /**
    * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for complexEventCondition.
    */
   public int getComplexEventConditionValue() {
     return complexEventCondition_;
   }
   /**
    * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventCondition.
    */
   public org.fixprotocol.components.ComplexEventConditionEnum getComplexEventCondition() {
     @SuppressWarnings("deprecation")
@@ -217,12 +219,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 complexEventPrice_;
   /**
    * <code>.fix.Decimal64 complex_event_price = 3 [(.fix.tag) = 1486, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventPrice field is set.
    */
   public boolean hasComplexEventPrice() {
     return complexEventPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 complex_event_price = 3 [(.fix.tag) = 1486, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getComplexEventPrice() {
     return complexEventPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : complexEventPrice_;
@@ -238,12 +242,14 @@ private static final long serialVersionUID = 0L;
   private int complexEventPriceBoundaryMethod_;
   /**
    * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for complexEventPriceBoundaryMethod.
    */
   public int getComplexEventPriceBoundaryMethodValue() {
     return complexEventPriceBoundaryMethod_;
   }
   /**
    * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventPriceBoundaryMethod.
    */
   public org.fixprotocol.components.ComplexEventPriceBoundaryMethodEnum getComplexEventPriceBoundaryMethod() {
     @SuppressWarnings("deprecation")
@@ -255,12 +261,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 complexEventPriceBoundaryPrecision_;
   /**
    * <code>.fix.Decimal64 complex_event_price_boundary_precision = 5 [(.fix.tag) = 1488, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventPriceBoundaryPrecision field is set.
    */
   public boolean hasComplexEventPriceBoundaryPrecision() {
     return complexEventPriceBoundaryPrecision_ != null;
   }
   /**
    * <code>.fix.Decimal64 complex_event_price_boundary_precision = 5 [(.fix.tag) = 1488, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventPriceBoundaryPrecision.
    */
   public org.fixprotocol.components.Fix.Decimal64 getComplexEventPriceBoundaryPrecision() {
     return complexEventPriceBoundaryPrecision_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : complexEventPriceBoundaryPrecision_;
@@ -276,12 +284,14 @@ private static final long serialVersionUID = 0L;
   private int complexEventPriceTimeType_;
   /**
    * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for complexEventPriceTimeType.
    */
   public int getComplexEventPriceTimeTypeValue() {
     return complexEventPriceTimeType_;
   }
   /**
    * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventPriceTimeType.
    */
   public org.fixprotocol.components.ComplexEventPriceTimeTypeEnum getComplexEventPriceTimeType() {
     @SuppressWarnings("deprecation")
@@ -293,12 +303,14 @@ private static final long serialVersionUID = 0L;
   private int complexEventType_;
   /**
    * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for complexEventType.
    */
   public int getComplexEventTypeValue() {
     return complexEventType_;
   }
   /**
    * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventType.
    */
   public org.fixprotocol.components.ComplexEventTypeEnum getComplexEventType() {
     @SuppressWarnings("deprecation")
@@ -310,12 +322,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 complexOptPayoutAmount_;
   /**
    * <code>.fix.Decimal64 complex_opt_payout_amount = 8 [(.fix.tag) = 1485, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexOptPayoutAmount field is set.
    */
   public boolean hasComplexOptPayoutAmount() {
     return complexOptPayoutAmount_ != null;
   }
   /**
    * <code>.fix.Decimal64 complex_opt_payout_amount = 8 [(.fix.tag) = 1485, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexOptPayoutAmount.
    */
   public org.fixprotocol.components.Fix.Decimal64 getComplexOptPayoutAmount() {
     return complexOptPayoutAmount_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : complexOptPayoutAmount_;
@@ -1066,12 +1080,15 @@ private static final long serialVersionUID = 0L;
     private int complexEventCondition_ = 0;
     /**
      * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The enum numeric value on the wire for complexEventCondition.
      */
     public int getComplexEventConditionValue() {
       return complexEventCondition_;
     }
     /**
      * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The enum numeric value on the wire for complexEventCondition to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventConditionValue(int value) {
       complexEventCondition_ = value;
@@ -1080,6 +1097,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventCondition.
      */
     public org.fixprotocol.components.ComplexEventConditionEnum getComplexEventCondition() {
       @SuppressWarnings("deprecation")
@@ -1088,6 +1106,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The complexEventCondition to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventCondition(org.fixprotocol.components.ComplexEventConditionEnum value) {
       if (value == null) {
@@ -1100,6 +1120,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventConditionEnum complex_event_condition = 2 [(.fix.tag) = 1490, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return This builder for chaining.
      */
     public Builder clearComplexEventCondition() {
       
@@ -1113,12 +1134,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> complexEventPriceBuilder_;
     /**
      * <code>.fix.Decimal64 complex_event_price = 3 [(.fix.tag) = 1486, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexEventPrice field is set.
      */
     public boolean hasComplexEventPrice() {
       return complexEventPriceBuilder_ != null || complexEventPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 complex_event_price = 3 [(.fix.tag) = 1486, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getComplexEventPrice() {
       if (complexEventPriceBuilder_ == null) {
@@ -1228,12 +1251,15 @@ private static final long serialVersionUID = 0L;
     private int complexEventPriceBoundaryMethod_ = 0;
     /**
      * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The enum numeric value on the wire for complexEventPriceBoundaryMethod.
      */
     public int getComplexEventPriceBoundaryMethodValue() {
       return complexEventPriceBoundaryMethod_;
     }
     /**
      * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The enum numeric value on the wire for complexEventPriceBoundaryMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventPriceBoundaryMethodValue(int value) {
       complexEventPriceBoundaryMethod_ = value;
@@ -1242,6 +1268,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventPriceBoundaryMethod.
      */
     public org.fixprotocol.components.ComplexEventPriceBoundaryMethodEnum getComplexEventPriceBoundaryMethod() {
       @SuppressWarnings("deprecation")
@@ -1250,6 +1277,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The complexEventPriceBoundaryMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventPriceBoundaryMethod(org.fixprotocol.components.ComplexEventPriceBoundaryMethodEnum value) {
       if (value == null) {
@@ -1262,6 +1291,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventPriceBoundaryMethodEnum complex_event_price_boundary_method = 4 [(.fix.tag) = 1487, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return This builder for chaining.
      */
     public Builder clearComplexEventPriceBoundaryMethod() {
       
@@ -1275,12 +1305,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> complexEventPriceBoundaryPrecisionBuilder_;
     /**
      * <code>.fix.Decimal64 complex_event_price_boundary_precision = 5 [(.fix.tag) = 1488, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexEventPriceBoundaryPrecision field is set.
      */
     public boolean hasComplexEventPriceBoundaryPrecision() {
       return complexEventPriceBoundaryPrecisionBuilder_ != null || complexEventPriceBoundaryPrecision_ != null;
     }
     /**
      * <code>.fix.Decimal64 complex_event_price_boundary_precision = 5 [(.fix.tag) = 1488, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventPriceBoundaryPrecision.
      */
     public org.fixprotocol.components.Fix.Decimal64 getComplexEventPriceBoundaryPrecision() {
       if (complexEventPriceBoundaryPrecisionBuilder_ == null) {
@@ -1390,12 +1422,15 @@ private static final long serialVersionUID = 0L;
     private int complexEventPriceTimeType_ = 0;
     /**
      * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The enum numeric value on the wire for complexEventPriceTimeType.
      */
     public int getComplexEventPriceTimeTypeValue() {
       return complexEventPriceTimeType_;
     }
     /**
      * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The enum numeric value on the wire for complexEventPriceTimeType to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventPriceTimeTypeValue(int value) {
       complexEventPriceTimeType_ = value;
@@ -1404,6 +1439,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventPriceTimeType.
      */
     public org.fixprotocol.components.ComplexEventPriceTimeTypeEnum getComplexEventPriceTimeType() {
       @SuppressWarnings("deprecation")
@@ -1412,6 +1448,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The complexEventPriceTimeType to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventPriceTimeType(org.fixprotocol.components.ComplexEventPriceTimeTypeEnum value) {
       if (value == null) {
@@ -1424,6 +1462,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventPriceTimeTypeEnum complex_event_price_time_type = 6 [(.fix.tag) = 1489, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return This builder for chaining.
      */
     public Builder clearComplexEventPriceTimeType() {
       
@@ -1435,12 +1474,15 @@ private static final long serialVersionUID = 0L;
     private int complexEventType_ = 0;
     /**
      * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The enum numeric value on the wire for complexEventType.
      */
     public int getComplexEventTypeValue() {
       return complexEventType_;
     }
     /**
      * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The enum numeric value on the wire for complexEventType to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventTypeValue(int value) {
       complexEventType_ = value;
@@ -1449,6 +1491,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventType.
      */
     public org.fixprotocol.components.ComplexEventTypeEnum getComplexEventType() {
       @SuppressWarnings("deprecation")
@@ -1457,6 +1500,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @param value The complexEventType to set.
+     * @return This builder for chaining.
      */
     public Builder setComplexEventType(org.fixprotocol.components.ComplexEventTypeEnum value) {
       if (value == null) {
@@ -1469,6 +1514,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.ComplexEventTypeEnum complex_event_type = 7 [(.fix.tag) = 1484, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return This builder for chaining.
      */
     public Builder clearComplexEventType() {
       
@@ -1482,12 +1528,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> complexOptPayoutAmountBuilder_;
     /**
      * <code>.fix.Decimal64 complex_opt_payout_amount = 8 [(.fix.tag) = 1485, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexOptPayoutAmount field is set.
      */
     public boolean hasComplexOptPayoutAmount() {
       return complexOptPayoutAmountBuilder_ != null || complexOptPayoutAmount_ != null;
     }
     /**
      * <code>.fix.Decimal64 complex_opt_payout_amount = 8 [(.fix.tag) = 1485, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexOptPayoutAmount.
      */
     public org.fixprotocol.components.Fix.Decimal64 getComplexOptPayoutAmount() {
       if (complexOptPayoutAmountBuilder_ == null) {

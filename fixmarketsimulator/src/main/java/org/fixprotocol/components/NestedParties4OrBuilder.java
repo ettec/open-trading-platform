@@ -9,29 +9,35 @@ public interface NestedParties4OrBuilder extends
 
   /**
    * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partyId.
    */
   java.lang.String getNested4PartyId();
   /**
    * <code>string nested4party_id = 1 [(.fix.tag) = 1415, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for nested4partyId.
    */
   com.google.protobuf.ByteString
       getNested4PartyIdBytes();
 
   /**
    * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nested4partyIdSource.
    */
   int getNested4PartyIdSourceValue();
   /**
    * <code>.Common.Nested4PartyIDSourceEnum nested4party_id_source = 2 [(.fix.tag) = 1416, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partyIdSource.
    */
   org.fixprotocol.components.Nested4PartyIDSourceEnum getNested4PartyIdSource();
 
   /**
    * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nested4partyRole.
    */
   int getNested4PartyRoleValue();
   /**
    * <code>.Common.Nested4PartyRoleEnum nested4party_role = 3 [(.fix.tag) = 1417, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partyRole.
    */
   org.fixprotocol.components.Nested4PartyRoleEnum getNested4PartyRole();
 

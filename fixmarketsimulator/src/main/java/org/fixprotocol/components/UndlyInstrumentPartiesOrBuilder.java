@@ -9,29 +9,35 @@ public interface UndlyInstrumentPartiesOrBuilder extends
 
   /**
    * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartyId.
    */
   java.lang.String getUnderlyingInstrumentPartyId();
   /**
    * <code>string underlying_instrument_party_id = 1 [(.fix.tag) = 1059, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingInstrumentPartyId.
    */
   com.google.protobuf.ByteString
       getUnderlyingInstrumentPartyIdBytes();
 
   /**
    * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingInstrumentPartyIdSource.
    */
   int getUnderlyingInstrumentPartyIdSourceValue();
   /**
    * <code>.Common.UnderlyingInstrumentPartyIDSourceEnum underlying_instrument_party_id_source = 2 [(.fix.tag) = 1060, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartyIdSource.
    */
   org.fixprotocol.components.UnderlyingInstrumentPartyIDSourceEnum getUnderlyingInstrumentPartyIdSource();
 
   /**
    * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingInstrumentPartyRole.
    */
   int getUnderlyingInstrumentPartyRoleValue();
   /**
    * <code>.Common.UnderlyingInstrumentPartyRoleEnum underlying_instrument_party_role = 3 [(.fix.tag) = 1061, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingInstrumentPartyRole.
    */
   org.fixprotocol.components.UnderlyingInstrumentPartyRoleEnum getUnderlyingInstrumentPartyRole();
 

@@ -9,19 +9,23 @@ public interface NestedInstrumentAttributeOrBuilder extends
 
   /**
    * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nestedInstrAttribType.
    */
   int getNestedInstrAttribTypeValue();
   /**
    * <code>.Common.NestedInstrAttribTypeEnum nested_instr_attrib_type = 1 [(.fix.tag) = 1210, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nestedInstrAttribType.
    */
   org.fixprotocol.components.NestedInstrAttribTypeEnum getNestedInstrAttribType();
 
   /**
    * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nestedInstrAttribValue.
    */
   java.lang.String getNestedInstrAttribValue();
   /**
    * <code>string nested_instr_attrib_value = 2 [(.fix.tag) = 1211, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for nestedInstrAttribValue.
    */
   com.google.protobuf.ByteString
       getNestedInstrAttribValueBytes();

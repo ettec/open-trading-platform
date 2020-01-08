@@ -9,24 +9,29 @@ public interface AttrbGrpOrBuilder extends
 
   /**
    * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for instrAttribType.
    */
   int getInstrAttribTypeValue();
   /**
    * <code>.Common.InstrAttribTypeEnum instr_attrib_type = 1 [(.fix.tag) = 871, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrAttribType.
    */
   org.fixprotocol.components.InstrAttribTypeEnum getInstrAttribType();
 
   /**
    * <code>fixed32 instr_attrib_type_reserved100plus = 2 [(.fix.tag) = 871, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrAttribTypeReserved100plus.
    */
   int getInstrAttribTypeReserved100Plus();
 
   /**
    * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrAttribValue.
    */
   java.lang.String getInstrAttribValue();
   /**
    * <code>string instr_attrib_value = 3 [(.fix.tag) = 872, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for instrAttribValue.
    */
   com.google.protobuf.ByteString
       getInstrAttribValueBytes();

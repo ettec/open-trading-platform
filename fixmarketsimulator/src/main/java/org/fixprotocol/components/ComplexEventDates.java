@@ -159,12 +159,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp complexEventEndDate_;
   /**
    * <code>.fix.Timestamp complex_event_end_date = 2 [(.fix.tag) = 1493, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventEndDate field is set.
    */
   public boolean hasComplexEventEndDate() {
     return complexEventEndDate_ != null;
   }
   /**
    * <code>.fix.Timestamp complex_event_end_date = 2 [(.fix.tag) = 1493, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventEndDate.
    */
   public org.fixprotocol.components.Fix.Timestamp getComplexEventEndDate() {
     return complexEventEndDate_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : complexEventEndDate_;
@@ -180,12 +182,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp complexEventStartDate_;
   /**
    * <code>.fix.Timestamp complex_event_start_date = 3 [(.fix.tag) = 1492, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the complexEventStartDate field is set.
    */
   public boolean hasComplexEventStartDate() {
     return complexEventStartDate_ != null;
   }
   /**
    * <code>.fix.Timestamp complex_event_start_date = 3 [(.fix.tag) = 1492, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The complexEventStartDate.
    */
   public org.fixprotocol.components.Fix.Timestamp getComplexEventStartDate() {
     return complexEventStartDate_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : complexEventStartDate_;
@@ -844,12 +848,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> complexEventEndDateBuilder_;
     /**
      * <code>.fix.Timestamp complex_event_end_date = 2 [(.fix.tag) = 1493, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexEventEndDate field is set.
      */
     public boolean hasComplexEventEndDate() {
       return complexEventEndDateBuilder_ != null || complexEventEndDate_ != null;
     }
     /**
      * <code>.fix.Timestamp complex_event_end_date = 2 [(.fix.tag) = 1493, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventEndDate.
      */
     public org.fixprotocol.components.Fix.Timestamp getComplexEventEndDate() {
       if (complexEventEndDateBuilder_ == null) {
@@ -961,12 +967,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> complexEventStartDateBuilder_;
     /**
      * <code>.fix.Timestamp complex_event_start_date = 3 [(.fix.tag) = 1492, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return Whether the complexEventStartDate field is set.
      */
     public boolean hasComplexEventStartDate() {
       return complexEventStartDateBuilder_ != null || complexEventStartDate_ != null;
     }
     /**
      * <code>.fix.Timestamp complex_event_start_date = 3 [(.fix.tag) = 1492, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+     * @return The complexEventStartDate.
      */
     public org.fixprotocol.components.Fix.Timestamp getComplexEventStartDate() {
       if (complexEventStartDateBuilder_ == null) {

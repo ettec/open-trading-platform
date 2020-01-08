@@ -86,6 +86,8 @@ public enum TradingSessionSubIDEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -93,6 +95,10 @@ public enum TradingSessionSubIDEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static TradingSessionSubIDEnum forNumber(int value) {
     switch (value) {
       case 0: return TRADING_SESSION_SUB_ID_UNSPECIFIED;

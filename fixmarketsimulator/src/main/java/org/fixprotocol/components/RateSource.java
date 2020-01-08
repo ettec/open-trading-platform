@@ -105,12 +105,14 @@ private static final long serialVersionUID = 0L;
   private int rateSource_;
   /**
    * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+   * @return The enum numeric value on the wire for rateSource.
    */
   public int getRateSourceValue() {
     return rateSource_;
   }
   /**
    * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+   * @return The rateSource.
    */
   public org.fixprotocol.components.RateSourceEnum getRateSource() {
     @SuppressWarnings("deprecation")
@@ -122,12 +124,14 @@ private static final long serialVersionUID = 0L;
   private int rateSourceType_;
   /**
    * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+   * @return The enum numeric value on the wire for rateSourceType.
    */
   public int getRateSourceTypeValue() {
     return rateSourceType_;
   }
   /**
    * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+   * @return The rateSourceType.
    */
   public org.fixprotocol.components.RateSourceTypeEnum getRateSourceType() {
     @SuppressWarnings("deprecation")
@@ -139,6 +143,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object referencePage_;
   /**
    * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+   * @return The referencePage.
    */
   public java.lang.String getReferencePage() {
     java.lang.Object ref = referencePage_;
@@ -154,6 +159,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+   * @return The bytes for referencePage.
    */
   public com.google.protobuf.ByteString
       getReferencePageBytes() {
@@ -506,12 +512,15 @@ private static final long serialVersionUID = 0L;
     private int rateSource_ = 0;
     /**
      * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The enum numeric value on the wire for rateSource.
      */
     public int getRateSourceValue() {
       return rateSource_;
     }
     /**
      * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @param value The enum numeric value on the wire for rateSource to set.
+     * @return This builder for chaining.
      */
     public Builder setRateSourceValue(int value) {
       rateSource_ = value;
@@ -520,6 +529,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The rateSource.
      */
     public org.fixprotocol.components.RateSourceEnum getRateSource() {
       @SuppressWarnings("deprecation")
@@ -528,6 +538,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @param value The rateSource to set.
+     * @return This builder for chaining.
      */
     public Builder setRateSource(org.fixprotocol.components.RateSourceEnum value) {
       if (value == null) {
@@ -540,6 +552,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RateSourceEnum rate_source = 1 [(.fix.tag) = 1446, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRateSource() {
       
@@ -551,12 +564,15 @@ private static final long serialVersionUID = 0L;
     private int rateSourceType_ = 0;
     /**
      * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The enum numeric value on the wire for rateSourceType.
      */
     public int getRateSourceTypeValue() {
       return rateSourceType_;
     }
     /**
      * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @param value The enum numeric value on the wire for rateSourceType to set.
+     * @return This builder for chaining.
      */
     public Builder setRateSourceTypeValue(int value) {
       rateSourceType_ = value;
@@ -565,6 +581,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The rateSourceType.
      */
     public org.fixprotocol.components.RateSourceTypeEnum getRateSourceType() {
       @SuppressWarnings("deprecation")
@@ -573,6 +590,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @param value The rateSourceType to set.
+     * @return This builder for chaining.
      */
     public Builder setRateSourceType(org.fixprotocol.components.RateSourceTypeEnum value) {
       if (value == null) {
@@ -585,6 +604,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RateSourceTypeEnum rate_source_type = 2 [(.fix.tag) = 1447, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRateSourceType() {
       
@@ -596,6 +616,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object referencePage_ = "";
     /**
      * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The referencePage.
      */
     public java.lang.String getReferencePage() {
       java.lang.Object ref = referencePage_;
@@ -611,6 +632,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return The bytes for referencePage.
      */
     public com.google.protobuf.ByteString
         getReferencePageBytes() {
@@ -627,6 +649,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @param value The referencePage to set.
+     * @return This builder for chaining.
      */
     public Builder setReferencePage(
         java.lang.String value) {
@@ -640,6 +664,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @return This builder for chaining.
      */
     public Builder clearReferencePage() {
       
@@ -649,6 +674,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string reference_page = 3 [(.fix.tag) = 1448, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 82];</code>
+     * @param value The bytes for referencePage to set.
+     * @return This builder for chaining.
      */
     public Builder setReferencePageBytes(
         com.google.protobuf.ByteString value) {

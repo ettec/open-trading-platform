@@ -86,6 +86,8 @@ public enum TradSesStatusEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -93,6 +95,10 @@ public enum TradSesStatusEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static TradSesStatusEnum forNumber(int value) {
     switch (value) {
       case 0: return TRAD_SES_STATUS_UNSPECIFIED;

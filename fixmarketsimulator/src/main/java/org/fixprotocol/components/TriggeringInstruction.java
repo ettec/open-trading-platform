@@ -207,12 +207,14 @@ private static final long serialVersionUID = 0L;
   private int triggerAction_;
   /**
    * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerAction.
    */
   public int getTriggerActionValue() {
     return triggerAction_;
   }
   /**
    * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerAction.
    */
   public org.fixprotocol.components.TriggerActionEnum getTriggerAction() {
     @SuppressWarnings("deprecation")
@@ -224,12 +226,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 triggerNewPrice_;
   /**
    * <code>.fix.Decimal64 trigger_new_price = 2 [(.fix.tag) = 1110, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the triggerNewPrice field is set.
    */
   public boolean hasTriggerNewPrice() {
     return triggerNewPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 trigger_new_price = 2 [(.fix.tag) = 1110, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerNewPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getTriggerNewPrice() {
     return triggerNewPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : triggerNewPrice_;
@@ -245,12 +249,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 triggerNewQty_;
   /**
    * <code>.fix.Decimal64 trigger_new_qty = 3 [(.fix.tag) = 1112, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the triggerNewQty field is set.
    */
   public boolean hasTriggerNewQty() {
     return triggerNewQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 trigger_new_qty = 3 [(.fix.tag) = 1112, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerNewQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getTriggerNewQty() {
     return triggerNewQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : triggerNewQty_;
@@ -266,12 +272,14 @@ private static final long serialVersionUID = 0L;
   private int triggerOrderType_;
   /**
    * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerOrderType.
    */
   public int getTriggerOrderTypeValue() {
     return triggerOrderType_;
   }
   /**
    * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerOrderType.
    */
   public org.fixprotocol.components.TriggerOrderTypeEnum getTriggerOrderType() {
     @SuppressWarnings("deprecation")
@@ -283,12 +291,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 triggerPrice_;
   /**
    * <code>.fix.Decimal64 trigger_price = 5 [(.fix.tag) = 1102, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the triggerPrice field is set.
    */
   public boolean hasTriggerPrice() {
     return triggerPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 trigger_price = 5 [(.fix.tag) = 1102, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getTriggerPrice() {
     return triggerPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : triggerPrice_;
@@ -304,12 +314,14 @@ private static final long serialVersionUID = 0L;
   private int triggerPriceDirection_;
   /**
    * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerPriceDirection.
    */
   public int getTriggerPriceDirectionValue() {
     return triggerPriceDirection_;
   }
   /**
    * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerPriceDirection.
    */
   public org.fixprotocol.components.TriggerPriceDirectionEnum getTriggerPriceDirection() {
     @SuppressWarnings("deprecation")
@@ -321,12 +333,14 @@ private static final long serialVersionUID = 0L;
   private int triggerPriceType_;
   /**
    * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerPriceType.
    */
   public int getTriggerPriceTypeValue() {
     return triggerPriceType_;
   }
   /**
    * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerPriceType.
    */
   public org.fixprotocol.components.TriggerPriceTypeEnum getTriggerPriceType() {
     @SuppressWarnings("deprecation")
@@ -338,12 +352,14 @@ private static final long serialVersionUID = 0L;
   private int triggerPriceTypeScope_;
   /**
    * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerPriceTypeScope.
    */
   public int getTriggerPriceTypeScopeValue() {
     return triggerPriceTypeScope_;
   }
   /**
    * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerPriceTypeScope.
    */
   public org.fixprotocol.components.TriggerPriceTypeScopeEnum getTriggerPriceTypeScope() {
     @SuppressWarnings("deprecation")
@@ -355,6 +371,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object triggerSecurityDesc_;
   /**
    * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerSecurityDesc.
    */
   public java.lang.String getTriggerSecurityDesc() {
     java.lang.Object ref = triggerSecurityDesc_;
@@ -370,6 +387,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for triggerSecurityDesc.
    */
   public com.google.protobuf.ByteString
       getTriggerSecurityDescBytes() {
@@ -389,6 +407,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object triggerSecurityId_;
   /**
    * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerSecurityId.
    */
   public java.lang.String getTriggerSecurityId() {
     java.lang.Object ref = triggerSecurityId_;
@@ -404,6 +423,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for triggerSecurityId.
    */
   public com.google.protobuf.ByteString
       getTriggerSecurityIdBytes() {
@@ -423,12 +443,14 @@ private static final long serialVersionUID = 0L;
   private int triggerSecurityIdSource_;
   /**
    * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerSecurityIdSource.
    */
   public int getTriggerSecurityIdSourceValue() {
     return triggerSecurityIdSource_;
   }
   /**
    * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerSecurityIdSource.
    */
   public org.fixprotocol.components.TriggerSecurityIDSourceEnum getTriggerSecurityIdSource() {
     @SuppressWarnings("deprecation")
@@ -440,6 +462,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object triggerSymbol_;
   /**
    * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerSymbol.
    */
   public java.lang.String getTriggerSymbol() {
     java.lang.Object ref = triggerSymbol_;
@@ -455,6 +478,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for triggerSymbol.
    */
   public com.google.protobuf.ByteString
       getTriggerSymbolBytes() {
@@ -474,6 +498,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object triggerTradingSessionId_;
   /**
    * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerTradingSessionId.
    */
   public java.lang.String getTriggerTradingSessionId() {
     java.lang.Object ref = triggerTradingSessionId_;
@@ -489,6 +514,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for triggerTradingSessionId.
    */
   public com.google.protobuf.ByteString
       getTriggerTradingSessionIdBytes() {
@@ -508,6 +534,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object triggerTradingSessionSubId_;
   /**
    * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerTradingSessionSubId.
    */
   public java.lang.String getTriggerTradingSessionSubId() {
     java.lang.Object ref = triggerTradingSessionSubId_;
@@ -523,6 +550,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for triggerTradingSessionSubId.
    */
   public com.google.protobuf.ByteString
       getTriggerTradingSessionSubIdBytes() {
@@ -542,12 +570,14 @@ private static final long serialVersionUID = 0L;
   private int triggerType_;
   /**
    * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for triggerType.
    */
   public int getTriggerTypeValue() {
     return triggerType_;
   }
   /**
    * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The triggerType.
    */
   public org.fixprotocol.components.TriggerTypeEnum getTriggerType() {
     @SuppressWarnings("deprecation")
@@ -1130,12 +1160,15 @@ private static final long serialVersionUID = 0L;
     private int triggerAction_ = 0;
     /**
      * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerAction.
      */
     public int getTriggerActionValue() {
       return triggerAction_;
     }
     /**
      * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerAction to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerActionValue(int value) {
       triggerAction_ = value;
@@ -1144,6 +1177,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerAction.
      */
     public org.fixprotocol.components.TriggerActionEnum getTriggerAction() {
       @SuppressWarnings("deprecation")
@@ -1152,6 +1186,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerAction to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerAction(org.fixprotocol.components.TriggerActionEnum value) {
       if (value == null) {
@@ -1164,6 +1200,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerActionEnum trigger_action = 1 [(.fix.tag) = 1101, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerAction() {
       
@@ -1177,12 +1214,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> triggerNewPriceBuilder_;
     /**
      * <code>.fix.Decimal64 trigger_new_price = 2 [(.fix.tag) = 1110, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the triggerNewPrice field is set.
      */
     public boolean hasTriggerNewPrice() {
       return triggerNewPriceBuilder_ != null || triggerNewPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 trigger_new_price = 2 [(.fix.tag) = 1110, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerNewPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTriggerNewPrice() {
       if (triggerNewPriceBuilder_ == null) {
@@ -1294,12 +1333,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> triggerNewQtyBuilder_;
     /**
      * <code>.fix.Decimal64 trigger_new_qty = 3 [(.fix.tag) = 1112, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the triggerNewQty field is set.
      */
     public boolean hasTriggerNewQty() {
       return triggerNewQtyBuilder_ != null || triggerNewQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 trigger_new_qty = 3 [(.fix.tag) = 1112, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerNewQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTriggerNewQty() {
       if (triggerNewQtyBuilder_ == null) {
@@ -1409,12 +1450,15 @@ private static final long serialVersionUID = 0L;
     private int triggerOrderType_ = 0;
     /**
      * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerOrderType.
      */
     public int getTriggerOrderTypeValue() {
       return triggerOrderType_;
     }
     /**
      * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerOrderType to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerOrderTypeValue(int value) {
       triggerOrderType_ = value;
@@ -1423,6 +1467,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerOrderType.
      */
     public org.fixprotocol.components.TriggerOrderTypeEnum getTriggerOrderType() {
       @SuppressWarnings("deprecation")
@@ -1431,6 +1476,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerOrderType to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerOrderType(org.fixprotocol.components.TriggerOrderTypeEnum value) {
       if (value == null) {
@@ -1443,6 +1490,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerOrderTypeEnum trigger_order_type = 4 [(.fix.tag) = 1111, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerOrderType() {
       
@@ -1456,12 +1504,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> triggerPriceBuilder_;
     /**
      * <code>.fix.Decimal64 trigger_price = 5 [(.fix.tag) = 1102, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the triggerPrice field is set.
      */
     public boolean hasTriggerPrice() {
       return triggerPriceBuilder_ != null || triggerPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 trigger_price = 5 [(.fix.tag) = 1102, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTriggerPrice() {
       if (triggerPriceBuilder_ == null) {
@@ -1571,12 +1621,15 @@ private static final long serialVersionUID = 0L;
     private int triggerPriceDirection_ = 0;
     /**
      * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerPriceDirection.
      */
     public int getTriggerPriceDirectionValue() {
       return triggerPriceDirection_;
     }
     /**
      * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerPriceDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerPriceDirectionValue(int value) {
       triggerPriceDirection_ = value;
@@ -1585,6 +1638,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerPriceDirection.
      */
     public org.fixprotocol.components.TriggerPriceDirectionEnum getTriggerPriceDirection() {
       @SuppressWarnings("deprecation")
@@ -1593,6 +1647,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerPriceDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerPriceDirection(org.fixprotocol.components.TriggerPriceDirectionEnum value) {
       if (value == null) {
@@ -1605,6 +1661,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceDirectionEnum trigger_price_direction = 6 [(.fix.tag) = 1109, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerPriceDirection() {
       
@@ -1616,12 +1673,15 @@ private static final long serialVersionUID = 0L;
     private int triggerPriceType_ = 0;
     /**
      * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerPriceType.
      */
     public int getTriggerPriceTypeValue() {
       return triggerPriceType_;
     }
     /**
      * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerPriceTypeValue(int value) {
       triggerPriceType_ = value;
@@ -1630,6 +1690,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerPriceType.
      */
     public org.fixprotocol.components.TriggerPriceTypeEnum getTriggerPriceType() {
       @SuppressWarnings("deprecation")
@@ -1638,6 +1699,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerPriceType to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerPriceType(org.fixprotocol.components.TriggerPriceTypeEnum value) {
       if (value == null) {
@@ -1650,6 +1713,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceTypeEnum trigger_price_type = 7 [(.fix.tag) = 1107, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerPriceType() {
       
@@ -1661,12 +1725,15 @@ private static final long serialVersionUID = 0L;
     private int triggerPriceTypeScope_ = 0;
     /**
      * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerPriceTypeScope.
      */
     public int getTriggerPriceTypeScopeValue() {
       return triggerPriceTypeScope_;
     }
     /**
      * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerPriceTypeScope to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerPriceTypeScopeValue(int value) {
       triggerPriceTypeScope_ = value;
@@ -1675,6 +1742,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerPriceTypeScope.
      */
     public org.fixprotocol.components.TriggerPriceTypeScopeEnum getTriggerPriceTypeScope() {
       @SuppressWarnings("deprecation")
@@ -1683,6 +1751,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerPriceTypeScope to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerPriceTypeScope(org.fixprotocol.components.TriggerPriceTypeScopeEnum value) {
       if (value == null) {
@@ -1695,6 +1765,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerPriceTypeScopeEnum trigger_price_type_scope = 8 [(.fix.tag) = 1108, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerPriceTypeScope() {
       
@@ -1706,6 +1777,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object triggerSecurityDesc_ = "";
     /**
      * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerSecurityDesc.
      */
     public java.lang.String getTriggerSecurityDesc() {
       java.lang.Object ref = triggerSecurityDesc_;
@@ -1721,6 +1793,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for triggerSecurityDesc.
      */
     public com.google.protobuf.ByteString
         getTriggerSecurityDescBytes() {
@@ -1737,6 +1810,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSecurityDesc(
         java.lang.String value) {
@@ -1750,6 +1825,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerSecurityDesc() {
       
@@ -1759,6 +1835,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_desc = 9 [(.fix.tag) = 1106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for triggerSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSecurityDescBytes(
         com.google.protobuf.ByteString value) {
@@ -1775,6 +1853,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object triggerSecurityId_ = "";
     /**
      * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerSecurityId.
      */
     public java.lang.String getTriggerSecurityId() {
       java.lang.Object ref = triggerSecurityId_;
@@ -1790,6 +1869,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for triggerSecurityId.
      */
     public com.google.protobuf.ByteString
         getTriggerSecurityIdBytes() {
@@ -1806,6 +1886,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSecurityId(
         java.lang.String value) {
@@ -1819,6 +1901,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerSecurityId() {
       
@@ -1828,6 +1911,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_security_id = 10 [(.fix.tag) = 1104, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for triggerSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSecurityIdBytes(
         com.google.protobuf.ByteString value) {
@@ -1844,12 +1929,15 @@ private static final long serialVersionUID = 0L;
     private int triggerSecurityIdSource_ = 0;
     /**
      * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerSecurityIdSource.
      */
     public int getTriggerSecurityIdSourceValue() {
       return triggerSecurityIdSource_;
     }
     /**
      * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSecurityIdSourceValue(int value) {
       triggerSecurityIdSource_ = value;
@@ -1858,6 +1946,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerSecurityIdSource.
      */
     public org.fixprotocol.components.TriggerSecurityIDSourceEnum getTriggerSecurityIdSource() {
       @SuppressWarnings("deprecation")
@@ -1866,6 +1955,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSecurityIdSource(org.fixprotocol.components.TriggerSecurityIDSourceEnum value) {
       if (value == null) {
@@ -1878,6 +1969,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerSecurityIDSourceEnum trigger_security_id_source = 11 [(.fix.tag) = 1105, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerSecurityIdSource() {
       
@@ -1889,6 +1981,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object triggerSymbol_ = "";
     /**
      * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerSymbol.
      */
     public java.lang.String getTriggerSymbol() {
       java.lang.Object ref = triggerSymbol_;
@@ -1904,6 +1997,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for triggerSymbol.
      */
     public com.google.protobuf.ByteString
         getTriggerSymbolBytes() {
@@ -1920,6 +2014,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSymbol(
         java.lang.String value) {
@@ -1933,6 +2029,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerSymbol() {
       
@@ -1942,6 +2039,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_symbol = 12 [(.fix.tag) = 1103, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for triggerSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerSymbolBytes(
         com.google.protobuf.ByteString value) {
@@ -1958,6 +2057,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object triggerTradingSessionId_ = "";
     /**
      * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerTradingSessionId.
      */
     public java.lang.String getTriggerTradingSessionId() {
       java.lang.Object ref = triggerTradingSessionId_;
@@ -1973,6 +2073,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for triggerTradingSessionId.
      */
     public com.google.protobuf.ByteString
         getTriggerTradingSessionIdBytes() {
@@ -1989,6 +2090,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerTradingSessionId to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerTradingSessionId(
         java.lang.String value) {
@@ -2002,6 +2105,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerTradingSessionId() {
       
@@ -2011,6 +2115,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_id = 13 [(.fix.tag) = 1113, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for triggerTradingSessionId to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerTradingSessionIdBytes(
         com.google.protobuf.ByteString value) {
@@ -2027,6 +2133,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object triggerTradingSessionSubId_ = "";
     /**
      * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerTradingSessionSubId.
      */
     public java.lang.String getTriggerTradingSessionSubId() {
       java.lang.Object ref = triggerTradingSessionSubId_;
@@ -2042,6 +2149,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for triggerTradingSessionSubId.
      */
     public com.google.protobuf.ByteString
         getTriggerTradingSessionSubIdBytes() {
@@ -2058,6 +2166,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerTradingSessionSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerTradingSessionSubId(
         java.lang.String value) {
@@ -2071,6 +2181,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerTradingSessionSubId() {
       
@@ -2080,6 +2191,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trigger_trading_session_sub_id = 14 [(.fix.tag) = 1114, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for triggerTradingSessionSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerTradingSessionSubIdBytes(
         com.google.protobuf.ByteString value) {
@@ -2096,12 +2209,15 @@ private static final long serialVersionUID = 0L;
     private int triggerType_ = 0;
     /**
      * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for triggerType.
      */
     public int getTriggerTypeValue() {
       return triggerType_;
     }
     /**
      * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for triggerType to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerTypeValue(int value) {
       triggerType_ = value;
@@ -2110,6 +2226,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The triggerType.
      */
     public org.fixprotocol.components.TriggerTypeEnum getTriggerType() {
       @SuppressWarnings("deprecation")
@@ -2118,6 +2235,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The triggerType to set.
+     * @return This builder for chaining.
      */
     public Builder setTriggerType(org.fixprotocol.components.TriggerTypeEnum value) {
       if (value == null) {
@@ -2130,6 +2249,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TriggerTypeEnum trigger_type = 15 [(.fix.tag) = 1100, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTriggerType() {
       

@@ -104,12 +104,14 @@ private static final long serialVersionUID = 0L;
   private int lotType_;
   /**
    * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for lotType.
    */
   public int getLotTypeValue() {
     return lotType_;
   }
   /**
    * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The lotType.
    */
   public org.fixprotocol.components.LotTypeEnum getLotType() {
     @SuppressWarnings("deprecation")
@@ -121,12 +123,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 minLotSize_;
   /**
    * <code>.fix.Decimal64 min_lot_size = 2 [(.fix.tag) = 1231, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the minLotSize field is set.
    */
   public boolean hasMinLotSize() {
     return minLotSize_ != null;
   }
   /**
    * <code>.fix.Decimal64 min_lot_size = 2 [(.fix.tag) = 1231, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The minLotSize.
    */
   public org.fixprotocol.components.Fix.Decimal64 getMinLotSize() {
     return minLotSize_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : minLotSize_;
@@ -472,12 +476,15 @@ private static final long serialVersionUID = 0L;
     private int lotType_ = 0;
     /**
      * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for lotType.
      */
     public int getLotTypeValue() {
       return lotType_;
     }
     /**
      * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for lotType to set.
+     * @return This builder for chaining.
      */
     public Builder setLotTypeValue(int value) {
       lotType_ = value;
@@ -486,6 +493,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The lotType.
      */
     public org.fixprotocol.components.LotTypeEnum getLotType() {
       @SuppressWarnings("deprecation")
@@ -494,6 +502,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The lotType to set.
+     * @return This builder for chaining.
      */
     public Builder setLotType(org.fixprotocol.components.LotTypeEnum value) {
       if (value == null) {
@@ -506,6 +516,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LotTypeEnum lot_type = 1 [(.fix.tag) = 1093, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLotType() {
       
@@ -519,12 +530,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> minLotSizeBuilder_;
     /**
      * <code>.fix.Decimal64 min_lot_size = 2 [(.fix.tag) = 1231, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the minLotSize field is set.
      */
     public boolean hasMinLotSize() {
       return minLotSizeBuilder_ != null || minLotSize_ != null;
     }
     /**
      * <code>.fix.Decimal64 min_lot_size = 2 [(.fix.tag) = 1231, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The minLotSize.
      */
     public org.fixprotocol.components.Fix.Decimal64 getMinLotSize() {
       if (minLotSizeBuilder_ == null) {

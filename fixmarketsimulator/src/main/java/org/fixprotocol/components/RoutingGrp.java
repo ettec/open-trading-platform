@@ -98,6 +98,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object routingId_;
   /**
    * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The routingId.
    */
   public java.lang.String getRoutingId() {
     java.lang.Object ref = routingId_;
@@ -113,6 +114,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for routingId.
    */
   public com.google.protobuf.ByteString
       getRoutingIdBytes() {
@@ -132,12 +134,14 @@ private static final long serialVersionUID = 0L;
   private int routingType_;
   /**
    * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for routingType.
    */
   public int getRoutingTypeValue() {
     return routingType_;
   }
   /**
    * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The routingType.
    */
   public org.fixprotocol.components.RoutingTypeEnum getRoutingType() {
     @SuppressWarnings("deprecation")
@@ -466,6 +470,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object routingId_ = "";
     /**
      * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The routingId.
      */
     public java.lang.String getRoutingId() {
       java.lang.Object ref = routingId_;
@@ -481,6 +486,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for routingId.
      */
     public com.google.protobuf.ByteString
         getRoutingIdBytes() {
@@ -497,6 +503,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The routingId to set.
+     * @return This builder for chaining.
      */
     public Builder setRoutingId(
         java.lang.String value) {
@@ -510,6 +518,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRoutingId() {
       
@@ -519,6 +528,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for routingId to set.
+     * @return This builder for chaining.
      */
     public Builder setRoutingIdBytes(
         com.google.protobuf.ByteString value) {
@@ -535,12 +546,15 @@ private static final long serialVersionUID = 0L;
     private int routingType_ = 0;
     /**
      * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for routingType.
      */
     public int getRoutingTypeValue() {
       return routingType_;
     }
     /**
      * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for routingType to set.
+     * @return This builder for chaining.
      */
     public Builder setRoutingTypeValue(int value) {
       routingType_ = value;
@@ -549,6 +563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The routingType.
      */
     public org.fixprotocol.components.RoutingTypeEnum getRoutingType() {
       @SuppressWarnings("deprecation")
@@ -557,6 +572,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The routingType to set.
+     * @return This builder for chaining.
      */
     public Builder setRoutingType(org.fixprotocol.components.RoutingTypeEnum value) {
       if (value == null) {
@@ -569,6 +586,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRoutingType() {
       

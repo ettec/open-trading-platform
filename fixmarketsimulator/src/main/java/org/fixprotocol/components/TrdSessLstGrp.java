@@ -304,7 +304,8 @@ private static final long serialVersionUID = 0L;
   private int tradSesStatusUnionCase_ = 0;
   private java.lang.Object tradSesStatusUnion_;
   public enum TradSesStatusUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     TRAD_SES_STATUS(13),
     TRAD_SES_STATUS_RESERVED100PLUS(16),
     TRADSESSTATUSUNION_NOT_SET(0);
@@ -313,6 +314,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -342,7 +345,8 @@ private static final long serialVersionUID = 0L;
   private int tradSesStatusRejReasonUnionCase_ = 0;
   private java.lang.Object tradSesStatusRejReasonUnion_;
   public enum TradSesStatusRejReasonUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     TRAD_SES_STATUS_REJ_REASON(14),
     TRAD_SES_STATUS_REJ_REASON_RESERVED100PLUS(15),
     TRADSESSTATUSREJREASONUNION_NOT_SET(0);
@@ -351,6 +355,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -380,7 +386,8 @@ private static final long serialVersionUID = 0L;
   private int tradingSessionIdUnionCase_ = 0;
   private java.lang.Object tradingSessionIdUnion_;
   public enum TradingSessionIdUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     TRADING_SESSION_ID(17),
     TRADING_SESSION_ID_RESERVED100PLUS(18),
     TRADINGSESSIONIDUNION_NOT_SET(0);
@@ -389,6 +396,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -418,7 +427,8 @@ private static final long serialVersionUID = 0L;
   private int tradingSessionSubIdUnionCase_ = 0;
   private java.lang.Object tradingSessionSubIdUnion_;
   public enum TradingSessionSubIdUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     TRADING_SESSION_SUB_ID(19),
     TRADING_SESSION_SUB_ID_RESERVED100PLUS(20),
     TRADINGSESSIONSUBIDUNION_NOT_SET(0);
@@ -427,6 +437,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -457,6 +469,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object encodedText_;
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedText.
    */
   public java.lang.String getEncodedText() {
     java.lang.Object ref = encodedText_;
@@ -472,6 +485,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for encodedText.
    */
   public com.google.protobuf.ByteString
       getEncodedTextBytes() {
@@ -491,6 +505,7 @@ private static final long serialVersionUID = 0L;
   private long encodedTextLen_;
   /**
    * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedTextLen.
    */
   public long getEncodedTextLen() {
     return encodedTextLen_;
@@ -500,6 +515,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object securityExchange_;
   /**
    * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityExchange.
    */
   public java.lang.String getSecurityExchange() {
     java.lang.Object ref = securityExchange_;
@@ -515,6 +531,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for securityExchange.
    */
   public com.google.protobuf.ByteString
       getSecurityExchangeBytes() {
@@ -534,6 +551,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object text_;
   /**
    * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The text.
    */
   public java.lang.String getText() {
     java.lang.Object ref = text_;
@@ -549,6 +567,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for text.
    */
   public com.google.protobuf.ByteString
       getTextBytes() {
@@ -568,12 +587,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 totalVolumeTraded_;
   /**
    * <code>.fix.Decimal64 total_volume_traded = 5 [(.fix.tag) = 387, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the totalVolumeTraded field is set.
    */
   public boolean hasTotalVolumeTraded() {
     return totalVolumeTraded_ != null;
   }
   /**
    * <code>.fix.Decimal64 total_volume_traded = 5 [(.fix.tag) = 387, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The totalVolumeTraded.
    */
   public org.fixprotocol.components.Fix.Decimal64 getTotalVolumeTraded() {
     return totalVolumeTraded_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : totalVolumeTraded_;
@@ -589,12 +610,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp tradSesCloseTime_;
   /**
    * <code>.fix.Timestamp trad_ses_close_time = 6 [(.fix.tag) = 344, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesCloseTime field is set.
    */
   public boolean hasTradSesCloseTime() {
     return tradSesCloseTime_ != null;
   }
   /**
    * <code>.fix.Timestamp trad_ses_close_time = 6 [(.fix.tag) = 344, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesCloseTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getTradSesCloseTime() {
     return tradSesCloseTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : tradSesCloseTime_;
@@ -610,12 +633,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp tradSesEndTime_;
   /**
    * <code>.fix.Timestamp trad_ses_end_time = 7 [(.fix.tag) = 345, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesEndTime field is set.
    */
   public boolean hasTradSesEndTime() {
     return tradSesEndTime_ != null;
   }
   /**
    * <code>.fix.Timestamp trad_ses_end_time = 7 [(.fix.tag) = 345, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesEndTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getTradSesEndTime() {
     return tradSesEndTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : tradSesEndTime_;
@@ -631,12 +656,14 @@ private static final long serialVersionUID = 0L;
   private int tradSesMethod_;
   /**
    * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesMethod.
    */
   public int getTradSesMethodValue() {
     return tradSesMethod_;
   }
   /**
    * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesMethod.
    */
   public org.fixprotocol.components.TradSesMethodEnum getTradSesMethod() {
     @SuppressWarnings("deprecation")
@@ -648,12 +675,14 @@ private static final long serialVersionUID = 0L;
   private int tradSesMode_;
   /**
    * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesMode.
    */
   public int getTradSesModeValue() {
     return tradSesMode_;
   }
   /**
    * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesMode.
    */
   public org.fixprotocol.components.TradSesModeEnum getTradSesMode() {
     @SuppressWarnings("deprecation")
@@ -665,12 +694,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp tradSesOpenTime_;
   /**
    * <code>.fix.Timestamp trad_ses_open_time = 10 [(.fix.tag) = 342, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesOpenTime field is set.
    */
   public boolean hasTradSesOpenTime() {
     return tradSesOpenTime_ != null;
   }
   /**
    * <code>.fix.Timestamp trad_ses_open_time = 10 [(.fix.tag) = 342, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesOpenTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getTradSesOpenTime() {
     return tradSesOpenTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : tradSesOpenTime_;
@@ -686,12 +717,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp tradSesPreCloseTime_;
   /**
    * <code>.fix.Timestamp trad_ses_pre_close_time = 11 [(.fix.tag) = 343, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesPreCloseTime field is set.
    */
   public boolean hasTradSesPreCloseTime() {
     return tradSesPreCloseTime_ != null;
   }
   /**
    * <code>.fix.Timestamp trad_ses_pre_close_time = 11 [(.fix.tag) = 343, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesPreCloseTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getTradSesPreCloseTime() {
     return tradSesPreCloseTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : tradSesPreCloseTime_;
@@ -707,12 +740,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp tradSesStartTime_;
   /**
    * <code>.fix.Timestamp trad_ses_start_time = 12 [(.fix.tag) = 341, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the tradSesStartTime field is set.
    */
   public boolean hasTradSesStartTime() {
     return tradSesStartTime_ != null;
   }
   /**
    * <code>.fix.Timestamp trad_ses_start_time = 12 [(.fix.tag) = 341, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStartTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getTradSesStartTime() {
     return tradSesStartTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : tradSesStartTime_;
@@ -727,6 +762,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRAD_SES_STATUS_FIELD_NUMBER = 13;
   /**
    * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesStatus.
    */
   public int getTradSesStatusValue() {
     if (tradSesStatusUnionCase_ == 13) {
@@ -736,6 +772,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatus.
    */
   public org.fixprotocol.components.TradSesStatusEnum getTradSesStatus() {
     if (tradSesStatusUnionCase_ == 13) {
@@ -750,6 +787,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRAD_SES_STATUS_RESERVED100PLUS_FIELD_NUMBER = 16;
   /**
    * <code>fixed32 trad_ses_status_reserved100plus = 16 [(.fix.tag) = 340, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatusReserved100plus.
    */
   public int getTradSesStatusReserved100Plus() {
     if (tradSesStatusUnionCase_ == 16) {
@@ -761,6 +799,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRAD_SES_STATUS_REJ_REASON_FIELD_NUMBER = 14;
   /**
    * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradSesStatusRejReason.
    */
   public int getTradSesStatusRejReasonValue() {
     if (tradSesStatusRejReasonUnionCase_ == 14) {
@@ -770,6 +809,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatusRejReason.
    */
   public org.fixprotocol.components.TradSesStatusRejReasonEnum getTradSesStatusRejReason() {
     if (tradSesStatusRejReasonUnionCase_ == 14) {
@@ -784,6 +824,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRAD_SES_STATUS_REJ_REASON_RESERVED100PLUS_FIELD_NUMBER = 15;
   /**
    * <code>fixed32 trad_ses_status_rej_reason_reserved100plus = 15 [(.fix.tag) = 567, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradSesStatusRejReasonReserved100plus.
    */
   public int getTradSesStatusRejReasonReserved100Plus() {
     if (tradSesStatusRejReasonUnionCase_ == 15) {
@@ -795,6 +836,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_ID_FIELD_NUMBER = 17;
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradingSessionId.
    */
   public int getTradingSessionIdValue() {
     if (tradingSessionIdUnionCase_ == 17) {
@@ -804,6 +846,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionId.
    */
   public org.fixprotocol.components.TradingSessionIDEnum getTradingSessionId() {
     if (tradingSessionIdUnionCase_ == 17) {
@@ -818,6 +861,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_ID_RESERVED100PLUS_FIELD_NUMBER = 18;
   /**
    * <code>fixed32 trading_session_id_reserved100plus = 18 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionIdReserved100plus.
    */
   public int getTradingSessionIdReserved100Plus() {
     if (tradingSessionIdUnionCase_ == 18) {
@@ -829,6 +873,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_SUB_ID_FIELD_NUMBER = 19;
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for tradingSessionSubId.
    */
   public int getTradingSessionSubIdValue() {
     if (tradingSessionSubIdUnionCase_ == 19) {
@@ -838,6 +883,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionSubId.
    */
   public org.fixprotocol.components.TradingSessionSubIDEnum getTradingSessionSubId() {
     if (tradingSessionSubIdUnionCase_ == 19) {
@@ -852,6 +898,7 @@ private static final long serialVersionUID = 0L;
   public static final int TRADING_SESSION_SUB_ID_RESERVED100PLUS_FIELD_NUMBER = 20;
   /**
    * <code>fixed32 trading_session_sub_id_reserved100plus = 20 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The tradingSessionSubIdReserved100plus.
    */
   public int getTradingSessionSubIdReserved100Plus() {
     if (tradingSessionSubIdUnionCase_ == 20) {
@@ -864,6 +911,7 @@ private static final long serialVersionUID = 0L;
   private boolean unsolicitedIndicator_;
   /**
    * <code>bool unsolicited_indicator = 21 [(.fix.tag) = 325, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The unsolicitedIndicator.
    */
   public boolean getUnsolicitedIndicator() {
     return unsolicitedIndicator_;
@@ -873,6 +921,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object marketId_;
   /**
    * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketId.
    */
   public java.lang.String getMarketId() {
     java.lang.Object ref = marketId_;
@@ -888,6 +937,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketId.
    */
   public com.google.protobuf.ByteString
       getMarketIdBytes() {
@@ -907,6 +957,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object marketSegmentId_;
   /**
    * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The marketSegmentId.
    */
   public java.lang.String getMarketSegmentId() {
     java.lang.Object ref = marketSegmentId_;
@@ -922,6 +973,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for marketSegmentId.
    */
   public com.google.protobuf.ByteString
       getMarketSegmentIdBytes() {
@@ -941,6 +993,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object tradingSessionDesc_;
   /**
    * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionDesc.
    */
   public java.lang.String getTradingSessionDesc() {
     java.lang.Object ref = tradingSessionDesc_;
@@ -956,6 +1009,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for tradingSessionDesc.
    */
   public com.google.protobuf.ByteString
       getTradingSessionDescBytes() {
@@ -975,12 +1029,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.TradingSessionRules tradingSessionRules_;
   /**
    * <code>.Common.TradingSessionRules trading_session_rules = 25 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the tradingSessionRules field is set.
    */
   public boolean hasTradingSessionRules() {
     return tradingSessionRules_ != null;
   }
   /**
    * <code>.Common.TradingSessionRules trading_session_rules = 25 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tradingSessionRules.
    */
   public org.fixprotocol.components.TradingSessionRules getTradingSessionRules() {
     return tradingSessionRules_ == null ? org.fixprotocol.components.TradingSessionRules.getDefaultInstance() : tradingSessionRules_;
@@ -996,12 +1052,14 @@ private static final long serialVersionUID = 0L;
   private int tradSesUpdateAction_;
   /**
    * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The enum numeric value on the wire for tradSesUpdateAction.
    */
   public int getTradSesUpdateActionValue() {
     return tradSesUpdateAction_;
   }
   /**
    * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The tradSesUpdateAction.
    */
   public org.fixprotocol.components.TradSesUpdateActionEnum getTradSesUpdateAction() {
     @SuppressWarnings("deprecation")
@@ -1013,12 +1071,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Timestamp transactTime_;
   /**
    * <code>.fix.Timestamp transact_time = 27 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return Whether the transactTime field is set.
    */
   public boolean hasTransactTime() {
     return transactTime_ != null;
   }
   /**
    * <code>.fix.Timestamp transact_time = 27 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+   * @return The transactTime.
    */
   public org.fixprotocol.components.Fix.Timestamp getTransactTime() {
     return transactTime_ == null ? org.fixprotocol.components.Fix.Timestamp.getDefaultInstance() : transactTime_;
@@ -2056,6 +2116,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object encodedText_ = "";
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -2071,6 +2132,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -2087,6 +2149,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The encodedText to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedText(
         java.lang.String value) {
@@ -2100,6 +2164,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedText() {
       
@@ -2109,6 +2174,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for encodedText to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedTextBytes(
         com.google.protobuf.ByteString value) {
@@ -2125,12 +2192,15 @@ private static final long serialVersionUID = 0L;
     private long encodedTextLen_ ;
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
     }
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The encodedTextLen to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedTextLen(long value) {
       
@@ -2140,6 +2210,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedTextLen() {
       
@@ -2151,6 +2222,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object securityExchange_ = "";
     /**
      * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The securityExchange.
      */
     public java.lang.String getSecurityExchange() {
       java.lang.Object ref = securityExchange_;
@@ -2166,6 +2238,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for securityExchange.
      */
     public com.google.protobuf.ByteString
         getSecurityExchangeBytes() {
@@ -2182,6 +2255,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The securityExchange to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityExchange(
         java.lang.String value) {
@@ -2195,6 +2270,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearSecurityExchange() {
       
@@ -2204,6 +2280,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string security_exchange = 3 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for securityExchange to set.
+     * @return This builder for chaining.
      */
     public Builder setSecurityExchangeBytes(
         com.google.protobuf.ByteString value) {
@@ -2220,6 +2298,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object text_ = "";
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -2235,6 +2314,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -2251,6 +2331,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The text to set.
+     * @return This builder for chaining.
      */
     public Builder setText(
         java.lang.String value) {
@@ -2264,6 +2346,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearText() {
       
@@ -2273,6 +2356,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 4 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for text to set.
+     * @return This builder for chaining.
      */
     public Builder setTextBytes(
         com.google.protobuf.ByteString value) {
@@ -2291,12 +2376,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> totalVolumeTradedBuilder_;
     /**
      * <code>.fix.Decimal64 total_volume_traded = 5 [(.fix.tag) = 387, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the totalVolumeTraded field is set.
      */
     public boolean hasTotalVolumeTraded() {
       return totalVolumeTradedBuilder_ != null || totalVolumeTraded_ != null;
     }
     /**
      * <code>.fix.Decimal64 total_volume_traded = 5 [(.fix.tag) = 387, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The totalVolumeTraded.
      */
     public org.fixprotocol.components.Fix.Decimal64 getTotalVolumeTraded() {
       if (totalVolumeTradedBuilder_ == null) {
@@ -2408,12 +2495,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> tradSesCloseTimeBuilder_;
     /**
      * <code>.fix.Timestamp trad_ses_close_time = 6 [(.fix.tag) = 344, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradSesCloseTime field is set.
      */
     public boolean hasTradSesCloseTime() {
       return tradSesCloseTimeBuilder_ != null || tradSesCloseTime_ != null;
     }
     /**
      * <code>.fix.Timestamp trad_ses_close_time = 6 [(.fix.tag) = 344, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesCloseTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTradSesCloseTime() {
       if (tradSesCloseTimeBuilder_ == null) {
@@ -2525,12 +2614,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> tradSesEndTimeBuilder_;
     /**
      * <code>.fix.Timestamp trad_ses_end_time = 7 [(.fix.tag) = 345, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradSesEndTime field is set.
      */
     public boolean hasTradSesEndTime() {
       return tradSesEndTimeBuilder_ != null || tradSesEndTime_ != null;
     }
     /**
      * <code>.fix.Timestamp trad_ses_end_time = 7 [(.fix.tag) = 345, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesEndTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTradSesEndTime() {
       if (tradSesEndTimeBuilder_ == null) {
@@ -2640,12 +2731,15 @@ private static final long serialVersionUID = 0L;
     private int tradSesMethod_ = 0;
     /**
      * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradSesMethod.
      */
     public int getTradSesMethodValue() {
       return tradSesMethod_;
     }
     /**
      * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for tradSesMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesMethodValue(int value) {
       tradSesMethod_ = value;
@@ -2654,6 +2748,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesMethod.
      */
     public org.fixprotocol.components.TradSesMethodEnum getTradSesMethod() {
       @SuppressWarnings("deprecation")
@@ -2662,6 +2757,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradSesMethod to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesMethod(org.fixprotocol.components.TradSesMethodEnum value) {
       if (value == null) {
@@ -2674,6 +2771,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesMethodEnum trad_ses_method = 8 [(.fix.tag) = 338, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesMethod() {
       
@@ -2685,12 +2783,15 @@ private static final long serialVersionUID = 0L;
     private int tradSesMode_ = 0;
     /**
      * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradSesMode.
      */
     public int getTradSesModeValue() {
       return tradSesMode_;
     }
     /**
      * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for tradSesMode to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesModeValue(int value) {
       tradSesMode_ = value;
@@ -2699,6 +2800,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesMode.
      */
     public org.fixprotocol.components.TradSesModeEnum getTradSesMode() {
       @SuppressWarnings("deprecation")
@@ -2707,6 +2809,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradSesMode to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesMode(org.fixprotocol.components.TradSesModeEnum value) {
       if (value == null) {
@@ -2719,6 +2823,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesModeEnum trad_ses_mode = 9 [(.fix.tag) = 339, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesMode() {
       
@@ -2732,12 +2837,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> tradSesOpenTimeBuilder_;
     /**
      * <code>.fix.Timestamp trad_ses_open_time = 10 [(.fix.tag) = 342, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradSesOpenTime field is set.
      */
     public boolean hasTradSesOpenTime() {
       return tradSesOpenTimeBuilder_ != null || tradSesOpenTime_ != null;
     }
     /**
      * <code>.fix.Timestamp trad_ses_open_time = 10 [(.fix.tag) = 342, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesOpenTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTradSesOpenTime() {
       if (tradSesOpenTimeBuilder_ == null) {
@@ -2849,12 +2956,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> tradSesPreCloseTimeBuilder_;
     /**
      * <code>.fix.Timestamp trad_ses_pre_close_time = 11 [(.fix.tag) = 343, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradSesPreCloseTime field is set.
      */
     public boolean hasTradSesPreCloseTime() {
       return tradSesPreCloseTimeBuilder_ != null || tradSesPreCloseTime_ != null;
     }
     /**
      * <code>.fix.Timestamp trad_ses_pre_close_time = 11 [(.fix.tag) = 343, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesPreCloseTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTradSesPreCloseTime() {
       if (tradSesPreCloseTimeBuilder_ == null) {
@@ -2966,12 +3075,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> tradSesStartTimeBuilder_;
     /**
      * <code>.fix.Timestamp trad_ses_start_time = 12 [(.fix.tag) = 341, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the tradSesStartTime field is set.
      */
     public boolean hasTradSesStartTime() {
       return tradSesStartTimeBuilder_ != null || tradSesStartTime_ != null;
     }
     /**
      * <code>.fix.Timestamp trad_ses_start_time = 12 [(.fix.tag) = 341, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesStartTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTradSesStartTime() {
       if (tradSesStartTimeBuilder_ == null) {
@@ -3080,6 +3191,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradSesStatus.
      */
     public int getTradSesStatusValue() {
       if (tradSesStatusUnionCase_ == 13) {
@@ -3089,6 +3201,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for tradSesStatus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesStatusValue(int value) {
       tradSesStatusUnionCase_ = 13;
@@ -3098,6 +3212,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesStatus.
      */
     public org.fixprotocol.components.TradSesStatusEnum getTradSesStatus() {
       if (tradSesStatusUnionCase_ == 13) {
@@ -3110,6 +3225,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradSesStatus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesStatus(org.fixprotocol.components.TradSesStatusEnum value) {
       if (value == null) {
@@ -3122,6 +3239,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusEnum trad_ses_status = 13 [(.fix.tag) = 340, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesStatus() {
       if (tradSesStatusUnionCase_ == 13) {
@@ -3134,6 +3252,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 trad_ses_status_reserved100plus = 16 [(.fix.tag) = 340, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesStatusReserved100plus.
      */
     public int getTradSesStatusReserved100Plus() {
       if (tradSesStatusUnionCase_ == 16) {
@@ -3143,6 +3262,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trad_ses_status_reserved100plus = 16 [(.fix.tag) = 340, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradSesStatusReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesStatusReserved100Plus(int value) {
       tradSesStatusUnionCase_ = 16;
@@ -3152,6 +3273,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trad_ses_status_reserved100plus = 16 [(.fix.tag) = 340, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesStatusReserved100Plus() {
       if (tradSesStatusUnionCase_ == 16) {
@@ -3164,6 +3286,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradSesStatusRejReason.
      */
     public int getTradSesStatusRejReasonValue() {
       if (tradSesStatusRejReasonUnionCase_ == 14) {
@@ -3173,6 +3296,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for tradSesStatusRejReason to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesStatusRejReasonValue(int value) {
       tradSesStatusRejReasonUnionCase_ = 14;
@@ -3182,6 +3307,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesStatusRejReason.
      */
     public org.fixprotocol.components.TradSesStatusRejReasonEnum getTradSesStatusRejReason() {
       if (tradSesStatusRejReasonUnionCase_ == 14) {
@@ -3194,6 +3320,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradSesStatusRejReason to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesStatusRejReason(org.fixprotocol.components.TradSesStatusRejReasonEnum value) {
       if (value == null) {
@@ -3206,6 +3334,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesStatusRejReasonEnum trad_ses_status_rej_reason = 14 [(.fix.tag) = 567, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesStatusRejReason() {
       if (tradSesStatusRejReasonUnionCase_ == 14) {
@@ -3218,6 +3347,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 trad_ses_status_rej_reason_reserved100plus = 15 [(.fix.tag) = 567, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradSesStatusRejReasonReserved100plus.
      */
     public int getTradSesStatusRejReasonReserved100Plus() {
       if (tradSesStatusRejReasonUnionCase_ == 15) {
@@ -3227,6 +3357,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trad_ses_status_rej_reason_reserved100plus = 15 [(.fix.tag) = 567, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradSesStatusRejReasonReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesStatusRejReasonReserved100Plus(int value) {
       tradSesStatusRejReasonUnionCase_ = 15;
@@ -3236,6 +3368,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trad_ses_status_rej_reason_reserved100plus = 15 [(.fix.tag) = 567, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesStatusRejReasonReserved100Plus() {
       if (tradSesStatusRejReasonUnionCase_ == 15) {
@@ -3248,6 +3381,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionId.
      */
     public int getTradingSessionIdValue() {
       if (tradingSessionIdUnionCase_ == 17) {
@@ -3257,6 +3391,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for tradingSessionId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionIdValue(int value) {
       tradingSessionIdUnionCase_ = 17;
@@ -3266,6 +3402,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionId.
      */
     public org.fixprotocol.components.TradingSessionIDEnum getTradingSessionId() {
       if (tradingSessionIdUnionCase_ == 17) {
@@ -3278,6 +3415,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradingSessionId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionId(org.fixprotocol.components.TradingSessionIDEnum value) {
       if (value == null) {
@@ -3290,6 +3429,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionIDEnum trading_session_id = 17 [(.fix.tag) = 336, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionId() {
       if (tradingSessionIdUnionCase_ == 17) {
@@ -3302,6 +3442,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 18 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionIdReserved100plus.
      */
     public int getTradingSessionIdReserved100Plus() {
       if (tradingSessionIdUnionCase_ == 18) {
@@ -3311,6 +3452,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 18 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradingSessionIdReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionIdReserved100Plus(int value) {
       tradingSessionIdUnionCase_ = 18;
@@ -3320,6 +3463,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_id_reserved100plus = 18 [(.fix.tag) = 336, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionIdReserved100Plus() {
       if (tradingSessionIdUnionCase_ == 18) {
@@ -3332,6 +3476,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for tradingSessionSubId.
      */
     public int getTradingSessionSubIdValue() {
       if (tradingSessionSubIdUnionCase_ == 19) {
@@ -3341,6 +3486,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for tradingSessionSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionSubIdValue(int value) {
       tradingSessionSubIdUnionCase_ = 19;
@@ -3350,6 +3497,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubId.
      */
     public org.fixprotocol.components.TradingSessionSubIDEnum getTradingSessionSubId() {
       if (tradingSessionSubIdUnionCase_ == 19) {
@@ -3362,6 +3510,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradingSessionSubId to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionSubId(org.fixprotocol.components.TradingSessionSubIDEnum value) {
       if (value == null) {
@@ -3374,6 +3524,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradingSessionSubIDEnum trading_session_sub_id = 19 [(.fix.tag) = 625, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionSubId() {
       if (tradingSessionSubIdUnionCase_ == 19) {
@@ -3386,6 +3537,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 20 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The tradingSessionSubIdReserved100plus.
      */
     public int getTradingSessionSubIdReserved100Plus() {
       if (tradingSessionSubIdUnionCase_ == 20) {
@@ -3395,6 +3547,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 20 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The tradingSessionSubIdReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionSubIdReserved100Plus(int value) {
       tradingSessionSubIdUnionCase_ = 20;
@@ -3404,6 +3558,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 trading_session_sub_id_reserved100plus = 20 [(.fix.tag) = 625, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionSubIdReserved100Plus() {
       if (tradingSessionSubIdUnionCase_ == 20) {
@@ -3417,12 +3572,15 @@ private static final long serialVersionUID = 0L;
     private boolean unsolicitedIndicator_ ;
     /**
      * <code>bool unsolicited_indicator = 21 [(.fix.tag) = 325, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The unsolicitedIndicator.
      */
     public boolean getUnsolicitedIndicator() {
       return unsolicitedIndicator_;
     }
     /**
      * <code>bool unsolicited_indicator = 21 [(.fix.tag) = 325, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The unsolicitedIndicator to set.
+     * @return This builder for chaining.
      */
     public Builder setUnsolicitedIndicator(boolean value) {
       
@@ -3432,6 +3590,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>bool unsolicited_indicator = 21 [(.fix.tag) = 325, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearUnsolicitedIndicator() {
       
@@ -3443,6 +3602,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object marketId_ = "";
     /**
      * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketId.
      */
     public java.lang.String getMarketId() {
       java.lang.Object ref = marketId_;
@@ -3458,6 +3618,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for marketId.
      */
     public com.google.protobuf.ByteString
         getMarketIdBytes() {
@@ -3474,6 +3635,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The marketId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketId(
         java.lang.String value) {
@@ -3487,6 +3650,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMarketId() {
       
@@ -3496,6 +3660,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_id = 22 [(.fix.tag) = 1301, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for marketId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketIdBytes(
         com.google.protobuf.ByteString value) {
@@ -3512,6 +3678,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object marketSegmentId_ = "";
     /**
      * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The marketSegmentId.
      */
     public java.lang.String getMarketSegmentId() {
       java.lang.Object ref = marketSegmentId_;
@@ -3527,6 +3694,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for marketSegmentId.
      */
     public com.google.protobuf.ByteString
         getMarketSegmentIdBytes() {
@@ -3543,6 +3711,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The marketSegmentId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketSegmentId(
         java.lang.String value) {
@@ -3556,6 +3726,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMarketSegmentId() {
       
@@ -3565,6 +3736,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string market_segment_id = 23 [(.fix.tag) = 1300, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for marketSegmentId to set.
+     * @return This builder for chaining.
      */
     public Builder setMarketSegmentIdBytes(
         com.google.protobuf.ByteString value) {
@@ -3581,6 +3754,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object tradingSessionDesc_ = "";
     /**
      * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionDesc.
      */
     public java.lang.String getTradingSessionDesc() {
       java.lang.Object ref = tradingSessionDesc_;
@@ -3596,6 +3770,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The bytes for tradingSessionDesc.
      */
     public com.google.protobuf.ByteString
         getTradingSessionDescBytes() {
@@ -3612,6 +3787,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The tradingSessionDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionDesc(
         java.lang.String value) {
@@ -3625,6 +3802,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradingSessionDesc() {
       
@@ -3634,6 +3812,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string trading_session_desc = 24 [(.fix.tag) = 1326, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The bytes for tradingSessionDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setTradingSessionDescBytes(
         com.google.protobuf.ByteString value) {
@@ -3652,12 +3832,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.TradingSessionRules, org.fixprotocol.components.TradingSessionRules.Builder, org.fixprotocol.components.TradingSessionRulesOrBuilder> tradingSessionRulesBuilder_;
     /**
      * <code>.Common.TradingSessionRules trading_session_rules = 25 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the tradingSessionRules field is set.
      */
     public boolean hasTradingSessionRules() {
       return tradingSessionRulesBuilder_ != null || tradingSessionRules_ != null;
     }
     /**
      * <code>.Common.TradingSessionRules trading_session_rules = 25 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The tradingSessionRules.
      */
     public org.fixprotocol.components.TradingSessionRules getTradingSessionRules() {
       if (tradingSessionRulesBuilder_ == null) {
@@ -3767,12 +3949,15 @@ private static final long serialVersionUID = 0L;
     private int tradSesUpdateAction_ = 0;
     /**
      * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return The enum numeric value on the wire for tradSesUpdateAction.
      */
     public int getTradSesUpdateActionValue() {
       return tradSesUpdateAction_;
     }
     /**
      * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @param value The enum numeric value on the wire for tradSesUpdateAction to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesUpdateActionValue(int value) {
       tradSesUpdateAction_ = value;
@@ -3781,6 +3966,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return The tradSesUpdateAction.
      */
     public org.fixprotocol.components.TradSesUpdateActionEnum getTradSesUpdateAction() {
       @SuppressWarnings("deprecation")
@@ -3789,6 +3975,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @param value The tradSesUpdateAction to set.
+     * @return This builder for chaining.
      */
     public Builder setTradSesUpdateAction(org.fixprotocol.components.TradSesUpdateActionEnum value) {
       if (value == null) {
@@ -3801,6 +3989,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TradSesUpdateActionEnum trad_ses_update_action = 26 [(.fix.tag) = 1327, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTradSesUpdateAction() {
       
@@ -3814,12 +4003,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Timestamp, org.fixprotocol.components.Fix.Timestamp.Builder, org.fixprotocol.components.Fix.TimestampOrBuilder> transactTimeBuilder_;
     /**
      * <code>.fix.Timestamp transact_time = 27 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return Whether the transactTime field is set.
      */
     public boolean hasTransactTime() {
       return transactTimeBuilder_ != null || transactTime_ != null;
     }
     /**
      * <code>.fix.Timestamp transact_time = 27 [(.fix.tag) = 60, (.fix.type) = DATATYPE_UTC_TIMESTAMP, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 94];</code>
+     * @return The transactTime.
      */
     public org.fixprotocol.components.Fix.Timestamp getTransactTime() {
       if (transactTimeBuilder_ == null) {

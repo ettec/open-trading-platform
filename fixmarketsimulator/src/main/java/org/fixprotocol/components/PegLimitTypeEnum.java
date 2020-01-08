@@ -54,6 +54,8 @@ public enum PegLimitTypeEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -61,6 +63,10 @@ public enum PegLimitTypeEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static PegLimitTypeEnum forNumber(int value) {
     switch (value) {
       case 0: return PEG_LIMIT_TYPE_UNSPECIFIED;

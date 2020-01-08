@@ -91,12 +91,14 @@ private static final long serialVersionUID = 0L;
   private int timeInForce_;
   /**
    * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for timeInForce.
    */
   public int getTimeInForceValue() {
     return timeInForce_;
   }
   /**
    * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The timeInForce.
    */
   public org.fixprotocol.components.TimeInForceEnum getTimeInForce() {
     @SuppressWarnings("deprecation")
@@ -408,12 +410,15 @@ private static final long serialVersionUID = 0L;
     private int timeInForce_ = 0;
     /**
      * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for timeInForce.
      */
     public int getTimeInForceValue() {
       return timeInForce_;
     }
     /**
      * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for timeInForce to set.
+     * @return This builder for chaining.
      */
     public Builder setTimeInForceValue(int value) {
       timeInForce_ = value;
@@ -422,6 +427,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The timeInForce.
      */
     public org.fixprotocol.components.TimeInForceEnum getTimeInForce() {
       @SuppressWarnings("deprecation")
@@ -430,6 +436,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The timeInForce to set.
+     * @return This builder for chaining.
      */
     public Builder setTimeInForce(org.fixprotocol.components.TimeInForceEnum value) {
       if (value == null) {
@@ -442,6 +450,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.TimeInForceEnum time_in_force = 1 [(.fix.tag) = 59, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearTimeInForce() {
       

@@ -9,20 +9,24 @@ public interface RoutingGrpOrBuilder extends
 
   /**
    * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The routingId.
    */
   java.lang.String getRoutingId();
   /**
    * <code>string routing_id = 1 [(.fix.tag) = 217, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for routingId.
    */
   com.google.protobuf.ByteString
       getRoutingIdBytes();
 
   /**
    * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for routingType.
    */
   int getRoutingTypeValue();
   /**
    * <code>.Common.RoutingTypeEnum routing_type = 2 [(.fix.tag) = 216, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The routingType.
    */
   org.fixprotocol.components.RoutingTypeEnum getRoutingType();
 }

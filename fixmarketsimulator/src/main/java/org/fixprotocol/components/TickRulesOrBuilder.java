@@ -9,10 +9,12 @@ public interface TickRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 end_tick_price_range = 1 [(.fix.tag) = 1207, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the endTickPriceRange field is set.
    */
   boolean hasEndTickPriceRange();
   /**
    * <code>.fix.Decimal64 end_tick_price_range = 1 [(.fix.tag) = 1207, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The endTickPriceRange.
    */
   org.fixprotocol.components.Fix.Decimal64 getEndTickPriceRange();
   /**
@@ -22,10 +24,12 @@ public interface TickRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 start_tick_price_range = 2 [(.fix.tag) = 1206, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the startTickPriceRange field is set.
    */
   boolean hasStartTickPriceRange();
   /**
    * <code>.fix.Decimal64 start_tick_price_range = 2 [(.fix.tag) = 1206, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The startTickPriceRange.
    */
   org.fixprotocol.components.Fix.Decimal64 getStartTickPriceRange();
   /**
@@ -35,10 +39,12 @@ public interface TickRulesOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 tick_increment = 3 [(.fix.tag) = 1208, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the tickIncrement field is set.
    */
   boolean hasTickIncrement();
   /**
    * <code>.fix.Decimal64 tick_increment = 3 [(.fix.tag) = 1208, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tickIncrement.
    */
   org.fixprotocol.components.Fix.Decimal64 getTickIncrement();
   /**
@@ -48,10 +54,12 @@ public interface TickRulesOrBuilder extends
 
   /**
    * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for tickRuleType.
    */
   int getTickRuleTypeValue();
   /**
    * <code>.Common.TickRuleTypeEnum tick_rule_type = 4 [(.fix.tag) = 1209, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The tickRuleType.
    */
   org.fixprotocol.components.TickRuleTypeEnum getTickRuleType();
 }

@@ -9,50 +9,60 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string encoded_underlying_issuer = 1 [(.fix.tag) = 363, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedUnderlyingIssuer.
    */
   java.lang.String getEncodedUnderlyingIssuer();
   /**
    * <code>string encoded_underlying_issuer = 1 [(.fix.tag) = 363, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedUnderlyingIssuer.
    */
   com.google.protobuf.ByteString
       getEncodedUnderlyingIssuerBytes();
 
   /**
    * <code>sfixed64 encoded_underlying_issuer_len = 2 [(.fix.tag) = 362, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedUnderlyingIssuerLen.
    */
   long getEncodedUnderlyingIssuerLen();
 
   /**
    * <code>string encoded_underlying_security_desc = 3 [(.fix.tag) = 365, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedUnderlyingSecurityDesc.
    */
   java.lang.String getEncodedUnderlyingSecurityDesc();
   /**
    * <code>string encoded_underlying_security_desc = 3 [(.fix.tag) = 365, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedUnderlyingSecurityDesc.
    */
   com.google.protobuf.ByteString
       getEncodedUnderlyingSecurityDescBytes();
 
   /**
    * <code>sfixed64 encoded_underlying_security_desc_len = 4 [(.fix.tag) = 364, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedUnderlyingSecurityDescLen.
    */
   long getEncodedUnderlyingSecurityDescLen();
 
   /**
    * <code>string underlying_cfi_code = 5 [(.fix.tag) = 463, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingCfiCode.
    */
   java.lang.String getUnderlyingCfiCode();
   /**
    * <code>string underlying_cfi_code = 5 [(.fix.tag) = 463, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingCfiCode.
    */
   com.google.protobuf.ByteString
       getUnderlyingCfiCodeBytes();
 
   /**
    * <code>.fix.Decimal64 underlying_contract_multiplier = 6 [(.fix.tag) = 436, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the underlyingContractMultiplier field is set.
    */
   boolean hasUnderlyingContractMultiplier();
   /**
    * <code>.fix.Decimal64 underlying_contract_multiplier = 6 [(.fix.tag) = 436, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingContractMultiplier.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingContractMultiplier();
   /**
@@ -62,25 +72,30 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string underlying_country_of_issue = 7 [(.fix.tag) = 592, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingCountryOfIssue.
    */
   java.lang.String getUnderlyingCountryOfIssue();
   /**
    * <code>string underlying_country_of_issue = 7 [(.fix.tag) = 592, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingCountryOfIssue.
    */
   com.google.protobuf.ByteString
       getUnderlyingCountryOfIssueBytes();
 
   /**
    * <code>sfixed32 underlying_coupon_payment_date = 8 [(.fix.tag) = 241, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingCouponPaymentDate.
    */
   int getUnderlyingCouponPaymentDate();
 
   /**
    * <code>.fix.Decimal64 underlying_coupon_rate = 9 [(.fix.tag) = 435, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the underlyingCouponRate field is set.
    */
   boolean hasUnderlyingCouponRate();
   /**
    * <code>.fix.Decimal64 underlying_coupon_rate = 9 [(.fix.tag) = 435, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingCouponRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingCouponRate();
   /**
@@ -90,20 +105,24 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string underlying_credit_rating = 10 [(.fix.tag) = 256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingCreditRating.
    */
   java.lang.String getUnderlyingCreditRating();
   /**
    * <code>string underlying_credit_rating = 10 [(.fix.tag) = 256, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingCreditRating.
    */
   com.google.protobuf.ByteString
       getUnderlyingCreditRatingBytes();
 
   /**
    * <code>.fix.Decimal64 underlying_factor = 11 [(.fix.tag) = 246, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the underlyingFactor field is set.
    */
   boolean hasUnderlyingFactor();
   /**
    * <code>.fix.Decimal64 underlying_factor = 11 [(.fix.tag) = 246, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingFactor.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingFactor();
   /**
@@ -113,89 +132,107 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string underlying_instr_registry = 12 [(.fix.tag) = 595, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingInstrRegistry.
    */
   java.lang.String getUnderlyingInstrRegistry();
   /**
    * <code>string underlying_instr_registry = 12 [(.fix.tag) = 595, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingInstrRegistry.
    */
   com.google.protobuf.ByteString
       getUnderlyingInstrRegistryBytes();
 
   /**
    * <code>sfixed32 underlying_issue_date = 13 [(.fix.tag) = 242, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingIssueDate.
    */
   int getUnderlyingIssueDate();
 
   /**
    * <code>string underlying_issuer = 14 [(.fix.tag) = 306, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingIssuer.
    */
   java.lang.String getUnderlyingIssuer();
   /**
    * <code>string underlying_issuer = 14 [(.fix.tag) = 306, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingIssuer.
    */
   com.google.protobuf.ByteString
       getUnderlyingIssuerBytes();
 
   /**
    * <code>string underlying_locale_of_issue = 15 [(.fix.tag) = 594, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingLocaleOfIssue.
    */
   java.lang.String getUnderlyingLocaleOfIssue();
   /**
    * <code>string underlying_locale_of_issue = 15 [(.fix.tag) = 594, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingLocaleOfIssue.
    */
   com.google.protobuf.ByteString
       getUnderlyingLocaleOfIssueBytes();
 
   /**
    * <code>sfixed32 underlying_maturity_date = 16 [(.fix.tag) = 542, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingMaturityDate.
    */
   int getUnderlyingMaturityDate();
 
   /**
    * <code>sfixed32 underlying_maturity_month_year = 17 [(.fix.tag) = 313, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingMaturityMonthYear.
    */
   int getUnderlyingMaturityMonthYear();
 
   /**
    * <code>bytes underlying_opt_attribute = 18 [(.fix.tag) = 317, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingOptAttribute.
    */
   com.google.protobuf.ByteString getUnderlyingOptAttribute();
 
   /**
    * <code>.Common.UnderlyingProductEnum underlying_product = 19 [(.fix.tag) = 462, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for underlyingProduct.
    */
   int getUnderlyingProductValue();
   /**
    * <code>.Common.UnderlyingProductEnum underlying_product = 19 [(.fix.tag) = 462, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingProduct.
    */
   org.fixprotocol.components.UnderlyingProductEnum getUnderlyingProduct();
 
   /**
    * <code>sfixed64 underlying_put_or_call = 20 [(.fix.tag) = 315, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingPutOrCall.
    */
   long getUnderlyingPutOrCall();
 
   /**
    * <code>sfixed32 underlying_redemption_date = 21 [(.fix.tag) = 247, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingRedemptionDate.
    */
   int getUnderlyingRedemptionDate();
 
   /**
    * <code>string underlying_repo_collateral_security_type = 22 [(.fix.tag) = 243, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingRepoCollateralSecurityType.
    */
   java.lang.String getUnderlyingRepoCollateralSecurityType();
   /**
    * <code>string underlying_repo_collateral_security_type = 22 [(.fix.tag) = 243, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingRepoCollateralSecurityType.
    */
   com.google.protobuf.ByteString
       getUnderlyingRepoCollateralSecurityTypeBytes();
 
   /**
    * <code>.fix.Decimal64 underlying_repurchase_rate = 23 [(.fix.tag) = 245, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the underlyingRepurchaseRate field is set.
    */
   boolean hasUnderlyingRepurchaseRate();
   /**
    * <code>.fix.Decimal64 underlying_repurchase_rate = 23 [(.fix.tag) = 245, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingRepurchaseRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingRepurchaseRate();
   /**
@@ -205,73 +242,88 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>sfixed64 underlying_repurchase_term = 24 [(.fix.tag) = 244, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingRepurchaseTerm.
    */
   long getUnderlyingRepurchaseTerm();
 
   /**
    * <code>string underlying_security_desc = 25 [(.fix.tag) = 307, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSecurityDesc.
    */
   java.lang.String getUnderlyingSecurityDesc();
   /**
    * <code>string underlying_security_desc = 25 [(.fix.tag) = 307, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingSecurityDesc.
    */
   com.google.protobuf.ByteString
       getUnderlyingSecurityDescBytes();
 
   /**
    * <code>string underlying_security_exchange = 26 [(.fix.tag) = 308, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSecurityExchange.
    */
   java.lang.String getUnderlyingSecurityExchange();
   /**
    * <code>string underlying_security_exchange = 26 [(.fix.tag) = 308, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingSecurityExchange.
    */
   com.google.protobuf.ByteString
       getUnderlyingSecurityExchangeBytes();
 
   /**
    * <code>string underlying_security_id = 27 [(.fix.tag) = 309, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSecurityId.
    */
   java.lang.String getUnderlyingSecurityId();
   /**
    * <code>string underlying_security_id = 27 [(.fix.tag) = 309, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingSecurityId.
    */
   com.google.protobuf.ByteString
       getUnderlyingSecurityIdBytes();
 
   /**
    * <code>.Common.UnderlyingSecurityIDSourceEnum underlying_security_id_source = 28 [(.fix.tag) = 305, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for underlyingSecurityIdSource.
    */
   int getUnderlyingSecurityIdSourceValue();
   /**
    * <code>.Common.UnderlyingSecurityIDSourceEnum underlying_security_id_source = 28 [(.fix.tag) = 305, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSecurityIdSource.
    */
   org.fixprotocol.components.UnderlyingSecurityIDSourceEnum getUnderlyingSecurityIdSource();
 
   /**
    * <code>.Common.UnderlyingSecurityTypeEnum underlying_security_type = 29 [(.fix.tag) = 310, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for underlyingSecurityType.
    */
   int getUnderlyingSecurityTypeValue();
   /**
    * <code>.Common.UnderlyingSecurityTypeEnum underlying_security_type = 29 [(.fix.tag) = 310, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSecurityType.
    */
   org.fixprotocol.components.UnderlyingSecurityTypeEnum getUnderlyingSecurityType();
 
   /**
    * <code>string underlying_state_or_province_of_issue = 30 [(.fix.tag) = 593, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingStateOrProvinceOfIssue.
    */
   java.lang.String getUnderlyingStateOrProvinceOfIssue();
   /**
    * <code>string underlying_state_or_province_of_issue = 30 [(.fix.tag) = 593, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingStateOrProvinceOfIssue.
    */
   com.google.protobuf.ByteString
       getUnderlyingStateOrProvinceOfIssueBytes();
 
   /**
    * <code>.fix.Decimal64 underlying_strike_price = 31 [(.fix.tag) = 316, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the underlyingStrikePrice field is set.
    */
   boolean hasUnderlyingStrikePrice();
   /**
    * <code>.fix.Decimal64 underlying_strike_price = 31 [(.fix.tag) = 316, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingStrikePrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingStrikePrice();
   /**
@@ -281,20 +333,24 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string underlying_symbol = 32 [(.fix.tag) = 311, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSymbol.
    */
   java.lang.String getUnderlyingSymbol();
   /**
    * <code>string underlying_symbol = 32 [(.fix.tag) = 311, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for underlyingSymbol.
    */
   com.google.protobuf.ByteString
       getUnderlyingSymbolBytes();
 
   /**
    * <code>.Common.UnderlyingSymbolSfxEnum underlying_symbol_sfx = 33 [(.fix.tag) = 312, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for underlyingSymbolSfx.
    */
   int getUnderlyingSymbolSfxValue();
   /**
    * <code>.Common.UnderlyingSymbolSfxEnum underlying_symbol_sfx = 33 [(.fix.tag) = 312, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The underlyingSymbolSfx.
    */
   org.fixprotocol.components.UnderlyingSymbolSfxEnum getUnderlyingSymbolSfx();
 
@@ -324,10 +380,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_adjusted_quantity = 35 [(.fix.tag) = 1044, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingAdjustedQuantity field is set.
    */
   boolean hasUnderlyingAdjustedQuantity();
   /**
    * <code>.fix.Decimal64 underlying_adjusted_quantity = 35 [(.fix.tag) = 1044, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingAdjustedQuantity.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingAdjustedQuantity();
   /**
@@ -337,10 +395,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_allocation_percent = 36 [(.fix.tag) = 972, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingAllocationPercent field is set.
    */
   boolean hasUnderlyingAllocationPercent();
   /**
    * <code>.fix.Decimal64 underlying_allocation_percent = 36 [(.fix.tag) = 972, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingAllocationPercent.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingAllocationPercent();
   /**
@@ -350,10 +410,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_cap_value = 37 [(.fix.tag) = 1038, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingCapValue field is set.
    */
   boolean hasUnderlyingCapValue();
   /**
    * <code>.fix.Decimal64 underlying_cap_value = 37 [(.fix.tag) = 1038, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCapValue.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingCapValue();
   /**
@@ -363,10 +425,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_cash_amount = 38 [(.fix.tag) = 973, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingCashAmount field is set.
    */
   boolean hasUnderlyingCashAmount();
   /**
    * <code>.fix.Decimal64 underlying_cash_amount = 38 [(.fix.tag) = 973, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCashAmount.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingCashAmount();
   /**
@@ -376,49 +440,59 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingCashTypeEnum underlying_cash_type = 39 [(.fix.tag) = 974, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingCashType.
    */
   int getUnderlyingCashTypeValue();
   /**
    * <code>.Common.UnderlyingCashTypeEnum underlying_cash_type = 39 [(.fix.tag) = 974, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCashType.
    */
   org.fixprotocol.components.UnderlyingCashTypeEnum getUnderlyingCashType();
 
   /**
    * <code>string underlying_cp_program = 40 [(.fix.tag) = 877, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCpProgram.
    */
   java.lang.String getUnderlyingCpProgram();
   /**
    * <code>string underlying_cp_program = 40 [(.fix.tag) = 877, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingCpProgram.
    */
   com.google.protobuf.ByteString
       getUnderlyingCpProgramBytes();
 
   /**
    * <code>string underlying_cp_reg_type = 41 [(.fix.tag) = 878, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCpRegType.
    */
   java.lang.String getUnderlyingCpRegType();
   /**
    * <code>string underlying_cp_reg_type = 41 [(.fix.tag) = 878, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingCpRegType.
    */
   com.google.protobuf.ByteString
       getUnderlyingCpRegTypeBytes();
 
   /**
    * <code>string underlying_currency = 42 [(.fix.tag) = 318, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCurrency.
    */
   java.lang.String getUnderlyingCurrency();
   /**
    * <code>string underlying_currency = 42 [(.fix.tag) = 318, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingCurrency.
    */
   com.google.protobuf.ByteString
       getUnderlyingCurrencyBytes();
 
   /**
    * <code>.fix.Decimal64 underlying_current_value = 43 [(.fix.tag) = 885, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingCurrentValue field is set.
    */
   boolean hasUnderlyingCurrentValue();
   /**
    * <code>.fix.Decimal64 underlying_current_value = 43 [(.fix.tag) = 885, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingCurrentValue.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingCurrentValue();
   /**
@@ -428,10 +502,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_dirty_price = 44 [(.fix.tag) = 882, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingDirtyPrice field is set.
    */
   boolean hasUnderlyingDirtyPrice();
   /**
    * <code>.fix.Decimal64 underlying_dirty_price = 44 [(.fix.tag) = 882, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingDirtyPrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingDirtyPrice();
   /**
@@ -441,10 +517,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_end_price = 45 [(.fix.tag) = 883, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingEndPrice field is set.
    */
   boolean hasUnderlyingEndPrice();
   /**
    * <code>.fix.Decimal64 underlying_end_price = 45 [(.fix.tag) = 883, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingEndPrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingEndPrice();
   /**
@@ -454,10 +532,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_end_value = 46 [(.fix.tag) = 886, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingEndValue field is set.
    */
   boolean hasUnderlyingEndValue();
   /**
    * <code>.fix.Decimal64 underlying_end_value = 46 [(.fix.tag) = 886, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingEndValue.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingEndValue();
   /**
@@ -467,10 +547,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_fx_rate = 47 [(.fix.tag) = 1045, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingFxRate field is set.
    */
   boolean hasUnderlyingFxRate();
   /**
    * <code>.fix.Decimal64 underlying_fx_rate = 47 [(.fix.tag) = 1045, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingFxRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingFxRate();
   /**
@@ -480,19 +562,23 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingFXRateCalcEnum underlying_fx_rate_calc = 48 [(.fix.tag) = 1046, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingFxRateCalc.
    */
   int getUnderlyingFxRateCalcValue();
   /**
    * <code>.Common.UnderlyingFXRateCalcEnum underlying_fx_rate_calc = 48 [(.fix.tag) = 1046, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingFxRateCalc.
    */
   org.fixprotocol.components.UnderlyingFXRateCalcEnum getUnderlyingFxRateCalc();
 
   /**
    * <code>.fix.Decimal64 underlying_px = 49 [(.fix.tag) = 810, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingPx field is set.
    */
   boolean hasUnderlyingPx();
   /**
    * <code>.fix.Decimal64 underlying_px = 49 [(.fix.tag) = 810, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingPx.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingPx();
   /**
@@ -502,10 +588,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_qty = 50 [(.fix.tag) = 879, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingQty field is set.
    */
   boolean hasUnderlyingQty();
   /**
    * <code>.fix.Decimal64 underlying_qty = 50 [(.fix.tag) = 879, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingQty();
   /**
@@ -515,39 +603,47 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string underlying_security_sub_type = 51 [(.fix.tag) = 763, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSecuritySubType.
    */
   java.lang.String getUnderlyingSecuritySubType();
   /**
    * <code>string underlying_security_sub_type = 51 [(.fix.tag) = 763, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingSecuritySubType.
    */
   com.google.protobuf.ByteString
       getUnderlyingSecuritySubTypeBytes();
 
   /**
    * <code>string underlying_settl_method = 52 [(.fix.tag) = 1039, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSettlMethod.
    */
   java.lang.String getUnderlyingSettlMethod();
   /**
    * <code>string underlying_settl_method = 52 [(.fix.tag) = 1039, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingSettlMethod.
    */
   com.google.protobuf.ByteString
       getUnderlyingSettlMethodBytes();
 
   /**
    * <code>.Common.UnderlyingSettlementTypeEnum underlying_settlement_type = 53 [(.fix.tag) = 975, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingSettlementType.
    */
   int getUnderlyingSettlementTypeValue();
   /**
    * <code>.Common.UnderlyingSettlementTypeEnum underlying_settlement_type = 53 [(.fix.tag) = 975, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingSettlementType.
    */
   org.fixprotocol.components.UnderlyingSettlementTypeEnum getUnderlyingSettlementType();
 
   /**
    * <code>.fix.Decimal64 underlying_start_value = 54 [(.fix.tag) = 884, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the underlyingStartValue field is set.
    */
   boolean hasUnderlyingStartValue();
   /**
    * <code>.fix.Decimal64 underlying_start_value = 54 [(.fix.tag) = 884, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingStartValue.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingStartValue();
   /**
@@ -581,29 +677,35 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>string underlying_strike_currency = 56 [(.fix.tag) = 941, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingStrikeCurrency.
    */
   java.lang.String getUnderlyingStrikeCurrency();
   /**
    * <code>string underlying_strike_currency = 56 [(.fix.tag) = 941, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for underlyingStrikeCurrency.
    */
   com.google.protobuf.ByteString
       getUnderlyingStrikeCurrencyBytes();
 
   /**
    * <code>.Common.UnderlyingTimeUnitEnum underlying_time_unit = 57 [(.fix.tag) = 1000, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingTimeUnit.
    */
   int getUnderlyingTimeUnitValue();
   /**
    * <code>.Common.UnderlyingTimeUnitEnum underlying_time_unit = 57 [(.fix.tag) = 1000, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingTimeUnit.
    */
   org.fixprotocol.components.UnderlyingTimeUnitEnum getUnderlyingTimeUnit();
 
   /**
    * <code>.Common.UnderlyingUnitOfMeasureEnum underlying_unit_of_measure = 58 [(.fix.tag) = 998, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for underlyingUnitOfMeasure.
    */
   int getUnderlyingUnitOfMeasureValue();
   /**
    * <code>.Common.UnderlyingUnitOfMeasureEnum underlying_unit_of_measure = 58 [(.fix.tag) = 998, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The underlyingUnitOfMeasure.
    */
   org.fixprotocol.components.UnderlyingUnitOfMeasureEnum getUnderlyingUnitOfMeasure();
 
@@ -633,19 +735,23 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingExerciseStyleEnum underlying_exercise_style = 60 [(.fix.tag) = 1419, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for underlyingExerciseStyle.
    */
   int getUnderlyingExerciseStyleValue();
   /**
    * <code>.Common.UnderlyingExerciseStyleEnum underlying_exercise_style = 60 [(.fix.tag) = 1419, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The underlyingExerciseStyle.
    */
   org.fixprotocol.components.UnderlyingExerciseStyleEnum getUnderlyingExerciseStyle();
 
   /**
    * <code>.fix.LocalTimeOnly underlying_maturity_time = 61 [(.fix.tag) = 1213, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the underlyingMaturityTime field is set.
    */
   boolean hasUnderlyingMaturityTime();
   /**
    * <code>.fix.LocalTimeOnly underlying_maturity_time = 61 [(.fix.tag) = 1213, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The underlyingMaturityTime.
    */
   org.fixprotocol.components.Fix.LocalTimeOnly getUnderlyingMaturityTime();
   /**
@@ -655,19 +761,23 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingPriceUnitOfMeasureEnum underlying_price_unit_of_measure = 62 [(.fix.tag) = 1424, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for underlyingPriceUnitOfMeasure.
    */
   int getUnderlyingPriceUnitOfMeasureValue();
   /**
    * <code>.Common.UnderlyingPriceUnitOfMeasureEnum underlying_price_unit_of_measure = 62 [(.fix.tag) = 1424, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The underlyingPriceUnitOfMeasure.
    */
   org.fixprotocol.components.UnderlyingPriceUnitOfMeasureEnum getUnderlyingPriceUnitOfMeasure();
 
   /**
    * <code>.fix.Decimal64 underlying_price_unit_of_measure_qty = 63 [(.fix.tag) = 1425, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the underlyingPriceUnitOfMeasureQty field is set.
    */
   boolean hasUnderlyingPriceUnitOfMeasureQty();
   /**
    * <code>.fix.Decimal64 underlying_price_unit_of_measure_qty = 63 [(.fix.tag) = 1425, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The underlyingPriceUnitOfMeasureQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingPriceUnitOfMeasureQty();
   /**
@@ -677,10 +787,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_unit_of_measure_qty = 64 [(.fix.tag) = 1423, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the underlyingUnitOfMeasureQty field is set.
    */
   boolean hasUnderlyingUnitOfMeasureQty();
   /**
    * <code>.fix.Decimal64 underlying_unit_of_measure_qty = 64 [(.fix.tag) = 1423, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The underlyingUnitOfMeasureQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingUnitOfMeasureQty();
   /**
@@ -690,33 +802,40 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingContractMultiplierUnitEnum underlying_contract_multiplier_unit = 65 [(.fix.tag) = 1437, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for underlyingContractMultiplierUnit.
    */
   int getUnderlyingContractMultiplierUnitValue();
   /**
    * <code>.Common.UnderlyingContractMultiplierUnitEnum underlying_contract_multiplier_unit = 65 [(.fix.tag) = 1437, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The underlyingContractMultiplierUnit.
    */
   org.fixprotocol.components.UnderlyingContractMultiplierUnitEnum getUnderlyingContractMultiplierUnit();
 
   /**
    * <code>.Common.UnderlyingFlowScheduleTypeEnum underlying_flow_schedule_type = 66 [(.fix.tag) = 1441, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for underlyingFlowScheduleType.
    */
   int getUnderlyingFlowScheduleTypeValue();
   /**
    * <code>.Common.UnderlyingFlowScheduleTypeEnum underlying_flow_schedule_type = 66 [(.fix.tag) = 1441, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The underlyingFlowScheduleType.
    */
   org.fixprotocol.components.UnderlyingFlowScheduleTypeEnum getUnderlyingFlowScheduleType();
 
   /**
    * <code>fixed32 underlying_flow_schedule_type_reserved100plus = 67 [(.fix.tag) = 1441, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The underlyingFlowScheduleTypeReserved100plus.
    */
   int getUnderlyingFlowScheduleTypeReserved100Plus();
 
   /**
    * <code>.fix.Decimal64 underlying_attachment_point = 68 [(.fix.tag) = 1459, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the underlyingAttachmentPoint field is set.
    */
   boolean hasUnderlyingAttachmentPoint();
   /**
    * <code>.fix.Decimal64 underlying_attachment_point = 68 [(.fix.tag) = 1459, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The underlyingAttachmentPoint.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingAttachmentPoint();
   /**
@@ -726,10 +845,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_detachment_point = 69 [(.fix.tag) = 1460, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the underlyingDetachmentPoint field is set.
    */
   boolean hasUnderlyingDetachmentPoint();
   /**
    * <code>.fix.Decimal64 underlying_detachment_point = 69 [(.fix.tag) = 1460, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The underlyingDetachmentPoint.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingDetachmentPoint();
   /**
@@ -739,10 +860,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_notional_percentage_outstanding = 70 [(.fix.tag) = 1455, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the underlyingNotionalPercentageOutstanding field is set.
    */
   boolean hasUnderlyingNotionalPercentageOutstanding();
   /**
    * <code>.fix.Decimal64 underlying_notional_percentage_outstanding = 70 [(.fix.tag) = 1455, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The underlyingNotionalPercentageOutstanding.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingNotionalPercentageOutstanding();
   /**
@@ -752,10 +875,12 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 underlying_original_notional_percentage_outstanding = 71 [(.fix.tag) = 1456, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the underlyingOriginalNotionalPercentageOutstanding field is set.
    */
   boolean hasUnderlyingOriginalNotionalPercentageOutstanding();
   /**
    * <code>.fix.Decimal64 underlying_original_notional_percentage_outstanding = 71 [(.fix.tag) = 1456, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The underlyingOriginalNotionalPercentageOutstanding.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnderlyingOriginalNotionalPercentageOutstanding();
   /**
@@ -765,19 +890,23 @@ public interface UnderlyingInstrumentOrBuilder extends
 
   /**
    * <code>.Common.UnderlyingRestructuringTypeEnum underlying_restructuring_type = 72 [(.fix.tag) = 1453, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The enum numeric value on the wire for underlyingRestructuringType.
    */
   int getUnderlyingRestructuringTypeValue();
   /**
    * <code>.Common.UnderlyingRestructuringTypeEnum underlying_restructuring_type = 72 [(.fix.tag) = 1453, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The underlyingRestructuringType.
    */
   org.fixprotocol.components.UnderlyingRestructuringTypeEnum getUnderlyingRestructuringType();
 
   /**
    * <code>.Common.UnderlyingSeniorityEnum underlying_seniority = 73 [(.fix.tag) = 1454, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The enum numeric value on the wire for underlyingSeniority.
    */
   int getUnderlyingSeniorityValue();
   /**
    * <code>.Common.UnderlyingSeniorityEnum underlying_seniority = 73 [(.fix.tag) = 1454, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The underlyingSeniority.
    */
   org.fixprotocol.components.UnderlyingSeniorityEnum getUnderlyingSeniority();
 

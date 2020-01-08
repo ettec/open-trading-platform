@@ -143,12 +143,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 cashOrderQty_;
   /**
    * <code>.fix.Decimal64 cash_order_qty = 1 [(.fix.tag) = 152, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the cashOrderQty field is set.
    */
   public boolean hasCashOrderQty() {
     return cashOrderQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 cash_order_qty = 1 [(.fix.tag) = 152, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The cashOrderQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getCashOrderQty() {
     return cashOrderQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : cashOrderQty_;
@@ -164,12 +166,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 orderPercent_;
   /**
    * <code>.fix.Decimal64 order_percent = 2 [(.fix.tag) = 516, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the orderPercent field is set.
    */
   public boolean hasOrderPercent() {
     return orderPercent_ != null;
   }
   /**
    * <code>.fix.Decimal64 order_percent = 2 [(.fix.tag) = 516, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The orderPercent.
    */
   public org.fixprotocol.components.Fix.Decimal64 getOrderPercent() {
     return orderPercent_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : orderPercent_;
@@ -185,12 +189,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 orderQty_;
   /**
    * <code>.fix.Decimal64 order_qty = 3 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the orderQty field is set.
    */
   public boolean hasOrderQty() {
     return orderQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 order_qty = 3 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The orderQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getOrderQty() {
     return orderQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : orderQty_;
@@ -206,12 +212,14 @@ private static final long serialVersionUID = 0L;
   private int roundingDirection_;
   /**
    * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for roundingDirection.
    */
   public int getRoundingDirectionValue() {
     return roundingDirection_;
   }
   /**
    * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The roundingDirection.
    */
   public org.fixprotocol.components.RoundingDirectionEnum getRoundingDirection() {
     @SuppressWarnings("deprecation")
@@ -223,12 +231,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 roundingModulus_;
   /**
    * <code>.fix.Decimal64 rounding_modulus = 5 [(.fix.tag) = 469, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the roundingModulus field is set.
    */
   public boolean hasRoundingModulus() {
     return roundingModulus_ != null;
   }
   /**
    * <code>.fix.Decimal64 rounding_modulus = 5 [(.fix.tag) = 469, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The roundingModulus.
    */
   public org.fixprotocol.components.Fix.Decimal64 getRoundingModulus() {
     return roundingModulus_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : roundingModulus_;
@@ -666,12 +676,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> cashOrderQtyBuilder_;
     /**
      * <code>.fix.Decimal64 cash_order_qty = 1 [(.fix.tag) = 152, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the cashOrderQty field is set.
      */
     public boolean hasCashOrderQty() {
       return cashOrderQtyBuilder_ != null || cashOrderQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 cash_order_qty = 1 [(.fix.tag) = 152, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The cashOrderQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getCashOrderQty() {
       if (cashOrderQtyBuilder_ == null) {
@@ -783,12 +795,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> orderPercentBuilder_;
     /**
      * <code>.fix.Decimal64 order_percent = 2 [(.fix.tag) = 516, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the orderPercent field is set.
      */
     public boolean hasOrderPercent() {
       return orderPercentBuilder_ != null || orderPercent_ != null;
     }
     /**
      * <code>.fix.Decimal64 order_percent = 2 [(.fix.tag) = 516, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The orderPercent.
      */
     public org.fixprotocol.components.Fix.Decimal64 getOrderPercent() {
       if (orderPercentBuilder_ == null) {
@@ -900,12 +914,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> orderQtyBuilder_;
     /**
      * <code>.fix.Decimal64 order_qty = 3 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the orderQty field is set.
      */
     public boolean hasOrderQty() {
       return orderQtyBuilder_ != null || orderQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 order_qty = 3 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The orderQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getOrderQty() {
       if (orderQtyBuilder_ == null) {
@@ -1015,12 +1031,15 @@ private static final long serialVersionUID = 0L;
     private int roundingDirection_ = 0;
     /**
      * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for roundingDirection.
      */
     public int getRoundingDirectionValue() {
       return roundingDirection_;
     }
     /**
      * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for roundingDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setRoundingDirectionValue(int value) {
       roundingDirection_ = value;
@@ -1029,6 +1048,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The roundingDirection.
      */
     public org.fixprotocol.components.RoundingDirectionEnum getRoundingDirection() {
       @SuppressWarnings("deprecation")
@@ -1037,6 +1057,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The roundingDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setRoundingDirection(org.fixprotocol.components.RoundingDirectionEnum value) {
       if (value == null) {
@@ -1049,6 +1071,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRoundingDirection() {
       
@@ -1062,12 +1085,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> roundingModulusBuilder_;
     /**
      * <code>.fix.Decimal64 rounding_modulus = 5 [(.fix.tag) = 469, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the roundingModulus field is set.
      */
     public boolean hasRoundingModulus() {
       return roundingModulusBuilder_ != null || roundingModulus_ != null;
     }
     /**
      * <code>.fix.Decimal64 rounding_modulus = 5 [(.fix.tag) = 469, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The roundingModulus.
      */
     public org.fixprotocol.components.Fix.Decimal64 getRoundingModulus() {
       if (roundingModulusBuilder_ == null) {

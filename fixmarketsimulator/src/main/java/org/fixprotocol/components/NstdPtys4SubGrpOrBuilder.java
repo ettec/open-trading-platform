@@ -9,20 +9,24 @@ public interface NstdPtys4SubGrpOrBuilder extends
 
   /**
    * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partySubId.
    */
   java.lang.String getNested4PartySubId();
   /**
    * <code>string nested4party_sub_id = 1 [(.fix.tag) = 1412, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for nested4partySubId.
    */
   com.google.protobuf.ByteString
       getNested4PartySubIdBytes();
 
   /**
    * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for nested4partySubIdType.
    */
   int getNested4PartySubIdTypeValue();
   /**
    * <code>.Common.Nested4PartySubIDTypeEnum nested4party_sub_id_type = 2 [(.fix.tag) = 1411, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The nested4partySubIdType.
    */
   org.fixprotocol.components.Nested4PartySubIDTypeEnum getNested4PartySubIdType();
 }

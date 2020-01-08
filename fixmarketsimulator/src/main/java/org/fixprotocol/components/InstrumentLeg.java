@@ -513,7 +513,8 @@ private static final long serialVersionUID = 0L;
   private int legFlowScheduleTypeUnionCase_ = 0;
   private java.lang.Object legFlowScheduleTypeUnion_;
   public enum LegFlowScheduleTypeUnionCase
-      implements com.google.protobuf.Internal.EnumLite {
+      implements com.google.protobuf.Internal.EnumLite,
+          com.google.protobuf.AbstractMessage.InternalOneOfEnum {
     LEG_FLOW_SCHEDULE_TYPE(54),
     LEG_FLOW_SCHEDULE_TYPE_RESERVED100PLUS(55),
     LEGFLOWSCHEDULETYPEUNION_NOT_SET(0);
@@ -522,6 +523,8 @@ private static final long serialVersionUID = 0L;
       this.value = value;
     }
     /**
+     * @param value The number of the enum to look for.
+     * @return The enum associated with the given number.
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
@@ -552,6 +555,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object encodedLegIssuer_;
   /**
    * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegIssuer.
    */
   public java.lang.String getEncodedLegIssuer() {
     java.lang.Object ref = encodedLegIssuer_;
@@ -567,6 +571,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedLegIssuer.
    */
   public com.google.protobuf.ByteString
       getEncodedLegIssuerBytes() {
@@ -586,6 +591,7 @@ private static final long serialVersionUID = 0L;
   private long encodedLegIssuerLen_;
   /**
    * <code>sfixed64 encoded_leg_issuer_len = 2 [(.fix.tag) = 618, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegIssuerLen.
    */
   public long getEncodedLegIssuerLen() {
     return encodedLegIssuerLen_;
@@ -595,6 +601,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object encodedLegSecurityDesc_;
   /**
    * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegSecurityDesc.
    */
   public java.lang.String getEncodedLegSecurityDesc() {
     java.lang.Object ref = encodedLegSecurityDesc_;
@@ -610,6 +617,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedLegSecurityDesc.
    */
   public com.google.protobuf.ByteString
       getEncodedLegSecurityDescBytes() {
@@ -629,6 +637,7 @@ private static final long serialVersionUID = 0L;
   private long encodedLegSecurityDescLen_;
   /**
    * <code>sfixed64 encoded_leg_security_desc_len = 4 [(.fix.tag) = 621, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedLegSecurityDescLen.
    */
   public long getEncodedLegSecurityDescLen() {
     return encodedLegSecurityDescLen_;
@@ -638,6 +647,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legCfiCode_;
   /**
    * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCfiCode.
    */
   public java.lang.String getLegCfiCode() {
     java.lang.Object ref = legCfiCode_;
@@ -653,6 +663,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legCfiCode.
    */
   public com.google.protobuf.ByteString
       getLegCfiCodeBytes() {
@@ -672,12 +683,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legContractMultiplier_;
   /**
    * <code>.fix.Decimal64 leg_contract_multiplier = 6 [(.fix.tag) = 614, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legContractMultiplier field is set.
    */
   public boolean hasLegContractMultiplier() {
     return legContractMultiplier_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_contract_multiplier = 6 [(.fix.tag) = 614, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legContractMultiplier.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegContractMultiplier() {
     return legContractMultiplier_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legContractMultiplier_;
@@ -693,6 +706,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legCountryOfIssue_;
   /**
    * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCountryOfIssue.
    */
   public java.lang.String getLegCountryOfIssue() {
     java.lang.Object ref = legCountryOfIssue_;
@@ -708,6 +722,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legCountryOfIssue.
    */
   public com.google.protobuf.ByteString
       getLegCountryOfIssueBytes() {
@@ -727,6 +742,7 @@ private static final long serialVersionUID = 0L;
   private int legCouponPaymentDate_;
   /**
    * <code>sfixed32 leg_coupon_payment_date = 8 [(.fix.tag) = 248, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCouponPaymentDate.
    */
   public int getLegCouponPaymentDate() {
     return legCouponPaymentDate_;
@@ -736,12 +752,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legCouponRate_;
   /**
    * <code>.fix.Decimal64 leg_coupon_rate = 9 [(.fix.tag) = 615, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legCouponRate field is set.
    */
   public boolean hasLegCouponRate() {
     return legCouponRate_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_coupon_rate = 9 [(.fix.tag) = 615, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCouponRate.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegCouponRate() {
     return legCouponRate_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legCouponRate_;
@@ -757,6 +775,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legCreditRating_;
   /**
    * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legCreditRating.
    */
   public java.lang.String getLegCreditRating() {
     java.lang.Object ref = legCreditRating_;
@@ -772,6 +791,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legCreditRating.
    */
   public com.google.protobuf.ByteString
       getLegCreditRatingBytes() {
@@ -791,12 +811,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legFactor_;
   /**
    * <code>.fix.Decimal64 leg_factor = 11 [(.fix.tag) = 253, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legFactor field is set.
    */
   public boolean hasLegFactor() {
     return legFactor_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_factor = 11 [(.fix.tag) = 253, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legFactor.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegFactor() {
     return legFactor_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legFactor_;
@@ -812,6 +834,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legInstrRegistry_;
   /**
    * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legInstrRegistry.
    */
   public java.lang.String getLegInstrRegistry() {
     java.lang.Object ref = legInstrRegistry_;
@@ -827,6 +850,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legInstrRegistry.
    */
   public com.google.protobuf.ByteString
       getLegInstrRegistryBytes() {
@@ -846,6 +870,7 @@ private static final long serialVersionUID = 0L;
   private int legIssueDate_;
   /**
    * <code>sfixed32 leg_issue_date = 13 [(.fix.tag) = 249, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legIssueDate.
    */
   public int getLegIssueDate() {
     return legIssueDate_;
@@ -855,6 +880,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legIssuer_;
   /**
    * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legIssuer.
    */
   public java.lang.String getLegIssuer() {
     java.lang.Object ref = legIssuer_;
@@ -870,6 +896,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legIssuer.
    */
   public com.google.protobuf.ByteString
       getLegIssuerBytes() {
@@ -889,6 +916,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legLocaleOfIssue_;
   /**
    * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legLocaleOfIssue.
    */
   public java.lang.String getLegLocaleOfIssue() {
     java.lang.Object ref = legLocaleOfIssue_;
@@ -904,6 +932,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legLocaleOfIssue.
    */
   public com.google.protobuf.ByteString
       getLegLocaleOfIssueBytes() {
@@ -923,6 +952,7 @@ private static final long serialVersionUID = 0L;
   private int legMaturityDate_;
   /**
    * <code>sfixed32 leg_maturity_date = 16 [(.fix.tag) = 611, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legMaturityDate.
    */
   public int getLegMaturityDate() {
     return legMaturityDate_;
@@ -932,6 +962,7 @@ private static final long serialVersionUID = 0L;
   private int legMaturityMonthYear_;
   /**
    * <code>sfixed32 leg_maturity_month_year = 17 [(.fix.tag) = 610, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legMaturityMonthYear.
    */
   public int getLegMaturityMonthYear() {
     return legMaturityMonthYear_;
@@ -941,6 +972,7 @@ private static final long serialVersionUID = 0L;
   private com.google.protobuf.ByteString legOptAttribute_;
   /**
    * <code>bytes leg_opt_attribute = 18 [(.fix.tag) = 613, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legOptAttribute.
    */
   public com.google.protobuf.ByteString getLegOptAttribute() {
     return legOptAttribute_;
@@ -950,12 +982,14 @@ private static final long serialVersionUID = 0L;
   private int legProduct_;
   /**
    * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legProduct.
    */
   public int getLegProductValue() {
     return legProduct_;
   }
   /**
    * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legProduct.
    */
   public org.fixprotocol.components.LegProductEnum getLegProduct() {
     @SuppressWarnings("deprecation")
@@ -967,12 +1001,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legRatioQty_;
   /**
    * <code>.fix.Decimal64 leg_ratio_qty = 20 [(.fix.tag) = 623, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legRatioQty field is set.
    */
   public boolean hasLegRatioQty() {
     return legRatioQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_ratio_qty = 20 [(.fix.tag) = 623, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRatioQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegRatioQty() {
     return legRatioQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legRatioQty_;
@@ -988,6 +1024,7 @@ private static final long serialVersionUID = 0L;
   private int legRedemptionDate_;
   /**
    * <code>sfixed32 leg_redemption_date = 21 [(.fix.tag) = 254, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRedemptionDate.
    */
   public int getLegRedemptionDate() {
     return legRedemptionDate_;
@@ -997,6 +1034,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legRepoCollateralSecurityType_;
   /**
    * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRepoCollateralSecurityType.
    */
   public java.lang.String getLegRepoCollateralSecurityType() {
     java.lang.Object ref = legRepoCollateralSecurityType_;
@@ -1012,6 +1050,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legRepoCollateralSecurityType.
    */
   public com.google.protobuf.ByteString
       getLegRepoCollateralSecurityTypeBytes() {
@@ -1031,12 +1070,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legRepurchaseRate_;
   /**
    * <code>.fix.Decimal64 leg_repurchase_rate = 23 [(.fix.tag) = 252, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legRepurchaseRate field is set.
    */
   public boolean hasLegRepurchaseRate() {
     return legRepurchaseRate_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_repurchase_rate = 23 [(.fix.tag) = 252, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRepurchaseRate.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegRepurchaseRate() {
     return legRepurchaseRate_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legRepurchaseRate_;
@@ -1052,6 +1093,7 @@ private static final long serialVersionUID = 0L;
   private long legRepurchaseTerm_;
   /**
    * <code>sfixed64 leg_repurchase_term = 24 [(.fix.tag) = 251, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legRepurchaseTerm.
    */
   public long getLegRepurchaseTerm() {
     return legRepurchaseTerm_;
@@ -1061,6 +1103,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSecurityDesc_;
   /**
    * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityDesc.
    */
   public java.lang.String getLegSecurityDesc() {
     java.lang.Object ref = legSecurityDesc_;
@@ -1076,6 +1119,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSecurityDesc.
    */
   public com.google.protobuf.ByteString
       getLegSecurityDescBytes() {
@@ -1095,6 +1139,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSecurityExchange_;
   /**
    * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityExchange.
    */
   public java.lang.String getLegSecurityExchange() {
     java.lang.Object ref = legSecurityExchange_;
@@ -1110,6 +1155,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSecurityExchange.
    */
   public com.google.protobuf.ByteString
       getLegSecurityExchangeBytes() {
@@ -1129,6 +1175,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSecurityId_;
   /**
    * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityId.
    */
   public java.lang.String getLegSecurityId() {
     java.lang.Object ref = legSecurityId_;
@@ -1144,6 +1191,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSecurityId.
    */
   public com.google.protobuf.ByteString
       getLegSecurityIdBytes() {
@@ -1163,12 +1211,14 @@ private static final long serialVersionUID = 0L;
   private int legSecurityIdSource_;
   /**
    * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSecurityIdSource.
    */
   public int getLegSecurityIdSourceValue() {
     return legSecurityIdSource_;
   }
   /**
    * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityIdSource.
    */
   public org.fixprotocol.components.LegSecurityIDSourceEnum getLegSecurityIdSource() {
     @SuppressWarnings("deprecation")
@@ -1180,12 +1230,14 @@ private static final long serialVersionUID = 0L;
   private int legSecurityType_;
   /**
    * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSecurityType.
    */
   public int getLegSecurityTypeValue() {
     return legSecurityType_;
   }
   /**
    * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSecurityType.
    */
   public org.fixprotocol.components.LegSecurityTypeEnum getLegSecurityType() {
     @SuppressWarnings("deprecation")
@@ -1197,12 +1249,14 @@ private static final long serialVersionUID = 0L;
   private int legSide_;
   /**
    * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSide.
    */
   public int getLegSideValue() {
     return legSide_;
   }
   /**
    * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSide.
    */
   public org.fixprotocol.components.LegSideEnum getLegSide() {
     @SuppressWarnings("deprecation")
@@ -1214,6 +1268,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legStateOrProvinceOfIssue_;
   /**
    * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legStateOrProvinceOfIssue.
    */
   public java.lang.String getLegStateOrProvinceOfIssue() {
     java.lang.Object ref = legStateOrProvinceOfIssue_;
@@ -1229,6 +1284,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legStateOrProvinceOfIssue.
    */
   public com.google.protobuf.ByteString
       getLegStateOrProvinceOfIssueBytes() {
@@ -1248,12 +1304,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legStrikePrice_;
   /**
    * <code>.fix.Decimal64 leg_strike_price = 32 [(.fix.tag) = 612, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the legStrikePrice field is set.
    */
   public boolean hasLegStrikePrice() {
     return legStrikePrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_strike_price = 32 [(.fix.tag) = 612, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legStrikePrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegStrikePrice() {
     return legStrikePrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legStrikePrice_;
@@ -1269,6 +1327,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSymbol_;
   /**
    * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSymbol.
    */
   public java.lang.String getLegSymbol() {
     java.lang.Object ref = legSymbol_;
@@ -1284,6 +1343,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for legSymbol.
    */
   public com.google.protobuf.ByteString
       getLegSymbolBytes() {
@@ -1303,12 +1363,14 @@ private static final long serialVersionUID = 0L;
   private int legSymbolSfx_;
   /**
    * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for legSymbolSfx.
    */
   public int getLegSymbolSfxValue() {
     return legSymbolSfx_;
   }
   /**
    * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The legSymbolSfx.
    */
   public org.fixprotocol.components.LegSymbolSfxEnum getLegSymbolSfx() {
     @SuppressWarnings("deprecation")
@@ -1320,6 +1382,7 @@ private static final long serialVersionUID = 0L;
   private int legContractSettlMonth_;
   /**
    * <code>sfixed32 leg_contract_settl_month = 35 [(.fix.tag) = 955, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legContractSettlMonth.
    */
   public int getLegContractSettlMonth() {
     return legContractSettlMonth_;
@@ -1329,6 +1392,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legCurrency_;
   /**
    * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legCurrency.
    */
   public java.lang.String getLegCurrency() {
     java.lang.Object ref = legCurrency_;
@@ -1344,6 +1408,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legCurrency.
    */
   public com.google.protobuf.ByteString
       getLegCurrencyBytes() {
@@ -1363,6 +1428,7 @@ private static final long serialVersionUID = 0L;
   private int legDatedDate_;
   /**
    * <code>sfixed32 leg_dated_date = 37 [(.fix.tag) = 739, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legDatedDate.
    */
   public int getLegDatedDate() {
     return legDatedDate_;
@@ -1372,6 +1438,7 @@ private static final long serialVersionUID = 0L;
   private int legInterestAccrualDate_;
   /**
    * <code>sfixed32 leg_interest_accrual_date = 38 [(.fix.tag) = 956, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legInterestAccrualDate.
    */
   public int getLegInterestAccrualDate() {
     return legInterestAccrualDate_;
@@ -1381,12 +1448,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legOptionRatio_;
   /**
    * <code>.fix.Decimal64 leg_option_ratio = 39 [(.fix.tag) = 1017, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legOptionRatio field is set.
    */
   public boolean hasLegOptionRatio() {
     return legOptionRatio_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_option_ratio = 39 [(.fix.tag) = 1017, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legOptionRatio.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegOptionRatio() {
     return legOptionRatio_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legOptionRatio_;
@@ -1402,6 +1471,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legPool_;
   /**
    * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legPool.
    */
   public java.lang.String getLegPool() {
     java.lang.Object ref = legPool_;
@@ -1417,6 +1487,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legPool.
    */
   public com.google.protobuf.ByteString
       getLegPoolBytes() {
@@ -1436,12 +1507,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legPrice_;
   /**
    * <code>.fix.Decimal64 leg_price = 41 [(.fix.tag) = 566, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legPrice field is set.
    */
   public boolean hasLegPrice() {
     return legPrice_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_price = 41 [(.fix.tag) = 566, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legPrice.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegPrice() {
     return legPrice_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legPrice_;
@@ -1492,6 +1565,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legSecuritySubType_;
   /**
    * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legSecuritySubType.
    */
   public java.lang.String getLegSecuritySubType() {
     java.lang.Object ref = legSecuritySubType_;
@@ -1507,6 +1581,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legSecuritySubType.
    */
   public com.google.protobuf.ByteString
       getLegSecuritySubTypeBytes() {
@@ -1526,6 +1601,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object legStrikeCurrency_;
   /**
    * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legStrikeCurrency.
    */
   public java.lang.String getLegStrikeCurrency() {
     java.lang.Object ref = legStrikeCurrency_;
@@ -1541,6 +1617,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legStrikeCurrency.
    */
   public com.google.protobuf.ByteString
       getLegStrikeCurrencyBytes() {
@@ -1560,12 +1637,14 @@ private static final long serialVersionUID = 0L;
   private int legTimeUnit_;
   /**
    * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legTimeUnit.
    */
   public int getLegTimeUnitValue() {
     return legTimeUnit_;
   }
   /**
    * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legTimeUnit.
    */
   public org.fixprotocol.components.LegTimeUnitEnum getLegTimeUnit() {
     @SuppressWarnings("deprecation")
@@ -1577,12 +1656,14 @@ private static final long serialVersionUID = 0L;
   private int legUnitOfMeasure_;
   /**
    * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for legUnitOfMeasure.
    */
   public int getLegUnitOfMeasureValue() {
     return legUnitOfMeasure_;
   }
   /**
    * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legUnitOfMeasure.
    */
   public org.fixprotocol.components.LegUnitOfMeasureEnum getLegUnitOfMeasure() {
     @SuppressWarnings("deprecation")
@@ -1594,12 +1675,14 @@ private static final long serialVersionUID = 0L;
   private int legExerciseStyle_;
   /**
    * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for legExerciseStyle.
    */
   public int getLegExerciseStyleValue() {
     return legExerciseStyle_;
   }
   /**
    * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legExerciseStyle.
    */
   public org.fixprotocol.components.LegExerciseStyleEnum getLegExerciseStyle() {
     @SuppressWarnings("deprecation")
@@ -1611,12 +1694,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.LocalTimeOnly legMaturityTime_;
   /**
    * <code>.fix.LocalTimeOnly leg_maturity_time = 48 [(.fix.tag) = 1212, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legMaturityTime field is set.
    */
   public boolean hasLegMaturityTime() {
     return legMaturityTime_ != null;
   }
   /**
    * <code>.fix.LocalTimeOnly leg_maturity_time = 48 [(.fix.tag) = 1212, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legMaturityTime.
    */
   public org.fixprotocol.components.Fix.LocalTimeOnly getLegMaturityTime() {
     return legMaturityTime_ == null ? org.fixprotocol.components.Fix.LocalTimeOnly.getDefaultInstance() : legMaturityTime_;
@@ -1632,12 +1717,14 @@ private static final long serialVersionUID = 0L;
   private int legPriceUnitOfMeasure_;
   /**
    * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for legPriceUnitOfMeasure.
    */
   public int getLegPriceUnitOfMeasureValue() {
     return legPriceUnitOfMeasure_;
   }
   /**
    * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legPriceUnitOfMeasure.
    */
   public org.fixprotocol.components.LegPriceUnitOfMeasureEnum getLegPriceUnitOfMeasure() {
     @SuppressWarnings("deprecation")
@@ -1649,12 +1736,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legPriceUnitOfMeasureQty_;
   /**
    * <code>.fix.Decimal64 leg_price_unit_of_measure_qty = 50 [(.fix.tag) = 1422, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legPriceUnitOfMeasureQty field is set.
    */
   public boolean hasLegPriceUnitOfMeasureQty() {
     return legPriceUnitOfMeasureQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_price_unit_of_measure_qty = 50 [(.fix.tag) = 1422, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legPriceUnitOfMeasureQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegPriceUnitOfMeasureQty() {
     return legPriceUnitOfMeasureQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legPriceUnitOfMeasureQty_;
@@ -1670,6 +1759,7 @@ private static final long serialVersionUID = 0L;
   private long legPutOrCall_;
   /**
    * <code>sfixed64 leg_put_or_call = 51 [(.fix.tag) = 1358, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legPutOrCall.
    */
   public long getLegPutOrCall() {
     return legPutOrCall_;
@@ -1679,12 +1769,14 @@ private static final long serialVersionUID = 0L;
   private org.fixprotocol.components.Fix.Decimal64 legUnitOfMeasureQty_;
   /**
    * <code>.fix.Decimal64 leg_unit_of_measure_qty = 52 [(.fix.tag) = 1224, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the legUnitOfMeasureQty field is set.
    */
   public boolean hasLegUnitOfMeasureQty() {
     return legUnitOfMeasureQty_ != null;
   }
   /**
    * <code>.fix.Decimal64 leg_unit_of_measure_qty = 52 [(.fix.tag) = 1224, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legUnitOfMeasureQty.
    */
   public org.fixprotocol.components.Fix.Decimal64 getLegUnitOfMeasureQty() {
     return legUnitOfMeasureQty_ == null ? org.fixprotocol.components.Fix.Decimal64.getDefaultInstance() : legUnitOfMeasureQty_;
@@ -1700,12 +1792,14 @@ private static final long serialVersionUID = 0L;
   private int legContractMultiplierUnit_;
   /**
    * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for legContractMultiplierUnit.
    */
   public int getLegContractMultiplierUnitValue() {
     return legContractMultiplierUnit_;
   }
   /**
    * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The legContractMultiplierUnit.
    */
   public org.fixprotocol.components.LegContractMultiplierUnitEnum getLegContractMultiplierUnit() {
     @SuppressWarnings("deprecation")
@@ -1716,6 +1810,7 @@ private static final long serialVersionUID = 0L;
   public static final int LEG_FLOW_SCHEDULE_TYPE_FIELD_NUMBER = 54;
   /**
    * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for legFlowScheduleType.
    */
   public int getLegFlowScheduleTypeValue() {
     if (legFlowScheduleTypeUnionCase_ == 54) {
@@ -1725,6 +1820,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The legFlowScheduleType.
    */
   public org.fixprotocol.components.LegFlowScheduleTypeEnum getLegFlowScheduleType() {
     if (legFlowScheduleTypeUnionCase_ == 54) {
@@ -1739,6 +1835,7 @@ private static final long serialVersionUID = 0L;
   public static final int LEG_FLOW_SCHEDULE_TYPE_RESERVED100PLUS_FIELD_NUMBER = 55;
   /**
    * <code>fixed32 leg_flow_schedule_type_reserved100plus = 55 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The legFlowScheduleTypeReserved100plus.
    */
   public int getLegFlowScheduleTypeReserved100Plus() {
     if (legFlowScheduleTypeUnionCase_ == 55) {
@@ -3191,6 +3288,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object encodedLegIssuer_ = "";
     /**
      * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The encodedLegIssuer.
      */
     public java.lang.String getEncodedLegIssuer() {
       java.lang.Object ref = encodedLegIssuer_;
@@ -3206,6 +3304,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for encodedLegIssuer.
      */
     public com.google.protobuf.ByteString
         getEncodedLegIssuerBytes() {
@@ -3222,6 +3321,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The encodedLegIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedLegIssuer(
         java.lang.String value) {
@@ -3235,6 +3336,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedLegIssuer() {
       
@@ -3244,6 +3346,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_issuer = 1 [(.fix.tag) = 619, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for encodedLegIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedLegIssuerBytes(
         com.google.protobuf.ByteString value) {
@@ -3260,12 +3364,15 @@ private static final long serialVersionUID = 0L;
     private long encodedLegIssuerLen_ ;
     /**
      * <code>sfixed64 encoded_leg_issuer_len = 2 [(.fix.tag) = 618, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The encodedLegIssuerLen.
      */
     public long getEncodedLegIssuerLen() {
       return encodedLegIssuerLen_;
     }
     /**
      * <code>sfixed64 encoded_leg_issuer_len = 2 [(.fix.tag) = 618, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The encodedLegIssuerLen to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedLegIssuerLen(long value) {
       
@@ -3275,6 +3382,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 encoded_leg_issuer_len = 2 [(.fix.tag) = 618, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedLegIssuerLen() {
       
@@ -3286,6 +3394,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object encodedLegSecurityDesc_ = "";
     /**
      * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The encodedLegSecurityDesc.
      */
     public java.lang.String getEncodedLegSecurityDesc() {
       java.lang.Object ref = encodedLegSecurityDesc_;
@@ -3301,6 +3410,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for encodedLegSecurityDesc.
      */
     public com.google.protobuf.ByteString
         getEncodedLegSecurityDescBytes() {
@@ -3317,6 +3427,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The encodedLegSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedLegSecurityDesc(
         java.lang.String value) {
@@ -3330,6 +3442,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedLegSecurityDesc() {
       
@@ -3339,6 +3452,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_leg_security_desc = 3 [(.fix.tag) = 622, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for encodedLegSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedLegSecurityDescBytes(
         com.google.protobuf.ByteString value) {
@@ -3355,12 +3470,15 @@ private static final long serialVersionUID = 0L;
     private long encodedLegSecurityDescLen_ ;
     /**
      * <code>sfixed64 encoded_leg_security_desc_len = 4 [(.fix.tag) = 621, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The encodedLegSecurityDescLen.
      */
     public long getEncodedLegSecurityDescLen() {
       return encodedLegSecurityDescLen_;
     }
     /**
      * <code>sfixed64 encoded_leg_security_desc_len = 4 [(.fix.tag) = 621, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The encodedLegSecurityDescLen to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedLegSecurityDescLen(long value) {
       
@@ -3370,6 +3488,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 encoded_leg_security_desc_len = 4 [(.fix.tag) = 621, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedLegSecurityDescLen() {
       
@@ -3381,6 +3500,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legCfiCode_ = "";
     /**
      * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legCfiCode.
      */
     public java.lang.String getLegCfiCode() {
       java.lang.Object ref = legCfiCode_;
@@ -3396,6 +3516,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legCfiCode.
      */
     public com.google.protobuf.ByteString
         getLegCfiCodeBytes() {
@@ -3412,6 +3533,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legCfiCode to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCfiCode(
         java.lang.String value) {
@@ -3425,6 +3548,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegCfiCode() {
       
@@ -3434,6 +3558,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_cfi_code = 5 [(.fix.tag) = 608, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legCfiCode to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCfiCodeBytes(
         com.google.protobuf.ByteString value) {
@@ -3452,12 +3578,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legContractMultiplierBuilder_;
     /**
      * <code>.fix.Decimal64 leg_contract_multiplier = 6 [(.fix.tag) = 614, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the legContractMultiplier field is set.
      */
     public boolean hasLegContractMultiplier() {
       return legContractMultiplierBuilder_ != null || legContractMultiplier_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_contract_multiplier = 6 [(.fix.tag) = 614, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legContractMultiplier.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegContractMultiplier() {
       if (legContractMultiplierBuilder_ == null) {
@@ -3567,6 +3695,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legCountryOfIssue_ = "";
     /**
      * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legCountryOfIssue.
      */
     public java.lang.String getLegCountryOfIssue() {
       java.lang.Object ref = legCountryOfIssue_;
@@ -3582,6 +3711,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legCountryOfIssue.
      */
     public com.google.protobuf.ByteString
         getLegCountryOfIssueBytes() {
@@ -3598,6 +3728,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legCountryOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCountryOfIssue(
         java.lang.String value) {
@@ -3611,6 +3743,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegCountryOfIssue() {
       
@@ -3620,6 +3753,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_country_of_issue = 7 [(.fix.tag) = 596, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legCountryOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCountryOfIssueBytes(
         com.google.protobuf.ByteString value) {
@@ -3636,12 +3771,15 @@ private static final long serialVersionUID = 0L;
     private int legCouponPaymentDate_ ;
     /**
      * <code>sfixed32 leg_coupon_payment_date = 8 [(.fix.tag) = 248, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legCouponPaymentDate.
      */
     public int getLegCouponPaymentDate() {
       return legCouponPaymentDate_;
     }
     /**
      * <code>sfixed32 leg_coupon_payment_date = 8 [(.fix.tag) = 248, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legCouponPaymentDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCouponPaymentDate(int value) {
       
@@ -3651,6 +3789,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_coupon_payment_date = 8 [(.fix.tag) = 248, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegCouponPaymentDate() {
       
@@ -3664,12 +3803,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legCouponRateBuilder_;
     /**
      * <code>.fix.Decimal64 leg_coupon_rate = 9 [(.fix.tag) = 615, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the legCouponRate field is set.
      */
     public boolean hasLegCouponRate() {
       return legCouponRateBuilder_ != null || legCouponRate_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_coupon_rate = 9 [(.fix.tag) = 615, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legCouponRate.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegCouponRate() {
       if (legCouponRateBuilder_ == null) {
@@ -3779,6 +3920,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legCreditRating_ = "";
     /**
      * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legCreditRating.
      */
     public java.lang.String getLegCreditRating() {
       java.lang.Object ref = legCreditRating_;
@@ -3794,6 +3936,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legCreditRating.
      */
     public com.google.protobuf.ByteString
         getLegCreditRatingBytes() {
@@ -3810,6 +3953,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legCreditRating to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCreditRating(
         java.lang.String value) {
@@ -3823,6 +3968,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegCreditRating() {
       
@@ -3832,6 +3978,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_credit_rating = 10 [(.fix.tag) = 257, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legCreditRating to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCreditRatingBytes(
         com.google.protobuf.ByteString value) {
@@ -3850,12 +3998,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legFactorBuilder_;
     /**
      * <code>.fix.Decimal64 leg_factor = 11 [(.fix.tag) = 253, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the legFactor field is set.
      */
     public boolean hasLegFactor() {
       return legFactorBuilder_ != null || legFactor_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_factor = 11 [(.fix.tag) = 253, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legFactor.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegFactor() {
       if (legFactorBuilder_ == null) {
@@ -3965,6 +4115,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legInstrRegistry_ = "";
     /**
      * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legInstrRegistry.
      */
     public java.lang.String getLegInstrRegistry() {
       java.lang.Object ref = legInstrRegistry_;
@@ -3980,6 +4131,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legInstrRegistry.
      */
     public com.google.protobuf.ByteString
         getLegInstrRegistryBytes() {
@@ -3996,6 +4148,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legInstrRegistry to set.
+     * @return This builder for chaining.
      */
     public Builder setLegInstrRegistry(
         java.lang.String value) {
@@ -4009,6 +4163,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegInstrRegistry() {
       
@@ -4018,6 +4173,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_instr_registry = 12 [(.fix.tag) = 599, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legInstrRegistry to set.
+     * @return This builder for chaining.
      */
     public Builder setLegInstrRegistryBytes(
         com.google.protobuf.ByteString value) {
@@ -4034,12 +4191,15 @@ private static final long serialVersionUID = 0L;
     private int legIssueDate_ ;
     /**
      * <code>sfixed32 leg_issue_date = 13 [(.fix.tag) = 249, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legIssueDate.
      */
     public int getLegIssueDate() {
       return legIssueDate_;
     }
     /**
      * <code>sfixed32 leg_issue_date = 13 [(.fix.tag) = 249, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legIssueDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegIssueDate(int value) {
       
@@ -4049,6 +4209,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_issue_date = 13 [(.fix.tag) = 249, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegIssueDate() {
       
@@ -4060,6 +4221,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legIssuer_ = "";
     /**
      * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legIssuer.
      */
     public java.lang.String getLegIssuer() {
       java.lang.Object ref = legIssuer_;
@@ -4075,6 +4237,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legIssuer.
      */
     public com.google.protobuf.ByteString
         getLegIssuerBytes() {
@@ -4091,6 +4254,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setLegIssuer(
         java.lang.String value) {
@@ -4104,6 +4269,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegIssuer() {
       
@@ -4113,6 +4279,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_issuer = 14 [(.fix.tag) = 617, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legIssuer to set.
+     * @return This builder for chaining.
      */
     public Builder setLegIssuerBytes(
         com.google.protobuf.ByteString value) {
@@ -4129,6 +4297,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legLocaleOfIssue_ = "";
     /**
      * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legLocaleOfIssue.
      */
     public java.lang.String getLegLocaleOfIssue() {
       java.lang.Object ref = legLocaleOfIssue_;
@@ -4144,6 +4313,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legLocaleOfIssue.
      */
     public com.google.protobuf.ByteString
         getLegLocaleOfIssueBytes() {
@@ -4160,6 +4330,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legLocaleOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegLocaleOfIssue(
         java.lang.String value) {
@@ -4173,6 +4345,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegLocaleOfIssue() {
       
@@ -4182,6 +4355,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_locale_of_issue = 15 [(.fix.tag) = 598, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legLocaleOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegLocaleOfIssueBytes(
         com.google.protobuf.ByteString value) {
@@ -4198,12 +4373,15 @@ private static final long serialVersionUID = 0L;
     private int legMaturityDate_ ;
     /**
      * <code>sfixed32 leg_maturity_date = 16 [(.fix.tag) = 611, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legMaturityDate.
      */
     public int getLegMaturityDate() {
       return legMaturityDate_;
     }
     /**
      * <code>sfixed32 leg_maturity_date = 16 [(.fix.tag) = 611, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legMaturityDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegMaturityDate(int value) {
       
@@ -4213,6 +4391,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_maturity_date = 16 [(.fix.tag) = 611, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegMaturityDate() {
       
@@ -4224,12 +4403,15 @@ private static final long serialVersionUID = 0L;
     private int legMaturityMonthYear_ ;
     /**
      * <code>sfixed32 leg_maturity_month_year = 17 [(.fix.tag) = 610, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legMaturityMonthYear.
      */
     public int getLegMaturityMonthYear() {
       return legMaturityMonthYear_;
     }
     /**
      * <code>sfixed32 leg_maturity_month_year = 17 [(.fix.tag) = 610, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legMaturityMonthYear to set.
+     * @return This builder for chaining.
      */
     public Builder setLegMaturityMonthYear(int value) {
       
@@ -4239,6 +4421,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_maturity_month_year = 17 [(.fix.tag) = 610, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegMaturityMonthYear() {
       
@@ -4250,12 +4433,15 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.ByteString legOptAttribute_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <code>bytes leg_opt_attribute = 18 [(.fix.tag) = 613, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legOptAttribute.
      */
     public com.google.protobuf.ByteString getLegOptAttribute() {
       return legOptAttribute_;
     }
     /**
      * <code>bytes leg_opt_attribute = 18 [(.fix.tag) = 613, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legOptAttribute to set.
+     * @return This builder for chaining.
      */
     public Builder setLegOptAttribute(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -4268,6 +4454,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>bytes leg_opt_attribute = 18 [(.fix.tag) = 613, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegOptAttribute() {
       
@@ -4279,12 +4466,15 @@ private static final long serialVersionUID = 0L;
     private int legProduct_ = 0;
     /**
      * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for legProduct.
      */
     public int getLegProductValue() {
       return legProduct_;
     }
     /**
      * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for legProduct to set.
+     * @return This builder for chaining.
      */
     public Builder setLegProductValue(int value) {
       legProduct_ = value;
@@ -4293,6 +4483,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legProduct.
      */
     public org.fixprotocol.components.LegProductEnum getLegProduct() {
       @SuppressWarnings("deprecation")
@@ -4301,6 +4492,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legProduct to set.
+     * @return This builder for chaining.
      */
     public Builder setLegProduct(org.fixprotocol.components.LegProductEnum value) {
       if (value == null) {
@@ -4313,6 +4506,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegProductEnum leg_product = 19 [(.fix.tag) = 607, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegProduct() {
       
@@ -4326,12 +4520,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legRatioQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_ratio_qty = 20 [(.fix.tag) = 623, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the legRatioQty field is set.
      */
     public boolean hasLegRatioQty() {
       return legRatioQtyBuilder_ != null || legRatioQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_ratio_qty = 20 [(.fix.tag) = 623, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legRatioQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegRatioQty() {
       if (legRatioQtyBuilder_ == null) {
@@ -4441,12 +4637,15 @@ private static final long serialVersionUID = 0L;
     private int legRedemptionDate_ ;
     /**
      * <code>sfixed32 leg_redemption_date = 21 [(.fix.tag) = 254, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legRedemptionDate.
      */
     public int getLegRedemptionDate() {
       return legRedemptionDate_;
     }
     /**
      * <code>sfixed32 leg_redemption_date = 21 [(.fix.tag) = 254, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legRedemptionDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegRedemptionDate(int value) {
       
@@ -4456,6 +4655,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_redemption_date = 21 [(.fix.tag) = 254, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegRedemptionDate() {
       
@@ -4467,6 +4667,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legRepoCollateralSecurityType_ = "";
     /**
      * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legRepoCollateralSecurityType.
      */
     public java.lang.String getLegRepoCollateralSecurityType() {
       java.lang.Object ref = legRepoCollateralSecurityType_;
@@ -4482,6 +4683,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legRepoCollateralSecurityType.
      */
     public com.google.protobuf.ByteString
         getLegRepoCollateralSecurityTypeBytes() {
@@ -4498,6 +4700,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legRepoCollateralSecurityType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegRepoCollateralSecurityType(
         java.lang.String value) {
@@ -4511,6 +4715,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegRepoCollateralSecurityType() {
       
@@ -4520,6 +4725,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_repo_collateral_security_type = 22 [(.fix.tag) = 250, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legRepoCollateralSecurityType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegRepoCollateralSecurityTypeBytes(
         com.google.protobuf.ByteString value) {
@@ -4538,12 +4745,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legRepurchaseRateBuilder_;
     /**
      * <code>.fix.Decimal64 leg_repurchase_rate = 23 [(.fix.tag) = 252, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the legRepurchaseRate field is set.
      */
     public boolean hasLegRepurchaseRate() {
       return legRepurchaseRateBuilder_ != null || legRepurchaseRate_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_repurchase_rate = 23 [(.fix.tag) = 252, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legRepurchaseRate.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegRepurchaseRate() {
       if (legRepurchaseRateBuilder_ == null) {
@@ -4653,12 +4862,15 @@ private static final long serialVersionUID = 0L;
     private long legRepurchaseTerm_ ;
     /**
      * <code>sfixed64 leg_repurchase_term = 24 [(.fix.tag) = 251, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legRepurchaseTerm.
      */
     public long getLegRepurchaseTerm() {
       return legRepurchaseTerm_;
     }
     /**
      * <code>sfixed64 leg_repurchase_term = 24 [(.fix.tag) = 251, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legRepurchaseTerm to set.
+     * @return This builder for chaining.
      */
     public Builder setLegRepurchaseTerm(long value) {
       
@@ -4668,6 +4880,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 leg_repurchase_term = 24 [(.fix.tag) = 251, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegRepurchaseTerm() {
       
@@ -4679,6 +4892,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSecurityDesc_ = "";
     /**
      * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSecurityDesc.
      */
     public java.lang.String getLegSecurityDesc() {
       java.lang.Object ref = legSecurityDesc_;
@@ -4694,6 +4908,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legSecurityDesc.
      */
     public com.google.protobuf.ByteString
         getLegSecurityDescBytes() {
@@ -4710,6 +4925,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityDesc(
         java.lang.String value) {
@@ -4723,6 +4940,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityDesc() {
       
@@ -4732,6 +4950,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_desc = 25 [(.fix.tag) = 620, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legSecurityDesc to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityDescBytes(
         com.google.protobuf.ByteString value) {
@@ -4748,6 +4968,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSecurityExchange_ = "";
     /**
      * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSecurityExchange.
      */
     public java.lang.String getLegSecurityExchange() {
       java.lang.Object ref = legSecurityExchange_;
@@ -4763,6 +4984,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legSecurityExchange.
      */
     public com.google.protobuf.ByteString
         getLegSecurityExchangeBytes() {
@@ -4779,6 +5001,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSecurityExchange to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityExchange(
         java.lang.String value) {
@@ -4792,6 +5016,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityExchange() {
       
@@ -4801,6 +5026,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_exchange = 26 [(.fix.tag) = 616, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legSecurityExchange to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityExchangeBytes(
         com.google.protobuf.ByteString value) {
@@ -4817,6 +5044,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSecurityId_ = "";
     /**
      * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSecurityId.
      */
     public java.lang.String getLegSecurityId() {
       java.lang.Object ref = legSecurityId_;
@@ -4832,6 +5060,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legSecurityId.
      */
     public com.google.protobuf.ByteString
         getLegSecurityIdBytes() {
@@ -4848,6 +5077,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityId(
         java.lang.String value) {
@@ -4861,6 +5092,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityId() {
       
@@ -4870,6 +5102,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_id = 27 [(.fix.tag) = 602, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legSecurityId to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityIdBytes(
         com.google.protobuf.ByteString value) {
@@ -4886,12 +5120,15 @@ private static final long serialVersionUID = 0L;
     private int legSecurityIdSource_ = 0;
     /**
      * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for legSecurityIdSource.
      */
     public int getLegSecurityIdSourceValue() {
       return legSecurityIdSource_;
     }
     /**
      * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for legSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityIdSourceValue(int value) {
       legSecurityIdSource_ = value;
@@ -4900,6 +5137,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSecurityIdSource.
      */
     public org.fixprotocol.components.LegSecurityIDSourceEnum getLegSecurityIdSource() {
       @SuppressWarnings("deprecation")
@@ -4908,6 +5146,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSecurityIdSource to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityIdSource(org.fixprotocol.components.LegSecurityIDSourceEnum value) {
       if (value == null) {
@@ -4920,6 +5160,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityIDSourceEnum leg_security_id_source = 28 [(.fix.tag) = 603, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityIdSource() {
       
@@ -4931,12 +5172,15 @@ private static final long serialVersionUID = 0L;
     private int legSecurityType_ = 0;
     /**
      * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for legSecurityType.
      */
     public int getLegSecurityTypeValue() {
       return legSecurityType_;
     }
     /**
      * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for legSecurityType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityTypeValue(int value) {
       legSecurityType_ = value;
@@ -4945,6 +5189,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSecurityType.
      */
     public org.fixprotocol.components.LegSecurityTypeEnum getLegSecurityType() {
       @SuppressWarnings("deprecation")
@@ -4953,6 +5198,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSecurityType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecurityType(org.fixprotocol.components.LegSecurityTypeEnum value) {
       if (value == null) {
@@ -4965,6 +5212,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSecurityTypeEnum leg_security_type = 29 [(.fix.tag) = 609, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecurityType() {
       
@@ -4976,12 +5224,15 @@ private static final long serialVersionUID = 0L;
     private int legSide_ = 0;
     /**
      * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for legSide.
      */
     public int getLegSideValue() {
       return legSide_;
     }
     /**
      * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for legSide to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSideValue(int value) {
       legSide_ = value;
@@ -4990,6 +5241,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSide.
      */
     public org.fixprotocol.components.LegSideEnum getLegSide() {
       @SuppressWarnings("deprecation")
@@ -4998,6 +5250,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSide to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSide(org.fixprotocol.components.LegSideEnum value) {
       if (value == null) {
@@ -5010,6 +5264,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSideEnum leg_side = 30 [(.fix.tag) = 624, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSide() {
       
@@ -5021,6 +5276,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legStateOrProvinceOfIssue_ = "";
     /**
      * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legStateOrProvinceOfIssue.
      */
     public java.lang.String getLegStateOrProvinceOfIssue() {
       java.lang.Object ref = legStateOrProvinceOfIssue_;
@@ -5036,6 +5292,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legStateOrProvinceOfIssue.
      */
     public com.google.protobuf.ByteString
         getLegStateOrProvinceOfIssueBytes() {
@@ -5052,6 +5309,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legStateOrProvinceOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStateOrProvinceOfIssue(
         java.lang.String value) {
@@ -5065,6 +5324,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegStateOrProvinceOfIssue() {
       
@@ -5074,6 +5334,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_state_or_province_of_issue = 31 [(.fix.tag) = 597, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legStateOrProvinceOfIssue to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStateOrProvinceOfIssueBytes(
         com.google.protobuf.ByteString value) {
@@ -5092,12 +5354,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legStrikePriceBuilder_;
     /**
      * <code>.fix.Decimal64 leg_strike_price = 32 [(.fix.tag) = 612, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return Whether the legStrikePrice field is set.
      */
     public boolean hasLegStrikePrice() {
       return legStrikePriceBuilder_ != null || legStrikePrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_strike_price = 32 [(.fix.tag) = 612, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legStrikePrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegStrikePrice() {
       if (legStrikePriceBuilder_ == null) {
@@ -5207,6 +5471,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSymbol_ = "";
     /**
      * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSymbol.
      */
     public java.lang.String getLegSymbol() {
       java.lang.Object ref = legSymbol_;
@@ -5222,6 +5487,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The bytes for legSymbol.
      */
     public com.google.protobuf.ByteString
         getLegSymbolBytes() {
@@ -5238,6 +5504,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSymbol(
         java.lang.String value) {
@@ -5251,6 +5519,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSymbol() {
       
@@ -5260,6 +5529,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_symbol = 33 [(.fix.tag) = 600, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The bytes for legSymbol to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSymbolBytes(
         com.google.protobuf.ByteString value) {
@@ -5276,12 +5547,15 @@ private static final long serialVersionUID = 0L;
     private int legSymbolSfx_ = 0;
     /**
      * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The enum numeric value on the wire for legSymbolSfx.
      */
     public int getLegSymbolSfxValue() {
       return legSymbolSfx_;
     }
     /**
      * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The enum numeric value on the wire for legSymbolSfx to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSymbolSfxValue(int value) {
       legSymbolSfx_ = value;
@@ -5290,6 +5564,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return The legSymbolSfx.
      */
     public org.fixprotocol.components.LegSymbolSfxEnum getLegSymbolSfx() {
       @SuppressWarnings("deprecation")
@@ -5298,6 +5573,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @param value The legSymbolSfx to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSymbolSfx(org.fixprotocol.components.LegSymbolSfxEnum value) {
       if (value == null) {
@@ -5310,6 +5587,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegSymbolSfxEnum leg_symbol_sfx = 34 [(.fix.tag) = 601, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSymbolSfx() {
       
@@ -5321,12 +5599,15 @@ private static final long serialVersionUID = 0L;
     private int legContractSettlMonth_ ;
     /**
      * <code>sfixed32 leg_contract_settl_month = 35 [(.fix.tag) = 955, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legContractSettlMonth.
      */
     public int getLegContractSettlMonth() {
       return legContractSettlMonth_;
     }
     /**
      * <code>sfixed32 leg_contract_settl_month = 35 [(.fix.tag) = 955, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legContractSettlMonth to set.
+     * @return This builder for chaining.
      */
     public Builder setLegContractSettlMonth(int value) {
       
@@ -5336,6 +5617,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_contract_settl_month = 35 [(.fix.tag) = 955, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegContractSettlMonth() {
       
@@ -5347,6 +5629,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legCurrency_ = "";
     /**
      * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legCurrency.
      */
     public java.lang.String getLegCurrency() {
       java.lang.Object ref = legCurrency_;
@@ -5362,6 +5645,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legCurrency.
      */
     public com.google.protobuf.ByteString
         getLegCurrencyBytes() {
@@ -5378,6 +5662,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCurrency(
         java.lang.String value) {
@@ -5391,6 +5677,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegCurrency() {
       
@@ -5400,6 +5687,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_currency = 36 [(.fix.tag) = 556, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -5416,12 +5705,15 @@ private static final long serialVersionUID = 0L;
     private int legDatedDate_ ;
     /**
      * <code>sfixed32 leg_dated_date = 37 [(.fix.tag) = 739, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legDatedDate.
      */
     public int getLegDatedDate() {
       return legDatedDate_;
     }
     /**
      * <code>sfixed32 leg_dated_date = 37 [(.fix.tag) = 739, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legDatedDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegDatedDate(int value) {
       
@@ -5431,6 +5723,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_dated_date = 37 [(.fix.tag) = 739, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegDatedDate() {
       
@@ -5442,12 +5735,15 @@ private static final long serialVersionUID = 0L;
     private int legInterestAccrualDate_ ;
     /**
      * <code>sfixed32 leg_interest_accrual_date = 38 [(.fix.tag) = 956, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legInterestAccrualDate.
      */
     public int getLegInterestAccrualDate() {
       return legInterestAccrualDate_;
     }
     /**
      * <code>sfixed32 leg_interest_accrual_date = 38 [(.fix.tag) = 956, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legInterestAccrualDate to set.
+     * @return This builder for chaining.
      */
     public Builder setLegInterestAccrualDate(int value) {
       
@@ -5457,6 +5753,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed32 leg_interest_accrual_date = 38 [(.fix.tag) = 956, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegInterestAccrualDate() {
       
@@ -5470,12 +5767,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legOptionRatioBuilder_;
     /**
      * <code>.fix.Decimal64 leg_option_ratio = 39 [(.fix.tag) = 1017, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legOptionRatio field is set.
      */
     public boolean hasLegOptionRatio() {
       return legOptionRatioBuilder_ != null || legOptionRatio_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_option_ratio = 39 [(.fix.tag) = 1017, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legOptionRatio.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegOptionRatio() {
       if (legOptionRatioBuilder_ == null) {
@@ -5585,6 +5884,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legPool_ = "";
     /**
      * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legPool.
      */
     public java.lang.String getLegPool() {
       java.lang.Object ref = legPool_;
@@ -5600,6 +5900,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legPool.
      */
     public com.google.protobuf.ByteString
         getLegPoolBytes() {
@@ -5616,6 +5917,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legPool to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPool(
         java.lang.String value) {
@@ -5629,6 +5932,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegPool() {
       
@@ -5638,6 +5942,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_pool = 40 [(.fix.tag) = 740, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legPool to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPoolBytes(
         com.google.protobuf.ByteString value) {
@@ -5656,12 +5962,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legPriceBuilder_;
     /**
      * <code>.fix.Decimal64 leg_price = 41 [(.fix.tag) = 566, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return Whether the legPrice field is set.
      */
     public boolean hasLegPrice() {
       return legPriceBuilder_ != null || legPrice_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_price = 41 [(.fix.tag) = 566, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legPrice.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegPrice() {
       if (legPriceBuilder_ == null) {
@@ -6011,6 +6319,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legSecuritySubType_ = "";
     /**
      * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legSecuritySubType.
      */
     public java.lang.String getLegSecuritySubType() {
       java.lang.Object ref = legSecuritySubType_;
@@ -6026,6 +6335,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legSecuritySubType.
      */
     public com.google.protobuf.ByteString
         getLegSecuritySubTypeBytes() {
@@ -6042,6 +6352,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legSecuritySubType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecuritySubType(
         java.lang.String value) {
@@ -6055,6 +6367,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegSecuritySubType() {
       
@@ -6064,6 +6377,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_security_sub_type = 43 [(.fix.tag) = 764, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legSecuritySubType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegSecuritySubTypeBytes(
         com.google.protobuf.ByteString value) {
@@ -6080,6 +6395,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object legStrikeCurrency_ = "";
     /**
      * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legStrikeCurrency.
      */
     public java.lang.String getLegStrikeCurrency() {
       java.lang.Object ref = legStrikeCurrency_;
@@ -6095,6 +6411,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for legStrikeCurrency.
      */
     public com.google.protobuf.ByteString
         getLegStrikeCurrencyBytes() {
@@ -6111,6 +6428,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legStrikeCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStrikeCurrency(
         java.lang.String value) {
@@ -6124,6 +6443,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegStrikeCurrency() {
       
@@ -6133,6 +6453,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string leg_strike_currency = 44 [(.fix.tag) = 942, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for legStrikeCurrency to set.
+     * @return This builder for chaining.
      */
     public Builder setLegStrikeCurrencyBytes(
         com.google.protobuf.ByteString value) {
@@ -6149,12 +6471,15 @@ private static final long serialVersionUID = 0L;
     private int legTimeUnit_ = 0;
     /**
      * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legTimeUnit.
      */
     public int getLegTimeUnitValue() {
       return legTimeUnit_;
     }
     /**
      * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legTimeUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setLegTimeUnitValue(int value) {
       legTimeUnit_ = value;
@@ -6163,6 +6488,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legTimeUnit.
      */
     public org.fixprotocol.components.LegTimeUnitEnum getLegTimeUnit() {
       @SuppressWarnings("deprecation")
@@ -6171,6 +6497,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legTimeUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setLegTimeUnit(org.fixprotocol.components.LegTimeUnitEnum value) {
       if (value == null) {
@@ -6183,6 +6511,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegTimeUnitEnum leg_time_unit = 45 [(.fix.tag) = 1001, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegTimeUnit() {
       
@@ -6194,12 +6523,15 @@ private static final long serialVersionUID = 0L;
     private int legUnitOfMeasure_ = 0;
     /**
      * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for legUnitOfMeasure.
      */
     public int getLegUnitOfMeasureValue() {
       return legUnitOfMeasure_;
     }
     /**
      * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for legUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setLegUnitOfMeasureValue(int value) {
       legUnitOfMeasure_ = value;
@@ -6208,6 +6540,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The legUnitOfMeasure.
      */
     public org.fixprotocol.components.LegUnitOfMeasureEnum getLegUnitOfMeasure() {
       @SuppressWarnings("deprecation")
@@ -6216,6 +6549,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The legUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setLegUnitOfMeasure(org.fixprotocol.components.LegUnitOfMeasureEnum value) {
       if (value == null) {
@@ -6228,6 +6563,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegUnitOfMeasureEnum leg_unit_of_measure = 46 [(.fix.tag) = 999, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegUnitOfMeasure() {
       
@@ -6239,12 +6575,15 @@ private static final long serialVersionUID = 0L;
     private int legExerciseStyle_ = 0;
     /**
      * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for legExerciseStyle.
      */
     public int getLegExerciseStyleValue() {
       return legExerciseStyle_;
     }
     /**
      * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for legExerciseStyle to set.
+     * @return This builder for chaining.
      */
     public Builder setLegExerciseStyleValue(int value) {
       legExerciseStyle_ = value;
@@ -6253,6 +6592,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legExerciseStyle.
      */
     public org.fixprotocol.components.LegExerciseStyleEnum getLegExerciseStyle() {
       @SuppressWarnings("deprecation")
@@ -6261,6 +6601,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The legExerciseStyle to set.
+     * @return This builder for chaining.
      */
     public Builder setLegExerciseStyle(org.fixprotocol.components.LegExerciseStyleEnum value) {
       if (value == null) {
@@ -6273,6 +6615,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegExerciseStyleEnum leg_exercise_style = 47 [(.fix.tag) = 1420, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegExerciseStyle() {
       
@@ -6286,12 +6629,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.LocalTimeOnly, org.fixprotocol.components.Fix.LocalTimeOnly.Builder, org.fixprotocol.components.Fix.LocalTimeOnlyOrBuilder> legMaturityTimeBuilder_;
     /**
      * <code>.fix.LocalTimeOnly leg_maturity_time = 48 [(.fix.tag) = 1212, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legMaturityTime field is set.
      */
     public boolean hasLegMaturityTime() {
       return legMaturityTimeBuilder_ != null || legMaturityTime_ != null;
     }
     /**
      * <code>.fix.LocalTimeOnly leg_maturity_time = 48 [(.fix.tag) = 1212, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legMaturityTime.
      */
     public org.fixprotocol.components.Fix.LocalTimeOnly getLegMaturityTime() {
       if (legMaturityTimeBuilder_ == null) {
@@ -6401,12 +6746,15 @@ private static final long serialVersionUID = 0L;
     private int legPriceUnitOfMeasure_ = 0;
     /**
      * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for legPriceUnitOfMeasure.
      */
     public int getLegPriceUnitOfMeasureValue() {
       return legPriceUnitOfMeasure_;
     }
     /**
      * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for legPriceUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPriceUnitOfMeasureValue(int value) {
       legPriceUnitOfMeasure_ = value;
@@ -6415,6 +6763,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legPriceUnitOfMeasure.
      */
     public org.fixprotocol.components.LegPriceUnitOfMeasureEnum getLegPriceUnitOfMeasure() {
       @SuppressWarnings("deprecation")
@@ -6423,6 +6772,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The legPriceUnitOfMeasure to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPriceUnitOfMeasure(org.fixprotocol.components.LegPriceUnitOfMeasureEnum value) {
       if (value == null) {
@@ -6435,6 +6786,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegPriceUnitOfMeasureEnum leg_price_unit_of_measure = 49 [(.fix.tag) = 1421, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegPriceUnitOfMeasure() {
       
@@ -6448,12 +6800,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legPriceUnitOfMeasureQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_price_unit_of_measure_qty = 50 [(.fix.tag) = 1422, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legPriceUnitOfMeasureQty field is set.
      */
     public boolean hasLegPriceUnitOfMeasureQty() {
       return legPriceUnitOfMeasureQtyBuilder_ != null || legPriceUnitOfMeasureQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_price_unit_of_measure_qty = 50 [(.fix.tag) = 1422, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legPriceUnitOfMeasureQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegPriceUnitOfMeasureQty() {
       if (legPriceUnitOfMeasureQtyBuilder_ == null) {
@@ -6563,12 +6917,15 @@ private static final long serialVersionUID = 0L;
     private long legPutOrCall_ ;
     /**
      * <code>sfixed64 leg_put_or_call = 51 [(.fix.tag) = 1358, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legPutOrCall.
      */
     public long getLegPutOrCall() {
       return legPutOrCall_;
     }
     /**
      * <code>sfixed64 leg_put_or_call = 51 [(.fix.tag) = 1358, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The legPutOrCall to set.
+     * @return This builder for chaining.
      */
     public Builder setLegPutOrCall(long value) {
       
@@ -6578,6 +6935,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 leg_put_or_call = 51 [(.fix.tag) = 1358, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegPutOrCall() {
       
@@ -6591,12 +6949,14 @@ private static final long serialVersionUID = 0L;
         org.fixprotocol.components.Fix.Decimal64, org.fixprotocol.components.Fix.Decimal64.Builder, org.fixprotocol.components.Fix.Decimal64OrBuilder> legUnitOfMeasureQtyBuilder_;
     /**
      * <code>.fix.Decimal64 leg_unit_of_measure_qty = 52 [(.fix.tag) = 1224, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return Whether the legUnitOfMeasureQty field is set.
      */
     public boolean hasLegUnitOfMeasureQty() {
       return legUnitOfMeasureQtyBuilder_ != null || legUnitOfMeasureQty_ != null;
     }
     /**
      * <code>.fix.Decimal64 leg_unit_of_measure_qty = 52 [(.fix.tag) = 1224, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The legUnitOfMeasureQty.
      */
     public org.fixprotocol.components.Fix.Decimal64 getLegUnitOfMeasureQty() {
       if (legUnitOfMeasureQtyBuilder_ == null) {
@@ -6706,12 +7066,15 @@ private static final long serialVersionUID = 0L;
     private int legContractMultiplierUnit_ = 0;
     /**
      * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The enum numeric value on the wire for legContractMultiplierUnit.
      */
     public int getLegContractMultiplierUnitValue() {
       return legContractMultiplierUnit_;
     }
     /**
      * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The enum numeric value on the wire for legContractMultiplierUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setLegContractMultiplierUnitValue(int value) {
       legContractMultiplierUnit_ = value;
@@ -6720,6 +7083,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The legContractMultiplierUnit.
      */
     public org.fixprotocol.components.LegContractMultiplierUnitEnum getLegContractMultiplierUnit() {
       @SuppressWarnings("deprecation")
@@ -6728,6 +7092,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The legContractMultiplierUnit to set.
+     * @return This builder for chaining.
      */
     public Builder setLegContractMultiplierUnit(org.fixprotocol.components.LegContractMultiplierUnitEnum value) {
       if (value == null) {
@@ -6740,6 +7106,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegContractMultiplierUnitEnum leg_contract_multiplier_unit = 53 [(.fix.tag) = 1436, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegContractMultiplierUnit() {
       
@@ -6750,6 +7117,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The enum numeric value on the wire for legFlowScheduleType.
      */
     public int getLegFlowScheduleTypeValue() {
       if (legFlowScheduleTypeUnionCase_ == 54) {
@@ -6759,6 +7127,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The enum numeric value on the wire for legFlowScheduleType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegFlowScheduleTypeValue(int value) {
       legFlowScheduleTypeUnionCase_ = 54;
@@ -6768,6 +7138,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The legFlowScheduleType.
      */
     public org.fixprotocol.components.LegFlowScheduleTypeEnum getLegFlowScheduleType() {
       if (legFlowScheduleTypeUnionCase_ == 54) {
@@ -6780,6 +7151,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The legFlowScheduleType to set.
+     * @return This builder for chaining.
      */
     public Builder setLegFlowScheduleType(org.fixprotocol.components.LegFlowScheduleTypeEnum value) {
       if (value == null) {
@@ -6792,6 +7165,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.LegFlowScheduleTypeEnum leg_flow_schedule_type = 54 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegFlowScheduleType() {
       if (legFlowScheduleTypeUnionCase_ == 54) {
@@ -6804,6 +7178,7 @@ private static final long serialVersionUID = 0L;
 
     /**
      * <code>fixed32 leg_flow_schedule_type_reserved100plus = 55 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return The legFlowScheduleTypeReserved100plus.
      */
     public int getLegFlowScheduleTypeReserved100Plus() {
       if (legFlowScheduleTypeUnionCase_ == 55) {
@@ -6813,6 +7188,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 leg_flow_schedule_type_reserved100plus = 55 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @param value The legFlowScheduleTypeReserved100plus to set.
+     * @return This builder for chaining.
      */
     public Builder setLegFlowScheduleTypeReserved100Plus(int value) {
       legFlowScheduleTypeUnionCase_ = 55;
@@ -6822,6 +7199,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>fixed32 leg_flow_schedule_type_reserved100plus = 55 [(.fix.tag) = 1440, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+     * @return This builder for chaining.
      */
     public Builder clearLegFlowScheduleTypeReserved100Plus() {
       if (legFlowScheduleTypeUnionCase_ == 55) {

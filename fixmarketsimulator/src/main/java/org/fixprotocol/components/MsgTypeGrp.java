@@ -122,12 +122,14 @@ private static final long serialVersionUID = 0L;
   private int msgDirection_;
   /**
    * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for msgDirection.
    */
   public int getMsgDirectionValue() {
     return msgDirection_;
   }
   /**
    * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The msgDirection.
    */
   public org.fixprotocol.components.MsgDirectionEnum getMsgDirection() {
     @SuppressWarnings("deprecation")
@@ -139,12 +141,14 @@ private static final long serialVersionUID = 0L;
   private int refApplVerId_;
   /**
    * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for refApplVerId.
    */
   public int getRefApplVerIdValue() {
     return refApplVerId_;
   }
   /**
    * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refApplVerId.
    */
   public org.fixprotocol.components.RefApplVerIDEnum getRefApplVerId() {
     @SuppressWarnings("deprecation")
@@ -156,6 +160,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object refCstmApplVerId_;
   /**
    * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refCstmApplVerId.
    */
   public java.lang.String getRefCstmApplVerId() {
     java.lang.Object ref = refCstmApplVerId_;
@@ -171,6 +176,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for refCstmApplVerId.
    */
   public com.google.protobuf.ByteString
       getRefCstmApplVerIdBytes() {
@@ -190,12 +196,14 @@ private static final long serialVersionUID = 0L;
   private int refMsgType_;
   /**
    * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for refMsgType.
    */
   public int getRefMsgTypeValue() {
     return refMsgType_;
   }
   /**
    * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refMsgType.
    */
   public org.fixprotocol.components.RefMsgTypeEnum getRefMsgType() {
     @SuppressWarnings("deprecation")
@@ -207,6 +215,7 @@ private static final long serialVersionUID = 0L;
   private boolean defaultVerIndicator_;
   /**
    * <code>bool default_ver_indicator = 5 [(.fix.tag) = 1410, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The defaultVerIndicator.
    */
   public boolean getDefaultVerIndicator() {
     return defaultVerIndicator_;
@@ -216,6 +225,7 @@ private static final long serialVersionUID = 0L;
   private long refApplExtId_;
   /**
    * <code>sfixed64 ref_appl_ext_id = 6 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The refApplExtId.
    */
   public long getRefApplExtId() {
     return refApplExtId_;
@@ -610,12 +620,15 @@ private static final long serialVersionUID = 0L;
     private int msgDirection_ = 0;
     /**
      * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for msgDirection.
      */
     public int getMsgDirectionValue() {
       return msgDirection_;
     }
     /**
      * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for msgDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setMsgDirectionValue(int value) {
       msgDirection_ = value;
@@ -624,6 +637,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The msgDirection.
      */
     public org.fixprotocol.components.MsgDirectionEnum getMsgDirection() {
       @SuppressWarnings("deprecation")
@@ -632,6 +646,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The msgDirection to set.
+     * @return This builder for chaining.
      */
     public Builder setMsgDirection(org.fixprotocol.components.MsgDirectionEnum value) {
       if (value == null) {
@@ -644,6 +660,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.MsgDirectionEnum msg_direction = 1 [(.fix.tag) = 385, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearMsgDirection() {
       
@@ -655,12 +672,15 @@ private static final long serialVersionUID = 0L;
     private int refApplVerId_ = 0;
     /**
      * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for refApplVerId.
      */
     public int getRefApplVerIdValue() {
       return refApplVerId_;
     }
     /**
      * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for refApplVerId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefApplVerIdValue(int value) {
       refApplVerId_ = value;
@@ -669,6 +689,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The refApplVerId.
      */
     public org.fixprotocol.components.RefApplVerIDEnum getRefApplVerId() {
       @SuppressWarnings("deprecation")
@@ -677,6 +698,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The refApplVerId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefApplVerId(org.fixprotocol.components.RefApplVerIDEnum value) {
       if (value == null) {
@@ -689,6 +712,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RefApplVerIDEnum ref_appl_ver_id = 2 [(.fix.tag) = 1130, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRefApplVerId() {
       
@@ -700,6 +724,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object refCstmApplVerId_ = "";
     /**
      * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The refCstmApplVerId.
      */
     public java.lang.String getRefCstmApplVerId() {
       java.lang.Object ref = refCstmApplVerId_;
@@ -715,6 +740,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for refCstmApplVerId.
      */
     public com.google.protobuf.ByteString
         getRefCstmApplVerIdBytes() {
@@ -731,6 +757,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The refCstmApplVerId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefCstmApplVerId(
         java.lang.String value) {
@@ -744,6 +772,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRefCstmApplVerId() {
       
@@ -753,6 +782,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string ref_cstm_appl_ver_id = 3 [(.fix.tag) = 1131, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for refCstmApplVerId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefCstmApplVerIdBytes(
         com.google.protobuf.ByteString value) {
@@ -769,12 +800,15 @@ private static final long serialVersionUID = 0L;
     private int refMsgType_ = 0;
     /**
      * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The enum numeric value on the wire for refMsgType.
      */
     public int getRefMsgTypeValue() {
       return refMsgType_;
     }
     /**
      * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The enum numeric value on the wire for refMsgType to set.
+     * @return This builder for chaining.
      */
     public Builder setRefMsgTypeValue(int value) {
       refMsgType_ = value;
@@ -783,6 +817,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The refMsgType.
      */
     public org.fixprotocol.components.RefMsgTypeEnum getRefMsgType() {
       @SuppressWarnings("deprecation")
@@ -791,6 +826,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The refMsgType to set.
+     * @return This builder for chaining.
      */
     public Builder setRefMsgType(org.fixprotocol.components.RefMsgTypeEnum value) {
       if (value == null) {
@@ -803,6 +840,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.RefMsgTypeEnum ref_msg_type = 4 [(.fix.tag) = 372, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRefMsgType() {
       
@@ -814,12 +852,15 @@ private static final long serialVersionUID = 0L;
     private boolean defaultVerIndicator_ ;
     /**
      * <code>bool default_ver_indicator = 5 [(.fix.tag) = 1410, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The defaultVerIndicator.
      */
     public boolean getDefaultVerIndicator() {
       return defaultVerIndicator_;
     }
     /**
      * <code>bool default_ver_indicator = 5 [(.fix.tag) = 1410, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The defaultVerIndicator to set.
+     * @return This builder for chaining.
      */
     public Builder setDefaultVerIndicator(boolean value) {
       
@@ -829,6 +870,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>bool default_ver_indicator = 5 [(.fix.tag) = 1410, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearDefaultVerIndicator() {
       
@@ -840,12 +882,15 @@ private static final long serialVersionUID = 0L;
     private long refApplExtId_ ;
     /**
      * <code>sfixed64 ref_appl_ext_id = 6 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The refApplExtId.
      */
     public long getRefApplExtId() {
       return refApplExtId_;
     }
     /**
      * <code>sfixed64 ref_appl_ext_id = 6 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The refApplExtId to set.
+     * @return This builder for chaining.
      */
     public Builder setRefApplExtId(long value) {
       
@@ -855,6 +900,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 ref_appl_ext_id = 6 [(.fix.tag) = 1406, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearRefApplExtId() {
       

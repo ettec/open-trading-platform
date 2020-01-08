@@ -9,30 +9,36 @@ public interface LegPreAllocGrpOrBuilder extends
 
   /**
    * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legAllocAccount.
    */
   java.lang.String getLegAllocAccount();
   /**
    * <code>string leg_alloc_account = 1 [(.fix.tag) = 671, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legAllocAccount.
    */
   com.google.protobuf.ByteString
       getLegAllocAccountBytes();
 
   /**
    * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legAllocAcctIdSource.
    */
   java.lang.String getLegAllocAcctIdSource();
   /**
    * <code>string leg_alloc_acct_id_source = 2 [(.fix.tag) = 674, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legAllocAcctIdSource.
    */
   com.google.protobuf.ByteString
       getLegAllocAcctIdSourceBytes();
 
   /**
    * <code>.fix.Decimal64 leg_alloc_qty = 3 [(.fix.tag) = 673, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the legAllocQty field is set.
    */
   boolean hasLegAllocQty();
   /**
    * <code>.fix.Decimal64 leg_alloc_qty = 3 [(.fix.tag) = 673, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legAllocQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getLegAllocQty();
   /**
@@ -42,10 +48,12 @@ public interface LegPreAllocGrpOrBuilder extends
 
   /**
    * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The legIndividualAllocId.
    */
   java.lang.String getLegIndividualAllocId();
   /**
    * <code>string leg_individual_alloc_id = 4 [(.fix.tag) = 672, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for legIndividualAllocId.
    */
   com.google.protobuf.ByteString
       getLegIndividualAllocIdBytes();
@@ -76,10 +84,12 @@ public interface LegPreAllocGrpOrBuilder extends
 
   /**
    * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The legAllocSettlCurrency.
    */
   java.lang.String getLegAllocSettlCurrency();
   /**
    * <code>string leg_alloc_settl_currency = 6 [(.fix.tag) = 1367, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for legAllocSettlCurrency.
    */
   com.google.protobuf.ByteString
       getLegAllocSettlCurrencyBytes();

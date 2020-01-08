@@ -103,6 +103,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object encodedText_;
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedText.
    */
   public java.lang.String getEncodedText() {
     java.lang.Object ref = encodedText_;
@@ -118,6 +119,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for encodedText.
    */
   public com.google.protobuf.ByteString
       getEncodedTextBytes() {
@@ -137,6 +139,7 @@ private static final long serialVersionUID = 0L;
   private long encodedTextLen_;
   /**
    * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The encodedTextLen.
    */
   public long getEncodedTextLen() {
     return encodedTextLen_;
@@ -146,6 +149,7 @@ private static final long serialVersionUID = 0L;
   private volatile java.lang.Object text_;
   /**
    * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The text.
    */
   public java.lang.String getText() {
     java.lang.Object ref = text_;
@@ -161,6 +165,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for text.
    */
   public com.google.protobuf.ByteString
       getTextBytes() {
@@ -516,6 +521,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object encodedText_ = "";
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedText.
      */
     public java.lang.String getEncodedText() {
       java.lang.Object ref = encodedText_;
@@ -531,6 +537,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for encodedText.
      */
     public com.google.protobuf.ByteString
         getEncodedTextBytes() {
@@ -547,6 +554,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The encodedText to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedText(
         java.lang.String value) {
@@ -560,6 +569,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedText() {
       
@@ -569,6 +579,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string encoded_text = 1 [(.fix.tag) = 355, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for encodedText to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedTextBytes(
         com.google.protobuf.ByteString value) {
@@ -585,12 +597,15 @@ private static final long serialVersionUID = 0L;
     private long encodedTextLen_ ;
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The encodedTextLen.
      */
     public long getEncodedTextLen() {
       return encodedTextLen_;
     }
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The encodedTextLen to set.
+     * @return This builder for chaining.
      */
     public Builder setEncodedTextLen(long value) {
       
@@ -600,6 +615,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>sfixed64 encoded_text_len = 2 [(.fix.tag) = 354, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearEncodedTextLen() {
       
@@ -611,6 +627,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object text_ = "";
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The text.
      */
     public java.lang.String getText() {
       java.lang.Object ref = text_;
@@ -626,6 +643,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return The bytes for text.
      */
     public com.google.protobuf.ByteString
         getTextBytes() {
@@ -642,6 +660,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The text to set.
+     * @return This builder for chaining.
      */
     public Builder setText(
         java.lang.String value) {
@@ -655,6 +675,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @return This builder for chaining.
      */
     public Builder clearText() {
       
@@ -664,6 +685,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string text = 3 [(.fix.tag) = 58, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+     * @param value The bytes for text to set.
+     * @return This builder for chaining.
      */
     public Builder setTextBytes(
         com.google.protobuf.ByteString value) {

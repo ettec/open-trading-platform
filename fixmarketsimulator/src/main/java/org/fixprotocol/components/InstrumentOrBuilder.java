@@ -9,20 +9,24 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>string cfi_code = 1 [(.fix.tag) = 461, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The cfiCode.
    */
   java.lang.String getCfiCode();
   /**
    * <code>string cfi_code = 1 [(.fix.tag) = 461, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for cfiCode.
    */
   com.google.protobuf.ByteString
       getCfiCodeBytes();
 
   /**
    * <code>.fix.Decimal64 contract_multiplier = 2 [(.fix.tag) = 231, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the contractMultiplier field is set.
    */
   boolean hasContractMultiplier();
   /**
    * <code>.fix.Decimal64 contract_multiplier = 2 [(.fix.tag) = 231, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The contractMultiplier.
    */
   org.fixprotocol.components.Fix.Decimal64 getContractMultiplier();
   /**
@@ -32,25 +36,30 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>string country_of_issue = 3 [(.fix.tag) = 470, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The countryOfIssue.
    */
   java.lang.String getCountryOfIssue();
   /**
    * <code>string country_of_issue = 3 [(.fix.tag) = 470, (.fix.type) = DATATYPE_COUNTRY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for countryOfIssue.
    */
   com.google.protobuf.ByteString
       getCountryOfIssueBytes();
 
   /**
    * <code>sfixed32 coupon_payment_date = 4 [(.fix.tag) = 224, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The couponPaymentDate.
    */
   int getCouponPaymentDate();
 
   /**
    * <code>.fix.Decimal64 coupon_rate = 5 [(.fix.tag) = 223, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the couponRate field is set.
    */
   boolean hasCouponRate();
   /**
    * <code>.fix.Decimal64 coupon_rate = 5 [(.fix.tag) = 223, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The couponRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getCouponRate();
   /**
@@ -60,50 +69,60 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>string credit_rating = 6 [(.fix.tag) = 255, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The creditRating.
    */
   java.lang.String getCreditRating();
   /**
    * <code>string credit_rating = 6 [(.fix.tag) = 255, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for creditRating.
    */
   com.google.protobuf.ByteString
       getCreditRatingBytes();
 
   /**
    * <code>string encoded_issuer = 7 [(.fix.tag) = 349, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedIssuer.
    */
   java.lang.String getEncodedIssuer();
   /**
    * <code>string encoded_issuer = 7 [(.fix.tag) = 349, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedIssuer.
    */
   com.google.protobuf.ByteString
       getEncodedIssuerBytes();
 
   /**
    * <code>sfixed64 encoded_issuer_len = 8 [(.fix.tag) = 348, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedIssuerLen.
    */
   long getEncodedIssuerLen();
 
   /**
    * <code>string encoded_security_desc = 9 [(.fix.tag) = 351, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedSecurityDesc.
    */
   java.lang.String getEncodedSecurityDesc();
   /**
    * <code>string encoded_security_desc = 9 [(.fix.tag) = 351, (.fix.type) = DATATYPE_DATA, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for encodedSecurityDesc.
    */
   com.google.protobuf.ByteString
       getEncodedSecurityDescBytes();
 
   /**
    * <code>sfixed64 encoded_security_desc_len = 10 [(.fix.tag) = 350, (.fix.type) = DATATYPE_LENGTH, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The encodedSecurityDescLen.
    */
   long getEncodedSecurityDescLen();
 
   /**
    * <code>.fix.Decimal64 factor = 11 [(.fix.tag) = 228, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the factor field is set.
    */
   boolean hasFactor();
   /**
    * <code>.fix.Decimal64 factor = 11 [(.fix.tag) = 228, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The factor.
    */
   org.fixprotocol.components.Fix.Decimal64 getFactor();
   /**
@@ -113,84 +132,101 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>string instr_registry = 12 [(.fix.tag) = 543, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The instrRegistry.
    */
   java.lang.String getInstrRegistry();
   /**
    * <code>string instr_registry = 12 [(.fix.tag) = 543, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for instrRegistry.
    */
   com.google.protobuf.ByteString
       getInstrRegistryBytes();
 
   /**
    * <code>sfixed32 issue_date = 13 [(.fix.tag) = 225, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The issueDate.
    */
   int getIssueDate();
 
   /**
    * <code>string issuer = 14 [(.fix.tag) = 106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The issuer.
    */
   java.lang.String getIssuer();
   /**
    * <code>string issuer = 14 [(.fix.tag) = 106, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for issuer.
    */
   com.google.protobuf.ByteString
       getIssuerBytes();
 
   /**
    * <code>string locale_of_issue = 15 [(.fix.tag) = 472, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The localeOfIssue.
    */
   java.lang.String getLocaleOfIssue();
   /**
    * <code>string locale_of_issue = 15 [(.fix.tag) = 472, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for localeOfIssue.
    */
   com.google.protobuf.ByteString
       getLocaleOfIssueBytes();
 
   /**
    * <code>sfixed32 maturity_date = 16 [(.fix.tag) = 541, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The maturityDate.
    */
   int getMaturityDate();
 
   /**
    * <code>sfixed32 maturity_month_year = 17 [(.fix.tag) = 200, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The maturityMonthYear.
    */
   int getMaturityMonthYear();
 
   /**
    * <code>bytes opt_attribute = 18 [(.fix.tag) = 206, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The optAttribute.
    */
   com.google.protobuf.ByteString getOptAttribute();
 
   /**
    * <code>.Common.ProductEnum product = 19 [(.fix.tag) = 460, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for product.
    */
   int getProductValue();
   /**
    * <code>.Common.ProductEnum product = 19 [(.fix.tag) = 460, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The product.
    */
   org.fixprotocol.components.ProductEnum getProduct();
 
   /**
    * <code>sfixed32 redemption_date = 20 [(.fix.tag) = 240, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The redemptionDate.
    */
   int getRedemptionDate();
 
   /**
    * <code>string repo_collateral_security_type = 21 [(.fix.tag) = 239, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The repoCollateralSecurityType.
    */
   java.lang.String getRepoCollateralSecurityType();
   /**
    * <code>string repo_collateral_security_type = 21 [(.fix.tag) = 239, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for repoCollateralSecurityType.
    */
   com.google.protobuf.ByteString
       getRepoCollateralSecurityTypeBytes();
 
   /**
    * <code>.fix.Decimal64 repurchase_rate = 22 [(.fix.tag) = 227, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the repurchaseRate field is set.
    */
   boolean hasRepurchaseRate();
   /**
    * <code>.fix.Decimal64 repurchase_rate = 22 [(.fix.tag) = 227, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The repurchaseRate.
    */
   org.fixprotocol.components.Fix.Decimal64 getRepurchaseRate();
   /**
@@ -200,73 +236,88 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>sfixed64 repurchase_term = 23 [(.fix.tag) = 226, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The repurchaseTerm.
    */
   long getRepurchaseTerm();
 
   /**
    * <code>string security_desc = 24 [(.fix.tag) = 107, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The securityDesc.
    */
   java.lang.String getSecurityDesc();
   /**
    * <code>string security_desc = 24 [(.fix.tag) = 107, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for securityDesc.
    */
   com.google.protobuf.ByteString
       getSecurityDescBytes();
 
   /**
    * <code>string security_exchange = 25 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The securityExchange.
    */
   java.lang.String getSecurityExchange();
   /**
    * <code>string security_exchange = 25 [(.fix.tag) = 207, (.fix.type) = DATATYPE_EXCHANGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for securityExchange.
    */
   com.google.protobuf.ByteString
       getSecurityExchangeBytes();
 
   /**
    * <code>string security_id = 26 [(.fix.tag) = 48, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The securityId.
    */
   java.lang.String getSecurityId();
   /**
    * <code>string security_id = 26 [(.fix.tag) = 48, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for securityId.
    */
   com.google.protobuf.ByteString
       getSecurityIdBytes();
 
   /**
    * <code>.Common.SecurityIDSourceEnum security_id_source = 27 [(.fix.tag) = 22, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for securityIdSource.
    */
   int getSecurityIdSourceValue();
   /**
    * <code>.Common.SecurityIDSourceEnum security_id_source = 27 [(.fix.tag) = 22, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The securityIdSource.
    */
   org.fixprotocol.components.SecurityIDSourceEnum getSecurityIdSource();
 
   /**
    * <code>.Common.SecurityTypeEnum security_type = 28 [(.fix.tag) = 167, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for securityType.
    */
   int getSecurityTypeValue();
   /**
    * <code>.Common.SecurityTypeEnum security_type = 28 [(.fix.tag) = 167, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The securityType.
    */
   org.fixprotocol.components.SecurityTypeEnum getSecurityType();
 
   /**
    * <code>string state_or_province_of_issue = 29 [(.fix.tag) = 471, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The stateOrProvinceOfIssue.
    */
   java.lang.String getStateOrProvinceOfIssue();
   /**
    * <code>string state_or_province_of_issue = 29 [(.fix.tag) = 471, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for stateOrProvinceOfIssue.
    */
   com.google.protobuf.ByteString
       getStateOrProvinceOfIssueBytes();
 
   /**
    * <code>.fix.Decimal64 strike_price = 30 [(.fix.tag) = 202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the strikePrice field is set.
    */
   boolean hasStrikePrice();
   /**
    * <code>.fix.Decimal64 strike_price = 30 [(.fix.tag) = 202, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The strikePrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getStrikePrice();
   /**
@@ -276,54 +327,65 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>string symbol = 31 [(.fix.tag) = 55, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The symbol.
    */
   java.lang.String getSymbol();
   /**
    * <code>string symbol = 31 [(.fix.tag) = 55, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The bytes for symbol.
    */
   com.google.protobuf.ByteString
       getSymbolBytes();
 
   /**
    * <code>.Common.SymbolSfxEnum symbol_sfx = 32 [(.fix.tag) = 65, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for symbolSfx.
    */
   int getSymbolSfxValue();
   /**
    * <code>.Common.SymbolSfxEnum symbol_sfx = 32 [(.fix.tag) = 65, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The symbolSfx.
    */
   org.fixprotocol.components.SymbolSfxEnum getSymbolSfx();
 
   /**
    * <code>sfixed32 contract_settl_month = 33 [(.fix.tag) = 667, (.fix.type) = DATATYPE_MONTH_YEAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The contractSettlMonth.
    */
   int getContractSettlMonth();
 
   /**
    * <code>.Common.CPProgramEnum cp_program = 34 [(.fix.tag) = 875, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for cpProgram.
    */
   int getCpProgramValue();
   /**
    * <code>.Common.CPProgramEnum cp_program = 34 [(.fix.tag) = 875, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The cpProgram.
    */
   org.fixprotocol.components.CPProgramEnum getCpProgram();
 
   /**
    * <code>fixed32 cp_program_reserved100plus = 35 [(.fix.tag) = 875, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The cpProgramReserved100plus.
    */
   int getCpProgramReserved100Plus();
 
   /**
    * <code>string cp_reg_type = 36 [(.fix.tag) = 876, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The cpRegType.
    */
   java.lang.String getCpRegType();
   /**
    * <code>string cp_reg_type = 36 [(.fix.tag) = 876, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for cpRegType.
    */
   com.google.protobuf.ByteString
       getCpRegTypeBytes();
 
   /**
    * <code>sfixed32 dated_date = 37 [(.fix.tag) = 873, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The datedDate.
    */
   int getDatedDate();
 
@@ -353,6 +415,7 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>bytes instrmt_assignment_method = 39 [(.fix.tag) = 1049, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The instrmtAssignmentMethod.
    */
   com.google.protobuf.ByteString getInstrmtAssignmentMethod();
 
@@ -382,15 +445,18 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>sfixed32 interest_accrual_date = 41 [(.fix.tag) = 874, (.fix.type) = DATATYPE_LOCAL_MKT_DATE, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The interestAccrualDate.
    */
   int getInterestAccrualDate();
 
   /**
    * <code>.fix.LocalTimeOnly maturity_time = 42 [(.fix.tag) = 1079, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the maturityTime field is set.
    */
   boolean hasMaturityTime();
   /**
    * <code>.fix.LocalTimeOnly maturity_time = 42 [(.fix.tag) = 1079, (.fix.type) = DATATYPE_TZ_TIME_ONLY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The maturityTime.
    */
   org.fixprotocol.components.Fix.LocalTimeOnly getMaturityTime();
   /**
@@ -400,10 +466,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 min_price_increment = 43 [(.fix.tag) = 969, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the minPriceIncrement field is set.
    */
   boolean hasMinPriceIncrement();
   /**
    * <code>.fix.Decimal64 min_price_increment = 43 [(.fix.tag) = 969, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The minPriceIncrement.
    */
   org.fixprotocol.components.Fix.Decimal64 getMinPriceIncrement();
   /**
@@ -413,30 +481,36 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>sfixed64 nt_position_limit = 44 [(.fix.tag) = 971, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The ntPositionLimit.
    */
   long getNtPositionLimit();
 
   /**
    * <code>string pool = 45 [(.fix.tag) = 691, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The pool.
    */
   java.lang.String getPool();
   /**
    * <code>string pool = 45 [(.fix.tag) = 691, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for pool.
    */
   com.google.protobuf.ByteString
       getPoolBytes();
 
   /**
    * <code>sfixed64 position_limit = 46 [(.fix.tag) = 970, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The positionLimit.
    */
   long getPositionLimit();
 
   /**
    * <code>.Common.PutOrCallEnum put_or_call = 47 [(.fix.tag) = 201, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for putOrCall.
    */
   int getPutOrCallValue();
   /**
    * <code>.Common.PutOrCallEnum put_or_call = 47 [(.fix.tag) = 201, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The putOrCall.
    */
   org.fixprotocol.components.PutOrCallEnum getPutOrCall();
 
@@ -466,49 +540,59 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.SecurityStatusEnum security_status = 49 [(.fix.tag) = 965, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for securityStatus.
    */
   int getSecurityStatusValue();
   /**
    * <code>.Common.SecurityStatusEnum security_status = 49 [(.fix.tag) = 965, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securityStatus.
    */
   org.fixprotocol.components.SecurityStatusEnum getSecurityStatus();
 
   /**
    * <code>string security_sub_type = 50 [(.fix.tag) = 762, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The securitySubType.
    */
   java.lang.String getSecuritySubType();
   /**
    * <code>string security_sub_type = 50 [(.fix.tag) = 762, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for securitySubType.
    */
   com.google.protobuf.ByteString
       getSecuritySubTypeBytes();
 
   /**
    * <code>string settle_on_open_flag = 51 [(.fix.tag) = 966, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The settleOnOpenFlag.
    */
   java.lang.String getSettleOnOpenFlag();
   /**
    * <code>string settle_on_open_flag = 51 [(.fix.tag) = 966, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for settleOnOpenFlag.
    */
   com.google.protobuf.ByteString
       getSettleOnOpenFlagBytes();
 
   /**
    * <code>string strike_currency = 52 [(.fix.tag) = 947, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strikeCurrency.
    */
   java.lang.String getStrikeCurrency();
   /**
    * <code>string strike_currency = 52 [(.fix.tag) = 947, (.fix.type) = DATATYPE_CURRENCY, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for strikeCurrency.
    */
   com.google.protobuf.ByteString
       getStrikeCurrencyBytes();
 
   /**
    * <code>.fix.Decimal64 strike_multiplier = 53 [(.fix.tag) = 967, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the strikeMultiplier field is set.
    */
   boolean hasStrikeMultiplier();
   /**
    * <code>.fix.Decimal64 strike_multiplier = 53 [(.fix.tag) = 967, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strikeMultiplier.
    */
   org.fixprotocol.components.Fix.Decimal64 getStrikeMultiplier();
   /**
@@ -518,10 +602,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 strike_value = 54 [(.fix.tag) = 968, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return Whether the strikeValue field is set.
    */
   boolean hasStrikeValue();
   /**
    * <code>.fix.Decimal64 strike_value = 54 [(.fix.tag) = 968, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The strikeValue.
    */
   org.fixprotocol.components.Fix.Decimal64 getStrikeValue();
   /**
@@ -531,28 +617,34 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.TimeUnitEnum time_unit = 55 [(.fix.tag) = 997, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for timeUnit.
    */
   int getTimeUnitValue();
   /**
    * <code>.Common.TimeUnitEnum time_unit = 55 [(.fix.tag) = 997, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The timeUnit.
    */
   org.fixprotocol.components.TimeUnitEnum getTimeUnit();
 
   /**
    * <code>.Common.UnitOfMeasureEnum unit_of_measure = 56 [(.fix.tag) = 996, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for unitOfMeasure.
    */
   int getUnitOfMeasureValue();
   /**
    * <code>.Common.UnitOfMeasureEnum unit_of_measure = 56 [(.fix.tag) = 996, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The unitOfMeasure.
    */
   org.fixprotocol.components.UnitOfMeasureEnum getUnitOfMeasure();
 
   /**
    * <code>.fix.Decimal64 cap_price = 57 [(.fix.tag) = 1199, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the capPrice field is set.
    */
   boolean hasCapPrice();
   /**
    * <code>.fix.Decimal64 cap_price = 57 [(.fix.tag) = 1199, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The capPrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getCapPrice();
   /**
@@ -562,29 +654,35 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.ExerciseStyleEnum exercise_style = 58 [(.fix.tag) = 1194, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for exerciseStyle.
    */
   int getExerciseStyleValue();
   /**
    * <code>.Common.ExerciseStyleEnum exercise_style = 58 [(.fix.tag) = 1194, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The exerciseStyle.
    */
   org.fixprotocol.components.ExerciseStyleEnum getExerciseStyle();
 
   /**
    * <code>bool flex_product_eligibility_indicator = 59 [(.fix.tag) = 1242, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The flexProductEligibilityIndicator.
    */
   boolean getFlexProductEligibilityIndicator();
 
   /**
    * <code>bool flexible_indicator = 60 [(.fix.tag) = 1244, (.fix.type) = DATATYPE_BOOLEAN, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The flexibleIndicator.
    */
   boolean getFlexibleIndicator();
 
   /**
    * <code>.fix.Decimal64 floor_price = 61 [(.fix.tag) = 1200, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the floorPrice field is set.
    */
   boolean hasFloorPrice();
   /**
    * <code>.fix.Decimal64 floor_price = 61 [(.fix.tag) = 1200, (.fix.type) = DATATYPE_PRICE, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The floorPrice.
    */
   org.fixprotocol.components.Fix.Decimal64 getFloorPrice();
   /**
@@ -594,19 +692,23 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.ListMethodEnum list_method = 62 [(.fix.tag) = 1198, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for listMethod.
    */
   int getListMethodValue();
   /**
    * <code>.Common.ListMethodEnum list_method = 62 [(.fix.tag) = 1198, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The listMethod.
    */
   org.fixprotocol.components.ListMethodEnum getListMethod();
 
   /**
    * <code>.fix.Decimal64 min_price_increment_amount = 63 [(.fix.tag) = 1146, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the minPriceIncrementAmount field is set.
    */
   boolean hasMinPriceIncrementAmount();
   /**
    * <code>.fix.Decimal64 min_price_increment_amount = 63 [(.fix.tag) = 1146, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The minPriceIncrementAmount.
    */
   org.fixprotocol.components.Fix.Decimal64 getMinPriceIncrementAmount();
   /**
@@ -616,10 +718,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 opt_payout_amount = 64 [(.fix.tag) = 1195, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the optPayoutAmount field is set.
    */
   boolean hasOptPayoutAmount();
   /**
    * <code>.fix.Decimal64 opt_payout_amount = 64 [(.fix.tag) = 1195, (.fix.type) = DATATYPE_AMT, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The optPayoutAmount.
    */
   org.fixprotocol.components.Fix.Decimal64 getOptPayoutAmount();
   /**
@@ -629,28 +733,34 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.PriceQuoteMethodEnum price_quote_method = 65 [(.fix.tag) = 1196, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for priceQuoteMethod.
    */
   int getPriceQuoteMethodValue();
   /**
    * <code>.Common.PriceQuoteMethodEnum price_quote_method = 65 [(.fix.tag) = 1196, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceQuoteMethod.
    */
   org.fixprotocol.components.PriceQuoteMethodEnum getPriceQuoteMethod();
 
   /**
    * <code>.Common.PriceUnitOfMeasureEnum price_unit_of_measure = 66 [(.fix.tag) = 1191, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for priceUnitOfMeasure.
    */
   int getPriceUnitOfMeasureValue();
   /**
    * <code>.Common.PriceUnitOfMeasureEnum price_unit_of_measure = 66 [(.fix.tag) = 1191, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceUnitOfMeasure.
    */
   org.fixprotocol.components.PriceUnitOfMeasureEnum getPriceUnitOfMeasure();
 
   /**
    * <code>.fix.Decimal64 price_unit_of_measure_qty = 67 [(.fix.tag) = 1192, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the priceUnitOfMeasureQty field is set.
    */
   boolean hasPriceUnitOfMeasureQty();
   /**
    * <code>.fix.Decimal64 price_unit_of_measure_qty = 67 [(.fix.tag) = 1192, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The priceUnitOfMeasureQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getPriceUnitOfMeasureQty();
   /**
@@ -660,30 +770,36 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>string product_complex = 68 [(.fix.tag) = 1227, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The productComplex.
    */
   java.lang.String getProductComplex();
   /**
    * <code>string product_complex = 68 [(.fix.tag) = 1227, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for productComplex.
    */
   com.google.protobuf.ByteString
       getProductComplexBytes();
 
   /**
    * <code>string security_group = 69 [(.fix.tag) = 1151, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityGroup.
    */
   java.lang.String getSecurityGroup();
   /**
    * <code>string security_group = 69 [(.fix.tag) = 1151, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The bytes for securityGroup.
    */
   com.google.protobuf.ByteString
       getSecurityGroupBytes();
 
   /**
    * <code>.Common.SecurityXML security_xml = 70 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the securityXml field is set.
    */
   boolean hasSecurityXml();
   /**
    * <code>.Common.SecurityXML security_xml = 70 [(.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The securityXml.
    */
   org.fixprotocol.components.SecurityXML getSecurityXml();
   /**
@@ -693,19 +809,23 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.SettlMethodEnum settl_method = 71 [(.fix.tag) = 1193, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for settlMethod.
    */
   int getSettlMethodValue();
   /**
    * <code>.Common.SettlMethodEnum settl_method = 71 [(.fix.tag) = 1193, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The settlMethod.
    */
   org.fixprotocol.components.SettlMethodEnum getSettlMethod();
 
   /**
    * <code>.fix.Decimal64 unit_of_measure_qty = 72 [(.fix.tag) = 1147, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return Whether the unitOfMeasureQty field is set.
    */
   boolean hasUnitOfMeasureQty();
   /**
    * <code>.fix.Decimal64 unit_of_measure_qty = 72 [(.fix.tag) = 1147, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The unitOfMeasureQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getUnitOfMeasureQty();
   /**
@@ -715,10 +835,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.ValuationMethodEnum valuation_method = 73 [(.fix.tag) = 1197, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for valuationMethod.
    */
   int getValuationMethodValue();
   /**
    * <code>.Common.ValuationMethodEnum valuation_method = 73 [(.fix.tag) = 1197, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The valuationMethod.
    */
   org.fixprotocol.components.ValuationMethodEnum getValuationMethod();
 
@@ -748,33 +870,40 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.ContractMultiplierUnitEnum contract_multiplier_unit = 75 [(.fix.tag) = 1435, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for contractMultiplierUnit.
    */
   int getContractMultiplierUnitValue();
   /**
    * <code>.Common.ContractMultiplierUnitEnum contract_multiplier_unit = 75 [(.fix.tag) = 1435, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The contractMultiplierUnit.
    */
   org.fixprotocol.components.ContractMultiplierUnitEnum getContractMultiplierUnit();
 
   /**
    * <code>.Common.FlowScheduleTypeEnum flow_schedule_type = 76 [(.fix.tag) = 1439, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The enum numeric value on the wire for flowScheduleType.
    */
   int getFlowScheduleTypeValue();
   /**
    * <code>.Common.FlowScheduleTypeEnum flow_schedule_type = 76 [(.fix.tag) = 1439, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The flowScheduleType.
    */
   org.fixprotocol.components.FlowScheduleTypeEnum getFlowScheduleType();
 
   /**
    * <code>fixed32 flow_schedule_type_reserved100plus = 77 [(.fix.tag) = 1439, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 80];</code>
+   * @return The flowScheduleTypeReserved100plus.
    */
   int getFlowScheduleTypeReserved100Plus();
 
   /**
    * <code>.fix.Decimal64 attachment_point = 78 [(.fix.tag) = 1457, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the attachmentPoint field is set.
    */
   boolean hasAttachmentPoint();
   /**
    * <code>.fix.Decimal64 attachment_point = 78 [(.fix.tag) = 1457, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The attachmentPoint.
    */
   org.fixprotocol.components.Fix.Decimal64 getAttachmentPoint();
   /**
@@ -784,10 +913,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 detachment_point = 79 [(.fix.tag) = 1458, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the detachmentPoint field is set.
    */
   boolean hasDetachmentPoint();
   /**
    * <code>.fix.Decimal64 detachment_point = 79 [(.fix.tag) = 1458, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The detachmentPoint.
    */
   org.fixprotocol.components.Fix.Decimal64 getDetachmentPoint();
   /**
@@ -797,10 +928,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 notional_percentage_outstanding = 80 [(.fix.tag) = 1451, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the notionalPercentageOutstanding field is set.
    */
   boolean hasNotionalPercentageOutstanding();
   /**
    * <code>.fix.Decimal64 notional_percentage_outstanding = 80 [(.fix.tag) = 1451, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The notionalPercentageOutstanding.
    */
   org.fixprotocol.components.Fix.Decimal64 getNotionalPercentageOutstanding();
   /**
@@ -810,10 +943,12 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 original_notional_percentage_outstanding = 81 [(.fix.tag) = 1452, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return Whether the originalNotionalPercentageOutstanding field is set.
    */
   boolean hasOriginalNotionalPercentageOutstanding();
   /**
    * <code>.fix.Decimal64 original_notional_percentage_outstanding = 81 [(.fix.tag) = 1452, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The originalNotionalPercentageOutstanding.
    */
   org.fixprotocol.components.Fix.Decimal64 getOriginalNotionalPercentageOutstanding();
   /**
@@ -823,46 +958,56 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.RestructuringTypeEnum restructuring_type = 82 [(.fix.tag) = 1449, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The enum numeric value on the wire for restructuringType.
    */
   int getRestructuringTypeValue();
   /**
    * <code>.Common.RestructuringTypeEnum restructuring_type = 82 [(.fix.tag) = 1449, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The restructuringType.
    */
   org.fixprotocol.components.RestructuringTypeEnum getRestructuringType();
 
   /**
    * <code>.Common.SeniorityEnum seniority = 83 [(.fix.tag) = 1450, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The enum numeric value on the wire for seniority.
    */
   int getSeniorityValue();
   /**
    * <code>.Common.SeniorityEnum seniority = 83 [(.fix.tag) = 1450, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 83];</code>
+   * @return The seniority.
    */
   org.fixprotocol.components.SeniorityEnum getSeniority();
 
   /**
    * <code>.Common.OptPayoutTypeEnum opt_payout_type = 84 [(.fix.tag) = 1482, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for optPayoutType.
    */
   int getOptPayoutTypeValue();
   /**
    * <code>.Common.OptPayoutTypeEnum opt_payout_type = 84 [(.fix.tag) = 1482, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The optPayoutType.
    */
   org.fixprotocol.components.OptPayoutTypeEnum getOptPayoutType();
 
   /**
    * <code>.Common.StrikePriceBoundaryMethodEnum strike_price_boundary_method = 85 [(.fix.tag) = 1479, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for strikePriceBoundaryMethod.
    */
   int getStrikePriceBoundaryMethodValue();
   /**
    * <code>.Common.StrikePriceBoundaryMethodEnum strike_price_boundary_method = 85 [(.fix.tag) = 1479, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The strikePriceBoundaryMethod.
    */
   org.fixprotocol.components.StrikePriceBoundaryMethodEnum getStrikePriceBoundaryMethod();
 
   /**
    * <code>.fix.Decimal64 strike_price_boundary_precision = 86 [(.fix.tag) = 1480, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return Whether the strikePriceBoundaryPrecision field is set.
    */
   boolean hasStrikePriceBoundaryPrecision();
   /**
    * <code>.fix.Decimal64 strike_price_boundary_precision = 86 [(.fix.tag) = 1480, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The strikePriceBoundaryPrecision.
    */
   org.fixprotocol.components.Fix.Decimal64 getStrikePriceBoundaryPrecision();
   /**
@@ -872,24 +1017,29 @@ public interface InstrumentOrBuilder extends
 
   /**
    * <code>.Common.StrikePriceDeterminationMethodEnum strike_price_determination_method = 87 [(.fix.tag) = 1478, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for strikePriceDeterminationMethod.
    */
   int getStrikePriceDeterminationMethodValue();
   /**
    * <code>.Common.StrikePriceDeterminationMethodEnum strike_price_determination_method = 87 [(.fix.tag) = 1478, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The strikePriceDeterminationMethod.
    */
   org.fixprotocol.components.StrikePriceDeterminationMethodEnum getStrikePriceDeterminationMethod();
 
   /**
    * <code>fixed32 strike_price_determination_method_reserved100plus = 88 [(.fix.tag) = 1478, (.fix.type) = DATATYPE_RESERVED100PLUS, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The strikePriceDeterminationMethodReserved100plus.
    */
   int getStrikePriceDeterminationMethodReserved100Plus();
 
   /**
    * <code>.Common.UnderlyingPriceDeterminationMethodEnum underlying_price_determination_method = 89 [(.fix.tag) = 1481, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The enum numeric value on the wire for underlyingPriceDeterminationMethod.
    */
   int getUnderlyingPriceDeterminationMethodValue();
   /**
    * <code>.Common.UnderlyingPriceDeterminationMethodEnum underlying_price_determination_method = 89 [(.fix.tag) = 1481, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_5_0SP1, (.fix.field_added_ep) = 92];</code>
+   * @return The underlyingPriceDeterminationMethod.
    */
   org.fixprotocol.components.UnderlyingPriceDeterminationMethodEnum getUnderlyingPriceDeterminationMethod();
 

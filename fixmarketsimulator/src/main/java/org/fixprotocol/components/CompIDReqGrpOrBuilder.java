@@ -9,40 +9,48 @@ public interface CompIDReqGrpOrBuilder extends
 
   /**
    * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The deskId.
    */
   java.lang.String getDeskId();
   /**
    * <code>string desk_id = 1 [(.fix.tag) = 284, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for deskId.
    */
   com.google.protobuf.ByteString
       getDeskIdBytes();
 
   /**
    * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The locationId.
    */
   java.lang.String getLocationId();
   /**
    * <code>string location_id = 2 [(.fix.tag) = 283, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for locationId.
    */
   com.google.protobuf.ByteString
       getLocationIdBytes();
 
   /**
    * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refCompId.
    */
   java.lang.String getRefCompId();
   /**
    * <code>string ref_comp_id = 3 [(.fix.tag) = 930, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for refCompId.
    */
   com.google.protobuf.ByteString
       getRefCompIdBytes();
 
   /**
    * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The refSubId.
    */
   java.lang.String getRefSubId();
   /**
    * <code>string ref_sub_id = 4 [(.fix.tag) = 931, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for refSubId.
    */
   com.google.protobuf.ByteString
       getRefSubIdBytes();

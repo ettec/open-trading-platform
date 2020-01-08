@@ -9,29 +9,35 @@ public interface RootPartiesOrBuilder extends
 
   /**
    * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartyId.
    */
   java.lang.String getRootPartyId();
   /**
    * <code>string root_party_id = 1 [(.fix.tag) = 1117, (.fix.type) = DATATYPE_STRING, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The bytes for rootPartyId.
    */
   com.google.protobuf.ByteString
       getRootPartyIdBytes();
 
   /**
    * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for rootPartyIdSource.
    */
   int getRootPartyIdSourceValue();
   /**
    * <code>.Common.RootPartyIDSourceEnum root_party_id_source = 2 [(.fix.tag) = 1118, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartyIdSource.
    */
   org.fixprotocol.components.RootPartyIDSourceEnum getRootPartyIdSource();
 
   /**
    * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The enum numeric value on the wire for rootPartyRole.
    */
   int getRootPartyRoleValue();
   /**
    * <code>.Common.RootPartyRoleEnum root_party_role = 3 [(.fix.tag) = 1119, (.fix.type) = DATATYPE_INT, (.fix.field_added) = VERSION_FIX_4_4];</code>
+   * @return The rootPartyRole.
    */
   org.fixprotocol.components.RootPartyRoleEnum getRootPartyRole();
 

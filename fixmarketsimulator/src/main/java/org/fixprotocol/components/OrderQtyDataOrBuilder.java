@@ -9,10 +9,12 @@ public interface OrderQtyDataOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 cash_order_qty = 1 [(.fix.tag) = 152, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the cashOrderQty field is set.
    */
   boolean hasCashOrderQty();
   /**
    * <code>.fix.Decimal64 cash_order_qty = 1 [(.fix.tag) = 152, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The cashOrderQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getCashOrderQty();
   /**
@@ -22,10 +24,12 @@ public interface OrderQtyDataOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 order_percent = 2 [(.fix.tag) = 516, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the orderPercent field is set.
    */
   boolean hasOrderPercent();
   /**
    * <code>.fix.Decimal64 order_percent = 2 [(.fix.tag) = 516, (.fix.type) = DATATYPE_PERCENTAGE, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The orderPercent.
    */
   org.fixprotocol.components.Fix.Decimal64 getOrderPercent();
   /**
@@ -35,10 +39,12 @@ public interface OrderQtyDataOrBuilder extends
 
   /**
    * <code>.fix.Decimal64 order_qty = 3 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the orderQty field is set.
    */
   boolean hasOrderQty();
   /**
    * <code>.fix.Decimal64 order_qty = 3 [(.fix.tag) = 38, (.fix.type) = DATATYPE_QTY, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The orderQty.
    */
   org.fixprotocol.components.Fix.Decimal64 getOrderQty();
   /**
@@ -48,19 +54,23 @@ public interface OrderQtyDataOrBuilder extends
 
   /**
    * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The enum numeric value on the wire for roundingDirection.
    */
   int getRoundingDirectionValue();
   /**
    * <code>.Common.RoundingDirectionEnum rounding_direction = 4 [(.fix.tag) = 468, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The roundingDirection.
    */
   org.fixprotocol.components.RoundingDirectionEnum getRoundingDirection();
 
   /**
    * <code>.fix.Decimal64 rounding_modulus = 5 [(.fix.tag) = 469, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return Whether the roundingModulus field is set.
    */
   boolean hasRoundingModulus();
   /**
    * <code>.fix.Decimal64 rounding_modulus = 5 [(.fix.tag) = 469, (.fix.type) = DATATYPE_FLOAT, (.fix.field_added) = VERSION_FIX_4_3];</code>
+   * @return The roundingModulus.
    */
   org.fixprotocol.components.Fix.Decimal64 getRoundingModulus();
   /**

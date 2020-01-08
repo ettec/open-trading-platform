@@ -21,10 +21,10 @@ const (
 	KafkaBrokersKey    = "KAFKA_BROKERS"
 )
 
-type service struct{
+type service struct {
 	orderSubscriptions sync.Map
-	orderTopic string
-	kafkaBrokers []string
+	orderTopic         string
+	kafkaBrokers       []string
 }
 
 func newService() *service {
@@ -34,8 +34,8 @@ func newService() *service {
 	if !exists {
 		log.Fatalf("must specify %v for the kafka store", KafkaOrderTopicKey)
 	}
-	s.orderTopic = orderTopic
 
+	s.orderTopic = orderTopic
 
 	kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
 	if !exists {
@@ -46,21 +46,19 @@ func newService() *service {
 	return &s
 }
 
-
 func getMetaData(ctx context.Context) (username string, appInstanceId string, err error) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return "", "", fmt.Errorf("failed to read metadata from the context")
 	}
 
-	appInstanceIds := md.Get( "app-instance-id")
+	appInstanceIds := md.Get("app-instance-id")
 	if len(appInstanceIds) != 1 {
 		return "", "", fmt.Errorf("unable to retrieve app-instance-id from metadata")
 	}
 	appInstanceId = appInstanceIds[0]
 
-
-	usernames := md.Get( "user-name")
+	usernames := md.Get("user-name")
 	if len(usernames) != 1 {
 		return "", "", fmt.Errorf("unable to retrieve user-name from metadata")
 	}
@@ -72,6 +70,7 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 func (s *service) Subscribe(request *model.SubscribeToOrders, stream model.ViewService_SubscribeServer) error {
 
 	username, appInstanceId, err := getMetaData(stream.Context())
+
 	if err != nil {
 		return err
 	}
@@ -81,7 +80,7 @@ func (s *service) Subscribe(request *model.SubscribeToOrders, stream model.ViewS
 	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
 	if !exists {
 		source := messagesource.NewKafkaMessageSource(s.orderTopic, s.kafkaBrokers)
-		streamTopic(s.orderTopic, source, appInstanceId, s.orderSubscriptions, stream)
+		streamTopic(s.orderTopic, source, appInstanceId, &s.orderSubscriptions, stream)
 	} else {
 		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
 	}
@@ -89,8 +88,8 @@ func (s *service) Subscribe(request *model.SubscribeToOrders, stream model.ViewS
 	return nil
 }
 
-func streamTopic(topic string, reader messagesource.Source,  appInstanceId string, subscriptionsMap sync.Map,
-	stream model.ViewService_SubscribeServer)  {
+func streamTopic(topic string, reader messagesource.Source, appInstanceId string, subscriptionsMap *sync.Map,
+	stream model.ViewService_SubscribeServer) {
 
 	defer subscriptionsMap.Delete(appInstanceId)
 
@@ -119,19 +118,16 @@ func streamTopic(topic string, reader messagesource.Source,  appInstanceId strin
 	}
 }
 
-func logTopicReadError(appInstanceId string, topic string, err error ){
+func logTopicReadError(appInstanceId string, topic string, err error) {
 	log.Printf("AppInstanceId: %v, Topic: %v, error occurred whilt attempting to stream message: %v", appInstanceId,
 		topic, err)
 }
-
-
-
 
 func main() {
 
 	port := "50551"
 	fmt.Println("Starting view service on port:" + port)
-	lis, err := net.Listen("tcp", "0.0.0.0:" + port)
+	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)

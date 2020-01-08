@@ -91,12 +91,14 @@ private static final long serialVersionUID = 0L;
   private int ordType_;
   /**
    * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The enum numeric value on the wire for ordType.
    */
   public int getOrdTypeValue() {
     return ordType_;
   }
   /**
    * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+   * @return The ordType.
    */
   public org.fixprotocol.components.OrdTypeEnum getOrdType() {
     @SuppressWarnings("deprecation")
@@ -408,12 +410,15 @@ private static final long serialVersionUID = 0L;
     private int ordType_ = 0;
     /**
      * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The enum numeric value on the wire for ordType.
      */
     public int getOrdTypeValue() {
       return ordType_;
     }
     /**
      * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The enum numeric value on the wire for ordType to set.
+     * @return This builder for chaining.
      */
     public Builder setOrdTypeValue(int value) {
       ordType_ = value;
@@ -422,6 +427,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return The ordType.
      */
     public org.fixprotocol.components.OrdTypeEnum getOrdType() {
       @SuppressWarnings("deprecation")
@@ -430,6 +436,8 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @param value The ordType to set.
+     * @return This builder for chaining.
      */
     public Builder setOrdType(org.fixprotocol.components.OrdTypeEnum value) {
       if (value == null) {
@@ -442,6 +450,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>.Common.OrdTypeEnum ord_type = 1 [(.fix.tag) = 40, (.fix.type) = DATATYPE_CHAR, (.fix.field_added) = VERSION_FIX_5_0];</code>
+     * @return This builder for chaining.
      */
     public Builder clearOrdType() {
       

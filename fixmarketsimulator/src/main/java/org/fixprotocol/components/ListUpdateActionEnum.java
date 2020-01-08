@@ -54,6 +54,8 @@ public enum ListUpdateActionEnum
   }
 
   /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
@@ -61,6 +63,10 @@ public enum ListUpdateActionEnum
     return forNumber(value);
   }
 
+  /**
+   * @param value The numeric wire value of the corresponding enum entry.
+   * @return The enum associated with the given numeric wire value.
+   */
   public static ListUpdateActionEnum forNumber(int value) {
     switch (value) {
       case 0: return LIST_UPDATE_ACTION_UNSPECIFIED;
