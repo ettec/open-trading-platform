@@ -8,3 +8,5 @@
 20200108-11:00:53: Created session: FIXT.1.1:EXEC->BANZAI
 20200108-11:16:13: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
 20200108-11:16:13: Created session: FIXT.1.1:EXEC->BANZAI
+20200109-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200110-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI

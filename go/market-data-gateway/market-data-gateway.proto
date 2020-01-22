@@ -1,0 +1,15 @@
+syntax = "proto3";
+package marketdatagateway;
+import "marketdata.proto";
+import "google/protobuf/empty.proto";
+
+option go_package="service";
+
+message SubscribeRequest {
+    string partyId = 1;
+}
+
+service MarketDataService{
+    rpc Subscribe(MarketData.MarketDataRequest) returns (google.protobuf.Empty) {};
+    rpc Connect(SubscribeRequest) returns (stream MarketData.MarketDataSnapshotFullRefresh) {};
+} 

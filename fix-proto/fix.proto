@@ -1,0 +1,141 @@
+//
+//	FIX Unified Repository mapping to Google Protocol Buffers
+//
+//	Copyright (c) FIX Trading Community. All Rights Reserved.
+//
+//	Category: fix
+//
+//	File: fix.proto
+//
+syntax = "proto3";
+import "google/protobuf/descriptor.proto";
+
+option java_package = "org.fixprotocol.components";
+option java_outer_classname = "Fix";
+option go_package="fix";
+
+package fix;
+
+extend google.protobuf.FileOptions {
+        string category = 53002;
+}
+
+extend google.protobuf.MessageOptions {
+        string msg_type_value = 55001;
+}
+
+extend google.protobuf.FieldOptions {
+        fixed32 tag = 56003;
+        DatatypeEnum type = 56004;
+        VersionEnum field_added = 56005;
+        sfixed32 field_added_ep = 56006;
+        VersionEnum field_deprecated = 56007;
+        fixed32 group_tag = 56008;
+}
+
+extend google.protobuf.EnumValueOptions {
+        string enum_value = 72004;
+        VersionEnum enum_added = 72005;
+        sfixed32 enum_added_ep = 72006;
+        VersionEnum enum_deprecated = 72007;
+}
+
+enum VersionEnum {
+    VERSION_UNSPECIFIED = 0;
+    VERSION_FIX_2_7 = 1;
+    VERSION_FIX_3_0 = 2;
+    VERSION_FIX_4_0 = 3;
+    VERSION_FIX_4_1 = 4;
+    VERSION_FIX_4_2 = 5;
+    VERSION_FIX_4_3 = 6;
+    VERSION_FIX_4_4 = 7;
+    VERSION_FIX_5_0 = 8;
+    VERSION_FIXT_1_1 = 9;
+    VERSION_FIX_5_0SP1 = 10;
+    VERSION_FIX_5_0SP2 = 11;
+}
+
+enum DatatypeEnum {
+    DATATYPE_UNSPECIFIED = 0;
+    DATATYPE_CHAR = 1                   [(enum_added)=VERSION_FIX_2_7];
+    DATATYPE_DATA = 2                   [(enum_added)=VERSION_FIX_2_7];
+    DATATYPE_FLOAT = 3                  [(enum_added)=VERSION_FIX_2_7];
+    DATATYPE_INT = 4                    [(enum_added)=VERSION_FIX_2_7];
+    DATATYPE_DAY_OF_MONTH = 5           [(enum_added)=VERSION_FIX_4_1];
+    DATATYPE_MONTH_YEAR = 6             [(enum_added)=VERSION_FIX_4_1];
+    DATATYPE_AMT = 7                    [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_BOOLEAN = 8                [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_CURRENCY = 9               [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_EXCHANGE = 10              [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_LOCAL_MKT_DATE = 11        [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_MULTIPLE_STRING_VALUE = 12 [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_PRICE = 13                 [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_PRICE_OFFSET = 14          [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_QTY = 15                   [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_STRING = 16                [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_UTC_TIMESTAMP = 17         [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_UTC_TIME_ONLY = 18         [(enum_added)=VERSION_FIX_4_2];
+    DATATYPE_LENGTH = 19                [(enum_added)=VERSION_FIX_4_3];
+    DATATYPE_NUM_IN_GROUP = 20          [(enum_added)=VERSION_FIX_4_3];
+    DATATYPE_PERCENTAGE = 21            [(enum_added)=VERSION_FIX_4_3];
+    DATATYPE_SEQ_NUM = 22               [(enum_added)=VERSION_FIX_4_3];
+    DATATYPE_TAG_NUM = 23               [(enum_added)=VERSION_FIX_4_3];
+    DATATYPE_COUNTRY = 24               [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_MULTIPLE_CHAR_VALUE = 25   [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_PATTERN = 26               [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_RESERVED1000PLUS = 27      [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_RESERVED100PLUS = 28       [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_RESERVED4000PLUS = 29      [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_TENOR = 30                 [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_TZ_TIMESTAMP = 31          [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_TZ_TIME_ONLY = 32          [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_UTC_DATE_ONLY = 33         [(enum_added)=VERSION_FIX_4_4];
+    DATATYPE_XML_DATA = 34              [(enum_added)=VERSION_FIX_5_0];
+    DATATYPE_LANGUAGE = 35              [(enum_added)=VERSION_FIX_5_0SP1];
+}
+
+message Tenor {
+    uint32 days = 1;
+    uint32 weeks = 2;
+    uint32 months = 3;
+    uint32 years = 4;
+}
+
+message Decimal32 {
+    sfixed32 mantissa = 1;
+    sfixed32 exponent = 2;
+}
+
+message Decimal64 {
+    sfixed64 mantissa = 1;
+    sfixed32 exponent = 2;
+}
+
+message Timestamp {
+    int64 seconds = 1;
+    int32 nanos = 2;
+}
+
+message TimeOnly {
+    int64 seconds = 1;
+    int32 nanos = 2;
+}
+
+message LocalTimestamp {
+    sint32 date = 1;
+    int32 hours = 2;
+    int32 minutes = 3;
+    int32 seconds = 4;
+    int32 nanos = 5;
+    sint32 hoursOffset = 6;
+    sint32 minutesOffset = 7;
+}
+
+message LocalTimeOnly {
+    int32 hours = 1;
+    int32 minutes = 2;
+    int32 seconds = 3;
+    int32 nanos = 4;
+    sint32 hoursOffset = 5;
+    sint32 minutesOffset = 6;
+}
