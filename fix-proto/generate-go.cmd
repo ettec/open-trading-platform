@@ -36,14 +36,31 @@ sed -i 's/LocalTimeOnly/fix.LocalTimeOnly/g' $GOFILE
 sed -i 's/ Tenor/fix.Tenor/g' $GOFILE
 sed -i 's/*Tenor/*fix.Tenor/g' $GOFILE
 sed -i 's/*TimeOnly/*fix.TimeOnly/g' $GOFILE
-sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/fix\"/g' $GOFILE
 
+sed -i 's/*SpreadOrBenchmarkCurveData/*common.SpreadOrBenchmarkCurveData/g' $GOFILE
+sed -i 's/*YieldData/*common.YieldData/g' $GOFILE
+sed -i 's/*RateSource/*common.RateSource/g' $GOFILE
+sed -i 's/*Parties/*common.Parties/g' $GOFILE
+sed -i 's/*InstrmtLegGrp/*common.InstrmtLegGrp/g' $GOFILE
+sed -i 's/*Instrument/*common.Instrument/g' $GOFILE
+
+
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/fix\"/g' $GOFILE
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/common\/common\"/g' $GOFILE
 
 mkdir -p $SVC_PATH/internal/fix/meta
 protoc ./meta.proto --go_out=$SVC_PATH/internal/fix/meta --proto_path=$SVC_PATH:.
 
 mkdir -p $SVC_PATH/internal/fix/session
 protoc ./session.proto --go_out=$SVC_PATH/internal/fix/session --proto_path=$SVC_PATH:.
+GOFILE=$SVC_PATH/internal/fix/session/session.pb.go
+sed -i 's/MsgTypeGrp/common.MsgTypeGrp/g' $GOFILE
+sed -i 's/Timestamp/fix.Timestamp/g' $GOFILE
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/fix\"/g' $GOFILE
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/common\/common\"/g' $GOFILE
+
+
+
 
 
 #fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
