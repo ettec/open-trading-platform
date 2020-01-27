@@ -4,7 +4,8 @@
 package marketdata
 
 import (
-	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/common/common"
+session "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/session"
+	common "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
@@ -3268,7 +3269,7 @@ type MDIncGrp struct {
 	//	*MDIncGrp_TradingSessionSubId
 	//	*MDIncGrp_TradingSessionSubIdReserved100Plus
 	TradingSessionSubIdUnion isMDIncGrp_TradingSessionSubIdUnion `protobuf_oneof:"trading_session_sub_id_union"`
-	UndInstrmtGrp            []*UndInstrmtGrp                    `protobuf:"bytes,62,rep,name=und_instrmt_grp,json=undInstrmtGrp,proto3" json:"und_instrmt_grp,omitempty"`
+	UndInstrmtGrp            []*common.UndInstrmtGrp                    `protobuf:"bytes,62,rep,name=und_instrmt_grp,json=undInstrmtGrp,proto3" json:"und_instrmt_grp,omitempty"`
 	// Types that are valid to be assigned to HaltReasonUnion:
 	//	*MDIncGrp_HaltReason
 	//	*MDIncGrp_HaltReasonReserved100Plus
@@ -3824,7 +3825,7 @@ func (m *MDIncGrp) GetTradingSessionSubIdReserved100Plus() uint32 {
 	return 0
 }
 
-func (m *MDIncGrp) GetUndInstrmtGrp() []*UndInstrmtGrp {
+func (m *MDIncGrp) GetUndInstrmtGrp() []*common.UndInstrmtGrp {
 	if m != nil {
 		return m.UndInstrmtGrp
 	}
@@ -4659,18 +4660,18 @@ type MarketDataRequest struct {
 	MarketDepth             int64                       `protobuf:"fixed64,2,opt,name=market_depth,json=marketDepth,proto3" json:"market_depth,omitempty"`
 	MdReqId                 string                      `protobuf:"bytes,3,opt,name=md_req_id,json=mdReqId,proto3" json:"md_req_id,omitempty"`
 	MdUpdateType            MDUpdateTypeEnum            `protobuf:"varint,4,opt,name=md_update_type,json=mdUpdateType,proto3,enum=MarketData.MDUpdateTypeEnum" json:"md_update_type,omitempty"`
-	StandardHeader          *StandardHeader             `protobuf:"bytes,5,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer         *StandardTrailer            `protobuf:"bytes,6,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader          *session.StandardHeader             `protobuf:"bytes,5,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer         *session.StandardTrailer            `protobuf:"bytes,6,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	SubscriptionRequestType SubscriptionRequestTypeEnum `protobuf:"varint,7,opt,name=subscription_request_type,json=subscriptionRequestType,proto3,enum=MarketData.SubscriptionRequestTypeEnum" json:"subscription_request_type,omitempty"`
 	MdImplicitDelete        bool                        `protobuf:"varint,8,opt,name=md_implicit_delete,json=mdImplicitDelete,proto3" json:"md_implicit_delete,omitempty"`
 	OpenCloseSettlFlag      []OpenCloseSettlFlagEnum    `protobuf:"varint,9,rep,packed,name=open_close_settl_flag,json=openCloseSettlFlag,proto3,enum=MarketData.OpenCloseSettlFlagEnum" json:"open_close_settl_flag,omitempty"`
 	Scope                   []ScopeEnum                 `protobuf:"varint,10,rep,packed,name=scope,proto3,enum=MarketData.ScopeEnum" json:"scope,omitempty"`
 	ApplQueueAction         ApplQueueActionEnum         `protobuf:"varint,11,opt,name=appl_queue_action,json=applQueueAction,proto3,enum=MarketData.ApplQueueActionEnum" json:"appl_queue_action,omitempty"`
 	ApplQueueMax            int64                       `protobuf:"fixed64,12,opt,name=appl_queue_max,json=applQueueMax,proto3" json:"appl_queue_max,omitempty"`
-	InstrmtMdReqGrp         []*InstrmtMDReqGrp          `protobuf:"bytes,13,rep,name=instrmt_md_req_grp,json=instrmtMdReqGrp,proto3" json:"instrmt_md_req_grp,omitempty"`
+	InstrmtMdReqGrp         []*common.InstrmtMDReqGrp          `protobuf:"bytes,13,rep,name=instrmt_md_req_grp,json=instrmtMdReqGrp,proto3" json:"instrmt_md_req_grp,omitempty"`
 	MdQuoteType             MDQuoteTypeEnum             `protobuf:"varint,14,opt,name=md_quote_type,json=mdQuoteType,proto3,enum=MarketData.MDQuoteTypeEnum" json:"md_quote_type,omitempty"`
 	MdReqGrp                []*MDReqGrp                 `protobuf:"bytes,15,rep,name=md_req_grp,json=mdReqGrp,proto3" json:"md_req_grp,omitempty"`
-	TrdgSesGrp              []*TrdgSesGrp               `protobuf:"bytes,16,rep,name=trdg_ses_grp,json=trdgSesGrp,proto3" json:"trdg_ses_grp,omitempty"`
+	TrdgSesGrp              []*common.TrdgSesGrp               `protobuf:"bytes,16,rep,name=trdg_ses_grp,json=trdgSesGrp,proto3" json:"trdg_ses_grp,omitempty"`
 	Parties                 []*common.Parties                  `protobuf:"bytes,17,rep,name=parties,proto3" json:"parties,omitempty"`
 	XXX_NoUnkeyedLiteral    struct{}                    `json:"-"`
 	XXX_unrecognized        []byte                      `json:"-"`
@@ -4730,14 +4731,14 @@ func (m *MarketDataRequest) GetMdUpdateType() MDUpdateTypeEnum {
 	return MDUpdateTypeEnum_MD_UPDATE_TYPE_UNSPECIFIED
 }
 
-func (m *MarketDataRequest) GetStandardHeader() *StandardHeader {
+func (m *MarketDataRequest) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *MarketDataRequest) GetStandardTrailer() *StandardTrailer {
+func (m *MarketDataRequest) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}
@@ -4786,7 +4787,7 @@ func (m *MarketDataRequest) GetApplQueueMax() int64 {
 	return 0
 }
 
-func (m *MarketDataRequest) GetInstrmtMdReqGrp() []*InstrmtMDReqGrp {
+func (m *MarketDataRequest) GetInstrmtMdReqGrp() []*common.InstrmtMDReqGrp {
 	if m != nil {
 		return m.InstrmtMdReqGrp
 	}
@@ -4807,7 +4808,7 @@ func (m *MarketDataRequest) GetMdReqGrp() []*MDReqGrp {
 	return nil
 }
 
-func (m *MarketDataRequest) GetTrdgSesGrp() []*TrdgSesGrp {
+func (m *MarketDataRequest) GetTrdgSesGrp() []*common.TrdgSesGrp {
 	if m != nil {
 		return m.TrdgSesGrp
 	}
@@ -4825,8 +4826,8 @@ type MarketDataSnapshotFullRefresh struct {
 	CorporateAction            []CorporateActionEnum       `protobuf:"varint,1,rep,packed,name=corporate_action,json=corporateAction,proto3,enum=MarketData.CorporateActionEnum" json:"corporate_action,omitempty"`
 	FinancialStatus            []FinancialStatusEnum       `protobuf:"varint,2,rep,packed,name=financial_status,json=financialStatus,proto3,enum=MarketData.FinancialStatusEnum" json:"financial_status,omitempty"`
 	MdReqId                    string                      `protobuf:"bytes,3,opt,name=md_req_id,json=mdReqId,proto3" json:"md_req_id,omitempty"`
-	StandardHeader             *StandardHeader             `protobuf:"bytes,4,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer            *StandardTrailer            `protobuf:"bytes,5,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader             *session.StandardHeader             `protobuf:"bytes,4,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer            *session.StandardTrailer            `protobuf:"bytes,5,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	Instrument                 *common.Instrument                 `protobuf:"bytes,6,opt,name=instrument,proto3" json:"instrument,omitempty"`
 	NetChgPrevDay              *fix.Decimal64                  `protobuf:"bytes,7,opt,name=net_chg_prev_day,json=netChgPrevDay,proto3" json:"net_chg_prev_day,omitempty"`
 	ApplQueueDepth             int64                       `protobuf:"fixed64,8,opt,name=appl_queue_depth,json=applQueueDepth,proto3" json:"appl_queue_depth,omitempty"`
@@ -4837,10 +4838,10 @@ type MarketDataSnapshotFullRefresh struct {
 	MdFeedType                 string                      `protobuf:"bytes,13,opt,name=md_feed_type,json=mdFeedType,proto3" json:"md_feed_type,omitempty"`
 	MdFullGrp                  []*MDFullGrp                `protobuf:"bytes,14,rep,name=md_full_grp,json=mdFullGrp,proto3" json:"md_full_grp,omitempty"`
 	MdReportId                 int64                       `protobuf:"fixed64,15,opt,name=md_report_id,json=mdReportId,proto3" json:"md_report_id,omitempty"`
-	RoutingGrp                 []*RoutingGrp               `protobuf:"bytes,16,rep,name=routing_grp,json=routingGrp,proto3" json:"routing_grp,omitempty"`
+	RoutingGrp                 []*common.RoutingGrp               `protobuf:"bytes,16,rep,name=routing_grp,json=routingGrp,proto3" json:"routing_grp,omitempty"`
 	TradeDate                  int32                       `protobuf:"fixed32,17,opt,name=trade_date,json=tradeDate,proto3" json:"trade_date,omitempty"`
-	UndInstrmtGrp              []*UndInstrmtGrp            `protobuf:"bytes,18,rep,name=und_instrmt_grp,json=undInstrmtGrp,proto3" json:"und_instrmt_grp,omitempty"`
-	ApplicationSequenceControl *ApplicationSequenceControl `protobuf:"bytes,19,opt,name=application_sequence_control,json=applicationSequenceControl,proto3" json:"application_sequence_control,omitempty"`
+	UndInstrmtGrp              []*common.UndInstrmtGrp            `protobuf:"bytes,18,rep,name=und_instrmt_grp,json=undInstrmtGrp,proto3" json:"und_instrmt_grp,omitempty"`
+	ApplicationSequenceControl *common.ApplicationSequenceControl `protobuf:"bytes,19,opt,name=application_sequence_control,json=applicationSequenceControl,proto3" json:"application_sequence_control,omitempty"`
 	MarketDepth                int64                       `protobuf:"fixed64,20,opt,name=market_depth,json=marketDepth,proto3" json:"market_depth,omitempty"`
 	MdSubBookType              int64                       `protobuf:"fixed64,21,opt,name=md_sub_book_type,json=mdSubBookType,proto3" json:"md_sub_book_type,omitempty"`
 	RefreshIndicator           bool                        `protobuf:"varint,22,opt,name=refresh_indicator,json=refreshIndicator,proto3" json:"refresh_indicator,omitempty"`
@@ -4897,14 +4898,14 @@ func (m *MarketDataSnapshotFullRefresh) GetMdReqId() string {
 	return ""
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetStandardHeader() *StandardHeader {
+func (m *MarketDataSnapshotFullRefresh) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetStandardTrailer() *StandardTrailer {
+func (m *MarketDataSnapshotFullRefresh) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}
@@ -4981,7 +4982,7 @@ func (m *MarketDataSnapshotFullRefresh) GetMdReportId() int64 {
 	return 0
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetRoutingGrp() []*RoutingGrp {
+func (m *MarketDataSnapshotFullRefresh) GetRoutingGrp() []*common.RoutingGrp {
 	if m != nil {
 		return m.RoutingGrp
 	}
@@ -4995,14 +4996,14 @@ func (m *MarketDataSnapshotFullRefresh) GetTradeDate() int32 {
 	return 0
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetUndInstrmtGrp() []*UndInstrmtGrp {
+func (m *MarketDataSnapshotFullRefresh) GetUndInstrmtGrp() []*common.UndInstrmtGrp {
 	if m != nil {
 		return m.UndInstrmtGrp
 	}
 	return nil
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetApplicationSequenceControl() *ApplicationSequenceControl {
+func (m *MarketDataSnapshotFullRefresh) GetApplicationSequenceControl() *common.ApplicationSequenceControl {
 	if m != nil {
 		return m.ApplicationSequenceControl
 	}
@@ -5046,16 +5047,16 @@ func (m *MarketDataSnapshotFullRefresh) GetMdStreamId() string {
 
 type MarketDataIncrementalRefresh struct {
 	MdReqId                    string                      `protobuf:"bytes,1,opt,name=md_req_id,json=mdReqId,proto3" json:"md_req_id,omitempty"`
-	StandardHeader             *StandardHeader             `protobuf:"bytes,2,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer            *StandardTrailer            `protobuf:"bytes,3,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader             *session.StandardHeader             `protobuf:"bytes,2,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer            *session.StandardTrailer            `protobuf:"bytes,3,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	ApplQueueDepth             int64                       `protobuf:"fixed64,4,opt,name=appl_queue_depth,json=applQueueDepth,proto3" json:"appl_queue_depth,omitempty"`
 	ApplQueueResolution        ApplQueueResolutionEnum     `protobuf:"varint,5,opt,name=appl_queue_resolution,json=applQueueResolution,proto3,enum=MarketData.ApplQueueResolutionEnum" json:"appl_queue_resolution,omitempty"`
 	MdBookType                 MDBookTypeEnum              `protobuf:"varint,6,opt,name=md_book_type,json=mdBookType,proto3,enum=MarketData.MDBookTypeEnum" json:"md_book_type,omitempty"`
 	MdFeedType                 string                      `protobuf:"bytes,7,opt,name=md_feed_type,json=mdFeedType,proto3" json:"md_feed_type,omitempty"`
 	MdIncGrp                   []*MDIncGrp                 `protobuf:"bytes,8,rep,name=md_inc_grp,json=mdIncGrp,proto3" json:"md_inc_grp,omitempty"`
-	RoutingGrp                 []*RoutingGrp               `protobuf:"bytes,9,rep,name=routing_grp,json=routingGrp,proto3" json:"routing_grp,omitempty"`
+	RoutingGrp                 []*common.RoutingGrp               `protobuf:"bytes,9,rep,name=routing_grp,json=routingGrp,proto3" json:"routing_grp,omitempty"`
 	TradeDate                  int32                       `protobuf:"fixed32,10,opt,name=trade_date,json=tradeDate,proto3" json:"trade_date,omitempty"`
-	ApplicationSequenceControl *ApplicationSequenceControl `protobuf:"bytes,11,opt,name=application_sequence_control,json=applicationSequenceControl,proto3" json:"application_sequence_control,omitempty"`
+	ApplicationSequenceControl *common.ApplicationSequenceControl `protobuf:"bytes,11,opt,name=application_sequence_control,json=applicationSequenceControl,proto3" json:"application_sequence_control,omitempty"`
 	XXX_NoUnkeyedLiteral       struct{}                    `json:"-"`
 	XXX_unrecognized           []byte                      `json:"-"`
 	XXX_sizecache              int32                       `json:"-"`
@@ -5093,14 +5094,14 @@ func (m *MarketDataIncrementalRefresh) GetMdReqId() string {
 	return ""
 }
 
-func (m *MarketDataIncrementalRefresh) GetStandardHeader() *StandardHeader {
+func (m *MarketDataIncrementalRefresh) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *MarketDataIncrementalRefresh) GetStandardTrailer() *StandardTrailer {
+func (m *MarketDataIncrementalRefresh) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}
@@ -5142,7 +5143,7 @@ func (m *MarketDataIncrementalRefresh) GetMdIncGrp() []*MDIncGrp {
 	return nil
 }
 
-func (m *MarketDataIncrementalRefresh) GetRoutingGrp() []*RoutingGrp {
+func (m *MarketDataIncrementalRefresh) GetRoutingGrp() []*common.RoutingGrp {
 	if m != nil {
 		return m.RoutingGrp
 	}
@@ -5156,7 +5157,7 @@ func (m *MarketDataIncrementalRefresh) GetTradeDate() int32 {
 	return 0
 }
 
-func (m *MarketDataIncrementalRefresh) GetApplicationSequenceControl() *ApplicationSequenceControl {
+func (m *MarketDataIncrementalRefresh) GetApplicationSequenceControl() *common.ApplicationSequenceControl {
 	if m != nil {
 		return m.ApplicationSequenceControl
 	}
@@ -5168,8 +5169,8 @@ type MarketDataRequestReject struct {
 	EncodedTextLen       int64              `protobuf:"fixed64,2,opt,name=encoded_text_len,json=encodedTextLen,proto3" json:"encoded_text_len,omitempty"`
 	MdReqId              string             `protobuf:"bytes,3,opt,name=md_req_id,json=mdReqId,proto3" json:"md_req_id,omitempty"`
 	MdReqRejReason       MDReqRejReasonEnum `protobuf:"varint,4,opt,name=md_req_rej_reason,json=mdReqRejReason,proto3,enum=MarketData.MDReqRejReasonEnum" json:"md_req_rej_reason,omitempty"`
-	StandardHeader       *StandardHeader    `protobuf:"bytes,5,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer      *StandardTrailer   `protobuf:"bytes,6,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader       *session.StandardHeader    `protobuf:"bytes,5,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer      *session.StandardTrailer   `protobuf:"bytes,6,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	Text                 string             `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
 	MdRjctGrp            []*MDRjctGrp       `protobuf:"bytes,8,rep,name=md_rjct_grp,json=mdRjctGrp,proto3" json:"md_rjct_grp,omitempty"`
 	Parties              []*common.Parties         `protobuf:"bytes,9,rep,name=parties,proto3" json:"parties,omitempty"`
@@ -5231,14 +5232,14 @@ func (m *MarketDataRequestReject) GetMdReqRejReason() MDReqRejReasonEnum {
 	return MDReqRejReasonEnum_MD_REQ_REJ_REASON_UNSPECIFIED
 }
 
-func (m *MarketDataRequestReject) GetStandardHeader() *StandardHeader {
+func (m *MarketDataRequestReject) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *MarketDataRequestReject) GetStandardTrailer() *StandardTrailer {
+func (m *MarketDataRequestReject) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}
@@ -5267,8 +5268,8 @@ func (m *MarketDataRequestReject) GetParties() []*common.Parties {
 }
 
 type StreamAssignmentRequest struct {
-	StandardHeader       *StandardHeader       `protobuf:"bytes,1,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer      *StandardTrailer      `protobuf:"bytes,2,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader       *session.StandardHeader       `protobuf:"bytes,1,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer      *session.StandardTrailer      `protobuf:"bytes,2,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	StrmAsgnReqGrp       []*StrmAsgnReqGrp     `protobuf:"bytes,3,rep,name=strm_asgn_req_grp,json=strmAsgnReqGrp,proto3" json:"strm_asgn_req_grp,omitempty"`
 	StreamAsgnReqId      string                `protobuf:"bytes,4,opt,name=stream_asgn_req_id,json=streamAsgnReqId,proto3" json:"stream_asgn_req_id,omitempty"`
 	StreamAsgnReqType    StreamAsgnReqTypeEnum `protobuf:"varint,5,opt,name=stream_asgn_req_type,json=streamAsgnReqType,proto3,enum=MarketData.StreamAsgnReqTypeEnum" json:"stream_asgn_req_type,omitempty"`
@@ -5302,14 +5303,14 @@ func (m *StreamAssignmentRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StreamAssignmentRequest proto.InternalMessageInfo
 
-func (m *StreamAssignmentRequest) GetStandardHeader() *StandardHeader {
+func (m *StreamAssignmentRequest) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *StreamAssignmentRequest) GetStandardTrailer() *StandardTrailer {
+func (m *StreamAssignmentRequest) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}
@@ -5338,8 +5339,8 @@ func (m *StreamAssignmentRequest) GetStreamAsgnReqType() StreamAsgnReqTypeEnum {
 }
 
 type StreamAssignmentReport struct {
-	StandardHeader       *StandardHeader       `protobuf:"bytes,1,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer      *StandardTrailer      `protobuf:"bytes,2,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader       *session.StandardHeader       `protobuf:"bytes,1,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer      *session.StandardTrailer      `protobuf:"bytes,2,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	StrmAsgnRptGrp       []*StrmAsgnRptGrp     `protobuf:"bytes,3,rep,name=strm_asgn_rpt_grp,json=strmAsgnRptGrp,proto3" json:"strm_asgn_rpt_grp,omitempty"`
 	StreamAsgnReqId      string                `protobuf:"bytes,4,opt,name=stream_asgn_req_id,json=streamAsgnReqId,proto3" json:"stream_asgn_req_id,omitempty"`
 	StreamAsgnReqType    StreamAsgnReqTypeEnum `protobuf:"varint,5,opt,name=stream_asgn_req_type,json=streamAsgnReqType,proto3,enum=MarketData.StreamAsgnReqTypeEnum" json:"stream_asgn_req_type,omitempty"`
@@ -5374,14 +5375,14 @@ func (m *StreamAssignmentReport) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StreamAssignmentReport proto.InternalMessageInfo
 
-func (m *StreamAssignmentReport) GetStandardHeader() *StandardHeader {
+func (m *StreamAssignmentReport) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *StreamAssignmentReport) GetStandardTrailer() *StandardTrailer {
+func (m *StreamAssignmentReport) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}
@@ -5417,8 +5418,8 @@ func (m *StreamAssignmentReport) GetStreamAsgnRptId() string {
 }
 
 type StreamAssignmentReportACK struct {
-	StandardHeader    *StandardHeader       `protobuf:"bytes,1,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
-	StandardTrailer   *StandardTrailer      `protobuf:"bytes,2,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
+	StandardHeader    *session.StandardHeader       `protobuf:"bytes,1,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
+	StandardTrailer   *session.StandardTrailer      `protobuf:"bytes,2,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	EncodedText       string                `protobuf:"bytes,3,opt,name=encoded_text,json=encodedText,proto3" json:"encoded_text,omitempty"`
 	EncodedTextLen    int64                 `protobuf:"fixed64,4,opt,name=encoded_text_len,json=encodedTextLen,proto3" json:"encoded_text_len,omitempty"`
 	StreamAsgnAckType StreamAsgnAckTypeEnum `protobuf:"varint,5,opt,name=stream_asgn_ack_type,json=streamAsgnAckType,proto3,enum=MarketData.StreamAsgnAckTypeEnum" json:"stream_asgn_ack_type,omitempty"`
@@ -5458,14 +5459,14 @@ func (m *StreamAssignmentReportACK) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StreamAssignmentReportACK proto.InternalMessageInfo
 
-func (m *StreamAssignmentReportACK) GetStandardHeader() *StandardHeader {
+func (m *StreamAssignmentReportACK) GetStandardHeader() *session.StandardHeader {
 	if m != nil {
 		return m.StandardHeader
 	}
 	return nil
 }
 
-func (m *StreamAssignmentReportACK) GetStandardTrailer() *StandardTrailer {
+func (m *StreamAssignmentReportACK) GetStandardTrailer() *session.StandardTrailer {
 	if m != nil {
 		return m.StandardTrailer
 	}

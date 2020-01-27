@@ -3,25 +3,60 @@ package main
 import (
 	"context"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
-	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	"time"
+
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/api"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/golang/protobuf/ptypes/empty"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
-type server struct{}
+type connection struct {
+	quoteChan     chan *marketdata.MarketDataSnapshotFullRefresh
+	stream        api.MarketDataService_ConnectServer
+	subscriptions map[int]bool
+}
 
+type service struct {
+	partyIdToConnection map[string]connection
+}
+
+func newService() *service {
+	return &service{partyIdToConnection: make(map[string]connection)}
+}
+
+func (*service) Subscribe(context.Context, *marketdata.MarketDataRequest) (*empty.Empty, error) {
+	return nil, nil
+}
+
+func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataService_ConnectServer) error {
+
+	/*
+		partyId := request.GetPartyId()
+
+		log
+			con, ok = s.partyIdToConnection[partyId]
+		if ok {
+			return fmt.Errorf("Connection for part")
+		}*/
+
+	return nil
+}
+
+/*
 func (*server) AddSubscription(context context.Context, subscription *model.Subscription) (*model.AddSubscriptionResponse, error) {
 
 	return &model.AddSubscriptionResponse{
-		Message: fmt.Sprintf("Subscription for %v added for subscriber %v", subscription.ListingId , subscription.SubscriberId),
+		Message: fmt.Sprintf("Subscription for %v added for subscriber %v", subscription.ListingId, subscription.SubscriberId),
 	}, nil
 }
 
 func getMetaData(ctx context.Context) (username string, appInstanceId string, err error) {
 	md, ok := metadata.FromIncomingContext(ctx)
+
+
 	if !ok {
 		return "", "", fmt.Errorf("failed to read metadata from the context")
 	}
@@ -43,11 +78,13 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 
 func (*server) Subscribe(request *model.SubscribeRequest, stream model.MarketDataService_SubscribeServer) error {
 
-	/*
+
 		username, appInstanceId, err := getMetaData(stream.Context())
 		if err != nil {
 			return err
-		}*/
+		}
+
+
 
 	marketDataChannel := make(chan *model.Quote, 3)
 
@@ -61,18 +98,18 @@ func (*server) Subscribe(request *model.SubscribeRequest, stream model.MarketDat
 			if i%2 == 0 {
 				marketDataChannel <- &model.Quote{
 					ListingId: 54123,
-					Depth: []*model.DepthLine{{BidSize: &model.Decimal64{Mantissa:10}, BidPrice: &model.Decimal64{Mantissa:13},
-						AskPrice: &model.Decimal64{Mantissa:14}, AskSize: &model.Decimal64{Mantissa:5},},
-						{BidSize: &model.Decimal64{Mantissa:9}, BidPrice: &model.Decimal64{Mantissa:12},
-							AskPrice: &model.Decimal64{Mantissa:15}, AskSize: &model.Decimal64{Mantissa:6},},
+					Depth: []*model.DepthLine{{BidSize: &model.Decimal64{Mantissa: 10}, BidPrice: &model.Decimal64{Mantissa: 13},
+						AskPrice: &model.Decimal64{Mantissa: 14}, AskSize: &model.Decimal64{Mantissa: 5}},
+						{BidSize: &model.Decimal64{Mantissa: 9}, BidPrice: &model.Decimal64{Mantissa: 12},
+							AskPrice: &model.Decimal64{Mantissa: 15}, AskSize: &model.Decimal64{Mantissa: 6}},
 					},
 				}
 			} else {
 				marketDataChannel <- &model.Quote{
 					ListingId: 54123,
 					Depth: []*model.DepthLine{
-						{BidSize: &model.Decimal64{Mantissa:2}, BidPrice: &model.Decimal64{Mantissa:12},
-							AskPrice:&model.Decimal64{Mantissa:15} , AskSize: &model.Decimal64{Mantissa:3},},
+						{BidSize: &model.Decimal64{Mantissa: 2}, BidPrice: &model.Decimal64{Mantissa: 12},
+							AskPrice: &model.Decimal64{Mantissa: 15}, AskSize: &model.Decimal64{Mantissa: 3}},
 					},
 				}
 			}
@@ -87,12 +124,12 @@ func (*server) Subscribe(request *model.SubscribeRequest, stream model.MarketDat
 	}
 
 	return nil
-}
+} */
 
 func main() {
 
 	port := "50551"
-	fmt.Println("Starting Client Market Data Server on the port:" + port)
+	fmt.Println("Starting Client Market Data Gateway on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
@@ -100,7 +137,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	model.RegisterMarketDataServiceServer(s, &server{})
+	api.RegisterMarketDataServiceServer(s, &service{})
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

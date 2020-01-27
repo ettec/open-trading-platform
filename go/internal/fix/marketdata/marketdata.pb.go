@@ -4,6 +4,8 @@
 package marketdata
 
 import (
+	common "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
+	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
@@ -2463,34 +2465,34 @@ type MDFullGrp struct {
 	EncodedTextLen       int64                    `protobuf:"fixed64,5,opt,name=encoded_text_len,json=encodedTextLen,proto3" json:"encoded_text_len,omitempty"`
 	ExecInst             []ExecInstEnum           `protobuf:"varint,6,rep,packed,name=exec_inst,json=execInst,proto3,enum=MarketData.ExecInstEnum" json:"exec_inst,omitempty"`
 	ExpireDate           int32                    `protobuf:"fixed32,7,opt,name=expire_date,json=expireDate,proto3" json:"expire_date,omitempty"`
-	ExpireTime           *Timestamp               `protobuf:"bytes,8,opt,name=expire_time,json=expireTime,proto3" json:"expire_time,omitempty"`
-	HighPx               *Decimal64               `protobuf:"bytes,9,opt,name=high_px,json=highPx,proto3" json:"high_px,omitempty"`
+	ExpireTime           *fix.Timestamp               `protobuf:"bytes,8,opt,name=expire_time,json=expireTime,proto3" json:"expire_time,omitempty"`
+	HighPx               *fix.Decimal64               `protobuf:"bytes,9,opt,name=high_px,json=highPx,proto3" json:"high_px,omitempty"`
 	LocationId           string                   `protobuf:"bytes,10,opt,name=location_id,json=locationId,proto3" json:"location_id,omitempty"`
-	LowPx                *Decimal64               `protobuf:"bytes,11,opt,name=low_px,json=lowPx,proto3" json:"low_px,omitempty"`
+	LowPx                *fix.Decimal64               `protobuf:"bytes,11,opt,name=low_px,json=lowPx,proto3" json:"low_px,omitempty"`
 	MdEntryBuyer         string                   `protobuf:"bytes,12,opt,name=md_entry_buyer,json=mdEntryBuyer,proto3" json:"md_entry_buyer,omitempty"`
 	MdEntryDate          int32                    `protobuf:"fixed32,13,opt,name=md_entry_date,json=mdEntryDate,proto3" json:"md_entry_date,omitempty"`
-	MdEntryForwardPoints *Decimal64               `protobuf:"bytes,14,opt,name=md_entry_forward_points,json=mdEntryForwardPoints,proto3" json:"md_entry_forward_points,omitempty"`
+	MdEntryForwardPoints *fix.Decimal64               `protobuf:"bytes,14,opt,name=md_entry_forward_points,json=mdEntryForwardPoints,proto3" json:"md_entry_forward_points,omitempty"`
 	MdEntryId            string                   `protobuf:"bytes,15,opt,name=md_entry_id,json=mdEntryId,proto3" json:"md_entry_id,omitempty"`
 	MdEntryOriginator    string                   `protobuf:"bytes,16,opt,name=md_entry_originator,json=mdEntryOriginator,proto3" json:"md_entry_originator,omitempty"`
 	MdEntryPositionNo    int64                    `protobuf:"fixed64,17,opt,name=md_entry_position_no,json=mdEntryPositionNo,proto3" json:"md_entry_position_no,omitempty"`
-	MdEntryPx            *Decimal64               `protobuf:"bytes,18,opt,name=md_entry_px,json=mdEntryPx,proto3" json:"md_entry_px,omitempty"`
+	MdEntryPx            *fix.Decimal64               `protobuf:"bytes,18,opt,name=md_entry_px,json=mdEntryPx,proto3" json:"md_entry_px,omitempty"`
 	MdEntrySeller        string                   `protobuf:"bytes,19,opt,name=md_entry_seller,json=mdEntrySeller,proto3" json:"md_entry_seller,omitempty"`
-	MdEntrySize          *Decimal64               `protobuf:"bytes,20,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
-	MdEntrySpotRate      *Decimal64               `protobuf:"bytes,21,opt,name=md_entry_spot_rate,json=mdEntrySpotRate,proto3" json:"md_entry_spot_rate,omitempty"`
-	MdEntryTime          *TimeOnly                `protobuf:"bytes,22,opt,name=md_entry_time,json=mdEntryTime,proto3" json:"md_entry_time,omitempty"`
+	MdEntrySize          *fix.Decimal64               `protobuf:"bytes,20,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
+	MdEntrySpotRate      *fix.Decimal64               `protobuf:"bytes,21,opt,name=md_entry_spot_rate,json=mdEntrySpotRate,proto3" json:"md_entry_spot_rate,omitempty"`
+	MdEntryTime          *fix.TimeOnly                `protobuf:"bytes,22,opt,name=md_entry_time,json=mdEntryTime,proto3" json:"md_entry_time,omitempty"`
 	MdEntryType          MDEntryTypeEnum          `protobuf:"varint,23,opt,name=md_entry_type,json=mdEntryType,proto3,enum=MarketData.MDEntryTypeEnum" json:"md_entry_type,omitempty"`
 	MdMkt                string                   `protobuf:"bytes,24,opt,name=md_mkt,json=mdMkt,proto3" json:"md_mkt,omitempty"`
 	MdOriginType         MDOriginTypeEnum         `protobuf:"varint,25,opt,name=md_origin_type,json=mdOriginType,proto3,enum=MarketData.MDOriginTypeEnum" json:"md_origin_type,omitempty"`
 	MdPriceLevel         int64                    `protobuf:"fixed64,26,opt,name=md_price_level,json=mdPriceLevel,proto3" json:"md_price_level,omitempty"`
 	MdQuoteType          MDQuoteTypeEnum          `protobuf:"varint,27,opt,name=md_quote_type,json=mdQuoteType,proto3,enum=MarketData.MDQuoteTypeEnum" json:"md_quote_type,omitempty"`
-	MinQty               *Decimal64               `protobuf:"bytes,28,opt,name=min_qty,json=minQty,proto3" json:"min_qty,omitempty"`
+	MinQty               *fix.Decimal64               `protobuf:"bytes,28,opt,name=min_qty,json=minQty,proto3" json:"min_qty,omitempty"`
 	NumberOfOrders       int64                    `protobuf:"fixed64,29,opt,name=number_of_orders,json=numberOfOrders,proto3" json:"number_of_orders,omitempty"`
 	OpenCloseSettlFlag   []OpenCloseSettlFlagEnum `protobuf:"varint,30,rep,packed,name=open_close_settl_flag,json=openCloseSettlFlag,proto3,enum=MarketData.OpenCloseSettlFlagEnum" json:"open_close_settl_flag,omitempty"`
 	OrdType              OrdTypeEnum              `protobuf:"varint,31,opt,name=ord_type,json=ordType,proto3,enum=MarketData.OrdTypeEnum" json:"ord_type,omitempty"`
 	OrderCapacity        OrderCapacityEnum        `protobuf:"varint,32,opt,name=order_capacity,json=orderCapacity,proto3,enum=MarketData.OrderCapacityEnum" json:"order_capacity,omitempty"`
 	OrderId              string                   `protobuf:"bytes,33,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	Parties              []*Parties               `protobuf:"bytes,34,rep,name=parties,proto3" json:"parties,omitempty"`
-	PriceDelta           *Decimal64               `protobuf:"bytes,35,opt,name=price_delta,json=priceDelta,proto3" json:"price_delta,omitempty"`
+	Parties              []*common.Parties               `protobuf:"bytes,34,rep,name=parties,proto3" json:"parties,omitempty"`
+	PriceDelta           *fix.Decimal64               `protobuf:"bytes,35,opt,name=price_delta,json=priceDelta,proto3" json:"price_delta,omitempty"`
 	QuoteCondition       []QuoteConditionEnum     `protobuf:"varint,36,rep,packed,name=quote_condition,json=quoteCondition,proto3,enum=MarketData.QuoteConditionEnum" json:"quote_condition,omitempty"`
 	QuoteEntryId         string                   `protobuf:"bytes,37,opt,name=quote_entry_id,json=quoteEntryId,proto3" json:"quote_entry_id,omitempty"`
 	RptSeq               int64                    `protobuf:"fixed64,38,opt,name=rpt_seq,json=rptSeq,proto3" json:"rpt_seq,omitempty"`
@@ -2506,7 +2508,7 @@ type MDFullGrp struct {
 	TickDirection  TickDirectionEnum          `protobuf:"varint,46,opt,name=tick_direction,json=tickDirection,proto3,enum=MarketData.TickDirectionEnum" json:"tick_direction,omitempty"`
 	TimeInForce    TimeInForceEnum            `protobuf:"varint,47,opt,name=time_in_force,json=timeInForce,proto3,enum=MarketData.TimeInForceEnum" json:"time_in_force,omitempty"`
 	TradeCondition []TradeConditionEnum       `protobuf:"varint,48,rep,packed,name=trade_condition,json=tradeCondition,proto3,enum=MarketData.TradeConditionEnum" json:"trade_condition,omitempty"`
-	TradeVolume    *Decimal64                 `protobuf:"bytes,49,opt,name=trade_volume,json=tradeVolume,proto3" json:"trade_volume,omitempty"`
+	TradeVolume    *fix.Decimal64                 `protobuf:"bytes,49,opt,name=trade_volume,json=tradeVolume,proto3" json:"trade_volume,omitempty"`
 	// Types that are valid to be assigned to TradingSessionIdUnion:
 	//	*MDFullGrp_TradingSessionId
 	//	*MDFullGrp_TradingSessionIdReserved100Plus
@@ -2526,12 +2528,12 @@ type MDFullGrp struct {
 	//	*MDFullGrp_SecurityTradingStatus
 	//	*MDFullGrp_SecurityTradingStatusReserved100Plus
 	SecurityTradingStatusUnion isMDFullGrp_SecurityTradingStatusUnion `protobuf_oneof:"security_trading_status_union"`
-	SpreadOrBenchmarkCurveData *SpreadOrBenchmarkCurveData            `protobuf:"bytes,61,opt,name=spread_or_benchmark_curve_data,json=spreadOrBenchmarkCurveData,proto3" json:"spread_or_benchmark_curve_data,omitempty"`
-	YieldData                  *YieldData                             `protobuf:"bytes,62,opt,name=yield_data,json=yieldData,proto3" json:"yield_data,omitempty"`
-	RateSource                 []*RateSource                          `protobuf:"bytes,63,rep,name=rate_source,json=rateSource,proto3" json:"rate_source,omitempty"`
+	SpreadOrBenchmarkCurveData *common.SpreadOrBenchmarkCurveData            `protobuf:"bytes,61,opt,name=spread_or_benchmark_curve_data,json=spreadOrBenchmarkCurveData,proto3" json:"spread_or_benchmark_curve_data,omitempty"`
+	YieldData                  *common.YieldData                             `protobuf:"bytes,62,opt,name=yield_data,json=yieldData,proto3" json:"yield_data,omitempty"`
+	RateSource                 []*common.RateSource                          `protobuf:"bytes,63,rep,name=rate_source,json=rateSource,proto3" json:"rate_source,omitempty"`
 	SettlCurrency              string                                 `protobuf:"bytes,64,opt,name=settl_currency,json=settlCurrency,proto3" json:"settl_currency,omitempty"`
-	FirstPx                    *Decimal64                             `protobuf:"bytes,65,opt,name=first_px,json=firstPx,proto3" json:"first_px,omitempty"`
-	LastPx                     *Decimal64                             `protobuf:"bytes,66,opt,name=last_px,json=lastPx,proto3" json:"last_px,omitempty"`
+	FirstPx                    *fix.Decimal64                             `protobuf:"bytes,65,opt,name=first_px,json=firstPx,proto3" json:"first_px,omitempty"`
+	LastPx                     *fix.Decimal64                             `protobuf:"bytes,66,opt,name=last_px,json=lastPx,proto3" json:"last_px,omitempty"`
 	// Types that are valid to be assigned to TrdTypeUnion:
 	//	*MDFullGrp_TrdType
 	//	*MDFullGrp_TrdTypeReserved1000Plus
@@ -2615,14 +2617,14 @@ func (m *MDFullGrp) GetExpireDate() int32 {
 	return 0
 }
 
-func (m *MDFullGrp) GetExpireTime() *Timestamp {
+func (m *MDFullGrp) GetExpireTime() *fix.Timestamp {
 	if m != nil {
 		return m.ExpireTime
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetHighPx() *Decimal64 {
+func (m *MDFullGrp) GetHighPx() *fix.Decimal64 {
 	if m != nil {
 		return m.HighPx
 	}
@@ -2636,7 +2638,7 @@ func (m *MDFullGrp) GetLocationId() string {
 	return ""
 }
 
-func (m *MDFullGrp) GetLowPx() *Decimal64 {
+func (m *MDFullGrp) GetLowPx() *fix.Decimal64 {
 	if m != nil {
 		return m.LowPx
 	}
@@ -2657,7 +2659,7 @@ func (m *MDFullGrp) GetMdEntryDate() int32 {
 	return 0
 }
 
-func (m *MDFullGrp) GetMdEntryForwardPoints() *Decimal64 {
+func (m *MDFullGrp) GetMdEntryForwardPoints() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntryForwardPoints
 	}
@@ -2685,7 +2687,7 @@ func (m *MDFullGrp) GetMdEntryPositionNo() int64 {
 	return 0
 }
 
-func (m *MDFullGrp) GetMdEntryPx() *Decimal64 {
+func (m *MDFullGrp) GetMdEntryPx() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntryPx
 	}
@@ -2699,21 +2701,21 @@ func (m *MDFullGrp) GetMdEntrySeller() string {
 	return ""
 }
 
-func (m *MDFullGrp) GetMdEntrySize() *Decimal64 {
+func (m *MDFullGrp) GetMdEntrySize() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntrySize
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetMdEntrySpotRate() *Decimal64 {
+func (m *MDFullGrp) GetMdEntrySpotRate() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntrySpotRate
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetMdEntryTime() *TimeOnly {
+func (m *MDFullGrp) GetMdEntryTime() *fix.TimeOnly {
 	if m != nil {
 		return m.MdEntryTime
 	}
@@ -2755,7 +2757,7 @@ func (m *MDFullGrp) GetMdQuoteType() MDQuoteTypeEnum {
 	return MDQuoteTypeEnum_MD_QUOTE_TYPE_UNSPECIFIED
 }
 
-func (m *MDFullGrp) GetMinQty() *Decimal64 {
+func (m *MDFullGrp) GetMinQty() *fix.Decimal64 {
 	if m != nil {
 		return m.MinQty
 	}
@@ -2797,14 +2799,14 @@ func (m *MDFullGrp) GetOrderId() string {
 	return ""
 }
 
-func (m *MDFullGrp) GetParties() []*Parties {
+func (m *MDFullGrp) GetParties() []*common.Parties {
 	if m != nil {
 		return m.Parties
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetPriceDelta() *Decimal64 {
+func (m *MDFullGrp) GetPriceDelta() *fix.Decimal64 {
 	if m != nil {
 		return m.PriceDelta
 	}
@@ -2869,7 +2871,7 @@ type MDFullGrp_SettlType struct {
 }
 
 type MDFullGrp_SettlTypeTenor struct {
-	SettlTypeTenor *Tenor `protobuf:"bytes,44,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
+	SettlTypeTenor *fix.Tenor `protobuf:"bytes,44,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
 }
 
 func (*MDFullGrp_SettlType) isMDFullGrp_SettlTypeUnion() {}
@@ -2890,7 +2892,7 @@ func (m *MDFullGrp) GetSettlType() SettlTypeEnum {
 	return SettlTypeEnum_SETTL_TYPE_UNSPECIFIED
 }
 
-func (m *MDFullGrp) GetSettlTypeTenor() *Tenor {
+func (m *MDFullGrp) GetSettlTypeTenor() *fix.Tenor {
 	if x, ok := m.GetSettlTypeUnion().(*MDFullGrp_SettlTypeTenor); ok {
 		return x.SettlTypeTenor
 	}
@@ -2925,7 +2927,7 @@ func (m *MDFullGrp) GetTradeCondition() []TradeConditionEnum {
 	return nil
 }
 
-func (m *MDFullGrp) GetTradeVolume() *Decimal64 {
+func (m *MDFullGrp) GetTradeVolume() *fix.Decimal64 {
 	if m != nil {
 		return m.TradeVolume
 	}
@@ -3101,21 +3103,21 @@ func (m *MDFullGrp) GetSecurityTradingStatusReserved100Plus() uint32 {
 	return 0
 }
 
-func (m *MDFullGrp) GetSpreadOrBenchmarkCurveData() *SpreadOrBenchmarkCurveData {
+func (m *MDFullGrp) GetSpreadOrBenchmarkCurveData() *common.SpreadOrBenchmarkCurveData {
 	if m != nil {
 		return m.SpreadOrBenchmarkCurveData
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetYieldData() *YieldData {
+func (m *MDFullGrp) GetYieldData() *common.YieldData {
 	if m != nil {
 		return m.YieldData
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetRateSource() []*RateSource {
+func (m *MDFullGrp) GetRateSource() []*common.RateSource {
 	if m != nil {
 		return m.RateSource
 	}
@@ -3129,14 +3131,14 @@ func (m *MDFullGrp) GetSettlCurrency() string {
 	return ""
 }
 
-func (m *MDFullGrp) GetFirstPx() *Decimal64 {
+func (m *MDFullGrp) GetFirstPx() *fix.Decimal64 {
 	if m != nil {
 		return m.FirstPx
 	}
 	return nil
 }
 
-func (m *MDFullGrp) GetLastPx() *Decimal64 {
+func (m *MDFullGrp) GetLastPx() *fix.Decimal64 {
 	if m != nil {
 		return m.LastPx
 	}
@@ -3208,40 +3210,40 @@ type MDIncGrp struct {
 	EncodedTextLen       int64                    `protobuf:"fixed64,7,opt,name=encoded_text_len,json=encodedTextLen,proto3" json:"encoded_text_len,omitempty"`
 	ExecInst             []ExecInstEnum           `protobuf:"varint,8,rep,packed,name=exec_inst,json=execInst,proto3,enum=MarketData.ExecInstEnum" json:"exec_inst,omitempty"`
 	ExpireDate           int32                    `protobuf:"fixed32,9,opt,name=expire_date,json=expireDate,proto3" json:"expire_date,omitempty"`
-	ExpireTime           *Timestamp               `protobuf:"bytes,10,opt,name=expire_time,json=expireTime,proto3" json:"expire_time,omitempty"`
+	ExpireTime           *fix.Timestamp               `protobuf:"bytes,10,opt,name=expire_time,json=expireTime,proto3" json:"expire_time,omitempty"`
 	FinancialStatus      []FinancialStatusEnum    `protobuf:"varint,11,rep,packed,name=financial_status,json=financialStatus,proto3,enum=MarketData.FinancialStatusEnum" json:"financial_status,omitempty"`
-	HighPx               *Decimal64               `protobuf:"bytes,12,opt,name=high_px,json=highPx,proto3" json:"high_px,omitempty"`
-	InstrmtLegGrp        []*InstrmtLegGrp         `protobuf:"bytes,13,rep,name=instrmt_leg_grp,json=instrmtLegGrp,proto3" json:"instrmt_leg_grp,omitempty"`
-	Instrument           *Instrument              `protobuf:"bytes,14,opt,name=instrument,proto3" json:"instrument,omitempty"`
+	HighPx               *fix.Decimal64               `protobuf:"bytes,12,opt,name=high_px,json=highPx,proto3" json:"high_px,omitempty"`
+	InstrmtLegGrp        []*common.InstrmtLegGrp         `protobuf:"bytes,13,rep,name=instrmt_leg_grp,json=instrmtLegGrp,proto3" json:"instrmt_leg_grp,omitempty"`
+	Instrument           *common.Instrument              `protobuf:"bytes,14,opt,name=instrument,proto3" json:"instrument,omitempty"`
 	LocationId           string                   `protobuf:"bytes,15,opt,name=location_id,json=locationId,proto3" json:"location_id,omitempty"`
-	LowPx                *Decimal64               `protobuf:"bytes,16,opt,name=low_px,json=lowPx,proto3" json:"low_px,omitempty"`
+	LowPx                *fix.Decimal64               `protobuf:"bytes,16,opt,name=low_px,json=lowPx,proto3" json:"low_px,omitempty"`
 	MdEntryBuyer         string                   `protobuf:"bytes,17,opt,name=md_entry_buyer,json=mdEntryBuyer,proto3" json:"md_entry_buyer,omitempty"`
 	MdEntryDate          int32                    `protobuf:"fixed32,18,opt,name=md_entry_date,json=mdEntryDate,proto3" json:"md_entry_date,omitempty"`
-	MdEntryForwardPoints *Decimal64               `protobuf:"bytes,19,opt,name=md_entry_forward_points,json=mdEntryForwardPoints,proto3" json:"md_entry_forward_points,omitempty"`
+	MdEntryForwardPoints *fix.Decimal64               `protobuf:"bytes,19,opt,name=md_entry_forward_points,json=mdEntryForwardPoints,proto3" json:"md_entry_forward_points,omitempty"`
 	MdEntryId            string                   `protobuf:"bytes,20,opt,name=md_entry_id,json=mdEntryId,proto3" json:"md_entry_id,omitempty"`
 	MdEntryOriginator    string                   `protobuf:"bytes,21,opt,name=md_entry_originator,json=mdEntryOriginator,proto3" json:"md_entry_originator,omitempty"`
 	MdEntryPositionNo    int64                    `protobuf:"fixed64,22,opt,name=md_entry_position_no,json=mdEntryPositionNo,proto3" json:"md_entry_position_no,omitempty"`
-	MdEntryPx            *Decimal64               `protobuf:"bytes,23,opt,name=md_entry_px,json=mdEntryPx,proto3" json:"md_entry_px,omitempty"`
+	MdEntryPx            *fix.Decimal64               `protobuf:"bytes,23,opt,name=md_entry_px,json=mdEntryPx,proto3" json:"md_entry_px,omitempty"`
 	MdEntryRefId         string                   `protobuf:"bytes,24,opt,name=md_entry_ref_id,json=mdEntryRefId,proto3" json:"md_entry_ref_id,omitempty"`
 	MdEntrySeller        string                   `protobuf:"bytes,25,opt,name=md_entry_seller,json=mdEntrySeller,proto3" json:"md_entry_seller,omitempty"`
-	MdEntrySize          *Decimal64               `protobuf:"bytes,26,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
-	MdEntrySpotRate      *Decimal64               `protobuf:"bytes,27,opt,name=md_entry_spot_rate,json=mdEntrySpotRate,proto3" json:"md_entry_spot_rate,omitempty"`
-	MdEntryTime          *TimeOnly                `protobuf:"bytes,28,opt,name=md_entry_time,json=mdEntryTime,proto3" json:"md_entry_time,omitempty"`
+	MdEntrySize          *fix.Decimal64               `protobuf:"bytes,26,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
+	MdEntrySpotRate      *fix.Decimal64               `protobuf:"bytes,27,opt,name=md_entry_spot_rate,json=mdEntrySpotRate,proto3" json:"md_entry_spot_rate,omitempty"`
+	MdEntryTime          *fix.TimeOnly                `protobuf:"bytes,28,opt,name=md_entry_time,json=mdEntryTime,proto3" json:"md_entry_time,omitempty"`
 	MdEntryType          MDEntryTypeEnum          `protobuf:"varint,29,opt,name=md_entry_type,json=mdEntryType,proto3,enum=MarketData.MDEntryTypeEnum" json:"md_entry_type,omitempty"`
 	MdMkt                string                   `protobuf:"bytes,30,opt,name=md_mkt,json=mdMkt,proto3" json:"md_mkt,omitempty"`
 	MdOriginType         MDOriginTypeEnum         `protobuf:"varint,31,opt,name=md_origin_type,json=mdOriginType,proto3,enum=MarketData.MDOriginTypeEnum" json:"md_origin_type,omitempty"`
 	MdPriceLevel         int64                    `protobuf:"fixed64,32,opt,name=md_price_level,json=mdPriceLevel,proto3" json:"md_price_level,omitempty"`
 	MdQuoteType          MDQuoteTypeEnum          `protobuf:"varint,33,opt,name=md_quote_type,json=mdQuoteType,proto3,enum=MarketData.MDQuoteTypeEnum" json:"md_quote_type,omitempty"`
 	MdUpdateAction       MDUpdateActionEnum       `protobuf:"varint,34,opt,name=md_update_action,json=mdUpdateAction,proto3,enum=MarketData.MDUpdateActionEnum" json:"md_update_action,omitempty"`
-	MinQty               *Decimal64               `protobuf:"bytes,35,opt,name=min_qty,json=minQty,proto3" json:"min_qty,omitempty"`
-	NetChgPrevDay        *Decimal64               `protobuf:"bytes,36,opt,name=net_chg_prev_day,json=netChgPrevDay,proto3" json:"net_chg_prev_day,omitempty"`
+	MinQty               *fix.Decimal64               `protobuf:"bytes,35,opt,name=min_qty,json=minQty,proto3" json:"min_qty,omitempty"`
+	NetChgPrevDay        *fix.Decimal64               `protobuf:"bytes,36,opt,name=net_chg_prev_day,json=netChgPrevDay,proto3" json:"net_chg_prev_day,omitempty"`
 	NumberOfOrders       int64                    `protobuf:"fixed64,37,opt,name=number_of_orders,json=numberOfOrders,proto3" json:"number_of_orders,omitempty"`
 	OpenCloseSettlFlag   []OpenCloseSettlFlagEnum `protobuf:"varint,38,rep,packed,name=open_close_settl_flag,json=openCloseSettlFlag,proto3,enum=MarketData.OpenCloseSettlFlagEnum" json:"open_close_settl_flag,omitempty"`
 	OrdType              OrdTypeEnum              `protobuf:"varint,39,opt,name=ord_type,json=ordType,proto3,enum=MarketData.OrdTypeEnum" json:"ord_type,omitempty"`
 	OrderCapacity        OrderCapacityEnum        `protobuf:"varint,40,opt,name=order_capacity,json=orderCapacity,proto3,enum=MarketData.OrderCapacityEnum" json:"order_capacity,omitempty"`
 	OrderId              string                   `protobuf:"bytes,41,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	Parties              []*Parties               `protobuf:"bytes,42,rep,name=parties,proto3" json:"parties,omitempty"`
-	PriceDelta           *Decimal64               `protobuf:"bytes,43,opt,name=price_delta,json=priceDelta,proto3" json:"price_delta,omitempty"`
+	Parties              []*common.Parties               `protobuf:"bytes,42,rep,name=parties,proto3" json:"parties,omitempty"`
+	PriceDelta           *fix.Decimal64               `protobuf:"bytes,43,opt,name=price_delta,json=priceDelta,proto3" json:"price_delta,omitempty"`
 	QuoteCondition       []QuoteConditionEnum     `protobuf:"varint,44,rep,packed,name=quote_condition,json=quoteCondition,proto3,enum=MarketData.QuoteConditionEnum" json:"quote_condition,omitempty"`
 	QuoteEntryId         string                   `protobuf:"bytes,45,opt,name=quote_entry_id,json=quoteEntryId,proto3" json:"quote_entry_id,omitempty"`
 	RptSeq               int64                    `protobuf:"fixed64,46,opt,name=rpt_seq,json=rptSeq,proto3" json:"rpt_seq,omitempty"`
@@ -3257,7 +3259,7 @@ type MDIncGrp struct {
 	TickDirection  TickDirectionEnum         `protobuf:"varint,54,opt,name=tick_direction,json=tickDirection,proto3,enum=MarketData.TickDirectionEnum" json:"tick_direction,omitempty"`
 	TimeInForce    TimeInForceEnum           `protobuf:"varint,55,opt,name=time_in_force,json=timeInForce,proto3,enum=MarketData.TimeInForceEnum" json:"time_in_force,omitempty"`
 	TradeCondition []TradeConditionEnum      `protobuf:"varint,56,rep,packed,name=trade_condition,json=tradeCondition,proto3,enum=MarketData.TradeConditionEnum" json:"trade_condition,omitempty"`
-	TradeVolume    *Decimal64                `protobuf:"bytes,57,opt,name=trade_volume,json=tradeVolume,proto3" json:"trade_volume,omitempty"`
+	TradeVolume    *fix.Decimal64                `protobuf:"bytes,57,opt,name=trade_volume,json=tradeVolume,proto3" json:"trade_volume,omitempty"`
 	// Types that are valid to be assigned to TradingSessionIdUnion:
 	//	*MDIncGrp_TradingSessionId
 	//	*MDIncGrp_TradingSessionIdReserved100Plus
@@ -3281,20 +3283,20 @@ type MDIncGrp struct {
 	//	*MDIncGrp_SecurityTradingStatus
 	//	*MDIncGrp_SecurityTradingStatusReserved100Plus
 	SecurityTradingStatusUnion isMDIncGrp_SecurityTradingStatusUnion `protobuf_oneof:"security_trading_status_union"`
-	SpreadOrBenchmarkCurveData *SpreadOrBenchmarkCurveData           `protobuf:"bytes,73,opt,name=spread_or_benchmark_curve_data,json=spreadOrBenchmarkCurveData,proto3" json:"spread_or_benchmark_curve_data,omitempty"`
+	SpreadOrBenchmarkCurveData *common.SpreadOrBenchmarkCurveData           `protobuf:"bytes,73,opt,name=spread_or_benchmark_curve_data,json=spreadOrBenchmarkCurveData,proto3" json:"spread_or_benchmark_curve_data,omitempty"`
 	StatsIndGrp                []*StatsIndGrp                        `protobuf:"bytes,74,rep,name=stats_ind_grp,json=statsIndGrp,proto3" json:"stats_ind_grp,omitempty"`
 	TradeId                    string                                `protobuf:"bytes,75,opt,name=trade_id,json=tradeId,proto3" json:"trade_id,omitempty"`
-	TransBkdTime               *Timestamp                            `protobuf:"bytes,76,opt,name=trans_bkd_time,json=transBkdTime,proto3" json:"trans_bkd_time,omitempty"`
-	TransactTime               *Timestamp                            `protobuf:"bytes,77,opt,name=transact_time,json=transactTime,proto3" json:"transact_time,omitempty"`
+	TransBkdTime               *fix.Timestamp                            `protobuf:"bytes,76,opt,name=trans_bkd_time,json=transBkdTime,proto3" json:"trans_bkd_time,omitempty"`
+	TransactTime               *fix.Timestamp                            `protobuf:"bytes,77,opt,name=transact_time,json=transactTime,proto3" json:"transact_time,omitempty"`
 	// Types that are valid to be assigned to TrdTypeUnion:
 	//	*MDIncGrp_TrdType
 	//	*MDIncGrp_TrdTypeReserved1000Plus
 	TrdTypeUnion         isMDIncGrp_TrdTypeUnion `protobuf_oneof:"trd_type_union"`
-	YieldData            *YieldData              `protobuf:"bytes,80,opt,name=yield_data,json=yieldData,proto3" json:"yield_data,omitempty"`
-	RateSource           []*RateSource           `protobuf:"bytes,81,rep,name=rate_source,json=rateSource,proto3" json:"rate_source,omitempty"`
+	YieldData            *common.YieldData              `protobuf:"bytes,80,opt,name=yield_data,json=yieldData,proto3" json:"yield_data,omitempty"`
+	RateSource           []*common.RateSource           `protobuf:"bytes,81,rep,name=rate_source,json=rateSource,proto3" json:"rate_source,omitempty"`
 	SettlCurrency        string                  `protobuf:"bytes,82,opt,name=settl_currency,json=settlCurrency,proto3" json:"settl_currency,omitempty"`
-	FirstPx              *Decimal64              `protobuf:"bytes,83,opt,name=first_px,json=firstPx,proto3" json:"first_px,omitempty"`
-	LastPx               *Decimal64              `protobuf:"bytes,84,opt,name=last_px,json=lastPx,proto3" json:"last_px,omitempty"`
+	FirstPx              *fix.Decimal64              `protobuf:"bytes,83,opt,name=first_px,json=firstPx,proto3" json:"first_px,omitempty"`
+	LastPx               *fix.Decimal64              `protobuf:"bytes,84,opt,name=last_px,json=lastPx,proto3" json:"last_px,omitempty"`
 	MdStreamId           string                  `protobuf:"bytes,85,opt,name=md_stream_id,json=mdStreamId,proto3" json:"md_stream_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
 	XXX_unrecognized     []byte                  `json:"-"`
@@ -3389,7 +3391,7 @@ func (m *MDIncGrp) GetExpireDate() int32 {
 	return 0
 }
 
-func (m *MDIncGrp) GetExpireTime() *Timestamp {
+func (m *MDIncGrp) GetExpireTime() *fix.Timestamp {
 	if m != nil {
 		return m.ExpireTime
 	}
@@ -3403,21 +3405,21 @@ func (m *MDIncGrp) GetFinancialStatus() []FinancialStatusEnum {
 	return nil
 }
 
-func (m *MDIncGrp) GetHighPx() *Decimal64 {
+func (m *MDIncGrp) GetHighPx() *fix.Decimal64 {
 	if m != nil {
 		return m.HighPx
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetInstrmtLegGrp() []*InstrmtLegGrp {
+func (m *MDIncGrp) GetInstrmtLegGrp() []*common.InstrmtLegGrp {
 	if m != nil {
 		return m.InstrmtLegGrp
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetInstrument() *Instrument {
+func (m *MDIncGrp) GetInstrument() *common.Instrument {
 	if m != nil {
 		return m.Instrument
 	}
@@ -3431,7 +3433,7 @@ func (m *MDIncGrp) GetLocationId() string {
 	return ""
 }
 
-func (m *MDIncGrp) GetLowPx() *Decimal64 {
+func (m *MDIncGrp) GetLowPx() *fix.Decimal64 {
 	if m != nil {
 		return m.LowPx
 	}
@@ -3452,7 +3454,7 @@ func (m *MDIncGrp) GetMdEntryDate() int32 {
 	return 0
 }
 
-func (m *MDIncGrp) GetMdEntryForwardPoints() *Decimal64 {
+func (m *MDIncGrp) GetMdEntryForwardPoints() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntryForwardPoints
 	}
@@ -3480,7 +3482,7 @@ func (m *MDIncGrp) GetMdEntryPositionNo() int64 {
 	return 0
 }
 
-func (m *MDIncGrp) GetMdEntryPx() *Decimal64 {
+func (m *MDIncGrp) GetMdEntryPx() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntryPx
 	}
@@ -3501,21 +3503,21 @@ func (m *MDIncGrp) GetMdEntrySeller() string {
 	return ""
 }
 
-func (m *MDIncGrp) GetMdEntrySize() *Decimal64 {
+func (m *MDIncGrp) GetMdEntrySize() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntrySize
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetMdEntrySpotRate() *Decimal64 {
+func (m *MDIncGrp) GetMdEntrySpotRate() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntrySpotRate
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetMdEntryTime() *TimeOnly {
+func (m *MDIncGrp) GetMdEntryTime() *fix.TimeOnly {
 	if m != nil {
 		return m.MdEntryTime
 	}
@@ -3564,14 +3566,14 @@ func (m *MDIncGrp) GetMdUpdateAction() MDUpdateActionEnum {
 	return MDUpdateActionEnum_MD_UPDATE_ACTION_UNSPECIFIED
 }
 
-func (m *MDIncGrp) GetMinQty() *Decimal64 {
+func (m *MDIncGrp) GetMinQty() *fix.Decimal64 {
 	if m != nil {
 		return m.MinQty
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetNetChgPrevDay() *Decimal64 {
+func (m *MDIncGrp) GetNetChgPrevDay() *fix.Decimal64 {
 	if m != nil {
 		return m.NetChgPrevDay
 	}
@@ -3613,14 +3615,14 @@ func (m *MDIncGrp) GetOrderId() string {
 	return ""
 }
 
-func (m *MDIncGrp) GetParties() []*Parties {
+func (m *MDIncGrp) GetParties() []*common.Parties {
 	if m != nil {
 		return m.Parties
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetPriceDelta() *Decimal64 {
+func (m *MDIncGrp) GetPriceDelta() *fix.Decimal64 {
 	if m != nil {
 		return m.PriceDelta
 	}
@@ -3685,7 +3687,7 @@ type MDIncGrp_SettlType struct {
 }
 
 type MDIncGrp_SettlTypeTenor struct {
-	SettlTypeTenor *Tenor `protobuf:"bytes,52,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
+	SettlTypeTenor *fix.Tenor `protobuf:"bytes,52,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
 }
 
 func (*MDIncGrp_SettlType) isMDIncGrp_SettlTypeUnion() {}
@@ -3706,7 +3708,7 @@ func (m *MDIncGrp) GetSettlType() SettlTypeEnum {
 	return SettlTypeEnum_SETTL_TYPE_UNSPECIFIED
 }
 
-func (m *MDIncGrp) GetSettlTypeTenor() *Tenor {
+func (m *MDIncGrp) GetSettlTypeTenor() *fix.Tenor {
 	if x, ok := m.GetSettlTypeUnion().(*MDIncGrp_SettlTypeTenor); ok {
 		return x.SettlTypeTenor
 	}
@@ -3741,7 +3743,7 @@ func (m *MDIncGrp) GetTradeCondition() []TradeConditionEnum {
 	return nil
 }
 
-func (m *MDIncGrp) GetTradeVolume() *Decimal64 {
+func (m *MDIncGrp) GetTradeVolume() *fix.Decimal64 {
 	if m != nil {
 		return m.TradeVolume
 	}
@@ -3945,7 +3947,7 @@ func (m *MDIncGrp) GetSecurityTradingStatusReserved100Plus() uint32 {
 	return 0
 }
 
-func (m *MDIncGrp) GetSpreadOrBenchmarkCurveData() *SpreadOrBenchmarkCurveData {
+func (m *MDIncGrp) GetSpreadOrBenchmarkCurveData() *common.SpreadOrBenchmarkCurveData {
 	if m != nil {
 		return m.SpreadOrBenchmarkCurveData
 	}
@@ -3966,14 +3968,14 @@ func (m *MDIncGrp) GetTradeId() string {
 	return ""
 }
 
-func (m *MDIncGrp) GetTransBkdTime() *Timestamp {
+func (m *MDIncGrp) GetTransBkdTime() *fix.Timestamp {
 	if m != nil {
 		return m.TransBkdTime
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetTransactTime() *Timestamp {
+func (m *MDIncGrp) GetTransactTime() *fix.Timestamp {
 	if m != nil {
 		return m.TransactTime
 	}
@@ -4017,14 +4019,14 @@ func (m *MDIncGrp) GetTrdTypeReserved1000Plus() uint32 {
 	return 0
 }
 
-func (m *MDIncGrp) GetYieldData() *YieldData {
+func (m *MDIncGrp) GetYieldData() *common.YieldData {
 	if m != nil {
 		return m.YieldData
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetRateSource() []*RateSource {
+func (m *MDIncGrp) GetRateSource() []*common.RateSource {
 	if m != nil {
 		return m.RateSource
 	}
@@ -4038,14 +4040,14 @@ func (m *MDIncGrp) GetSettlCurrency() string {
 	return ""
 }
 
-func (m *MDIncGrp) GetFirstPx() *Decimal64 {
+func (m *MDIncGrp) GetFirstPx() *fix.Decimal64 {
 	if m != nil {
 		return m.FirstPx
 	}
 	return nil
 }
 
-func (m *MDIncGrp) GetLastPx() *Decimal64 {
+func (m *MDIncGrp) GetLastPx() *fix.Decimal64 {
 	if m != nil {
 		return m.LastPx
 	}
@@ -4156,7 +4158,7 @@ func (m *MDRjctGrp) GetAltMdSourceId() string {
 }
 
 type SecSizesGrp struct {
-	MdSecSize *Decimal64 `protobuf:"bytes,1,opt,name=md_sec_size,json=mdSecSize,proto3" json:"md_sec_size,omitempty"`
+	MdSecSize *fix.Decimal64 `protobuf:"bytes,1,opt,name=md_sec_size,json=mdSecSize,proto3" json:"md_sec_size,omitempty"`
 	// Types that are valid to be assigned to MdSecSizeTypeUnion:
 	//	*SecSizesGrp_MdSecSizeType
 	//	*SecSizesGrp_MdSecSizeTypeReserved100Plus
@@ -4191,7 +4193,7 @@ func (m *SecSizesGrp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SecSizesGrp proto.InternalMessageInfo
 
-func (m *SecSizesGrp) GetMdSecSize() *Decimal64 {
+func (m *SecSizesGrp) GetMdSecSize() *fix.Decimal64 {
 	if m != nil {
 		return m.MdSecSize
 	}
@@ -4283,7 +4285,7 @@ func (m *StatsIndGrp) GetStatsType() StatsTypeEnum {
 }
 
 type StrmAsgnReqGrp struct {
-	Parties               []*Parties               `protobuf:"bytes,1,rep,name=parties,proto3" json:"parties,omitempty"`
+	Parties               []*common.Parties               `protobuf:"bytes,1,rep,name=parties,proto3" json:"parties,omitempty"`
 	StrmAsgnReqInstrmtGrp []*StrmAsgnReqInstrmtGrp `protobuf:"bytes,2,rep,name=strm_asgn_req_instrmt_grp,json=strmAsgnReqInstrmtGrp,proto3" json:"strm_asgn_req_instrmt_grp,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}                 `json:"-"`
 	XXX_unrecognized      []byte                   `json:"-"`
@@ -4315,7 +4317,7 @@ func (m *StrmAsgnReqGrp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StrmAsgnReqGrp proto.InternalMessageInfo
 
-func (m *StrmAsgnReqGrp) GetParties() []*Parties {
+func (m *StrmAsgnReqGrp) GetParties() []*common.Parties {
 	if m != nil {
 		return m.Parties
 	}
@@ -4330,7 +4332,7 @@ func (m *StrmAsgnReqGrp) GetStrmAsgnReqInstrmtGrp() []*StrmAsgnReqInstrmtGrp {
 }
 
 type StrmAsgnRptGrp struct {
-	Parties               []*Parties               `protobuf:"bytes,1,rep,name=parties,proto3" json:"parties,omitempty"`
+	Parties               []*common.Parties               `protobuf:"bytes,1,rep,name=parties,proto3" json:"parties,omitempty"`
 	StrmAsgnRptInstrmtGrp []*StrmAsgnRptInstrmtGrp `protobuf:"bytes,2,rep,name=strm_asgn_rpt_instrmt_grp,json=strmAsgnRptInstrmtGrp,proto3" json:"strm_asgn_rpt_instrmt_grp,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}                 `json:"-"`
 	XXX_unrecognized      []byte                   `json:"-"`
@@ -4362,7 +4364,7 @@ func (m *StrmAsgnRptGrp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StrmAsgnRptGrp proto.InternalMessageInfo
 
-func (m *StrmAsgnRptGrp) GetParties() []*Parties {
+func (m *StrmAsgnRptGrp) GetParties() []*common.Parties {
 	if m != nil {
 		return m.Parties
 	}
@@ -4377,8 +4379,8 @@ func (m *StrmAsgnRptGrp) GetStrmAsgnRptInstrmtGrp() []*StrmAsgnRptInstrmtGrp {
 }
 
 type StrmAsgnReqInstrmtGrp struct {
-	Instrument  *Instrument `protobuf:"bytes,1,opt,name=instrument,proto3" json:"instrument,omitempty"`
-	MdEntrySize *Decimal64  `protobuf:"bytes,2,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
+	Instrument  *common.Instrument `protobuf:"bytes,1,opt,name=instrument,proto3" json:"instrument,omitempty"`
+	MdEntrySize *fix.Decimal64  `protobuf:"bytes,2,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
 	MdStreamId  string      `protobuf:"bytes,3,opt,name=md_stream_id,json=mdStreamId,proto3" json:"md_stream_id,omitempty"`
 	// Types that are valid to be assigned to SettlTypeUnion:
 	//	*StrmAsgnReqInstrmtGrp_SettlType
@@ -4414,14 +4416,14 @@ func (m *StrmAsgnReqInstrmtGrp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StrmAsgnReqInstrmtGrp proto.InternalMessageInfo
 
-func (m *StrmAsgnReqInstrmtGrp) GetInstrument() *Instrument {
+func (m *StrmAsgnReqInstrmtGrp) GetInstrument() *common.Instrument {
 	if m != nil {
 		return m.Instrument
 	}
 	return nil
 }
 
-func (m *StrmAsgnReqInstrmtGrp) GetMdEntrySize() *Decimal64 {
+func (m *StrmAsgnReqInstrmtGrp) GetMdEntrySize() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntrySize
 	}
@@ -4444,7 +4446,7 @@ type StrmAsgnReqInstrmtGrp_SettlType struct {
 }
 
 type StrmAsgnReqInstrmtGrp_SettlTypeTenor struct {
-	SettlTypeTenor *Tenor `protobuf:"bytes,5,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
+	SettlTypeTenor *fix.Tenor `protobuf:"bytes,5,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
 }
 
 func (*StrmAsgnReqInstrmtGrp_SettlType) isStrmAsgnReqInstrmtGrp_SettlTypeUnion() {}
@@ -4465,7 +4467,7 @@ func (m *StrmAsgnReqInstrmtGrp) GetSettlType() SettlTypeEnum {
 	return SettlTypeEnum_SETTL_TYPE_UNSPECIFIED
 }
 
-func (m *StrmAsgnReqInstrmtGrp) GetSettlTypeTenor() *Tenor {
+func (m *StrmAsgnReqInstrmtGrp) GetSettlTypeTenor() *fix.Tenor {
 	if x, ok := m.GetSettlTypeUnion().(*StrmAsgnReqInstrmtGrp_SettlTypeTenor); ok {
 		return x.SettlTypeTenor
 	}
@@ -4481,7 +4483,7 @@ func (*StrmAsgnReqInstrmtGrp) XXX_OneofWrappers() []interface{} {
 }
 
 type StrmAsgnRptInstrmtGrp struct {
-	Instrument     *Instrument `protobuf:"bytes,1,opt,name=instrument,proto3" json:"instrument,omitempty"`
+	Instrument     *common.Instrument `protobuf:"bytes,1,opt,name=instrument,proto3" json:"instrument,omitempty"`
 	EncodedText    string      `protobuf:"bytes,2,opt,name=encoded_text,json=encodedText,proto3" json:"encoded_text,omitempty"`
 	EncodedTextLen int64       `protobuf:"fixed64,3,opt,name=encoded_text_len,json=encodedTextLen,proto3" json:"encoded_text_len,omitempty"`
 	MdStreamId     string      `protobuf:"bytes,4,opt,name=md_stream_id,json=mdStreamId,proto3" json:"md_stream_id,omitempty"`
@@ -4525,7 +4527,7 @@ func (m *StrmAsgnRptInstrmtGrp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StrmAsgnRptInstrmtGrp proto.InternalMessageInfo
 
-func (m *StrmAsgnRptInstrmtGrp) GetInstrument() *Instrument {
+func (m *StrmAsgnRptInstrmtGrp) GetInstrument() *common.Instrument {
 	if m != nil {
 		return m.Instrument
 	}
@@ -4562,7 +4564,7 @@ type StrmAsgnRptInstrmtGrp_SettlType struct {
 }
 
 type StrmAsgnRptInstrmtGrp_SettlTypeTenor struct {
-	SettlTypeTenor *Tenor `protobuf:"bytes,6,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
+	SettlTypeTenor *fix.Tenor `protobuf:"bytes,6,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
 }
 
 func (*StrmAsgnRptInstrmtGrp_SettlType) isStrmAsgnRptInstrmtGrp_SettlTypeUnion() {}
@@ -4583,7 +4585,7 @@ func (m *StrmAsgnRptInstrmtGrp) GetSettlType() SettlTypeEnum {
 	return SettlTypeEnum_SETTL_TYPE_UNSPECIFIED
 }
 
-func (m *StrmAsgnRptInstrmtGrp) GetSettlTypeTenor() *Tenor {
+func (m *StrmAsgnRptInstrmtGrp) GetSettlTypeTenor() *fix.Tenor {
 	if x, ok := m.GetSettlTypeUnion().(*StrmAsgnRptInstrmtGrp_SettlTypeTenor); ok {
 		return x.SettlTypeTenor
 	}
@@ -4669,7 +4671,7 @@ type MarketDataRequest struct {
 	MdQuoteType             MDQuoteTypeEnum             `protobuf:"varint,14,opt,name=md_quote_type,json=mdQuoteType,proto3,enum=MarketData.MDQuoteTypeEnum" json:"md_quote_type,omitempty"`
 	MdReqGrp                []*MDReqGrp                 `protobuf:"bytes,15,rep,name=md_req_grp,json=mdReqGrp,proto3" json:"md_req_grp,omitempty"`
 	TrdgSesGrp              []*TrdgSesGrp               `protobuf:"bytes,16,rep,name=trdg_ses_grp,json=trdgSesGrp,proto3" json:"trdg_ses_grp,omitempty"`
-	Parties                 []*Parties                  `protobuf:"bytes,17,rep,name=parties,proto3" json:"parties,omitempty"`
+	Parties                 []*common.Parties                  `protobuf:"bytes,17,rep,name=parties,proto3" json:"parties,omitempty"`
 	XXX_NoUnkeyedLiteral    struct{}                    `json:"-"`
 	XXX_unrecognized        []byte                      `json:"-"`
 	XXX_sizecache           int32                       `json:"-"`
@@ -4812,7 +4814,7 @@ func (m *MarketDataRequest) GetTrdgSesGrp() []*TrdgSesGrp {
 	return nil
 }
 
-func (m *MarketDataRequest) GetParties() []*Parties {
+func (m *MarketDataRequest) GetParties() []*common.Parties {
 	if m != nil {
 		return m.Parties
 	}
@@ -4825,12 +4827,12 @@ type MarketDataSnapshotFullRefresh struct {
 	MdReqId                    string                      `protobuf:"bytes,3,opt,name=md_req_id,json=mdReqId,proto3" json:"md_req_id,omitempty"`
 	StandardHeader             *StandardHeader             `protobuf:"bytes,4,opt,name=standard_header,json=standardHeader,proto3" json:"standard_header,omitempty"`
 	StandardTrailer            *StandardTrailer            `protobuf:"bytes,5,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
-	Instrument                 *Instrument                 `protobuf:"bytes,6,opt,name=instrument,proto3" json:"instrument,omitempty"`
-	NetChgPrevDay              *Decimal64                  `protobuf:"bytes,7,opt,name=net_chg_prev_day,json=netChgPrevDay,proto3" json:"net_chg_prev_day,omitempty"`
+	Instrument                 *common.Instrument                 `protobuf:"bytes,6,opt,name=instrument,proto3" json:"instrument,omitempty"`
+	NetChgPrevDay              *fix.Decimal64                  `protobuf:"bytes,7,opt,name=net_chg_prev_day,json=netChgPrevDay,proto3" json:"net_chg_prev_day,omitempty"`
 	ApplQueueDepth             int64                       `protobuf:"fixed64,8,opt,name=appl_queue_depth,json=applQueueDepth,proto3" json:"appl_queue_depth,omitempty"`
 	ApplQueueResolution        ApplQueueResolutionEnum     `protobuf:"varint,9,opt,name=appl_queue_resolution,json=applQueueResolution,proto3,enum=MarketData.ApplQueueResolutionEnum" json:"appl_queue_resolution,omitempty"`
 	ClearingBusinessDate       int32                       `protobuf:"fixed32,10,opt,name=clearing_business_date,json=clearingBusinessDate,proto3" json:"clearing_business_date,omitempty"`
-	InstrmtLegGrp              []*InstrmtLegGrp            `protobuf:"bytes,11,rep,name=instrmt_leg_grp,json=instrmtLegGrp,proto3" json:"instrmt_leg_grp,omitempty"`
+	InstrmtLegGrp              []*common.InstrmtLegGrp            `protobuf:"bytes,11,rep,name=instrmt_leg_grp,json=instrmtLegGrp,proto3" json:"instrmt_leg_grp,omitempty"`
 	MdBookType                 MDBookTypeEnum              `protobuf:"varint,12,opt,name=md_book_type,json=mdBookType,proto3,enum=MarketData.MDBookTypeEnum" json:"md_book_type,omitempty"`
 	MdFeedType                 string                      `protobuf:"bytes,13,opt,name=md_feed_type,json=mdFeedType,proto3" json:"md_feed_type,omitempty"`
 	MdFullGrp                  []*MDFullGrp                `protobuf:"bytes,14,rep,name=md_full_grp,json=mdFullGrp,proto3" json:"md_full_grp,omitempty"`
@@ -4909,14 +4911,14 @@ func (m *MarketDataSnapshotFullRefresh) GetStandardTrailer() *StandardTrailer {
 	return nil
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetInstrument() *Instrument {
+func (m *MarketDataSnapshotFullRefresh) GetInstrument() *common.Instrument {
 	if m != nil {
 		return m.Instrument
 	}
 	return nil
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetNetChgPrevDay() *Decimal64 {
+func (m *MarketDataSnapshotFullRefresh) GetNetChgPrevDay() *fix.Decimal64 {
 	if m != nil {
 		return m.NetChgPrevDay
 	}
@@ -4944,7 +4946,7 @@ func (m *MarketDataSnapshotFullRefresh) GetClearingBusinessDate() int32 {
 	return 0
 }
 
-func (m *MarketDataSnapshotFullRefresh) GetInstrmtLegGrp() []*InstrmtLegGrp {
+func (m *MarketDataSnapshotFullRefresh) GetInstrmtLegGrp() []*common.InstrmtLegGrp {
 	if m != nil {
 		return m.InstrmtLegGrp
 	}
@@ -5170,7 +5172,7 @@ type MarketDataRequestReject struct {
 	StandardTrailer      *StandardTrailer   `protobuf:"bytes,6,opt,name=standard_trailer,json=standardTrailer,proto3" json:"standard_trailer,omitempty"`
 	Text                 string             `protobuf:"bytes,7,opt,name=text,proto3" json:"text,omitempty"`
 	MdRjctGrp            []*MDRjctGrp       `protobuf:"bytes,8,rep,name=md_rjct_grp,json=mdRjctGrp,proto3" json:"md_rjct_grp,omitempty"`
-	Parties              []*Parties         `protobuf:"bytes,9,rep,name=parties,proto3" json:"parties,omitempty"`
+	Parties              []*common.Parties         `protobuf:"bytes,9,rep,name=parties,proto3" json:"parties,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
 	XXX_unrecognized     []byte             `json:"-"`
 	XXX_sizecache        int32              `json:"-"`
@@ -5257,7 +5259,7 @@ func (m *MarketDataRequestReject) GetMdRjctGrp() []*MDRjctGrp {
 	return nil
 }
 
-func (m *MarketDataRequestReject) GetParties() []*Parties {
+func (m *MarketDataRequestReject) GetParties() []*common.Parties {
 	if m != nil {
 		return m.Parties
 	}

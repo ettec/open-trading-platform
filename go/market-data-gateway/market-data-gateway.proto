@@ -3,13 +3,13 @@ package marketdatagateway;
 import "marketdata.proto";
 import "google/protobuf/empty.proto";
 
-option go_package="service";
+option go_package="api";
 
-message SubscribeRequest {
+message ConnectRequest {
     string partyId = 1;
 }
 
 service MarketDataService{
     rpc Subscribe(MarketData.MarketDataRequest) returns (google.protobuf.Empty) {};
-    rpc Connect(SubscribeRequest) returns (stream MarketData.MarketDataSnapshotFullRefresh) {};
+    rpc Connect(ConnectRequest) returns (stream MarketData.MarketDataSnapshotFullRefresh) {};
 } 

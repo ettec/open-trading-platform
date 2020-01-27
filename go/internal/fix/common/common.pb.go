@@ -4,6 +4,7 @@
 package common
 
 import (
+	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
@@ -4959,20 +4960,20 @@ func (StipulationTypeEnum) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_555bd8c177793206, []int{69}
 }
 
-type TrdRegTimestampTypeEnum int32
+type TrdRegfix_TimestampTypeEnum int32
 
 const (
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED            TrdRegTimestampTypeEnum = 0
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_BROKER_EXECUTION       TrdRegTimestampTypeEnum = 1
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_BROKER_RECEIPT         TrdRegTimestampTypeEnum = 2
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_EXECUTION_TIME         TrdRegTimestampTypeEnum = 3
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_TIME_IN                TrdRegTimestampTypeEnum = 4
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_TIME_OUT               TrdRegTimestampTypeEnum = 5
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_DESK_RECEIPT           TrdRegTimestampTypeEnum = 6
-	TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_SUBMISSION_TO_CLEARING TrdRegTimestampTypeEnum = 7
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED            TrdRegfix_TimestampTypeEnum = 0
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_BROKER_EXECUTION       TrdRegfix_TimestampTypeEnum = 1
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_BROKER_RECEIPT         TrdRegfix_TimestampTypeEnum = 2
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_EXECUTION_TIME         TrdRegfix_TimestampTypeEnum = 3
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_TIME_IN                TrdRegfix_TimestampTypeEnum = 4
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_TIME_OUT               TrdRegfix_TimestampTypeEnum = 5
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_DESK_RECEIPT           TrdRegfix_TimestampTypeEnum = 6
+	TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_SUBMISSION_TO_CLEARING TrdRegfix_TimestampTypeEnum = 7
 )
 
-var TrdRegTimestampTypeEnum_name = map[int32]string{
+var TrdRegfix_TimestampTypeEnum_name = map[int32]string{
 	0: "TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED",
 	1: "TRD_REG_TIMESTAMP_TYPE_BROKER_EXECUTION",
 	2: "TRD_REG_TIMESTAMP_TYPE_BROKER_RECEIPT",
@@ -4983,7 +4984,7 @@ var TrdRegTimestampTypeEnum_name = map[int32]string{
 	7: "TRD_REG_TIMESTAMP_TYPE_SUBMISSION_TO_CLEARING",
 }
 
-var TrdRegTimestampTypeEnum_value = map[string]int32{
+var TrdRegfix_TimestampTypeEnum_value = map[string]int32{
 	"TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED":            0,
 	"TRD_REG_TIMESTAMP_TYPE_BROKER_EXECUTION":       1,
 	"TRD_REG_TIMESTAMP_TYPE_BROKER_RECEIPT":         2,
@@ -4994,11 +4995,11 @@ var TrdRegTimestampTypeEnum_value = map[string]int32{
 	"TRD_REG_TIMESTAMP_TYPE_SUBMISSION_TO_CLEARING": 7,
 }
 
-func (x TrdRegTimestampTypeEnum) String() string {
-	return proto.EnumName(TrdRegTimestampTypeEnum_name, int32(x))
+func (x TrdRegfix_TimestampTypeEnum) String() string {
+	return proto.EnumName(TrdRegfix_TimestampTypeEnum_name, int32(x))
 }
 
-func (TrdRegTimestampTypeEnum) EnumDescriptor() ([]byte, []int) {
+func (TrdRegfix_TimestampTypeEnum) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_555bd8c177793206, []int{70}
 }
 
@@ -15782,7 +15783,7 @@ func (ComplexEventConditionEnum) EnumDescriptor() ([]byte, []int) {
 type CommissionData struct {
 	CommCurrency         string            `protobuf:"bytes,1,opt,name=comm_currency,json=commCurrency,proto3" json:"comm_currency,omitempty"`
 	CommType             CommTypeEnum      `protobuf:"varint,2,opt,name=comm_type,json=commType,proto3,enum=Common.CommTypeEnum" json:"comm_type,omitempty"`
-	Commission           *Decimal64        `protobuf:"bytes,3,opt,name=commission,proto3" json:"commission,omitempty"`
+	Commission           *fix.Decimal64        `protobuf:"bytes,3,opt,name=commission,proto3" json:"commission,omitempty"`
 	FundRenewWaiv        FundRenewWaivEnum `protobuf:"varint,4,opt,name=fund_renew_waiv,json=fundRenewWaiv,proto3,enum=Common.FundRenewWaivEnum" json:"fund_renew_waiv,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
 	XXX_unrecognized     []byte            `json:"-"`
@@ -15828,7 +15829,7 @@ func (m *CommissionData) GetCommType() CommTypeEnum {
 	return CommTypeEnum_COMM_TYPE_UNSPECIFIED
 }
 
-func (m *CommissionData) GetCommission() *Decimal64 {
+func (m *CommissionData) GetCommission() *fix.Decimal64 {
 	if m != nil {
 		return m.Commission
 	}
@@ -15847,7 +15848,7 @@ type DiscretionInstructions struct {
 	DiscretionLimitType      DiscretionLimitTypeEnum      `protobuf:"varint,2,opt,name=discretion_limit_type,json=discretionLimitType,proto3,enum=Common.DiscretionLimitTypeEnum" json:"discretion_limit_type,omitempty"`
 	DiscretionMoveType       DiscretionMoveTypeEnum       `protobuf:"varint,3,opt,name=discretion_move_type,json=discretionMoveType,proto3,enum=Common.DiscretionMoveTypeEnum" json:"discretion_move_type,omitempty"`
 	DiscretionOffsetType     DiscretionOffsetTypeEnum     `protobuf:"varint,4,opt,name=discretion_offset_type,json=discretionOffsetType,proto3,enum=Common.DiscretionOffsetTypeEnum" json:"discretion_offset_type,omitempty"`
-	DiscretionOffsetValue    *Decimal64                   `protobuf:"bytes,5,opt,name=discretion_offset_value,json=discretionOffsetValue,proto3" json:"discretion_offset_value,omitempty"`
+	DiscretionOffsetValue    *fix.Decimal64                   `protobuf:"bytes,5,opt,name=discretion_offset_value,json=discretionOffsetValue,proto3" json:"discretion_offset_value,omitempty"`
 	DiscretionRoundDirection DiscretionRoundDirectionEnum `protobuf:"varint,6,opt,name=discretion_round_direction,json=discretionRoundDirection,proto3,enum=Common.DiscretionRoundDirectionEnum" json:"discretion_round_direction,omitempty"`
 	DiscretionScope          DiscretionScopeEnum          `protobuf:"varint,7,opt,name=discretion_scope,json=discretionScope,proto3,enum=Common.DiscretionScopeEnum" json:"discretion_scope,omitempty"`
 	XXX_NoUnkeyedLiteral     struct{}                     `json:"-"`
@@ -15908,7 +15909,7 @@ func (m *DiscretionInstructions) GetDiscretionOffsetType() DiscretionOffsetTypeE
 	return DiscretionOffsetTypeEnum_DISCRETION_OFFSET_TYPE_UNSPECIFIED
 }
 
-func (m *DiscretionInstructions) GetDiscretionOffsetValue() *Decimal64 {
+func (m *DiscretionInstructions) GetDiscretionOffsetValue() *fix.Decimal64 {
 	if m != nil {
 		return m.DiscretionOffsetValue
 	}
@@ -15936,7 +15937,7 @@ type FinancingDetails struct {
 	AgreementId          string              `protobuf:"bytes,4,opt,name=agreement_id,json=agreementId,proto3" json:"agreement_id,omitempty"`
 	DeliveryType         DeliveryTypeEnum    `protobuf:"varint,5,opt,name=delivery_type,json=deliveryType,proto3,enum=Common.DeliveryTypeEnum" json:"delivery_type,omitempty"`
 	EndDate              int32               `protobuf:"fixed32,6,opt,name=end_date,json=endDate,proto3" json:"end_date,omitempty"`
-	MarginRatio          *Decimal64          `protobuf:"bytes,7,opt,name=margin_ratio,json=marginRatio,proto3" json:"margin_ratio,omitempty"`
+	MarginRatio          *fix.Decimal64          `protobuf:"bytes,7,opt,name=margin_ratio,json=marginRatio,proto3" json:"margin_ratio,omitempty"`
 	StartDate            int32               `protobuf:"fixed32,8,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
 	TerminationType      TerminationTypeEnum `protobuf:"varint,9,opt,name=termination_type,json=terminationType,proto3,enum=Common.TerminationTypeEnum" json:"termination_type,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
@@ -16011,7 +16012,7 @@ func (m *FinancingDetails) GetEndDate() int32 {
 	return 0
 }
 
-func (m *FinancingDetails) GetMarginRatio() *Decimal64 {
+func (m *FinancingDetails) GetMarginRatio() *fix.Decimal64 {
 	if m != nil {
 		return m.MarginRatio
 	}
@@ -16034,16 +16035,16 @@ func (m *FinancingDetails) GetTerminationType() TerminationTypeEnum {
 
 type Instrument struct {
 	CfiCode                    string               `protobuf:"bytes,1,opt,name=cfi_code,json=cfiCode,proto3" json:"cfi_code,omitempty"`
-	ContractMultiplier         *Decimal64           `protobuf:"bytes,2,opt,name=contract_multiplier,json=contractMultiplier,proto3" json:"contract_multiplier,omitempty"`
+	ContractMultiplier         *fix.Decimal64           `protobuf:"bytes,2,opt,name=contract_multiplier,json=contractMultiplier,proto3" json:"contract_multiplier,omitempty"`
 	CountryOfIssue             string               `protobuf:"bytes,3,opt,name=country_of_issue,json=countryOfIssue,proto3" json:"country_of_issue,omitempty"`
 	CouponPaymentDate          int32                `protobuf:"fixed32,4,opt,name=coupon_payment_date,json=couponPaymentDate,proto3" json:"coupon_payment_date,omitempty"`
-	CouponRate                 *Decimal64           `protobuf:"bytes,5,opt,name=coupon_rate,json=couponRate,proto3" json:"coupon_rate,omitempty"`
+	CouponRate                 *fix.Decimal64           `protobuf:"bytes,5,opt,name=coupon_rate,json=couponRate,proto3" json:"coupon_rate,omitempty"`
 	CreditRating               string               `protobuf:"bytes,6,opt,name=credit_rating,json=creditRating,proto3" json:"credit_rating,omitempty"`
 	EncodedIssuer              string               `protobuf:"bytes,7,opt,name=encoded_issuer,json=encodedIssuer,proto3" json:"encoded_issuer,omitempty"`
 	EncodedIssuerLen           int64                `protobuf:"fixed64,8,opt,name=encoded_issuer_len,json=encodedIssuerLen,proto3" json:"encoded_issuer_len,omitempty"`
 	EncodedSecurityDesc        string               `protobuf:"bytes,9,opt,name=encoded_security_desc,json=encodedSecurityDesc,proto3" json:"encoded_security_desc,omitempty"`
 	EncodedSecurityDescLen     int64                `protobuf:"fixed64,10,opt,name=encoded_security_desc_len,json=encodedSecurityDescLen,proto3" json:"encoded_security_desc_len,omitempty"`
-	Factor                     *Decimal64           `protobuf:"bytes,11,opt,name=factor,proto3" json:"factor,omitempty"`
+	Factor                     *fix.Decimal64           `protobuf:"bytes,11,opt,name=factor,proto3" json:"factor,omitempty"`
 	InstrRegistry              string               `protobuf:"bytes,12,opt,name=instr_registry,json=instrRegistry,proto3" json:"instr_registry,omitempty"`
 	IssueDate                  int32                `protobuf:"fixed32,13,opt,name=issue_date,json=issueDate,proto3" json:"issue_date,omitempty"`
 	Issuer                     string               `protobuf:"bytes,14,opt,name=issuer,proto3" json:"issuer,omitempty"`
@@ -16054,7 +16055,7 @@ type Instrument struct {
 	Product                    ProductEnum          `protobuf:"varint,19,opt,name=product,proto3,enum=Common.ProductEnum" json:"product,omitempty"`
 	RedemptionDate             int32                `protobuf:"fixed32,20,opt,name=redemption_date,json=redemptionDate,proto3" json:"redemption_date,omitempty"`
 	RepoCollateralSecurityType string               `protobuf:"bytes,21,opt,name=repo_collateral_security_type,json=repoCollateralSecurityType,proto3" json:"repo_collateral_security_type,omitempty"`
-	RepurchaseRate             *Decimal64           `protobuf:"bytes,22,opt,name=repurchase_rate,json=repurchaseRate,proto3" json:"repurchase_rate,omitempty"`
+	RepurchaseRate             *fix.Decimal64           `protobuf:"bytes,22,opt,name=repurchase_rate,json=repurchaseRate,proto3" json:"repurchase_rate,omitempty"`
 	RepurchaseTerm             int64                `protobuf:"fixed64,23,opt,name=repurchase_term,json=repurchaseTerm,proto3" json:"repurchase_term,omitempty"`
 	SecurityDesc               string               `protobuf:"bytes,24,opt,name=security_desc,json=securityDesc,proto3" json:"security_desc,omitempty"`
 	SecurityExchange           string               `protobuf:"bytes,25,opt,name=security_exchange,json=securityExchange,proto3" json:"security_exchange,omitempty"`
@@ -16062,7 +16063,7 @@ type Instrument struct {
 	SecurityIdSource           SecurityIDSourceEnum `protobuf:"varint,27,opt,name=security_id_source,json=securityIdSource,proto3,enum=Common.SecurityIDSourceEnum" json:"security_id_source,omitempty"`
 	SecurityType               SecurityTypeEnum     `protobuf:"varint,28,opt,name=security_type,json=securityType,proto3,enum=Common.SecurityTypeEnum" json:"security_type,omitempty"`
 	StateOrProvinceOfIssue     string               `protobuf:"bytes,29,opt,name=state_or_province_of_issue,json=stateOrProvinceOfIssue,proto3" json:"state_or_province_of_issue,omitempty"`
-	StrikePrice                *Decimal64           `protobuf:"bytes,30,opt,name=strike_price,json=strikePrice,proto3" json:"strike_price,omitempty"`
+	StrikePrice                *fix.Decimal64           `protobuf:"bytes,30,opt,name=strike_price,json=strikePrice,proto3" json:"strike_price,omitempty"`
 	Symbol                     string               `protobuf:"bytes,31,opt,name=symbol,proto3" json:"symbol,omitempty"`
 	SymbolSfx                  SymbolSfxEnum        `protobuf:"varint,32,opt,name=symbol_sfx,json=symbolSfx,proto3,enum=Common.SymbolSfxEnum" json:"symbol_sfx,omitempty"`
 	ContractSettlMonth         int32                `protobuf:"fixed32,33,opt,name=contract_settl_month,json=contractSettlMonth,proto3" json:"contract_settl_month,omitempty"`
@@ -16076,8 +16077,8 @@ type Instrument struct {
 	InstrmtAssignmentMethod         []byte                      `protobuf:"bytes,39,opt,name=instrmt_assignment_method,json=instrmtAssignmentMethod,proto3" json:"instrmt_assignment_method,omitempty"`
 	InstrumentParties               []*InstrumentParties        `protobuf:"bytes,40,rep,name=instrument_parties,json=instrumentParties,proto3" json:"instrument_parties,omitempty"`
 	InterestAccrualDate             int32                       `protobuf:"fixed32,41,opt,name=interest_accrual_date,json=interestAccrualDate,proto3" json:"interest_accrual_date,omitempty"`
-	MaturityTime                    *LocalTimeOnly              `protobuf:"bytes,42,opt,name=maturity_time,json=maturityTime,proto3" json:"maturity_time,omitempty"`
-	MinPriceIncrement               *Decimal64                  `protobuf:"bytes,43,opt,name=min_price_increment,json=minPriceIncrement,proto3" json:"min_price_increment,omitempty"`
+	MaturityTime                    *fix.LocalTimeOnly              `protobuf:"bytes,42,opt,name=maturity_time,json=maturityTime,proto3" json:"maturity_time,omitempty"`
+	MinPriceIncrement               *fix.Decimal64                  `protobuf:"bytes,43,opt,name=min_price_increment,json=minPriceIncrement,proto3" json:"min_price_increment,omitempty"`
 	NtPositionLimit                 int64                       `protobuf:"fixed64,44,opt,name=nt_position_limit,json=ntPositionLimit,proto3" json:"nt_position_limit,omitempty"`
 	Pool                            string                      `protobuf:"bytes,45,opt,name=pool,proto3" json:"pool,omitempty"`
 	PositionLimit                   int64                       `protobuf:"fixed64,46,opt,name=position_limit,json=positionLimit,proto3" json:"position_limit,omitempty"`
@@ -16087,26 +16088,26 @@ type Instrument struct {
 	SecuritySubType                 string                      `protobuf:"bytes,50,opt,name=security_sub_type,json=securitySubType,proto3" json:"security_sub_type,omitempty"`
 	SettleOnOpenFlag                string                      `protobuf:"bytes,51,opt,name=settle_on_open_flag,json=settleOnOpenFlag,proto3" json:"settle_on_open_flag,omitempty"`
 	StrikeCurrency                  string                      `protobuf:"bytes,52,opt,name=strike_currency,json=strikeCurrency,proto3" json:"strike_currency,omitempty"`
-	StrikeMultiplier                *Decimal64                  `protobuf:"bytes,53,opt,name=strike_multiplier,json=strikeMultiplier,proto3" json:"strike_multiplier,omitempty"`
-	StrikeValue                     *Decimal64                  `protobuf:"bytes,54,opt,name=strike_value,json=strikeValue,proto3" json:"strike_value,omitempty"`
+	StrikeMultiplier                *fix.Decimal64                  `protobuf:"bytes,53,opt,name=strike_multiplier,json=strikeMultiplier,proto3" json:"strike_multiplier,omitempty"`
+	StrikeValue                     *fix.Decimal64                  `protobuf:"bytes,54,opt,name=strike_value,json=strikeValue,proto3" json:"strike_value,omitempty"`
 	TimeUnit                        TimeUnitEnum                `protobuf:"varint,55,opt,name=time_unit,json=timeUnit,proto3,enum=Common.TimeUnitEnum" json:"time_unit,omitempty"`
 	UnitOfMeasure                   UnitOfMeasureEnum           `protobuf:"varint,56,opt,name=unit_of_measure,json=unitOfMeasure,proto3,enum=Common.UnitOfMeasureEnum" json:"unit_of_measure,omitempty"`
-	CapPrice                        *Decimal64                  `protobuf:"bytes,57,opt,name=cap_price,json=capPrice,proto3" json:"cap_price,omitempty"`
+	CapPrice                        *fix.Decimal64                  `protobuf:"bytes,57,opt,name=cap_price,json=capPrice,proto3" json:"cap_price,omitempty"`
 	ExerciseStyle                   ExerciseStyleEnum           `protobuf:"varint,58,opt,name=exercise_style,json=exerciseStyle,proto3,enum=Common.ExerciseStyleEnum" json:"exercise_style,omitempty"`
 	FlexProductEligibilityIndicator bool                        `protobuf:"varint,59,opt,name=flex_product_eligibility_indicator,json=flexProductEligibilityIndicator,proto3" json:"flex_product_eligibility_indicator,omitempty"`
 	FlexibleIndicator               bool                        `protobuf:"varint,60,opt,name=flexible_indicator,json=flexibleIndicator,proto3" json:"flexible_indicator,omitempty"`
-	FloorPrice                      *Decimal64                  `protobuf:"bytes,61,opt,name=floor_price,json=floorPrice,proto3" json:"floor_price,omitempty"`
+	FloorPrice                      *fix.Decimal64                  `protobuf:"bytes,61,opt,name=floor_price,json=floorPrice,proto3" json:"floor_price,omitempty"`
 	ListMethod                      ListMethodEnum              `protobuf:"varint,62,opt,name=list_method,json=listMethod,proto3,enum=Common.ListMethodEnum" json:"list_method,omitempty"`
-	MinPriceIncrementAmount         *Decimal64                  `protobuf:"bytes,63,opt,name=min_price_increment_amount,json=minPriceIncrementAmount,proto3" json:"min_price_increment_amount,omitempty"`
-	OptPayoutAmount                 *Decimal64                  `protobuf:"bytes,64,opt,name=opt_payout_amount,json=optPayoutAmount,proto3" json:"opt_payout_amount,omitempty"`
+	MinPriceIncrementAmount         *fix.Decimal64                  `protobuf:"bytes,63,opt,name=min_price_increment_amount,json=minPriceIncrementAmount,proto3" json:"min_price_increment_amount,omitempty"`
+	OptPayoutAmount                 *fix.Decimal64                  `protobuf:"bytes,64,opt,name=opt_payout_amount,json=optPayoutAmount,proto3" json:"opt_payout_amount,omitempty"`
 	PriceQuoteMethod                PriceQuoteMethodEnum        `protobuf:"varint,65,opt,name=price_quote_method,json=priceQuoteMethod,proto3,enum=Common.PriceQuoteMethodEnum" json:"price_quote_method,omitempty"`
 	PriceUnitOfMeasure              PriceUnitOfMeasureEnum      `protobuf:"varint,66,opt,name=price_unit_of_measure,json=priceUnitOfMeasure,proto3,enum=Common.PriceUnitOfMeasureEnum" json:"price_unit_of_measure,omitempty"`
-	PriceUnitOfMeasureQty           *Decimal64                  `protobuf:"bytes,67,opt,name=price_unit_of_measure_qty,json=priceUnitOfMeasureQty,proto3" json:"price_unit_of_measure_qty,omitempty"`
+	PriceUnitOfMeasureQty           *fix.Decimal64                  `protobuf:"bytes,67,opt,name=price_unit_of_measure_qty,json=priceUnitOfMeasureQty,proto3" json:"price_unit_of_measure_qty,omitempty"`
 	ProductComplex                  string                      `protobuf:"bytes,68,opt,name=product_complex,json=productComplex,proto3" json:"product_complex,omitempty"`
 	SecurityGroup                   string                      `protobuf:"bytes,69,opt,name=security_group,json=securityGroup,proto3" json:"security_group,omitempty"`
 	SecurityXml                     *SecurityXML                `protobuf:"bytes,70,opt,name=security_xml,json=securityXml,proto3" json:"security_xml,omitempty"`
 	SettlMethod                     SettlMethodEnum             `protobuf:"varint,71,opt,name=settl_method,json=settlMethod,proto3,enum=Common.SettlMethodEnum" json:"settl_method,omitempty"`
-	UnitOfMeasureQty                *Decimal64                  `protobuf:"bytes,72,opt,name=unit_of_measure_qty,json=unitOfMeasureQty,proto3" json:"unit_of_measure_qty,omitempty"`
+	UnitOfMeasureQty                *fix.Decimal64                  `protobuf:"bytes,72,opt,name=unit_of_measure_qty,json=unitOfMeasureQty,proto3" json:"unit_of_measure_qty,omitempty"`
 	ValuationMethod                 ValuationMethodEnum         `protobuf:"varint,73,opt,name=valuation_method,json=valuationMethod,proto3,enum=Common.ValuationMethodEnum" json:"valuation_method,omitempty"`
 	ComplexEvents                   []*ComplexEvents            `protobuf:"bytes,74,rep,name=complex_events,json=complexEvents,proto3" json:"complex_events,omitempty"`
 	ContractMultiplierUnit          ContractMultiplierUnitEnum  `protobuf:"varint,75,opt,name=contract_multiplier_unit,json=contractMultiplierUnit,proto3,enum=Common.ContractMultiplierUnitEnum" json:"contract_multiplier_unit,omitempty"`
@@ -16114,15 +16115,15 @@ type Instrument struct {
 	//	*Instrument_FlowScheduleType
 	//	*Instrument_FlowScheduleTypeReserved100Plus
 	FlowScheduleTypeUnion                 isInstrument_FlowScheduleTypeUnion `protobuf_oneof:"flow_schedule_type_union"`
-	AttachmentPoint                       *Decimal64                         `protobuf:"bytes,78,opt,name=attachment_point,json=attachmentPoint,proto3" json:"attachment_point,omitempty"`
-	DetachmentPoint                       *Decimal64                         `protobuf:"bytes,79,opt,name=detachment_point,json=detachmentPoint,proto3" json:"detachment_point,omitempty"`
-	NotionalPercentageOutstanding         *Decimal64                         `protobuf:"bytes,80,opt,name=notional_percentage_outstanding,json=notionalPercentageOutstanding,proto3" json:"notional_percentage_outstanding,omitempty"`
-	OriginalNotionalPercentageOutstanding *Decimal64                         `protobuf:"bytes,81,opt,name=original_notional_percentage_outstanding,json=originalNotionalPercentageOutstanding,proto3" json:"original_notional_percentage_outstanding,omitempty"`
+	AttachmentPoint                       *fix.Decimal64                         `protobuf:"bytes,78,opt,name=attachment_point,json=attachmentPoint,proto3" json:"attachment_point,omitempty"`
+	DetachmentPoint                       *fix.Decimal64                         `protobuf:"bytes,79,opt,name=detachment_point,json=detachmentPoint,proto3" json:"detachment_point,omitempty"`
+	NotionalPercentageOutstanding         *fix.Decimal64                         `protobuf:"bytes,80,opt,name=notional_percentage_outstanding,json=notionalPercentageOutstanding,proto3" json:"notional_percentage_outstanding,omitempty"`
+	OriginalNotionalPercentageOutstanding *fix.Decimal64                         `protobuf:"bytes,81,opt,name=original_notional_percentage_outstanding,json=originalNotionalPercentageOutstanding,proto3" json:"original_notional_percentage_outstanding,omitempty"`
 	RestructuringType                     RestructuringTypeEnum              `protobuf:"varint,82,opt,name=restructuring_type,json=restructuringType,proto3,enum=Common.RestructuringTypeEnum" json:"restructuring_type,omitempty"`
 	Seniority                             SeniorityEnum                      `protobuf:"varint,83,opt,name=seniority,proto3,enum=Common.SeniorityEnum" json:"seniority,omitempty"`
 	OptPayoutType                         OptPayoutTypeEnum                  `protobuf:"varint,84,opt,name=opt_payout_type,json=optPayoutType,proto3,enum=Common.OptPayoutTypeEnum" json:"opt_payout_type,omitempty"`
 	StrikePriceBoundaryMethod             StrikePriceBoundaryMethodEnum      `protobuf:"varint,85,opt,name=strike_price_boundary_method,json=strikePriceBoundaryMethod,proto3,enum=Common.StrikePriceBoundaryMethodEnum" json:"strike_price_boundary_method,omitempty"`
-	StrikePriceBoundaryPrecision          *Decimal64                         `protobuf:"bytes,86,opt,name=strike_price_boundary_precision,json=strikePriceBoundaryPrecision,proto3" json:"strike_price_boundary_precision,omitempty"`
+	StrikePriceBoundaryPrecision          *fix.Decimal64                         `protobuf:"bytes,86,opt,name=strike_price_boundary_precision,json=strikePriceBoundaryPrecision,proto3" json:"strike_price_boundary_precision,omitempty"`
 	// Types that are valid to be assigned to StrikePriceDeterminationMethodUnion:
 	//	*Instrument_StrikePriceDeterminationMethod
 	//	*Instrument_StrikePriceDeterminationMethodReserved100Plus
@@ -16165,7 +16166,7 @@ func (m *Instrument) GetCfiCode() string {
 	return ""
 }
 
-func (m *Instrument) GetContractMultiplier() *Decimal64 {
+func (m *Instrument) GetContractMultiplier() *fix.Decimal64 {
 	if m != nil {
 		return m.ContractMultiplier
 	}
@@ -16186,7 +16187,7 @@ func (m *Instrument) GetCouponPaymentDate() int32 {
 	return 0
 }
 
-func (m *Instrument) GetCouponRate() *Decimal64 {
+func (m *Instrument) GetCouponRate() *fix.Decimal64 {
 	if m != nil {
 		return m.CouponRate
 	}
@@ -16228,7 +16229,7 @@ func (m *Instrument) GetEncodedSecurityDescLen() int64 {
 	return 0
 }
 
-func (m *Instrument) GetFactor() *Decimal64 {
+func (m *Instrument) GetFactor() *fix.Decimal64 {
 	if m != nil {
 		return m.Factor
 	}
@@ -16305,7 +16306,7 @@ func (m *Instrument) GetRepoCollateralSecurityType() string {
 	return ""
 }
 
-func (m *Instrument) GetRepurchaseRate() *Decimal64 {
+func (m *Instrument) GetRepurchaseRate() *fix.Decimal64 {
 	if m != nil {
 		return m.RepurchaseRate
 	}
@@ -16361,7 +16362,7 @@ func (m *Instrument) GetStateOrProvinceOfIssue() string {
 	return ""
 }
 
-func (m *Instrument) GetStrikePrice() *Decimal64 {
+func (m *Instrument) GetStrikePrice() *fix.Decimal64 {
 	if m != nil {
 		return m.StrikePrice
 	}
@@ -16468,14 +16469,14 @@ func (m *Instrument) GetInterestAccrualDate() int32 {
 	return 0
 }
 
-func (m *Instrument) GetMaturityTime() *LocalTimeOnly {
+func (m *Instrument) GetMaturityTime() *fix.LocalTimeOnly {
 	if m != nil {
 		return m.MaturityTime
 	}
 	return nil
 }
 
-func (m *Instrument) GetMinPriceIncrement() *Decimal64 {
+func (m *Instrument) GetMinPriceIncrement() *fix.Decimal64 {
 	if m != nil {
 		return m.MinPriceIncrement
 	}
@@ -16545,14 +16546,14 @@ func (m *Instrument) GetStrikeCurrency() string {
 	return ""
 }
 
-func (m *Instrument) GetStrikeMultiplier() *Decimal64 {
+func (m *Instrument) GetStrikeMultiplier() *fix.Decimal64 {
 	if m != nil {
 		return m.StrikeMultiplier
 	}
 	return nil
 }
 
-func (m *Instrument) GetStrikeValue() *Decimal64 {
+func (m *Instrument) GetStrikeValue() *fix.Decimal64 {
 	if m != nil {
 		return m.StrikeValue
 	}
@@ -16573,7 +16574,7 @@ func (m *Instrument) GetUnitOfMeasure() UnitOfMeasureEnum {
 	return UnitOfMeasureEnum_UNIT_OF_MEASURE_UNSPECIFIED
 }
 
-func (m *Instrument) GetCapPrice() *Decimal64 {
+func (m *Instrument) GetCapPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.CapPrice
 	}
@@ -16601,7 +16602,7 @@ func (m *Instrument) GetFlexibleIndicator() bool {
 	return false
 }
 
-func (m *Instrument) GetFloorPrice() *Decimal64 {
+func (m *Instrument) GetFloorPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.FloorPrice
 	}
@@ -16615,14 +16616,14 @@ func (m *Instrument) GetListMethod() ListMethodEnum {
 	return ListMethodEnum_LIST_METHOD_UNSPECIFIED
 }
 
-func (m *Instrument) GetMinPriceIncrementAmount() *Decimal64 {
+func (m *Instrument) GetMinPriceIncrementAmount() *fix.Decimal64 {
 	if m != nil {
 		return m.MinPriceIncrementAmount
 	}
 	return nil
 }
 
-func (m *Instrument) GetOptPayoutAmount() *Decimal64 {
+func (m *Instrument) GetOptPayoutAmount() *fix.Decimal64 {
 	if m != nil {
 		return m.OptPayoutAmount
 	}
@@ -16643,7 +16644,7 @@ func (m *Instrument) GetPriceUnitOfMeasure() PriceUnitOfMeasureEnum {
 	return PriceUnitOfMeasureEnum_PRICE_UNIT_OF_MEASURE_UNSPECIFIED
 }
 
-func (m *Instrument) GetPriceUnitOfMeasureQty() *Decimal64 {
+func (m *Instrument) GetPriceUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.PriceUnitOfMeasureQty
 	}
@@ -16678,7 +16679,7 @@ func (m *Instrument) GetSettlMethod() SettlMethodEnum {
 	return SettlMethodEnum_SETTL_METHOD_UNSPECIFIED
 }
 
-func (m *Instrument) GetUnitOfMeasureQty() *Decimal64 {
+func (m *Instrument) GetUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.UnitOfMeasureQty
 	}
@@ -16743,28 +16744,28 @@ func (m *Instrument) GetFlowScheduleTypeReserved100Plus() uint32 {
 	return 0
 }
 
-func (m *Instrument) GetAttachmentPoint() *Decimal64 {
+func (m *Instrument) GetAttachmentPoint() *fix.Decimal64 {
 	if m != nil {
 		return m.AttachmentPoint
 	}
 	return nil
 }
 
-func (m *Instrument) GetDetachmentPoint() *Decimal64 {
+func (m *Instrument) GetDetachmentPoint() *fix.Decimal64 {
 	if m != nil {
 		return m.DetachmentPoint
 	}
 	return nil
 }
 
-func (m *Instrument) GetNotionalPercentageOutstanding() *Decimal64 {
+func (m *Instrument) GetNotionalPercentageOutstanding() *fix.Decimal64 {
 	if m != nil {
 		return m.NotionalPercentageOutstanding
 	}
 	return nil
 }
 
-func (m *Instrument) GetOriginalNotionalPercentageOutstanding() *Decimal64 {
+func (m *Instrument) GetOriginalNotionalPercentageOutstanding() *fix.Decimal64 {
 	if m != nil {
 		return m.OriginalNotionalPercentageOutstanding
 	}
@@ -16799,7 +16800,7 @@ func (m *Instrument) GetStrikePriceBoundaryMethod() StrikePriceBoundaryMethodEnu
 	return StrikePriceBoundaryMethodEnum_STRIKE_PRICE_BOUNDARY_METHOD_UNSPECIFIED
 }
 
-func (m *Instrument) GetStrikePriceBoundaryPrecision() *Decimal64 {
+func (m *Instrument) GetStrikePriceBoundaryPrecision() *fix.Decimal64 {
 	if m != nil {
 		return m.StrikePriceBoundaryPrecision
 	}
@@ -16866,7 +16867,7 @@ func (*Instrument) XXX_OneofWrappers() []interface{} {
 type InstrumentExtension struct {
 	AttrbGrp             []*AttrbGrp      `protobuf:"bytes,1,rep,name=attrb_grp,json=attrbGrp,proto3" json:"attrb_grp,omitempty"`
 	DeliveryForm         DeliveryFormEnum `protobuf:"varint,2,opt,name=delivery_form,json=deliveryForm,proto3,enum=Common.DeliveryFormEnum" json:"delivery_form,omitempty"`
-	PctAtRisk            *Decimal64       `protobuf:"bytes,3,opt,name=pct_at_risk,json=pctAtRisk,proto3" json:"pct_at_risk,omitempty"`
+	PctAtRisk            *fix.Decimal64       `protobuf:"bytes,3,opt,name=pct_at_risk,json=pctAtRisk,proto3" json:"pct_at_risk,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -16911,7 +16912,7 @@ func (m *InstrumentExtension) GetDeliveryForm() DeliveryFormEnum {
 	return DeliveryFormEnum_DELIVERY_FORM_UNSPECIFIED
 }
 
-func (m *InstrumentExtension) GetPctAtRisk() *Decimal64 {
+func (m *InstrumentExtension) GetPctAtRisk() *fix.Decimal64 {
 	if m != nil {
 		return m.PctAtRisk
 	}
@@ -16924,12 +16925,12 @@ type InstrumentLeg struct {
 	EncodedLegSecurityDesc        string                        `protobuf:"bytes,3,opt,name=encoded_leg_security_desc,json=encodedLegSecurityDesc,proto3" json:"encoded_leg_security_desc,omitempty"`
 	EncodedLegSecurityDescLen     int64                         `protobuf:"fixed64,4,opt,name=encoded_leg_security_desc_len,json=encodedLegSecurityDescLen,proto3" json:"encoded_leg_security_desc_len,omitempty"`
 	LegCfiCode                    string                        `protobuf:"bytes,5,opt,name=leg_cfi_code,json=legCfiCode,proto3" json:"leg_cfi_code,omitempty"`
-	LegContractMultiplier         *Decimal64                    `protobuf:"bytes,6,opt,name=leg_contract_multiplier,json=legContractMultiplier,proto3" json:"leg_contract_multiplier,omitempty"`
+	LegContractMultiplier         *fix.Decimal64                    `protobuf:"bytes,6,opt,name=leg_contract_multiplier,json=legContractMultiplier,proto3" json:"leg_contract_multiplier,omitempty"`
 	LegCountryOfIssue             string                        `protobuf:"bytes,7,opt,name=leg_country_of_issue,json=legCountryOfIssue,proto3" json:"leg_country_of_issue,omitempty"`
 	LegCouponPaymentDate          int32                         `protobuf:"fixed32,8,opt,name=leg_coupon_payment_date,json=legCouponPaymentDate,proto3" json:"leg_coupon_payment_date,omitempty"`
-	LegCouponRate                 *Decimal64                    `protobuf:"bytes,9,opt,name=leg_coupon_rate,json=legCouponRate,proto3" json:"leg_coupon_rate,omitempty"`
+	LegCouponRate                 *fix.Decimal64                    `protobuf:"bytes,9,opt,name=leg_coupon_rate,json=legCouponRate,proto3" json:"leg_coupon_rate,omitempty"`
 	LegCreditRating               string                        `protobuf:"bytes,10,opt,name=leg_credit_rating,json=legCreditRating,proto3" json:"leg_credit_rating,omitempty"`
-	LegFactor                     *Decimal64                    `protobuf:"bytes,11,opt,name=leg_factor,json=legFactor,proto3" json:"leg_factor,omitempty"`
+	LegFactor                     *fix.Decimal64                    `protobuf:"bytes,11,opt,name=leg_factor,json=legFactor,proto3" json:"leg_factor,omitempty"`
 	LegInstrRegistry              string                        `protobuf:"bytes,12,opt,name=leg_instr_registry,json=legInstrRegistry,proto3" json:"leg_instr_registry,omitempty"`
 	LegIssueDate                  int32                         `protobuf:"fixed32,13,opt,name=leg_issue_date,json=legIssueDate,proto3" json:"leg_issue_date,omitempty"`
 	LegIssuer                     string                        `protobuf:"bytes,14,opt,name=leg_issuer,json=legIssuer,proto3" json:"leg_issuer,omitempty"`
@@ -16938,10 +16939,10 @@ type InstrumentLeg struct {
 	LegMaturityMonthYear          int32                         `protobuf:"fixed32,17,opt,name=leg_maturity_month_year,json=legMaturityMonthYear,proto3" json:"leg_maturity_month_year,omitempty"`
 	LegOptAttribute               []byte                        `protobuf:"bytes,18,opt,name=leg_opt_attribute,json=legOptAttribute,proto3" json:"leg_opt_attribute,omitempty"`
 	LegProduct                    LegProductEnum                `protobuf:"varint,19,opt,name=leg_product,json=legProduct,proto3,enum=Common.LegProductEnum" json:"leg_product,omitempty"`
-	LegRatioQty                   *Decimal64                    `protobuf:"bytes,20,opt,name=leg_ratio_qty,json=legRatioQty,proto3" json:"leg_ratio_qty,omitempty"`
+	LegRatioQty                   *fix.Decimal64                    `protobuf:"bytes,20,opt,name=leg_ratio_qty,json=legRatioQty,proto3" json:"leg_ratio_qty,omitempty"`
 	LegRedemptionDate             int32                         `protobuf:"fixed32,21,opt,name=leg_redemption_date,json=legRedemptionDate,proto3" json:"leg_redemption_date,omitempty"`
 	LegRepoCollateralSecurityType string                        `protobuf:"bytes,22,opt,name=leg_repo_collateral_security_type,json=legRepoCollateralSecurityType,proto3" json:"leg_repo_collateral_security_type,omitempty"`
-	LegRepurchaseRate             *Decimal64                    `protobuf:"bytes,23,opt,name=leg_repurchase_rate,json=legRepurchaseRate,proto3" json:"leg_repurchase_rate,omitempty"`
+	LegRepurchaseRate             *fix.Decimal64                    `protobuf:"bytes,23,opt,name=leg_repurchase_rate,json=legRepurchaseRate,proto3" json:"leg_repurchase_rate,omitempty"`
 	LegRepurchaseTerm             int64                         `protobuf:"fixed64,24,opt,name=leg_repurchase_term,json=legRepurchaseTerm,proto3" json:"leg_repurchase_term,omitempty"`
 	LegSecurityDesc               string                        `protobuf:"bytes,25,opt,name=leg_security_desc,json=legSecurityDesc,proto3" json:"leg_security_desc,omitempty"`
 	LegSecurityExchange           string                        `protobuf:"bytes,26,opt,name=leg_security_exchange,json=legSecurityExchange,proto3" json:"leg_security_exchange,omitempty"`
@@ -16950,27 +16951,27 @@ type InstrumentLeg struct {
 	LegSecurityType               LegSecurityTypeEnum           `protobuf:"varint,29,opt,name=leg_security_type,json=legSecurityType,proto3,enum=Common.LegSecurityTypeEnum" json:"leg_security_type,omitempty"`
 	LegSide                       LegSideEnum                   `protobuf:"varint,30,opt,name=leg_side,json=legSide,proto3,enum=Common.LegSideEnum" json:"leg_side,omitempty"`
 	LegStateOrProvinceOfIssue     string                        `protobuf:"bytes,31,opt,name=leg_state_or_province_of_issue,json=legStateOrProvinceOfIssue,proto3" json:"leg_state_or_province_of_issue,omitempty"`
-	LegStrikePrice                *Decimal64                    `protobuf:"bytes,32,opt,name=leg_strike_price,json=legStrikePrice,proto3" json:"leg_strike_price,omitempty"`
+	LegStrikePrice                *fix.Decimal64                    `protobuf:"bytes,32,opt,name=leg_strike_price,json=legStrikePrice,proto3" json:"leg_strike_price,omitempty"`
 	LegSymbol                     string                        `protobuf:"bytes,33,opt,name=leg_symbol,json=legSymbol,proto3" json:"leg_symbol,omitempty"`
 	LegSymbolSfx                  LegSymbolSfxEnum              `protobuf:"varint,34,opt,name=leg_symbol_sfx,json=legSymbolSfx,proto3,enum=Common.LegSymbolSfxEnum" json:"leg_symbol_sfx,omitempty"`
 	LegContractSettlMonth         int32                         `protobuf:"fixed32,35,opt,name=leg_contract_settl_month,json=legContractSettlMonth,proto3" json:"leg_contract_settl_month,omitempty"`
 	LegCurrency                   string                        `protobuf:"bytes,36,opt,name=leg_currency,json=legCurrency,proto3" json:"leg_currency,omitempty"`
 	LegDatedDate                  int32                         `protobuf:"fixed32,37,opt,name=leg_dated_date,json=legDatedDate,proto3" json:"leg_dated_date,omitempty"`
 	LegInterestAccrualDate        int32                         `protobuf:"fixed32,38,opt,name=leg_interest_accrual_date,json=legInterestAccrualDate,proto3" json:"leg_interest_accrual_date,omitempty"`
-	LegOptionRatio                *Decimal64                    `protobuf:"bytes,39,opt,name=leg_option_ratio,json=legOptionRatio,proto3" json:"leg_option_ratio,omitempty"`
+	LegOptionRatio                *fix.Decimal64                    `protobuf:"bytes,39,opt,name=leg_option_ratio,json=legOptionRatio,proto3" json:"leg_option_ratio,omitempty"`
 	LegPool                       string                        `protobuf:"bytes,40,opt,name=leg_pool,json=legPool,proto3" json:"leg_pool,omitempty"`
-	LegPrice                      *Decimal64                    `protobuf:"bytes,41,opt,name=leg_price,json=legPrice,proto3" json:"leg_price,omitempty"`
+	LegPrice                      *fix.Decimal64                    `protobuf:"bytes,41,opt,name=leg_price,json=legPrice,proto3" json:"leg_price,omitempty"`
 	LegSecAltIdGrp                []*LegSecAltIDGrp             `protobuf:"bytes,42,rep,name=leg_sec_alt_id_grp,json=legSecAltIdGrp,proto3" json:"leg_sec_alt_id_grp,omitempty"`
 	LegSecuritySubType            string                        `protobuf:"bytes,43,opt,name=leg_security_sub_type,json=legSecuritySubType,proto3" json:"leg_security_sub_type,omitempty"`
 	LegStrikeCurrency             string                        `protobuf:"bytes,44,opt,name=leg_strike_currency,json=legStrikeCurrency,proto3" json:"leg_strike_currency,omitempty"`
 	LegTimeUnit                   LegTimeUnitEnum               `protobuf:"varint,45,opt,name=leg_time_unit,json=legTimeUnit,proto3,enum=Common.LegTimeUnitEnum" json:"leg_time_unit,omitempty"`
 	LegUnitOfMeasure              LegUnitOfMeasureEnum          `protobuf:"varint,46,opt,name=leg_unit_of_measure,json=legUnitOfMeasure,proto3,enum=Common.LegUnitOfMeasureEnum" json:"leg_unit_of_measure,omitempty"`
 	LegExerciseStyle              LegExerciseStyleEnum          `protobuf:"varint,47,opt,name=leg_exercise_style,json=legExerciseStyle,proto3,enum=Common.LegExerciseStyleEnum" json:"leg_exercise_style,omitempty"`
-	LegMaturityTime               *LocalTimeOnly                `protobuf:"bytes,48,opt,name=leg_maturity_time,json=legMaturityTime,proto3" json:"leg_maturity_time,omitempty"`
+	LegMaturityTime               *fix.LocalTimeOnly                `protobuf:"bytes,48,opt,name=leg_maturity_time,json=legMaturityTime,proto3" json:"leg_maturity_time,omitempty"`
 	LegPriceUnitOfMeasure         LegPriceUnitOfMeasureEnum     `protobuf:"varint,49,opt,name=leg_price_unit_of_measure,json=legPriceUnitOfMeasure,proto3,enum=Common.LegPriceUnitOfMeasureEnum" json:"leg_price_unit_of_measure,omitempty"`
-	LegPriceUnitOfMeasureQty      *Decimal64                    `protobuf:"bytes,50,opt,name=leg_price_unit_of_measure_qty,json=legPriceUnitOfMeasureQty,proto3" json:"leg_price_unit_of_measure_qty,omitempty"`
+	LegPriceUnitOfMeasureQty      *fix.Decimal64                    `protobuf:"bytes,50,opt,name=leg_price_unit_of_measure_qty,json=legPriceUnitOfMeasureQty,proto3" json:"leg_price_unit_of_measure_qty,omitempty"`
 	LegPutOrCall                  int64                         `protobuf:"fixed64,51,opt,name=leg_put_or_call,json=legPutOrCall,proto3" json:"leg_put_or_call,omitempty"`
-	LegUnitOfMeasureQty           *Decimal64                    `protobuf:"bytes,52,opt,name=leg_unit_of_measure_qty,json=legUnitOfMeasureQty,proto3" json:"leg_unit_of_measure_qty,omitempty"`
+	LegUnitOfMeasureQty           *fix.Decimal64                    `protobuf:"bytes,52,opt,name=leg_unit_of_measure_qty,json=legUnitOfMeasureQty,proto3" json:"leg_unit_of_measure_qty,omitempty"`
 	LegContractMultiplierUnit     LegContractMultiplierUnitEnum `protobuf:"varint,53,opt,name=leg_contract_multiplier_unit,json=legContractMultiplierUnit,proto3,enum=Common.LegContractMultiplierUnitEnum" json:"leg_contract_multiplier_unit,omitempty"`
 	// Types that are valid to be assigned to LegFlowScheduleTypeUnion:
 	//	*InstrumentLeg_LegFlowScheduleType
@@ -17041,7 +17042,7 @@ func (m *InstrumentLeg) GetLegCfiCode() string {
 	return ""
 }
 
-func (m *InstrumentLeg) GetLegContractMultiplier() *Decimal64 {
+func (m *InstrumentLeg) GetLegContractMultiplier() *fix.Decimal64 {
 	if m != nil {
 		return m.LegContractMultiplier
 	}
@@ -17062,7 +17063,7 @@ func (m *InstrumentLeg) GetLegCouponPaymentDate() int32 {
 	return 0
 }
 
-func (m *InstrumentLeg) GetLegCouponRate() *Decimal64 {
+func (m *InstrumentLeg) GetLegCouponRate() *fix.Decimal64 {
 	if m != nil {
 		return m.LegCouponRate
 	}
@@ -17076,7 +17077,7 @@ func (m *InstrumentLeg) GetLegCreditRating() string {
 	return ""
 }
 
-func (m *InstrumentLeg) GetLegFactor() *Decimal64 {
+func (m *InstrumentLeg) GetLegFactor() *fix.Decimal64 {
 	if m != nil {
 		return m.LegFactor
 	}
@@ -17139,7 +17140,7 @@ func (m *InstrumentLeg) GetLegProduct() LegProductEnum {
 	return LegProductEnum_LEG_PRODUCT_UNSPECIFIED
 }
 
-func (m *InstrumentLeg) GetLegRatioQty() *Decimal64 {
+func (m *InstrumentLeg) GetLegRatioQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegRatioQty
 	}
@@ -17160,7 +17161,7 @@ func (m *InstrumentLeg) GetLegRepoCollateralSecurityType() string {
 	return ""
 }
 
-func (m *InstrumentLeg) GetLegRepurchaseRate() *Decimal64 {
+func (m *InstrumentLeg) GetLegRepurchaseRate() *fix.Decimal64 {
 	if m != nil {
 		return m.LegRepurchaseRate
 	}
@@ -17223,7 +17224,7 @@ func (m *InstrumentLeg) GetLegStateOrProvinceOfIssue() string {
 	return ""
 }
 
-func (m *InstrumentLeg) GetLegStrikePrice() *Decimal64 {
+func (m *InstrumentLeg) GetLegStrikePrice() *fix.Decimal64 {
 	if m != nil {
 		return m.LegStrikePrice
 	}
@@ -17272,7 +17273,7 @@ func (m *InstrumentLeg) GetLegInterestAccrualDate() int32 {
 	return 0
 }
 
-func (m *InstrumentLeg) GetLegOptionRatio() *Decimal64 {
+func (m *InstrumentLeg) GetLegOptionRatio() *fix.Decimal64 {
 	if m != nil {
 		return m.LegOptionRatio
 	}
@@ -17286,7 +17287,7 @@ func (m *InstrumentLeg) GetLegPool() string {
 	return ""
 }
 
-func (m *InstrumentLeg) GetLegPrice() *Decimal64 {
+func (m *InstrumentLeg) GetLegPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.LegPrice
 	}
@@ -17335,7 +17336,7 @@ func (m *InstrumentLeg) GetLegExerciseStyle() LegExerciseStyleEnum {
 	return LegExerciseStyleEnum_LEG_EXERCISE_STYLE_UNSPECIFIED
 }
 
-func (m *InstrumentLeg) GetLegMaturityTime() *LocalTimeOnly {
+func (m *InstrumentLeg) GetLegMaturityTime() *fix.LocalTimeOnly {
 	if m != nil {
 		return m.LegMaturityTime
 	}
@@ -17349,7 +17350,7 @@ func (m *InstrumentLeg) GetLegPriceUnitOfMeasure() LegPriceUnitOfMeasureEnum {
 	return LegPriceUnitOfMeasureEnum_LEG_PRICE_UNIT_OF_MEASURE_UNSPECIFIED
 }
 
-func (m *InstrumentLeg) GetLegPriceUnitOfMeasureQty() *Decimal64 {
+func (m *InstrumentLeg) GetLegPriceUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegPriceUnitOfMeasureQty
 	}
@@ -17363,7 +17364,7 @@ func (m *InstrumentLeg) GetLegPutOrCall() int64 {
 	return 0
 }
 
-func (m *InstrumentLeg) GetLegUnitOfMeasureQty() *Decimal64 {
+func (m *InstrumentLeg) GetLegUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegUnitOfMeasureQty
 	}
@@ -17426,7 +17427,7 @@ type LegBenchmarkCurveData struct {
 	LegBenchmarkCurveCurrency string                    `protobuf:"bytes,1,opt,name=leg_benchmark_curve_currency,json=legBenchmarkCurveCurrency,proto3" json:"leg_benchmark_curve_currency,omitempty"`
 	LegBenchmarkCurveName     LegBenchmarkCurveNameEnum `protobuf:"varint,2,opt,name=leg_benchmark_curve_name,json=legBenchmarkCurveName,proto3,enum=Common.LegBenchmarkCurveNameEnum" json:"leg_benchmark_curve_name,omitempty"`
 	LegBenchmarkCurvePoint    string                    `protobuf:"bytes,3,opt,name=leg_benchmark_curve_point,json=legBenchmarkCurvePoint,proto3" json:"leg_benchmark_curve_point,omitempty"`
-	LegBenchmarkPrice         *Decimal64                `protobuf:"bytes,4,opt,name=leg_benchmark_price,json=legBenchmarkPrice,proto3" json:"leg_benchmark_price,omitempty"`
+	LegBenchmarkPrice         *fix.Decimal64                `protobuf:"bytes,4,opt,name=leg_benchmark_price,json=legBenchmarkPrice,proto3" json:"leg_benchmark_price,omitempty"`
 	LegBenchmarkPriceType     int64                     `protobuf:"fixed64,5,opt,name=leg_benchmark_price_type,json=legBenchmarkPriceType,proto3" json:"leg_benchmark_price_type,omitempty"`
 	XXX_NoUnkeyedLiteral      struct{}                  `json:"-"`
 	XXX_unrecognized          []byte                    `json:"-"`
@@ -17479,7 +17480,7 @@ func (m *LegBenchmarkCurveData) GetLegBenchmarkCurvePoint() string {
 	return ""
 }
 
-func (m *LegBenchmarkCurveData) GetLegBenchmarkPrice() *Decimal64 {
+func (m *LegBenchmarkCurveData) GetLegBenchmarkPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.LegBenchmarkPrice
 	}
@@ -17604,11 +17605,11 @@ func (m *NestedParties) GetNstdPtysSubGrp() []*NstdPtysSubGrp {
 }
 
 type OrderQtyData struct {
-	CashOrderQty         *Decimal64            `protobuf:"bytes,1,opt,name=cash_order_qty,json=cashOrderQty,proto3" json:"cash_order_qty,omitempty"`
-	OrderPercent         *Decimal64            `protobuf:"bytes,2,opt,name=order_percent,json=orderPercent,proto3" json:"order_percent,omitempty"`
-	OrderQty             *Decimal64            `protobuf:"bytes,3,opt,name=order_qty,json=orderQty,proto3" json:"order_qty,omitempty"`
+	CashOrderQty         *fix.Decimal64            `protobuf:"bytes,1,opt,name=cash_order_qty,json=cashOrderQty,proto3" json:"cash_order_qty,omitempty"`
+	OrderPercent         *fix.Decimal64            `protobuf:"bytes,2,opt,name=order_percent,json=orderPercent,proto3" json:"order_percent,omitempty"`
+	OrderQty             *fix.Decimal64            `protobuf:"bytes,3,opt,name=order_qty,json=orderQty,proto3" json:"order_qty,omitempty"`
 	RoundingDirection    RoundingDirectionEnum `protobuf:"varint,4,opt,name=rounding_direction,json=roundingDirection,proto3,enum=Common.RoundingDirectionEnum" json:"rounding_direction,omitempty"`
-	RoundingModulus      *Decimal64            `protobuf:"bytes,5,opt,name=rounding_modulus,json=roundingModulus,proto3" json:"rounding_modulus,omitempty"`
+	RoundingModulus      *fix.Decimal64            `protobuf:"bytes,5,opt,name=rounding_modulus,json=roundingModulus,proto3" json:"rounding_modulus,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
 	XXX_unrecognized     []byte                `json:"-"`
 	XXX_sizecache        int32                 `json:"-"`
@@ -17639,21 +17640,21 @@ func (m *OrderQtyData) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_OrderQtyData proto.InternalMessageInfo
 
-func (m *OrderQtyData) GetCashOrderQty() *Decimal64 {
+func (m *OrderQtyData) GetCashOrderQty() *fix.Decimal64 {
 	if m != nil {
 		return m.CashOrderQty
 	}
 	return nil
 }
 
-func (m *OrderQtyData) GetOrderPercent() *Decimal64 {
+func (m *OrderQtyData) GetOrderPercent() *fix.Decimal64 {
 	if m != nil {
 		return m.OrderPercent
 	}
 	return nil
 }
 
-func (m *OrderQtyData) GetOrderQty() *Decimal64 {
+func (m *OrderQtyData) GetOrderQty() *fix.Decimal64 {
 	if m != nil {
 		return m.OrderQty
 	}
@@ -17667,7 +17668,7 @@ func (m *OrderQtyData) GetRoundingDirection() RoundingDirectionEnum {
 	return RoundingDirectionEnum_ROUNDING_DIRECTION_UNSPECIFIED
 }
 
-func (m *OrderQtyData) GetRoundingModulus() *Decimal64 {
+func (m *OrderQtyData) GetRoundingModulus() *fix.Decimal64 {
 	if m != nil {
 		return m.RoundingModulus
 	}
@@ -17741,7 +17742,7 @@ type PegInstructions struct {
 	PegLimitType         PegLimitTypeEnum        `protobuf:"varint,1,opt,name=peg_limit_type,json=pegLimitType,proto3,enum=Common.PegLimitTypeEnum" json:"peg_limit_type,omitempty"`
 	PegMoveType          PegMoveTypeEnum         `protobuf:"varint,2,opt,name=peg_move_type,json=pegMoveType,proto3,enum=Common.PegMoveTypeEnum" json:"peg_move_type,omitempty"`
 	PegOffsetType        PegOffsetTypeEnum       `protobuf:"varint,3,opt,name=peg_offset_type,json=pegOffsetType,proto3,enum=Common.PegOffsetTypeEnum" json:"peg_offset_type,omitempty"`
-	PegOffsetValue       *Decimal64              `protobuf:"bytes,4,opt,name=peg_offset_value,json=pegOffsetValue,proto3" json:"peg_offset_value,omitempty"`
+	PegOffsetValue       *fix.Decimal64              `protobuf:"bytes,4,opt,name=peg_offset_value,json=pegOffsetValue,proto3" json:"peg_offset_value,omitempty"`
 	PegPriceType         PegPriceTypeEnum        `protobuf:"varint,5,opt,name=peg_price_type,json=pegPriceType,proto3,enum=Common.PegPriceTypeEnum" json:"peg_price_type,omitempty"`
 	PegRoundDirection    PegRoundDirectionEnum   `protobuf:"varint,6,opt,name=peg_round_direction,json=pegRoundDirection,proto3,enum=Common.PegRoundDirectionEnum" json:"peg_round_direction,omitempty"`
 	PegScope             PegScopeEnum            `protobuf:"varint,7,opt,name=peg_scope,json=pegScope,proto3,enum=Common.PegScopeEnum" json:"peg_scope,omitempty"`
@@ -17800,7 +17801,7 @@ func (m *PegInstructions) GetPegOffsetType() PegOffsetTypeEnum {
 	return PegOffsetTypeEnum_PEG_OFFSET_TYPE_UNSPECIFIED
 }
 
-func (m *PegInstructions) GetPegOffsetValue() *Decimal64 {
+func (m *PegInstructions) GetPegOffsetValue() *fix.Decimal64 {
 	if m != nil {
 		return m.PegOffsetValue
 	}
@@ -17857,7 +17858,7 @@ func (m *PegInstructions) GetPegSymbol() string {
 }
 
 type PositionAmountData struct {
-	PosAmt               *Decimal64     `protobuf:"bytes,1,opt,name=pos_amt,json=posAmt,proto3" json:"pos_amt,omitempty"`
+	PosAmt               *fix.Decimal64     `protobuf:"bytes,1,opt,name=pos_amt,json=posAmt,proto3" json:"pos_amt,omitempty"`
 	PosAmtType           PosAmtTypeEnum `protobuf:"varint,2,opt,name=pos_amt_type,json=posAmtType,proto3,enum=Common.PosAmtTypeEnum" json:"pos_amt_type,omitempty"`
 	PositionCurrency     string         `protobuf:"bytes,3,opt,name=position_currency,json=positionCurrency,proto3" json:"position_currency,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
@@ -17890,7 +17891,7 @@ func (m *PositionAmountData) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_PositionAmountData proto.InternalMessageInfo
 
-func (m *PositionAmountData) GetPosAmt() *Decimal64 {
+func (m *PositionAmountData) GetPosAmt() *fix.Decimal64 {
 	if m != nil {
 		return m.PosAmt
 	}
@@ -17912,12 +17913,12 @@ func (m *PositionAmountData) GetPositionCurrency() string {
 }
 
 type PositionQty struct {
-	LongQty              *Decimal64       `protobuf:"bytes,1,opt,name=long_qty,json=longQty,proto3" json:"long_qty,omitempty"`
+	LongQty              *fix.Decimal64       `protobuf:"bytes,1,opt,name=long_qty,json=longQty,proto3" json:"long_qty,omitempty"`
 	NestedParties        []*NestedParties `protobuf:"bytes,2,rep,name=nested_parties,json=nestedParties,proto3" json:"nested_parties,omitempty"`
 	PosQtyStatus         PosQtyStatusEnum `protobuf:"varint,3,opt,name=pos_qty_status,json=posQtyStatus,proto3,enum=Common.PosQtyStatusEnum" json:"pos_qty_status,omitempty"`
 	PosType              PosTypeEnum      `protobuf:"varint,4,opt,name=pos_type,json=posType,proto3,enum=Common.PosTypeEnum" json:"pos_type,omitempty"`
 	QuantityDate         int32            `protobuf:"fixed32,5,opt,name=quantity_date,json=quantityDate,proto3" json:"quantity_date,omitempty"`
-	ShortQty             *Decimal64       `protobuf:"bytes,6,opt,name=short_qty,json=shortQty,proto3" json:"short_qty,omitempty"`
+	ShortQty             *fix.Decimal64       `protobuf:"bytes,6,opt,name=short_qty,json=shortQty,proto3" json:"short_qty,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -17948,7 +17949,7 @@ func (m *PositionQty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_PositionQty proto.InternalMessageInfo
 
-func (m *PositionQty) GetLongQty() *Decimal64 {
+func (m *PositionQty) GetLongQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LongQty
 	}
@@ -17983,7 +17984,7 @@ func (m *PositionQty) GetQuantityDate() int32 {
 	return 0
 }
 
-func (m *PositionQty) GetShortQty() *Decimal64 {
+func (m *PositionQty) GetShortQty() *fix.Decimal64 {
 	if m != nil {
 		return m.ShortQty
 	}
@@ -18128,8 +18129,8 @@ type SpreadOrBenchmarkCurveData struct {
 	BenchmarkCurveCurrency    string                        `protobuf:"bytes,1,opt,name=benchmark_curve_currency,json=benchmarkCurveCurrency,proto3" json:"benchmark_curve_currency,omitempty"`
 	BenchmarkCurveName        BenchmarkCurveNameEnum        `protobuf:"varint,2,opt,name=benchmark_curve_name,json=benchmarkCurveName,proto3,enum=Common.BenchmarkCurveNameEnum" json:"benchmark_curve_name,omitempty"`
 	BenchmarkCurvePoint       string                        `protobuf:"bytes,3,opt,name=benchmark_curve_point,json=benchmarkCurvePoint,proto3" json:"benchmark_curve_point,omitempty"`
-	Spread                    *Decimal64                    `protobuf:"bytes,4,opt,name=spread,proto3" json:"spread,omitempty"`
-	BenchmarkPrice            *Decimal64                    `protobuf:"bytes,5,opt,name=benchmark_price,json=benchmarkPrice,proto3" json:"benchmark_price,omitempty"`
+	Spread                    *fix.Decimal64                    `protobuf:"bytes,4,opt,name=spread,proto3" json:"spread,omitempty"`
+	BenchmarkPrice            *fix.Decimal64                    `protobuf:"bytes,5,opt,name=benchmark_price,json=benchmarkPrice,proto3" json:"benchmark_price,omitempty"`
 	BenchmarkPriceType        BenchmarkPriceTypeEnum        `protobuf:"varint,6,opt,name=benchmark_price_type,json=benchmarkPriceType,proto3,enum=Common.BenchmarkPriceTypeEnum" json:"benchmark_price_type,omitempty"`
 	BenchmarkSecurityId       string                        `protobuf:"bytes,7,opt,name=benchmark_security_id,json=benchmarkSecurityId,proto3" json:"benchmark_security_id,omitempty"`
 	BenchmarkSecurityIdSource BenchmarkSecurityIDSourceEnum `protobuf:"varint,8,opt,name=benchmark_security_id_source,json=benchmarkSecurityIdSource,proto3,enum=Common.BenchmarkSecurityIDSourceEnum" json:"benchmark_security_id_source,omitempty"`
@@ -18184,14 +18185,14 @@ func (m *SpreadOrBenchmarkCurveData) GetBenchmarkCurvePoint() string {
 	return ""
 }
 
-func (m *SpreadOrBenchmarkCurveData) GetSpread() *Decimal64 {
+func (m *SpreadOrBenchmarkCurveData) GetSpread() *fix.Decimal64 {
 	if m != nil {
 		return m.Spread
 	}
 	return nil
 }
 
-func (m *SpreadOrBenchmarkCurveData) GetBenchmarkPrice() *Decimal64 {
+func (m *SpreadOrBenchmarkCurveData) GetBenchmarkPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.BenchmarkPrice
 	}
@@ -18266,83 +18267,83 @@ func (m *Stipulations) GetStipulationValue() string {
 	return ""
 }
 
-type TrdRegTimestamps struct {
+type TrdRegfix_Timestamps struct {
 	DeskOrderHandlingInst []DeskOrderHandlingInstEnum `protobuf:"varint,1,rep,packed,name=desk_order_handling_inst,json=deskOrderHandlingInst,proto3,enum=Common.DeskOrderHandlingInstEnum" json:"desk_order_handling_inst,omitempty"`
 	DeskType              DeskTypeEnum                `protobuf:"varint,2,opt,name=desk_type,json=deskType,proto3,enum=Common.DeskTypeEnum" json:"desk_type,omitempty"`
 	DeskTypeSource        DeskTypeSourceEnum          `protobuf:"varint,3,opt,name=desk_type_source,json=deskTypeSource,proto3,enum=Common.DeskTypeSourceEnum" json:"desk_type_source,omitempty"`
-	TrdRegTimestamp       *Timestamp                  `protobuf:"bytes,4,opt,name=trd_reg_timestamp,json=trdRegTimestamp,proto3" json:"trd_reg_timestamp,omitempty"`
-	TrdRegTimestampOrigin string                      `protobuf:"bytes,5,opt,name=trd_reg_timestamp_origin,json=trdRegTimestampOrigin,proto3" json:"trd_reg_timestamp_origin,omitempty"`
-	TrdRegTimestampType   TrdRegTimestampTypeEnum     `protobuf:"varint,6,opt,name=trd_reg_timestamp_type,json=trdRegTimestampType,proto3,enum=Common.TrdRegTimestampTypeEnum" json:"trd_reg_timestamp_type,omitempty"`
+	TrdRegfix_Timestamp       *fix.Timestamp                  `protobuf:"bytes,4,opt,name=trd_reg_timestamp,json=trdRegfix.Timestamp,proto3" json:"trd_reg_timestamp,omitempty"`
+	TrdRegfix_TimestampOrigin string                      `protobuf:"bytes,5,opt,name=trd_reg_timestamp_origin,json=trdRegfix.TimestampOrigin,proto3" json:"trd_reg_timestamp_origin,omitempty"`
+	TrdRegfix_TimestampType   TrdRegfix_TimestampTypeEnum     `protobuf:"varint,6,opt,name=trd_reg_timestamp_type,json=trdRegfix.TimestampType,proto3,enum=Common.TrdRegfix_TimestampTypeEnum" json:"trd_reg_timestamp_type,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}                    `json:"-"`
 	XXX_unrecognized      []byte                      `json:"-"`
 	XXX_sizecache         int32                       `json:"-"`
 }
 
-func (m *TrdRegTimestamps) Reset()         { *m = TrdRegTimestamps{} }
-func (m *TrdRegTimestamps) String() string { return proto.CompactTextString(m) }
-func (*TrdRegTimestamps) ProtoMessage()    {}
-func (*TrdRegTimestamps) Descriptor() ([]byte, []int) {
+func (m *TrdRegfix_Timestamps) Reset()         { *m = TrdRegfix_Timestamps{} }
+func (m *TrdRegfix_Timestamps) String() string { return proto.CompactTextString(m) }
+func (*TrdRegfix_Timestamps) ProtoMessage()    {}
+func (*TrdRegfix_Timestamps) Descriptor() ([]byte, []int) {
 	return fileDescriptor_555bd8c177793206, []int{18}
 }
 
-func (m *TrdRegTimestamps) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TrdRegTimestamps.Unmarshal(m, b)
+func (m *TrdRegfix_Timestamps) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TrdRegfix_Timestamps.Unmarshal(m, b)
 }
-func (m *TrdRegTimestamps) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TrdRegTimestamps.Marshal(b, m, deterministic)
+func (m *TrdRegfix_Timestamps) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TrdRegfix_Timestamps.Marshal(b, m, deterministic)
 }
-func (m *TrdRegTimestamps) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TrdRegTimestamps.Merge(m, src)
+func (m *TrdRegfix_Timestamps) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TrdRegfix_Timestamps.Merge(m, src)
 }
-func (m *TrdRegTimestamps) XXX_Size() int {
-	return xxx_messageInfo_TrdRegTimestamps.Size(m)
+func (m *TrdRegfix_Timestamps) XXX_Size() int {
+	return xxx_messageInfo_TrdRegfix_Timestamps.Size(m)
 }
-func (m *TrdRegTimestamps) XXX_DiscardUnknown() {
-	xxx_messageInfo_TrdRegTimestamps.DiscardUnknown(m)
+func (m *TrdRegfix_Timestamps) XXX_DiscardUnknown() {
+	xxx_messageInfo_TrdRegfix_Timestamps.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_TrdRegTimestamps proto.InternalMessageInfo
+var xxx_messageInfo_TrdRegfix_Timestamps proto.InternalMessageInfo
 
-func (m *TrdRegTimestamps) GetDeskOrderHandlingInst() []DeskOrderHandlingInstEnum {
+func (m *TrdRegfix_Timestamps) GetDeskOrderHandlingInst() []DeskOrderHandlingInstEnum {
 	if m != nil {
 		return m.DeskOrderHandlingInst
 	}
 	return nil
 }
 
-func (m *TrdRegTimestamps) GetDeskType() DeskTypeEnum {
+func (m *TrdRegfix_Timestamps) GetDeskType() DeskTypeEnum {
 	if m != nil {
 		return m.DeskType
 	}
 	return DeskTypeEnum_DESK_TYPE_UNSPECIFIED
 }
 
-func (m *TrdRegTimestamps) GetDeskTypeSource() DeskTypeSourceEnum {
+func (m *TrdRegfix_Timestamps) GetDeskTypeSource() DeskTypeSourceEnum {
 	if m != nil {
 		return m.DeskTypeSource
 	}
 	return DeskTypeSourceEnum_DESK_TYPE_SOURCE_UNSPECIFIED
 }
 
-func (m *TrdRegTimestamps) GetTrdRegTimestamp() *Timestamp {
+func (m *TrdRegfix_Timestamps) GetTrdRegfix_Timestamp() *fix.Timestamp {
 	if m != nil {
-		return m.TrdRegTimestamp
+		return m.TrdRegfix_Timestamp
 	}
 	return nil
 }
 
-func (m *TrdRegTimestamps) GetTrdRegTimestampOrigin() string {
+func (m *TrdRegfix_Timestamps) GetTrdRegfix_TimestampOrigin() string {
 	if m != nil {
-		return m.TrdRegTimestampOrigin
+		return m.TrdRegfix_TimestampOrigin
 	}
 	return ""
 }
 
-func (m *TrdRegTimestamps) GetTrdRegTimestampType() TrdRegTimestampTypeEnum {
+func (m *TrdRegfix_Timestamps) GetTrdRegfix_TimestampType() TrdRegfix_TimestampTypeEnum {
 	if m != nil {
-		return m.TrdRegTimestampType
+		return m.TrdRegfix_TimestampType
 	}
-	return TrdRegTimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED
+	return TrdRegfix_TimestampTypeEnum_TRD_REG_TIMESTAMP_TYPE_UNSPECIFIED
 }
 
 type UnderlyingInstrument struct {
@@ -18351,12 +18352,12 @@ type UnderlyingInstrument struct {
 	EncodedUnderlyingSecurityDesc        string                               `protobuf:"bytes,3,opt,name=encoded_underlying_security_desc,json=encodedUnderlyingSecurityDesc,proto3" json:"encoded_underlying_security_desc,omitempty"`
 	EncodedUnderlyingSecurityDescLen     int64                                `protobuf:"fixed64,4,opt,name=encoded_underlying_security_desc_len,json=encodedUnderlyingSecurityDescLen,proto3" json:"encoded_underlying_security_desc_len,omitempty"`
 	UnderlyingCfiCode                    string                               `protobuf:"bytes,5,opt,name=underlying_cfi_code,json=underlyingCfiCode,proto3" json:"underlying_cfi_code,omitempty"`
-	UnderlyingContractMultiplier         *Decimal64                           `protobuf:"bytes,6,opt,name=underlying_contract_multiplier,json=underlyingContractMultiplier,proto3" json:"underlying_contract_multiplier,omitempty"`
+	UnderlyingContractMultiplier         *fix.Decimal64                           `protobuf:"bytes,6,opt,name=underlying_contract_multiplier,json=underlyingContractMultiplier,proto3" json:"underlying_contract_multiplier,omitempty"`
 	UnderlyingCountryOfIssue             string                               `protobuf:"bytes,7,opt,name=underlying_country_of_issue,json=underlyingCountryOfIssue,proto3" json:"underlying_country_of_issue,omitempty"`
 	UnderlyingCouponPaymentDate          int32                                `protobuf:"fixed32,8,opt,name=underlying_coupon_payment_date,json=underlyingCouponPaymentDate,proto3" json:"underlying_coupon_payment_date,omitempty"`
-	UnderlyingCouponRate                 *Decimal64                           `protobuf:"bytes,9,opt,name=underlying_coupon_rate,json=underlyingCouponRate,proto3" json:"underlying_coupon_rate,omitempty"`
+	UnderlyingCouponRate                 *fix.Decimal64                           `protobuf:"bytes,9,opt,name=underlying_coupon_rate,json=underlyingCouponRate,proto3" json:"underlying_coupon_rate,omitempty"`
 	UnderlyingCreditRating               string                               `protobuf:"bytes,10,opt,name=underlying_credit_rating,json=underlyingCreditRating,proto3" json:"underlying_credit_rating,omitempty"`
-	UnderlyingFactor                     *Decimal64                           `protobuf:"bytes,11,opt,name=underlying_factor,json=underlyingFactor,proto3" json:"underlying_factor,omitempty"`
+	UnderlyingFactor                     *fix.Decimal64                           `protobuf:"bytes,11,opt,name=underlying_factor,json=underlyingFactor,proto3" json:"underlying_factor,omitempty"`
 	UnderlyingInstrRegistry              string                               `protobuf:"bytes,12,opt,name=underlying_instr_registry,json=underlyingInstrRegistry,proto3" json:"underlying_instr_registry,omitempty"`
 	UnderlyingIssueDate                  int32                                `protobuf:"fixed32,13,opt,name=underlying_issue_date,json=underlyingIssueDate,proto3" json:"underlying_issue_date,omitempty"`
 	UnderlyingIssuer                     string                               `protobuf:"bytes,14,opt,name=underlying_issuer,json=underlyingIssuer,proto3" json:"underlying_issuer,omitempty"`
@@ -18368,7 +18369,7 @@ type UnderlyingInstrument struct {
 	UnderlyingPutOrCall                  int64                                `protobuf:"fixed64,20,opt,name=underlying_put_or_call,json=underlyingPutOrCall,proto3" json:"underlying_put_or_call,omitempty"`
 	UnderlyingRedemptionDate             int32                                `protobuf:"fixed32,21,opt,name=underlying_redemption_date,json=underlyingRedemptionDate,proto3" json:"underlying_redemption_date,omitempty"`
 	UnderlyingRepoCollateralSecurityType string                               `protobuf:"bytes,22,opt,name=underlying_repo_collateral_security_type,json=underlyingRepoCollateralSecurityType,proto3" json:"underlying_repo_collateral_security_type,omitempty"`
-	UnderlyingRepurchaseRate             *Decimal64                           `protobuf:"bytes,23,opt,name=underlying_repurchase_rate,json=underlyingRepurchaseRate,proto3" json:"underlying_repurchase_rate,omitempty"`
+	UnderlyingRepurchaseRate             *fix.Decimal64                           `protobuf:"bytes,23,opt,name=underlying_repurchase_rate,json=underlyingRepurchaseRate,proto3" json:"underlying_repurchase_rate,omitempty"`
 	UnderlyingRepurchaseTerm             int64                                `protobuf:"fixed64,24,opt,name=underlying_repurchase_term,json=underlyingRepurchaseTerm,proto3" json:"underlying_repurchase_term,omitempty"`
 	UnderlyingSecurityDesc               string                               `protobuf:"bytes,25,opt,name=underlying_security_desc,json=underlyingSecurityDesc,proto3" json:"underlying_security_desc,omitempty"`
 	UnderlyingSecurityExchange           string                               `protobuf:"bytes,26,opt,name=underlying_security_exchange,json=underlyingSecurityExchange,proto3" json:"underlying_security_exchange,omitempty"`
@@ -18376,49 +18377,49 @@ type UnderlyingInstrument struct {
 	UnderlyingSecurityIdSource           UnderlyingSecurityIDSourceEnum       `protobuf:"varint,28,opt,name=underlying_security_id_source,json=underlyingSecurityIdSource,proto3,enum=Common.UnderlyingSecurityIDSourceEnum" json:"underlying_security_id_source,omitempty"`
 	UnderlyingSecurityType               UnderlyingSecurityTypeEnum           `protobuf:"varint,29,opt,name=underlying_security_type,json=underlyingSecurityType,proto3,enum=Common.UnderlyingSecurityTypeEnum" json:"underlying_security_type,omitempty"`
 	UnderlyingStateOrProvinceOfIssue     string                               `protobuf:"bytes,30,opt,name=underlying_state_or_province_of_issue,json=underlyingStateOrProvinceOfIssue,proto3" json:"underlying_state_or_province_of_issue,omitempty"`
-	UnderlyingStrikePrice                *Decimal64                           `protobuf:"bytes,31,opt,name=underlying_strike_price,json=underlyingStrikePrice,proto3" json:"underlying_strike_price,omitempty"`
+	UnderlyingStrikePrice                *fix.Decimal64                           `protobuf:"bytes,31,opt,name=underlying_strike_price,json=underlyingStrikePrice,proto3" json:"underlying_strike_price,omitempty"`
 	UnderlyingSymbol                     string                               `protobuf:"bytes,32,opt,name=underlying_symbol,json=underlyingSymbol,proto3" json:"underlying_symbol,omitempty"`
 	UnderlyingSymbolSfx                  UnderlyingSymbolSfxEnum              `protobuf:"varint,33,opt,name=underlying_symbol_sfx,json=underlyingSymbolSfx,proto3,enum=Common.UnderlyingSymbolSfxEnum" json:"underlying_symbol_sfx,omitempty"`
 	UndSecAltIdGrp                       []*UndSecAltIDGrp                    `protobuf:"bytes,34,rep,name=und_sec_alt_id_grp,json=undSecAltIdGrp,proto3" json:"und_sec_alt_id_grp,omitempty"`
-	UnderlyingAdjustedQuantity           *Decimal64                           `protobuf:"bytes,35,opt,name=underlying_adjusted_quantity,json=underlyingAdjustedQuantity,proto3" json:"underlying_adjusted_quantity,omitempty"`
-	UnderlyingAllocationPercent          *Decimal64                           `protobuf:"bytes,36,opt,name=underlying_allocation_percent,json=underlyingAllocationPercent,proto3" json:"underlying_allocation_percent,omitempty"`
-	UnderlyingCapValue                   *Decimal64                           `protobuf:"bytes,37,opt,name=underlying_cap_value,json=underlyingCapValue,proto3" json:"underlying_cap_value,omitempty"`
-	UnderlyingCashAmount                 *Decimal64                           `protobuf:"bytes,38,opt,name=underlying_cash_amount,json=underlyingCashAmount,proto3" json:"underlying_cash_amount,omitempty"`
+	UnderlyingAdjustedQuantity           *fix.Decimal64                           `protobuf:"bytes,35,opt,name=underlying_adjusted_quantity,json=underlyingAdjustedQuantity,proto3" json:"underlying_adjusted_quantity,omitempty"`
+	UnderlyingAllocationPercent          *fix.Decimal64                           `protobuf:"bytes,36,opt,name=underlying_allocation_percent,json=underlyingAllocationPercent,proto3" json:"underlying_allocation_percent,omitempty"`
+	UnderlyingCapValue                   *fix.Decimal64                           `protobuf:"bytes,37,opt,name=underlying_cap_value,json=underlyingCapValue,proto3" json:"underlying_cap_value,omitempty"`
+	UnderlyingCashAmount                 *fix.Decimal64                           `protobuf:"bytes,38,opt,name=underlying_cash_amount,json=underlyingCashAmount,proto3" json:"underlying_cash_amount,omitempty"`
 	UnderlyingCashType                   UnderlyingCashTypeEnum               `protobuf:"varint,39,opt,name=underlying_cash_type,json=underlyingCashType,proto3,enum=Common.UnderlyingCashTypeEnum" json:"underlying_cash_type,omitempty"`
 	UnderlyingCpProgram                  string                               `protobuf:"bytes,40,opt,name=underlying_cp_program,json=underlyingCpProgram,proto3" json:"underlying_cp_program,omitempty"`
 	UnderlyingCpRegType                  string                               `protobuf:"bytes,41,opt,name=underlying_cp_reg_type,json=underlyingCpRegType,proto3" json:"underlying_cp_reg_type,omitempty"`
 	UnderlyingCurrency                   string                               `protobuf:"bytes,42,opt,name=underlying_currency,json=underlyingCurrency,proto3" json:"underlying_currency,omitempty"`
-	UnderlyingCurrentValue               *Decimal64                           `protobuf:"bytes,43,opt,name=underlying_current_value,json=underlyingCurrentValue,proto3" json:"underlying_current_value,omitempty"`
-	UnderlyingDirtyPrice                 *Decimal64                           `protobuf:"bytes,44,opt,name=underlying_dirty_price,json=underlyingDirtyPrice,proto3" json:"underlying_dirty_price,omitempty"`
-	UnderlyingEndPrice                   *Decimal64                           `protobuf:"bytes,45,opt,name=underlying_end_price,json=underlyingEndPrice,proto3" json:"underlying_end_price,omitempty"`
-	UnderlyingEndValue                   *Decimal64                           `protobuf:"bytes,46,opt,name=underlying_end_value,json=underlyingEndValue,proto3" json:"underlying_end_value,omitempty"`
-	UnderlyingFxRate                     *Decimal64                           `protobuf:"bytes,47,opt,name=underlying_fx_rate,json=underlyingFxRate,proto3" json:"underlying_fx_rate,omitempty"`
+	UnderlyingCurrentValue               *fix.Decimal64                           `protobuf:"bytes,43,opt,name=underlying_current_value,json=underlyingCurrentValue,proto3" json:"underlying_current_value,omitempty"`
+	UnderlyingDirtyPrice                 *fix.Decimal64                           `protobuf:"bytes,44,opt,name=underlying_dirty_price,json=underlyingDirtyPrice,proto3" json:"underlying_dirty_price,omitempty"`
+	UnderlyingEndPrice                   *fix.Decimal64                           `protobuf:"bytes,45,opt,name=underlying_end_price,json=underlyingEndPrice,proto3" json:"underlying_end_price,omitempty"`
+	UnderlyingEndValue                   *fix.Decimal64                           `protobuf:"bytes,46,opt,name=underlying_end_value,json=underlyingEndValue,proto3" json:"underlying_end_value,omitempty"`
+	UnderlyingFxRate                     *fix.Decimal64                           `protobuf:"bytes,47,opt,name=underlying_fx_rate,json=underlyingFxRate,proto3" json:"underlying_fx_rate,omitempty"`
 	UnderlyingFxRateCalc                 UnderlyingFXRateCalcEnum             `protobuf:"varint,48,opt,name=underlying_fx_rate_calc,json=underlyingFxRateCalc,proto3,enum=Common.UnderlyingFXRateCalcEnum" json:"underlying_fx_rate_calc,omitempty"`
-	UnderlyingPx                         *Decimal64                           `protobuf:"bytes,49,opt,name=underlying_px,json=underlyingPx,proto3" json:"underlying_px,omitempty"`
-	UnderlyingQty                        *Decimal64                           `protobuf:"bytes,50,opt,name=underlying_qty,json=underlyingQty,proto3" json:"underlying_qty,omitempty"`
+	UnderlyingPx                         *fix.Decimal64                           `protobuf:"bytes,49,opt,name=underlying_px,json=underlyingPx,proto3" json:"underlying_px,omitempty"`
+	UnderlyingQty                        *fix.Decimal64                           `protobuf:"bytes,50,opt,name=underlying_qty,json=underlyingQty,proto3" json:"underlying_qty,omitempty"`
 	UnderlyingSecuritySubType            string                               `protobuf:"bytes,51,opt,name=underlying_security_sub_type,json=underlyingSecuritySubType,proto3" json:"underlying_security_sub_type,omitempty"`
 	UnderlyingSettlMethod                string                               `protobuf:"bytes,52,opt,name=underlying_settl_method,json=underlyingSettlMethod,proto3" json:"underlying_settl_method,omitempty"`
 	UnderlyingSettlementType             UnderlyingSettlementTypeEnum         `protobuf:"varint,53,opt,name=underlying_settlement_type,json=underlyingSettlementType,proto3,enum=Common.UnderlyingSettlementTypeEnum" json:"underlying_settlement_type,omitempty"`
-	UnderlyingStartValue                 *Decimal64                           `protobuf:"bytes,54,opt,name=underlying_start_value,json=underlyingStartValue,proto3" json:"underlying_start_value,omitempty"`
+	UnderlyingStartValue                 *fix.Decimal64                           `protobuf:"bytes,54,opt,name=underlying_start_value,json=underlyingStartValue,proto3" json:"underlying_start_value,omitempty"`
 	UnderlyingStipulations               []*UnderlyingStipulations            `protobuf:"bytes,55,rep,name=underlying_stipulations,json=underlyingStipulations,proto3" json:"underlying_stipulations,omitempty"`
 	UnderlyingStrikeCurrency             string                               `protobuf:"bytes,56,opt,name=underlying_strike_currency,json=underlyingStrikeCurrency,proto3" json:"underlying_strike_currency,omitempty"`
 	UnderlyingTimeUnit                   UnderlyingTimeUnitEnum               `protobuf:"varint,57,opt,name=underlying_time_unit,json=underlyingTimeUnit,proto3,enum=Common.UnderlyingTimeUnitEnum" json:"underlying_time_unit,omitempty"`
 	UnderlyingUnitOfMeasure              UnderlyingUnitOfMeasureEnum          `protobuf:"varint,58,opt,name=underlying_unit_of_measure,json=underlyingUnitOfMeasure,proto3,enum=Common.UnderlyingUnitOfMeasureEnum" json:"underlying_unit_of_measure,omitempty"`
 	UndlyInstrumentParties               []*UndlyInstrumentParties            `protobuf:"bytes,59,rep,name=undly_instrument_parties,json=undlyInstrumentParties,proto3" json:"undly_instrument_parties,omitempty"`
 	UnderlyingExerciseStyle              UnderlyingExerciseStyleEnum          `protobuf:"varint,60,opt,name=underlying_exercise_style,json=underlyingExerciseStyle,proto3,enum=Common.UnderlyingExerciseStyleEnum" json:"underlying_exercise_style,omitempty"`
-	UnderlyingMaturityTime               *LocalTimeOnly                       `protobuf:"bytes,61,opt,name=underlying_maturity_time,json=underlyingMaturityTime,proto3" json:"underlying_maturity_time,omitempty"`
+	UnderlyingMaturityTime               *fix.LocalTimeOnly                       `protobuf:"bytes,61,opt,name=underlying_maturity_time,json=underlyingMaturityTime,proto3" json:"underlying_maturity_time,omitempty"`
 	UnderlyingPriceUnitOfMeasure         UnderlyingPriceUnitOfMeasureEnum     `protobuf:"varint,62,opt,name=underlying_price_unit_of_measure,json=underlyingPriceUnitOfMeasure,proto3,enum=Common.UnderlyingPriceUnitOfMeasureEnum" json:"underlying_price_unit_of_measure,omitempty"`
-	UnderlyingPriceUnitOfMeasureQty      *Decimal64                           `protobuf:"bytes,63,opt,name=underlying_price_unit_of_measure_qty,json=underlyingPriceUnitOfMeasureQty,proto3" json:"underlying_price_unit_of_measure_qty,omitempty"`
-	UnderlyingUnitOfMeasureQty           *Decimal64                           `protobuf:"bytes,64,opt,name=underlying_unit_of_measure_qty,json=underlyingUnitOfMeasureQty,proto3" json:"underlying_unit_of_measure_qty,omitempty"`
+	UnderlyingPriceUnitOfMeasureQty      *fix.Decimal64                           `protobuf:"bytes,63,opt,name=underlying_price_unit_of_measure_qty,json=underlyingPriceUnitOfMeasureQty,proto3" json:"underlying_price_unit_of_measure_qty,omitempty"`
+	UnderlyingUnitOfMeasureQty           *fix.Decimal64                           `protobuf:"bytes,64,opt,name=underlying_unit_of_measure_qty,json=underlyingUnitOfMeasureQty,proto3" json:"underlying_unit_of_measure_qty,omitempty"`
 	UnderlyingContractMultiplierUnit     UnderlyingContractMultiplierUnitEnum `protobuf:"varint,65,opt,name=underlying_contract_multiplier_unit,json=underlyingContractMultiplierUnit,proto3,enum=Common.UnderlyingContractMultiplierUnitEnum" json:"underlying_contract_multiplier_unit,omitempty"`
 	// Types that are valid to be assigned to UnderlyingFlowScheduleTypeUnion:
 	//	*UnderlyingInstrument_UnderlyingFlowScheduleType
 	//	*UnderlyingInstrument_UnderlyingFlowScheduleTypeReserved100Plus
 	UnderlyingFlowScheduleTypeUnion                 isUnderlyingInstrument_UnderlyingFlowScheduleTypeUnion `protobuf_oneof:"underlying_flow_schedule_type_union"`
-	UnderlyingAttachmentPoint                       *Decimal64                                             `protobuf:"bytes,68,opt,name=underlying_attachment_point,json=underlyingAttachmentPoint,proto3" json:"underlying_attachment_point,omitempty"`
-	UnderlyingDetachmentPoint                       *Decimal64                                             `protobuf:"bytes,69,opt,name=underlying_detachment_point,json=underlyingDetachmentPoint,proto3" json:"underlying_detachment_point,omitempty"`
-	UnderlyingNotionalPercentageOutstanding         *Decimal64                                             `protobuf:"bytes,70,opt,name=underlying_notional_percentage_outstanding,json=underlyingNotionalPercentageOutstanding,proto3" json:"underlying_notional_percentage_outstanding,omitempty"`
-	UnderlyingOriginalNotionalPercentageOutstanding *Decimal64                                             `protobuf:"bytes,71,opt,name=underlying_original_notional_percentage_outstanding,json=underlyingOriginalNotionalPercentageOutstanding,proto3" json:"underlying_original_notional_percentage_outstanding,omitempty"`
+	UnderlyingAttachmentPoint                       *fix.Decimal64                                             `protobuf:"bytes,68,opt,name=underlying_attachment_point,json=underlyingAttachmentPoint,proto3" json:"underlying_attachment_point,omitempty"`
+	UnderlyingDetachmentPoint                       *fix.Decimal64                                             `protobuf:"bytes,69,opt,name=underlying_detachment_point,json=underlyingDetachmentPoint,proto3" json:"underlying_detachment_point,omitempty"`
+	UnderlyingNotionalPercentageOutstanding         *fix.Decimal64                                             `protobuf:"bytes,70,opt,name=underlying_notional_percentage_outstanding,json=underlyingNotionalPercentageOutstanding,proto3" json:"underlying_notional_percentage_outstanding,omitempty"`
+	UnderlyingOriginalNotionalPercentageOutstanding *fix.Decimal64                                             `protobuf:"bytes,71,opt,name=underlying_original_notional_percentage_outstanding,json=underlyingOriginalNotionalPercentageOutstanding,proto3" json:"underlying_original_notional_percentage_outstanding,omitempty"`
 	UnderlyingRestructuringType                     UnderlyingRestructuringTypeEnum                        `protobuf:"varint,72,opt,name=underlying_restructuring_type,json=underlyingRestructuringType,proto3,enum=Common.UnderlyingRestructuringTypeEnum" json:"underlying_restructuring_type,omitempty"`
 	UnderlyingSeniority                             UnderlyingSeniorityEnum                                `protobuf:"varint,73,opt,name=underlying_seniority,json=underlyingSeniority,proto3,enum=Common.UnderlyingSeniorityEnum" json:"underlying_seniority,omitempty"`
 	XXX_NoUnkeyedLiteral                            struct{}                                               `json:"-"`
@@ -18486,7 +18487,7 @@ func (m *UnderlyingInstrument) GetUnderlyingCfiCode() string {
 	return ""
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingContractMultiplier() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingContractMultiplier() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingContractMultiplier
 	}
@@ -18507,7 +18508,7 @@ func (m *UnderlyingInstrument) GetUnderlyingCouponPaymentDate() int32 {
 	return 0
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingCouponRate() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingCouponRate() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingCouponRate
 	}
@@ -18521,7 +18522,7 @@ func (m *UnderlyingInstrument) GetUnderlyingCreditRating() string {
 	return ""
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingFactor() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingFactor() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingFactor
 	}
@@ -18605,7 +18606,7 @@ func (m *UnderlyingInstrument) GetUnderlyingRepoCollateralSecurityType() string 
 	return ""
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingRepurchaseRate() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingRepurchaseRate() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingRepurchaseRate
 	}
@@ -18661,7 +18662,7 @@ func (m *UnderlyingInstrument) GetUnderlyingStateOrProvinceOfIssue() string {
 	return ""
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingStrikePrice() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingStrikePrice() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingStrikePrice
 	}
@@ -18689,28 +18690,28 @@ func (m *UnderlyingInstrument) GetUndSecAltIdGrp() []*UndSecAltIDGrp {
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingAdjustedQuantity() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingAdjustedQuantity() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingAdjustedQuantity
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingAllocationPercent() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingAllocationPercent() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingAllocationPercent
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingCapValue() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingCapValue() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingCapValue
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingCashAmount() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingCashAmount() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingCashAmount
 	}
@@ -18745,35 +18746,35 @@ func (m *UnderlyingInstrument) GetUnderlyingCurrency() string {
 	return ""
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingCurrentValue() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingCurrentValue() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingCurrentValue
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingDirtyPrice() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingDirtyPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingDirtyPrice
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingEndPrice() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingEndPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingEndPrice
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingEndValue() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingEndValue() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingEndValue
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingFxRate() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingFxRate() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingFxRate
 	}
@@ -18787,14 +18788,14 @@ func (m *UnderlyingInstrument) GetUnderlyingFxRateCalc() UnderlyingFXRateCalcEnu
 	return UnderlyingFXRateCalcEnum_UNDERLYING_FX_RATE_CALC_UNSPECIFIED
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingPx() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingPx() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingPx
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingQty() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingQty() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingQty
 	}
@@ -18822,7 +18823,7 @@ func (m *UnderlyingInstrument) GetUnderlyingSettlementType() UnderlyingSettlemen
 	return UnderlyingSettlementTypeEnum_UNDERLYING_SETTLEMENT_TYPE_UNSPECIFIED
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingStartValue() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingStartValue() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingStartValue
 	}
@@ -18871,7 +18872,7 @@ func (m *UnderlyingInstrument) GetUnderlyingExerciseStyle() UnderlyingExerciseSt
 	return UnderlyingExerciseStyleEnum_UNDERLYING_EXERCISE_STYLE_UNSPECIFIED
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingMaturityTime() *LocalTimeOnly {
+func (m *UnderlyingInstrument) GetUnderlyingMaturityTime() *fix.LocalTimeOnly {
 	if m != nil {
 		return m.UnderlyingMaturityTime
 	}
@@ -18885,14 +18886,14 @@ func (m *UnderlyingInstrument) GetUnderlyingPriceUnitOfMeasure() UnderlyingPrice
 	return UnderlyingPriceUnitOfMeasureEnum_UNDERLYING_PRICE_UNIT_OF_MEASURE_UNSPECIFIED
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingPriceUnitOfMeasureQty() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingPriceUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingPriceUnitOfMeasureQty
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingUnitOfMeasureQty() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingUnitOfMeasureQty
 	}
@@ -18945,28 +18946,28 @@ func (m *UnderlyingInstrument) GetUnderlyingFlowScheduleTypeReserved100Plus() ui
 	return 0
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingAttachmentPoint() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingAttachmentPoint() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingAttachmentPoint
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingDetachmentPoint() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingDetachmentPoint() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingDetachmentPoint
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingNotionalPercentageOutstanding() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingNotionalPercentageOutstanding() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingNotionalPercentageOutstanding
 	}
 	return nil
 }
 
-func (m *UnderlyingInstrument) GetUnderlyingOriginalNotionalPercentageOutstanding() *Decimal64 {
+func (m *UnderlyingInstrument) GetUnderlyingOriginalNotionalPercentageOutstanding() *fix.Decimal64 {
 	if m != nil {
 		return m.UnderlyingOriginalNotionalPercentageOutstanding
 	}
@@ -18996,11 +18997,11 @@ func (*UnderlyingInstrument) XXX_OneofWrappers() []interface{} {
 }
 
 type YieldData struct {
-	Yield                    *Decimal64                   `protobuf:"bytes,1,opt,name=yield,proto3" json:"yield,omitempty"`
+	Yield                    *fix.Decimal64                   `protobuf:"bytes,1,opt,name=yield,proto3" json:"yield,omitempty"`
 	YieldType                YieldTypeEnum                `protobuf:"varint,2,opt,name=yield_type,json=yieldType,proto3,enum=Common.YieldTypeEnum" json:"yield_type,omitempty"`
 	YieldCalcDate            int32                        `protobuf:"fixed32,3,opt,name=yield_calc_date,json=yieldCalcDate,proto3" json:"yield_calc_date,omitempty"`
 	YieldRedemptionDate      int32                        `protobuf:"fixed32,4,opt,name=yield_redemption_date,json=yieldRedemptionDate,proto3" json:"yield_redemption_date,omitempty"`
-	YieldRedemptionPrice     *Decimal64                   `protobuf:"bytes,5,opt,name=yield_redemption_price,json=yieldRedemptionPrice,proto3" json:"yield_redemption_price,omitempty"`
+	YieldRedemptionPrice     *fix.Decimal64                   `protobuf:"bytes,5,opt,name=yield_redemption_price,json=yieldRedemptionPrice,proto3" json:"yield_redemption_price,omitempty"`
 	YieldRedemptionPriceType YieldRedemptionPriceTypeEnum `protobuf:"varint,6,opt,name=yield_redemption_price_type,json=yieldRedemptionPriceType,proto3,enum=Common.YieldRedemptionPriceTypeEnum" json:"yield_redemption_price_type,omitempty"`
 	XXX_NoUnkeyedLiteral     struct{}                     `json:"-"`
 	XXX_unrecognized         []byte                       `json:"-"`
@@ -19032,7 +19033,7 @@ func (m *YieldData) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_YieldData proto.InternalMessageInfo
 
-func (m *YieldData) GetYield() *Decimal64 {
+func (m *YieldData) GetYield() *fix.Decimal64 {
 	if m != nil {
 		return m.Yield
 	}
@@ -19060,7 +19061,7 @@ func (m *YieldData) GetYieldRedemptionDate() int32 {
 	return 0
 }
 
-func (m *YieldData) GetYieldRedemptionPrice() *Decimal64 {
+func (m *YieldData) GetYieldRedemptionPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.YieldRedemptionPrice
 	}
@@ -19431,7 +19432,7 @@ func (m *CompIDStatGrp) GetStatusValue() StatusValueEnum {
 type ContAmtGrp struct {
 	ContAmtCurr          string          `protobuf:"bytes,1,opt,name=cont_amt_curr,json=contAmtCurr,proto3" json:"cont_amt_curr,omitempty"`
 	ContAmtType          ContAmtTypeEnum `protobuf:"varint,2,opt,name=cont_amt_type,json=contAmtType,proto3,enum=Common.ContAmtTypeEnum" json:"cont_amt_type,omitempty"`
-	ContAmtValue         *Decimal64      `protobuf:"bytes,3,opt,name=cont_amt_value,json=contAmtValue,proto3" json:"cont_amt_value,omitempty"`
+	ContAmtValue         *fix.Decimal64      `protobuf:"bytes,3,opt,name=cont_amt_value,json=contAmtValue,proto3" json:"cont_amt_value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
@@ -19476,7 +19477,7 @@ func (m *ContAmtGrp) GetContAmtType() ContAmtTypeEnum {
 	return ContAmtTypeEnum_CONT_AMT_TYPE_UNSPECIFIED
 }
 
-func (m *ContAmtGrp) GetContAmtValue() *Decimal64 {
+func (m *ContAmtGrp) GetContAmtValue() *fix.Decimal64 {
 	if m != nil {
 		return m.ContAmtValue
 	}
@@ -19486,8 +19487,8 @@ func (m *ContAmtGrp) GetContAmtValue() *Decimal64 {
 type ContraGrp struct {
 	ContraBroker         string     `protobuf:"bytes,1,opt,name=contra_broker,json=contraBroker,proto3" json:"contra_broker,omitempty"`
 	ContraLegRefId       string     `protobuf:"bytes,2,opt,name=contra_leg_ref_id,json=contraLegRefId,proto3" json:"contra_leg_ref_id,omitempty"`
-	ContraTradeQty       *Decimal64 `protobuf:"bytes,3,opt,name=contra_trade_qty,json=contraTradeQty,proto3" json:"contra_trade_qty,omitempty"`
-	ContraTradeTime      *Timestamp `protobuf:"bytes,4,opt,name=contra_trade_time,json=contraTradeTime,proto3" json:"contra_trade_time,omitempty"`
+	ContraTradeQty       *fix.Decimal64 `protobuf:"bytes,3,opt,name=contra_trade_qty,json=contraTradeQty,proto3" json:"contra_trade_qty,omitempty"`
+	ContraTradeTime      *fix.Timestamp `protobuf:"bytes,4,opt,name=contra_trade_time,json=contraTradeTime,proto3" json:"contra_trade_time,omitempty"`
 	ContraTrader         string     `protobuf:"bytes,5,opt,name=contra_trader,json=contraTrader,proto3" json:"contra_trader,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
 	XXX_unrecognized     []byte     `json:"-"`
@@ -19533,14 +19534,14 @@ func (m *ContraGrp) GetContraLegRefId() string {
 	return ""
 }
 
-func (m *ContraGrp) GetContraTradeQty() *Decimal64 {
+func (m *ContraGrp) GetContraTradeQty() *fix.Decimal64 {
 	if m != nil {
 		return m.ContraTradeQty
 	}
 	return nil
 }
 
-func (m *ContraGrp) GetContraTradeTime() *Timestamp {
+func (m *ContraGrp) GetContraTradeTime() *fix.Timestamp {
 	if m != nil {
 		return m.ContraTradeTime
 	}
@@ -19595,14 +19596,14 @@ func (m *InstrmtGrp) GetInstrument() *Instrument {
 
 type InstrmtLegExecGrp struct {
 	InstrumentLeg           *InstrumentLeg            `protobuf:"bytes,1,opt,name=instrument_leg,json=instrumentLeg,proto3" json:"instrument_leg,omitempty"`
-	LegCalculatedCcyLastQty *Decimal64                `protobuf:"bytes,2,opt,name=leg_calculated_ccy_last_qty,json=legCalculatedCcyLastQty,proto3" json:"leg_calculated_ccy_last_qty,omitempty"`
+	LegCalculatedCcyLastQty *fix.Decimal64                `protobuf:"bytes,2,opt,name=leg_calculated_ccy_last_qty,json=legCalculatedCcyLastQty,proto3" json:"leg_calculated_ccy_last_qty,omitempty"`
 	LegCoveredOrUncovered   LegCoveredOrUncoveredEnum `protobuf:"varint,3,opt,name=leg_covered_or_uncovered,json=legCoveredOrUncovered,proto3,enum=Common.LegCoveredOrUncoveredEnum" json:"leg_covered_or_uncovered,omitempty"`
-	LegGrossTradeAmt        *Decimal64                `protobuf:"bytes,4,opt,name=leg_gross_trade_amt,json=legGrossTradeAmt,proto3" json:"leg_gross_trade_amt,omitempty"`
-	LegLastForwardPoints    *Decimal64                `protobuf:"bytes,5,opt,name=leg_last_forward_points,json=legLastForwardPoints,proto3" json:"leg_last_forward_points,omitempty"`
-	LegLastPx               *Decimal64                `protobuf:"bytes,6,opt,name=leg_last_px,json=legLastPx,proto3" json:"leg_last_px,omitempty"`
-	LegOrderQty             *Decimal64                `protobuf:"bytes,7,opt,name=leg_order_qty,json=legOrderQty,proto3" json:"leg_order_qty,omitempty"`
+	LegGrossTradeAmt        *fix.Decimal64                `protobuf:"bytes,4,opt,name=leg_gross_trade_amt,json=legGrossTradeAmt,proto3" json:"leg_gross_trade_amt,omitempty"`
+	LegLastForwardPoints    *fix.Decimal64                `protobuf:"bytes,5,opt,name=leg_last_forward_points,json=legLastForwardPoints,proto3" json:"leg_last_forward_points,omitempty"`
+	LegLastPx               *fix.Decimal64                `protobuf:"bytes,6,opt,name=leg_last_px,json=legLastPx,proto3" json:"leg_last_px,omitempty"`
+	LegOrderQty             *fix.Decimal64                `protobuf:"bytes,7,opt,name=leg_order_qty,json=legOrderQty,proto3" json:"leg_order_qty,omitempty"`
 	LegPositionEffect       LegPositionEffectEnum     `protobuf:"varint,8,opt,name=leg_position_effect,json=legPositionEffect,proto3,enum=Common.LegPositionEffectEnum" json:"leg_position_effect,omitempty"`
-	LegQty                  *Decimal64                `protobuf:"bytes,9,opt,name=leg_qty,json=legQty,proto3" json:"leg_qty,omitempty"`
+	LegQty                  *fix.Decimal64                `protobuf:"bytes,9,opt,name=leg_qty,json=legQty,proto3" json:"leg_qty,omitempty"`
 	LegRefId                string                    `protobuf:"bytes,10,opt,name=leg_ref_id,json=legRefId,proto3" json:"leg_ref_id,omitempty"`
 	LegSettlCurrency        string                    `protobuf:"bytes,11,opt,name=leg_settl_currency,json=legSettlCurrency,proto3" json:"leg_settl_currency,omitempty"`
 	LegSettlDate            int32                     `protobuf:"fixed32,12,opt,name=leg_settl_date,json=legSettlDate,proto3" json:"leg_settl_date,omitempty"`
@@ -19610,12 +19611,12 @@ type InstrmtLegExecGrp struct {
 	LegStipulations         []*LegStipulations        `protobuf:"bytes,14,rep,name=leg_stipulations,json=legStipulations,proto3" json:"leg_stipulations,omitempty"`
 	LegSwapType             LegSwapTypeEnum           `protobuf:"varint,15,opt,name=leg_swap_type,json=legSwapType,proto3,enum=Common.LegSwapTypeEnum" json:"leg_swap_type,omitempty"`
 	LegAllocId              string                    `protobuf:"bytes,16,opt,name=leg_alloc_id,json=legAllocId,proto3" json:"leg_alloc_id,omitempty"`
-	LegCurrencyRatio        *Decimal64                `protobuf:"bytes,17,opt,name=leg_currency_ratio,json=legCurrencyRatio,proto3" json:"leg_currency_ratio,omitempty"`
-	LegDividendYield        *Decimal64                `protobuf:"bytes,18,opt,name=leg_dividend_yield,json=legDividendYield,proto3" json:"leg_dividend_yield,omitempty"`
+	LegCurrencyRatio        *fix.Decimal64                `protobuf:"bytes,17,opt,name=leg_currency_ratio,json=legCurrencyRatio,proto3" json:"leg_currency_ratio,omitempty"`
+	LegDividendYield        *fix.Decimal64                `protobuf:"bytes,18,opt,name=leg_dividend_yield,json=legDividendYield,proto3" json:"leg_dividend_yield,omitempty"`
 	LegExecInst             []LegExecInstEnum         `protobuf:"varint,19,rep,packed,name=leg_exec_inst,json=legExecInst,proto3,enum=Common.LegExecInstEnum" json:"leg_exec_inst,omitempty"`
-	LegLastQty              *Decimal64                `protobuf:"bytes,20,opt,name=leg_last_qty,json=legLastQty,proto3" json:"leg_last_qty,omitempty"`
+	LegLastQty              *fix.Decimal64                `protobuf:"bytes,20,opt,name=leg_last_qty,json=legLastQty,proto3" json:"leg_last_qty,omitempty"`
 	LegPreAllocGrp          []*LegPreAllocGrp         `protobuf:"bytes,21,rep,name=leg_pre_alloc_grp,json=legPreAllocGrp,proto3" json:"leg_pre_alloc_grp,omitempty"`
-	LegVolatility           *Decimal64                `protobuf:"bytes,22,opt,name=leg_volatility,json=legVolatility,proto3" json:"leg_volatility,omitempty"`
+	LegVolatility           *fix.Decimal64                `protobuf:"bytes,22,opt,name=leg_volatility,json=legVolatility,proto3" json:"leg_volatility,omitempty"`
 	NestedParties3          []*NestedParties3         `protobuf:"bytes,23,rep,name=nested_parties3,json=nestedParties3,proto3" json:"nested_parties3,omitempty"`
 	XXX_NoUnkeyedLiteral    struct{}                  `json:"-"`
 	XXX_unrecognized        []byte                    `json:"-"`
@@ -19654,7 +19655,7 @@ func (m *InstrmtLegExecGrp) GetInstrumentLeg() *InstrumentLeg {
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegCalculatedCcyLastQty() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegCalculatedCcyLastQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegCalculatedCcyLastQty
 	}
@@ -19668,28 +19669,28 @@ func (m *InstrmtLegExecGrp) GetLegCoveredOrUncovered() LegCoveredOrUncoveredEnum
 	return LegCoveredOrUncoveredEnum_LEG_COVERED_OR_UNCOVERED_UNSPECIFIED
 }
 
-func (m *InstrmtLegExecGrp) GetLegGrossTradeAmt() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegGrossTradeAmt() *fix.Decimal64 {
 	if m != nil {
 		return m.LegGrossTradeAmt
 	}
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegLastForwardPoints() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegLastForwardPoints() *fix.Decimal64 {
 	if m != nil {
 		return m.LegLastForwardPoints
 	}
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegLastPx() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegLastPx() *fix.Decimal64 {
 	if m != nil {
 		return m.LegLastPx
 	}
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegOrderQty() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegOrderQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegOrderQty
 	}
@@ -19703,7 +19704,7 @@ func (m *InstrmtLegExecGrp) GetLegPositionEffect() LegPositionEffectEnum {
 	return LegPositionEffectEnum_LEG_POSITION_EFFECT_UNSPECIFIED
 }
 
-func (m *InstrmtLegExecGrp) GetLegQty() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegQty
 	}
@@ -19759,14 +19760,14 @@ func (m *InstrmtLegExecGrp) GetLegAllocId() string {
 	return ""
 }
 
-func (m *InstrmtLegExecGrp) GetLegCurrencyRatio() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegCurrencyRatio() *fix.Decimal64 {
 	if m != nil {
 		return m.LegCurrencyRatio
 	}
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegDividendYield() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegDividendYield() *fix.Decimal64 {
 	if m != nil {
 		return m.LegDividendYield
 	}
@@ -19780,7 +19781,7 @@ func (m *InstrmtLegExecGrp) GetLegExecInst() []LegExecInstEnum {
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegLastQty() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegLastQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegLastQty
 	}
@@ -19794,7 +19795,7 @@ func (m *InstrmtLegExecGrp) GetLegPreAllocGrp() []*LegPreAllocGrp {
 	return nil
 }
 
-func (m *InstrmtLegExecGrp) GetLegVolatility() *Decimal64 {
+func (m *InstrmtLegExecGrp) GetLegVolatility() *fix.Decimal64 {
 	if m != nil {
 		return m.LegVolatility
 	}
@@ -19977,7 +19978,7 @@ type InstrmtMDReqGrp struct {
 	Currency      string           `protobuf:"bytes,1,opt,name=currency,proto3" json:"currency,omitempty"`
 	InstrmtLegGrp []*InstrmtLegGrp `protobuf:"bytes,2,rep,name=instrmt_leg_grp,json=instrmtLegGrp,proto3" json:"instrmt_leg_grp,omitempty"`
 	Instrument    *Instrument      `protobuf:"bytes,3,opt,name=instrument,proto3" json:"instrument,omitempty"`
-	MdEntrySize   *Decimal64       `protobuf:"bytes,4,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
+	MdEntrySize   *fix.Decimal64       `protobuf:"bytes,4,opt,name=md_entry_size,json=mdEntrySize,proto3" json:"md_entry_size,omitempty"`
 	QuoteType     QuoteTypeEnum    `protobuf:"varint,5,opt,name=quote_type,json=quoteType,proto3,enum=Common.QuoteTypeEnum" json:"quote_type,omitempty"`
 	SettlDate     int32            `protobuf:"fixed32,6,opt,name=settl_date,json=settlDate,proto3" json:"settl_date,omitempty"`
 	// Types that are valid to be assigned to SettlTypeUnion:
@@ -20037,7 +20038,7 @@ func (m *InstrmtMDReqGrp) GetInstrument() *Instrument {
 	return nil
 }
 
-func (m *InstrmtMDReqGrp) GetMdEntrySize() *Decimal64 {
+func (m *InstrmtMDReqGrp) GetMdEntrySize() *fix.Decimal64 {
 	if m != nil {
 		return m.MdEntrySize
 	}
@@ -20067,7 +20068,7 @@ type InstrmtMDReqGrp_SettlType struct {
 }
 
 type InstrmtMDReqGrp_SettlTypeTenor struct {
-	SettlTypeTenor *Tenor `protobuf:"bytes,8,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
+	SettlTypeTenor *fix.Tenor `protobuf:"bytes,8,opt,name=settl_type_tenor,json=settlTypeTenor,proto3,oneof"`
 }
 
 func (*InstrmtMDReqGrp_SettlType) isInstrmtMDReqGrp_SettlTypeUnion() {}
@@ -20088,7 +20089,7 @@ func (m *InstrmtMDReqGrp) GetSettlType() SettlTypeEnum {
 	return SettlTypeEnum_SETTL_TYPE_UNSPECIFIED
 }
 
-func (m *InstrmtMDReqGrp) GetSettlTypeTenor() *Tenor {
+func (m *InstrmtMDReqGrp) GetSettlTypeTenor() *fix.Tenor {
 	if x, ok := m.GetSettlTypeUnion().(*InstrmtMDReqGrp_SettlTypeTenor); ok {
 		return x.SettlTypeTenor
 	}
@@ -20120,7 +20121,7 @@ func (*InstrmtMDReqGrp) XXX_OneofWrappers() []interface{} {
 type LegPreAllocGrp struct {
 	LegAllocAccount       string            `protobuf:"bytes,1,opt,name=leg_alloc_account,json=legAllocAccount,proto3" json:"leg_alloc_account,omitempty"`
 	LegAllocAcctIdSource  string            `protobuf:"bytes,2,opt,name=leg_alloc_acct_id_source,json=legAllocAcctIdSource,proto3" json:"leg_alloc_acct_id_source,omitempty"`
-	LegAllocQty           *Decimal64        `protobuf:"bytes,3,opt,name=leg_alloc_qty,json=legAllocQty,proto3" json:"leg_alloc_qty,omitempty"`
+	LegAllocQty           *fix.Decimal64        `protobuf:"bytes,3,opt,name=leg_alloc_qty,json=legAllocQty,proto3" json:"leg_alloc_qty,omitempty"`
 	LegIndividualAllocId  string            `protobuf:"bytes,4,opt,name=leg_individual_alloc_id,json=legIndividualAllocId,proto3" json:"leg_individual_alloc_id,omitempty"`
 	NestedParties2        []*NestedParties2 `protobuf:"bytes,5,rep,name=nested_parties2,json=nestedParties2,proto3" json:"nested_parties2,omitempty"`
 	LegAllocSettlCurrency string            `protobuf:"bytes,6,opt,name=leg_alloc_settl_currency,json=legAllocSettlCurrency,proto3" json:"leg_alloc_settl_currency,omitempty"`
@@ -20168,7 +20169,7 @@ func (m *LegPreAllocGrp) GetLegAllocAcctIdSource() string {
 	return ""
 }
 
-func (m *LegPreAllocGrp) GetLegAllocQty() *Decimal64 {
+func (m *LegPreAllocGrp) GetLegAllocQty() *fix.Decimal64 {
 	if m != nil {
 		return m.LegAllocQty
 	}
@@ -20252,7 +20253,7 @@ func (m *LinesOfTextGrp) GetText() string {
 }
 
 type MiscFeesGrp struct {
-	MiscFeeAmt           *Decimal64       `protobuf:"bytes,1,opt,name=misc_fee_amt,json=miscFeeAmt,proto3" json:"misc_fee_amt,omitempty"`
+	MiscFeeAmt           *fix.Decimal64       `protobuf:"bytes,1,opt,name=misc_fee_amt,json=miscFeeAmt,proto3" json:"misc_fee_amt,omitempty"`
 	MiscFeeBasis         MiscFeeBasisEnum `protobuf:"varint,2,opt,name=misc_fee_basis,json=miscFeeBasis,proto3,enum=Common.MiscFeeBasisEnum" json:"misc_fee_basis,omitempty"`
 	MiscFeeCurr          string           `protobuf:"bytes,3,opt,name=misc_fee_curr,json=miscFeeCurr,proto3" json:"misc_fee_curr,omitempty"`
 	MiscFeeType          MiscFeeTypeEnum  `protobuf:"varint,4,opt,name=misc_fee_type,json=miscFeeType,proto3,enum=Common.MiscFeeTypeEnum" json:"misc_fee_type,omitempty"`
@@ -20286,7 +20287,7 @@ func (m *MiscFeesGrp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MiscFeesGrp proto.InternalMessageInfo
 
-func (m *MiscFeesGrp) GetMiscFeeAmt() *Decimal64 {
+func (m *MiscFeesGrp) GetMiscFeeAmt() *fix.Decimal64 {
 	if m != nil {
 		return m.MiscFeeAmt
 	}
@@ -20318,10 +20319,10 @@ type OrdAllocGrp struct {
 	ClOrdId              string            `protobuf:"bytes,1,opt,name=cl_ord_id,json=clOrdId,proto3" json:"cl_ord_id,omitempty"`
 	ListId               string            `protobuf:"bytes,2,opt,name=list_id,json=listId,proto3" json:"list_id,omitempty"`
 	NestedParties2       []*NestedParties2 `protobuf:"bytes,3,rep,name=nested_parties2,json=nestedParties2,proto3" json:"nested_parties2,omitempty"`
-	OrderAvgPx           *Decimal64        `protobuf:"bytes,4,opt,name=order_avg_px,json=orderAvgPx,proto3" json:"order_avg_px,omitempty"`
-	OrderBookingQty      *Decimal64        `protobuf:"bytes,5,opt,name=order_booking_qty,json=orderBookingQty,proto3" json:"order_booking_qty,omitempty"`
+	OrderAvgPx           *fix.Decimal64        `protobuf:"bytes,4,opt,name=order_avg_px,json=orderAvgPx,proto3" json:"order_avg_px,omitempty"`
+	OrderBookingQty      *fix.Decimal64        `protobuf:"bytes,5,opt,name=order_booking_qty,json=orderBookingQty,proto3" json:"order_booking_qty,omitempty"`
 	OrderId              string            `protobuf:"bytes,6,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	OrderQty             *Decimal64        `protobuf:"bytes,7,opt,name=order_qty,json=orderQty,proto3" json:"order_qty,omitempty"`
+	OrderQty             *fix.Decimal64        `protobuf:"bytes,7,opt,name=order_qty,json=orderQty,proto3" json:"order_qty,omitempty"`
 	SecondaryClOrdId     string            `protobuf:"bytes,8,opt,name=secondary_cl_ord_id,json=secondaryClOrdId,proto3" json:"secondary_cl_ord_id,omitempty"`
 	SecondaryOrderId     string            `protobuf:"bytes,9,opt,name=secondary_order_id,json=secondaryOrderId,proto3" json:"secondary_order_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
@@ -20375,14 +20376,14 @@ func (m *OrdAllocGrp) GetNestedParties2() []*NestedParties2 {
 	return nil
 }
 
-func (m *OrdAllocGrp) GetOrderAvgPx() *Decimal64 {
+func (m *OrdAllocGrp) GetOrderAvgPx() *fix.Decimal64 {
 	if m != nil {
 		return m.OrderAvgPx
 	}
 	return nil
 }
 
-func (m *OrdAllocGrp) GetOrderBookingQty() *Decimal64 {
+func (m *OrdAllocGrp) GetOrderBookingQty() *fix.Decimal64 {
 	if m != nil {
 		return m.OrderBookingQty
 	}
@@ -20396,7 +20397,7 @@ func (m *OrdAllocGrp) GetOrderId() string {
 	return ""
 }
 
-func (m *OrdAllocGrp) GetOrderQty() *Decimal64 {
+func (m *OrdAllocGrp) GetOrderQty() *fix.Decimal64 {
 	if m != nil {
 		return m.OrderQty
 	}
@@ -20420,7 +20421,7 @@ func (m *OrdAllocGrp) GetSecondaryOrderId() string {
 type PreAllocGrp struct {
 	AllocAccount         string                `protobuf:"bytes,1,opt,name=alloc_account,json=allocAccount,proto3" json:"alloc_account,omitempty"`
 	AllocAcctIdSource    AllocAcctIDSourceEnum `protobuf:"varint,2,opt,name=alloc_acct_id_source,json=allocAcctIdSource,proto3,enum=Common.AllocAcctIDSourceEnum" json:"alloc_acct_id_source,omitempty"`
-	AllocQty             *Decimal64            `protobuf:"bytes,3,opt,name=alloc_qty,json=allocQty,proto3" json:"alloc_qty,omitempty"`
+	AllocQty             *fix.Decimal64            `protobuf:"bytes,3,opt,name=alloc_qty,json=allocQty,proto3" json:"alloc_qty,omitempty"`
 	AllocSettlCurrency   string                `protobuf:"bytes,4,opt,name=alloc_settl_currency,json=allocSettlCurrency,proto3" json:"alloc_settl_currency,omitempty"`
 	IndividualAllocId    string                `protobuf:"bytes,5,opt,name=individual_alloc_id,json=individualAllocId,proto3" json:"individual_alloc_id,omitempty"`
 	NestedParties        []*NestedParties      `protobuf:"bytes,6,rep,name=nested_parties,json=nestedParties,proto3" json:"nested_parties,omitempty"`
@@ -20468,7 +20469,7 @@ func (m *PreAllocGrp) GetAllocAcctIdSource() AllocAcctIDSourceEnum {
 	return AllocAcctIDSourceEnum_ALLOC_ACCT_ID_SOURCE_UNSPECIFIED
 }
 
-func (m *PreAllocGrp) GetAllocQty() *Decimal64 {
+func (m *PreAllocGrp) GetAllocQty() *fix.Decimal64 {
 	if m != nil {
 		return m.AllocQty
 	}
@@ -20499,7 +20500,7 @@ func (m *PreAllocGrp) GetNestedParties() []*NestedParties {
 type PreAllocMlegGrp struct {
 	AllocAccount         string                `protobuf:"bytes,1,opt,name=alloc_account,json=allocAccount,proto3" json:"alloc_account,omitempty"`
 	AllocAcctIdSource    AllocAcctIDSourceEnum `protobuf:"varint,2,opt,name=alloc_acct_id_source,json=allocAcctIdSource,proto3,enum=Common.AllocAcctIDSourceEnum" json:"alloc_acct_id_source,omitempty"`
-	AllocQty             *Decimal64            `protobuf:"bytes,3,opt,name=alloc_qty,json=allocQty,proto3" json:"alloc_qty,omitempty"`
+	AllocQty             *fix.Decimal64            `protobuf:"bytes,3,opt,name=alloc_qty,json=allocQty,proto3" json:"alloc_qty,omitempty"`
 	AllocSettlCurrency   string                `protobuf:"bytes,4,opt,name=alloc_settl_currency,json=allocSettlCurrency,proto3" json:"alloc_settl_currency,omitempty"`
 	IndividualAllocId    string                `protobuf:"bytes,5,opt,name=individual_alloc_id,json=individualAllocId,proto3" json:"individual_alloc_id,omitempty"`
 	NestedParties3       []*NestedParties3     `protobuf:"bytes,6,rep,name=nested_parties3,json=nestedParties3,proto3" json:"nested_parties3,omitempty"`
@@ -20547,7 +20548,7 @@ func (m *PreAllocMlegGrp) GetAllocAcctIdSource() AllocAcctIDSourceEnum {
 	return AllocAcctIDSourceEnum_ALLOC_ACCT_ID_SOURCE_UNSPECIFIED
 }
 
-func (m *PreAllocMlegGrp) GetAllocQty() *Decimal64 {
+func (m *PreAllocMlegGrp) GetAllocQty() *fix.Decimal64 {
 	if m != nil {
 		return m.AllocQty
 	}
@@ -20786,13 +20787,13 @@ func (m *UndInstrmtGrp) GetUnderlyingInstrument() *UnderlyingInstrument {
 
 type EvntGrp struct {
 	EventDate int32      `protobuf:"fixed32,1,opt,name=event_date,json=eventDate,proto3" json:"event_date,omitempty"`
-	EventPx   *Decimal64 `protobuf:"bytes,2,opt,name=event_px,json=eventPx,proto3" json:"event_px,omitempty"`
+	EventPx   *fix.Decimal64 `protobuf:"bytes,2,opt,name=event_px,json=eventPx,proto3" json:"event_px,omitempty"`
 	EventText string     `protobuf:"bytes,3,opt,name=event_text,json=eventText,proto3" json:"event_text,omitempty"`
 	// Types that are valid to be assigned to EventTypeUnion:
 	//	*EvntGrp_EventType
 	//	*EvntGrp_EventTypeReserved100Plus
 	EventTypeUnion       isEvntGrp_EventTypeUnion `protobuf_oneof:"event_type_union"`
-	EventTime            *Timestamp               `protobuf:"bytes,6,opt,name=event_time,json=eventTime,proto3" json:"event_time,omitempty"`
+	EventTime            *fix.Timestamp               `protobuf:"bytes,6,opt,name=event_time,json=eventTime,proto3" json:"event_time,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
 	XXX_unrecognized     []byte                   `json:"-"`
 	XXX_sizecache        int32                    `json:"-"`
@@ -20830,7 +20831,7 @@ func (m *EvntGrp) GetEventDate() int32 {
 	return 0
 }
 
-func (m *EvntGrp) GetEventPx() *Decimal64 {
+func (m *EvntGrp) GetEventPx() *fix.Decimal64 {
 	if m != nil {
 		return m.EventPx
 	}
@@ -20881,7 +20882,7 @@ func (m *EvntGrp) GetEventTypeReserved100Plus() uint32 {
 	return 0
 }
 
-func (m *EvntGrp) GetEventTime() *Timestamp {
+func (m *EvntGrp) GetEventTime() *fix.Timestamp {
 	if m != nil {
 		return m.EventTime
 	}
@@ -21732,14 +21733,14 @@ func (m *UndlyInstrumentPtysSubGrp) GetUnderlyingInstrumentPartySubIdType() Unde
 }
 
 type DisplayInstruction struct {
-	DisplayHighQty       *Decimal64        `protobuf:"bytes,1,opt,name=display_high_qty,json=displayHighQty,proto3" json:"display_high_qty,omitempty"`
-	DisplayLowQty        *Decimal64        `protobuf:"bytes,2,opt,name=display_low_qty,json=displayLowQty,proto3" json:"display_low_qty,omitempty"`
+	DisplayHighQty       *fix.Decimal64        `protobuf:"bytes,1,opt,name=display_high_qty,json=displayHighQty,proto3" json:"display_high_qty,omitempty"`
+	DisplayLowQty        *fix.Decimal64        `protobuf:"bytes,2,opt,name=display_low_qty,json=displayLowQty,proto3" json:"display_low_qty,omitempty"`
 	DisplayMethod        DisplayMethodEnum `protobuf:"varint,3,opt,name=display_method,json=displayMethod,proto3,enum=Common.DisplayMethodEnum" json:"display_method,omitempty"`
-	DisplayMinIncr       *Decimal64        `protobuf:"bytes,4,opt,name=display_min_incr,json=displayMinIncr,proto3" json:"display_min_incr,omitempty"`
-	DisplayQty           *Decimal64        `protobuf:"bytes,5,opt,name=display_qty,json=displayQty,proto3" json:"display_qty,omitempty"`
+	DisplayMinIncr       *fix.Decimal64        `protobuf:"bytes,4,opt,name=display_min_incr,json=displayMinIncr,proto3" json:"display_min_incr,omitempty"`
+	DisplayQty           *fix.Decimal64        `protobuf:"bytes,5,opt,name=display_qty,json=displayQty,proto3" json:"display_qty,omitempty"`
 	DisplayWhen          DisplayWhenEnum   `protobuf:"varint,6,opt,name=display_when,json=displayWhen,proto3,enum=Common.DisplayWhenEnum" json:"display_when,omitempty"`
-	RefreshQty           *Decimal64        `protobuf:"bytes,7,opt,name=refresh_qty,json=refreshQty,proto3" json:"refresh_qty,omitempty"`
-	SecondaryDisplayQty  *Decimal64        `protobuf:"bytes,8,opt,name=secondary_display_qty,json=secondaryDisplayQty,proto3" json:"secondary_display_qty,omitempty"`
+	RefreshQty           *fix.Decimal64        `protobuf:"bytes,7,opt,name=refresh_qty,json=refreshQty,proto3" json:"refresh_qty,omitempty"`
+	SecondaryDisplayQty  *fix.Decimal64        `protobuf:"bytes,8,opt,name=secondary_display_qty,json=secondaryDisplayQty,proto3" json:"secondary_display_qty,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
@@ -21770,14 +21771,14 @@ func (m *DisplayInstruction) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DisplayInstruction proto.InternalMessageInfo
 
-func (m *DisplayInstruction) GetDisplayHighQty() *Decimal64 {
+func (m *DisplayInstruction) GetDisplayHighQty() *fix.Decimal64 {
 	if m != nil {
 		return m.DisplayHighQty
 	}
 	return nil
 }
 
-func (m *DisplayInstruction) GetDisplayLowQty() *Decimal64 {
+func (m *DisplayInstruction) GetDisplayLowQty() *fix.Decimal64 {
 	if m != nil {
 		return m.DisplayLowQty
 	}
@@ -21791,14 +21792,14 @@ func (m *DisplayInstruction) GetDisplayMethod() DisplayMethodEnum {
 	return DisplayMethodEnum_DISPLAY_METHOD_UNSPECIFIED
 }
 
-func (m *DisplayInstruction) GetDisplayMinIncr() *Decimal64 {
+func (m *DisplayInstruction) GetDisplayMinIncr() *fix.Decimal64 {
 	if m != nil {
 		return m.DisplayMinIncr
 	}
 	return nil
 }
 
-func (m *DisplayInstruction) GetDisplayQty() *Decimal64 {
+func (m *DisplayInstruction) GetDisplayQty() *fix.Decimal64 {
 	if m != nil {
 		return m.DisplayQty
 	}
@@ -21812,14 +21813,14 @@ func (m *DisplayInstruction) GetDisplayWhen() DisplayWhenEnum {
 	return DisplayWhenEnum_DISPLAY_WHEN_UNSPECIFIED
 }
 
-func (m *DisplayInstruction) GetRefreshQty() *Decimal64 {
+func (m *DisplayInstruction) GetRefreshQty() *fix.Decimal64 {
 	if m != nil {
 		return m.RefreshQty
 	}
 	return nil
 }
 
-func (m *DisplayInstruction) GetSecondaryDisplayQty() *Decimal64 {
+func (m *DisplayInstruction) GetSecondaryDisplayQty() *fix.Decimal64 {
 	if m != nil {
 		return m.SecondaryDisplayQty
 	}
@@ -21828,10 +21829,10 @@ func (m *DisplayInstruction) GetSecondaryDisplayQty() *Decimal64 {
 
 type TriggeringInstruction struct {
 	TriggerAction              TriggerActionEnum           `protobuf:"varint,1,opt,name=trigger_action,json=triggerAction,proto3,enum=Common.TriggerActionEnum" json:"trigger_action,omitempty"`
-	TriggerNewPrice            *Decimal64                  `protobuf:"bytes,2,opt,name=trigger_new_price,json=triggerNewPrice,proto3" json:"trigger_new_price,omitempty"`
-	TriggerNewQty              *Decimal64                  `protobuf:"bytes,3,opt,name=trigger_new_qty,json=triggerNewQty,proto3" json:"trigger_new_qty,omitempty"`
+	TriggerNewPrice            *fix.Decimal64                  `protobuf:"bytes,2,opt,name=trigger_new_price,json=triggerNewPrice,proto3" json:"trigger_new_price,omitempty"`
+	TriggerNewQty              *fix.Decimal64                  `protobuf:"bytes,3,opt,name=trigger_new_qty,json=triggerNewQty,proto3" json:"trigger_new_qty,omitempty"`
 	TriggerOrderType           TriggerOrderTypeEnum        `protobuf:"varint,4,opt,name=trigger_order_type,json=triggerOrderType,proto3,enum=Common.TriggerOrderTypeEnum" json:"trigger_order_type,omitempty"`
-	TriggerPrice               *Decimal64                  `protobuf:"bytes,5,opt,name=trigger_price,json=triggerPrice,proto3" json:"trigger_price,omitempty"`
+	TriggerPrice               *fix.Decimal64                  `protobuf:"bytes,5,opt,name=trigger_price,json=triggerPrice,proto3" json:"trigger_price,omitempty"`
 	TriggerPriceDirection      TriggerPriceDirectionEnum   `protobuf:"varint,6,opt,name=trigger_price_direction,json=triggerPriceDirection,proto3,enum=Common.TriggerPriceDirectionEnum" json:"trigger_price_direction,omitempty"`
 	TriggerPriceType           TriggerPriceTypeEnum        `protobuf:"varint,7,opt,name=trigger_price_type,json=triggerPriceType,proto3,enum=Common.TriggerPriceTypeEnum" json:"trigger_price_type,omitempty"`
 	TriggerPriceTypeScope      TriggerPriceTypeScopeEnum   `protobuf:"varint,8,opt,name=trigger_price_type_scope,json=triggerPriceTypeScope,proto3,enum=Common.TriggerPriceTypeScopeEnum" json:"trigger_price_type_scope,omitempty"`
@@ -21879,14 +21880,14 @@ func (m *TriggeringInstruction) GetTriggerAction() TriggerActionEnum {
 	return TriggerActionEnum_TRIGGER_ACTION_UNSPECIFIED
 }
 
-func (m *TriggeringInstruction) GetTriggerNewPrice() *Decimal64 {
+func (m *TriggeringInstruction) GetTriggerNewPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.TriggerNewPrice
 	}
 	return nil
 }
 
-func (m *TriggeringInstruction) GetTriggerNewQty() *Decimal64 {
+func (m *TriggeringInstruction) GetTriggerNewQty() *fix.Decimal64 {
 	if m != nil {
 		return m.TriggerNewQty
 	}
@@ -21900,7 +21901,7 @@ func (m *TriggeringInstruction) GetTriggerOrderType() TriggerOrderTypeEnum {
 	return TriggerOrderTypeEnum_TRIGGER_ORDER_TYPE_UNSPECIFIED
 }
 
-func (m *TriggeringInstruction) GetTriggerPrice() *Decimal64 {
+func (m *TriggeringInstruction) GetTriggerPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.TriggerPrice
 	}
@@ -22092,14 +22093,14 @@ type TrdSessLstGrp struct {
 	EncodedTextLen      int64             `protobuf:"fixed64,2,opt,name=encoded_text_len,json=encodedTextLen,proto3" json:"encoded_text_len,omitempty"`
 	SecurityExchange    string            `protobuf:"bytes,3,opt,name=security_exchange,json=securityExchange,proto3" json:"security_exchange,omitempty"`
 	Text                string            `protobuf:"bytes,4,opt,name=text,proto3" json:"text,omitempty"`
-	TotalVolumeTraded   *Decimal64        `protobuf:"bytes,5,opt,name=total_volume_traded,json=totalVolumeTraded,proto3" json:"total_volume_traded,omitempty"`
-	TradSesCloseTime    *Timestamp        `protobuf:"bytes,6,opt,name=trad_ses_close_time,json=tradSesCloseTime,proto3" json:"trad_ses_close_time,omitempty"`
-	TradSesEndTime      *Timestamp        `protobuf:"bytes,7,opt,name=trad_ses_end_time,json=tradSesEndTime,proto3" json:"trad_ses_end_time,omitempty"`
+	TotalVolumeTraded   *fix.Decimal64        `protobuf:"bytes,5,opt,name=total_volume_traded,json=totalVolumeTraded,proto3" json:"total_volume_traded,omitempty"`
+	TradSesCloseTime    *fix.Timestamp        `protobuf:"bytes,6,opt,name=trad_ses_close_time,json=tradSesCloseTime,proto3" json:"trad_ses_close_time,omitempty"`
+	TradSesEndTime      *fix.Timestamp        `protobuf:"bytes,7,opt,name=trad_ses_end_time,json=tradSesEndTime,proto3" json:"trad_ses_end_time,omitempty"`
 	TradSesMethod       TradSesMethodEnum `protobuf:"varint,8,opt,name=trad_ses_method,json=tradSesMethod,proto3,enum=Common.TradSesMethodEnum" json:"trad_ses_method,omitempty"`
 	TradSesMode         TradSesModeEnum   `protobuf:"varint,9,opt,name=trad_ses_mode,json=tradSesMode,proto3,enum=Common.TradSesModeEnum" json:"trad_ses_mode,omitempty"`
-	TradSesOpenTime     *Timestamp        `protobuf:"bytes,10,opt,name=trad_ses_open_time,json=tradSesOpenTime,proto3" json:"trad_ses_open_time,omitempty"`
-	TradSesPreCloseTime *Timestamp        `protobuf:"bytes,11,opt,name=trad_ses_pre_close_time,json=tradSesPreCloseTime,proto3" json:"trad_ses_pre_close_time,omitempty"`
-	TradSesStartTime    *Timestamp        `protobuf:"bytes,12,opt,name=trad_ses_start_time,json=tradSesStartTime,proto3" json:"trad_ses_start_time,omitempty"`
+	TradSesOpenTime     *fix.Timestamp        `protobuf:"bytes,10,opt,name=trad_ses_open_time,json=tradSesOpenTime,proto3" json:"trad_ses_open_time,omitempty"`
+	TradSesPreCloseTime *fix.Timestamp        `protobuf:"bytes,11,opt,name=trad_ses_pre_close_time,json=tradSesPreCloseTime,proto3" json:"trad_ses_pre_close_time,omitempty"`
+	TradSesStartTime    *fix.Timestamp        `protobuf:"bytes,12,opt,name=trad_ses_start_time,json=tradSesStartTime,proto3" json:"trad_ses_start_time,omitempty"`
 	// Types that are valid to be assigned to TradSesStatusUnion:
 	//	*TrdSessLstGrp_TradSesStatus
 	//	*TrdSessLstGrp_TradSesStatusReserved100Plus
@@ -22122,7 +22123,7 @@ type TrdSessLstGrp struct {
 	TradingSessionDesc       string                                   `protobuf:"bytes,24,opt,name=trading_session_desc,json=tradingSessionDesc,proto3" json:"trading_session_desc,omitempty"`
 	TradingSessionRules      *TradingSessionRules                     `protobuf:"bytes,25,opt,name=trading_session_rules,json=tradingSessionRules,proto3" json:"trading_session_rules,omitempty"`
 	TradSesUpdateAction      TradSesUpdateActionEnum                  `protobuf:"varint,26,opt,name=trad_ses_update_action,json=tradSesUpdateAction,proto3,enum=Common.TradSesUpdateActionEnum" json:"trad_ses_update_action,omitempty"`
-	TransactTime             *Timestamp                               `protobuf:"bytes,27,opt,name=transact_time,json=transactTime,proto3" json:"transact_time,omitempty"`
+	TransactTime             *fix.Timestamp                               `protobuf:"bytes,27,opt,name=transact_time,json=transactTime,proto3" json:"transact_time,omitempty"`
 	XXX_NoUnkeyedLiteral     struct{}                                 `json:"-"`
 	XXX_unrecognized         []byte                                   `json:"-"`
 	XXX_sizecache            int32                                    `json:"-"`
@@ -22181,21 +22182,21 @@ func (m *TrdSessLstGrp) GetText() string {
 	return ""
 }
 
-func (m *TrdSessLstGrp) GetTotalVolumeTraded() *Decimal64 {
+func (m *TrdSessLstGrp) GetTotalVolumeTraded() *fix.Decimal64 {
 	if m != nil {
 		return m.TotalVolumeTraded
 	}
 	return nil
 }
 
-func (m *TrdSessLstGrp) GetTradSesCloseTime() *Timestamp {
+func (m *TrdSessLstGrp) GetTradSesCloseTime() *fix.Timestamp {
 	if m != nil {
 		return m.TradSesCloseTime
 	}
 	return nil
 }
 
-func (m *TrdSessLstGrp) GetTradSesEndTime() *Timestamp {
+func (m *TrdSessLstGrp) GetTradSesEndTime() *fix.Timestamp {
 	if m != nil {
 		return m.TradSesEndTime
 	}
@@ -22216,21 +22217,21 @@ func (m *TrdSessLstGrp) GetTradSesMode() TradSesModeEnum {
 	return TradSesModeEnum_TRAD_SES_MODE_UNSPECIFIED
 }
 
-func (m *TrdSessLstGrp) GetTradSesOpenTime() *Timestamp {
+func (m *TrdSessLstGrp) GetTradSesOpenTime() *fix.Timestamp {
 	if m != nil {
 		return m.TradSesOpenTime
 	}
 	return nil
 }
 
-func (m *TrdSessLstGrp) GetTradSesPreCloseTime() *Timestamp {
+func (m *TrdSessLstGrp) GetTradSesPreCloseTime() *fix.Timestamp {
 	if m != nil {
 		return m.TradSesPreCloseTime
 	}
 	return nil
 }
 
-func (m *TrdSessLstGrp) GetTradSesStartTime() *Timestamp {
+func (m *TrdSessLstGrp) GetTradSesStartTime() *fix.Timestamp {
 	if m != nil {
 		return m.TradSesStartTime
 	}
@@ -22428,7 +22429,7 @@ func (m *TrdSessLstGrp) GetTradSesUpdateAction() TradSesUpdateActionEnum {
 	return TradSesUpdateActionEnum_TRAD_SES_UPDATE_ACTION_UNSPECIFIED
 }
 
-func (m *TrdSessLstGrp) GetTransactTime() *Timestamp {
+func (m *TrdSessLstGrp) GetTransactTime() *fix.Timestamp {
 	if m != nil {
 		return m.TransactTime
 	}
@@ -22686,9 +22687,9 @@ func (m *SecurityXML) GetSecurityXmlSchema() string {
 }
 
 type TickRules struct {
-	EndTickPriceRange    *Decimal64       `protobuf:"bytes,1,opt,name=end_tick_price_range,json=endTickPriceRange,proto3" json:"end_tick_price_range,omitempty"`
-	StartTickPriceRange  *Decimal64       `protobuf:"bytes,2,opt,name=start_tick_price_range,json=startTickPriceRange,proto3" json:"start_tick_price_range,omitempty"`
-	TickIncrement        *Decimal64       `protobuf:"bytes,3,opt,name=tick_increment,json=tickIncrement,proto3" json:"tick_increment,omitempty"`
+	EndTickPriceRange    *fix.Decimal64       `protobuf:"bytes,1,opt,name=end_tick_price_range,json=endTickPriceRange,proto3" json:"end_tick_price_range,omitempty"`
+	StartTickPriceRange  *fix.Decimal64       `protobuf:"bytes,2,opt,name=start_tick_price_range,json=startTickPriceRange,proto3" json:"start_tick_price_range,omitempty"`
+	TickIncrement        *fix.Decimal64       `protobuf:"bytes,3,opt,name=tick_increment,json=tickIncrement,proto3" json:"tick_increment,omitempty"`
 	TickRuleType         TickRuleTypeEnum `protobuf:"varint,4,opt,name=tick_rule_type,json=tickRuleType,proto3,enum=Common.TickRuleTypeEnum" json:"tick_rule_type,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
@@ -22720,21 +22721,21 @@ func (m *TickRules) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TickRules proto.InternalMessageInfo
 
-func (m *TickRules) GetEndTickPriceRange() *Decimal64 {
+func (m *TickRules) GetEndTickPriceRange() *fix.Decimal64 {
 	if m != nil {
 		return m.EndTickPriceRange
 	}
 	return nil
 }
 
-func (m *TickRules) GetStartTickPriceRange() *Decimal64 {
+func (m *TickRules) GetStartTickPriceRange() *fix.Decimal64 {
 	if m != nil {
 		return m.StartTickPriceRange
 	}
 	return nil
 }
 
-func (m *TickRules) GetTickIncrement() *Decimal64 {
+func (m *TickRules) GetTickIncrement() *fix.Decimal64 {
 	if m != nil {
 		return m.TickIncrement
 	}
@@ -22749,11 +22750,11 @@ func (m *TickRules) GetTickRuleType() TickRuleTypeEnum {
 }
 
 type StrikeRules struct {
-	EndStrikePxRange     *Decimal64              `protobuf:"bytes,1,opt,name=end_strike_px_range,json=endStrikePxRange,proto3" json:"end_strike_px_range,omitempty"`
+	EndStrikePxRange     *fix.Decimal64              `protobuf:"bytes,1,opt,name=end_strike_px_range,json=endStrikePxRange,proto3" json:"end_strike_px_range,omitempty"`
 	MaturityRules        []*MaturityRules        `protobuf:"bytes,2,rep,name=maturity_rules,json=maturityRules,proto3" json:"maturity_rules,omitempty"`
-	StartStrikePxRange   *Decimal64              `protobuf:"bytes,3,opt,name=start_strike_px_range,json=startStrikePxRange,proto3" json:"start_strike_px_range,omitempty"`
+	StartStrikePxRange   *fix.Decimal64              `protobuf:"bytes,3,opt,name=start_strike_px_range,json=startStrikePxRange,proto3" json:"start_strike_px_range,omitempty"`
 	StrikeExerciseStyle  StrikeExerciseStyleEnum `protobuf:"varint,4,opt,name=strike_exercise_style,json=strikeExerciseStyle,proto3,enum=Common.StrikeExerciseStyleEnum" json:"strike_exercise_style,omitempty"`
-	StrikeIncrement      *Decimal64              `protobuf:"bytes,5,opt,name=strike_increment,json=strikeIncrement,proto3" json:"strike_increment,omitempty"`
+	StrikeIncrement      *fix.Decimal64              `protobuf:"bytes,5,opt,name=strike_increment,json=strikeIncrement,proto3" json:"strike_increment,omitempty"`
 	StrikeRuleId         string                  `protobuf:"bytes,6,opt,name=strike_rule_id,json=strikeRuleId,proto3" json:"strike_rule_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
 	XXX_unrecognized     []byte                  `json:"-"`
@@ -22785,7 +22786,7 @@ func (m *StrikeRules) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_StrikeRules proto.InternalMessageInfo
 
-func (m *StrikeRules) GetEndStrikePxRange() *Decimal64 {
+func (m *StrikeRules) GetEndStrikePxRange() *fix.Decimal64 {
 	if m != nil {
 		return m.EndStrikePxRange
 	}
@@ -22799,7 +22800,7 @@ func (m *StrikeRules) GetMaturityRules() []*MaturityRules {
 	return nil
 }
 
-func (m *StrikeRules) GetStartStrikePxRange() *Decimal64 {
+func (m *StrikeRules) GetStartStrikePxRange() *fix.Decimal64 {
 	if m != nil {
 		return m.StartStrikePxRange
 	}
@@ -22813,7 +22814,7 @@ func (m *StrikeRules) GetStrikeExerciseStyle() StrikeExerciseStyleEnum {
 	return StrikeExerciseStyleEnum_STRIKE_EXERCISE_STYLE_UNSPECIFIED
 }
 
-func (m *StrikeRules) GetStrikeIncrement() *Decimal64 {
+func (m *StrikeRules) GetStrikeIncrement() *fix.Decimal64 {
 	if m != nil {
 		return m.StrikeIncrement
 	}
@@ -22907,10 +22908,10 @@ func (m *MaturityRules) GetStartMaturityMonthYear() int32 {
 }
 
 type SecondaryPriceLimits struct {
-	SecondaryHighLimitPrice        *Decimal64                  `protobuf:"bytes,1,opt,name=secondary_high_limit_price,json=secondaryHighLimitPrice,proto3" json:"secondary_high_limit_price,omitempty"`
-	SecondaryLowLimitPrice         *Decimal64                  `protobuf:"bytes,2,opt,name=secondary_low_limit_price,json=secondaryLowLimitPrice,proto3" json:"secondary_low_limit_price,omitempty"`
+	SecondaryHighLimitPrice        *fix.Decimal64                  `protobuf:"bytes,1,opt,name=secondary_high_limit_price,json=secondaryHighLimitPrice,proto3" json:"secondary_high_limit_price,omitempty"`
+	SecondaryLowLimitPrice         *fix.Decimal64                  `protobuf:"bytes,2,opt,name=secondary_low_limit_price,json=secondaryLowLimitPrice,proto3" json:"secondary_low_limit_price,omitempty"`
 	SecondaryPriceLimitType        SecondaryPriceLimitTypeEnum `protobuf:"varint,3,opt,name=secondary_price_limit_type,json=secondaryPriceLimitType,proto3,enum=Common.SecondaryPriceLimitTypeEnum" json:"secondary_price_limit_type,omitempty"`
-	SecondaryTradingReferencePrice *Decimal64                  `protobuf:"bytes,4,opt,name=secondary_trading_reference_price,json=secondaryTradingReferencePrice,proto3" json:"secondary_trading_reference_price,omitempty"`
+	SecondaryTradingReferencePrice *fix.Decimal64                  `protobuf:"bytes,4,opt,name=secondary_trading_reference_price,json=secondaryTradingReferencePrice,proto3" json:"secondary_trading_reference_price,omitempty"`
 	XXX_NoUnkeyedLiteral           struct{}                    `json:"-"`
 	XXX_unrecognized               []byte                      `json:"-"`
 	XXX_sizecache                  int32                       `json:"-"`
@@ -22941,14 +22942,14 @@ func (m *SecondaryPriceLimits) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SecondaryPriceLimits proto.InternalMessageInfo
 
-func (m *SecondaryPriceLimits) GetSecondaryHighLimitPrice() *Decimal64 {
+func (m *SecondaryPriceLimits) GetSecondaryHighLimitPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.SecondaryHighLimitPrice
 	}
 	return nil
 }
 
-func (m *SecondaryPriceLimits) GetSecondaryLowLimitPrice() *Decimal64 {
+func (m *SecondaryPriceLimits) GetSecondaryLowLimitPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.SecondaryLowLimitPrice
 	}
@@ -22962,7 +22963,7 @@ func (m *SecondaryPriceLimits) GetSecondaryPriceLimitType() SecondaryPriceLimitT
 	return SecondaryPriceLimitTypeEnum_SECONDARY_PRICE_LIMIT_TYPE_UNSPECIFIED
 }
 
-func (m *SecondaryPriceLimits) GetSecondaryTradingReferencePrice() *Decimal64 {
+func (m *SecondaryPriceLimits) GetSecondaryTradingReferencePrice() *fix.Decimal64 {
 	if m != nil {
 		return m.SecondaryTradingReferencePrice
 	}
@@ -22970,10 +22971,10 @@ func (m *SecondaryPriceLimits) GetSecondaryTradingReferencePrice() *Decimal64 {
 }
 
 type PriceLimits struct {
-	HighLimitPrice        *Decimal64         `protobuf:"bytes,1,opt,name=high_limit_price,json=highLimitPrice,proto3" json:"high_limit_price,omitempty"`
-	LowLimitPrice         *Decimal64         `protobuf:"bytes,2,opt,name=low_limit_price,json=lowLimitPrice,proto3" json:"low_limit_price,omitempty"`
+	HighLimitPrice        *fix.Decimal64         `protobuf:"bytes,1,opt,name=high_limit_price,json=highLimitPrice,proto3" json:"high_limit_price,omitempty"`
+	LowLimitPrice         *fix.Decimal64         `protobuf:"bytes,2,opt,name=low_limit_price,json=lowLimitPrice,proto3" json:"low_limit_price,omitempty"`
 	PriceLimitType        PriceLimitTypeEnum `protobuf:"varint,3,opt,name=price_limit_type,json=priceLimitType,proto3,enum=Common.PriceLimitTypeEnum" json:"price_limit_type,omitempty"`
-	TradingReferencePrice *Decimal64         `protobuf:"bytes,4,opt,name=trading_reference_price,json=tradingReferencePrice,proto3" json:"trading_reference_price,omitempty"`
+	TradingReferencePrice *fix.Decimal64         `protobuf:"bytes,4,opt,name=trading_reference_price,json=tradingReferencePrice,proto3" json:"trading_reference_price,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}           `json:"-"`
 	XXX_unrecognized      []byte             `json:"-"`
 	XXX_sizecache         int32              `json:"-"`
@@ -23004,14 +23005,14 @@ func (m *PriceLimits) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_PriceLimits proto.InternalMessageInfo
 
-func (m *PriceLimits) GetHighLimitPrice() *Decimal64 {
+func (m *PriceLimits) GetHighLimitPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.HighLimitPrice
 	}
 	return nil
 }
 
-func (m *PriceLimits) GetLowLimitPrice() *Decimal64 {
+func (m *PriceLimits) GetLowLimitPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.LowLimitPrice
 	}
@@ -23025,7 +23026,7 @@ func (m *PriceLimits) GetPriceLimitType() PriceLimitTypeEnum {
 	return PriceLimitTypeEnum_PRICE_LIMIT_TYPE_UNSPECIFIED
 }
 
-func (m *PriceLimits) GetTradingReferencePrice() *Decimal64 {
+func (m *PriceLimits) GetTradingReferencePrice() *fix.Decimal64 {
 	if m != nil {
 		return m.TradingReferencePrice
 	}
@@ -23089,7 +23090,7 @@ func (m *MarketDataFeedTypes) GetMdFeedType() string {
 
 type LotTypeRules struct {
 	LotType              LotTypeEnum `protobuf:"varint,1,opt,name=lot_type,json=lotType,proto3,enum=Common.LotTypeEnum" json:"lot_type,omitempty"`
-	MinLotSize           *Decimal64  `protobuf:"bytes,2,opt,name=min_lot_size,json=minLotSize,proto3" json:"min_lot_size,omitempty"`
+	MinLotSize           *fix.Decimal64  `protobuf:"bytes,2,opt,name=min_lot_size,json=minLotSize,proto3" json:"min_lot_size,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
 	XXX_unrecognized     []byte      `json:"-"`
 	XXX_sizecache        int32       `json:"-"`
@@ -23127,7 +23128,7 @@ func (m *LotTypeRules) GetLotType() LotTypeEnum {
 	return LotTypeEnum_LOT_TYPE_UNSPECIFIED
 }
 
-func (m *LotTypeRules) GetMinLotSize() *Decimal64 {
+func (m *LotTypeRules) GetMinLotSize() *fix.Decimal64 {
 	if m != nil {
 		return m.MinLotSize
 	}
@@ -23507,14 +23508,14 @@ type BaseTradingRules struct {
 	ExpirationCycle        ExpirationCycleEnum        `protobuf:"varint,1,opt,name=expiration_cycle,json=expirationCycle,proto3,enum=Common.ExpirationCycleEnum" json:"expiration_cycle,omitempty"`
 	ImpliedMarketIndicator ImpliedMarketIndicatorEnum `protobuf:"varint,2,opt,name=implied_market_indicator,json=impliedMarketIndicator,proto3,enum=Common.ImpliedMarketIndicatorEnum" json:"implied_market_indicator,omitempty"`
 	LotTypeRules           []*LotTypeRules            `protobuf:"bytes,3,rep,name=lot_type_rules,json=lotTypeRules,proto3" json:"lot_type_rules,omitempty"`
-	MaxPriceVariation      *Decimal64                 `protobuf:"bytes,4,opt,name=max_price_variation,json=maxPriceVariation,proto3" json:"max_price_variation,omitempty"`
-	MaxTradeVol            *Decimal64                 `protobuf:"bytes,5,opt,name=max_trade_vol,json=maxTradeVol,proto3" json:"max_trade_vol,omitempty"`
-	MinTradeVol            *Decimal64                 `protobuf:"bytes,6,opt,name=min_trade_vol,json=minTradeVol,proto3" json:"min_trade_vol,omitempty"`
+	MaxPriceVariation      *fix.Decimal64                 `protobuf:"bytes,4,opt,name=max_price_variation,json=maxPriceVariation,proto3" json:"max_price_variation,omitempty"`
+	MaxTradeVol            *fix.Decimal64                 `protobuf:"bytes,5,opt,name=max_trade_vol,json=maxTradeVol,proto3" json:"max_trade_vol,omitempty"`
+	MinTradeVol            *fix.Decimal64                 `protobuf:"bytes,6,opt,name=min_trade_vol,json=minTradeVol,proto3" json:"min_trade_vol,omitempty"`
 	MultilegModel          MultilegModelEnum          `protobuf:"varint,7,opt,name=multileg_model,json=multilegModel,proto3,enum=Common.MultilegModelEnum" json:"multileg_model,omitempty"`
 	MultilegPriceMethod    MultilegPriceMethodEnum    `protobuf:"varint,8,opt,name=multileg_price_method,json=multilegPriceMethod,proto3,enum=Common.MultilegPriceMethodEnum" json:"multileg_price_method,omitempty"`
 	PriceLimits            *PriceLimits               `protobuf:"bytes,9,opt,name=price_limits,json=priceLimits,proto3" json:"price_limits,omitempty"`
 	PriceType              PriceTypeEnum              `protobuf:"varint,10,opt,name=price_type,json=priceType,proto3,enum=Common.PriceTypeEnum" json:"price_type,omitempty"`
-	RoundLot               *Decimal64                 `protobuf:"bytes,11,opt,name=round_lot,json=roundLot,proto3" json:"round_lot,omitempty"`
+	RoundLot               *fix.Decimal64                 `protobuf:"bytes,11,opt,name=round_lot,json=roundLot,proto3" json:"round_lot,omitempty"`
 	TickRules              []*TickRules               `protobuf:"bytes,12,rep,name=tick_rules,json=tickRules,proto3" json:"tick_rules,omitempty"`
 	TradingCurrency        string                     `protobuf:"bytes,13,opt,name=trading_currency,json=tradingCurrency,proto3" json:"trading_currency,omitempty"`
 	XXX_NoUnkeyedLiteral   struct{}                   `json:"-"`
@@ -23568,21 +23569,21 @@ func (m *BaseTradingRules) GetLotTypeRules() []*LotTypeRules {
 	return nil
 }
 
-func (m *BaseTradingRules) GetMaxPriceVariation() *Decimal64 {
+func (m *BaseTradingRules) GetMaxPriceVariation() *fix.Decimal64 {
 	if m != nil {
 		return m.MaxPriceVariation
 	}
 	return nil
 }
 
-func (m *BaseTradingRules) GetMaxTradeVol() *Decimal64 {
+func (m *BaseTradingRules) GetMaxTradeVol() *fix.Decimal64 {
 	if m != nil {
 		return m.MaxTradeVol
 	}
 	return nil
 }
 
-func (m *BaseTradingRules) GetMinTradeVol() *Decimal64 {
+func (m *BaseTradingRules) GetMinTradeVol() *fix.Decimal64 {
 	if m != nil {
 		return m.MinTradeVol
 	}
@@ -23617,7 +23618,7 @@ func (m *BaseTradingRules) GetPriceType() PriceTypeEnum {
 	return PriceTypeEnum_PRICE_TYPE_UNSPECIFIED
 }
 
-func (m *BaseTradingRules) GetRoundLot() *Decimal64 {
+func (m *BaseTradingRules) GetRoundLot() *fix.Decimal64 {
 	if m != nil {
 		return m.RoundLot
 	}
@@ -23907,9 +23908,9 @@ func (m *NestedInstrumentAttribute) GetNestedInstrAttribValue() string {
 
 type DerivativeInstrument struct {
 	DerivFlexProductEligibilityIndicator bool                                  `protobuf:"varint,1,opt,name=deriv_flex_product_eligibility_indicator,json=derivFlexProductEligibilityIndicator,proto3" json:"deriv_flex_product_eligibility_indicator,omitempty"`
-	DerivativeCapPrice                   *Decimal64                            `protobuf:"bytes,2,opt,name=derivative_cap_price,json=derivativeCapPrice,proto3" json:"derivative_cap_price,omitempty"`
+	DerivativeCapPrice                   *fix.Decimal64                            `protobuf:"bytes,2,opt,name=derivative_cap_price,json=derivativeCapPrice,proto3" json:"derivative_cap_price,omitempty"`
 	DerivativeCfiCode                    string                                `protobuf:"bytes,3,opt,name=derivative_cfi_code,json=derivativeCfiCode,proto3" json:"derivative_cfi_code,omitempty"`
-	DerivativeContractMultiplier         *Decimal64                            `protobuf:"bytes,4,opt,name=derivative_contract_multiplier,json=derivativeContractMultiplier,proto3" json:"derivative_contract_multiplier,omitempty"`
+	DerivativeContractMultiplier         *fix.Decimal64                            `protobuf:"bytes,4,opt,name=derivative_contract_multiplier,json=derivativeContractMultiplier,proto3" json:"derivative_contract_multiplier,omitempty"`
 	DerivativeContractSettlMonth         int32                                 `protobuf:"fixed32,5,opt,name=derivative_contract_settl_month,json=derivativeContractSettlMonth,proto3" json:"derivative_contract_settl_month,omitempty"`
 	DerivativeCountryOfIssue             string                                `protobuf:"bytes,6,opt,name=derivative_country_of_issue,json=derivativeCountryOfIssue,proto3" json:"derivative_country_of_issue,omitempty"`
 	DerivativeEncodedIssuer              string                                `protobuf:"bytes,7,opt,name=derivative_encoded_issuer,json=derivativeEncodedIssuer,proto3" json:"derivative_encoded_issuer,omitempty"`
@@ -23918,7 +23919,7 @@ type DerivativeInstrument struct {
 	DerivativeEncodedSecurityDescLen     int64                                 `protobuf:"fixed64,10,opt,name=derivative_encoded_security_desc_len,json=derivativeEncodedSecurityDescLen,proto3" json:"derivative_encoded_security_desc_len,omitempty"`
 	DerivativeEventsGrp                  []*DerivativeEventsGrp                `protobuf:"bytes,11,rep,name=derivative_events_grp,json=derivativeEventsGrp,proto3" json:"derivative_events_grp,omitempty"`
 	DerivativeExerciseStyle              DerivativeExerciseStyleEnum           `protobuf:"varint,12,opt,name=derivative_exercise_style,json=derivativeExerciseStyle,proto3,enum=Common.DerivativeExerciseStyleEnum" json:"derivative_exercise_style,omitempty"`
-	DerivativeFloorPrice                 *Decimal64                            `protobuf:"bytes,13,opt,name=derivative_floor_price,json=derivativeFloorPrice,proto3" json:"derivative_floor_price,omitempty"`
+	DerivativeFloorPrice                 *fix.Decimal64                            `protobuf:"bytes,13,opt,name=derivative_floor_price,json=derivativeFloorPrice,proto3" json:"derivative_floor_price,omitempty"`
 	DerivativeInstrRegistry              string                                `protobuf:"bytes,14,opt,name=derivative_instr_registry,json=derivativeInstrRegistry,proto3" json:"derivative_instr_registry,omitempty"`
 	DerivativeInstrmtAssignmentMethod    DerivativeInstrmtAssignmentMethodEnum `protobuf:"varint,15,opt,name=derivative_instrmt_assignment_method,json=derivativeInstrmtAssignmentMethod,proto3,enum=Common.DerivativeInstrmtAssignmentMethodEnum" json:"derivative_instrmt_assignment_method,omitempty"`
 	DerivativeInstrumentParties          []*DerivativeInstrumentParties        `protobuf:"bytes,16,rep,name=derivative_instrument_parties,json=derivativeInstrumentParties,proto3" json:"derivative_instrument_parties,omitempty"`
@@ -23928,16 +23929,16 @@ type DerivativeInstrument struct {
 	DerivativeLocaleOfIssue              string                                `protobuf:"bytes,20,opt,name=derivative_locale_of_issue,json=derivativeLocaleOfIssue,proto3" json:"derivative_locale_of_issue,omitempty"`
 	DerivativeMaturityDate               int32                                 `protobuf:"fixed32,21,opt,name=derivative_maturity_date,json=derivativeMaturityDate,proto3" json:"derivative_maturity_date,omitempty"`
 	DerivativeMaturityMonthYear          int32                                 `protobuf:"fixed32,22,opt,name=derivative_maturity_month_year,json=derivativeMaturityMonthYear,proto3" json:"derivative_maturity_month_year,omitempty"`
-	DerivativeMaturityTime               *LocalTimeOnly                        `protobuf:"bytes,23,opt,name=derivative_maturity_time,json=derivativeMaturityTime,proto3" json:"derivative_maturity_time,omitempty"`
-	DerivativeMinPriceIncrement          *Decimal64                            `protobuf:"bytes,24,opt,name=derivative_min_price_increment,json=derivativeMinPriceIncrement,proto3" json:"derivative_min_price_increment,omitempty"`
-	DerivativeMinPriceIncrementAmount    *Decimal64                            `protobuf:"bytes,25,opt,name=derivative_min_price_increment_amount,json=derivativeMinPriceIncrementAmount,proto3" json:"derivative_min_price_increment_amount,omitempty"`
+	DerivativeMaturityTime               *fix.LocalTimeOnly                        `protobuf:"bytes,23,opt,name=derivative_maturity_time,json=derivativeMaturityTime,proto3" json:"derivative_maturity_time,omitempty"`
+	DerivativeMinPriceIncrement          *fix.Decimal64                            `protobuf:"bytes,24,opt,name=derivative_min_price_increment,json=derivativeMinPriceIncrement,proto3" json:"derivative_min_price_increment,omitempty"`
+	DerivativeMinPriceIncrementAmount    *fix.Decimal64                            `protobuf:"bytes,25,opt,name=derivative_min_price_increment_amount,json=derivativeMinPriceIncrementAmount,proto3" json:"derivative_min_price_increment_amount,omitempty"`
 	DerivativeNtPositionLimit            int64                                 `protobuf:"fixed64,26,opt,name=derivative_nt_position_limit,json=derivativeNtPositionLimit,proto3" json:"derivative_nt_position_limit,omitempty"`
 	DerivativeOptAttribute               []byte                                `protobuf:"bytes,27,opt,name=derivative_opt_attribute,json=derivativeOptAttribute,proto3" json:"derivative_opt_attribute,omitempty"`
-	DerivativeOptPayAmount               *Decimal64                            `protobuf:"bytes,28,opt,name=derivative_opt_pay_amount,json=derivativeOptPayAmount,proto3" json:"derivative_opt_pay_amount,omitempty"`
+	DerivativeOptPayAmount               *fix.Decimal64                            `protobuf:"bytes,28,opt,name=derivative_opt_pay_amount,json=derivativeOptPayAmount,proto3" json:"derivative_opt_pay_amount,omitempty"`
 	DerivativePositionLimit              int64                                 `protobuf:"fixed64,29,opt,name=derivative_position_limit,json=derivativePositionLimit,proto3" json:"derivative_position_limit,omitempty"`
 	DerivativePriceQuoteMethod           DerivativePriceQuoteMethodEnum        `protobuf:"varint,30,opt,name=derivative_price_quote_method,json=derivativePriceQuoteMethod,proto3,enum=Common.DerivativePriceQuoteMethodEnum" json:"derivative_price_quote_method,omitempty"`
 	DerivativePriceUnitOfMeasure         DerivativePriceUnitOfMeasureEnum      `protobuf:"varint,31,opt,name=derivative_price_unit_of_measure,json=derivativePriceUnitOfMeasure,proto3,enum=Common.DerivativePriceUnitOfMeasureEnum" json:"derivative_price_unit_of_measure,omitempty"`
-	DerivativePriceUnitOfMeasureQty      *Decimal64                            `protobuf:"bytes,32,opt,name=derivative_price_unit_of_measure_qty,json=derivativePriceUnitOfMeasureQty,proto3" json:"derivative_price_unit_of_measure_qty,omitempty"`
+	DerivativePriceUnitOfMeasureQty      *fix.Decimal64                            `protobuf:"bytes,32,opt,name=derivative_price_unit_of_measure_qty,json=derivativePriceUnitOfMeasureQty,proto3" json:"derivative_price_unit_of_measure_qty,omitempty"`
 	DerivativeProduct                    DerivativeProductEnum                 `protobuf:"varint,33,opt,name=derivative_product,json=derivativeProduct,proto3,enum=Common.DerivativeProductEnum" json:"derivative_product,omitempty"`
 	DerivativeProductComplex             string                                `protobuf:"bytes,34,opt,name=derivative_product_complex,json=derivativeProductComplex,proto3" json:"derivative_product_complex,omitempty"`
 	DerivativePutOrCall                  DerivativePutOrCallEnum               `protobuf:"varint,35,opt,name=derivative_put_or_call,json=derivativePutOrCall,proto3,enum=Common.DerivativePutOrCallEnum" json:"derivative_put_or_call,omitempty"`
@@ -23955,14 +23956,14 @@ type DerivativeInstrument struct {
 	DerivativeSettleOnOpenFlag           string                                `protobuf:"bytes,47,opt,name=derivative_settle_on_open_flag,json=derivativeSettleOnOpenFlag,proto3" json:"derivative_settle_on_open_flag,omitempty"`
 	DerivativeStateOrProvinceOfIssue     string                                `protobuf:"bytes,48,opt,name=derivative_state_or_province_of_issue,json=derivativeStateOrProvinceOfIssue,proto3" json:"derivative_state_or_province_of_issue,omitempty"`
 	DerivativeStrikeCurrency             string                                `protobuf:"bytes,49,opt,name=derivative_strike_currency,json=derivativeStrikeCurrency,proto3" json:"derivative_strike_currency,omitempty"`
-	DerivativeStrikeMultiplier           *Decimal64                            `protobuf:"bytes,50,opt,name=derivative_strike_multiplier,json=derivativeStrikeMultiplier,proto3" json:"derivative_strike_multiplier,omitempty"`
-	DerivativeStrikePrice                *Decimal64                            `protobuf:"bytes,51,opt,name=derivative_strike_price,json=derivativeStrikePrice,proto3" json:"derivative_strike_price,omitempty"`
-	DerivativeStrikeValue                *Decimal64                            `protobuf:"bytes,52,opt,name=derivative_strike_value,json=derivativeStrikeValue,proto3" json:"derivative_strike_value,omitempty"`
+	DerivativeStrikeMultiplier           *fix.Decimal64                            `protobuf:"bytes,50,opt,name=derivative_strike_multiplier,json=derivativeStrikeMultiplier,proto3" json:"derivative_strike_multiplier,omitempty"`
+	DerivativeStrikePrice                *fix.Decimal64                            `protobuf:"bytes,51,opt,name=derivative_strike_price,json=derivativeStrikePrice,proto3" json:"derivative_strike_price,omitempty"`
+	DerivativeStrikeValue                *fix.Decimal64                            `protobuf:"bytes,52,opt,name=derivative_strike_value,json=derivativeStrikeValue,proto3" json:"derivative_strike_value,omitempty"`
 	DerivativeSymbol                     string                                `protobuf:"bytes,53,opt,name=derivative_symbol,json=derivativeSymbol,proto3" json:"derivative_symbol,omitempty"`
 	DerivativeSymbolSfx                  DerivativeSymbolSfxEnum               `protobuf:"varint,54,opt,name=derivative_symbol_sfx,json=derivativeSymbolSfx,proto3,enum=Common.DerivativeSymbolSfxEnum" json:"derivative_symbol_sfx,omitempty"`
 	DerivativeTimeUnit                   DerivativeTimeUnitEnum                `protobuf:"varint,55,opt,name=derivative_time_unit,json=derivativeTimeUnit,proto3,enum=Common.DerivativeTimeUnitEnum" json:"derivative_time_unit,omitempty"`
 	DerivativeUnitOfMeasure              DerivativeUnitOfMeasureEnum           `protobuf:"varint,56,opt,name=derivative_unit_of_measure,json=derivativeUnitOfMeasure,proto3,enum=Common.DerivativeUnitOfMeasureEnum" json:"derivative_unit_of_measure,omitempty"`
-	DerivativeUnitOfMeasureQty           *Decimal64                            `protobuf:"bytes,57,opt,name=derivative_unit_of_measure_qty,json=derivativeUnitOfMeasureQty,proto3" json:"derivative_unit_of_measure_qty,omitempty"`
+	DerivativeUnitOfMeasureQty           *fix.Decimal64                            `protobuf:"bytes,57,opt,name=derivative_unit_of_measure_qty,json=derivativeUnitOfMeasureQty,proto3" json:"derivative_unit_of_measure_qty,omitempty"`
 	DerivativeValuationMethod            DerivativeValuationMethodEnum         `protobuf:"varint,58,opt,name=derivative_valuation_method,json=derivativeValuationMethod,proto3,enum=Common.DerivativeValuationMethodEnum" json:"derivative_valuation_method,omitempty"`
 	DerivativeContractMultiplierUnit     DerivativeContractMultiplierUnitEnum  `protobuf:"varint,59,opt,name=derivative_contract_multiplier_unit,json=derivativeContractMultiplierUnit,proto3,enum=Common.DerivativeContractMultiplierUnitEnum" json:"derivative_contract_multiplier_unit,omitempty"`
 	// Types that are valid to be assigned to DerivativeFlowScheduleTypeUnion:
@@ -24006,7 +24007,7 @@ func (m *DerivativeInstrument) GetDerivFlexProductEligibilityIndicator() bool {
 	return false
 }
 
-func (m *DerivativeInstrument) GetDerivativeCapPrice() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeCapPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeCapPrice
 	}
@@ -24020,7 +24021,7 @@ func (m *DerivativeInstrument) GetDerivativeCfiCode() string {
 	return ""
 }
 
-func (m *DerivativeInstrument) GetDerivativeContractMultiplier() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeContractMultiplier() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeContractMultiplier
 	}
@@ -24083,7 +24084,7 @@ func (m *DerivativeInstrument) GetDerivativeExerciseStyle() DerivativeExerciseSt
 	return DerivativeExerciseStyleEnum_DERIVATIVE_EXERCISE_STYLE_UNSPECIFIED
 }
 
-func (m *DerivativeInstrument) GetDerivativeFloorPrice() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeFloorPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeFloorPrice
 	}
@@ -24153,21 +24154,21 @@ func (m *DerivativeInstrument) GetDerivativeMaturityMonthYear() int32 {
 	return 0
 }
 
-func (m *DerivativeInstrument) GetDerivativeMaturityTime() *LocalTimeOnly {
+func (m *DerivativeInstrument) GetDerivativeMaturityTime() *fix.LocalTimeOnly {
 	if m != nil {
 		return m.DerivativeMaturityTime
 	}
 	return nil
 }
 
-func (m *DerivativeInstrument) GetDerivativeMinPriceIncrement() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeMinPriceIncrement() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeMinPriceIncrement
 	}
 	return nil
 }
 
-func (m *DerivativeInstrument) GetDerivativeMinPriceIncrementAmount() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeMinPriceIncrementAmount() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeMinPriceIncrementAmount
 	}
@@ -24188,7 +24189,7 @@ func (m *DerivativeInstrument) GetDerivativeOptAttribute() []byte {
 	return nil
 }
 
-func (m *DerivativeInstrument) GetDerivativeOptPayAmount() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeOptPayAmount() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeOptPayAmount
 	}
@@ -24216,7 +24217,7 @@ func (m *DerivativeInstrument) GetDerivativePriceUnitOfMeasure() DerivativePrice
 	return DerivativePriceUnitOfMeasureEnum_DERIVATIVE_PRICE_UNIT_OF_MEASURE_UNSPECIFIED
 }
 
-func (m *DerivativeInstrument) GetDerivativePriceUnitOfMeasureQty() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativePriceUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativePriceUnitOfMeasureQty
 	}
@@ -24342,21 +24343,21 @@ func (m *DerivativeInstrument) GetDerivativeStrikeCurrency() string {
 	return ""
 }
 
-func (m *DerivativeInstrument) GetDerivativeStrikeMultiplier() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeStrikeMultiplier() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeStrikeMultiplier
 	}
 	return nil
 }
 
-func (m *DerivativeInstrument) GetDerivativeStrikePrice() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeStrikePrice() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeStrikePrice
 	}
 	return nil
 }
 
-func (m *DerivativeInstrument) GetDerivativeStrikeValue() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeStrikeValue() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeStrikeValue
 	}
@@ -24391,7 +24392,7 @@ func (m *DerivativeInstrument) GetDerivativeUnitOfMeasure() DerivativeUnitOfMeas
 	return DerivativeUnitOfMeasureEnum_DERIVATIVE_UNIT_OF_MEASURE_UNSPECIFIED
 }
 
-func (m *DerivativeInstrument) GetDerivativeUnitOfMeasureQty() *Decimal64 {
+func (m *DerivativeInstrument) GetDerivativeUnitOfMeasureQty() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeUnitOfMeasureQty
 	}
@@ -24508,9 +24509,9 @@ func (m *DerivativeSecurityAltIDGrp) GetDerivativeSecurityAltIdSource() Derivati
 
 type DerivativeEventsGrp struct {
 	DerivativeEventDate  int32                   `protobuf:"fixed32,1,opt,name=derivative_event_date,json=derivativeEventDate,proto3" json:"derivative_event_date,omitempty"`
-	DerivativeEventPx    *Decimal64              `protobuf:"bytes,2,opt,name=derivative_event_px,json=derivativeEventPx,proto3" json:"derivative_event_px,omitempty"`
+	DerivativeEventPx    *fix.Decimal64              `protobuf:"bytes,2,opt,name=derivative_event_px,json=derivativeEventPx,proto3" json:"derivative_event_px,omitempty"`
 	DerivativeEventText  string                  `protobuf:"bytes,3,opt,name=derivative_event_text,json=derivativeEventText,proto3" json:"derivative_event_text,omitempty"`
-	DerivativeEventTime  *Timestamp              `protobuf:"bytes,4,opt,name=derivative_event_time,json=derivativeEventTime,proto3" json:"derivative_event_time,omitempty"`
+	DerivativeEventTime  *fix.Timestamp              `protobuf:"bytes,4,opt,name=derivative_event_time,json=derivativeEventTime,proto3" json:"derivative_event_time,omitempty"`
 	DerivativeEventType  DerivativeEventTypeEnum `protobuf:"varint,5,opt,name=derivative_event_type,json=derivativeEventType,proto3,enum=Common.DerivativeEventTypeEnum" json:"derivative_event_type,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
 	XXX_unrecognized     []byte                  `json:"-"`
@@ -24549,7 +24550,7 @@ func (m *DerivativeEventsGrp) GetDerivativeEventDate() int32 {
 	return 0
 }
 
-func (m *DerivativeEventsGrp) GetDerivativeEventPx() *Decimal64 {
+func (m *DerivativeEventsGrp) GetDerivativeEventPx() *fix.Decimal64 {
 	if m != nil {
 		return m.DerivativeEventPx
 	}
@@ -24563,7 +24564,7 @@ func (m *DerivativeEventsGrp) GetDerivativeEventText() string {
 	return ""
 }
 
-func (m *DerivativeEventsGrp) GetDerivativeEventTime() *Timestamp {
+func (m *DerivativeEventsGrp) GetDerivativeEventTime() *fix.Timestamp {
 	if m != nil {
 		return m.DerivativeEventTime
 	}
@@ -24643,7 +24644,7 @@ type RelSymDerivSecUpdGrp struct {
 	ListUpdateAction     ListUpdateActionEnum  `protobuf:"varint,8,opt,name=list_update_action,json=listUpdateAction,proto3,enum=Common.ListUpdateActionEnum" json:"list_update_action,omitempty"`
 	SecondaryPriceLimits *SecondaryPriceLimits `protobuf:"bytes,9,opt,name=secondary_price_limits,json=secondaryPriceLimits,proto3" json:"secondary_price_limits,omitempty"`
 	Text                 string                `protobuf:"bytes,10,opt,name=text,proto3" json:"text,omitempty"`
-	RelSymTransactTime   *Timestamp            `protobuf:"bytes,11,opt,name=rel_sym_transact_time,json=relSymTransactTime,proto3" json:"rel_sym_transact_time,omitempty"`
+	RelSymTransactTime   *fix.Timestamp            `protobuf:"bytes,11,opt,name=rel_sym_transact_time,json=relSymTransactTime,proto3" json:"rel_sym_transact_time,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
 	XXX_unrecognized     []byte                `json:"-"`
 	XXX_sizecache        int32                 `json:"-"`
@@ -24744,7 +24745,7 @@ func (m *RelSymDerivSecUpdGrp) GetText() string {
 	return ""
 }
 
-func (m *RelSymDerivSecUpdGrp) GetRelSymTransactTime() *Timestamp {
+func (m *RelSymDerivSecUpdGrp) GetRelSymTransactTime() *fix.Timestamp {
 	if m != nil {
 		return m.RelSymTransactTime
 	}
@@ -25092,12 +25093,12 @@ func (m *TargetParties) GetTargetPartyRole() TargetPartyRoleEnum {
 type ComplexEvents struct {
 	ComplexEventDates                  []*ComplexEventDates                `protobuf:"bytes,1,rep,name=complex_event_dates,json=complexEventDates,proto3" json:"complex_event_dates,omitempty"`
 	ComplexEventCondition              ComplexEventConditionEnum           `protobuf:"varint,2,opt,name=complex_event_condition,json=complexEventCondition,proto3,enum=Common.ComplexEventConditionEnum" json:"complex_event_condition,omitempty"`
-	ComplexEventPrice                  *Decimal64                          `protobuf:"bytes,3,opt,name=complex_event_price,json=complexEventPrice,proto3" json:"complex_event_price,omitempty"`
+	ComplexEventPrice                  *fix.Decimal64                          `protobuf:"bytes,3,opt,name=complex_event_price,json=complexEventPrice,proto3" json:"complex_event_price,omitempty"`
 	ComplexEventPriceBoundaryMethod    ComplexEventPriceBoundaryMethodEnum `protobuf:"varint,4,opt,name=complex_event_price_boundary_method,json=complexEventPriceBoundaryMethod,proto3,enum=Common.ComplexEventPriceBoundaryMethodEnum" json:"complex_event_price_boundary_method,omitempty"`
-	ComplexEventPriceBoundaryPrecision *Decimal64                          `protobuf:"bytes,5,opt,name=complex_event_price_boundary_precision,json=complexEventPriceBoundaryPrecision,proto3" json:"complex_event_price_boundary_precision,omitempty"`
+	ComplexEventPriceBoundaryPrecision *fix.Decimal64                          `protobuf:"bytes,5,opt,name=complex_event_price_boundary_precision,json=complexEventPriceBoundaryPrecision,proto3" json:"complex_event_price_boundary_precision,omitempty"`
 	ComplexEventPriceTimeType          ComplexEventPriceTimeTypeEnum       `protobuf:"varint,6,opt,name=complex_event_price_time_type,json=complexEventPriceTimeType,proto3,enum=Common.ComplexEventPriceTimeTypeEnum" json:"complex_event_price_time_type,omitempty"`
 	ComplexEventType                   ComplexEventTypeEnum                `protobuf:"varint,7,opt,name=complex_event_type,json=complexEventType,proto3,enum=Common.ComplexEventTypeEnum" json:"complex_event_type,omitempty"`
-	ComplexOptPayoutAmount             *Decimal64                          `protobuf:"bytes,8,opt,name=complex_opt_payout_amount,json=complexOptPayoutAmount,proto3" json:"complex_opt_payout_amount,omitempty"`
+	ComplexOptPayoutAmount             *fix.Decimal64                          `protobuf:"bytes,8,opt,name=complex_opt_payout_amount,json=complexOptPayoutAmount,proto3" json:"complex_opt_payout_amount,omitempty"`
 	XXX_NoUnkeyedLiteral               struct{}                            `json:"-"`
 	XXX_unrecognized                   []byte                              `json:"-"`
 	XXX_sizecache                      int32                               `json:"-"`
@@ -25142,7 +25143,7 @@ func (m *ComplexEvents) GetComplexEventCondition() ComplexEventConditionEnum {
 	return ComplexEventConditionEnum_COMPLEX_EVENT_CONDITION_UNSPECIFIED
 }
 
-func (m *ComplexEvents) GetComplexEventPrice() *Decimal64 {
+func (m *ComplexEvents) GetComplexEventPrice() *fix.Decimal64 {
 	if m != nil {
 		return m.ComplexEventPrice
 	}
@@ -25156,7 +25157,7 @@ func (m *ComplexEvents) GetComplexEventPriceBoundaryMethod() ComplexEventPriceBo
 	return ComplexEventPriceBoundaryMethodEnum_COMPLEX_EVENT_PRICE_BOUNDARY_METHOD_UNSPECIFIED
 }
 
-func (m *ComplexEvents) GetComplexEventPriceBoundaryPrecision() *Decimal64 {
+func (m *ComplexEvents) GetComplexEventPriceBoundaryPrecision() *fix.Decimal64 {
 	if m != nil {
 		return m.ComplexEventPriceBoundaryPrecision
 	}
@@ -25177,7 +25178,7 @@ func (m *ComplexEvents) GetComplexEventType() ComplexEventTypeEnum {
 	return ComplexEventTypeEnum_COMPLEX_EVENT_TYPE_UNSPECIFIED
 }
 
-func (m *ComplexEvents) GetComplexOptPayoutAmount() *Decimal64 {
+func (m *ComplexEvents) GetComplexOptPayoutAmount() *fix.Decimal64 {
 	if m != nil {
 		return m.ComplexOptPayoutAmount
 	}
@@ -25186,8 +25187,8 @@ func (m *ComplexEvents) GetComplexOptPayoutAmount() *Decimal64 {
 
 type ComplexEventDates struct {
 	ComplexEventTimes     []*ComplexEventTimes `protobuf:"bytes,1,rep,name=complex_event_times,json=complexEventTimes,proto3" json:"complex_event_times,omitempty"`
-	ComplexEventEndDate   *Timestamp           `protobuf:"bytes,2,opt,name=complex_event_end_date,json=complexEventEndDate,proto3" json:"complex_event_end_date,omitempty"`
-	ComplexEventStartDate *Timestamp           `protobuf:"bytes,3,opt,name=complex_event_start_date,json=complexEventStartDate,proto3" json:"complex_event_start_date,omitempty"`
+	ComplexEventEndDate   *fix.Timestamp           `protobuf:"bytes,2,opt,name=complex_event_end_date,json=complexEventEndDate,proto3" json:"complex_event_end_date,omitempty"`
+	ComplexEventStartDate *fix.Timestamp           `protobuf:"bytes,3,opt,name=complex_event_start_date,json=complexEventStartDate,proto3" json:"complex_event_start_date,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}             `json:"-"`
 	XXX_unrecognized      []byte               `json:"-"`
 	XXX_sizecache         int32                `json:"-"`
@@ -25225,14 +25226,14 @@ func (m *ComplexEventDates) GetComplexEventTimes() []*ComplexEventTimes {
 	return nil
 }
 
-func (m *ComplexEventDates) GetComplexEventEndDate() *Timestamp {
+func (m *ComplexEventDates) GetComplexEventEndDate() *fix.Timestamp {
 	if m != nil {
 		return m.ComplexEventEndDate
 	}
 	return nil
 }
 
-func (m *ComplexEventDates) GetComplexEventStartDate() *Timestamp {
+func (m *ComplexEventDates) GetComplexEventStartDate() *fix.Timestamp {
 	if m != nil {
 		return m.ComplexEventStartDate
 	}
@@ -25240,8 +25241,8 @@ func (m *ComplexEventDates) GetComplexEventStartDate() *Timestamp {
 }
 
 type ComplexEventTimes struct {
-	ComplexEventEndTime   *TimeOnly `protobuf:"bytes,1,opt,name=complex_event_end_time,json=complexEventEndTime,proto3" json:"complex_event_end_time,omitempty"`
-	ComplexEventStartTime *TimeOnly `protobuf:"bytes,2,opt,name=complex_event_start_time,json=complexEventStartTime,proto3" json:"complex_event_start_time,omitempty"`
+	ComplexEventEndTime   *fix.TimeOnly `protobuf:"bytes,1,opt,name=complex_event_end_time,json=complexEventEndTime,proto3" json:"complex_event_end_time,omitempty"`
+	ComplexEventStartTime *fix.TimeOnly `protobuf:"bytes,2,opt,name=complex_event_start_time,json=complexEventStartTime,proto3" json:"complex_event_start_time,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}  `json:"-"`
 	XXX_unrecognized      []byte    `json:"-"`
 	XXX_sizecache         int32     `json:"-"`
@@ -25272,14 +25273,14 @@ func (m *ComplexEventTimes) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ComplexEventTimes proto.InternalMessageInfo
 
-func (m *ComplexEventTimes) GetComplexEventEndTime() *TimeOnly {
+func (m *ComplexEventTimes) GetComplexEventEndTime() *fix.TimeOnly {
 	if m != nil {
 		return m.ComplexEventEndTime
 	}
 	return nil
 }
 
-func (m *ComplexEventTimes) GetComplexEventStartTime() *TimeOnly {
+func (m *ComplexEventTimes) GetComplexEventStartTime() *fix.TimeOnly {
 	if m != nil {
 		return m.ComplexEventStartTime
 	}
@@ -25357,7 +25358,7 @@ func init() {
 	proto.RegisterEnum("Common.BenchmarkPriceTypeEnum", BenchmarkPriceTypeEnum_name, BenchmarkPriceTypeEnum_value)
 	proto.RegisterEnum("Common.BenchmarkSecurityIDSourceEnum", BenchmarkSecurityIDSourceEnum_name, BenchmarkSecurityIDSourceEnum_value)
 	proto.RegisterEnum("Common.StipulationTypeEnum", StipulationTypeEnum_name, StipulationTypeEnum_value)
-	proto.RegisterEnum("Common.TrdRegTimestampTypeEnum", TrdRegTimestampTypeEnum_name, TrdRegTimestampTypeEnum_value)
+	proto.RegisterEnum("Common.TrdRegfix_TimestampTypeEnum", TrdRegfix_TimestampTypeEnum_name, TrdRegfix_TimestampTypeEnum_value)
 	proto.RegisterEnum("Common.DeskTypeEnum", DeskTypeEnum_name, DeskTypeEnum_value)
 	proto.RegisterEnum("Common.DeskTypeSourceEnum", DeskTypeSourceEnum_name, DeskTypeSourceEnum_value)
 	proto.RegisterEnum("Common.DeskOrderHandlingInstEnum", DeskOrderHandlingInstEnum_name, DeskOrderHandlingInstEnum_value)
@@ -25512,7 +25513,7 @@ func init() {
 	proto.RegisterType((*SettlParties)(nil), "Common.SettlParties")
 	proto.RegisterType((*SpreadOrBenchmarkCurveData)(nil), "Common.SpreadOrBenchmarkCurveData")
 	proto.RegisterType((*Stipulations)(nil), "Common.Stipulations")
-	proto.RegisterType((*TrdRegTimestamps)(nil), "Common.TrdRegTimestamps")
+	proto.RegisterType((*TrdRegfix_Timestamps)(nil), "Common.TrdRegfix_Timestamps")
 	proto.RegisterType((*UnderlyingInstrument)(nil), "Common.UnderlyingInstrument")
 	proto.RegisterType((*YieldData)(nil), "Common.YieldData")
 	proto.RegisterType((*UnderlyingStipulations)(nil), "Common.UnderlyingStipulations")

@@ -4,7 +4,7 @@
 package session
 
 import (
-	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/common/common"
+	common "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
@@ -2010,7 +2010,7 @@ type Logon struct {
 	TestMessageIndicator    bool                 `protobuf:"varint,10,opt,name=test_message_indicator,json=testMessageIndicator,proto3" json:"test_message_indicator,omitempty"`
 	Username                string               `protobuf:"bytes,11,opt,name=username,proto3" json:"username,omitempty"`
 	DefaultApplVerId        DefaultApplVerIDEnum `protobuf:"varint,12,opt,name=default_appl_ver_id,json=defaultApplVerId,proto3,enum=Session.DefaultApplVerIDEnum" json:"default_appl_ver_id,omitempty"`
-	common.MsgTypeGrp              []*common.MsgTypeGrp        `protobuf:"bytes,13,rep,name=msg_type_grp,json=msgTypeGrp,proto3" json:"msg_type_grp,omitempty"`
+	MsgTypeGrp              []*common.MsgTypeGrp        `protobuf:"bytes,13,rep,name=msg_type_grp,json=msgTypeGrp,proto3" json:"msg_type_grp,omitempty"`
 	NextExpectedMsgSeqNum   int64                `protobuf:"fixed64,14,opt,name=next_expected_msg_seq_num,json=nextExpectedMsgSeqNum,proto3" json:"next_expected_msg_seq_num,omitempty"`
 	DefaultApplExtId        int64                `protobuf:"fixed64,15,opt,name=default_appl_ext_id,json=defaultApplExtId,proto3" json:"default_appl_ext_id,omitempty"`
 	DefaultCstmApplVerId    string               `protobuf:"bytes,16,opt,name=default_cstm_appl_ver_id,json=defaultCstmApplVerId,proto3" json:"default_cstm_appl_ver_id,omitempty"`
@@ -2144,9 +2144,9 @@ func (m *Logon) GetDefaultApplVerId() DefaultApplVerIDEnum {
 	return DefaultApplVerIDEnum_DEFAULT_APPL_VER_ID_UNSPECIFIED
 }
 
-func (m *Logon) Getcommon.MsgTypeGrp() []*common.MsgTypeGrp {
+func (m *Logon) GetMsgTypeGrp() []*common.MsgTypeGrp {
 	if m != nil {
-		return m.common.MsgTypeGrp
+		return m.MsgTypeGrp
 	}
 	return nil
 }
