@@ -597,13 +597,13 @@ public final class Marketdataserver {
       "\n\026marketdataserver.proto\022\021marketdataserv" +
       "ice\032\020marketdata.proto\032\033google/protobuf/e" +
       "mpty.proto\"#\n\020SubscribeRequest\022\017\n\007partyI" +
-      "d\030\001 \001(\t2\267\001\n\021MarketDataService\022D\n\tSubscri" +
-      "be\022\035.MarketData.MarketDataRequest\032\026.goog" +
-      "le.protobuf.Empty\"\000\022\\\n\007Connect\022#.marketd" +
-      "ataservice.SubscribeRequest\032(.MarketData" +
-      ".MarketDataIncrementalRefresh\"\0000\001B4\n2com" +
-      ".ettech.fixmarketsimulator.marketdataser" +
-      "ver.apib\006proto3"
+      "d\030\001 \001(\t2\275\001\n\027FixSimMarketDataService\022D\n\tS" +
+      "ubscribe\022\035.MarketData.MarketDataRequest\032" +
+      "\026.google.protobuf.Empty\"\000\022\\\n\007Connect\022#.m" +
+      "arketdataservice.SubscribeRequest\032(.Mark" +
+      "etData.MarketDataIncrementalRefresh\"\0000\001B" +
+      "4\n2com.ettech.fixmarketsimulator.marketd" +
+      "ataserver.apib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

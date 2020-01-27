@@ -9,7 +9,7 @@ message ConnectRequest {
     string partyId = 1;
 }
 
-service MarketDataService{
+service MarketDataGateway{
     rpc Subscribe(MarketData.MarketDataRequest) returns (google.protobuf.Empty) {};
     rpc Connect(ConnectRequest) returns (stream MarketData.MarketDataSnapshotFullRefresh) {};
 } 

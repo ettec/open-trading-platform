@@ -6,12 +6,25 @@ SVC_PATH=../go/$1
 # Grpc Service
 APISERVICE_PATH=$SVC_PATH/internal/api/
 mkdir -p $APISERVICE_PATH
-protoc $SVC_PATH/*.proto --go_out=plugins=grpc:$APISERVICE_PATH --proto_path=$SVC_PATH:.
-GOFILE=$APISERVICE_PATH/$1.pb.go
+protoc $SVC_PATH/marketdatagateway.proto --go_out=plugins=grpc:$APISERVICE_PATH --proto_path=$SVC_PATH:.
+GOFILE=$APISERVICE_PATH/marketdatagateway.pb.go
 sed -i 's/MarketDataRequest/marketdata.MarketDataRequest/g' $GOFILE
 sed -i 's/MarketDataSnapshotFullRefresh/marketdata.MarketDataSnapshotFullRefresh/g' $GOFILE
 sed -i 's/import (/import (\n\tmarketdata \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/marketdata\"/g' $GOFILE
 
+# Fix sim service
+FIXSIM_PATH=$SVC_PATH/internal/fixsim/
+mkdir -p $FIXSIM_PATH
+protoc $SVC_PATH/fixsimmarketdataservice.proto --go_out=plugins=grpc:$FIXSIM_PATH --proto_path=$SVC_PATH:.
+GOFILE=$FIXSIM_PATH/fixsimmarketdataservice.pb.go
+sed -i 's/MarketDataRequest/marketdata.MarketDataRequest/g' $GOFILE
+sed -i 's/MarketDataIncrementalRefresh/marketdata.MarketDataIncrementalRefresh/g' $GOFILE
+sed -i 's/import (/import (\n\tmarketdata \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/marketdata\"/g' $GOFILE
+
+
+
+
+# Fix Protocol
 mkdir -p $SVC_PATH/internal/fix/fix
 protoc ./fix.proto --go_out=$SVC_PATH/internal/fix/fix --proto_path=$SVC_PATH:.
 

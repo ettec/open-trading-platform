@@ -4,7 +4,7 @@ import "marketdata.proto";
 import "google/protobuf/empty.proto";
 
 option java_package = "com.ettech.fixmarketsimulator.marketdataserver.api";
-
+option go_package="fixsim";
 
 message SubscribeRequest {
     string partyId = 1;
