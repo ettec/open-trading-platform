@@ -58,27 +58,27 @@ public final class FixSimMarketDataServiceGrpc {
     return getSubscribeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest,
+  private static volatile io.grpc.MethodDescriptor<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party,
       org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> getConnectMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Connect",
-      requestType = com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.class,
+      requestType = com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.class,
       responseType = org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh.class,
       methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest,
+  public static io.grpc.MethodDescriptor<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party,
       org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> getConnectMethod() {
-    io.grpc.MethodDescriptor<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest, org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> getConnectMethod;
+    io.grpc.MethodDescriptor<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party, org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> getConnectMethod;
     if ((getConnectMethod = FixSimMarketDataServiceGrpc.getConnectMethod) == null) {
       synchronized (FixSimMarketDataServiceGrpc.class) {
         if ((getConnectMethod = FixSimMarketDataServiceGrpc.getConnectMethod) == null) {
           FixSimMarketDataServiceGrpc.getConnectMethod = getConnectMethod =
-              io.grpc.MethodDescriptor.<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest, org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh>newBuilder()
+              io.grpc.MethodDescriptor.<com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party, org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Connect"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.getDefaultInstance()))
+                  com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh.getDefaultInstance()))
               .setSchemaDescriptor(new FixSimMarketDataServiceMethodDescriptorSupplier("Connect"))
@@ -146,7 +146,7 @@ public final class FixSimMarketDataServiceGrpc {
 
     /**
      */
-    public void connect(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest request,
+    public void connect(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party request,
         io.grpc.stub.StreamObserver<org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> responseObserver) {
       asyncUnimplementedUnaryCall(getConnectMethod(), responseObserver);
     }
@@ -164,7 +164,7 @@ public final class FixSimMarketDataServiceGrpc {
             getConnectMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
-                com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest,
+                com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party,
                 org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh>(
                   this, METHODID_CONNECT)))
           .build();
@@ -195,7 +195,7 @@ public final class FixSimMarketDataServiceGrpc {
 
     /**
      */
-    public void connect(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest request,
+    public void connect(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party request,
         io.grpc.stub.StreamObserver<org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> responseObserver) {
       asyncServerStreamingCall(
           getChannel().newCall(getConnectMethod(), getCallOptions()), request, responseObserver);
@@ -226,7 +226,7 @@ public final class FixSimMarketDataServiceGrpc {
     /**
      */
     public java.util.Iterator<org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> connect(
-        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest request) {
+        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party request) {
       return blockingServerStreamingCall(
           getChannel(), getConnectMethod(), getCallOptions(), request);
     }
@@ -280,7 +280,7 @@ public final class FixSimMarketDataServiceGrpc {
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
         case METHODID_CONNECT:
-          serviceImpl.connect((com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest) request,
+          serviceImpl.connect((com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party) request,
               (io.grpc.stub.StreamObserver<org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh>) responseObserver);
           break;
         default:

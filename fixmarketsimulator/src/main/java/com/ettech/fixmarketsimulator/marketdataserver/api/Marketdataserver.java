@@ -14,8 +14,8 @@ public final class Marketdataserver {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface SubscribeRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:marketdataservice.SubscribeRequest)
+  public interface PartyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:marketdataservice.Party)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -31,18 +31,18 @@ public final class Marketdataserver {
         getPartyIdBytes();
   }
   /**
-   * Protobuf type {@code marketdataservice.SubscribeRequest}
+   * Protobuf type {@code marketdataservice.Party}
    */
-  public  static final class SubscribeRequest extends
+  public  static final class Party extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:marketdataservice.SubscribeRequest)
-      SubscribeRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:marketdataservice.Party)
+      PartyOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use SubscribeRequest.newBuilder() to construct.
-    private SubscribeRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use Party.newBuilder() to construct.
+    private Party(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SubscribeRequest() {
+    private Party() {
       partyId_ = "";
     }
 
@@ -50,7 +50,7 @@ public final class Marketdataserver {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new SubscribeRequest();
+      return new Party();
     }
 
     @java.lang.Override
@@ -58,7 +58,7 @@ public final class Marketdataserver {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private SubscribeRequest(
+    private Party(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -103,15 +103,15 @@ public final class Marketdataserver {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_SubscribeRequest_descriptor;
+      return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_Party_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_SubscribeRequest_fieldAccessorTable
+      return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_Party_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.class, com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.Builder.class);
+              com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.class, com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.Builder.class);
     }
 
     public static final int PARTYID_FIELD_NUMBER = 1;
@@ -189,10 +189,10 @@ public final class Marketdataserver {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest)) {
+      if (!(obj instanceof com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party)) {
         return super.equals(obj);
       }
-      com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest other = (com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest) obj;
+      com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party other = (com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party) obj;
 
       if (!getPartyId()
           .equals(other.getPartyId())) return false;
@@ -214,69 +214,69 @@ public final class Marketdataserver {
       return hash;
     }
 
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(byte[] data)
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(java.io.InputStream input)
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseDelimitedFrom(java.io.InputStream input)
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseDelimitedFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parseFrom(
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -289,7 +289,7 @@ public final class Marketdataserver {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest prototype) {
+    public static Builder newBuilder(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -305,26 +305,26 @@ public final class Marketdataserver {
       return builder;
     }
     /**
-     * Protobuf type {@code marketdataservice.SubscribeRequest}
+     * Protobuf type {@code marketdataservice.Party}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:marketdataservice.SubscribeRequest)
-        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:marketdataservice.Party)
+        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.PartyOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_SubscribeRequest_descriptor;
+        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_Party_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_SubscribeRequest_fieldAccessorTable
+        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_Party_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.class, com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.Builder.class);
+                com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.class, com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.Builder.class);
       }
 
-      // Construct using com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.newBuilder()
+      // Construct using com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -350,17 +350,17 @@ public final class Marketdataserver {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_SubscribeRequest_descriptor;
+        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.internal_static_marketdataservice_Party_descriptor;
       }
 
       @java.lang.Override
-      public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest getDefaultInstanceForType() {
-        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.getDefaultInstance();
+      public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party getDefaultInstanceForType() {
+        return com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest build() {
-        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest result = buildPartial();
+      public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party build() {
+        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -368,8 +368,8 @@ public final class Marketdataserver {
       }
 
       @java.lang.Override
-      public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest buildPartial() {
-        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest result = new com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest(this);
+      public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party buildPartial() {
+        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party result = new com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party(this);
         result.partyId_ = partyId_;
         onBuilt();
         return result;
@@ -409,16 +409,16 @@ public final class Marketdataserver {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest) {
-          return mergeFrom((com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest)other);
+        if (other instanceof com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party) {
+          return mergeFrom((com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest other) {
-        if (other == com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party other) {
+        if (other == com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party.getDefaultInstance()) return this;
         if (!other.getPartyId().isEmpty()) {
           partyId_ = other.partyId_;
           onChanged();
@@ -438,11 +438,11 @@ public final class Marketdataserver {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest parsedMessage = null;
+        com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest) e.getUnfinishedMessage();
+          parsedMessage = (com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -540,51 +540,51 @@ public final class Marketdataserver {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:marketdataservice.SubscribeRequest)
+      // @@protoc_insertion_point(builder_scope:marketdataservice.Party)
     }
 
-    // @@protoc_insertion_point(class_scope:marketdataservice.SubscribeRequest)
-    private static final com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:marketdataservice.Party)
+    private static final com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest();
+      DEFAULT_INSTANCE = new com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party();
     }
 
-    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest getDefaultInstance() {
+    public static com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<SubscribeRequest>
-        PARSER = new com.google.protobuf.AbstractParser<SubscribeRequest>() {
+    private static final com.google.protobuf.Parser<Party>
+        PARSER = new com.google.protobuf.AbstractParser<Party>() {
       @java.lang.Override
-      public SubscribeRequest parsePartialFrom(
+      public Party parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SubscribeRequest(input, extensionRegistry);
+        return new Party(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<SubscribeRequest> parser() {
+    public static com.google.protobuf.Parser<Party> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SubscribeRequest> getParserForType() {
+    public com.google.protobuf.Parser<Party> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.SubscribeRequest getDefaultInstanceForType() {
+    public com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver.Party getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_marketdataservice_SubscribeRequest_descriptor;
+    internal_static_marketdataservice_Party_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_marketdataservice_SubscribeRequest_fieldAccessorTable;
+      internal_static_marketdataservice_Party_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -596,14 +596,13 @@ public final class Marketdataserver {
     java.lang.String[] descriptorData = {
       "\n\026marketdataserver.proto\022\021marketdataserv" +
       "ice\032\020marketdata.proto\032\033google/protobuf/e" +
-      "mpty.proto\"#\n\020SubscribeRequest\022\017\n\007partyI" +
-      "d\030\001 \001(\t2\275\001\n\027FixSimMarketDataService\022D\n\tS" +
-      "ubscribe\022\035.MarketData.MarketDataRequest\032" +
-      "\026.google.protobuf.Empty\"\000\022\\\n\007Connect\022#.m" +
-      "arketdataservice.SubscribeRequest\032(.Mark" +
-      "etData.MarketDataIncrementalRefresh\"\0000\001B" +
-      "4\n2com.ettech.fixmarketsimulator.marketd" +
-      "ataserver.apib\006proto3"
+      "mpty.proto\"\030\n\005Party\022\017\n\007partyId\030\001 \001(\t2\262\001\n" +
+      "\027FixSimMarketDataService\022D\n\tSubscribe\022\035." +
+      "MarketData.MarketDataRequest\032\026.google.pr" +
+      "otobuf.Empty\"\000\022Q\n\007Connect\022\030.marketdatase" +
+      "rvice.Party\032(.MarketData.MarketDataIncre" +
+      "mentalRefresh\"\0000\001B4\n2com.ettech.fixmarke" +
+      "tsimulator.marketdataserver.apib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -611,11 +610,11 @@ public final class Marketdataserver {
           org.fixprotocol.components.MarketData.getDescriptor(),
           com.google.protobuf.EmptyProto.getDescriptor(),
         });
-    internal_static_marketdataservice_SubscribeRequest_descriptor =
+    internal_static_marketdataservice_Party_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_marketdataservice_SubscribeRequest_fieldAccessorTable = new
+    internal_static_marketdataservice_Party_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_marketdataservice_SubscribeRequest_descriptor,
+        internal_static_marketdataservice_Party_descriptor,
         new java.lang.String[] { "PartyId", });
     org.fixprotocol.components.MarketData.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();

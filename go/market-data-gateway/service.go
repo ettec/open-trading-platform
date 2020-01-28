@@ -12,12 +12,6 @@ import (
 	"net"
 )
 
-type connection struct {
-	quoteChan     chan *marketdata.MarketDataSnapshotFullRefresh
-	stream        api.MarketDataGateway_ConnectServer
-	subscriptions map[int]bool
-}
-
 type service struct {
 	partyIdToConnection map[string]connection
 }
@@ -26,7 +20,8 @@ func newService() *service {
 	return &service{partyIdToConnection: make(map[string]connection)}
 }
 
-func (*service) Subscribe(context.Context, *marketdata.MarketDataRequest) (*empty.Empty, error) {
+func (*service) Subscribe(c context.Context, r *marketdata.MarketDataRequest) (*empty.Empty, error) {
+
 	return nil, nil
 }
 

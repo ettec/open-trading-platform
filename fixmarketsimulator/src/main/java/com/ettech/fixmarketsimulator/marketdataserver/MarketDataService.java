@@ -109,7 +109,7 @@ public class MarketDataService {
         }
 
         @Override
-        public void connect(Marketdataserver.SubscribeRequest request, StreamObserver<MarketData.MarketDataIncrementalRefresh> responseObserver) {
+        public void connect(Marketdataserver.Party request, StreamObserver<MarketData.MarketDataIncrementalRefresh> responseObserver) {
 
             synchronized ( partyIdToConnection ) {
                 var partyId = request.getPartyId();
