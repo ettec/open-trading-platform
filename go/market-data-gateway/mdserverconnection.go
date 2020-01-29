@@ -197,9 +197,7 @@ func (m *mdServerConnection) startSubscriptionHandler(address string, connection
 }
 
 func (m *mdServerConnection) Close() {
-	if m.mdServerConn != nil {
-		defer m.mdServerConn.Close()
-	}
+
 }
 
 func (m *mdServerConnection) getSymbol(listingId int, resultChan chan<- listingIdSymbol) {
