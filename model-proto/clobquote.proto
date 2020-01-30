@@ -1,0 +1,21 @@
+syntax = "proto3";
+import "common.proto";
+
+package model;
+option go_package="model";
+
+
+message ClobLine {
+        model.Decimal64 size = 1;
+        model.Decimal64 price = 2;
+	string entryId = 3;
+}
+
+
+message ClobQuote {
+    int32 listingId = 1;
+    repeated ClobLine bids = 2;
+    repeated ClobLine offers = 3; 
+}
+
+

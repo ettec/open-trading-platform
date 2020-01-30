@@ -126,38 +126,7 @@ func newFullQuote(listingId int) *fullQuote {
 	return &fullQuote{make(map[string]*marketdata.MDFullGrp, 20), &common.Instrument{Symbol: strconv.Itoa(listingId)}}
 }
 
-func (q *fullQuote) onIncRefresh(inc *marketdata.MDIncGrp) *snapshot {
 
-	id := inc.GetMdEntryId()
-	updateAction := inc.GetMdUpdateAction()
-
-	switch updateAction {
-	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW:
-		fallthrough
-	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE:
-		fullGrp := marketdata.MDFullGrp{
-			MdEntryPx:   inc.GetMdEntryPx(),
-			MdEntrySize: inc.GetMdEntrySize(),
-			MdEntryId:   inc.GetMdEntryId(),
-			MdEntryType: inc.GetMdEntryType(),
-		}
-		q.entryIdToEntry[id] = &fullGrp
-	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE:
-		delete(q.entryIdToEntry, id)
-	}
-
-	entries := make([]*marketdata.MDFullGrp, len(q.entryIdToEntry))
-	idx := 0
-	for _, value := range q.entryIdToEntry {
-		entries[idx] = value
-		idx++
-	}
-
-	return &snapshot{
-		Instrument: q.instrument,
-		MdFullGrp:  entries,
-	}
-}
 
 func (m *mdServerConnection) startSubscriptionHandler(address string, connectionId string) {
 	m.log.Println("subscription handler started")
