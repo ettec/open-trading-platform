@@ -6,9 +6,11 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"log"
 	"reflect"
 	"strconv"
 	"testing"
+	"time"
 )
 
 func Test_newQuoteNormaliser(t *testing.T) {
@@ -16,9 +18,9 @@ func Test_newQuoteNormaliser(t *testing.T) {
 }
 
 func Test_quoteNormaliser_close(t *testing.T) {
-	/*
+
 		toNormaliser := make(chan mdupdate, 100)
-		fromNormalise := make(chan *snapshot, 100)
+		fromNormalise := make(chan *model.ClobQuote, 100)
 
 		n := newQuoteNormaliser(toNormaliser, fromNormalise)
 		log.Println("normaliser:", n)
@@ -30,6 +32,8 @@ func Test_quoteNormaliser_close(t *testing.T) {
 		toNormaliser <- mdupdate{refresh: &refresh{
 			MdIncGrp: []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")},
 		}}
+
+		time.Sleep(2 * time.Second)
 
 		n.close()
 
@@ -45,7 +49,7 @@ func Test_quoteNormaliser_close(t *testing.T) {
 		if err != nil {
 			t.Errorf("Books not equal %v", err)
 		}
-	*/
+
 
 }
 
@@ -88,45 +92,41 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	} */
 }
 
-func getLastSnapshot(fromNormalise chan *snapshot) *snapshot {
-	var snapshot *snapshot
+func getLastSnapshot(fromNormalise chan *model.ClobQuote) *model.ClobQuote {
+	var quote *model.ClobQuote
 
-l:
+loop:
 	for {
 		select {
 		case s := <-fromNormalise:
-			snapshot = s
+			quote = s
 		default:
-			break l
+			break loop
 		}
 	}
-	return snapshot
+	return quote
 }
 
-func testEqual(snapshot *snapshot, book [5][4]int64, listingId int) error {
+func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 
-	if snapshot.Instrument.Symbol != strconv.Itoa(listingId) {
-		return fmt.Errorf("snapshot listing id and listing id are not the same")
+	if quote.ListingId != int32(listingId) {
+		return fmt.Errorf("quote listing id and listing id are not the same")
 	}
 
 	var compare [5][4]int64
-	bidIdx := 0
-	askIdx := 0
-	for _, grp := range snapshot.MdFullGrp {
 
-		if grp.MdEntryType == md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID {
-			compare[bidIdx][0] = grp.MdEntrySize.Mantissa
-			compare[bidIdx][1] = grp.MdEntryPx.Mantissa
-			bidIdx++
-		} else if grp.MdEntryType == md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER {
-			compare[askIdx][3] = grp.MdEntrySize.Mantissa
-			compare[askIdx][2] = grp.MdEntryPx.Mantissa
-			askIdx++
-		}
+	for idx, line := range quote.Bids {
+			compare[idx][0] = line.Size.Mantissa
+			compare[idx][1] = line.Price.Mantissa
+	}
+
+	for idx, line := range quote.Offers {
+		compare[idx][3] = line.Size.Mantissa
+		compare[idx][2] = line.Price.Mantissa
 	}
 
 	if book != compare {
-		return fmt.Errorf("Expected book %v does not match book create from snapshot %v", book, compare)
+		return fmt.Errorf("Expected book %v does not match book create from quote %v", book, compare)
 	}
 
 	return nil
@@ -250,7 +250,7 @@ func Test_updateAsksWithInserts(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateClobLines(tt.args.asks, tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
+			if got := updateClobLines(tt.args.asks, &tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
@@ -374,7 +374,7 @@ func Test_updateAsksWithUpdates(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateClobLines(tt.args.asks, tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
+			if got := updateClobLines(tt.args.asks, &tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
@@ -495,7 +495,7 @@ func Test_updateBidsWithInserts(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateClobLines(tt.args.bids, tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
+			if got := updateClobLines(tt.args.bids, &tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
@@ -619,7 +619,7 @@ func Test_updateBidsWithUpdates(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateClobLines(tt.args.bids, tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
+			if got := updateClobLines(tt.args.bids, &tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
@@ -686,7 +686,7 @@ func Test_updateBidsWithDelete(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateClobLines(tt.args.bids, tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
+			if got := updateClobLines(tt.args.bids, &tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
@@ -753,7 +753,7 @@ func Test_updateAsksWithDelete(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateClobLines(tt.args.asks, tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
+			if got := updateClobLines(tt.args.asks, &tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})

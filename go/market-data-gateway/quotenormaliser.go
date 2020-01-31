@@ -36,8 +36,8 @@ func (n *quoteNormaliser) close() {
 	n.closeChan <- true
 }
 
-func (n *quoteNormaliser) processUpdates() {
-	/*
+func (n *quoteNormaliser) processUpdates()  {
+
 	   Loop:
 	   	for {
 	   		select {
@@ -49,14 +49,16 @@ func (n *quoteNormaliser) processUpdates() {
 	   			if u.refresh != nil {
 	   				for _, incGrp := range u.refresh.MdIncGrp {
 	   					symbol := incGrp.GetInstrument().GetSymbol()
+	   					bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
 	   					if listingId, ok := n.symbolToListingId[symbol]; ok {
-
 	   						if fullQuote, ok := n.idToQuote[listingId]; ok {
-	   							n.outboundChan <- fullQuote.onIncRefresh(incGrp)
+	   							updatedQuote := updateQuote(fullQuote, incGrp, bids)
+								n.idToQuote[listingId] = updatedQuote
+	   							n.outboundChan <- updatedQuote
 	   						} else {
-	   							newQuote := newFullQuote(listingId)
+	   							newQuote := newClobQuote(listingId)
 	   							n.idToQuote[listingId] = newQuote
-	   							n.outboundChan <- newQuote.onIncRefresh(incGrp)
+	   							n.outboundChan <- updateQuote(newQuote, incGrp, bids)
 	   						}
 	   					} else {
 	   						n.log.Println("no listing found for symbol:", symbol)
@@ -68,17 +70,45 @@ func (n *quoteNormaliser) processUpdates() {
 	   		}
 	   	}
 
-	*/
 }
 
-func updateClobLines(lines []*model.ClobLine, update marketdata.MDIncGrp, bids bool) []*model.ClobLine {
+func newClobQuote(listingId int) *model.ClobQuote {
+	bids := make([]*model.ClobLine,0)
+	offers := make([]*model.ClobLine,0)
+
+	return &model.ClobQuote{
+		ListingId:            int32(listingId),
+		Bids:                 bids,
+		Offers:               offers,
+	}
+}
+
+func updateQuote(quote *model.ClobQuote, update *marketdata.MDIncGrp, bids bool) *model.ClobQuote {
+
+	newQuote := model.ClobQuote{
+		ListingId:            quote.ListingId,
+	}
+
+	if bids  {
+		newQuote.Offers = quote.Offers
+		newQuote.Bids = updateClobLines(quote.Bids, update, bids)
+	} else {
+		newQuote.Bids = quote.Bids
+		newQuote.Offers = updateClobLines(quote.Offers, update, bids)
+	}
+
+	return &newQuote
+}
+
+
+func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids bool) []*model.ClobLine {
 
 	updateAction := update.GetMdUpdateAction()
 	newClobLines := make([]*model.ClobLine, 0, len(lines)+1)
 
-	cr := 1
+	compareTest := 1
 	if bids {
-		cr = -1
+		compareTest = -1
 	}
 
 
@@ -94,7 +124,7 @@ func updateClobLines(lines []*model.ClobLine, update marketdata.MDIncGrp, bids b
 
 		for _, line := range lines {
 			compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
-			if !inserted && compareResult == cr {
+			if !inserted && compareResult == compareTest {
 				newClobLines = append(newClobLines, newLine)
 				inserted = true
 			}
@@ -116,7 +146,7 @@ func updateClobLines(lines []*model.ClobLine, update marketdata.MDIncGrp, bids b
 
 		for _, line := range lines {
 			compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
-			if !inserted && compareResult == cr {
+			if !inserted && compareResult == compareTest {
 				newClobLines = append(newClobLines, newLine)
 				inserted = true
 			}
