@@ -152,6 +152,236 @@ func getEntry(mt md.MDEntryTypeEnum, ma md.MDUpdateActionEnum, price int64, size
 	return entry
 }
 
+func Test_updateAsksWithInserts(t *testing.T) {
+	type args struct {
+		asks   []*model.ClobLine
+		update md.MDIncGrp
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []*model.ClobLine
+	}{
+
+		{
+			"insert ask into empty book",
+			args{
+				asks: []*model.ClobLine{},
+				update: md.MDIncGrp{MdEntryId: "A", MdEntrySize: f64(20), MdEntryPx: f64(6),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW},
+			},
+			[]*model.ClobLine{{EntryId: "A", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"insert ask into middle of book",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+				update: md.MDIncGrp{MdEntryId: "X", MdEntrySize: f64(20), MdEntryPx: f64(3),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "X", Size: d64(20), Price: d64(3)},
+				{EntryId: "B", Size: d64(20), Price: d64(4)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+
+
+		{
+			"insert ask at same price",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+				update: md.MDIncGrp{MdEntryId: "X", MdEntrySize: f64(20), MdEntryPx: f64(4),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "B", Size: d64(20), Price: d64(4)},
+				{EntryId: "X", Size: d64(20), Price: d64(4)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"insert ask at top of book ",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+				update: md.MDIncGrp{MdEntryId: "X", MdEntrySize: f64(20), MdEntryPx: f64(1),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW},
+			},
+			[]*model.ClobLine{
+				{EntryId: "X", Size: d64(20), Price: d64(1)},
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "B", Size: d64(20), Price: d64(4)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"insert ask at bottom of book ",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+				update: md.MDIncGrp{MdEntryId: "X", MdEntrySize: f64(20), MdEntryPx: f64(8),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "B", Size: d64(20), Price: d64(4)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)},
+				{EntryId: "X", Size: d64(20), Price: d64(8)}},
+		},
+
+
+
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := updateClobLines(tt.args.asks, tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_updateAsksWithUpdates(t *testing.T) {
+	type args struct {
+		asks   []*model.ClobLine
+		update md.MDIncGrp
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []*model.ClobLine
+	}{
+
+
+		{
+			"update ask quantity",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+				update: md.MDIncGrp{MdEntryId: "B", MdEntrySize: f64(10), MdEntryPx: f64(4),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "B", Size: d64(10), Price: d64(4)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"update ask price - no order change",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+				update: md.MDIncGrp{MdEntryId: "B", MdEntrySize: f64(20), MdEntryPx: f64(3),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "B", Size: d64(20), Price: d64(3)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"update ask price down to same as other - order change",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+
+				update: md.MDIncGrp{MdEntryId: "B", MdEntrySize: f64(20), MdEntryPx: f64(6),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)},
+				{EntryId: "B", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"update ask price up to same as other - order change",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+
+				update: md.MDIncGrp{MdEntryId: "B", MdEntrySize: f64(20), MdEntryPx: f64(2),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "B", Size: d64(20), Price: d64(2)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"update ask price up to top of book",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+
+				update: md.MDIncGrp{MdEntryId: "B", MdEntrySize: f64(20), MdEntryPx: f64(1),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "B", Size: d64(20), Price: d64(1)},
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)}},
+		},
+
+		{
+			"update ask price up to bottom of book",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(2)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(6)}},
+
+				update: md.MDIncGrp{MdEntryId: "B", MdEntrySize: f64(20), MdEntryPx: f64(8),
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(2)},
+				{EntryId: "C", Size: d64(20), Price: d64(6)},
+				{EntryId: "B", Size: d64(20), Price: d64(8)}},
+		},
+
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := updateClobLines(tt.args.asks, tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+
 func Test_updateBidsWithInserts(t *testing.T) {
 	type args struct {
 		bids   []*model.ClobLine
@@ -265,8 +495,8 @@ func Test_updateBidsWithInserts(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateBids(tt.args.bids, tt.args.update); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("updateBids() = %v, want %v", got, tt.want)
+			if got := updateClobLines(tt.args.bids, tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -389,8 +619,8 @@ func Test_updateBidsWithUpdates(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateBids(tt.args.bids, tt.args.update); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("updateBids() = %v, want %v", got, tt.want)
+			if got := updateClobLines(tt.args.bids, tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -407,7 +637,6 @@ func Test_updateBidsWithDelete(t *testing.T) {
 		args args
 		want []*model.ClobLine
 	}{
-
 
 		{
 			"delete from middle of book",
@@ -453,18 +682,84 @@ func Test_updateBidsWithDelete(t *testing.T) {
 				{EntryId: "B", Size: d64(20), Price: d64(4)},},
 		},
 
+	}
 
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := updateClobLines(tt.args.bids, tt.args.update, true); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_updateAsksWithDelete(t *testing.T) {
+	type args struct {
+		asks   []*model.ClobLine
+		update md.MDIncGrp
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []*model.ClobLine
+	}{
+
+		{
+			"delete from middle of book",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(6)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(2)}},
+				update: md.MDIncGrp{MdEntryId: "B",
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(6)},
+				{EntryId: "C", Size: d64(20), Price: d64(2)}},
+		},
+		{
+			"delete from top of book",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(6)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(2)}},
+				update: md.MDIncGrp{MdEntryId: "A",
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE},
+			},
+			[]*model.ClobLine{
+
+				{EntryId: "B", Size: d64(20), Price: d64(4)},
+				{EntryId: "C", Size: d64(20), Price: d64(2)}},
+		},
+		{
+			"delete from bottom of book",
+			args{
+				asks: []*model.ClobLine{
+					{EntryId: "A", Size: d64(20), Price: d64(6)},
+					{EntryId: "B", Size: d64(20), Price: d64(4)},
+					{EntryId: "C", Size: d64(20), Price: d64(2)}},
+				update: md.MDIncGrp{MdEntryId: "C",
+					MdUpdateAction: md.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE},
+			},
+			[]*model.ClobLine{
+				{EntryId: "A", Size: d64(20), Price: d64(6)},
+				{EntryId: "B", Size: d64(20), Price: d64(4)},},
+		},
 
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := updateBids(tt.args.bids, tt.args.update); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("updateBids() = %v, want %v", got, tt.want)
+			if got := updateClobLines(tt.args.asks, tt.args.update, false); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("updateClobLines() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
+
 
 
 

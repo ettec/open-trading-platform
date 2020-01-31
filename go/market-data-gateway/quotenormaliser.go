@@ -71,10 +71,16 @@ func (n *quoteNormaliser) processUpdates() {
 	*/
 }
 
-func updateBids(bids []*model.ClobLine, update marketdata.MDIncGrp) []*model.ClobLine {
+func updateClobLines(lines []*model.ClobLine, update marketdata.MDIncGrp, bids bool) []*model.ClobLine {
 
 	updateAction := update.GetMdUpdateAction()
-	newBids := make([]*model.ClobLine, 0, len(bids)+1)
+	newClobLines := make([]*model.ClobLine, 0, len(lines)+1)
+
+	cr := 1
+	if bids {
+		cr = -1
+	}
+
 
 	switch updateAction {
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW:
@@ -86,17 +92,17 @@ func updateBids(bids []*model.ClobLine, update marketdata.MDIncGrp) []*model.Clo
 			EntryId: update.MdEntryId,
 		}
 
-		for _, line := range bids {
+		for _, line := range lines {
 			compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
-			if !inserted && compareResult == -1 {
-				newBids = append(newBids, newLine)
+			if !inserted && compareResult == cr {
+				newClobLines = append(newClobLines, newLine)
 				inserted = true
 			}
-			newBids = append(newBids, line)
+			newClobLines = append(newClobLines, line)
 		}
 
 		if !inserted {
-			newBids = append(newBids, newLine)
+			newClobLines = append(newClobLines, newLine)
 		}
 
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE:
@@ -108,31 +114,31 @@ func updateBids(bids []*model.ClobLine, update marketdata.MDIncGrp) []*model.Clo
 			EntryId: update.MdEntryId,
 		}
 
-		for _, line := range bids {
+		for _, line := range lines {
 			compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
-			if !inserted && compareResult == -1 {
-				newBids = append(newBids, newLine)
+			if !inserted && compareResult == cr {
+				newClobLines = append(newClobLines, newLine)
 				inserted = true
 			}
 			if line.EntryId != newLine.EntryId {
-				newBids = append(newBids, line)
+				newClobLines = append(newClobLines, line)
 			}
 
 		}
 
 		if !inserted {
-			newBids = append(newBids, newLine)
+			newClobLines = append(newClobLines, newLine)
 		}
 
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE:
-		for _, line := range bids {
+		for _, line := range lines {
 			if line.EntryId != update.MdEntryId {
-				newBids = append(newBids, line)
+				newClobLines = append(newClobLines, line)
 			}
 		}
 	}
 
-	return newBids
+	return newClobLines
 
 }
 
