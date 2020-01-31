@@ -30,7 +30,7 @@ func Compare(l Decimal64, r Decimal64) int {
 			return 0
 		}
 	}
-	
+
 
 }
 

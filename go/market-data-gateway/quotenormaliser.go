@@ -37,70 +37,104 @@ func (n *quoteNormaliser) close() {
 }
 
 func (n *quoteNormaliser) processUpdates() {
+	/*
+	   Loop:
+	   	for {
+	   		select {
+	   		case u := <-n.inboundChan:
+	   			if u.listingIdToSymbol != nil {
+	   				n.symbolToListingId[u.listingIdToSymbol.symbol] = u.listingIdToSymbol.listingId
+	   			}
 
-Loop:
-	for {
-		select {
-		case u := <-n.inboundChan:
-			if u.listingIdToSymbol != nil {
-				n.symbolToListingId[u.listingIdToSymbol.symbol] = u.listingIdToSymbol.listingId
-			}
+	   			if u.refresh != nil {
+	   				for _, incGrp := range u.refresh.MdIncGrp {
+	   					symbol := incGrp.GetInstrument().GetSymbol()
+	   					if listingId, ok := n.symbolToListingId[symbol]; ok {
 
-			if u.refresh != nil {
-				for _, incGrp := range u.refresh.MdIncGrp {
-					symbol := incGrp.GetInstrument().GetSymbol()
-					if listingId, ok := n.symbolToListingId[symbol]; ok {
+	   						if fullQuote, ok := n.idToQuote[listingId]; ok {
+	   							n.outboundChan <- fullQuote.onIncRefresh(incGrp)
+	   						} else {
+	   							newQuote := newFullQuote(listingId)
+	   							n.idToQuote[listingId] = newQuote
+	   							n.outboundChan <- newQuote.onIncRefresh(incGrp)
+	   						}
+	   					} else {
+	   						n.log.Println("no listing found for symbol:", symbol)
+	   					}
+	   				}
+	   			}
+	   		case <-n.closeChan:
+	   			break Loop
+	   		}
+	   	}
 
-						if fullQuote, ok := n.idToQuote[listingId]; ok {
-							n.outboundChan <- fullQuote.onIncRefresh(incGrp)
-						} else {
-							newQuote := newFullQuote(listingId)
-							n.idToQuote[listingId] = newQuote
-							n.outboundChan <- newQuote.onIncRefresh(incGrp)
-						}
-					} else {
-						n.log.Println("no listing found for symbol:", symbol)
-					}
-				}
-			}
-		case <-n.closeChan:
-			break Loop
-		}
-	}
+	*/
 }
 
-func updateQuote(quote model.ClobQuote, update marketdata.MDIncGrp) model.ClobQuote {
+func updateBids(bids []*model.ClobLine, update marketdata.MDIncGrp) []*model.ClobLine {
 
-	id := update.GetMdEntryId()
 	updateAction := update.GetMdUpdateAction()
-
-
-	bids := make([]*model.ClobLine, len(quote.Bids) )
+	newBids := make([]*model.ClobLine, 0, len(bids)+1)
 
 	switch updateAction {
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW:
-		for idx, line := range quote.Bids {
-			 compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
+		inserted := false
+
+		newLine := &model.ClobLine{
+			Size:    &model.Decimal64{Mantissa: update.MdEntrySize.Mantissa, Exponent: update.MdEntrySize.Exponent},
+			Price:   &model.Decimal64{Mantissa: update.MdEntryPx.Mantissa, Exponent: update.MdEntryPx.Exponent},
+			EntryId: update.MdEntryId,
 		}
 
+		for _, line := range bids {
+			compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
+			if !inserted && compareResult == -1 {
+				newBids = append(newBids, newLine)
+				inserted = true
+			}
+			newBids = append(newBids, line)
+		}
+
+		if !inserted {
+			newBids = append(newBids, newLine)
+		}
 
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE:
-		fullGrp := marketdata.MDFullGrp{
-			MdEntryPx:   inc.GetMdEntryPx(),
-			MdEntrySize: inc.GetMdEntrySize(),
-			MdEntryId:   inc.GetMdEntryId(),
-			MdEntryType: inc.GetMdEntryType(),
+		inserted := false
+
+		newLine := &model.ClobLine{
+			Size:    &model.Decimal64{Mantissa: update.MdEntrySize.Mantissa, Exponent: update.MdEntrySize.Exponent},
+			Price:   &model.Decimal64{Mantissa: update.MdEntryPx.Mantissa, Exponent: update.MdEntryPx.Exponent},
+			EntryId: update.MdEntryId,
 		}
-		q.entryIdToEntry[id] = &fullGrp
+
+		for _, line := range bids {
+			compareResult := model.Compare(*line.Price, model.Decimal64(*update.GetMdEntryPx()))
+			if !inserted && compareResult == -1 {
+				newBids = append(newBids, newLine)
+				inserted = true
+			}
+			if line.EntryId != newLine.EntryId {
+				newBids = append(newBids, line)
+			}
+
+		}
+
+		if !inserted {
+			newBids = append(newBids, newLine)
+		}
+
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE:
-		delete(q.entryIdToEntry, id)
+		for _, line := range bids {
+			if line.EntryId != update.MdEntryId {
+				newBids = append(newBids, line)
+			}
+		}
 	}
 
+	return newBids
+
 }
-
-
-
-
 
 func (q *fullQuote) onIncRefresh(inc *marketdata.MDIncGrp) *snapshot {
 
@@ -134,5 +168,3 @@ func (q *fullQuote) onIncRefresh(inc *marketdata.MDIncGrp) *snapshot {
 		MdFullGrp:  entries,
 	}
 }
-
-
