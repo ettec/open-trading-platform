@@ -51,14 +51,15 @@ func (n *quoteNormaliser) processUpdates()  {
 	   					symbol := incGrp.GetInstrument().GetSymbol()
 	   					bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
 	   					if listingId, ok := n.symbolToListingId[symbol]; ok {
-	   						if fullQuote, ok := n.idToQuote[listingId]; ok {
-	   							updatedQuote := updateQuote(fullQuote, incGrp, bids)
+	   						if quote, ok := n.idToQuote[listingId]; ok {
+	   							updatedQuote := updateQuote(quote, incGrp, bids)
 								n.idToQuote[listingId] = updatedQuote
 	   							n.outboundChan <- updatedQuote
 	   						} else {
-	   							newQuote := newClobQuote(listingId)
-	   							n.idToQuote[listingId] = newQuote
-	   							n.outboundChan <- updateQuote(newQuote, incGrp, bids)
+								quote := newClobQuote(listingId)
+								updatedQuote := updateQuote(quote, incGrp, bids)
+	   							n.idToQuote[listingId] = updatedQuote
+	   							n.outboundChan <- updatedQuote
 	   						}
 	   					} else {
 	   						n.log.Println("no listing found for symbol:", symbol)
@@ -83,18 +84,18 @@ func newClobQuote(listingId int) *model.ClobQuote {
 	}
 }
 
-func updateQuote(quote *model.ClobQuote, update *marketdata.MDIncGrp, bids bool) *model.ClobQuote {
+func updateQuote(quote *model.ClobQuote, update *marketdata.MDIncGrp, bidSide bool) *model.ClobQuote {
 
 	newQuote := model.ClobQuote{
 		ListingId:            quote.ListingId,
 	}
 
-	if bids  {
+	if bidSide {
 		newQuote.Offers = quote.Offers
-		newQuote.Bids = updateClobLines(quote.Bids, update, bids)
+		newQuote.Bids = updateClobLines(quote.Bids, update, bidSide)
 	} else {
 		newQuote.Bids = quote.Bids
-		newQuote.Offers = updateClobLines(quote.Offers, update, bids)
+		newQuote.Offers = updateClobLines(quote.Offers, update, bidSide)
 	}
 
 	return &newQuote
@@ -172,35 +173,3 @@ func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids 
 
 }
 
-func (q *fullQuote) onIncRefresh(inc *marketdata.MDIncGrp) *snapshot {
-
-	id := inc.GetMdEntryId()
-	updateAction := inc.GetMdUpdateAction()
-
-	switch updateAction {
-	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW:
-		fallthrough
-	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_CHANGE:
-		fullGrp := marketdata.MDFullGrp{
-			MdEntryPx:   inc.GetMdEntryPx(),
-			MdEntrySize: inc.GetMdEntrySize(),
-			MdEntryId:   inc.GetMdEntryId(),
-			MdEntryType: inc.GetMdEntryType(),
-		}
-		q.entryIdToEntry[id] = &fullGrp
-	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_DELETE:
-		delete(q.entryIdToEntry, id)
-	}
-
-	entries := make([]*marketdata.MDFullGrp, len(q.entryIdToEntry))
-	idx := 0
-	for _, value := range q.entryIdToEntry {
-		entries[idx] = value
-		idx++
-	}
-
-	return &snapshot{
-		Instrument: q.instrument,
-		MdFullGrp:  entries,
-	}
-}

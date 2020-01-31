@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
@@ -28,7 +27,6 @@ type mdServerConnection struct {
 }
 
 type refresh marketdata.MarketDataIncrementalRefresh
-type snapshot marketdata.MarketDataSnapshotFullRefresh
 
 func NewMdServerConnection(address string, gatewayName string) (*mdServerConnection, error) {
 
@@ -80,51 +78,8 @@ type mdupdate struct {
 	refresh           *refresh
 }
 
-func processUpdates(inbound <-chan mdupdate, outbound chan<- *snapshot, close <-chan bool) {
-	symbolToListingId := make(map[string]int)
-	idToQuote := make(map[int]*fullQuote)
 
-	for {
-		select {
-		case u := <-inbound:
-			if u.listingIdToSymbol != nil {
-				symbolToListingId[u.listingIdToSymbol.symbol] = u.listingIdToSymbol.listingId
-			}
 
-			if u.refresh != nil {
-				for _, incGrp := range u.refresh.MdIncGrp {
-					symbol := incGrp.GetInstrument().GetSymbol()
-					if listingId, ok := symbolToListingId[symbol]; ok {
-
-						if fullQuote, ok := idToQuote[listingId]; ok {
-							outbound <- fullQuote.onIncRefresh(incGrp)
-						} else {
-							newQuote := newFullQuote(listingId)
-							idToQuote[listingId] = newQuote
-							outbound <- newQuote.onIncRefresh(incGrp)
-						}
-					} else {
-						log.Println("no listing found for symbol:", symbol)
-					}
-				}
-			}
-		case <-close:
-			break
-
-		}
-
-	}
-
-}
-
-type fullQuote struct {
-	entryIdToEntry map[string]*marketdata.MDFullGrp
-	instrument     *common.Instrument
-}
-
-func newFullQuote(listingId int) *fullQuote {
-	return &fullQuote{make(map[string]*marketdata.MDFullGrp, 20), &common.Instrument{Symbol: strconv.Itoa(listingId)}}
-}
 
 
 

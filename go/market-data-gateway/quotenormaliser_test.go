@@ -54,8 +54,8 @@ func Test_quoteNormaliser_close(t *testing.T) {
 }
 
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
-	/*toNormaliser := make(chan mdupdate)
-	fromNormalise := make(chan *snapshot, 100)
+	toNormaliser := make(chan mdupdate)
+	fromNormalise := make(chan *model.ClobQuote, 100)
 
 	n := newQuoteNormaliser(toNormaliser, fromNormalise)
 	defer n.close()
@@ -77,19 +77,16 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	entries3 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 11, 2, "A")}
 	toNormaliser <- mdupdate{refresh: &refresh{
-		MdIncGrp: entries2,
-	}}
-
-	toNormaliser <- mdupdate{refresh: &refresh{
 		MdIncGrp: entries3,
 	}}
 
+
 	time.Sleep(2 * time.Second)
 
-	err := testEqual(getLastSnapshot(fromNormalise), [5][4]int64{{5, 10, 12, 5}, {0, 0, 11, 2}}, lIds.listingId)
+	err := testEqual(getLastSnapshot(fromNormalise), [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, lIds.listingId)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
-	} */
+	}
 }
 
 func getLastSnapshot(fromNormalise chan *model.ClobQuote) *model.ClobQuote {
@@ -119,6 +116,7 @@ func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 			compare[idx][0] = line.Size.Mantissa
 			compare[idx][1] = line.Price.Mantissa
 	}
+
 
 	for idx, line := range quote.Offers {
 		compare[idx][3] = line.Size.Mantissa
@@ -243,7 +241,6 @@ func Test_updateAsksWithInserts(t *testing.T) {
 				{EntryId: "C", Size: d64(20), Price: d64(6)},
 				{EntryId: "X", Size: d64(20), Price: d64(8)}},
 		},
-
 
 
 	}
