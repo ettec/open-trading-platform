@@ -59,19 +59,23 @@ func (s *subscriptionHandler) subscribe(listingId int) {
 }
 
 func (s *subscriptionHandler) start() {
-	log.Println("Connecting to market data server at ", s.simClient)
 
-	for {
-		if err := s.readInputChannels(); err != nil {
-			if err != closed {
-				log.Printf("exiting subscription handler read loop due to error: %v", err)
-			} else {
-				log.Printf("subscription handler closed")
+	go func() {
+		log.Println("Connecting to market data server at ", s.simClient)
+
+		for {
+			if err := s.readInputChannels(); err != nil {
+				if err != closed {
+					log.Printf("exiting subscription handler read loop due to error: %v", err)
+				} else {
+					log.Printf("subscription handler closed")
+				}
+
 			}
 
 		}
+	}()
 
-	}
 }
 
 func (s *subscriptionHandler) readInputChannels() error {

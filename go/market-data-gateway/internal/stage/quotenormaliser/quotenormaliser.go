@@ -13,17 +13,13 @@ type quoteNormaliser struct {
 	idToQuote         map[int]*model.ClobQuote
 	refreshChan       chan *stage.Refresh
 	mappingChan       chan stage.ListingIdSymbol
-	out               clobQuoteSink
+	out               stage.ClobQuoteSink
 	closeChan         chan bool
 	log               *log.Logger
 }
 
-type clobQuoteSink interface {
-	send(quote *model.ClobQuote)
-}
-
 func newQuoteNormaliser(
-	out clobQuoteSink) *quoteNormaliser {
+	out stage.ClobQuoteSink) *quoteNormaliser {
 
 	q := &quoteNormaliser{
 		symbolToListingId: make(map[string]int),
@@ -52,11 +48,15 @@ func (n *quoteNormaliser) registerMapping(lts stage.ListingIdSymbol) {
 
 func (n *quoteNormaliser) start() {
 
-	for {
-		if n.readInputChannel() {
-			return
+	go func() {
+		for {
+			if n.readInputChannel() {
+				return
+			}
 		}
-	}
+	}()
+
+
 
 }
 
