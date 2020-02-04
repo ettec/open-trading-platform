@@ -1,4 +1,4 @@
-package main
+package subscriptionhandler
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/stage"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"log"
@@ -13,7 +14,7 @@ import (
 )
 
 type symbolSource interface {
-	fetchSymbol(listingId int, onSymbol chan<- listingIdSymbol)
+	fetchSymbol(listingId int, onSymbol chan<- stage.ListingIdSymbol)
 }
 
 type subscriptionClient interface {
@@ -24,7 +25,7 @@ type subscriptionHandler struct {
 	connectionId      string
 	listingIdToSymbol map[int]string
 	subscribeChan     chan int
-	symbolLookupChan  chan listingIdSymbol
+	symbolLookupChan  chan stage.ListingIdSymbol
 	symbolSource      symbolSource
 	simClient         subscriptionClient
 	closeChan         chan bool
@@ -39,14 +40,12 @@ func newSubscriptionHandler(connectionId string, simClient subscriptionClient, s
 		connectionId:      connectionId,
 		listingIdToSymbol: make(map[int]string),
 		subscribeChan:     make(chan int, 10000),
-		symbolLookupChan:  make(chan listingIdSymbol, 10000),
+		symbolLookupChan:  make(chan stage.ListingIdSymbol, 10000),
 		symbolSource:      symbolSource,
 		simClient:         simClient,
 		closeChan:         make(chan bool, 1),
 		log:               log.New(os.Stdout, connectionId+"-subscriptionHandler:", log.LstdFlags),
 	}
-
-	go s.startReadLoop()
 
 	return s
 }
@@ -59,7 +58,7 @@ func (s *subscriptionHandler) subscribe(listingId int) {
 	s.subscribeChan <- listingId
 }
 
-func (s *subscriptionHandler) startReadLoop() {
+func (s *subscriptionHandler) start() {
 	log.Println("Connecting to market data server at ", s.simClient)
 
 	for {
@@ -82,16 +81,16 @@ func (s *subscriptionHandler) readInputChannels() error {
 			s.symbolSource.fetchSymbol(l, s.symbolLookupChan)
 		}
 	case ls := <-s.symbolLookupChan:
-		s.log.Println("subscribing to ", ls.symbol)
+		s.log.Println("subscribing to ", ls.Symbol)
 		request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: s.connectionId}},
-			InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: ls.symbol}}}}
+			InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: ls.Symbol}}}}
 		_, err := s.simClient.Subscribe(context.Background(), request)
 		if err != nil {
-			fmt.Errorf("Failed to subscribe to %v, error: %w ", ls.symbol, err)
+			fmt.Errorf("Failed to subscribe to %v, error: %w ", ls.Symbol, err)
 			return err
 		} else {
-			s.listingIdToSymbol[ls.listingId] = ls.symbol
-			s.log.Println("subscribed to ", ls.symbol)
+			s.listingIdToSymbol[ls.ListingId] = ls.Symbol
+			s.log.Println("subscribed to ", ls.Symbol)
 		}
 	case <-s.closeChan:
 		return closed

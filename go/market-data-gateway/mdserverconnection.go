@@ -4,15 +4,13 @@ import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/stage"
 	"google.golang.org/grpc"
 	"log"
 	"os"
 )
 
-type listingIdSymbol struct {
-	listingId int
-	symbol    string
-}
+
 
 type mdServerConnection struct {
 	gatewayName       string
@@ -22,7 +20,7 @@ type mdServerConnection struct {
 	log               *log.Logger
 }
 
-type refresh marketdata.MarketDataIncrementalRefresh
+
 
 func NewMdServerConnection(address string, gatewayName string) (*mdServerConnection, error) {
 
@@ -32,7 +30,7 @@ func NewMdServerConnection(address string, gatewayName string) (*mdServerConnect
 		make(chan *marketdata.MarketDataIncrementalRefresh),
 		log.New(os.Stdout, gatewayName+":", log.LstdFlags)}
 
-	//go m.startReadLoop(gatewayName, address)
+	//go m.start(gatewayName, address)
 
 	return m, nil
 }
@@ -67,10 +65,6 @@ func (m *mdServerConnection) startMarketDataServerConnection(address string) {
 
 }
 
-type mdupdate struct {
-	listingIdToSymbol *listingIdSymbol
-	refresh           *refresh
-}
 
 
 
@@ -80,7 +74,7 @@ func (m *mdServerConnection) Close() {
 
 }
 
-func (m *mdServerConnection) fetchSymbol(listingId int, resultChan chan<- listingIdSymbol) {
+func (m *mdServerConnection) fetchSymbol(listingId int, resultChan chan<- stage.ListingIdSymbol) {
 	// TODO goto database
 }
 

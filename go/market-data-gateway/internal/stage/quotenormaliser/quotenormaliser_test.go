@@ -1,4 +1,4 @@
-package main
+package quotenormaliser
 
 import (
 	"fmt"
@@ -6,86 +6,102 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/stage"
 	"log"
 	"reflect"
 	"strconv"
 	"testing"
-	"time"
 )
 
-func Test_newQuoteNormaliser(t *testing.T) {
+type testQuoteSink struct {
+	out chan *model.ClobQuote
+}
 
+func (s testQuoteSink) send(quote *model.ClobQuote) {
+	s.out <- quote
 }
 
 func Test_quoteNormaliser_close(t *testing.T) {
 
-		toNormaliser := make(chan mdupdate, 100)
-		fromNormalise := make(chan *model.ClobQuote, 100)
+	fromNormalise := make(chan *model.ClobQuote, 100)
 
-		n := newQuoteNormaliser(toNormaliser, fromNormalise)
-		log.Println("normaliser:", n)
+	n := newQuoteNormaliser(testQuoteSink{fromNormalise})
+	log.Println("normaliser:", n)
 
-		lIds := &listingIdSymbol{1, "A"}
-		toNormaliser <- mdupdate{listingIdToSymbol: lIds}
+	lIds := stage.ListingIdSymbol{ListingId: 1, Symbol: "A"}
 
+	done := make(chan bool)
+	go func() {
+		n.registerMapping(lIds)
+		done<-true
+	}()
+	n.readInputChannel()
+	<-done
 
-		toNormaliser <- mdupdate{refresh: &refresh{
-			MdIncGrp: []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")},
-		}}
+	n.sendRefresh(&stage.Refresh{
+		MdIncGrp: []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")},
+	})
 
-		time.Sleep(2 * time.Second)
+	n.readInputChannel()
 
-		n.close()
+	n.close()
 
-		time.Sleep(2 * time.Second)
+	close := n.readInputChannel()
 
-		toNormaliser <- mdupdate{refresh: &refresh{
-			MdIncGrp: []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")},
-		}}
-
-		time.Sleep(2 * time.Second)
-
-		err := testEqual(getLastSnapshot(fromNormalise), [5][4]int64{{5, 10, 0, 0}}, lIds.listingId)
-		if err != nil {
-			t.Errorf("Books not equal %v", err)
-		}
-
+	if !close {
+		t.Errorf("expected close to be true")
+	}
 
 }
 
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
-	toNormaliser := make(chan mdupdate)
-	fromNormalise := make(chan *model.ClobQuote, 100)
 
-	n := newQuoteNormaliser(toNormaliser, fromNormalise)
+	fromNormalise := make(chan *model.ClobQuote, 100)
+	n := newQuoteNormaliser( testQuoteSink{fromNormalise})
 	defer n.close()
 	log.Println("normaliser:", n)
 
-	lIds := &listingIdSymbol{1, "A"}
-	toNormaliser <- mdupdate{listingIdToSymbol: lIds}
+	lIds := stage.ListingIdSymbol{ListingId: 1, Symbol: "A"}
+
+	done := make(chan bool)
+	go func() {
+		n.registerMapping(lIds)
+		done<-true
+	}()
+	n.readInputChannel()
+	<-done
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	toNormaliser <- mdupdate{refresh: &refresh{
+	n.sendRefresh(&stage.Refresh{
 		MdIncGrp: entries,
-	}}
+	})
 
 	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
-	toNormaliser <- mdupdate{refresh: &refresh{
+
+	n.sendRefresh(&stage.Refresh{
 		MdIncGrp: entries2,
-	}}
+	})
+
 
 	entries3 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 11, 2, "A")}
-	toNormaliser <- mdupdate{refresh: &refresh{
+	n.sendRefresh(&stage.Refresh{
 		MdIncGrp: entries3,
-	}}
+	})
 
 
-	time.Sleep(2 * time.Second)
+	invoke(n.readInputChannel, 3)
 
-	err := testEqual(getLastSnapshot(fromNormalise), [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, lIds.listingId)
+	err := testEqual(getLastSnapshot(fromNormalise), [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, lIds.ListingId)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
+	}
+}
+
+func invoke(f func() bool, times int) {
+
+	for i := 0; i < times; i++ {
+		f()
 	}
 }
 
@@ -113,10 +129,9 @@ func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 	var compare [5][4]int64
 
 	for idx, line := range quote.Bids {
-			compare[idx][0] = line.Size.Mantissa
-			compare[idx][1] = line.Price.Mantissa
+		compare[idx][0] = line.Size.Mantissa
+		compare[idx][1] = line.Price.Mantissa
 	}
-
 
 	for idx, line := range quote.Offers {
 		compare[idx][3] = line.Size.Mantissa
@@ -190,7 +205,6 @@ func Test_updateAsksWithInserts(t *testing.T) {
 		},
 
 
-
 		{
 			"insert ask at same price",
 			args{
@@ -241,8 +255,6 @@ func Test_updateAsksWithInserts(t *testing.T) {
 				{EntryId: "C", Size: d64(20), Price: d64(6)},
 				{EntryId: "X", Size: d64(20), Price: d64(8)}},
 		},
-
-
 	}
 
 	for _, tt := range tests {
@@ -265,7 +277,6 @@ func Test_updateAsksWithUpdates(t *testing.T) {
 		args args
 		want []*model.ClobLine
 	}{
-
 
 		{
 			"update ask quantity",
@@ -366,7 +377,6 @@ func Test_updateAsksWithUpdates(t *testing.T) {
 				{EntryId: "C", Size: d64(20), Price: d64(6)},
 				{EntryId: "B", Size: d64(20), Price: d64(8)}},
 		},
-
 	}
 
 	for _, tt := range tests {
@@ -377,7 +387,6 @@ func Test_updateAsksWithUpdates(t *testing.T) {
 		})
 	}
 }
-
 
 func Test_updateBidsWithInserts(t *testing.T) {
 	type args struct {
@@ -485,9 +494,6 @@ func Test_updateBidsWithInserts(t *testing.T) {
 				{EntryId: "C", Size: d64(20), Price: d64(2)},
 				{EntryId: "X", Size: d64(20), Price: d64(1)}},
 		},
-
-
-
 	}
 
 	for _, tt := range tests {
@@ -510,7 +516,6 @@ func Test_updateBidsWithUpdates(t *testing.T) {
 		args args
 		want []*model.ClobLine
 	}{
-
 
 		{
 			"update bid quantity",
@@ -611,7 +616,6 @@ func Test_updateBidsWithUpdates(t *testing.T) {
 				{EntryId: "C", Size: d64(20), Price: d64(3)},
 				{EntryId: "B", Size: d64(20), Price: d64(2)}},
 		},
-
 	}
 
 	for _, tt := range tests {
@@ -678,7 +682,6 @@ func Test_updateBidsWithDelete(t *testing.T) {
 				{EntryId: "A", Size: d64(20), Price: d64(6)},
 				{EntryId: "B", Size: d64(20), Price: d64(4)},},
 		},
-
 	}
 
 	for _, tt := range tests {
@@ -745,7 +748,6 @@ func Test_updateAsksWithDelete(t *testing.T) {
 				{EntryId: "A", Size: d64(20), Price: d64(6)},
 				{EntryId: "B", Size: d64(20), Price: d64(4)},},
 		},
-
 	}
 
 	for _, tt := range tests {
@@ -756,10 +758,6 @@ func Test_updateAsksWithDelete(t *testing.T) {
 		})
 	}
 }
-
-
-
-
 
 func d64(mantissa int) *model.Decimal64 {
 	return &model.Decimal64{Mantissa: int64(mantissa), Exponent: 0}

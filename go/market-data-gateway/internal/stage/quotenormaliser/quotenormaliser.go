@@ -1,8 +1,9 @@
-package main
+package quotenormaliser
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/stage"
 	"log"
 	"os"
 )
@@ -10,24 +11,29 @@ import (
 type quoteNormaliser struct {
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
-	inboundChan       <-chan mdupdate
-	outboundChan      chan<- *model.ClobQuote
+	refreshChan       chan *stage.Refresh
+	mappingChan       chan stage.ListingIdSymbol
+	out               clobQuoteSink
 	closeChan         chan bool
 	log               *log.Logger
 }
 
-func newQuoteNormaliser(inboundChan <-chan mdupdate,
-	outboundChan chan<- *model.ClobQuote) *quoteNormaliser {
+type clobQuoteSink interface {
+	send(quote *model.ClobQuote)
+}
+
+func newQuoteNormaliser(
+	out clobQuoteSink) *quoteNormaliser {
 
 	q := &quoteNormaliser{
 		symbolToListingId: make(map[string]int),
 		idToQuote:         make(map[int]*model.ClobQuote),
-		inboundChan:       inboundChan,
-		outboundChan:      outboundChan,
+		refreshChan:       make(chan *stage.Refresh, 10000),
+		mappingChan:       make(chan stage.ListingIdSymbol),
+		out:               out,
 		closeChan:         make(chan bool, 1),
 		log:               log.New(os.Stdout, "quoteNormaliser:", log.LstdFlags),
 	}
-	go q.processUpdates()
 
 	return q
 }
@@ -36,58 +42,70 @@ func (n *quoteNormaliser) close() {
 	n.closeChan <- true
 }
 
-func (n *quoteNormaliser) processUpdates()  {
+func (n *quoteNormaliser) sendRefresh(refresh *stage.Refresh) {
+	n.refreshChan <- refresh
+}
 
-	   Loop:
-	   	for {
-	   		select {
-	   		case u := <-n.inboundChan:
-	   			if u.listingIdToSymbol != nil {
-	   				n.symbolToListingId[u.listingIdToSymbol.symbol] = u.listingIdToSymbol.listingId
-	   			}
+func (n *quoteNormaliser) registerMapping(lts stage.ListingIdSymbol) {
+	n.mappingChan <- lts
+}
 
-	   			if u.refresh != nil {
-	   				for _, incGrp := range u.refresh.MdIncGrp {
-	   					symbol := incGrp.GetInstrument().GetSymbol()
-	   					bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
-	   					if listingId, ok := n.symbolToListingId[symbol]; ok {
-	   						if quote, ok := n.idToQuote[listingId]; ok {
-	   							updatedQuote := updateQuote(quote, incGrp, bids)
-								n.idToQuote[listingId] = updatedQuote
-	   							n.outboundChan <- updatedQuote
-	   						} else {
-								quote := newClobQuote(listingId)
-								updatedQuote := updateQuote(quote, incGrp, bids)
-	   							n.idToQuote[listingId] = updatedQuote
-	   							n.outboundChan <- updatedQuote
-	   						}
-	   					} else {
-	   						n.log.Println("no listing found for symbol:", symbol)
-	   					}
-	   				}
-	   			}
-	   		case <-n.closeChan:
-	   			break Loop
-	   		}
-	   	}
+func (n *quoteNormaliser) start() {
+
+	for {
+		if n.readInputChannel() {
+			return
+		}
+	}
 
 }
 
+func (n *quoteNormaliser) readInputChannel() bool {
+	select {
+	case m := <-n.mappingChan:
+		n.symbolToListingId[m.Symbol] = m.ListingId
+	case r := <-n.refreshChan:
+
+		for _, incGrp := range r.MdIncGrp {
+			symbol := incGrp.GetInstrument().GetSymbol()
+			bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
+			if listingId, ok := n.symbolToListingId[symbol]; ok {
+				if quote, ok := n.idToQuote[listingId]; ok {
+					updatedQuote := updateQuote(quote, incGrp, bids)
+					n.idToQuote[listingId] = updatedQuote
+					n.out.send(updatedQuote)
+				} else {
+					quote := newClobQuote(listingId)
+					updatedQuote := updateQuote(quote, incGrp, bids)
+					n.idToQuote[listingId] = updatedQuote
+					n.out.send(updatedQuote)
+				}
+			} else {
+				n.log.Println("no listing found for symbol:", symbol)
+			}
+		}
+	case <-n.closeChan:
+		return true
+	}
+
+	return false
+}
+
 func newClobQuote(listingId int) *model.ClobQuote {
-	bids := make([]*model.ClobLine,0)
-	offers := make([]*model.ClobLine,0)
+	bids := make([]*model.ClobLine, 0)
+	offers := make([]*model.ClobLine, 0)
 
 	return &model.ClobQuote{
-		ListingId:            int32(listingId),
-		Bids:                 bids,
-		Offers:               offers,
+		ListingId: int32(listingId),
+		Bids:      bids,
+		Offers:    offers,
 	}
 }
 
 func updateQuote(quote *model.ClobQuote, update *marketdata.MDIncGrp, bidSide bool) *model.ClobQuote {
 
 	newQuote := model.ClobQuote{
-		ListingId:            quote.ListingId,
+		ListingId: quote.ListingId,
 	}
 
 	if bidSide {
@@ -101,7 +119,6 @@ func updateQuote(quote *model.ClobQuote, update *marketdata.MDIncGrp, bidSide bo
 	return &newQuote
 }
 
-
 func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids bool) []*model.ClobLine {
 
 	updateAction := update.GetMdUpdateAction()
@@ -111,7 +128,6 @@ func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids 
 	if bids {
 		compareTest = -1
 	}
-
 
 	switch updateAction {
 	case marketdata.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW:
@@ -172,4 +188,3 @@ func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids 
 	return newClobLines
 
 }
-
