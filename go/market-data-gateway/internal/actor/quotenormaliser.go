@@ -1,66 +1,65 @@
-package quotenormaliser
+package actor
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/stage"
 	"log"
 	"os"
 )
 
-type quoteNormaliser struct {
+type clobQuoteNormaliser struct {
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
-	refreshChan       chan *stage.Refresh
-	mappingChan       chan stage.ListingIdSymbol
-	out               stage.ClobQuoteSink
-	closeChan         chan bool
+	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
+	mappingChan       chan ListingIdSymbol
+	out               ClobQuoteSink
+	closeChan         chan chan<-bool
 	log               *log.Logger
 }
 
-func newQuoteNormaliser(
-	out stage.ClobQuoteSink) *quoteNormaliser {
+func NewClobQuoteNormaliser(
+	out ClobQuoteSink) *clobQuoteNormaliser {
 
-	q := &quoteNormaliser{
+	q := &clobQuoteNormaliser{
 		symbolToListingId: make(map[string]int),
 		idToQuote:         make(map[int]*model.ClobQuote),
-		refreshChan:       make(chan *stage.Refresh, 10000),
-		mappingChan:       make(chan stage.ListingIdSymbol),
+		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
+		mappingChan:       make(chan ListingIdSymbol),
 		out:               out,
-		closeChan:         make(chan bool, 1),
-		log:               log.New(os.Stdout, "quoteNormaliser:", log.LstdFlags),
+		closeChan:         make(chan chan<-bool, 1),
+		log:               log.New(os.Stdout, "clobQuoteNormaliser:", log.LstdFlags),
 	}
 
 	return q
 }
 
-func (n *quoteNormaliser) close() {
-	n.closeChan <- true
+func (n *clobQuoteNormaliser) Close(d chan<-bool) {
+	n.closeChan <- d
 }
 
-func (n *quoteNormaliser) sendRefresh(refresh *stage.Refresh) {
+func (n *clobQuoteNormaliser) SendRefresh(refresh *marketdata.MarketDataIncrementalRefresh) {
 	n.refreshChan <- refresh
 }
 
-func (n *quoteNormaliser) registerMapping(lts stage.ListingIdSymbol) {
+func (n *clobQuoteNormaliser) registerMapping(lts ListingIdSymbol) {
 	n.mappingChan <- lts
 }
 
-func (n *quoteNormaliser) start() {
+func (n *clobQuoteNormaliser) Start() *clobQuoteNormaliser {
 
 	go func() {
 		for {
-			if n.readInputChannel() {
+			if d := n.readInputChannel(); d != nil {
+				log.Println("closing quote normaliser")
 				return
 			}
 		}
 	}()
 
-
-
+	return n
 }
 
-func (n *quoteNormaliser) readInputChannel() bool {
+func (n *clobQuoteNormaliser) readInputChannel() chan<-bool {
 	select {
 	case m := <-n.mappingChan:
 		n.symbolToListingId[m.Symbol] = m.ListingId
@@ -73,22 +72,22 @@ func (n *quoteNormaliser) readInputChannel() bool {
 				if quote, ok := n.idToQuote[listingId]; ok {
 					updatedQuote := updateQuote(quote, incGrp, bids)
 					n.idToQuote[listingId] = updatedQuote
-					n.out.send(updatedQuote)
+					n.out.Send(updatedQuote)
 				} else {
 					quote := newClobQuote(listingId)
 					updatedQuote := updateQuote(quote, incGrp, bids)
 					n.idToQuote[listingId] = updatedQuote
-					n.out.send(updatedQuote)
+					n.out.Send(updatedQuote)
 				}
 			} else {
 				n.log.Println("no listing found for symbol:", symbol)
 			}
 		}
-	case <-n.closeChan:
-		return true
+	case d := <-n.closeChan:
+		return d
 	}
 
-	return false
+	return nil
 }
 
 func newClobQuote(listingId int) *model.ClobQuote {

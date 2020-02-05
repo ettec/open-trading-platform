@@ -1,4 +1,4 @@
-package quotedistributor
+package actor
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
@@ -22,7 +22,7 @@ func (s *testClobSink) GetId() string {
 
 func Test_quoteDistributor_Send(t *testing.T) {
 
-	d := newQuoteDistributor()
+	d := NewQuoteDistributor()
 
 	s1 := &testClobSink{
 		id:       "s1",
@@ -32,8 +32,8 @@ func Test_quoteDistributor_Send(t *testing.T) {
 		id:       "s2",
 	}
 
-	d.addConnection(s1)
-	d.addConnection(s2)
+	d.AddConnection(s1)
+	d.AddConnection(s2)
 
 	d.readInputChannels()
 	d.readInputChannels()
@@ -49,7 +49,6 @@ func Test_quoteDistributor_Send(t *testing.T) {
 	if s2.received[0].ListingId != 1 {
 		t.Errorf("expected quote note received")
 	}
-
 
 }
 

@@ -1,4 +1,4 @@
-package quotenormaliser
+package actor
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/stage"
 	"log"
 	"reflect"
 	"strconv"
@@ -17,7 +16,7 @@ type testQuoteSink struct {
 	out chan *model.ClobQuote
 }
 
-func (s testQuoteSink) send(quote *model.ClobQuote) {
+func (s testQuoteSink) Send(quote *model.ClobQuote) {
 	s.out <- quote
 }
 
@@ -25,10 +24,10 @@ func Test_quoteNormaliser_close(t *testing.T) {
 
 	fromNormalise := make(chan *model.ClobQuote, 100)
 
-	n := newQuoteNormaliser(testQuoteSink{fromNormalise})
+	n := NewClobQuoteNormaliser(testQuoteSink{fromNormalise})
 	log.Println("normaliser:", n)
 
-	lIds := stage.ListingIdSymbol{ListingId: 1, Symbol: "A"}
+	lIds := ListingIdSymbol{ListingId: 1, Symbol: "A"}
 
 	done := make(chan bool)
 	go func() {
@@ -38,18 +37,17 @@ func Test_quoteNormaliser_close(t *testing.T) {
 	n.readInputChannel()
 	<-done
 
-	n.sendRefresh(&stage.Refresh{
+	n.SendRefresh(&md.MarketDataIncrementalRefresh{
 		MdIncGrp: []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")},
 	})
 
 	n.readInputChannel()
 
-	n.close()
+	d := make( chan bool )
+	n.Close(d)
 
-	close := n.readInputChannel()
-
-	if !close {
-		t.Errorf("expected close to be true")
+	if n.readInputChannel() == nil {
+		t.Errorf("expected done channel")
 	}
 
 }
@@ -57,11 +55,11 @@ func Test_quoteNormaliser_close(t *testing.T) {
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	fromNormalise := make(chan *model.ClobQuote, 100)
-	n := newQuoteNormaliser( testQuoteSink{fromNormalise})
-	defer n.close()
+	n := NewClobQuoteNormaliser( testQuoteSink{fromNormalise})
+
 	log.Println("normaliser:", n)
 
-	lIds := stage.ListingIdSymbol{ListingId: 1, Symbol: "A"}
+	lIds := ListingIdSymbol{ListingId: 1, Symbol: "A"}
 
 	done := make(chan bool)
 	go func() {
@@ -73,19 +71,19 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	n.sendRefresh(&stage.Refresh{
+	n.SendRefresh(&md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
 	})
 
 	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
 
-	n.sendRefresh(&stage.Refresh{
+	n.SendRefresh(&md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries2,
 	})
 
 
 	entries3 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 11, 2, "A")}
-	n.sendRefresh(&stage.Refresh{
+	n.SendRefresh(&md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries3,
 	})
 
@@ -98,7 +96,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	}
 }
 
-func invoke(f func() bool, times int) {
+func invoke(f func() chan<-bool, times int) {
 
 	for i := 0; i < times; i++ {
 		f()

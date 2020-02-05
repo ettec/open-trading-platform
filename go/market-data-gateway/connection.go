@@ -10,12 +10,7 @@ type quote struct {
 	listingId int
 }
 
-type connection struct {
-	QuoteChan     chan *quote
-	stream        api.MarketDataGateway_ConnectServer
-	subscriptions map[int]bool
-	closeChan     chan bool
-}
+
 
 func newConnection(stream api.MarketDataGateway_ConnectServer) *connection {
 

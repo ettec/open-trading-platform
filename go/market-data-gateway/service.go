@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/api"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -14,10 +15,37 @@ import (
 
 type service struct {
 	partyIdToConnection map[string]connection
+	fixsimConn          actor.MdServerConnection
+	quoteDistributor    actor.QuoteDistributor
+	actors              []actor.Actor
 }
 
-func newService() *service {
-	return &service{partyIdToConnection: make(map[string]connection)}
+
+
+type connection struct {
+	QuoteChan     chan *quote
+	stream        api.MarketDataGateway_ConnectServer
+	subscriptions map[int]bool
+	closeChan     chan bool
+}
+
+func newService(address , name string) *service {
+
+	var actors []actor.Actor
+	qd := actor.NewQuoteDistributor()
+	actors = append(actors, qd)
+	quoteNormaliser := actor.NewClobQuoteNormaliser(qd)
+	actors = append(actors, qd)
+	fixsimConn := actor.NewMdServerConnection(address, name, quoteNormaliser)
+	actors = append(actors, fixsimConn)
+
+
+	for _, actor := range actors {
+		actor.Start()
+	}
+
+	return &service{partyIdToConnection: make(map[string]connection), fixsimConn: fixsimConn, quoteDistributor: qd,
+		actors: actors}
 }
 
 func (*service) Subscribe(c context.Context, r *marketdata.MarketDataRequest) (*empty.Empty, error) {
@@ -25,7 +53,18 @@ func (*service) Subscribe(c context.Context, r *marketdata.MarketDataRequest) (*
 	return nil, nil
 }
 
+type clientConnection struct {
+	subscriptions actor.SubscriptionHandler
+
+}
+
+
 func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGateway_ConnectServer) error {
+
+
+
+
+	//here is where we chain it all together when a new connection is received
 
 	/*
 		partyId := request.GetPartyId()
@@ -50,7 +89,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	api.RegisterMarketDataGatewayServer(s, &service{})
+	api.RegisterMarketDataGatewayServer(s, newService())
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
