@@ -1,19 +1,22 @@
 package actor
 
 import (
+	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"log"
 	"os"
 )
 
+
+
 type clobQuoteNormaliser struct {
+	actorImpl
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
 	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
 	out               ClobQuoteSink
-	closeChan         chan chan<-bool
 	log               *log.Logger
 }
 
@@ -26,15 +29,12 @@ func NewClobQuoteNormaliser(
 		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol),
 		out:               out,
-		closeChan:         make(chan chan<-bool, 1),
 		log:               log.New(os.Stdout, "clobQuoteNormaliser:", log.LstdFlags),
 	}
 
-	return q
-}
+	q.actorImpl = newActorImpl("quoteNormaliser", q.readInputChannel)
 
-func (n *clobQuoteNormaliser) Close(d chan<-bool) {
-	n.closeChan <- d
+	return q
 }
 
 func (n *clobQuoteNormaliser) SendRefresh(refresh *marketdata.MarketDataIncrementalRefresh) {
@@ -45,21 +45,7 @@ func (n *clobQuoteNormaliser) registerMapping(lts ListingIdSymbol) {
 	n.mappingChan <- lts
 }
 
-func (n *clobQuoteNormaliser) Start() *clobQuoteNormaliser {
-
-	go func() {
-		for {
-			if d := n.readInputChannel(); d != nil {
-				log.Println("closing quote normaliser")
-				return
-			}
-		}
-	}()
-
-	return n
-}
-
-func (n *clobQuoteNormaliser) readInputChannel() chan<-bool {
+func (n *clobQuoteNormaliser) readInputChannel() (chan<- bool, error) {
 	select {
 	case m := <-n.mappingChan:
 		n.symbolToListingId[m.Symbol] = m.ListingId
@@ -80,14 +66,14 @@ func (n *clobQuoteNormaliser) readInputChannel() chan<-bool {
 					n.out.Send(updatedQuote)
 				}
 			} else {
-				n.log.Println("no listing found for symbol:", symbol)
+				return nil, fmt.Errorf("no listing found for symbol: %v", symbol)
 			}
 		}
 	case d := <-n.closeChan:
-		return d
+		return d, nil
 	}
 
-	return nil
+	return nil, nil
 }
 
 func newClobQuote(listingId int) *model.ClobQuote {

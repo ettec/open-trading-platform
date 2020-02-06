@@ -2,15 +2,13 @@ package actor
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
-	"log"
 )
 
 type QuoteDistributor interface {
-	Start() Actor
+	Actor
 	Send(quote *model.ClobQuote)
 	AddConnection(sink IdentifiableQuoteSink)
 	RemoveConnection(sink IdentifiableQuoteSink)
-	Close(chan<- bool)
 }
 
 type IdentifiableQuoteSink interface {
@@ -19,39 +17,22 @@ type IdentifiableQuoteSink interface {
 }
 
 type quoteDistributor struct {
+	actorImpl
 	sinks          []IdentifiableQuoteSink
 	addConnChan    chan IdentifiableQuoteSink
 	removeConnChan chan IdentifiableQuoteSink
 	inQuoteChan    chan *model.ClobQuote
-	closeChan      chan chan<- bool
 }
 
-func NewQuoteDistributor() *quoteDistributor  {
-	return &quoteDistributor{sinks: make([]IdentifiableQuoteSink, 0),
+func NewQuoteDistributor() *quoteDistributor {
+	q := &quoteDistributor{sinks: make([]IdentifiableQuoteSink, 0),
 		addConnChan:    make(chan IdentifiableQuoteSink, 100),
 		removeConnChan: make(chan IdentifiableQuoteSink, 100),
 		inQuoteChan:    make(chan *model.ClobQuote, 1000),
-		closeChan:      make(chan chan<- bool, 1)}
-}
+	}
 
-
-func (q *quoteDistributor) Start() Actor {
-
-	go func() {
-		for {
-			if d := q.readInputChannels(); d != nil {
-				log.Println("closing quote distributor")
-				d<-true
-				return
-			}
-		}
-	}()
-
+	q.actorImpl = newActorImpl("clobDistributor", q.readInputChannels)
 	return q
-}
-
-func (q *quoteDistributor) Close(d chan<- bool) {
-	q.closeChan <- d
 }
 
 func (q *quoteDistributor) Send(quote *model.ClobQuote) {
@@ -66,7 +47,7 @@ func (q *quoteDistributor) RemoveConnection(sink IdentifiableQuoteSink) {
 	q.removeConnChan <- sink
 }
 
-func (q *quoteDistributor) readInputChannels() chan<- bool {
+func (q *quoteDistributor) readInputChannels() (chan<- bool, error) {
 	select {
 	case s := <-q.addConnChan:
 		q.sinks = append(q.sinks, s)
@@ -82,15 +63,8 @@ func (q *quoteDistributor) readInputChannels() chan<- bool {
 			sink.Send(cq)
 		}
 	case d := <-q.closeChan:
-		return d
+		return d, nil
 	}
 
-	return nil
+	return nil, nil
 }
-
-type SubscriptionHandler interface {
-	Close()
-	Subscribe(listingId int)
-	Start()
-}
-

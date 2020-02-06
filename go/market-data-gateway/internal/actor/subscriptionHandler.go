@@ -1,22 +1,26 @@
 package actor
 
 import (
-	"fmt"
 	"log"
 	"os"
 )
 
 
+type SubscriptionHandler interface {
+	Actor
+	Subscribe(listingId int)
+}
 
 type SubscriptionClient interface {
-	Subscribe(symbol string) error
+	Subscribe(symbol string)
 }
 
 type symbolSource interface {
-	fetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol)
+	FetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol)
 }
 
 type subscriptionHandler struct {
+	actorImpl
 	connectionId        string
 	listingIdToSymbol   map[int]string
 	requestedListingIds map[int]bool
@@ -24,7 +28,6 @@ type subscriptionHandler struct {
 	symbolLookupChan    chan ListingIdSymbol
 	symbolSource        symbolSource
 	subscriptionClient  SubscriptionClient
-	closeChan           chan chan<- bool
 	log                 *log.Logger
 }
 
@@ -38,55 +41,34 @@ func NewSubscriptionHandler(connectionId string, symbolSource symbolSource, subs
 		symbolLookupChan:    make(chan ListingIdSymbol, 10000),
 		symbolSource:        symbolSource,
 		subscriptionClient:  subscriptionClient,
-		closeChan:           make(chan chan<- bool, 1),
 		log:                 log.New(os.Stdout, connectionId+"-subscriptionHandler:", log.LstdFlags),
 	}
+
+	s.actorImpl = newActorImpl("subscriptionHandler for connection " + connectionId, s.readInputChannels)
 
 	return s
 }
 
-func (s *subscriptionHandler) Close(done chan<- bool) {
-	s.closeChan <- done
-}
 
 func (s *subscriptionHandler) Subscribe(listingId int) {
 	s.subscribeChan <- listingId
 }
 
-func (s *subscriptionHandler) Start() {
 
-	go func() {
-
-		for {
-			if done := s.readInputChannels(); done != nil {
-				done <- true
-				return
-			}
-		}
-	}()
-
-}
-
-func (s *subscriptionHandler) readInputChannels() chan<- bool {
+func (s *subscriptionHandler) readInputChannels() (chan<- bool, error) {
 	select {
 	case listingId := <-s.subscribeChan:
 		s.requestedListingIds[listingId] = true
 		if _, ok := s.listingIdToSymbol[listingId]; !ok {
-			s.symbolSource.fetchSymbol(listingId, s.symbolLookupChan)
+			s.symbolSource.FetchSymbol(listingId, s.symbolLookupChan)
 		}
 	case lts := <-s.symbolLookupChan:
 		s.log.Println("subscribing to ", lts.Symbol)
-		err := s.subscriptionClient.Subscribe(lts.Symbol)
-		if err != nil {
-			fmt.Errorf("Failed to Subscribe to %v, error: %w ", lts.Symbol, err)
-			return nil
-		} else {
-			s.listingIdToSymbol[lts.ListingId] = lts.Symbol
-			s.log.Println("subscribed to ", lts.Symbol)
-		}
+		s.subscriptionClient.Subscribe(lts.Symbol)
+		s.listingIdToSymbol[lts.ListingId] = lts.Symbol
 	case d := <-s.closeChan:
-		return d
+		return d, nil
 	}
 
-	return nil
+	return nil, nil
 }

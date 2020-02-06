@@ -4,76 +4,92 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/api"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
+	"sync"
 )
 
 type service struct {
-	partyIdToConnection map[string]connection
-	fixsimConn          actor.MdServerConnection
+	partyIdToConnection map[string]actor.ClientConnection
+	fixSimConn          actor.MdServerConnection
 	quoteDistributor    actor.QuoteDistributor
 	actors              []actor.Actor
+	connMux             sync.Mutex
 }
 
-
-
-type connection struct {
-	QuoteChan     chan *quote
-	stream        api.MarketDataGateway_ConnectServer
-	subscriptions map[int]bool
-	closeChan     chan bool
-}
-
-func newService(address , name string) *service {
+func newService(address, name string) *service {
 
 	var actors []actor.Actor
 	qd := actor.NewQuoteDistributor()
 	actors = append(actors, qd)
 	quoteNormaliser := actor.NewClobQuoteNormaliser(qd)
 	actors = append(actors, qd)
-	fixsimConn := actor.NewMdServerConnection(address, name, quoteNormaliser)
-	actors = append(actors, fixsimConn)
-
+	fixSimConn := actor.NewMdServerConnection(address, name, quoteNormaliser)
+	actors = append(actors, fixSimConn)
 
 	for _, actor := range actors {
 		actor.Start()
 	}
 
-	return &service{partyIdToConnection: make(map[string]connection), fixsimConn: fixsimConn, quoteDistributor: qd,
+	return &service{partyIdToConnection: make(map[string]actor.ClientConnection), fixSimConn: fixSimConn, quoteDistributor: qd,
 		actors: actors}
 }
 
-func (*service) Subscribe(c context.Context, r *marketdata.MarketDataRequest) (*empty.Empty, error) {
+func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
+	s.connMux.Lock()
+	defer s.connMux.Unlock()
 
-	return nil, nil
+	con, ok := s.partyIdToConnection[partyId]
+	return con, ok
 }
 
-type clientConnection struct {
-	subscriptions actor.SubscriptionHandler
+func (s *service) addConnection(partyId string, connection actor.ClientConnection) {
+	s.connMux.Lock()
+	defer s.connMux.Unlock()
 
+	s.partyIdToConnection[partyId] = connection
+}
+
+func (s *service) removeConnection(subscriberId string) {
+	s.connMux.Lock()
+	defer s.connMux.Unlock()
+
+	delete(s.partyIdToConnection, subscriberId)
 }
 
 
-func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGateway_ConnectServer) error {
+func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*empty.Empty, error) {
 
+	if conn, ok := s.getConnection(r.SubscriberId); ok {
+		conn.Subscribe(int(r.ListingId))
+	} else {
+		return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
+	}
 
+}
 
+func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
+	subscriberId := request.GetSubscriberId()
 
-	//here is where we chain it all together when a new connection is received
+	if conn, ok := s.getConnection(subscriberId); ok {
+		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
+		s.quoteDistributor.RemoveConnection(conn)
+		s.removeConnection(subscriberId)
+		done := make( chan bool, 1)
+		conn.Close(done)
+		<-done
+		log.Print("connection closed:", subscriberId)
+	}
 
-	/*
-		partyId := request.GetPartyId()
-
-		log
-			con, ok = s.partyIdToConnection[partyId]
-		if ok {
-			return fmt.Errorf("Connection for part")
-		}*/
+	log.Println("creating client connection for ", subscriberId)
+	cc := actor.NewClientConnection(subscriberId, s.fixSimConn, stream, 1000)
+	cc.Start()
+	s.quoteDistributor.AddConnection(cc)
+	s.addConnection(subscriberId, cc)
 
 	return nil
 }
@@ -89,7 +105,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	api.RegisterMarketDataGatewayServer(s, newService())
+	model.RegisterMarketDataGatewayServer(s, newService())
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

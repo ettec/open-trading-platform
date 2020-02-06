@@ -46,7 +46,7 @@ func Test_quoteNormaliser_close(t *testing.T) {
 	d := make( chan bool )
 	n.Close(d)
 
-	if n.readInputChannel() == nil {
+	if d, _ := n.readInputChannel(); d == nil  {
 		t.Errorf("expected done channel")
 	}
 
@@ -96,7 +96,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	}
 }
 
-func invoke(f func() chan<-bool, times int) {
+func invoke(f func() (chan<-bool, error), times int) {
 
 	for i := 0; i < times; i++ {
 		f()

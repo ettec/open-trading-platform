@@ -9,28 +9,24 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"os"
+	"time"
 )
-
-
 
 type RefreshSink interface {
 	SendRefresh(refresh *marketdata.MarketDataIncrementalRefresh)
 }
 
 type MdServerConnection interface {
-	Start() Actor
-	Close(chan<- bool)
-	Subscribe(symbol string) error
+	Actor
+	Subscribe(symbol string)
 }
 
 type mdServerConnection struct {
 	gatewayName       string
 	address           string
-	listingIdToSymbol map[int]string
+	subscriptionChan  chan string
 	sink              RefreshSink
 	log               *log.Logger
-	client            fixsim.FixSimMarketDataServiceClient
-	clientConn		  *grpc.ClientConn
 }
 
 func NewMdServerConnection(address string, gatewayName string, sink RefreshSink) *mdServerConnection {
@@ -38,38 +34,83 @@ func NewMdServerConnection(address string, gatewayName string, sink RefreshSink)
 	m := &mdServerConnection{
 		gatewayName:       gatewayName,
 		address:           address,
-		listingIdToSymbol: make(map[int]string),
+		subscriptionChan:  make(chan string, 10000),
 		sink:              sink,
 		log:               log.New(os.Stdout, gatewayName+":", log.LstdFlags)}
 
 	return m
 }
 
-func (m *mdServerConnection) Start() Actor {
+func (m *mdServerConnection) Start() {
+
 	m.connect()
-	return m
+
 }
 
-func (m *mdServerConnection) Close(chan<-bool)  {
+func (m *mdServerConnection) Close(chan<- bool) {
 	if m.clientConn != nil {
 		m.clientConn.Close()
 	}
 }
 
-
-func (m *mdServerConnection) Subscribe(symbol string) error {
-
-	request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: m.gatewayName}},
-		InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}}
-	_, err := m.client.Subscribe(context.Background(), request)
-	if err != nil {
-		return fmt.Errorf("Failed to Subscribe to %v, error: %w ", symbol, err)
-	}
-
-	return nil
+func (m *mdServerConnection) Subscribe(symbol string)  {
+	m.subscriptionChan<-symbol
 }
 
-func (m *mdServerConnection) connect() {
+func (m *mdServerConnection) run() {
+
+	connectionChan := make(chan fixsim.FixSimMarketDataServiceClient)
+
+	go m.connect(connectionChan)
+
+	subscriptions := map[string]bool{}
+	subscribed := map[string]bool{}
+
+	connection := <- connectionChan
+
+	reconnectTimer := time.NewTicker(10 * time.Second)
+
+	for {
+		select {
+		case connection = <-connectionChan:
+			if connection == nil {
+				subscribed = map[string]bool{}
+			} else {
+				for s, _:= range subscriptions {
+					m.subscriptionChan<-s
+				}
+			}
+		case s := <-m.subscriptionChan:
+			if !subscriptions[s] {
+				subscriptions[s] = true
+				if connection != nil {
+					if err := subscribe( s, connection); err == nil {
+						subscribed[s]=true
+					} else {
+						m.log.Printf("failed to subscribe to %v, error:%v", s, err)
+					}
+				}
+			}
+		case <-reconnectTimer.C:
+			if connection == nil {
+				here
+			}
+
+
+		}
+	}
+
+}
+
+func subscribe(s string, connection fixsim.FixSimMarketDataServiceClient) error {
+	request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: m.gatewayName}},
+		InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: s}}}}
+	_, err := connection.Subscribe(context.Background(), request)
+	return err
+
+}
+
+func (m *mdServerConnection) connect(connectionChan chan fixsim.FixSimMarketDataServiceClient) {
 
 	log.Println("Connecting to market data server at ", m.address)
 	conn, err := grpc.Dial(m.address, grpc.WithInsecure(), grpc.WithBlock())
@@ -77,8 +118,7 @@ func (m *mdServerConnection) connect() {
 		m.log.Println("Failed to dial the market data server:", err)
 		return
 	}
-
-	m.clientConn = conn
+	defer conn.Close()
 
 	r := &fixsim.ConnectRequest{PartyId: m.gatewayName}
 	mdClient := fixsim.NewFixSimMarketDataServiceClient(conn)
@@ -87,6 +127,8 @@ func (m *mdServerConnection) connect() {
 		m.log.Println("Failed to connect to the market data server:", err)
 		return
 	}
+
+	connectionChan <- mdClient
 
 	for {
 		incRefresh, err := stream.Recv()
@@ -97,5 +139,7 @@ func (m *mdServerConnection) connect() {
 
 		m.sink.SendRefresh(incRefresh)
 	}
+
+	connectionChan <- nil
 
 }

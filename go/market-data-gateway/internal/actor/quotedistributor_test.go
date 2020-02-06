@@ -51,5 +51,3 @@ func Test_quoteDistributor_Send(t *testing.T) {
 	}
 
 }
-
-

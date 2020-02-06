@@ -13,7 +13,7 @@ func (m *mock) Subscribe(symbol string) error {
 	return m.SubscribeMock(symbol)
 }
 
-func (m *mock) fetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol) {
+func (m *mock) FetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol) {
 	m.fetchSymbolMock(listingId, onSymbol)
 }
 
@@ -65,9 +65,4 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 
 }
 
-func invoke(f func() chan<- bool, times int) {
 
-	for i := 0; i < times; i++ {
-		f()
-	}
-}
