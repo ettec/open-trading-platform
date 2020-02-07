@@ -1,11 +1,7 @@
 package actor
 
 import (
-	"context"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
-	"google.golang.org/grpc"
 	"log"
 	"os"
 	"time"
@@ -20,35 +16,49 @@ type MdServerConnection interface {
 	Subscribe(symbol string)
 }
 
+type IncRefreshSource interface {
+	Recv() (*marketdata.MarketDataIncrementalRefresh, error)
+}
+
+type MarketDataClient interface {
+	Connect(connectionId string) (IncRefreshSource, error)
+	Subscribe(symbol string, subscriberId string) error
+	Close() error
+}
+
+type Dial func(target string) (MarketDataClient, error)
+
 type mdServerConnection struct {
 	actorImpl
-	gatewayName            string
+	connectionName         string
 	address                string
 	reconnectInterval      time.Duration
 	subscriptionChan       chan string
 	sink                   RefreshSink
 	log                    *log.Logger
-	connectionChan         chan fixsim.FixSimMarketDataServiceClient
+	connectionChan         chan MarketDataClient
 	connectSignalChan      chan bool
 	requestedSubscriptions map[string]bool
 	subscriptions          map[string]bool
-	connection             fixsim.FixSimMarketDataServiceClient
+	connection             MarketDataClient
+	dial                   Dial
 }
 
-func NewMdServerConnection(address string, gatewayName string, sink RefreshSink) *mdServerConnection {
+func NewMdServerConnection(address string, connectionName string, sink RefreshSink, connectionDial Dial, reconnectInterval time.Duration) *mdServerConnection {
 
 	m := &mdServerConnection{
-		gatewayName:            gatewayName,
+		connectionName:         connectionName,
 		address:                address,
-		reconnectInterval:      20 * time.Second,
+		reconnectInterval:      reconnectInterval,
 		subscriptionChan:       make(chan string, 10000),
 		sink:                   sink,
-		log:                    log.New(os.Stdout, gatewayName+":", log.LstdFlags),
-		connectionChan:         make(chan fixsim.FixSimMarketDataServiceClient),
+		log:                    log.New(os.Stdout, connectionName+":", log.LstdFlags),
+		connectionChan:         make(chan MarketDataClient),
 		connectSignalChan:      make(chan bool, 1),
 		requestedSubscriptions: map[string]bool{},
 		subscriptions:          map[string]bool{},
 		connection:             nil,
+		dial:                   connectionDial,
 	}
 
 	m.connectSignalChan <- true
@@ -73,15 +83,16 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 				m.connectSignalChan <- true
 			}()
 		} else {
-			for s, _ := range m.requestedSubscriptions {
+			for s := range m.requestedSubscriptions {
 				m.subscriptionChan <- s
 			}
 		}
 	case s := <-m.subscriptionChan:
-		if !m.requestedSubscriptions[s] {
-			m.requestedSubscriptions[s] = true
+		m.requestedSubscriptions[s] = true
+		if !m.subscriptions[s]  {
+
 			if m.connection != nil {
-				if err := subscribe(s, m.gatewayName, m.connection); err == nil {
+				if err := m.connection.Subscribe(s, m.connectionName); err == nil {
 					m.subscriptions[s] = true
 				} else {
 					m.log.Printf("failed to subscribe to symbol %v, error:%v", s, err)
@@ -89,38 +100,34 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 			}
 		}
 	case <-m.connectSignalChan:
-		go m.connect(m.connectionChan)
+		go m.connect(m.connectionChan, m.dial)
 	case d := <-m.actorImpl.closeChan:
+		if m.connection != nil {
+			m.connection.Close()
+		}
 		return d, nil
 	}
 
 	return nil, nil
 }
 
-func subscribe(symbol string,  subscriberId string, connection fixsim.FixSimMarketDataServiceClient) error {
-	request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: subscriberId}},
-		InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}}
-	_, err := connection.Subscribe(context.Background(), request)
-	return err
-
-}
-
-func (m *mdServerConnection) connect(connectionChan chan fixsim.FixSimMarketDataServiceClient) {
+func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial Dial) {
 
 	log.Println("Connecting to market data server at ", m.address)
-	conn, err := grpc.Dial(m.address, grpc.WithInsecure(), grpc.WithBlock())
+	mdClient, err := dial(m.address)
 	if err != nil {
 		m.log.Println("Failed to dial the market data server:", err)
 		return
 	}
 	defer func() {
-		conn.Close()
+		if err := mdClient.Close(); err != nil {
+			m.log.Println("error whilst closing md client:", err)
+		}
+
 		connectionChan <- nil
 	}()
 
-	r := &fixsim.ConnectRequest{PartyId: m.gatewayName}
-	mdClient := fixsim.NewFixSimMarketDataServiceClient(conn)
-	stream, err := mdClient.Connect(context.Background(), r)
+	stream, err := mdClient.Connect(m.connectionName)
 	if err != nil {
 		m.log.Println("Failed to connect to the market data server:", err)
 		return

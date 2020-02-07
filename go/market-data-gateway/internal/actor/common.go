@@ -46,6 +46,7 @@ func (a *actorImpl) Start()  {
 		for {
 			if d, err := a.process(); d != nil {
 				log.Println("closing ", a.id)
+				d<-true
 				return
 			} else if err != nil {
 				log.Printf("closing %v due to error %v", a.id, err)

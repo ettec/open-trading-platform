@@ -5,12 +5,12 @@ import (
 )
 
 type mock struct {
-	SubscribeMock   func(symbol string) error
+	SubscribeMock   func(symbol string)
 	fetchSymbolMock func(listingId int, onSymbol chan<- ListingIdSymbol)
 }
 
-func (m *mock) Subscribe(symbol string) error {
-	return m.SubscribeMock(symbol)
+func (m *mock) Subscribe(symbol string)  {
+	 m.SubscribeMock(symbol)
 }
 
 func (m *mock) FetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol) {
@@ -26,9 +26,9 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 
 	m := &mock{
 
-		SubscribeMock: func(symbol string) error {
+		SubscribeMock: func(symbol string)  {
 			subscribedSymbols[symbol] = true
-			return nil
+
 		},
 		fetchSymbolMock: func(listingId int, onSymbol chan<- ListingIdSymbol) {
 			if symbol, ok := listingToSymbol[listingId]; ok {
@@ -59,7 +59,7 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 	done := make(chan bool)
 	s.Close(done)
 
-	if s.readInputChannels() == nil {
+	if d, _ := s.readInputChannels(); d == nil {
 		t.Errorf("expected return close channel")
 	}
 
