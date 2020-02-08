@@ -16,15 +16,20 @@ type testQuoteSink struct {
 	out chan *model.ClobQuote
 }
 
-func (s testQuoteSink) Send(quote *model.ClobQuote) {
+func (s *testQuoteSink) Send(quote *model.ClobQuote) error {
 	s.out <- quote
+	return nil
+}
+
+func (s *testQuoteSink) Close() error {
+	return nil
 }
 
 func Test_quoteNormaliser_close(t *testing.T) {
 
 	fromNormalise := make(chan *model.ClobQuote, 100)
 
-	n := NewClobQuoteNormaliser(testQuoteSink{fromNormalise})
+	n := NewClobQuoteNormaliser(&testQuoteSink{fromNormalise})
 	log.Println("normaliser:", n)
 
 	lIds := ListingIdSymbol{ListingId: 1, Symbol: "A"}
@@ -55,7 +60,7 @@ func Test_quoteNormaliser_close(t *testing.T) {
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	fromNormalise := make(chan *model.ClobQuote, 100)
-	n := NewClobQuoteNormaliser( testQuoteSink{fromNormalise})
+	n := NewClobQuoteNormaliser( &testQuoteSink{fromNormalise})
 
 	log.Println("normaliser:", n)
 

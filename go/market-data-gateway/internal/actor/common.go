@@ -1,7 +1,6 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"log"
 )
 
@@ -12,9 +11,7 @@ type ListingIdSymbol struct {
 	Symbol    string
 }
 
-type ClobQuoteSink interface {
-	Send(quote *model.ClobQuote)
-}
+
 
 type Actor interface {
 	Start()

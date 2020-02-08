@@ -24,20 +24,15 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 	subscribedSymbols := make(map[string]bool)
 	listingToSymbol := map[int]string{1: "A", 2: "B", 3: "C"}
 
-	m := &mock{
 
-		SubscribeMock: func(symbol string)  {
-			subscribedSymbols[symbol] = true
+	s := NewSubscriptionHandler(connectionName, func(listingId int, onSymbol chan<- ListingIdSymbol) {
+		if symbol, ok := listingToSymbol[listingId]; ok {
+			onSymbol <- ListingIdSymbol{ListingId: listingId, Symbol: symbol}
+		}
+	}, func(symbol string)  {
+		subscribedSymbols[symbol] = true
 
-		},
-		fetchSymbolMock: func(listingId int, onSymbol chan<- ListingIdSymbol) {
-			if symbol, ok := listingToSymbol[listingId]; ok {
-				onSymbol <- ListingIdSymbol{ListingId: listingId, Symbol: symbol}
-			}
-		},
-	}
-
-	s := NewSubscriptionHandler(connectionName, m, m)
+	})
 
 	s.Subscribe(1)
 	s.Subscribe(2)

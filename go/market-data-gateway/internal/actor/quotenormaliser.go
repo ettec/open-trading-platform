@@ -8,20 +8,18 @@ import (
 	"os"
 )
 
-
-
 type clobQuoteNormaliser struct {
 	actorImpl
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
 	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
-	out               ClobQuoteSink
+	out               clobQuoteSink
 	log               *log.Logger
 }
 
 func NewClobQuoteNormaliser(
-	out ClobQuoteSink) *clobQuoteNormaliser {
+	out clobQuoteSink) *clobQuoteNormaliser {
 
 	q := &clobQuoteNormaliser{
 		symbolToListingId: make(map[string]int),

@@ -5,7 +5,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"log"
 	"os"
-	"sync/atomic"
 )
 
 type ClientConnection interface {
@@ -15,19 +14,27 @@ type ClientConnection interface {
 	Subscribe(listingId int)
 }
 
+type clobQuoteSink interface {
+	Send (quote *model.ClobQuote) error
+	Close() error
+}
+
 type clientConnection struct {
 	actorImpl
-	id              string
-	subscriptions   SubscriptionHandler
-	stream          model.MarketDataGateway_ConnectServer
-	quotesInChan    chan *model.ClobQuote
-	droppedQuoteCnt int32
-	closeChan       chan chan<- bool
-	log             *log.Logger
+	id                string
+	subscribeFn       subscribeToListing
+	clobQuoteSink       clobQuoteSink
+	quotesInChan      chan *model.ClobQuote
+	subscribeChan     chan int
+	closeChan         chan chan<- bool
+	subscribeListings map[int32]bool
+	maxPendingQuotes  int
+	log               *log.Logger
 }
 
 func (c *clientConnection) Subscribe(listingId int) {
-	c.subscriptions.Subscribe(listingId)
+	c.subscribeChan <- listingId
+	c.subscribeFn(listingId)
 	c.log.Println("subscribed to listing id:", listingId)
 }
 
@@ -35,28 +42,20 @@ func (c *clientConnection) GetId() string {
 	return c.id
 }
 
-func (c *clientConnection) Send(q *model.ClobQuote) {
-	select {
-	case c.quotesInChan <- q:
-	default: // Must not block downstream actors under any circumstances, add conflation here in addition to this safety valve
-		atomic.AddInt32(&c.droppedQuoteCnt, 1)
-	}
 
-}
 
-func NewClientConnection(id string, subClient SubscriptionClient, stream model.MarketDataGateway_ConnectServer,
-	clientConnBufferSize int) *clientConnection {
-	ss := &testSymbolSource{
-		mappings: map[int]string{1: "A", 2: "B", 3: "C", 4: "D"},
-	}
+func NewClientConnection(id string, subscribeFn subscribeToListing, clobQuoteSink clobQuoteSink,
+	maxPendingQuotes int) *clientConnection {
 
-	sh := NewSubscriptionHandler(id, ss, subClient)
+	cc := &clientConnection{id: id, subscribeFn: subscribeFn, clobQuoteSink: clobQuoteSink,
+		quotesInChan: make(chan *model.ClobQuote, maxPendingQuotes), subscribeChan: make(chan int),
+		subscribeListings: map[int32]bool{},
+		maxPendingQuotes:   maxPendingQuotes,
+		log:               log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags)}
 
-	cc := &clientConnection{id:id, subscriptions: sh, stream: stream,
-		quotesInChan: make(chan *model.ClobQuote, clientConnBufferSize), droppedQuoteCnt:0,
-		log: log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags)}
+	cc.actorImpl = newActorImpl("connection:"+id, cc.readInputChannels)
 
-	cc.actorImpl = newActorImpl("connection:" + id, cc.readInputChannels)
+	log.Println("the id of the inbound quotes channel for the connection is:", cc.quotesInChan)
 
 	return cc
 }
@@ -64,10 +63,20 @@ func NewClientConnection(id string, subClient SubscriptionClient, stream model.M
 func (c *clientConnection) readInputChannels() (chan<- bool, error) {
 
 	select {
-	case q := <-c.quotesInChan:
-		if err := c.stream.Send(q); err != nil {
-			return nil, fmt.Errorf("error occurred whilst sending to grpc output stream:%w", err)
+	case q, ok := <-c.quotesInChan:
+		if ok {
+			if c.subscribeListings[q.ListingId] {
+				if err := c.clobQuoteSink.Send(q); err != nil {
+					return nil, fmt.Errorf("error occurred whilst sending quote:%w", err)
+				}
+			}
+		} else {
+			defer c.clobQuoteSink.Close()
+			return nil, fmt.Errorf("%v inbound quotes channel closed, closing connection and exiting", c.id)
 		}
+
+	case l := <-c.subscribeChan:
+		c.subscribeListings[int32(l)] = true
 	case d := <-c.closeChan:
 		return d, nil
 	}
@@ -75,19 +84,4 @@ func (c *clientConnection) readInputChannels() (chan<- bool, error) {
 	return nil, nil
 }
 
-type testSymbolSource struct {
-	mappings map[int]string
-}
 
-func (t *testSymbolSource) FetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol) {
-
-	if sym, ok := t.mappings[listingId]; ok {
-		onSymbol <- ListingIdSymbol{
-			ListingId: listingId,
-			Symbol:    sym,
-		}
-	} else {
-		log.Println("no symbol mapping found for listing id ", listingId)
-	}
-
-}

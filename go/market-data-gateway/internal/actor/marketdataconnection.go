@@ -138,7 +138,7 @@ func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial 
 	for {
 		incRefresh, err := stream.Recv()
 		if err != nil {
-			m.log.Println("market data stream error:", err)
+			m.log.Println("market data sendQuoteFn error:", err)
 			break
 		}
 
