@@ -71,13 +71,14 @@ func (c *clientConnection) readInputChannels() (chan<- bool, error) {
 				}
 			}
 		} else {
-			defer c.clobQuoteSink.Close()
-			return nil, fmt.Errorf("%v inbound quotes channel closed, closing connection and exiting", c.id)
+			log.Printf("closing as inbound quote channel %v is closed", c.id)
+			c.closeChan <- make(chan bool, 1)
 		}
 
 	case l := <-c.subscribeChan:
 		c.subscribeListings[int32(l)] = true
 	case d := <-c.closeChan:
+		defer c.clobQuoteSink.Close()
 		return d, nil
 	}
 

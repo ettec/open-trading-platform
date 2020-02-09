@@ -2,11 +2,14 @@ package fixsim
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"google.golang.org/grpc"
 )
+
+type IncRefreshSource interface {
+	Recv() (*marketdata.MarketDataIncrementalRefresh, error)
+}
 
 type fixSimMarketDataClientImpl struct {
 	client FixSimMarketDataServiceClient
@@ -24,16 +27,9 @@ func (fsc *fixSimMarketDataClientImpl) Subscribe(symbol string, subscriberId str
 	return err
 }
 
-func (fsc *fixSimMarketDataClientImpl) Connect(connectionId string) (actor.IncRefreshSource, error) {
+func (fsc *fixSimMarketDataClientImpl) Connect(connectionId string) (IncRefreshSource, error) {
 	r := &ConnectRequest{PartyId: connectionId}
 	stream, err := fsc.client.Connect(context.Background(), r)
 	return stream, err
 }
 
-func DialFixSimMarketDataClient(target string) (actor.MarketDataClient, error) {
-	conn, err := grpc.Dial(target, grpc.WithInsecure(), grpc.WithBlock())
-	return &fixSimMarketDataClientImpl{
-		client : NewFixSimMarketDataServiceClient(conn),
-		conn:    conn,
-	}, err
-}

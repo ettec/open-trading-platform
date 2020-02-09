@@ -14,8 +14,8 @@ func Test_quoteDistributor_Send(t *testing.T) {
 
 	s2 := make( chan *model.ClobQuote, 100)
 
-	d.AddConnection(s1)
-	d.AddConnection(s2)
+	d.AddOutQuoteChan(s1)
+	d.AddOutQuoteChan(s2)
 
 	d.readInputChannels()
 	d.readInputChannels()
@@ -43,8 +43,8 @@ func Test_quoteDistributorRemovesFullChan(t *testing.T) {
 
 	s2 := make( chan *model.ClobQuote, 100)
 
-	d.AddConnection(s1)
-	d.AddConnection(s2)
+	d.AddOutQuoteChan(s1)
+	d.AddOutQuoteChan(s2)
 
 	d.readInputChannels()
 	d.readInputChannels()

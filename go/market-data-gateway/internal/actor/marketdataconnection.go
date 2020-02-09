@@ -2,6 +2,7 @@ package actor
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
 	"log"
 	"os"
 	"time"
@@ -16,9 +17,9 @@ type MdServerConnection interface {
 	Subscribe(symbol string)
 }
 
-type IncRefreshSource interface {
-	Recv() (*marketdata.MarketDataIncrementalRefresh, error)
-}
+
+here - where we need to change this so it take a quote clob source, therefore normalisation done in fix sim package
+
 
 type MarketDataClient interface {
 	Connect(connectionId string) (IncRefreshSource, error)
@@ -26,7 +27,7 @@ type MarketDataClient interface {
 	Close() error
 }
 
-type Dial func(target string) (MarketDataClient, error)
+
 
 type mdServerConnection struct {
 	actorImpl
@@ -41,10 +42,10 @@ type mdServerConnection struct {
 	requestedSubscriptions map[string]bool
 	subscriptions          map[string]bool
 	connection             MarketDataClient
-	dial                   Dial
+	dial                   fixsim.Dial
 }
 
-func NewMdServerConnection(address string, connectionName string, sink RefreshSink, connectionDial Dial, reconnectInterval time.Duration) *mdServerConnection {
+func NewMdServerConnection(address string, connectionName string, sink RefreshSink, connectionDial fixsim.Dial, reconnectInterval time.Duration) *mdServerConnection {
 
 	m := &mdServerConnection{
 		connectionName:         connectionName,
@@ -111,7 +112,7 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 	return nil, nil
 }
 
-func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial Dial) {
+func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial fixsim.Dial) {
 
 	log.Println("Connecting to market data server at ", m.address)
 	mdClient, err := dial(m.address)
@@ -121,7 +122,7 @@ func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial 
 	}
 	defer func() {
 		if err := mdClient.Close(); err != nil {
-			m.log.Println("error whilst closing md client:", err)
+			m.log.Println("error whilst closing:", err)
 		}
 
 		connectionChan <- nil

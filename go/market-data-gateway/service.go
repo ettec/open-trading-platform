@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
@@ -26,7 +27,7 @@ func newService(address, name string) *service {
 	var actors []actor.Actor
 	qd := actor.NewQuoteDistributor()
 	actors = append(actors, qd)
-	quoteNormaliser := actor.NewClobQuoteNormaliser(qd)
+	quoteNormaliser := fixsim.NewFixSimConnection(qd)
 	actors = append(actors, qd)
 	fixSimConn := actor.NewMdServerConnection(address, name, quoteNormaliser)
 	actors = append(actors, fixSimConn)
@@ -38,6 +39,8 @@ func newService(address, name string) *service {
 	return &service{partyIdToConnection: make(map[string]actor.ClientConnection), fixSimConn: fixSimConn, quoteDistributor: qd,
 		actors: actors}
 }
+
+
 
 func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
 	s.connMux.Lock()

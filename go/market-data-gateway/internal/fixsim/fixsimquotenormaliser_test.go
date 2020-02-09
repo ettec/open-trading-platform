@@ -1,7 +1,8 @@
-package actor
+package fixsim
 
 import (
 	"fmt"
+
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
@@ -12,24 +13,12 @@ import (
 	"testing"
 )
 
-type testQuoteSink struct {
-	out chan *model.ClobQuote
-}
-
-func (s *testQuoteSink) Send(quote *model.ClobQuote) error {
-	s.out <- quote
-	return nil
-}
-
-func (s *testQuoteSink) Close() error {
-	return nil
-}
 
 func Test_quoteNormaliser_close(t *testing.T) {
 
-	fromNormalise := make(chan *model.ClobQuote, 100)
+	out := make(chan *model.ClobQuote, 100)
 
-	n := NewClobQuoteNormaliser(&testQuoteSink{fromNormalise})
+	n := NewFixSimConnection(out)
 	log.Println("normaliser:", n)
 
 	lIds := ListingIdSymbol{ListingId: 1, Symbol: "A"}
@@ -59,8 +48,8 @@ func Test_quoteNormaliser_close(t *testing.T) {
 
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
-	fromNormalise := make(chan *model.ClobQuote, 100)
-	n := NewClobQuoteNormaliser( &testQuoteSink{fromNormalise})
+	out := make(chan *model.ClobQuote, 100)
+	n := NewFixSimConnection(out)
 
 	log.Println("normaliser:", n)
 
@@ -95,7 +84,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	invoke(n.readInputChannel, 3)
 
-	err := testEqual(getLastSnapshot(fromNormalise), [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, lIds.ListingId)
+	err := testEqual(getLastSnapshot(out), [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, lIds.ListingId)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
 	}

@@ -1,77 +1,148 @@
-package actor
+package fixsim
 
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"google.golang.org/grpc"
 	"log"
 	"os"
 )
 
-type clobQuoteNormaliser struct {
-	actorImpl
+type ListingIdSymbol struct {
+	ListingId int
+	Symbol    string
+}
+
+type fixSimConnection struct {
+	address           string
+	connectionName    string
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
 	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
-	out               clobQuoteSink
+	out               chan<- *model.ClobQuote
+	fixSimClient      MarketDataClient
 	log               *log.Logger
 }
 
-func NewClobQuoteNormaliser(
-	out clobQuoteSink) *clobQuoteNormaliser {
+type MarketDataClient interface {
+	Connect(connectionId string) (IncRefreshSource, error)
+	Subscribe(symbol string, subscriberId string) error
+	Close() error
+}
 
-	q := &clobQuoteNormaliser{
+type Dial func(target string) (MarketDataClient, error)
+
+
+func NewFixSimConnection(
+	out chan<- *model.ClobQuote, address string, connectionName string, dial Dial) (*fixSimConnection, error) {
+
+	q := &fixSimConnection{
+		address:           address,
+		connectionName:    connectionName,
 		symbolToListingId: make(map[string]int),
 		idToQuote:         make(map[int]*model.ClobQuote),
 		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol),
 		out:               out,
-		log:               log.New(os.Stdout, "clobQuoteNormaliser:", log.LstdFlags),
+		log:               log.New(os.Stdout, "fixSimConnection:" + connectionName, log.LstdFlags),
 	}
 
-	q.actorImpl = newActorImpl("quoteNormaliser", q.readInputChannel)
+	q.log.Println("connecting to ", q.address)
+	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		return nil, err
+	}
 
-	return q
+	q.fixSimClient = &fixSimMarketDataClientImpl{
+		client : NewFixSimMarketDataServiceClient(conn),
+		conn:    conn,
+	}
+
+	go func() {
+		for {
+			if err := q.readInputChannel(); err != nil {
+				q.log.Printf("closing read loop: %v", err)
+				return
+			}
+		}
+	}()
+
+	go q.connect()
+
+	return q, nil
 }
 
-func (n *clobQuoteNormaliser) SendRefresh(refresh *marketdata.MarketDataIncrementalRefresh) {
-	n.refreshChan <- refresh
+func (n *fixSimConnection) Close() {
+	n.fixSimClient.Close()
 }
 
-func (n *clobQuoteNormaliser) registerMapping(lts ListingIdSymbol) {
+func (n *fixSimConnection) registerMapping(lts ListingIdSymbol) {
 	n.mappingChan <- lts
 }
 
-func (n *clobQuoteNormaliser) readInputChannel() (chan<- bool, error) {
+func (n *fixSimConnection) readInputChannel() error {
 	select {
 	case m := <-n.mappingChan:
 		n.symbolToListingId[m.Symbol] = m.ListingId
-	case r := <-n.refreshChan:
+	case r, ok := <-n.refreshChan:
 
-		for _, incGrp := range r.MdIncGrp {
-			symbol := incGrp.GetInstrument().GetSymbol()
-			bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
-			if listingId, ok := n.symbolToListingId[symbol]; ok {
-				if quote, ok := n.idToQuote[listingId]; ok {
-					updatedQuote := updateQuote(quote, incGrp, bids)
-					n.idToQuote[listingId] = updatedQuote
-					n.out.Send(updatedQuote)
+		if ok {
+			for _, incGrp := range r.MdIncGrp {
+				symbol := incGrp.GetInstrument().GetSymbol()
+				bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
+				if listingId, ok := n.symbolToListingId[symbol]; ok {
+					if quote, ok := n.idToQuote[listingId]; ok {
+						updatedQuote := updateQuote(quote, incGrp, bids)
+						n.idToQuote[listingId] = updatedQuote
+						n.out <- updatedQuote
+					} else {
+						quote := newClobQuote(listingId)
+						updatedQuote := updateQuote(quote, incGrp, bids)
+						n.idToQuote[listingId] = updatedQuote
+						n.out <- updatedQuote
+					}
 				} else {
-					quote := newClobQuote(listingId)
-					updatedQuote := updateQuote(quote, incGrp, bids)
-					n.idToQuote[listingId] = updatedQuote
-					n.out.Send(updatedQuote)
+					return fmt.Errorf("no listing found for symbol: %v", symbol)
 				}
-			} else {
-				return nil, fmt.Errorf("no listing found for symbol: %v", symbol)
 			}
+		} else {
+			close(n.out)
+			return fmt.Errorf("inbound channel is closed")
 		}
-	case d := <-n.closeChan:
-		return d, nil
 	}
 
-	return nil, nil
+	return nil
+}
+
+
+
+func (n *fixSimConnection) connect() {
+
+	defer func() {
+		close(n.refreshChan)
+		if err := n.fixSimClient.Close(); err != nil {
+			n.log.Println("error whilst closing:", err)
+		}
+	}()
+
+	stream, err := n.fixSimClient.Connect(n.connectionName)
+	if err != nil {
+		n.log.Println("Failed to connect to the market data server:", err)
+		return
+	}
+
+	for {
+		incRefresh, err := stream.Recv()
+		if err != nil {
+			n.log.Println("inbound stream error:", err)
+			return
+		}
+
+		n.refreshChan <- incRefresh
+	}
+
 }
 
 func newClobQuote(listingId int) *model.ClobQuote {

@@ -3,6 +3,7 @@ package actor
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
 	"testing"
 	"time"
 )
@@ -68,7 +69,7 @@ func TestNewMdServerConnection(t *testing.T) {
 
 	mdConn := NewMdServerConnection("testaddress", "testconnection", &testRefreshSink{}, dial,0 )
 
-	invoke(mdConn.readInputChannels,2)
+	fixsim.invoke(mdConn.readInputChannels,2)
 
 	if !connectedCalled {
 		t.Errorf("expected connection method to be called")
@@ -98,12 +99,12 @@ func TestSubscribe(t *testing.T) {
 
 	mdConn := NewMdServerConnection("testaddress", "testconnection", &testRefreshSink{}, dial, 0 )
 
-	invoke(mdConn.readInputChannels,2)
+	fixsim.invoke(mdConn.readInputChannels,2)
 
 	mdConn.Subscribe("A")
 	mdConn.Subscribe("B")
 
-	invoke(mdConn.readInputChannels,2)
+	fixsim.invoke(mdConn.readInputChannels,2)
 
 
 	if subscribed[0] != "A" {
@@ -175,7 +176,7 @@ func TestSubscribesSentWhilstNotConnectedAreResentOnConnect(t *testing.T) {
 	mdConn.Subscribe("A")
 	mdConn.Subscribe("B")
 
-	invoke(mdConn.readInputChannels,6)
+	fixsim.invoke(mdConn.readInputChannels,6)
 
 
 	if subscribed[0] != "A" {
