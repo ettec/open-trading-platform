@@ -22,21 +22,23 @@ type fixSimConnection struct {
 	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
 	out               chan<- *model.ClobQuote
-	fixSimClient      MarketDataClient
+	fixSimClient      marketDataClient
+	symbolLookup      symbolLookup
+	dial              dial
 	log               *log.Logger
 }
 
-type MarketDataClient interface {
-	Connect(connectionId string) (IncRefreshSource, error)
-	Subscribe(symbol string, subscriberId string) error
-	Close() error
+type marketDataClient interface {
+	connect(connectionId string) (receiveIncRefreshFn, error)
+	subscribe(symbol string, subscriberId string) error
+	close() error
 }
 
-type Dial func(target string) (MarketDataClient, error)
-
+type dial func(target string) (marketDataClient, error)
+type symbolLookup func(listingId int) (string, error)
 
 func NewFixSimConnection(
-	out chan<- *model.ClobQuote, address string, connectionName string, dial Dial) (*fixSimConnection, error) {
+	out chan<- *model.ClobQuote, address string, connectionName string, symbolLookup symbolLookup) *fixSimConnection {
 
 	q := &fixSimConnection{
 		address:           address,
@@ -44,50 +46,75 @@ func NewFixSimConnection(
 		symbolToListingId: make(map[string]int),
 		idToQuote:         make(map[int]*model.ClobQuote),
 		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
-		mappingChan:       make(chan ListingIdSymbol),
+		mappingChan:       make(chan ListingIdSymbol, 1000),
+		symbolLookup:      symbolLookup,
 		out:               out,
-		log:               log.New(os.Stdout, "fixSimConnection:" + connectionName, log.LstdFlags),
+		log:               log.New(os.Stdout, "fixSimConnection:"+connectionName, log.LstdFlags),
 	}
 
-	q.log.Println("connecting to ", q.address)
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	q.dial = func(target string) (client marketDataClient, err error) {
+
+		conn, err := grpc.Dial(target, grpc.WithInsecure(), grpc.WithBlock())
+		return &fixSimMarketDataClientImpl{
+			client: NewFixSimMarketDataServiceClient(conn),
+			conn:   conn,
+		}, nil
+
+	}
+
+	return q
+}
+
+func (n *fixSimConnection) Connect() error {
+	n.log.Println("connecting to ", n.address)
+
+	client, err := n.dial(n.address)
 	if err != nil {
-		return nil, err
+		return err
 	}
-
-	q.fixSimClient = &fixSimMarketDataClientImpl{
-		client : NewFixSimMarketDataServiceClient(conn),
-		conn:    conn,
-	}
+	n.fixSimClient = client
 
 	go func() {
 		for {
-			if err := q.readInputChannel(); err != nil {
-				q.log.Printf("closing read loop: %v", err)
+			if err := n.readInputChannel(); err != nil {
+				n.log.Printf("closing read loop: %v", err)
 				return
 			}
 		}
 	}()
 
-	go q.connect()
+	go n.connect()
 
-	return q, nil
+	return nil
 }
 
-func (n *fixSimConnection) Close() {
-	n.fixSimClient.Close()
+func (n *fixSimConnection) Subscribe(listingId int) {
+	go func() {
+		if symbol, err :=  n.symbolLookup(listingId); err == nil {
+			n.mappingChan<-ListingIdSymbol{
+				ListingId: listingId,
+				Symbol:    symbol,
+			}
+		} else {
+			n.log.Printf("error lookingup symbol for listing id: %v, error:%v", listingId, err)
+		}
+	}()
 }
 
-func (n *fixSimConnection) registerMapping(lts ListingIdSymbol) {
-	n.mappingChan <- lts
+func (n *fixSimConnection) Close() error {
+	return n.fixSimClient.close()
 }
 
 func (n *fixSimConnection) readInputChannel() error {
 	select {
 	case m := <-n.mappingChan:
 		n.symbolToListingId[m.Symbol] = m.ListingId
+		go func() {
+			if err := n.fixSimClient.subscribe(m.Symbol, n.connectionName); err != nil {
+				n.log.Printf("subscribe call failed:%v", err)
+			}
+		}()
 	case r, ok := <-n.refreshChan:
-
 		if ok {
 			for _, incGrp := range r.MdIncGrp {
 				symbol := incGrp.GetInstrument().GetSymbol()
@@ -104,7 +131,7 @@ func (n *fixSimConnection) readInputChannel() error {
 						n.out <- updatedQuote
 					}
 				} else {
-					return fmt.Errorf("no listing found for symbol: %v", symbol)
+					n.log.Printf("received refresh for unknown symbol: %v", symbol)
 				}
 			}
 		} else {
@@ -116,25 +143,23 @@ func (n *fixSimConnection) readInputChannel() error {
 	return nil
 }
 
-
-
 func (n *fixSimConnection) connect() {
 
 	defer func() {
 		close(n.refreshChan)
-		if err := n.fixSimClient.Close(); err != nil {
+		if err := n.fixSimClient.close(); err != nil {
 			n.log.Println("error whilst closing:", err)
 		}
 	}()
 
-	stream, err := n.fixSimClient.Connect(n.connectionName)
+	stream, err := n.fixSimClient.connect(n.connectionName)
 	if err != nil {
 		n.log.Println("Failed to connect to the market data server:", err)
 		return
 	}
 
 	for {
-		incRefresh, err := stream.Recv()
+		incRefresh, err := stream()
 		if err != nil {
 			n.log.Println("inbound stream error:", err)
 			return

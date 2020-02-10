@@ -7,110 +7,163 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
-	"log"
 	"reflect"
 	"strconv"
 	"testing"
 )
 
+type testMarketDataClient struct {
 
-func Test_quoteNormaliser_close(t *testing.T) {
+	refreshChan chan *md.MarketDataIncrementalRefresh
+	errorChan chan error
+	subscribeChan chan string
+	closeSignalChan chan bool
+
+}
+
+func newTestMarketDataClient() *testMarketDataClient {
+	t := &testMarketDataClient{
+
+		refreshChan : make(chan *md.MarketDataIncrementalRefresh, 100),
+		errorChan : make(chan error, 100),
+		subscribeChan : make(chan string, 100),
+		closeSignalChan : make(chan bool, 100),
+	}
+	return t
+}
+
+func (t *testMarketDataClient) connect(connectionId string) (receiveIncRefreshFn, error) {
+	return func() (refresh *md.MarketDataIncrementalRefresh, err error) {
+		select {
+		case e := <-t.errorChan:
+			return nil, e
+		case r := <-t.refreshChan:
+			return r, nil
+		}
+
+	}, nil
+
+}
+
+func (t *testMarketDataClient) subscribe(symbol string, subscriberId string) error {
+	t.subscribeChan<-symbol
+	return nil
+}
+
+func (t *testMarketDataClient) close() error {
+	t.closeSignalChan<-true
+	return nil
+}
+
+
+
+
+func Test_fixSimConnection_close(t *testing.T) {
 
 	out := make(chan *model.ClobQuote, 100)
 
-	n := NewFixSimConnection(out)
-	log.Println("normaliser:", n)
+	listingIdToSym := map[int]string{1:"A", 2:"B"}
+	n := NewFixSimConnection(out, "testAddress", "testName", toLookupFunc(listingIdToSym))
 
-	lIds := ListingIdSymbol{ListingId: 1, Symbol: "A"}
+	tmd := newTestMarketDataClient()
 
-	done := make(chan bool)
-	go func() {
-		n.registerMapping(lIds)
-		done<-true
-	}()
-	n.readInputChannel()
-	<-done
+	n.dial = func(target string) (marketDataClient, error) {
+		return tmd, nil
+	}
 
-	n.SendRefresh(&md.MarketDataIncrementalRefresh{
+	n.Connect()
+
+	n.Subscribe(1)
+
+	if sym := <-tmd.subscribeChan; sym != "A" {
+		t.Errorf("expected symbol A")
+	}
+
+	tmd.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")},
-	})
+	}
 
-	n.readInputChannel()
+	q := <-out
+	if q.ListingId != 1 {
+		t.Errorf("expected quote for listing id 1")
+	}
 
-	d := make( chan bool )
-	n.Close(d)
+	n.Close()
 
-	if d, _ := n.readInputChannel(); d == nil  {
-		t.Errorf("expected done channel")
+	<-tmd.closeSignalChan
+	tmd.errorChan <- fmt.Errorf("an error")
+
+	if _, ok := <-out; ok {
+		t.Errorf("expected channel t be closed")
 	}
 
 }
 
+func toLookupFunc(listingIdToSym map[int]string) func(listingId int) (s string, err error) {
+	return func(listingId int) (s string, err error) {
+		if sym, ok := listingIdToSym[listingId]; ok {
+			return sym, nil
+		} else {
+			return "", fmt.Errorf("no symbol for listing id %v", listingId)
+		}
+	}
+}
+
+
+
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
+
 	out := make(chan *model.ClobQuote, 100)
-	n := NewFixSimConnection(out)
 
-	log.Println("normaliser:", n)
 
-	lIds := ListingIdSymbol{ListingId: 1, Symbol: "A"}
+	listingIdToSym := map[int]string{1:"A", 2:"B"}
+	n := NewFixSimConnection(out, "testAddress", "testName", toLookupFunc(listingIdToSym))
 
-	done := make(chan bool)
-	go func() {
-		n.registerMapping(lIds)
-		done<-true
-	}()
-	n.readInputChannel()
-	<-done
+	tmd := newTestMarketDataClient()
+
+	n.dial = func(target string) (marketDataClient, error) {
+		return tmd, nil
+	}
+
+	n.Connect()
+
+	n.Subscribe(1)
+
+
+
+	symbol := <-tmd.subscribeChan
+	if symbol != "A" {
+		t.Errorf("exepcted subscribe call for symbol A")
+	}
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	n.SendRefresh(&md.MarketDataIncrementalRefresh{
+	n.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
-	})
+	}
 
 	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
 
-	n.SendRefresh(&md.MarketDataIncrementalRefresh{
+	n.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries2,
-	})
-
+	}
 
 	entries3 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 11, 2, "A")}
-	n.SendRefresh(&md.MarketDataIncrementalRefresh{
+	n.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries3,
-	})
+	}
 
+	q := <-out
+	q = <-out
+	q = <-out
 
-	invoke(n.readInputChannel, 3)
-
-	err := testEqual(getLastSnapshot(out), [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, lIds.ListingId)
+	err := testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
 	}
 }
 
-func invoke(f func() (chan<-bool, error), times int) {
-
-	for i := 0; i < times; i++ {
-		f()
-	}
-}
-
-func getLastSnapshot(fromNormalise chan *model.ClobQuote) *model.ClobQuote {
-	var quote *model.ClobQuote
-
-loop:
-	for {
-		select {
-		case s := <-fromNormalise:
-			quote = s
-		default:
-			break loop
-		}
-	}
-	return quote
-}
 
 func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 

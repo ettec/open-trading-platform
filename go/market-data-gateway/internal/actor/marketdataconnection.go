@@ -42,10 +42,10 @@ type mdServerConnection struct {
 	requestedSubscriptions map[string]bool
 	subscriptions          map[string]bool
 	connection             MarketDataClient
-	dial                   fixsim.Dial
+	dial                   fixsim.dial
 }
 
-func NewMdServerConnection(address string, connectionName string, sink RefreshSink, connectionDial fixsim.Dial, reconnectInterval time.Duration) *mdServerConnection {
+func NewMdServerConnection(address string, connectionName string, sink RefreshSink, connectionDial fixsim.dial, reconnectInterval time.Duration) *mdServerConnection {
 
 	m := &mdServerConnection{
 		connectionName:         connectionName,
@@ -112,7 +112,7 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 	return nil, nil
 }
 
-func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial fixsim.Dial) {
+func (m *mdServerConnection) connect(connectionChan chan MarketDataClient, dial fixsim.dial) {
 
 	log.Println("Connecting to market data server at ", m.address)
 	mdClient, err := dial(m.address)
