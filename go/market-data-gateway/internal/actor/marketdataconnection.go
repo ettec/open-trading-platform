@@ -79,6 +79,7 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 			m.out <- quote
 		} else {
 			log.Printf("inbound quote stream has closed, will attempt reconnect in %v seconds.", m.reconnectInterval)
+			m.quotesIn = nil
 			go func() {
 				time.Sleep(m.reconnectInterval)
 				m.connectSignalChan <- true

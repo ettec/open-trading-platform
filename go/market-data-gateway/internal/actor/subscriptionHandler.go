@@ -19,6 +19,10 @@ type SubscriptionClient interface {
 }
 
 
+type ListingIdSymbol struct {
+	ListingId int
+	Symbol    string
+}
 
 type fetchSymbolForListingFn = func(listingId int, onSymbol chan<- ListingIdSymbol)
 

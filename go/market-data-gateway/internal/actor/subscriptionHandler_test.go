@@ -1,7 +1,6 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"testing"
 )
 
@@ -38,7 +37,7 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 	s.Subscribe(1)
 	s.Subscribe(2)
 
-	fixsim.invoke(s.readInputChannels, 4)
+	invoke(s.readInputChannels, 4)
 
 	if _, ok := subscribedSymbols["A"]; !ok {
 		t.Errorf("expected symbol in Subscribe call")
