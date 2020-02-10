@@ -2,8 +2,10 @@ package actor
 
 import (
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"testing"
 	"time"
 )
@@ -13,22 +15,25 @@ type testRefreshSink struct {
 }
 
 
+
 func (t *testRefreshSink) SendRefresh(refresh *marketdata.MarketDataIncrementalRefresh) {
 	t.refreshes <- refresh
 }
 
 type testMarketDataClient struct {
-	connect func(connectionId string) (IncRefreshSource, error)
-	subscribe func(symbol string, subscriberId string) error
+
+	connect func() (<-chan *model.ClobQuote, error)
+	subscribe func(listingId int)
 	close func() error
+
 }
 
-func (t *testMarketDataClient) Connect(connectionId string) (IncRefreshSource, error){
-	return t.connect(connectionId)
+func (t *testMarketDataClient) Connect() (<-chan *model.ClobQuote, error){
+	return t.connect()
 }
 
-func (t *testMarketDataClient) Subscribe(symbol string, subscriberId string) error {
-		return t.subscribe(symbol,subscriberId)
+func (t *testMarketDataClient) Subscribe(listingId int)  {
+		t.subscribe(listingId)
 }
 
 func (t *testMarketDataClient)Close() error {
@@ -56,9 +61,10 @@ func (t *testIncRefreshSource) Recv() (*marketdata.MarketDataIncrementalRefresh,
 func TestNewMdServerConnection(t *testing.T) {
 
 	connectedCalled := false
-	dial := func(target string) (MarketDataClient, error) {
+
+	dial := func(target string) (connections.Connection, error) {
 		return &testMarketDataClient{
-			connect: func(connectionId string) (source IncRefreshSource, err error) {
+			connect: func() (source <-chan *model.ClobQuote, err error) {
 				connectedCalled = true
 				return &testIncRefreshSource{}, nil
 			},

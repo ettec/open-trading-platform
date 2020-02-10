@@ -60,10 +60,10 @@ func (t *testMarketDataClient) close() error {
 
 func Test_fixSimConnection_close(t *testing.T) {
 
-	out := make(chan *model.ClobQuote, 100)
+
 
 	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	n := NewFixSimConnection(out, "testAddress", "testName", toLookupFunc(listingIdToSym))
+	n := NewFixSimConnection( "testAddress", "testName", toLookupFunc(listingIdToSym))
 
 	tmd := newTestMarketDataClient()
 
@@ -71,7 +71,11 @@ func Test_fixSimConnection_close(t *testing.T) {
 		return tmd, nil
 	}
 
-	n.Connect()
+	out, err := n.Connect()
+	if err != nil {
+		t.Errorf("connection error")
+	}
+
 
 	n.Subscribe(1)
 
@@ -99,26 +103,14 @@ func Test_fixSimConnection_close(t *testing.T) {
 
 }
 
-func toLookupFunc(listingIdToSym map[int]string) func(listingId int) (s string, err error) {
-	return func(listingId int) (s string, err error) {
-		if sym, ok := listingIdToSym[listingId]; ok {
-			return sym, nil
-		} else {
-			return "", fmt.Errorf("no symbol for listing id %v", listingId)
-		}
-	}
-}
+
 
 
 
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
-
-	out := make(chan *model.ClobQuote, 100)
-
-
 	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	n := NewFixSimConnection(out, "testAddress", "testName", toLookupFunc(listingIdToSym))
+	n := NewFixSimConnection( "testAddress", "testName", toLookupFunc(listingIdToSym))
 
 	tmd := newTestMarketDataClient()
 
@@ -126,11 +118,12 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 		return tmd, nil
 	}
 
-	n.Connect()
+	out, err := n.Connect()
+	if err != nil {
+		t.Errorf("connection error")
+	}
 
 	n.Subscribe(1)
-
-
 
 	symbol := <-tmd.subscribeChan
 	if symbol != "A" {
@@ -158,9 +151,19 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	q = <-out
 	q = <-out
 
-	err := testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
+	err = testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
+	}
+}
+
+func toLookupFunc(listingIdToSym map[int]string) func(listingId int) (s string, err error) {
+	return func(listingId int) (s string, err error) {
+		if sym, ok := listingIdToSym[listingId]; ok {
+			return sym, nil
+		} else {
+			return "", fmt.Errorf("no symbol for listing id %v", listingId)
+		}
 	}
 }
 

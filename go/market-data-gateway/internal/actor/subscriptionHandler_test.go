@@ -1,7 +1,7 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"testing"
 )
 

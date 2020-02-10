@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fixsim"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"

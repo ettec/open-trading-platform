@@ -21,7 +21,7 @@ type fixSimConnection struct {
 	idToQuote         map[int]*model.ClobQuote
 	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
-	out               chan<- *model.ClobQuote
+	out               chan *model.ClobQuote
 	fixSimClient      marketDataClient
 	symbolLookup      symbolLookup
 	dial              dial
@@ -38,7 +38,7 @@ type dial func(target string) (marketDataClient, error)
 type symbolLookup func(listingId int) (string, error)
 
 func NewFixSimConnection(
-	out chan<- *model.ClobQuote, address string, connectionName string, symbolLookup symbolLookup) *fixSimConnection {
+	address string, connectionName string, symbolLookup symbolLookup) *fixSimConnection {
 
 	q := &fixSimConnection{
 		address:           address,
@@ -48,7 +48,6 @@ func NewFixSimConnection(
 		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol, 1000),
 		symbolLookup:      symbolLookup,
-		out:               out,
 		log:               log.New(os.Stdout, "fixSimConnection:"+connectionName, log.LstdFlags),
 	}
 
@@ -65,12 +64,21 @@ func NewFixSimConnection(
 	return q
 }
 
-func (n *fixSimConnection) Connect() error {
+// Connects to the fix simulator, can only be called once.  To reconnect create
+// a new connection object and call Connect on that.
+func (n *fixSimConnection) Connect() (<-chan *model.ClobQuote, error) {
+
+	if n.out != nil {
+		return nil, fmt.Errorf("already been connected")
+	}
+
+	n.out = make(chan *model.ClobQuote, 1000)
+
 	n.log.Println("connecting to ", n.address)
 
 	client, err := n.dial(n.address)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	n.fixSimClient = client
 
@@ -83,9 +91,9 @@ func (n *fixSimConnection) Connect() error {
 		}
 	}()
 
-	go n.connect()
+	go n.connectToFixSim()
 
-	return nil
+	return n.out, nil
 }
 
 func (n *fixSimConnection) Subscribe(listingId int) {
@@ -143,7 +151,7 @@ func (n *fixSimConnection) readInputChannel() error {
 	return nil
 }
 
-func (n *fixSimConnection) connect() {
+func (n *fixSimConnection) connectToFixSim() {
 
 	defer func() {
 		close(n.refreshChan)
