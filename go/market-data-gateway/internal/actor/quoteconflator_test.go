@@ -63,6 +63,31 @@ func Test_quotesAreConflatedAndReceivedOrderIsMaintained(t *testing.T) {
 		t.FailNow()
 	}
 
+
+	in <- &model.ClobQuote{ListingId: 2, XXX_sizecache:        6,}
+	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        1,}
+	in <- &model.ClobQuote{ListingId: 3, XXX_sizecache:        11,}
+	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        2,}
+	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        3,}
+	in <- &model.ClobQuote{ListingId: 3, XXX_sizecache:        12,}
+	in <- &model.ClobQuote{ListingId: 2, XXX_sizecache:        7,}
+
+
+	q = <-out
+	if q.ListingId != 2 || q.XXX_sizecache != 7 {
+		t.FailNow()
+	}
+
+	q = <-out
+	if q.ListingId != 1 || q.XXX_sizecache != 3 {
+		t.FailNow()
+	}
+
+	q = <-out
+	if q.ListingId != 3 || q.XXX_sizecache != 12 {
+		t.FailNow()
+	}
+
 }
 
 
