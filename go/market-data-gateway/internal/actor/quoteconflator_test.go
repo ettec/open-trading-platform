@@ -11,9 +11,9 @@ func Test_quotesAreConflated(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
 	out := make(chan *model.ClobQuote)
-	close := make(chan bool)
+	close := make(chan chan bool)
 
-	NewQuoteConflator(in, out, close)
+	NewQuoteConflator(in, out, close, 10)
 
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        1,}
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        2,}
@@ -30,7 +30,45 @@ func Test_quotesAreConflated(t *testing.T) {
 }
 
 
-func Test_circularBuffer(t *testing.T) {
+
+
+func Test_quotesAreConflatedAndReceivedOrderIsMaintained(t *testing.T) {
+
+	in := make(chan *model.ClobQuote)
+	out := make(chan *model.ClobQuote)
+	close := make(chan chan bool)
+
+	NewQuoteConflator(in, out, close, 10)
+
+	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        1,}
+	in <- &model.ClobQuote{ListingId: 2, XXX_sizecache:        6,}
+	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        2,}
+	in <- &model.ClobQuote{ListingId: 3, XXX_sizecache:        11,}
+	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        3,}
+	in <- &model.ClobQuote{ListingId: 2, XXX_sizecache:        7,}
+	in <- &model.ClobQuote{ListingId: 3, XXX_sizecache:        12,}
+
+	q := <-out
+	if q.ListingId != 1 || q.XXX_sizecache != 3 {
+		t.FailNow()
+	}
+
+	q = <-out
+	if q.ListingId != 2 || q.XXX_sizecache != 7 {
+		t.FailNow()
+	}
+
+	q = <-out
+	if q.ListingId != 3 || q.XXX_sizecache != 12 {
+		t.FailNow()
+	}
+
+}
+
+
+
+
+func Test_circularBufferAddAndRemove(t *testing.T) {
 
 	b := newBoundedCircularIntBuffer(4)
 
@@ -42,7 +80,7 @@ func Test_circularBuffer(t *testing.T) {
 	}
 
 	if !allAdded {
-		t.Errorf("expected all values to be added")
+		t.Fatal("expected all values to be added")
 	}
 
 	var out []int32
@@ -54,9 +92,30 @@ func Test_circularBuffer(t *testing.T) {
 	}
 
 	if ! reflect.DeepEqual(in, out) {
-		t.Errorf("expected in to equal out")
+		t.Fatal("expected in to equal out")
 	}
 
+
+}
+
+func Test_getTail(t *testing.T) {
+
+	b := newBoundedCircularIntBuffer(4)
+
+	b.addHead(1)
+	b.addHead(2)
+	b.addHead(3)
+
+
+	if val, ok := b.getTail(); !ok || val != 1 {
+		t.FailNow()
+	}
+
+	b.removeTail()
+
+	if val, ok := b.getTail(); !ok || val != 2 {
+		t.FailNow()
+	}
 
 }
 

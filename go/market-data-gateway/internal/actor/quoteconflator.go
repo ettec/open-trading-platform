@@ -1,51 +1,64 @@
 package actor
 
-import "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+import (
+	"fmt"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"log"
+	"os"
+)
 
 type quoteConflator struct {
-	inChan       <-chan *model.ClobQuote
-	outChan      chan<- *model.ClobQuote
-	closeChan    <-chan bool
+	inChan        <-chan *model.ClobQuote
+	outChan       chan<- *model.ClobQuote
+	closeChan     <-chan chan bool
+	pendingQuote  map[int32]*model.ClobQuote
+	receivedOrder *boundedCircularInt32Buffer
+	errLog        *log.Logger
 }
 
-func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote, closeChan <-chan bool) *quoteConflator {
+func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote, closeChan <-chan chan bool, capacity int) *quoteConflator {
 	c := &quoteConflator{
-		inChan: inChan, outChan: outChan, closeChan: closeChan}
-
-	pendingQuote := map[int32]*model.ClobQuote{}
+		inChan: inChan, outChan: outChan, closeChan: closeChan,
+		pendingQuote: map[int32]*model.ClobQuote{}, receivedOrder: newBoundedCircularIntBuffer(capacity),
+	errLog:log.New(os.Stderr, "", log.Lshortfile|log.Ltime)}
 
 
 	go func() {
 
+		defer close(outChan)
 
 		for {
 			var eq *model.ClobQuote
 
-			for _, v := range pendingQuote {
-				eq = v
+			if c.receivedOrder.len > 0 {
+				listingId, _ := c.receivedOrder.getTail()
+				eq = c.pendingQuote[listingId]
 			}
 
 			if eq != nil {
 				select {
 				case q := <-c.inChan:
-					if _, ok := pendingQuote[q.ListingId]; !ok {
-						//order[writePtr] = q.ListingId
-// here
-					//	writePtr++
+					if err := c.conflate( q ); err != nil {
+						c.errLog.Println("exiting:", err)
+						return
 					}
-					pendingQuote[q.ListingId] = q
-
 				case c.outChan <- eq:
-					delete(pendingQuote, eq.ListingId)
-				case <-c.closeChan:
+					delete(c.pendingQuote, eq.ListingId)
+					c.receivedOrder.removeTail()
+				case d := <-c.closeChan:
+					d <- true
 					return
 				}
 
 			} else {
 				select {
 				case q := <-c.inChan:
-					pendingQuote[q.ListingId] = q
-				case <-c.closeChan:
+					if err := c.conflate( q ); err != nil {
+						c.errLog.Println("exiting:", err)
+						return
+					}
+				case d := <-c.closeChan:
+					d <- true
 					return
 				}
 
@@ -57,6 +70,17 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 	return c
 }
 
+func (c *quoteConflator) conflate(q *model.ClobQuote) error {
+	if _, ok := c.pendingQuote[q.ListingId]; !ok {
+		ok = c.receivedOrder.addHead(q.ListingId)
+		if !ok {
+			return fmt.Errorf("unable to handle inbound quote as quote received order buffer size exceeded")
+		}
+	}
+	c.pendingQuote[q.ListingId] = q
+	return nil
+}
+
 type boundedCircularInt32Buffer struct {
 	buffer   []int32
 	capacity int
@@ -66,8 +90,7 @@ type boundedCircularInt32Buffer struct {
 }
 
 func newBoundedCircularIntBuffer(capacity int) *boundedCircularInt32Buffer {
-	b:=  &boundedCircularInt32Buffer{buffer: make([]int32, capacity, capacity), capacity:capacity}
-
+	b := &boundedCircularInt32Buffer{buffer: make([]int32, capacity, capacity), capacity: capacity}
 
 	return b
 }
@@ -79,33 +102,40 @@ func (b *boundedCircularInt32Buffer) addHead(i int32) bool {
 		return false
 	}
 
-
 	b.buffer[b.writePtr] = i
 	b.len++
 
-	if b.writePtr == b.capacity -1{
+	if b.writePtr == b.capacity-1 {
 		b.writePtr = 0
 	} else {
 		b.writePtr++
 	}
 
-
 	return true
 
 }
 
-// returns the value and true if a value is available
-func (b *boundedCircularInt32Buffer) removeTail() (int32, bool){
+func (b *boundedCircularInt32Buffer) getTail() (int32, bool) {
 	if b.len == 0 {
 		return 0, false
 	}
 
+	res := b.buffer[b.readPtr]
+	return res, true
+}
+
+
+// returns the value and true if a value is available
+func (b *boundedCircularInt32Buffer) removeTail() (int32, bool) {
+	if b.len == 0 {
+		return 0, false
+	}
 
 	res := b.buffer[b.readPtr]
 	b.len--
 	b.readPtr++
 	if b.readPtr == b.capacity {
-		b.readPtr =0
+		b.readPtr = 0
 	}
 
 	return res, true
