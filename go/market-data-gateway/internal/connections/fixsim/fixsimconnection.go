@@ -17,7 +17,7 @@ type fixSimConnection struct {
 	connectionName    string
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
-	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
+	refreshInChan     chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
 	out               chan<- *model.ClobQuote
 	fixSimClient      marketDataClient
@@ -27,29 +27,32 @@ type fixSimConnection struct {
 }
 
 type marketDataClient interface {
-	connect(connectionId string) (receiveIncRefreshFn, error)
-	subscribe(symbol string, subscriberId string) error
+
+	subscribe(symbol string) error
 	close() error
 }
 
 type symbolLookup func(listingId int) (string, error)
 
+type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) marketDataClient
+
 func NewFixSimConnection(
-	marketDataClient marketDataClient, connectionName string, symbolLookup symbolLookup,
+	newClientFn newMarketDataClient, connectionName string, symbolLookup symbolLookup,
 	out chan<- *model.ClobQuote) *fixSimConnection {
 
 	c := &fixSimConnection{
-		fixSimClient:      marketDataClient,
 		out:               out,
 		connectionName:    connectionName,
 		symbolToListingId: make(map[string]int),
 		idToQuote:         make(map[int]*model.ClobQuote),
-		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
+		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol, 1000),
 		symbolLookup:      symbolLookup,
 		log:               log.New(os.Stdout, connectionName, log.Lshortfile|log.Ltime),
 		errLog:            log.New(os.Stderr, connectionName, log.Lshortfile|log.Ltime),
 	}
+
+	c.fixSimClient = newClientFn(connectionName, c.refreshInChan)
 
 	go func() {
 		for {
@@ -60,7 +63,6 @@ func NewFixSimConnection(
 		}
 	}()
 
-	go c.connectToFixSim()
 
 	return c
 }
@@ -88,11 +90,11 @@ func (n *fixSimConnection) readInputChannel() error {
 	case m := <-n.mappingChan:
 		n.symbolToListingId[m.Symbol] = m.ListingId
 		go func() {
-			if err := n.fixSimClient.subscribe(m.Symbol, n.connectionName); err != nil {
+			if err := n.fixSimClient.subscribe(m.Symbol); err != nil {
 				n.errLog.Printf("subscribe call failed:%v", err)
 			}
 		}()
-	case r, ok := <-n.refreshChan:
+	case r, ok := <-n.refreshInChan:
 		if ok {
 			for _, incGrp := range r.MdIncGrp {
 				symbol := incGrp.GetInstrument().GetSymbol()
@@ -121,32 +123,6 @@ func (n *fixSimConnection) readInputChannel() error {
 	return nil
 }
 
-func (n *fixSimConnection) connectToFixSim() {
-
-	defer func() {
-		close(n.refreshChan)
-		if err := n.fixSimClient.close(); err != nil {
-			n.errLog.Println("error whilst closing:", err)
-		}
-	}()
-
-	stream, err := n.fixSimClient.connect(n.connectionName)
-	if err != nil {
-		n.errLog.Println("Failed to connect to the market data server:", err)
-		return
-	}
-
-	for {
-		incRefresh, err := stream()
-		if err != nil {
-			n.errLog.Println("inbound stream error:", err)
-			return
-		}
-
-		n.refreshChan <- incRefresh
-	}
-
-}
 
 func newClobQuote(listingId int) *model.ClobQuote {
 	bids := make([]*model.ClobLine, 0)

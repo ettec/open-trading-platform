@@ -117,18 +117,18 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	n.refreshChan <- &md.MarketDataIncrementalRefresh{
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
 	}
 
 	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
 
-	n.refreshChan <- &md.MarketDataIncrementalRefresh{
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries2,
 	}
 
 	entries3 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 11, 2, "A")}
-	n.refreshChan <- &md.MarketDataIncrementalRefresh{
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries3,
 	}
 
