@@ -2,6 +2,7 @@ package actor
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"math/rand"
 	"reflect"
 	"testing"
 )
@@ -59,7 +60,52 @@ func Test_circularBuffer(t *testing.T) {
 
 }
 
-func Test_circularBufferReadOverCapacity(t *testing.T) {
+func Test_circularBufferDisallowsAddWhenFull(t *testing.T)  {
+	b := newBoundedCircularIntBuffer(4)
+
+	b.addHead(1)
+	b.addHead(2)
+	b.addHead(3)
+	b.addHead(4)
+
+	b.removeTail()
+	b.removeTail()
+
+
+	b.addHead(7)
+	b.addHead(8)
+	ok := b.addHead(9)
+	if ok {
+		t.Fatal("expected add to fail")
+	}
+}
+
+func Test_circularBufferReturnsFalseWhenEmpty(t *testing.T) {
+
+	b := newBoundedCircularIntBuffer(4)
+
+	b.addHead(1)
+	b.addHead(2)
+	b.removeTail()
+	b.removeTail()
+	b.addHead(3)
+	b.addHead(4)
+	b.addHead(6)
+	b.addHead(7)
+
+	b.removeTail()
+	b.removeTail()
+	b.removeTail()
+	b.removeTail()
+	_, ok := b.removeTail()
+
+	if ok {
+		t.Fatal("expected remove to fail")
+	}
+
+}
+
+func Test_circularBufferReadOverCapacityBoundary(t *testing.T) {
 
 	b := newBoundedCircularIntBuffer(4)
 
@@ -99,5 +145,53 @@ func Test_circularBufferReadOverCapacity(t *testing.T) {
 	if ! reflect.DeepEqual(expected, out) {
 		t.Fatalf("expected out %v to equal %v",out,expected)
 	}
+
+}
+
+func Test_circularBufferManyOperations(t *testing.T) {
+
+	b := newBoundedCircularIntBuffer(20)
+	numOps := 10000
+	var expectedOut []int32
+	totalReads:=0
+	for i:=0; i< numOps; i++ {
+
+		if b.len < b.capacity {
+			numAdds := rand.Intn(b.capacity-b.len)
+			for j:=0; j<numAdds;j++ {
+				r:=rand.Int31n(100)
+				ok := b.addHead(r)
+				if !ok {
+					t.Fatalf("expected add to be ok")
+				}
+
+				expectedOut = append(expectedOut,r)
+			}
+		}
+
+		numReads := rand.Intn(b.len)
+		for j:=0; j<numReads;j++ {
+			_, ok := b.removeTail()
+			if !ok {
+				t.Fatalf("expected remove to be ok")
+			}
+
+			totalReads++
+		}
+
+	}
+
+	var out []int32
+	i, ok := b.removeTail()
+	for ok {
+		out = append(out,i)
+		i, ok = b.removeTail()
+	}
+
+	expectedOut = expectedOut[totalReads:]
+	if ! reflect.DeepEqual(expectedOut, out) {
+		t.Fatalf("expected out %v to equal %v",out,expectedOut)
+	}
+
 
 }
