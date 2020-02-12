@@ -1,7 +1,6 @@
 package actor
 
 import (
-	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"log"
 	"os"
@@ -10,21 +9,18 @@ import (
 type ClientConnection interface {
 	Actor
 	GetId() string
-	Send(q *model.ClobQuote)
 	Subscribe(listingId int)
 }
 
-type clobQuoteSink interface {
-	Send (quote *model.ClobQuote) error
-	Close() error
-}
+type sendQuoteFn = func(quote *model.ClobQuote) error
+
 
 type clientConnection struct {
 	actorImpl
 	id                string
-	subscribeFn       subscribeToListing
-	clobQuoteSink       clobQuoteSink
+	sendQuoteFn       sendQuoteFn
 	quotesInChan      chan *model.ClobQuote
+	quoteDistributor  QuoteDistributor
 	subscribeChan     chan int
 	closeChan         chan chan<- bool
 	subscribeListings map[int32]bool
@@ -34,7 +30,6 @@ type clientConnection struct {
 
 func (c *clientConnection) Subscribe(listingId int) {
 	c.subscribeChan <- listingId
-	c.subscribeFn(listingId)
 	c.log.Println("subscribed to listing id:", listingId)
 }
 
@@ -44,16 +39,19 @@ func (c *clientConnection) GetId() string {
 
 
 
-func NewClientConnection(id string, subscribeFn subscribeToListing, clobQuoteSink clobQuoteSink,
+func NewClientConnection(id string,  sendQuoteFn sendQuoteFn,
+	quoteDistributor QuoteDistributor,
 	maxPendingQuotes int) *clientConnection {
 
-	cc := &clientConnection{id: id, subscribeFn: subscribeFn, clobQuoteSink: clobQuoteSink,
+	cc := &clientConnection{id: id, sendQuoteFn: sendQuoteFn,
 		quotesInChan: make(chan *model.ClobQuote, maxPendingQuotes), subscribeChan: make(chan int),
+		quoteDistributor: quoteDistributor,
 		subscribeListings: map[int32]bool{},
 		maxPendingQuotes:   maxPendingQuotes,
 		log:               log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags)}
 
 	cc.actorImpl = newActorImpl("connection:"+id, cc.readInputChannels)
+	cc.quoteDistributor.AddOutQuoteChan(cc.quotesInChan)
 
 	log.Println("the id of the inbound quotes channel for the connection is:", cc.quotesInChan)
 
@@ -63,22 +61,20 @@ func NewClientConnection(id string, subscribeFn subscribeToListing, clobQuoteSin
 func (c *clientConnection) readInputChannels() (chan<- bool, error) {
 
 	select {
-	case q, ok := <-c.quotesInChan:
-		if ok {
+	case q := <-c.quotesInChan:
+
 			if c.subscribeListings[q.ListingId] {
-				if err := c.clobQuoteSink.Send(q); err != nil {
-					return nil, fmt.Errorf("error occurred whilst sending quote:%w", err)
+				if err := c.sendQuoteFn(q); err != nil {
+					log.Printf(" closing as error occurred whilst sending quote:%w", err)
+					c.closeChan <- make(chan bool, 1)
 				}
 			}
-		} else {
-			log.Printf("closing as inbound quote channel %v is closed", c.id)
-			c.closeChan <- make(chan bool, 1)
-		}
 
 	case l := <-c.subscribeChan:
 		c.subscribeListings[int32(l)] = true
+		c.quoteDistributor.Subscribe(l)
 	case d := <-c.closeChan:
-		defer c.clobQuoteSink.Close()
+		defer c.quoteDistributor.RemoveOutQuoteChan(c.quotesInChan)
 		return d, nil
 	}
 

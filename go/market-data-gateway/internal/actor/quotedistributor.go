@@ -6,29 +6,46 @@ import (
 	"os"
 )
 
+type QuoteDistributor interface {
+	Subscribe(listingId int)
+
+	AddOutQuoteChan(sink chan<- *model.ClobQuote)
+
+	RemoveOutQuoteChan(sink chan<- *model.ClobQuote)
+}
+
+type QuoteSource interface {
+	Connect(out chan<- *model.ClobQuote) error
+	Subscribe(listingId int)
+}
+
 type quoteDistributor struct {
 	actorImpl
 	outQuoteChans []chan<- *model.ClobQuote
 	addOutChan    chan chan<- *model.ClobQuote
 	removeOutChan chan chan<- *model.ClobQuote
 	inQuoteChan   chan *model.ClobQuote
+	quoteSource   QuoteSource
 	log           *log.Logger
 }
 
-func NewQuoteDistributor() *quoteDistributor {
+func NewQuoteDistributor(quoteSource QuoteSource) *quoteDistributor {
 	q := &quoteDistributor{outQuoteChans: make([]chan<- *model.ClobQuote, 0),
 		addOutChan:    make(chan chan<- *model.ClobQuote, 100),
 		removeOutChan: make(chan chan<- *model.ClobQuote, 100),
-		inQuoteChan:   make(chan *model.ClobQuote, 1000),
+		quoteSource:   quoteSource,
 		log:           log.New(os.Stdout, "quoteDistributor", log.LstdFlags),
 	}
+
+	q.inQuoteChan = make(chan *model.ClobQuote, 1000)
+	q.quoteSource.Connect(q.inQuoteChan)
 
 	q.actorImpl = newActorImpl("quoteDistributor", q.readInputChannels)
 	return q
 }
 
-func (q *quoteDistributor) Send(quote *model.ClobQuote) {
-	q.inQuoteChan <- quote
+func (q *quoteDistributor) Subscribe(listingId int) {
+	q.quoteSource.Subscribe(listingId)
 }
 
 func (q *quoteDistributor) AddOutQuoteChan(sink chan<- *model.ClobQuote) {

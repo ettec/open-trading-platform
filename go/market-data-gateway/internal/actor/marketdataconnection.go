@@ -3,21 +3,13 @@ package actor
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"log"
 	"os"
 	"time"
 )
 
-type RefreshSink interface {
-	SendRefresh(refresh *marketdata.MarketDataIncrementalRefresh)
-}
 
-type MdServerConnection interface {
-	Actor
-	Subscribe(symbol string)
-}
 
 type newConnection = func(connectionName string) connections.Connection
 
@@ -33,10 +25,10 @@ type mdServerConnection struct {
 	connection             connections.Connection
 	newConnection          newConnection
 	quotesIn               <-chan *model.ClobQuote
-	out                    chan *model.ClobQuote
+	out                    chan<- *model.ClobQuote
 }
 
-func NewMdServerConnection(address string, connectionName string, newConnection newConnection, reconnectInterval time.Duration) *mdServerConnection {
+func NewMdServerConnection( connectionName string, newConnection newConnection, reconnectInterval time.Duration) *mdServerConnection {
 
 	m := &mdServerConnection{
 		connectionName:         connectionName,
@@ -50,20 +42,22 @@ func NewMdServerConnection(address string, connectionName string, newConnection 
 		newConnection:          newConnection,
 	}
 
-	m.actorImpl = newActorImpl("mdServerConnection for  "+address, m.readInputChannels)
+	m.actorImpl = newActorImpl("mdServerConnection for  "+ connectionName, m.readInputChannels)
 
 	return m
 }
 
-func (m *mdServerConnection) Connect() (<-chan *model.ClobQuote, error) {
+
+
+func (m *mdServerConnection) Connect(out chan<- *model.ClobQuote) error {
 
 	if m.out != nil {
-		return nil, fmt.Errorf("connect has already been called")
+		return  fmt.Errorf("connect has already been called")
 	}
 
+	m.out = out
 	m.connectSignalChan <- true
-	m.out = make(chan *model.ClobQuote, 1000)
-	return m.out, nil
+	return nil
 }
 
 
@@ -78,7 +72,7 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 		if ok {
 			m.out <- quote
 		} else {
-			log.Printf("inbound quote stream has closed, will attempt reconnect in %v seconds.", m.reconnectInterval)
+			log.Printf("inbound quote stream has closed, will attempt reconnect inChan %v seconds.", m.reconnectInterval)
 			m.quotesIn = nil
 			go func() {
 				time.Sleep(m.reconnectInterval)
@@ -104,7 +98,7 @@ func (m *mdServerConnection) readInputChannels() (chan<- bool, error) {
 				m.subscriptionChan <- s
 			}
 		} else {
-			m.log.Printf("failed to connect, will attempt reconnect in %v seconds.  Connection error:%v" , m.reconnectInterval.Seconds() ,err)
+			m.log.Printf("failed to Connect, will attempt reconnect inChan %v seconds.  Connection error:%v" , m.reconnectInterval.Seconds() ,err)
 			go func() {
 				time.Sleep(m.reconnectInterval)
 				m.connectSignalChan <- true

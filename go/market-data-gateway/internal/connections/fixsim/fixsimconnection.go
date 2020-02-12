@@ -65,7 +65,7 @@ func NewFixSimConnection(
 }
 
 // Connects to the fix simulator, can only be called once.  To reconnect create
-// a new connection object and call Connect on that.
+// a new connection object and call connect on that.
 func (n *fixSimConnection) Connect() (<-chan *model.ClobQuote, error) {
 
 	if n.out != nil {

@@ -58,9 +58,10 @@ func TestNewMdServerConnection(t *testing.T) {
 		}
 	}
 
-	mdConn := NewMdServerConnection("testaddress", "testconnection", dial, 0)
+	mdConn := NewMdServerConnection("testconnection", dial, 0)
 
-	mdConn.Connect()
+	out := make(chan *model.ClobQuote, 100)
+	mdConn.Connect(out)
 
 	invoke(mdConn.readInputChannels, 1)
 
@@ -97,9 +98,10 @@ func TestSubscribe(t *testing.T) {
 		}
 	}
 
-	mdConn := NewMdServerConnection("testaddress", "testconnection", dial, 0)
+	mdConn := NewMdServerConnection( "testconnection", dial, 0)
 
-	mdConn.Connect()
+	out := make(chan *model.ClobQuote, 100)
+	mdConn.Connect(out)
 
 	invoke(mdConn.readInputChannels, 1)
 
@@ -132,9 +134,10 @@ func TestRefreshesAreForwardedToSink(t *testing.T) {
 		}
 	}
 
-	mdConn := NewMdServerConnection("testaddress", "testconnection", dial, 0)
+	mdConn := NewMdServerConnection( "testconnection", dial, 0)
 
-	out, _ := mdConn.Connect()
+	out := make(chan *model.ClobQuote, 100)
+	mdConn.Connect(out)
 
 	mdConn.readInputChannels()
 
@@ -172,14 +175,15 @@ func TestSubscribesSentWhilstNotConnectedAreResentOnConnect(t *testing.T) {
 		}
 	}
 
-	mdConn := NewMdServerConnection("testaddress", "testconnection", dial, 0)
+	mdConn := NewMdServerConnection( "testconnection", dial, 0)
 
 	mdConn.Subscribe(1)
 	mdConn.Subscribe(2)
 
 	invoke(mdConn.readInputChannels, 2)
 
-	mdConn.Connect()
+	out := make(chan *model.ClobQuote, 100)
+	mdConn.Connect(out)
 
 	mdConn.readInputChannels()
 	mdConn.readInputChannels()
@@ -205,7 +209,7 @@ func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 	dial := func(target string) connections.Connection {
 		return &testMarketDataClient{
 			connect: func() (source <-chan *model.ClobQuote, err error) {
-				log.Println("connect called")
+				log.Println("Connect called")
 				connectCalled = true
 				return clobSource, nil
 			},
@@ -220,14 +224,15 @@ func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 
 	reconnectInterval := 1 * time.Second
 
-	mdConn := NewMdServerConnection("testaddress", "testconnection", dial, reconnectInterval)
+	mdConn := NewMdServerConnection("testconnection", dial, reconnectInterval)
 
-	out, _ := mdConn.Connect()
+	out := make(chan *model.ClobQuote, 100)
+	mdConn.Connect(out)
 
 	mdConn.readInputChannels()
 
 	if !connectCalled {
-		t.Errorf("expected connect to be called")
+		t.Errorf("expected Connect to be called")
 	}
 	connectCalled = false
 
@@ -266,7 +271,7 @@ func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 
 
 	if !connectCalled {
-		t.Errorf("expected connect to be called")
+		t.Errorf("expected Connect to be called")
 	}
 	connectCalled = false
 
@@ -301,9 +306,10 @@ func TestConnectionIsClosedWhenMarketDataConnectionActorIsClosed(t *testing.T) {
 		}
 	}
 
-	mdConn := NewMdServerConnection("testaddress", "testconnection", dial, 0)
+	mdConn := NewMdServerConnection("testconnection", dial, 0)
 	mdConn.Start()
-	mdConn.Connect()
+	out := make(chan *model.ClobQuote, 100)
+	mdConn.Connect(out)
 
 	d:= make(chan bool, 10)
 

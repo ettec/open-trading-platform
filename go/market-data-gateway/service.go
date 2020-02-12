@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -12,32 +13,46 @@ import (
 	"log"
 	"net"
 	"sync"
+	"time"
 )
 
 type service struct {
 	partyIdToConnection map[string]actor.ClientConnection
-	fixSimConn          actor.MdServerConnection
 	quoteDistributor    actor.QuoteDistributor
-	actors              []actor.Actor
 	connMux             sync.Mutex
+	actors []actor.Actor
 }
 
-func newService(address, name string) *service {
+func newService(address, name string) (*service, error) {
+
+	listingIdToSymbol := map[int]string{1:"A", 2:"B", 3:"C", 4:"D"}
+	newConnection := func(connectionName string) connections.Connection {
+
+		return fixsim.NewFixSimConnection(address, connectionName, func(listingId int) (s string, err error) {
+			if sym, ok := listingIdToSymbol[listingId]; ok {
+				return sym, nil
+			} else {
+				return "", fmt.Errorf("symbol not found for listing id %v", listingId)
+			}
+		})
+
+	}
 
 	var actors []actor.Actor
-	qd := actor.NewQuoteDistributor()
+	mdConnection := actor.NewMdServerConnection(name, newConnection, 20 * time.Second )
+	actors = append(actors, mdConnection)
+
+	qd := actor.NewQuoteDistributor(mdConnection)
 	actors = append(actors, qd)
-	quoteNormaliser := fixsim.NewFixSimConnection(qd)
-	actors = append(actors, qd)
-	fixSimConn := actor.NewMdServerConnection(address, name, quoteNormaliser)
-	actors = append(actors, fixSimConn)
+
+	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd, actors: actors}
+
 
 	for _, actor := range actors {
 		actor.Start()
 	}
 
-	return &service{partyIdToConnection: make(map[string]actor.ClientConnection), fixSimConn: fixSimConn, quoteDistributor: qd,
-		actors: actors}
+	return s, nil
 }
 
 
@@ -76,11 +91,13 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*empt
 }
 
 func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
+
+	stream.
+
 	subscriberId := request.GetSubscriberId()
 
 	if conn, ok := s.getConnection(subscriberId); ok {
 		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
-		s.quoteDistributor.RemoveConnection(conn)
 		s.removeConnection(subscriberId)
 		done := make( chan bool, 1)
 		conn.Close(done)
@@ -88,9 +105,11 @@ func (s *service) Connect(request *model.ConnectRequest, stream model.MarketData
 		log.Print("connection closed:", subscriberId)
 	}
 
+	stream.Context()
+
 	log.Println("creating client connection for ", subscriberId)
-	cc := actor.NewClientConnection(subscriberId, s.fixSimConn, stream, 1000)
-	cc.Start()
+	cc := actor.NewClientConnection(subscriberId,  stream, s.quoteDistributor, 1000)
+	cc.start()
 	s.quoteDistributor.AddConnection(cc)
 	s.addConnection(subscriberId, cc)
 

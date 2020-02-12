@@ -126,7 +126,7 @@ func (c *fixSimMarketDataServiceClient) Subscribe(ctx context.Context, in *marke
 }
 
 func (c *fixSimMarketDataServiceClient) Connect(ctx context.Context, in *ConnectRequest, opts ...grpc.CallOption) (FixSimMarketDataService_ConnectClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_FixSimMarketDataService_serviceDesc.Streams[0], "/marketdataservice.FixSimMarketDataService/Connect", opts...)
+	stream, err := c.cc.NewStream(ctx, &_FixSimMarketDataService_serviceDesc.Streams[0], "/marketdataservice.FixSimMarketDataService/connect", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func (*UnimplementedFixSimMarketDataServiceServer) Subscribe(ctx context.Context
 	return nil, status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
 }
 func (*UnimplementedFixSimMarketDataServiceServer) Connect(req *ConnectRequest, srv FixSimMarketDataService_ConnectServer) error {
-	return status.Errorf(codes.Unimplemented, "method Connect not implemented")
+	return status.Errorf(codes.Unimplemented, "method connect not implemented")
 }
 
 func RegisterFixSimMarketDataServiceServer(s *grpc.Server, srv FixSimMarketDataServiceServer) {
@@ -228,7 +228,7 @@ var _FixSimMarketDataService_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Connect",
+			StreamName:    "connect",
 			Handler:       _FixSimMarketDataService_Connect_Handler,
 			ServerStreams: true,
 		},

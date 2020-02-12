@@ -172,7 +172,7 @@ func (c *marketDataGatewayClient) Subscribe(ctx context.Context, in *SubscribeRe
 }
 
 func (c *marketDataGatewayClient) Connect(ctx context.Context, in *ConnectRequest, opts ...grpc.CallOption) (MarketDataGateway_ConnectClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_MarketDataGateway_serviceDesc.Streams[0], "/marketdatagateway.MarketDataGateway/Connect", opts...)
+	stream, err := c.cc.NewStream(ctx, &_MarketDataGateway_serviceDesc.Streams[0], "/marketdatagateway.MarketDataGateway/connect", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +217,7 @@ func (*UnimplementedMarketDataGatewayServer) Subscribe(ctx context.Context, req 
 	return nil, status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
 }
 func (*UnimplementedMarketDataGatewayServer) Connect(req *ConnectRequest, srv MarketDataGateway_ConnectServer) error {
-	return status.Errorf(codes.Unimplemented, "method Connect not implemented")
+	return status.Errorf(codes.Unimplemented, "method connect not implemented")
 }
 
 func RegisterMarketDataGatewayServer(s *grpc.Server, srv MarketDataGatewayServer) {
@@ -274,7 +274,7 @@ var _MarketDataGateway_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Connect",
+			StreamName:    "connect",
 			Handler:       _MarketDataGateway_Connect_Handler,
 			ServerStreams: true,
 		},

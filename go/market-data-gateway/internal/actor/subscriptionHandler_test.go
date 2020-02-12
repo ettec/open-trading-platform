@@ -40,15 +40,15 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 	invoke(s.readInputChannels, 4)
 
 	if _, ok := subscribedSymbols["A"]; !ok {
-		t.Errorf("expected symbol in Subscribe call")
+		t.Errorf("expected symbol inChan Subscribe call")
 	}
 
 	if _, ok := subscribedSymbols["B"]; !ok {
-		t.Errorf("expected symbol in Subscribe call")
+		t.Errorf("expected symbol inChan Subscribe call")
 	}
 
 	if len(subscribedSymbols) != 2 {
-		t.Errorf("expected 2 symbols in Subscribe call")
+		t.Errorf("expected 2 symbols inChan Subscribe call")
 	}
 
 	done := make(chan bool)

@@ -5,10 +5,24 @@ import (
 	"testing"
 )
 
+type testQuoteSource struct {
+	out chan<- *model.ClobQuote
+}
+
+func (t *testQuoteSource) Connect(out chan<- *model.ClobQuote) error {
+	t.out = out
+	return nil
+}
+
+func (t *testQuoteSource)  Subscribe(listingId int) {
+
+}
+
 
 func Test_quoteDistributor_Send(t *testing.T) {
 
-	d := NewQuoteDistributor()
+	tqs := &testQuoteSource{}
+	d := NewQuoteDistributor(tqs)
 
 	s1 := make( chan *model.ClobQuote, 100)
 
@@ -20,7 +34,8 @@ func Test_quoteDistributor_Send(t *testing.T) {
 	d.readInputChannels()
 	d.readInputChannels()
 
-	d.Send(&model.ClobQuote{ListingId:1})
+	tqs.out <- &model.ClobQuote{ListingId:1}
+
 
 	d.readInputChannels()
 
@@ -37,7 +52,8 @@ func Test_quoteDistributor_Send(t *testing.T) {
 
 func Test_quoteDistributorRemovesFullChan(t *testing.T) {
 
-	d := NewQuoteDistributor()
+	tqs := &testQuoteSource{}
+	d := NewQuoteDistributor(tqs)
 
 	s1 := make( chan *model.ClobQuote, 2)
 
@@ -49,9 +65,9 @@ func Test_quoteDistributorRemovesFullChan(t *testing.T) {
 	d.readInputChannels()
 	d.readInputChannels()
 
-	d.Send(&model.ClobQuote{ListingId:1})
-	d.Send(&model.ClobQuote{ListingId:2})
-	d.Send(&model.ClobQuote{ListingId:3})
+	tqs.out <- &model.ClobQuote{ListingId:1}
+	tqs.out <- &model.ClobQuote{ListingId:2}
+	tqs.out <- &model.ClobQuote{ListingId:3}
 
 	d.readInputChannels()
 	d.readInputChannels()
