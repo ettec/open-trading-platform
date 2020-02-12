@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
-	"google.golang.org/grpc"
 	"log"
 	"os"
 )
@@ -15,17 +14,16 @@ type ListingIdSymbol struct {
 }
 
 type fixSimConnection struct {
-	address           string
 	connectionName    string
 	symbolToListingId map[string]int
 	idToQuote         map[int]*model.ClobQuote
 	refreshChan       chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
-	out               chan *model.ClobQuote
+	out               chan<- *model.ClobQuote
 	fixSimClient      marketDataClient
 	symbolLookup      symbolLookup
-	dial              dial
 	log               *log.Logger
+	errLog            *log.Logger
 }
 
 type marketDataClient interface {
@@ -34,77 +32,49 @@ type marketDataClient interface {
 	close() error
 }
 
-type dial func(target string) (marketDataClient, error)
 type symbolLookup func(listingId int) (string, error)
 
 func NewFixSimConnection(
-	address string, connectionName string, symbolLookup symbolLookup) *fixSimConnection {
+	marketDataClient marketDataClient, connectionName string, symbolLookup symbolLookup,
+	out chan<- *model.ClobQuote) *fixSimConnection {
 
-	q := &fixSimConnection{
-		address:           address,
+	c := &fixSimConnection{
+		fixSimClient:      marketDataClient,
+		out:               out,
 		connectionName:    connectionName,
 		symbolToListingId: make(map[string]int),
 		idToQuote:         make(map[int]*model.ClobQuote),
 		refreshChan:       make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol, 1000),
 		symbolLookup:      symbolLookup,
-		log:               log.New(os.Stdout, "fixSimConnection:"+connectionName, log.LstdFlags),
+		log:               log.New(os.Stdout, connectionName, log.Lshortfile|log.Ltime),
+		errLog:            log.New(os.Stderr, connectionName, log.Lshortfile|log.Ltime),
 	}
-
-	q.dial = func(target string) (client marketDataClient, err error) {
-
-		conn, err := grpc.Dial(target, grpc.WithInsecure(), grpc.WithBlock())
-		return &fixSimMarketDataClientImpl{
-			client: NewFixSimMarketDataServiceClient(conn),
-			conn:   conn,
-		}, nil
-
-	}
-
-	return q
-}
-
-// Connects to the fix simulator, can only be called once.  To reconnect create
-// a new connection object and call connect on that.
-func (n *fixSimConnection) Connect() (<-chan *model.ClobQuote, error) {
-
-	if n.out != nil {
-		return nil, fmt.Errorf("already been connected")
-	}
-
-	n.out = make(chan *model.ClobQuote, 1000)
-
-	n.log.Println("connecting to ", n.address)
-
-	client, err := n.dial(n.address)
-	if err != nil {
-		return nil, err
-	}
-	n.fixSimClient = client
 
 	go func() {
 		for {
-			if err := n.readInputChannel(); err != nil {
-				n.log.Printf("closing read loop: %v", err)
+			if err := c.readInputChannel(); err != nil {
+				c.errLog.Printf("closing read loop: %v", err)
 				return
 			}
 		}
 	}()
 
-	go n.connectToFixSim()
+	go c.connectToFixSim()
 
-	return n.out, nil
+	return c
 }
+
 
 func (n *fixSimConnection) Subscribe(listingId int) {
 	go func() {
-		if symbol, err :=  n.symbolLookup(listingId); err == nil {
-			n.mappingChan<-ListingIdSymbol{
+		if symbol, err := n.symbolLookup(listingId); err == nil {
+			n.mappingChan <- ListingIdSymbol{
 				ListingId: listingId,
 				Symbol:    symbol,
 			}
 		} else {
-			n.log.Printf("error lookingup symbol for listing id: %v, error:%v", listingId, err)
+			n.errLog.Printf("error lookingup symbol for listing id: %v, error:%v", listingId, err)
 		}
 	}()
 }
@@ -119,7 +89,7 @@ func (n *fixSimConnection) readInputChannel() error {
 		n.symbolToListingId[m.Symbol] = m.ListingId
 		go func() {
 			if err := n.fixSimClient.subscribe(m.Symbol, n.connectionName); err != nil {
-				n.log.Printf("subscribe call failed:%v", err)
+				n.errLog.Printf("subscribe call failed:%v", err)
 			}
 		}()
 	case r, ok := <-n.refreshChan:
@@ -139,7 +109,7 @@ func (n *fixSimConnection) readInputChannel() error {
 						n.out <- updatedQuote
 					}
 				} else {
-					n.log.Printf("received refresh for unknown symbol: %v", symbol)
+					n.errLog.Printf("received refresh for unknown symbol: %v", symbol)
 				}
 			}
 		} else {
@@ -156,20 +126,20 @@ func (n *fixSimConnection) connectToFixSim() {
 	defer func() {
 		close(n.refreshChan)
 		if err := n.fixSimClient.close(); err != nil {
-			n.log.Println("error whilst closing:", err)
+			n.errLog.Println("error whilst closing:", err)
 		}
 	}()
 
 	stream, err := n.fixSimClient.connect(n.connectionName)
 	if err != nil {
-		n.log.Println("Failed to connect to the market data server:", err)
+		n.errLog.Println("Failed to connect to the market data server:", err)
 		return
 	}
 
 	for {
 		incRefresh, err := stream()
 		if err != nil {
-			n.log.Println("inbound stream error:", err)
+			n.errLog.Println("inbound stream error:", err)
 			return
 		}
 

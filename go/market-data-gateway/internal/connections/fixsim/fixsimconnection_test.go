@@ -63,18 +63,10 @@ func Test_fixSimConnection_close(t *testing.T) {
 
 
 	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	n := NewFixSimConnection( "testAddress", "testName", toLookupFunc(listingIdToSym))
-
 	tmd := newTestMarketDataClient()
 
-	n.dial = func(target string) (marketDataClient, error) {
-		return tmd, nil
-	}
-
-	out, err := n.Connect()
-	if err != nil {
-		t.Errorf("connection error")
-	}
+	out := make(chan *model.ClobQuote, 100)
+	n := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
 
 
 	n.Subscribe(1)
@@ -109,19 +101,12 @@ func Test_fixSimConnection_close(t *testing.T) {
 
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
-	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	n := NewFixSimConnection( "testAddress", "testName", toLookupFunc(listingIdToSym))
-
 	tmd := newTestMarketDataClient()
 
-	n.dial = func(target string) (marketDataClient, error) {
-		return tmd, nil
-	}
+	out := make(chan *model.ClobQuote, 100)
+	listingIdToSym := map[int]string{1:"A", 2:"B"}
+	n := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
 
-	out, err := n.Connect()
-	if err != nil {
-		t.Errorf("connection error")
-	}
 
 	n.Subscribe(1)
 
@@ -151,7 +136,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	q = <-out
 	q = <-out
 
-	err = testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
+	err := testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
 	}
