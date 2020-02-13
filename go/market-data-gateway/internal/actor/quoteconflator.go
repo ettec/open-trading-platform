@@ -10,15 +10,20 @@ import (
 type quoteConflator struct {
 	inChan        <-chan *model.ClobQuote
 	outChan       chan<- *model.ClobQuote
-	closeChan     <-chan chan bool
+	closeChan     chan  bool
 	pendingQuote  map[int32]*model.ClobQuote
 	receivedOrder *boundedCircularInt32Buffer
 	errLog        *log.Logger
 }
 
-func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote, closeChan <-chan chan bool, capacity int) *quoteConflator {
+
+func (c *quoteConflator) Close() {
+	c.closeChan<-true
+}
+
+func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote,  capacity int) *quoteConflator {
 	c := &quoteConflator{
-		inChan: inChan, outChan: outChan, closeChan: closeChan,
+		inChan: inChan, outChan: outChan, closeChan: make(chan  bool,1),
 		pendingQuote: map[int32]*model.ClobQuote{}, receivedOrder: newBoundedCircularIntBuffer(capacity),
 	errLog:log.New(os.Stderr, "", log.Lshortfile|log.Ltime)}
 
@@ -45,8 +50,7 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 				case c.outChan <- eq:
 					delete(c.pendingQuote, eq.ListingId)
 					c.receivedOrder.removeTail()
-				case d := <-c.closeChan:
-					d <- true
+				case  <-c.closeChan:
 					return
 				}
 
@@ -57,8 +61,7 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 						c.errLog.Println("exiting:", err)
 						return
 					}
-				case d := <-c.closeChan:
-					d <- true
+				case <-c.closeChan:
 					return
 				}
 

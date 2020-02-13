@@ -11,9 +11,9 @@ func Test_quotesAreConflated(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
 	out := make(chan *model.ClobQuote)
-	close := make(chan chan bool)
 
-	NewQuoteConflator(in, out, close, 10)
+
+	NewQuoteConflator(in, out, 10)
 
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        1,}
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        2,}
@@ -36,9 +36,8 @@ func Test_quotesAreConflatedAndReceivedOrderIsMaintained(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
 	out := make(chan *model.ClobQuote)
-	close := make(chan chan bool)
 
-	NewQuoteConflator(in, out, close, 10)
+	NewQuoteConflator(in, out, 10)
 
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:        1,}
 	in <- &model.ClobQuote{ListingId: 2, XXX_sizecache:        6,}

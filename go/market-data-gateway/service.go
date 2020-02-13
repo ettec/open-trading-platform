@@ -92,6 +92,13 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*empt
 
 func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
 
+
+
+
+
+
+
+
 	stream.
 
 	subscriberId := request.GetSubscriberId()

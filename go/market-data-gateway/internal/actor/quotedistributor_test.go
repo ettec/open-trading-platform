@@ -14,69 +14,58 @@ func (t *testQuoteSource) Connect(out chan<- *model.ClobQuote) error {
 	return nil
 }
 
-func (t *testQuoteSource)  Subscribe(listingId int) {
+func (t *testQuoteSource) Subscribe(listingId int) {
 
 }
-
 
 func Test_quoteDistributor_Send(t *testing.T) {
 
-	tqs := &testQuoteSource{}
-	d := NewQuoteDistributor(tqs)
+	in := make(chan *model.ClobQuote, 10)
 
-	s1 := make( chan *model.ClobQuote, 100)
+	d := NewQuoteDistributor(func(listingId int) {}, in)
 
-	s2 := make( chan *model.ClobQuote, 100)
+	s1 := make(chan *model.ClobQuote, 100)
+
+	s2 := make(chan *model.ClobQuote, 100)
 
 	d.AddOutQuoteChan(s1)
 	d.AddOutQuoteChan(s2)
 
-	d.readInputChannels()
-	d.readInputChannels()
+	in <- &model.ClobQuote{ListingId: 1}
 
-	tqs.out <- &model.ClobQuote{ListingId:1}
-
-
-	d.readInputChannels()
-
-	if q:=<-s1; q.ListingId != 1 {
+	if q := <-s1; q.ListingId != 1 {
 		t.Errorf("expected quote note received")
 	}
 
-	if q:=<-s2; q.ListingId != 1 {
+	if q := <-s2; q.ListingId != 1 {
 		t.Errorf("expected quote note received")
 	}
 
 }
 
-
 func Test_quoteDistributorRemovesFullChan(t *testing.T) {
 
-	tqs := &testQuoteSource{}
-	d := NewQuoteDistributor(tqs)
+	in := make(chan *model.ClobQuote)
 
-	s1 := make( chan *model.ClobQuote, 2)
+	d := NewQuoteDistributor(func(listingId int) {}, in)
 
-	s2 := make( chan *model.ClobQuote, 100)
+	s1 := make(chan *model.ClobQuote, 2)
+
+	s2 := make(chan *model.ClobQuote, 100)
 
 	d.AddOutQuoteChan(s1)
 	d.AddOutQuoteChan(s2)
 
-	d.readInputChannels()
-	d.readInputChannels()
 
-	tqs.out <- &model.ClobQuote{ListingId:1}
-	tqs.out <- &model.ClobQuote{ListingId:2}
-	tqs.out <- &model.ClobQuote{ListingId:3}
 
-	d.readInputChannels()
-	d.readInputChannels()
-	d.readInputChannels()
+	in <- &model.ClobQuote{ListingId: 1}
+	in <- &model.ClobQuote{ListingId: 2}
+	in <- &model.ClobQuote{ListingId: 3}
 
 	<-s1
 	<-s1
 
-	if _, ok :=<-s1; ok {
+	if _, ok := <-s1; ok {
 		t.Errorf("expected 3rd message to be empty and the channel to be closed")
 	}
 

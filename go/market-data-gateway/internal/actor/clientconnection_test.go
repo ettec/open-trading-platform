@@ -5,33 +5,10 @@ import (
 	"testing"
 )
 
-type testQuoteDistributor struct {
-
-}
-
-func (t *testQuoteDistributor) Subscribe(listingId int) {
-
-}
-
-func (t *testQuoteDistributor) AddOutQuoteChan(sink chan<- *model.ClobQuote) {
-
-}
-
-func (t *testQuoteDistributor) RemoveOutQuoteChan(sink chan<- *model.ClobQuote) {
-
-}
-
-
-
-func Test_clientConnection_Send(t *testing.T) {
-
-}
-
-
-
 func Test_clientConnection_Subscribe(t *testing.T) {
 
 	out := make(chan *model.ClobQuote, 100)
+	in := make(chan *model.ClobQuote, 100)
 
 
 
@@ -39,15 +16,17 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 		out <- quote
 		return nil
 	},
-		&testQuoteDistributor{}, 100)
+		func(listingId int) {
+
+		}, in, 100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)
 
-	c.quotesInChan <- &model.ClobQuote{ListingId: 4}
-	c.quotesInChan <- &model.ClobQuote{ListingId: 1}
-	c.quotesInChan <- &model.ClobQuote{ListingId: 3}
-	c.quotesInChan <- &model.ClobQuote{ListingId: 2}
+	in <- &model.ClobQuote{ListingId: 4}
+	in <- &model.ClobQuote{ListingId: 1}
+	in <- &model.ClobQuote{ListingId: 3}
+	in <- &model.ClobQuote{ListingId: 2}
 
 	if q := <-out; q.ListingId != 1 {
 		t.Errorf("expected quote with listing id 1")
@@ -60,6 +39,39 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 	case <-out:
 		t.Errorf("no more quotes expected")
 	default:
+	}
+
+}
+
+func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
+
+	out := make(chan *model.ClobQuote)
+	in := make(chan *model.ClobQuote)
+
+
+	c := NewClientConnection("testId", func(quote *model.ClobQuote) error {
+		out <- quote
+		return nil
+	},
+		func(listingId int) {
+
+		}, in, 100)
+
+	c.Subscribe(1)
+	c.Subscribe(2)
+
+	for i:=0; i<2000; i++ {
+		in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:int32(i)}
+		in <- &model.ClobQuote{ListingId: 2,  XXX_sizecache:int32(i)}
+	}
+
+	<-out
+
+	if q := <-out; q.ListingId != 1 && q.XXX_sizecache != 1999{
+		t.Errorf("expected quote with listing id 1")
+	}
+	if q := <-out; q.ListingId != 2 && q.XXX_sizecache != 1999 {
+		t.Errorf("expected quote with listing id 2")
 	}
 
 }

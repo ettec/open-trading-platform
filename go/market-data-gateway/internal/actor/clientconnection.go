@@ -7,25 +7,24 @@ import (
 )
 
 type ClientConnection interface {
-	Actor
 	GetId() string
 	Subscribe(listingId int)
 }
 
 type sendQuoteFn = func(quote *model.ClobQuote) error
 
-
 type clientConnection struct {
-	actorImpl
-	id                string
-	sendQuoteFn       sendQuoteFn
-	quotesInChan      chan *model.ClobQuote
-	quoteDistributor  QuoteDistributor
-	subscribeChan     chan int
-	closeChan         chan chan<- bool
-	subscribeListings map[int32]bool
-	maxPendingQuotes  int
-	log               *log.Logger
+	id            string
+	subscribeChan chan int
+	closeFilterChan     chan  bool
+	closeToClientChan     chan  bool
+	log           *log.Logger
+	errLog        *log.Logger
+}
+
+func (c *clientConnection) Close() {
+	c.closeFilterChan <- true
+	c.closeToClientChan <-true
 }
 
 func (c *clientConnection) Subscribe(listingId int) {
@@ -37,48 +36,58 @@ func (c *clientConnection) GetId() string {
 	return c.id
 }
 
+func NewClientConnection(id string, sendQuoteFn sendQuoteFn, subscribe subscribeToListing, in  <-chan *model.ClobQuote,
+	maxSubscriptions int) *clientConnection {
+
+	c := &clientConnection{id: id,
+		closeFilterChan: make(chan  bool, 1),
+		closeToClientChan: make(chan  bool, 1),
+		subscribeChan: make(chan int),
+		log:       log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
+		errLog:    log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
 
 
-func NewClientConnection(id string,  sendQuoteFn sendQuoteFn,
-	quoteDistributor QuoteDistributor,
-	maxPendingQuotes int) *clientConnection {
+	toConflator := make(chan *model.ClobQuote)
+	toClient := make(chan *model.ClobQuote)
 
-	cc := &clientConnection{id: id, sendQuoteFn: sendQuoteFn,
-		quotesInChan: make(chan *model.ClobQuote, maxPendingQuotes), subscribeChan: make(chan int),
-		quoteDistributor: quoteDistributor,
-		subscribeListings: map[int32]bool{},
-		maxPendingQuotes:   maxPendingQuotes,
-		log:               log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags)}
+	conflator := NewQuoteConflator(toConflator, toClient, maxSubscriptions)
 
-	cc.actorImpl = newActorImpl("connection:"+id, cc.readInputChannels)
-	cc.quoteDistributor.AddOutQuoteChan(cc.quotesInChan)
 
-	log.Println("the id of the inbound quotes channel for the connection is:", cc.quotesInChan)
+	subscribedListings := map[int32]bool{}
 
-	return cc
-}
-
-func (c *clientConnection) readInputChannels() (chan<- bool, error) {
-
-	select {
-	case q := <-c.quotesInChan:
-
-			if c.subscribeListings[q.ListingId] {
-				if err := c.sendQuoteFn(q); err != nil {
-					log.Printf(" closing as error occurred whilst sending quote:%w", err)
-					c.closeChan <- make(chan bool, 1)
+	go func() {
+		for {
+			select {
+			case q := <-in:
+				if subscribedListings[q.ListingId] {
+					toConflator <- q
 				}
+			case l := <-c.subscribeChan:
+				subscribedListings[int32(l)] = true
+				subscribe(l)
+			case <-c.closeFilterChan:
+				conflator.Close()
+				return
 			}
+		}
 
-	case l := <-c.subscribeChan:
-		c.subscribeListings[int32(l)] = true
-		c.quoteDistributor.Subscribe(l)
-	case d := <-c.closeChan:
-		defer c.quoteDistributor.RemoveOutQuoteChan(c.quotesInChan)
-		return d, nil
-	}
+	}()
 
-	return nil, nil
+
+	go func() {
+		for {
+			select {
+			case q := <-toClient:
+					if err := sendQuoteFn(q); err != nil {
+						c.errLog.Printf(" closing as error occurred whilst sending quote:%w", err)
+						c.Close()
+					}
+			case <-c.closeToClientChan:
+				return
+			}
+		}
+
+	}()
+
+	return c
 }
-
-
