@@ -21,7 +21,7 @@ type testMarketDataClient struct {
 
 }
 
-func newTestMarketDataClient() *testMarketDataClient {
+func newTestMarketDataClient() (*testMarketDataClient, error) {
 	t := &testMarketDataClient{
 
 		refreshChan : make(chan *md.MarketDataIncrementalRefresh, 100),
@@ -29,7 +29,7 @@ func newTestMarketDataClient() *testMarketDataClient {
 		subscribeChan : make(chan string, 100),
 		closeSignalChan : make(chan bool, 100),
 	}
-	return t
+	return t, nil
 }
 
 func (t *testMarketDataClient) connect(connectionId string) (receiveIncRefreshFn, error) {
@@ -63,10 +63,12 @@ func Test_fixSimConnection_close(t *testing.T) {
 
 
 	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	tmd := newTestMarketDataClient()
+	tmd,_ := newTestMarketDataClient()
+
+
 
 	out := make(chan *model.ClobQuote, 100)
-	n := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
+	n,_ := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
 
 
 	n.Subscribe(1)
@@ -105,7 +107,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	out := make(chan *model.ClobQuote, 100)
 	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	n := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
+	n,err := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
 
 
 	n.Subscribe(1)

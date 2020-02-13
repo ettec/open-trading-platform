@@ -6,6 +6,7 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
@@ -17,40 +18,46 @@ import (
 )
 
 type service struct {
-	partyIdToConnection map[string]actor.ClientConnection
+	partyIdToConnection map[string]clientConnection
 	quoteDistributor    actor.QuoteDistributor
 	connMux             sync.Mutex
-	actors []actor.Actor
 }
+
+type clientConnection struct {
+	id string
+	connection actor.ClientConnection
+	distributorChan chan *model.ClobQuote
+}
+
+const maxSubscriptions = 10000
 
 func newService(address, name string) (*service, error) {
 
 	listingIdToSymbol := map[int]string{1:"A", 2:"B", 3:"C", 4:"D"}
-	newConnection := func(connectionName string) connections.Connection {
+	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (connections.Connection, error) {
 
-		return fixsim.NewFixSimConnection(address, connectionName, func(listingId int) (s string, err error) {
+
+		newMarketDataClient := func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (fixsim.MarketDataClient,error) {
+			return fixsim.NewFixSimMarketDataClient(id, address, out)
+		}
+
+
+		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, func(listingId int) (s string, err error) {
 			if sym, ok := listingIdToSymbol[listingId]; ok {
 				return sym, nil
 			} else {
 				return "", fmt.Errorf("symbol not found for listing id %v", listingId)
 			}
-		})
+		}, out)
 
 	}
 
-	var actors []actor.Actor
-	mdConnection := actor.NewMdServerConnection(name, newConnection, 20 * time.Second )
-	actors = append(actors, mdConnection)
+	serverToDistributorChan := make( chan *model.ClobQuote, 1000 )
 
-	qd := actor.NewQuoteDistributor(mdConnection)
-	actors = append(actors, qd)
+	mdConnection := actor.NewMdServerConnection(name, serverToDistributorChan, newConnection,  20 * time.Second )
+	qd := actor.NewQuoteDistributor(mdConnection.Subscribe, serverToDistributorChan)
 
-	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd, actors: actors}
-
-
-	for _, actor := range actors {
-		actor.Start()
-	}
+	s := &service{partyIdToConnection: make(map[string]clientConnection), quoteDistributor: qd}
 
 	return s, nil
 }
@@ -65,18 +72,40 @@ func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
 	return con, ok
 }
 
-func (s *service) addConnection(partyId string, connection actor.ClientConnection) {
+func (s *service) addConnection(subscriberId string, stream model.MarketDataGateway_ConnectServer) (actor.ClientConnection, error) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
-	s.partyIdToConnection[partyId] = connection
+	if _, ok := s.partyIdToConnection[subscriberId];ok {
+		return nil, fmt.Errorf("connection already exists for subscriber id " + subscriberId)
+	}
+
+	distributorToConnectionChan := make(chan *model.ClobQuote, 1000)
+	connection := actor.NewClientConnection(subscriberId, stream.Send, s.quoteDistributor.Subscribe,  distributorToConnectionChan, maxSubscriptions)
+	cc := clientConnection{
+		id:              subscriberId,
+		connection:      connection,
+		distributorChan: distributorToConnectionChan,
+	}
+
+	s.partyIdToConnection[subscriberId] = cc
+	s.quoteDistributor.AddOutQuoteChan(distributorToConnectionChan)
 }
 
-func (s *service) removeConnection(subscriberId string) {
+func (s *service) removeConnection(subscriberId string) error {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
-	delete(s.partyIdToConnection, subscriberId)
+
+	if cc, ok := s.partyIdToConnection[subscriberId];!ok {
+		return  fmt.Errorf("no connection exists for subscriber id %v" , subscriberId)
+	} else {
+		s.quoteDistributor.RemoveOutQuoteChan(cc.distributorChan)
+		cc.connection.Close()
+		delete(s.partyIdToConnection, subscriberId)
+	}
+
+	return nil
 }
 
 
@@ -93,10 +122,7 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*empt
 func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
 
 
-
-
-
-
+	here - wire this up and then test
 
 
 	stream.

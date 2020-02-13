@@ -20,13 +20,13 @@ type fixSimConnection struct {
 	refreshInChan     chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
 	out               chan<- *model.ClobQuote
-	fixSimClient      marketDataClient
+	fixSimClient      MarketDataClient
 	symbolLookup      symbolLookup
 	log               *log.Logger
 	errLog            *log.Logger
 }
 
-type marketDataClient interface {
+type MarketDataClient interface {
 
 	subscribe(symbol string) error
 	close() error
@@ -34,11 +34,11 @@ type marketDataClient interface {
 
 type symbolLookup func(listingId int) (string, error)
 
-type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) marketDataClient
+type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (MarketDataClient, error)
 
 func NewFixSimConnection(
 	newClientFn newMarketDataClient, connectionName string, symbolLookup symbolLookup,
-	out chan<- *model.ClobQuote) *fixSimConnection {
+	out chan<- *model.ClobQuote) (*fixSimConnection, error) {
 
 	c := &fixSimConnection{
 		out:               out,
@@ -52,7 +52,11 @@ func NewFixSimConnection(
 		errLog:            log.New(os.Stderr, connectionName, log.Lshortfile|log.Ltime),
 	}
 
-	c.fixSimClient = newClientFn(connectionName, c.refreshInChan)
+	var err error
+	c.fixSimClient, err = newClientFn(connectionName, c.refreshInChan)
+	if err != nil {
+		return nil, err
+	}
 
 	go func() {
 		for {
@@ -64,7 +68,7 @@ func NewFixSimConnection(
 	}()
 
 
-	return c
+	return c, nil
 }
 
 

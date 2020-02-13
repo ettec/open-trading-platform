@@ -9,6 +9,7 @@ import (
 type ClientConnection interface {
 	GetId() string
 	Subscribe(listingId int)
+	Close()
 }
 
 type sendQuoteFn = func(quote *model.ClobQuote) error

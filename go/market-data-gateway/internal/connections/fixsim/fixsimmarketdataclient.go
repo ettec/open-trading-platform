@@ -22,7 +22,7 @@ type fixSimMarketDataClient struct {
 	errLog         *log.Logger
 }
 
-func newFixSimMarketDataClient(id string, targetAddress string, out chan<- *marketdata.MarketDataIncrementalRefresh) (*fixSimMarketDataClient, error) {
+func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *marketdata.MarketDataIncrementalRefresh) (*fixSimMarketDataClient, error) {
 
 	n := &fixSimMarketDataClient{
 		id:				id,
