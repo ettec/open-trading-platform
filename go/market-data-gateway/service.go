@@ -131,7 +131,29 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*mode
 
 }
 
+var  streamh model.MarketDataGateway_ConnectServer
+
 func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
+
+	streamh = stream
+	stream.Send(&model.ClobQuote{
+		ListingId:            4,
+
+	})
+	stream.Send(&model.ClobQuote{
+		ListingId:            6,
+
+	})
+
+	go func() {
+		time.Sleep(4* time.Second)
+		log.Println("sending now")
+		stream.Send(&model.ClobQuote{
+			ListingId:            5,
+
+		})
+
+	}()
 
 	subscriberId := request.GetSubscriberId()
 

@@ -1,7 +1,7 @@
 package com.ettech.fixmarketsimulator.marketdataserver;
 
 import com.ettech.fixmarketsimulator.exchange.Exchange;
-import com.ettech.fixmarketsimulator.marketdataserver.api.MarketDataServiceGrpc;
+import com.ettech.fixmarketsimulator.marketdataserver.api.FixSimMarketDataServiceGrpc;
 import com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver;
 import com.google.inject.Inject;
 import com.google.protobuf.Empty;
@@ -69,7 +69,7 @@ public class MarketDataService {
         }
     }
 
-    static class MarketDataServiceImpl extends MarketDataServiceGrpc.MarketDataServiceImplBase {
+    static class MarketDataServiceImpl extends FixSimMarketDataServiceGrpc.FixSimMarketDataServiceImplBase {
 
 
         Map<String, Connection>  partyIdToConnection = new HashMap<>();
@@ -81,6 +81,8 @@ public class MarketDataService {
 
         @Override
         public void subscribe(MarketData.MarketDataRequest request, StreamObserver<Empty> responseObserver) {
+
+            logger.info("subscription request:" + request);
 
             try {
                 if (request.getPartiesCount() != 1) {
@@ -110,6 +112,8 @@ public class MarketDataService {
 
         @Override
         public void connect(Marketdataserver.Party request, StreamObserver<MarketData.MarketDataIncrementalRefresh> responseObserver) {
+
+            logger.info("market data server connect request received for:" + request);
 
             synchronized ( partyIdToConnection ) {
                 var partyId = request.getPartyId();

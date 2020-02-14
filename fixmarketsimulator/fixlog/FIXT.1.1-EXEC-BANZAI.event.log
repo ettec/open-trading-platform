@@ -13,3 +13,14 @@
 20200127-11:50:59: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
 20200127-11:50:59: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
 20200127-11:50:59: Created session: FIXT.1.1:EXEC->BANZAI
+20200214-11:21:19: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200214-11:21:19: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200214-11:21:19: Created session: FIXT.1.1:EXEC->BANZAI
+20200214-12:28:17: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200214-12:28:17: Created session: FIXT.1.1:EXEC->BANZAI
+20200214-12:29:54: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200214-12:29:54: Created session: FIXT.1.1:EXEC->BANZAI
+20200214-21:10:48: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200214-21:10:49: Created session: FIXT.1.1:EXEC->BANZAI
+20200214-21:14:56: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200214-21:14:56: Created session: FIXT.1.1:EXEC->BANZAI
