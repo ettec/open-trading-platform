@@ -11,7 +11,7 @@ func (s *testActor) readInputChannels() (chan<- bool, error) {
 	case d := <-s.closeChan:
 		return d, nil
 	}
-	return nil, nil
+
 }
 
 

@@ -1,10 +1,11 @@
 syntax = "proto3";
 package marketdatagateway;
-
 import "clobquote.proto";
-import "google/protobuf/empty.proto";
+import "modelcommon.proto";
 
 option go_package="model";
+
+
 
 message ConnectRequest {
     string subscriberId = 1;
@@ -16,7 +17,8 @@ message SubscribeRequest{
 }
 
 
-service MarketDataGateway{
-    rpc Subscribe(SubscribeRequest) returns (google.protobuf.Empty) {};
+
+service MarketDataGateway {
+    rpc Subscribe(SubscribeRequest) returns (model.Empty) {};
     rpc Connect(ConnectRequest) returns (stream model.ClobQuote) {};
-} 
+}

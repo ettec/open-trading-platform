@@ -5,18 +5,6 @@ import (
 	"testing"
 )
 
-type testQuoteSource struct {
-	out chan<- *model.ClobQuote
-}
-
-func (t *testQuoteSource) Connect(out chan<- *model.ClobQuote) error {
-	t.out = out
-	return nil
-}
-
-func (t *testQuoteSource) Subscribe(listingId int) {
-
-}
 
 func Test_quoteDistributor_Send(t *testing.T) {
 

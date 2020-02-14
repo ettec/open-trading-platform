@@ -80,7 +80,7 @@ func NewClientConnection(id string, sendQuoteFn sendQuoteFn, subscribe subscribe
 			select {
 			case q := <-toClient:
 					if err := sendQuoteFn(q); err != nil {
-						c.errLog.Printf(" closing as error occurred whilst sending quote:%w", err)
+						c.errLog.Printf(" closing as error occurred whilst sending quote:%v", err)
 						c.Close()
 					}
 			case <-c.closeToClientChan:

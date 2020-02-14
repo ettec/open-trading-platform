@@ -15,8 +15,8 @@ func TestCompare(t *testing.T) {
 	}{
 
 		{"l==r",
-		args{Decimal64{Mantissa: 0, Exponent:0}, Decimal64{Mantissa:0, Exponent:0}},
-		0},
+			args{Decimal64{Mantissa: 0, Exponent:0}, Decimal64{Mantissa:0, Exponent:0}},
+			0},
 		{"l>r",
 			args{Decimal64{Mantissa: 1, Exponent:0}, Decimal64{Mantissa:0, Exponent:0}},
 			1},

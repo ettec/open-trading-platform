@@ -45,11 +45,6 @@ func TestNewMdServerConnection(t *testing.T) {
 
 }
 
-func invoke(f func() (chan<- bool, error), times int) {
-	for i := 0; i < times; i++ {
-		f()
-	}
-}
 
 func TestSubscribe(t *testing.T) {
 

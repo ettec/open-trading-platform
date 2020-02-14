@@ -149,13 +149,13 @@ func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 	}
 
 	if book != compare {
-		return fmt.Errorf("Expected book %v does not match book create from quote %v", book, compare)
+		return fmt.Errorf("expected book %v does not match book create from quote %v", book, compare)
 	}
 
 	return nil
 }
 
-var id int = 0
+var id  = 0
 
 func getNextId() string {
 	id++

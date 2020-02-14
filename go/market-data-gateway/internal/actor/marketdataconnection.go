@@ -52,7 +52,7 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 				if ok {
 					m.out <- quote
 				} else {
-					log.Printf("inbound quote stream has closed, will attempt reconnect inChan %v seconds.", m.reconnectInterval)
+					m.log.Printf("inbound quote stream has closed, will attempt reconnect inChan %v seconds.", m.reconnectInterval)
 					m.quotesIn = nil
 					go func() {
 						time.Sleep(m.reconnectInterval)

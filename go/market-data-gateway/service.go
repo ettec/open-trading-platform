@@ -1,4 +1,4 @@
-package actor
+package main
 
 import (
 	"context"
@@ -8,7 +8,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
-	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -34,7 +33,7 @@ type clientConnection struct {
 
 
 
-func newService(id string, fixSimAddress string, maxSubscriptions int) *service {
+func newService(id string, fixSimAddress string) *service {
 
 
 
@@ -74,6 +73,8 @@ func (s *service) getConnection(partyId string) (*clientConnection, bool) {
 	return con, ok
 }
 
+
+
 func (s *service) addConnection(subscriberId string, stream model.MarketDataGateway_ConnectServer) (*clientConnection, error) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
@@ -111,7 +112,9 @@ func (s *service) removeConnection(subscriberId string) error {
 	return nil
 }
 
-func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*empty.Empty, error) {
+
+
+func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*model.Empty, error) {
 
 	if conn, ok := s.getConnection(r.SubscriberId); ok {
 
@@ -121,7 +124,7 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*empt
 
 		conn.connection.Subscribe(int(r.ListingId))
 		conn.subscriptionCnt++
-		return &empty.Empty{}, nil
+		return &model.Empty{}, nil
 	} else {
 		return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
 	}
@@ -141,7 +144,7 @@ func (s *service) Connect(request *model.ConnectRequest, stream model.MarketData
 	log.Println("creating client connection for ", subscriberId)
 
 	s.addConnection(subscriberId, stream)
-	
+
 	return nil
 }
 
@@ -186,7 +189,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	model.RegisterMarketDataGatewayServer(s, newService(id, fixSimAddress, maxSubscriptions))
+	model.RegisterMarketDataGatewayServer(s, newService(id, fixSimAddress))
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

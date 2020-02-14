@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package model;
+
+import "instrument.proto";
+import "market.proto";
+import "common.proto";
+
+option go_package="model";
+
+/* A listing represents an instance of an instrument on a given exchange
+for example MSFT can be traded on both Nasdaq IEX, thus there would be at least
+two listings for MSFT, one for each exchange */
+message Listing {
+    int32 version = 1;
+    int32 id = 2;
+    Market market = 3;
+    Instrument instrument = 4;
+    string marketSymbol = 5;
+    TickSizeTable tickSize = 6;
+    Decimal64 sizeIncrement = 7;
+}
+
+message TickSizeTable {
+    repeated TickSizeEntry entries=1;
+		
+}
+
+message TickSizeEntry {
+    Decimal64 lowerPriceBound=1;
+    Decimal64 upperPriceBound=2;
+    Decimal64 tickSize=3;
+}
+

@@ -48,8 +48,8 @@ func NewFixSimConnection(
 		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol, 1000),
 		symbolLookup:      symbolLookup,
-		log:               log.New(os.Stdout, connectionName, log.Lshortfile|log.Ltime),
-		errLog:            log.New(os.Stderr, connectionName, log.Lshortfile|log.Ltime),
+		log:               log.New(os.Stdout, connectionName + " ", log.Lshortfile|log.Ltime),
+		errLog:            log.New(os.Stderr, connectionName + " ", log.Lshortfile|log.Ltime),
 	}
 
 	var err error

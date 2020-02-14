@@ -76,7 +76,7 @@ func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
 }
 
 func (fsc *fixSimMarketDataClient) connect() (receiveIncRefreshFn, error) {
-	r := &ConnectRequest{PartyId: fsc.id}
+	r := &Party{PartyId: fsc.id}
 	stream, err := fsc.client.Connect(context.Background(), r)
 	return stream.Recv, err
 }

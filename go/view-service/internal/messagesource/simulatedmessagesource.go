@@ -45,7 +45,7 @@ func (k *SimulatedMessageSource) start() {
 					Exponent:             0,
 
 				},
-				ListingId:            "",
+				ListingId:            1,
 				RemainingQuantity:    nil,
 				TradedQuantity:       nil,
 				AvgTradePrice:        nil,
