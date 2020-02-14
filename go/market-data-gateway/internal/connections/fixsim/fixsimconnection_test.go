@@ -13,63 +13,43 @@ import (
 )
 
 type testMarketDataClient struct {
+	refreshChan     chan<- *md.MarketDataIncrementalRefresh
 
-	refreshChan chan *md.MarketDataIncrementalRefresh
-	errorChan chan error
-	subscribeChan chan string
+	subscribeChan   chan string
 	closeSignalChan chan bool
-
 }
 
 func newTestMarketDataClient() (*testMarketDataClient, error) {
 	t := &testMarketDataClient{
 
-		refreshChan : make(chan *md.MarketDataIncrementalRefresh, 100),
-		errorChan : make(chan error, 100),
-		subscribeChan : make(chan string, 100),
-		closeSignalChan : make(chan bool, 100),
+		refreshChan:     make(chan *md.MarketDataIncrementalRefresh, 100),
+		subscribeChan:   make(chan string, 100),
+		closeSignalChan: make(chan bool, 100),
 	}
 	return t, nil
 }
 
-func (t *testMarketDataClient) connect(connectionId string) (receiveIncRefreshFn, error) {
-	return func() (refresh *md.MarketDataIncrementalRefresh, err error) {
-		select {
-		case e := <-t.errorChan:
-			return nil, e
-		case r := <-t.refreshChan:
-			return r, nil
-		}
-
-	}, nil
-
-}
-
-func (t *testMarketDataClient) subscribe(symbol string, subscriberId string) error {
-	t.subscribeChan<-symbol
+func (t *testMarketDataClient) subscribe(symbol string) error {
+	t.subscribeChan <- symbol
 	return nil
 }
 
 func (t *testMarketDataClient) close() error {
-	t.closeSignalChan<-true
+	t.closeSignalChan <- true
+	close(t.refreshChan)
 	return nil
 }
 
-
-
-
 func Test_fixSimConnection_close(t *testing.T) {
 
+	listingIdToSym := map[int]string{1: "A", 2: "B"}
+	tmd, _ := newTestMarketDataClient()
 
-
-	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	tmd,_ := newTestMarketDataClient()
-
-
-
-	out := make(chan *model.ClobQuote, 100)
-	n,_ := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
-
+	out := make(chan *model.ClobQuote, 10)
+	n, _ := NewFixSimConnection(func(id string, outChan chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
+		tmd.refreshChan = outChan
+		return tmd, nil
+	}, "testName", toLookupFunc(listingIdToSym), out)
 
 	n.Subscribe(1)
 
@@ -89,7 +69,6 @@ func Test_fixSimConnection_close(t *testing.T) {
 	n.Close()
 
 	<-tmd.closeSignalChan
-	tmd.errorChan <- fmt.Errorf("an error")
 
 	if _, ok := <-out; ok {
 		t.Errorf("expected channel t be closed")
@@ -97,18 +76,15 @@ func Test_fixSimConnection_close(t *testing.T) {
 
 }
 
-
-
-
-
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
-	tmd := newTestMarketDataClient()
+	tmd, err := newTestMarketDataClient()
 
 	out := make(chan *model.ClobQuote, 100)
-	listingIdToSym := map[int]string{1:"A", 2:"B"}
-	n,err := NewFixSimConnection( tmd, "testName", toLookupFunc(listingIdToSym), out )
-
+	listingIdToSym := map[int]string{1: "A", 2: "B"}
+	n, err := NewFixSimConnection(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
+		return tmd, nil
+	}, "testName", toLookupFunc(listingIdToSym), out)
 
 	n.Subscribe(1)
 
@@ -138,7 +114,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	q = <-out
 	q = <-out
 
-	err := testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
+	err = testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
 	}
@@ -153,7 +129,6 @@ func toLookupFunc(listingIdToSym map[int]string) func(listingId int) (s string, 
 		}
 	}
 }
-
 
 func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 

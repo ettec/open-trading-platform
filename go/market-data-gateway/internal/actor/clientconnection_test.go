@@ -65,7 +65,6 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 		in <- &model.ClobQuote{ListingId: 2,  XXX_sizecache:int32(i)}
 	}
 
-	<-out
 
 	if q := <-out; q.ListingId != 1 && q.XXX_sizecache != 1999{
 		t.Errorf("expected quote with listing id 1")

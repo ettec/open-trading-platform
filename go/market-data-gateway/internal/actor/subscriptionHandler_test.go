@@ -1,9 +1,5 @@
 package actor
 
-import (
-	"testing"
-)
-
 type mock struct {
 	SubscribeMock   func(symbol string)
 	fetchSymbolMock func(listingId int, onSymbol chan<- ListingIdSymbol)
@@ -16,7 +12,7 @@ func (m *mock) Subscribe(symbol string)  {
 func (m *mock) FetchSymbol(listingId int, onSymbol chan<- ListingIdSymbol) {
 	m.fetchSymbolMock(listingId, onSymbol)
 }
-
+/*
 func Test_subscriptionHandler_subscribe(t *testing.T) {
 
 	connectionName := "testConn"
@@ -58,6 +54,6 @@ func Test_subscriptionHandler_subscribe(t *testing.T) {
 		t.Errorf("expected return close channel")
 	}
 
-}
+} */
 
 

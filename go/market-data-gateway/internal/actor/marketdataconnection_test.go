@@ -71,12 +71,14 @@ func TestSubscribe(t *testing.T) {
 	mdConn.Subscribe(1)
 	mdConn.Subscribe(2)
 
-	if <-subscribed != 1 {
-		t.Error("expected to receive 1")
+
+
+	if v := <-subscribed; v != 1 {
+		t.Errorf("expected to receive 1, got %v", v)
 	}
 
-	if <-subscribed != 2 {
-		t.Error("expected to receive 2")
+	if v :=<-subscribed; v != 2 {
+		t.Errorf("expected to receive 2, got %v", v)
 	}
 
 }

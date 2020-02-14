@@ -35,14 +35,14 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 		subscriptionChan:       make(chan int, 10000),
 		log:                    log.New(os.Stdout, connectionName+":", log.Ltime | log.Lshortfile),
 		errLog:                 log.New(os.Stderr, connectionName+":", log.Ltime | log.Lshortfile),
-		connectSignalChan:      make(chan bool, 1),
+		connectSignalChan:      make(chan bool),
 		requestedSubscriptions: map[int]bool{},
 		subscriptions:          map[int]bool{},
 		connection:             nil,
 		newConnectionFn:        newConnection,
 	}
 
-	m.connectSignalChan <- true
+
 
 	go func() {
 		for {
@@ -88,6 +88,8 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 			}
 		}
 	}()
+
+	m.connectSignalChan <- true
 
 	return m
 }
