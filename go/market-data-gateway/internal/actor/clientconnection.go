@@ -17,15 +17,13 @@ type sendQuoteFn = func(quote *model.ClobQuote) error
 type clientConnection struct {
 	id            string
 	subscribeChan chan int
-	closeFilterChan     chan  bool
-	closeToClientChan     chan  bool
+	closeChan     chan  bool
 	log           *log.Logger
 	errLog        *log.Logger
 }
 
 func (c *clientConnection) Close() {
-	c.closeFilterChan <- true
-	c.closeToClientChan <-true
+	c.closeChan <- true
 }
 
 func (c *clientConnection) Subscribe(listingId int) {
@@ -37,21 +35,20 @@ func (c *clientConnection) GetId() string {
 	return c.id
 }
 
-func NewClientConnection(id string, sendQuoteFn sendQuoteFn, subscribe subscribeToListing, in  <-chan *model.ClobQuote,
+func NewClientConnection(id string, out chan<- *model.ClobQuote , subscribe subscribeToListing, in  <-chan *model.ClobQuote,
 	maxSubscriptions int) *clientConnection {
 
 	c := &clientConnection{id: id,
-		closeFilterChan: make(chan  bool, 1),
-		closeToClientChan: make(chan  bool, 1),
+		closeChan:     make(chan  bool, 1),
 		subscribeChan: make(chan int),
-		log:       log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
-		errLog:    log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
+		log:           log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
+		errLog:        log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
 
 
 	toConflator := make(chan *model.ClobQuote)
-	toClient := make(chan *model.ClobQuote)
 
-	conflator := NewQuoteConflator(toConflator, toClient, maxSubscriptions)
+
+	conflator := NewQuoteConflator(toConflator, out, maxSubscriptions)
 
 
 	subscribedListings := map[int32]bool{}
@@ -66,24 +63,8 @@ func NewClientConnection(id string, sendQuoteFn sendQuoteFn, subscribe subscribe
 			case l := <-c.subscribeChan:
 				subscribedListings[int32(l)] = true
 				subscribe(l)
-			case <-c.closeFilterChan:
+			case <-c.closeChan:
 				conflator.Close()
-				return
-			}
-		}
-
-	}()
-
-
-	go func() {
-		for {
-			select {
-			case q := <-toClient:
-					if err := sendQuoteFn(q); err != nil {
-						c.errLog.Printf(" closing as error occurred whilst sending quote:%v", err)
-						c.Close()
-					}
-			case <-c.closeToClientChan:
 				return
 			}
 		}

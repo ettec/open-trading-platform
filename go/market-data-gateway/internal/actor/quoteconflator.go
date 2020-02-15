@@ -51,6 +51,7 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 					delete(c.pendingQuote, eq.ListingId)
 					c.receivedOrder.removeTail()
 				case  <-c.closeChan:
+					close(c.outChan)
 					return
 				}
 
@@ -62,6 +63,7 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 						return
 					}
 				case <-c.closeChan:
+					close(c.outChan)
 					return
 				}
 

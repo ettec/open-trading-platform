@@ -31,11 +31,7 @@ type clientConnection struct {
 	subscriptionCnt int
 }
 
-
-
 func newService(id string, fixSimAddress string) *service {
-
-
 
 	listingIdToSymbol := map[int]string{1: "A", 2: "B", 3: "C", 4: "D"}
 
@@ -73,9 +69,7 @@ func (s *service) getConnection(partyId string) (*clientConnection, bool) {
 	return con, ok
 }
 
-
-
-func (s *service) addConnection(subscriberId string, stream model.MarketDataGateway_ConnectServer) (*clientConnection, error) {
+func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) (*clientConnection, error) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
@@ -84,7 +78,7 @@ func (s *service) addConnection(subscriberId string, stream model.MarketDataGate
 	}
 
 	distributorToConnectionChan := make(chan *model.ClobQuote, 1000)
-	connection := actor.NewClientConnection(subscriberId, stream.Send, s.quoteDistributor.Subscribe, distributorToConnectionChan, maxSubscriptions)
+	connection := actor.NewClientConnection(subscriberId, out, s.quoteDistributor.Subscribe, distributorToConnectionChan, maxSubscriptions)
 	cc := &clientConnection{
 		id:              subscriberId,
 		connection:      connection,
@@ -112,8 +106,6 @@ func (s *service) removeConnection(subscriberId string) error {
 	return nil
 }
 
-
-
 func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*model.Empty, error) {
 
 	if conn, ok := s.getConnection(r.SubscriberId); ok {
@@ -131,29 +123,7 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*mode
 
 }
 
-var  streamh model.MarketDataGateway_ConnectServer
-
 func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
-
-	streamh = stream
-	stream.Send(&model.ClobQuote{
-		ListingId:            4,
-
-	})
-	stream.Send(&model.ClobQuote{
-		ListingId:            6,
-
-	})
-
-	go func() {
-		time.Sleep(4* time.Second)
-		log.Println("sending now")
-		stream.Send(&model.ClobQuote{
-			ListingId:            5,
-
-		})
-
-	}()
 
 	subscriberId := request.GetSubscriberId()
 
@@ -165,18 +135,27 @@ func (s *service) Connect(request *model.ConnectRequest, stream model.MarketData
 
 	log.Println("creating client connection for ", subscriberId)
 
-	s.addConnection(subscriberId, stream)
+	out := make(chan *model.ClobQuote, 100)
+
+	s.addConnection(subscriberId, out)
+	defer s.removeConnection(subscriberId)
+
+	for mdUpdate := range out {
+		if err := stream.Send(mdUpdate); err != nil {
+			log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
+			break
+		}
+	}
 
 	return nil
 }
 
 const (
-	GatewayIdKey   = "GATEWAY_ID"
+	GatewayIdKey  = "GATEWAY_ID"
 	FixSimAddress = "FIX_SIM_ADDRESS"
 
 	// The maximum number of listing subscriptions per connection
 	MaxSubscriptionsKey = "MAX_SUBSCRIPTIONS"
-
 )
 
 var maxSubscriptions = 10000
@@ -196,7 +175,6 @@ func main() {
 	if !ok {
 		log.Panicf("expected %v env var to be set", FixSimAddress)
 	}
-
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
 	if ok {
