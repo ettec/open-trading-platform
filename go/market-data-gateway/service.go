@@ -29,6 +29,7 @@ type clientConnection struct {
 	connection      actor.ClientConnection
 	distributorChan chan *model.ClobQuote
 	subscriptionCnt int
+	out             chan<- *model.ClobQuote
 }
 
 func newService(id string, fixSimAddress string) *service {
@@ -73,8 +74,12 @@ func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
-	if _, ok := s.partyIdToConnection[subscriberId]; ok {
-		return nil, fmt.Errorf("connection already exists for subscriber id " + subscriberId)
+	if conn, ok := s.partyIdToConnection[subscriberId]; ok {
+		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
+		conn.connection.Close()
+		s.quoteDistributor.RemoveOutQuoteChan(conn.distributorChan)
+		close(conn.out)
+		log.Print("connection closed:", subscriberId)
 	}
 
 	distributorToConnectionChan := make(chan *model.ClobQuote, 1000)
@@ -83,27 +88,13 @@ func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote
 		id:              subscriberId,
 		connection:      connection,
 		distributorChan: distributorToConnectionChan,
+		out:			 out,
 	}
 
 	s.partyIdToConnection[subscriberId] = cc
 	s.quoteDistributor.AddOutQuoteChan(distributorToConnectionChan)
 
 	return cc, nil
-}
-
-func (s *service) removeConnection(subscriberId string) error {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
-
-	if cc, ok := s.partyIdToConnection[subscriberId]; !ok {
-		return fmt.Errorf("no connection exists for subscriber id %v", subscriberId)
-	} else {
-		s.quoteDistributor.RemoveOutQuoteChan(cc.distributorChan)
-		cc.connection.Close()
-		delete(s.partyIdToConnection, subscriberId)
-	}
-
-	return nil
 }
 
 func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*model.Empty, error) {
@@ -127,18 +118,11 @@ func (s *service) Connect(request *model.ConnectRequest, stream model.MarketData
 
 	subscriberId := request.GetSubscriberId()
 
-	if _, ok := s.getConnection(subscriberId); ok {
-		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
-		s.removeConnection(subscriberId)
-		log.Print("connection closed:", subscriberId)
-	}
-
-	log.Println("creating client connection for ", subscriberId)
+	log.Println("connect request received for subscriber ", subscriberId)
 
 	out := make(chan *model.ClobQuote, 100)
 
 	s.addConnection(subscriberId, out)
-	defer s.removeConnection(subscriberId)
 
 	for mdUpdate := range out {
 		if err := stream.Send(mdUpdate); err != nil {

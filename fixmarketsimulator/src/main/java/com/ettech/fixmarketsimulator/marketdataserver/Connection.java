@@ -27,12 +27,14 @@ public class Connection {
         this.exchange = exchange;
     }
 
-    void setResponseObserver(StreamObserver<MarketData.MarketDataIncrementalRefresh> responseObserver) {
-        this.responseObserver = responseObserver;
-    }
 
     void close() {
-        this.responseObserver.onCompleted();
+        subscriptions.forEach(s->s.close());
+        try {
+            this.responseObserver.onCompleted();
+        } catch( Exception e ) {
+            log.error("error on closing connection",e);
+        }
     }
 
     void subscribe(MarketData.MarketDataRequest msg) {

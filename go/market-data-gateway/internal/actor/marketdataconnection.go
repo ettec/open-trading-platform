@@ -52,7 +52,17 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 				if ok {
 					m.out <- quote
 				} else {
-					m.log.Printf("inbound quote stream has closed, will attempt reconnect inChan %v seconds.", m.reconnectInterval)
+					m.log.Println("inbound quote stream has closed")
+
+					// Send empty quotes upstream
+					for k, _ := range m.subscriptions {
+						m.out <- &model.ClobQuote{
+							ListingId:            int32(k),
+						}
+					}
+
+					m.log.Printf("will attempt reconnect inChan %v seconds.", m.reconnectInterval)
+
 					m.quotesIn = nil
 					go func() {
 						time.Sleep(m.reconnectInterval)
@@ -69,10 +79,12 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 					}
 				}
 			case <-m.connectSignalChan:
+				m.log.Println("attempting to connect...")
 				in := make( chan *model.ClobQuote, 10000)
 				m.quotesIn = in
 				connection, err := m.newConnectionFn(m.connectionName, in)
 				if err == nil {
+					m.log.Println("connected, sending subscriptions")
 					m.connection = connection
 					m.subscriptions = map[int]bool{}
 					for s := range m.requestedSubscriptions {

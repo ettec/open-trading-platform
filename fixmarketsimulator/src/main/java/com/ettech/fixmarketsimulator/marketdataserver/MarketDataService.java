@@ -118,15 +118,19 @@ public class MarketDataService {
             synchronized ( partyIdToConnection ) {
                 var partyId = request.getPartyId();
                 var connection = partyIdToConnection.get(partyId);
-                if( connection == null)
-                {
-                    connection = new Connection(exchange, responseObserver, partyId);
-                    partyIdToConnection.put(partyId, connection);
-                } else {
-                    connection.close();
+
+                if( connection != null) {
+                    try {
+                        connection.close();
+                    } catch(Exception e) {
+                        logger.info("exception when closing connection:" + e);
+                    }
                 }
 
-                connection.setResponseObserver(responseObserver);
+
+                connection = new Connection(exchange, responseObserver, partyId);
+                partyIdToConnection.put(partyId, connection);
+
             }
         }
     }
