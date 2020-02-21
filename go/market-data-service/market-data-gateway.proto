@@ -1,0 +1,24 @@
+syntax = "proto3";
+package marketdatagateway;
+import "clobquote.proto";
+import "modelcommon.proto";
+
+option go_package="model";
+
+
+
+message ConnectRequest {
+    string subscriberId = 1;
+}
+
+message SubscribeRequest{
+    string subscriberId = 1;
+    int32 listingId = 2;
+}
+
+
+
+service MarketDataGateway {
+    rpc Subscribe(SubscribeRequest) returns (model.Empty) {};
+    rpc Connect(ConnectRequest) returns (stream model.ClobQuote) {};
+}
