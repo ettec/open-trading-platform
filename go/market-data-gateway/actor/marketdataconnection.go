@@ -1,15 +1,22 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 	"time"
 )
 
 
-type newConnectionFn = func(connectionName string, out chan<- *model.ClobQuote) (connections.Connection, error)
+type Connection interface {
+
+	Subscribe(listingId int) error
+	Close() error
+}
+
+type NewConnectionFn = func(connectionName string, out chan<- *model.ClobQuote) (Connection, error)
+
+
 
 type mdServerConnection struct {
 	connectionName         string
@@ -20,13 +27,13 @@ type mdServerConnection struct {
 	connectSignalChan      chan bool
 	requestedSubscriptions map[int]bool
 	subscriptions          map[int]bool
-	connection             connections.Connection
-	newConnectionFn        newConnectionFn
+	connection             Connection
+	newConnectionFn        NewConnectionFn
 	quotesIn               <-chan *model.ClobQuote
 	out                    chan<- *model.ClobQuote
 }
 
-func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote, newConnection newConnectionFn, reconnectInterval time.Duration) *mdServerConnection {
+func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote, newConnection NewConnectionFn, reconnectInterval time.Duration) *mdServerConnection {
 
 	m := &mdServerConnection{
 		connectionName:         connectionName,
@@ -55,7 +62,7 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 					m.log.Println("inbound quote stream has closed")
 
 					// Send empty quotes upstream
-					for k, _ := range m.subscriptions {
+					for k := range m.subscriptions {
 						m.out <- &model.ClobQuote{
 							ListingId:            int32(k),
 						}
@@ -74,8 +81,13 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 				m.requestedSubscriptions[l] = true
 				if !m.subscriptions[l] {
 					if m.connection != nil {
-						m.connection.Subscribe(l)
-						m.subscriptions[l] = true
+						err := m.connection.Subscribe(l)
+						if err != nil {
+							m.errLog.Println("failed to subscribe:", err)
+						} else {
+							m.subscriptions[l] = true
+						}
+
 					}
 				}
 			case <-m.connectSignalChan:

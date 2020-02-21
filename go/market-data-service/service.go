@@ -4,11 +4,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
+	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettech/open-trading-platform/go/market-data-service/api"
+	"github.com/ettech/open-trading-platform/go/market-data-service/internal"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -33,24 +32,11 @@ type clientConnection struct {
 	out             chan<- *model.ClobQuote
 }
 
-func newService(id string, fixSimAddress string) *service {
+func newService(id string, marketGatewayAddress string) *service {
 
-	listingIdToSymbol := map[int]string{1: "A", 2: "B", 3: "C", 4: "D"}
 
-	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (connections.Connection, error) {
-
-		newMarketDataClient := func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (fixsim.MarketDataClient, error) {
-			return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out)
-		}
-
-		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, func(listingId int) (s string, err error) {
-			if sym, ok := listingIdToSymbol[listingId]; ok {
-				return sym, nil
-			} else {
-				return "", fmt.Errorf("symbol not found for listing id %v", listingId)
-			}
-		}, out)
-
+	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (actor.Connection, error) {
+		return internal.NewMarketDataClient(connectionName, marketGatewayAddress, out )
 	}
 
 	serverToDistributorChan := make(chan *model.ClobQuote, 1000)
@@ -71,7 +57,7 @@ func (s *service) getConnection(partyId string) (*clientConnection, bool) {
 	return con, ok
 }
 
-func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) (*clientConnection, error) {
+func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) (*clientConnection) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
@@ -95,10 +81,10 @@ func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote
 	s.partyIdToConnection[subscriberId] = cc
 	s.quoteDistributor.AddOutQuoteChan(distributorToConnectionChan)
 
-	return cc, nil
+	return cc
 }
 
-func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*model.Empty, error) {
+func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
 	if conn, ok := s.getConnection(r.SubscriberId); ok {
 
@@ -115,7 +101,7 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*mode
 
 }
 
-func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
+func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataService_ConnectServer) error {
 
 	subscriberId := request.GetSubscriberId()
 
@@ -136,8 +122,8 @@ func (s *service) Connect(request *model.ConnectRequest, stream model.MarketData
 }
 
 const (
-	GatewayIdKey  = "GATEWAY_ID"
-	FixSimAddress = "FIX_SIM_ADDRESS"
+	ServiceIdKey   = "SERVICE_ID"
+	GatewayAddress = "GATEWAY_ADDRESS"
 
 	// The maximum number of listing subscriptions per connection
 	MaxSubscriptionsKey = "MAX_SUBSCRIPTIONS"
@@ -147,18 +133,18 @@ var maxSubscriptions = 10000
 
 func main() {
 
-	port := "50551"
-	fmt.Println("Starting Client Market Data Gateway on port:" + port)
+	port := "50651"
+	fmt.Println("Starting Market Data Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
-	id, ok := os.LookupEnv(GatewayIdKey)
+	id, ok := os.LookupEnv(ServiceIdKey)
 	if !ok {
-		log.Panicf("expected %v env var to be set", GatewayIdKey)
+		log.Panicf("expected %v env var to be set", ServiceIdKey)
 	}
 
-	fixSimAddress, ok := os.LookupEnv(FixSimAddress)
+	fixSimAddress, ok := os.LookupEnv(GatewayAddress)
 	if !ok {
-		log.Panicf("expected %v env var to be set", FixSimAddress)
+		log.Panicf("expected %v env var to be set", GatewayAddress)
 	}
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
@@ -174,7 +160,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	model.RegisterMarketDataGatewayServer(s, newService(id, fixSimAddress))
+	api.RegisterMarketDataServiceServer(s, newService(id, fixSimAddress))
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

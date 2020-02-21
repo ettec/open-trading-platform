@@ -7,7 +7,7 @@ SVC_PATH=../go/$1
 # Fix sim service
 FIXSIM_PATH=$SVC_PATH/internal/connections/fixsim/
 mkdir -p $FIXSIM_PATH
-protoc $SVC_PATH/fixsimmarketdataservice.proto --go_out=plugins=grpc:$FIXSIM_PATH --proto_path=$SVC_PATH:.
+protoc $SVC_PATH/proto/fixsimmarketdataservice.proto --go_out=plugins=grpc:$FIXSIM_PATH --proto_path=$SVC_PATH:.
 GOFILE=$FIXSIM_PATH/fixsimmarketdataservice.pb.go
 sed -i 's/MarketDataRequest/marketdata.MarketDataRequest/g' $GOFILE
 sed -i 's/MarketDataIncrementalRefresh/marketdata.MarketDataIncrementalRefresh/g' $GOFILE

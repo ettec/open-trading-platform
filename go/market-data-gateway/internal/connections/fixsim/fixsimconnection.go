@@ -3,7 +3,7 @@ package fixsim
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
@@ -72,7 +72,7 @@ func NewFixSimConnection(
 }
 
 
-func (n *fixSimConnection) Subscribe(listingId int) {
+func (n *fixSimConnection) Subscribe(listingId int) error {
 	go func() {
 		if symbol, err := n.symbolLookup(listingId); err == nil {
 			n.mappingChan <- ListingIdSymbol{
@@ -83,6 +83,8 @@ func (n *fixSimConnection) Subscribe(listingId int) {
 			n.errLog.Printf("error lookingup symbol for listing id: %v, error:%v", listingId, err)
 		}
 	}()
+
+	return nil
 }
 
 func (n *fixSimConnection) Close() error {

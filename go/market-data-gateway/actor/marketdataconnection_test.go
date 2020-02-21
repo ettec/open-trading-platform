@@ -1,19 +1,19 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"testing"
 	"time"
 )
 
 type testMarketDataClient struct {
-	subscribe func(listingId int)
+	subscribe func(listingId int) error
 	close     func() error
 }
 
-func (t *testMarketDataClient) Subscribe(listingId int) {
+func (t *testMarketDataClient) Subscribe(listingId int) error{
 	t.subscribe(listingId)
+	return nil
 }
 
 func (t *testMarketDataClient) Close() error {
@@ -24,7 +24,7 @@ func TestNewMdServerConnection(t *testing.T) {
 
 	connectedCalled := make(chan bool, 10)
 
-	dial := func(target string, source chan<- *model.ClobQuote) (connections.Connection, error) {
+	dial := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
 		connectedCalled <- true
 		return &testMarketDataClient{
 			subscribe: nil,
@@ -50,11 +50,12 @@ func TestSubscribe(t *testing.T) {
 
 	subscribed := make(chan int, 0)
 
-	dial := func(target string, source chan<- *model.ClobQuote) (connections.Connection, error) {
+	dial := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
 		return &testMarketDataClient{
 
-			subscribe: func(listingId int) {
+			subscribe: func(listingId int) error {
 				subscribed <- listingId
+				return nil
 			},
 			close: nil,
 		}, nil
@@ -83,7 +84,7 @@ func TestRefreshesAreForwardedToSink(t *testing.T) {
 	var clobSource chan<- *model.ClobQuote
 
 	connected := make(chan bool)
-	dial := func(target string, source chan<- *model.ClobQuote) (connections.Connection, error) {
+	dial := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
 		clobSource = source
 		connected <- true
 		return &testMarketDataClient{
@@ -119,12 +120,13 @@ func TestSubscribesSentWhilstNotConnectedAreResentOnConnect(t *testing.T) {
 	var clobSource chan<- *model.ClobQuote
 	connected := make(chan bool)
 
-	newConnFn := func(target string, source chan<- *model.ClobQuote) (connections.Connection, error) {
+	newConnFn := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
 		clobSource = source
 		connected <- true
 		return &testMarketDataClient{
-			subscribe: func(listingId int) {
+			subscribe: func(listingId int) error {
 				subscribed <- listingId
+				return nil
 			},
 			close: nil,
 		}, nil
@@ -154,13 +156,14 @@ func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 	subscriptions := make(chan int, 10)
 	connected := make(chan bool)
 
-	dial := func(target string, source chan<- *model.ClobQuote) (connections.Connection, error) {
+	dial := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
 		clobSource = source
 		connected <- true
 		return &testMarketDataClient{
 
-			subscribe: func(listingId int) {
+			subscribe: func(listingId int) error {
 				subscriptions <- listingId
+				return nil
 			},
 			close: func() error {
 				return nil

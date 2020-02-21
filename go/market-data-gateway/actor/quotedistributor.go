@@ -1,7 +1,7 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
@@ -22,9 +22,9 @@ type quoteDistributor struct {
 	outQuoteChans []chan<- *model.ClobQuote
 	addOutChan    chan chan<- *model.ClobQuote
 	removeOutChan chan chan<- *model.ClobQuote
-	subscribedFn   subscribeToListing
+	subscribedFn  subscribeToListing
 	log           *log.Logger
-	errLog           *log.Logger
+	errLog        *log.Logger
 }
 
 func NewQuoteDistributor(subscribedFn subscribeToListing, in <-chan *model.ClobQuote) *quoteDistributor {

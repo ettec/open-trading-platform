@@ -6,7 +6,7 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
 	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"reflect"
 	"strconv"
 	"testing"

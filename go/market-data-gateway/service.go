@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/actor"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -36,7 +36,7 @@ func newService(id string, fixSimAddress string) *service {
 
 	listingIdToSymbol := map[int]string{1: "A", 2: "B", 3: "C", 4: "D"}
 
-	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (connections.Connection, error) {
+	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (actor.Connection, error) {
 
 		newMarketDataClient := func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (fixsim.MarketDataClient, error) {
 			return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out)
@@ -97,7 +97,7 @@ func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote
 	return cc, nil
 }
 
-func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*model.Empty, error) {
+func (s *service) Subscribe(c context.Context, r *api.SubscribeRequest) (*model.Empty, error) {
 
 	if conn, ok := s.getConnection(r.SubscriberId); ok {
 
@@ -114,7 +114,7 @@ func (s *service) Subscribe(c context.Context, r *model.SubscribeRequest) (*mode
 
 }
 
-func (s *service) Connect(request *model.ConnectRequest, stream model.MarketDataGateway_ConnectServer) error {
+func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGateway_ConnectServer) error {
 
 	subscriberId := request.GetSubscriberId()
 
@@ -173,7 +173,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	model.RegisterMarketDataGatewayServer(s, newService(id, fixSimAddress))
+	api.RegisterMarketDataGatewayServer(s, newService(id, fixSimAddress))
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

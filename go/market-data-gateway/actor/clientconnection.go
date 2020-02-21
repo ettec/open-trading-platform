@@ -1,7 +1,7 @@
 package actor
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
@@ -11,8 +11,6 @@ type ClientConnection interface {
 	Subscribe(listingId int)
 	Close()
 }
-
-type sendQuoteFn = func(quote *model.ClobQuote) error
 
 type clientConnection struct {
 	id            string
@@ -46,7 +44,6 @@ func NewClientConnection(id string, out chan<- *model.ClobQuote , subscribe subs
 
 
 	toConflator := make(chan *model.ClobQuote)
-
 
 	conflator := NewQuoteConflator(toConflator, out, maxSubscriptions)
 

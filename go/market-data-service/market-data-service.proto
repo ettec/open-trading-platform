@@ -3,21 +3,20 @@ package marketdataservice;
 import "modelcommon.proto";
 import "clobquote.proto";
 
-option go_package="model";
+option go_package="api";
 
-message ConnectRequest {
+message MdsConnectRequest {
     string subscriberId = 1;
     int32 maxQuotePerSecond = 2;
 }
 
-message SubscribeRequest{
+message MdsSubscribeRequest{
     string subscriberId = 1;
     int32 listingId = 2;
 }
 
 
-
-service MarketDataGateway {
-    rpc Subscribe(SubscribeRequest) returns (model.Empty) {};
-    rpc Connect(ConnectRequest) returns (stream model.ClobQuote) {};
+service MarketDataService {
+    rpc Subscribe(MdsSubscribeRequest) returns (model.Empty) {};
+    rpc Connect(MdsConnectRequest) returns (stream model.ClobQuote) {};
 }

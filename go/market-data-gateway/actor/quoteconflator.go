@@ -2,7 +2,7 @@ package actor
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
