@@ -164,7 +164,7 @@ func main() {
 	if ok {
 		maxSubscriptions, err = strconv.Atoi(maxSubsEnv)
 		if err != nil {
-			log.Panicf("%v should be a positive integer, actual->%v ", MaxSubscriptionsKey, maxSubsEnv)
+			log.Panicf("cannot parse %v, error: %v", MaxSubscriptionsKey, err)
 		}
 	}
 

@@ -1,37 +1,23 @@
 syntax = "proto3";
 package marketdataservice;
-import "common.proto";
+import "modelcommon.proto";
+import "clobquote.proto";
 
 option go_package="model";
 
-message Subscription{
+message ConnectRequest {
+    string subscriberId = 1;
+    int32 maxQuotePerSecond = 2;
+}
+
+message SubscribeRequest{
     string subscriberId = 1;
     int32 listingId = 2;
 }
 
-message AddSubscriptionResponse {
-    string message = 1;
+
+
+service MarketDataGateway {
+    rpc Subscribe(SubscribeRequest) returns (model.Empty) {};
+    rpc Connect(ConnectRequest) returns (stream model.ClobQuote) {};
 }
-
-
-message SubscribeRequest {
-    string subscriberId = 1;
-}
-
-message DepthLine {
-	model.Decimal64 bidSize = 1;
-	model.Decimal64 bidPrice = 2;
-	model.Decimal64 askSize = 3;
-	model.Decimal64 askPrice =4;
-}
-
-
-message Quote {
-    int32 listingId = 1;
-    repeated DepthLine depth = 2;
-}
-
-service MarketDataService{
-    rpc AddSubscription(Subscription) returns (AddSubscriptionResponse) {};
-    rpc Subscribe(SubscribeRequest) returns (stream Quote) {};
-} 
