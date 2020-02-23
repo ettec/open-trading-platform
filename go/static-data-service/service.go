@@ -4,7 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/static-data-service/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/open-trading-platform/go/static-data-service/api"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -41,7 +42,7 @@ const listingsSelect = `SELECT listings.id, listings.market_symbol, markets.id, 
 		on listings.instrument_id = instruments.id inner join markets 
 		on listings.market_id = markets.id `
 
-func (s *service) GetListingsMatching(c context.Context, m *model.MatchParameters) (*model.Listings, error) {
+func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters) (*api.Listings, error) {
 
 	lq := listingsSelect +  " where display_symbol like '" + m.SymbolMatch +"%'"
 
@@ -58,7 +59,7 @@ func (s *service) GetListingsMatching(c context.Context, m *model.MatchParameter
 	return result, nil
 }
 
-func (s *service) GetListing(c context.Context, id *model.ListingId) (*model.Listing, error) {
+func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listing, error) {
 	lq := fmt.Sprintf( "%v where listings.id = %v", listingsSelect, id.ListingId)
 
 	r, err := s.db.Query(lq)
@@ -79,7 +80,7 @@ func (s *service) GetListing(c context.Context, id *model.ListingId) (*model.Lis
 
 }
 
-func (s *service) GetListings(c context.Context, ids *model.ListingIds) (*model.Listings, error) {
+func (s *service) GetListings(c context.Context, ids *api.ListingIds) (*api.Listings, error) {
 
 	lq := listingsSelect +  " where listings.id in (" +  strings.Trim(strings.Join(strings.Fields(fmt.Sprint(ids.ListingIds)), ",") , "[]")+")"
 
@@ -105,8 +106,8 @@ func (s *service) Close() {
 	}
 }
 
-func hydrateListings(r *sql.Rows, err error) (*model.Listings, error) {
-	result := model.Listings{
+func hydrateListings(r *sql.Rows, err error) (*api.Listings, error) {
+	result := api.Listings{
 		Listings: []*model.Listing{},
 	}
 
@@ -185,7 +186,7 @@ func main() {
 	defer service.Close()
 
 	s := grpc.NewServer()
-	model.RegisterStaticDataServiceServer(s, service)
+	api.RegisterStaticDataServiceServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
