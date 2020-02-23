@@ -8,13 +8,13 @@ import (
 
 type ClientConnection interface {
 	GetId() string
-	Subscribe(listingId int)
+	Subscribe(listingId int32)
 	Close()
 }
 
 type clientConnection struct {
 	id            string
-	subscribeChan chan int
+	subscribeChan chan int32
 	closeChan     chan  bool
 	log           *log.Logger
 	errLog        *log.Logger
@@ -24,7 +24,7 @@ func (c *clientConnection) Close() {
 	c.closeChan <- true
 }
 
-func (c *clientConnection) Subscribe(listingId int) {
+func (c *clientConnection) Subscribe(listingId int32) {
 	c.subscribeChan <- listingId
 	c.log.Println("subscribed to listing id:", listingId)
 }
@@ -38,7 +38,7 @@ func NewClientConnection(id string, out chan<- *model.ClobQuote , subscribe subs
 
 	c := &clientConnection{id: id,
 		closeChan:     make(chan  bool, 1),
-		subscribeChan: make(chan int),
+		subscribeChan: make(chan int32),
 		log:           log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
 		errLog:        log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
 
@@ -58,7 +58,7 @@ func NewClientConnection(id string, out chan<- *model.ClobQuote , subscribe subs
 					toConflator <- q
 				}
 			case l := <-c.subscribeChan:
-				subscribedListings[int32(l)] = true
+				subscribedListings[l] = true
 				subscribe(l)
 			case <-c.closeChan:
 				conflator.Close()

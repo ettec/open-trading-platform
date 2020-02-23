@@ -9,14 +9,14 @@ import (
 )
 
 type ListingIdSymbol struct {
-	ListingId int
+	ListingId int32
 	Symbol    string
 }
 
 type fixSimConnection struct {
 	connectionName    string
-	symbolToListingId map[string]int
-	idToQuote         map[int]*model.ClobQuote
+	symbolToListingId map[string]int32
+	idToQuote         map[int32]*model.ClobQuote
 	refreshInChan     chan *marketdata.MarketDataIncrementalRefresh
 	mappingChan       chan ListingIdSymbol
 	out               chan<- *model.ClobQuote
@@ -32,7 +32,7 @@ type MarketDataClient interface {
 	close() error
 }
 
-type symbolLookup func(listingId int) (string, error)
+type symbolLookup func(listingId int32) (string, error)
 
 type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (MarketDataClient, error)
 
@@ -43,8 +43,8 @@ func NewFixSimConnection(
 	c := &fixSimConnection{
 		out:               out,
 		connectionName:    connectionName,
-		symbolToListingId: make(map[string]int),
-		idToQuote:         make(map[int]*model.ClobQuote),
+		symbolToListingId: make(map[string]int32),
+		idToQuote:         make(map[int32]*model.ClobQuote),
 		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		mappingChan:       make(chan ListingIdSymbol, 1000),
 		symbolLookup:      symbolLookup,
@@ -72,7 +72,7 @@ func NewFixSimConnection(
 }
 
 
-func (n *fixSimConnection) Subscribe(listingId int) error {
+func (n *fixSimConnection) Subscribe(listingId int32) error {
 	go func() {
 		if symbol, err := n.symbolLookup(listingId); err == nil {
 			n.mappingChan <- ListingIdSymbol{
@@ -130,12 +130,12 @@ func (n *fixSimConnection) readInputChannel() error {
 }
 
 
-func newClobQuote(listingId int) *model.ClobQuote {
+func newClobQuote(listingId int32) *model.ClobQuote {
 	bids := make([]*model.ClobLine, 0)
 	offers := make([]*model.ClobLine, 0)
 
 	return &model.ClobQuote{
-		ListingId: int32(listingId),
+		ListingId: listingId,
 		Bids:      bids,
 		Offers:    offers,
 	}

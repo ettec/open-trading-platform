@@ -7,11 +7,11 @@ import (
 )
 
 type testMarketDataClient struct {
-	subscribe func(listingId int) error
+	subscribe func(listingId int32) error
 	close     func() error
 }
 
-func (t *testMarketDataClient) Subscribe(listingId int) error{
+func (t *testMarketDataClient) Subscribe(listingId int32) error{
 	t.subscribe(listingId)
 	return nil
 }
@@ -48,12 +48,12 @@ func TestNewMdServerConnection(t *testing.T) {
 
 func TestSubscribe(t *testing.T) {
 
-	subscribed := make(chan int, 0)
+	subscribed := make(chan int32, 0)
 
 	dial := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
 		return &testMarketDataClient{
 
-			subscribe: func(listingId int) error {
+			subscribe: func(listingId int32) error {
 				subscribed <- listingId
 				return nil
 			},
@@ -116,7 +116,7 @@ func TestRefreshesAreForwardedToSink(t *testing.T) {
 
 func TestSubscribesSentWhilstNotConnectedAreResentOnConnect(t *testing.T) {
 
-	subscribed := make(chan int, 20)
+	subscribed := make(chan int32, 20)
 	var clobSource chan<- *model.ClobQuote
 	connected := make(chan bool)
 
@@ -124,7 +124,7 @@ func TestSubscribesSentWhilstNotConnectedAreResentOnConnect(t *testing.T) {
 		clobSource = source
 		connected <- true
 		return &testMarketDataClient{
-			subscribe: func(listingId int) error {
+			subscribe: func(listingId int32) error {
 				subscribed <- listingId
 				return nil
 			},
@@ -153,7 +153,7 @@ func TestSubscribesSentWhilstNotConnectedAreResentOnConnect(t *testing.T) {
 func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 
 	var clobSource chan<- *model.ClobQuote
-	subscriptions := make(chan int, 10)
+	subscriptions := make(chan int32, 10)
 	connected := make(chan bool)
 
 	dial := func(target string, source chan<- *model.ClobQuote) (Connection, error) {
@@ -161,7 +161,7 @@ func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 		connected <- true
 		return &testMarketDataClient{
 
-			subscribe: func(listingId int) error {
+			subscribe: func(listingId int32) error {
 				subscriptions <- listingId
 				return nil
 			},

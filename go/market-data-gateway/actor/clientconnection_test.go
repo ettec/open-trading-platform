@@ -12,11 +12,8 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 
 
 
-	c := NewClientConnection("testId", func(quote *model.ClobQuote) error {
-		out <- quote
-		return nil
-	},
-		func(listingId int) {
+	c := NewClientConnection("testId", out,
+		func(listingId int32) {
 
 		}, in, 100)
 
@@ -49,11 +46,8 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 	in := make(chan *model.ClobQuote)
 
 
-	c := NewClientConnection("testId", func(quote *model.ClobQuote) error {
-		out <- quote
-		return nil
-	},
-		func(listingId int) {
+	c := NewClientConnection("testId", out,
+		func(listingId int32) {
 
 		}, in, 100)
 

@@ -8,11 +8,11 @@ import (
 
 type SubscriptionHandler interface {
 	Actor
-	Subscribe(listingId int)
+	Subscribe(listingId int32)
 }
 
 type subscribeFn = func(symbol string)
-type subscribeToListing = func(listingId int)
+type subscribeToListing = func(listingId int32)
 
 type SubscriptionClient interface {
 	Subscribe(symbol string)

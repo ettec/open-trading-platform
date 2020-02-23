@@ -7,7 +7,7 @@ import (
 )
 
 type QuoteDistributor interface {
-	Subscribe(listingId int)
+	Subscribe(listingId int32)
 
 	AddOutQuoteChan(sink chan<- *model.ClobQuote)
 
@@ -70,7 +70,7 @@ func NewQuoteDistributor(subscribedFn subscribeToListing, in <-chan *model.ClobQ
 	return q
 }
 
-func (q *quoteDistributor) Subscribe(listingId int) {
+func (q *quoteDistributor) Subscribe(listingId int32) {
 	q.subscribedFn(listingId)
 }
 

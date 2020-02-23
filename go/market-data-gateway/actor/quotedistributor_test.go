@@ -10,7 +10,7 @@ func Test_quoteDistributor_Send(t *testing.T) {
 
 	in := make(chan *model.ClobQuote, 10)
 
-	d := NewQuoteDistributor(func(listingId int) {}, in)
+	d := NewQuoteDistributor(func(listingId int32) {}, in)
 
 	s1 := make(chan *model.ClobQuote, 100)
 
@@ -35,7 +35,7 @@ func Test_quoteDistributorRemovesFullChan(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
 
-	d := NewQuoteDistributor(func(listingId int) {}, in)
+	d := NewQuoteDistributor(func(listingId int32) {}, in)
 
 	s1 := make(chan *model.ClobQuote, 2)
 

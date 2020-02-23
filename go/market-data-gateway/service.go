@@ -34,7 +34,7 @@ type clientConnection struct {
 
 func newService(id string, fixSimAddress string) *service {
 
-	listingIdToSymbol := map[int]string{1: "A", 2: "B", 3: "C", 4: "D"}
+	listingIdToSymbol := map[int32]string{1: "A", 2: "B", 3: "C", 4: "D"}
 
 	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (actor.Connection, error) {
 
@@ -42,7 +42,7 @@ func newService(id string, fixSimAddress string) *service {
 			return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out)
 		}
 
-		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, func(listingId int) (s string, err error) {
+		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, func(listingId int32) (s string, err error) {
 			if sym, ok := listingIdToSymbol[listingId]; ok {
 				return sym, nil
 			} else {
@@ -105,7 +105,7 @@ func (s *service) Subscribe(c context.Context, r *api.SubscribeRequest) (*model.
 			return nil, fmt.Errorf("maximum subscription count %v exceeded", maxSubscriptions)
 		}
 
-		conn.connection.Subscribe(int(r.ListingId))
+		conn.connection.Subscribe(r.ListingId)
 		conn.subscriptionCnt++
 		return &model.Empty{}, nil
 	} else {

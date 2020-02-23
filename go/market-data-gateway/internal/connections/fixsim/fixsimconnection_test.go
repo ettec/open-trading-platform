@@ -42,7 +42,7 @@ func (t *testMarketDataClient) close() error {
 
 func Test_fixSimConnection_close(t *testing.T) {
 
-	listingIdToSym := map[int]string{1: "A", 2: "B"}
+	listingIdToSym := map[int32]string{1: "A", 2: "B"}
 	tmd, _ := newTestMarketDataClient()
 
 	out := make(chan *model.ClobQuote, 10)
@@ -81,7 +81,7 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	tmd, err := newTestMarketDataClient()
 
 	out := make(chan *model.ClobQuote, 100)
-	listingIdToSym := map[int]string{1: "A", 2: "B"}
+	listingIdToSym := map[int32]string{1: "A", 2: "B"}
 	n, err := NewFixSimConnection(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
 		return tmd, nil
 	}, "testName", toLookupFunc(listingIdToSym), out)
@@ -120,8 +120,8 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	}
 }
 
-func toLookupFunc(listingIdToSym map[int]string) func(listingId int) (s string, err error) {
-	return func(listingId int) (s string, err error) {
+func toLookupFunc(listingIdToSym map[int32]string) func(listingId int32) (s string, err error) {
+	return func(listingId int32) (s string, err error) {
 		if sym, ok := listingIdToSym[listingId]; ok {
 			return sym, nil
 		} else {
