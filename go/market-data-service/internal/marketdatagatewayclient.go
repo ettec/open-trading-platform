@@ -65,7 +65,7 @@ func (mdc *marketDataClient) Close() error {
 	return mdc.conn.Close()
 }
 
-func (mdc *marketDataClient) Subscribe(listingId int) error  {
+func (mdc *marketDataClient) Subscribe(listingId int32) error  {
 
 	request := &api.SubscribeRequest{
 		SubscriberId:         mdc.id,

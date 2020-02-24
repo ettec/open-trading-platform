@@ -1,12 +1,12 @@
 package main
 
-
 import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
-	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/api"
+
+	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/internal"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -19,21 +19,12 @@ import (
 )
 
 type service struct {
-	partyIdToConnection map[string]*clientConnection
+	partyIdToConnection map[string]actor.ClientConnection
 	quoteDistributor    actor.QuoteDistributor
 	connMux             sync.Mutex
 }
 
-type clientConnection struct {
-	id              string
-	connection      actor.ClientConnection
-	distributorChan chan *model.ClobQuote
-	subscriptionCnt int
-	out             chan<- *model.ClobQuote
-}
-
 func newService(id string, marketGatewayAddress string) *service {
-
 
 	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (actor.Connection, error) {
 		return internal.NewMarketDataClient(connectionName, marketGatewayAddress, out )
@@ -44,12 +35,12 @@ func newService(id string, marketGatewayAddress string) *service {
 	mdConnection := actor.NewMdServerConnection(id, serverToDistributorChan, newConnection, 20*time.Second)
 	qd := actor.NewQuoteDistributor(mdConnection.Subscribe, serverToDistributorChan)
 
-	s := &service{partyIdToConnection: make(map[string]*clientConnection), quoteDistributor: qd}
+	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
 
 	return s
 }
 
-func (s *service) getConnection(partyId string) (*clientConnection, bool) {
+func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
@@ -57,44 +48,33 @@ func (s *service) getConnection(partyId string) (*clientConnection, bool) {
 	return con, ok
 }
 
-func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) (*clientConnection) {
+func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) (actor.ClientConnection, error) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
 	if conn, ok := s.partyIdToConnection[subscriberId]; ok {
 		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
-		conn.connection.Close()
-		s.quoteDistributor.RemoveOutQuoteChan(conn.distributorChan)
-		close(conn.out)
+		conn.Close()
 		log.Print("connection closed:", subscriberId)
 	}
 
-	distributorToConnectionChan := make(chan *model.ClobQuote, 1000)
-	connection := actor.NewClientConnection(subscriberId, out, s.quoteDistributor.Subscribe, distributorToConnectionChan, maxSubscriptions)
-	cc := &clientConnection{
-		id:              subscriberId,
-		connection:      connection,
-		distributorChan: distributorToConnectionChan,
-		out:			 out,
-	}
+	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
 
 	s.partyIdToConnection[subscriberId] = cc
-	s.quoteDistributor.AddOutQuoteChan(distributorToConnectionChan)
 
-	return cc
+	return cc, nil
 }
 
-func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
+func (s *service) Subscribe(c context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
 	if conn, ok := s.getConnection(r.SubscriberId); ok {
 
-		if conn.subscriptionCnt >= maxSubscriptions {
-			return nil, fmt.Errorf("maximum subscription count %v exceeded", maxSubscriptions)
+		if err := conn.Subscribe(r.ListingId); err == nil {
+			return &model.Empty{}, nil
+		} else {
+			return nil, err
 		}
 
-		conn.connection.Subscribe(int(r.ListingId))
-		conn.subscriptionCnt++
-		return &model.Empty{}, nil
 	} else {
 		return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
 	}
