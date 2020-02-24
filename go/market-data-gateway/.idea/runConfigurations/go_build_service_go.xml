@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="go build service.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+    <module name="market-data-gateway" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GATEWAY_ID" value="fixsimgateway" />
+      <env name="FIX_SIM_ADDRESS" value="0.0.0.0:50051" />
+    </envs>
+    <kind value="FILE" />
+    <filePath value="$PROJECT_DIR$/service.go" />
+    <package value="github.com/ettec/open-trading-platform/go/market-data-gateway" />
+    <directory value="$PROJECT_DIR$/" />
+    <method v="2" />
+  </configuration>
+</component>

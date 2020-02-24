@@ -36,11 +36,11 @@ func TestNewMdServerConnection(t *testing.T) {
 	mdConn := NewMdServerConnection("testconnection", out, dial, 0)
 
 	if !<-connectedCalled {
-		t.Errorf("expected connection method to be called")
+		t.Errorf("expected distConnection method to be called")
 	}
 
 	if mdConn.connection == nil {
-		t.Errorf("expected the md conn to have a connection")
+		t.Errorf("expected the md conn to have a distConnection")
 	}
 
 }
@@ -200,11 +200,11 @@ func TestReconnectOccursAfterConnectionFailure(t *testing.T) {
 	<-connected
 
 	if s := <-subscriptions; s != 1 {
-		t.Errorf("expected subscription to be resent for 1")
+		t.Errorf("expected subscribeRequest to be resent for 1")
 	}
 
 	if s := <-subscriptions; s != 2 {
-		t.Errorf("expected subscription to be resent for 2")
+		t.Errorf("expected subscribeRequest to be resent for 2")
 	}
 
 }

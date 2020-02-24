@@ -12,10 +12,9 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 
 
 
-	c := NewClientConnection("testId", out,
+	c := NewClientConnection("testId", out,  NewQuoteDistributor(
 		func(listingId int32) {
-
-		}, in, 100)
+		}, in), 100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)
@@ -46,10 +45,9 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 	in := make(chan *model.ClobQuote)
 
 
-	c := NewClientConnection("testId", out,
+	c := NewClientConnection("testId", out,  NewQuoteDistributor(
 		func(listingId int32) {
-
-		}, in, 100)
+		}, in), 100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)

@@ -1,6 +1,7 @@
 package actor
 
 import (
+	"fmt"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
@@ -8,65 +9,70 @@ import (
 
 type ClientConnection interface {
 	GetId() string
-	Subscribe(listingId int32)
+	Subscribe(listingId int32) error
 	Close()
 }
 
 type clientConnection struct {
-	id            string
-	subscribeChan chan int32
-	closeChan     chan  bool
-	log           *log.Logger
-	errLog        *log.Logger
+	id                  string
+	maxSubscriptions    int
+	quoteDistributor    QuoteDistributor
+	quoteConflator      *quoteConflator
+	distToConflatorChan chan *model.ClobQuote
+	out                 chan<- *model.ClobQuote
+	subscriptions       map[int32]bool
+	log                 *log.Logger
+	errLog              *log.Logger
 }
 
 func (c *clientConnection) Close() {
-	c.closeChan <- true
+
+	c.quoteDistributor.RemoveOutQuoteChan(c.distToConflatorChan)
+	c.quoteConflator.Close()
+	close(c.out)
+
 }
 
-func (c *clientConnection) Subscribe(listingId int32) {
-	c.subscribeChan <- listingId
+func (c *clientConnection) Subscribe(listingId int32) error {
+
+	if len(c.subscriptions) == c.maxSubscriptions {
+		return fmt.Errorf("max number of subscriptions for this connection has been reached: %v", c.maxSubscriptions)
+	}
+
+	if c.subscriptions[listingId] {
+		return fmt.Errorf("already subscribed to listing id: %v", listingId)
+	}
+
+	c.quoteDistributor.Subscribe(listingId, c.distToConflatorChan)
 	c.log.Println("subscribed to listing id:", listingId)
+
+	return nil
 }
 
 func (c *clientConnection) GetId() string {
 	return c.id
 }
 
-func NewClientConnection(id string, out chan<- *model.ClobQuote , subscribe subscribeToListing, in  <-chan *model.ClobQuote,
+type subscribeToListing = func(listingId int32)
+
+func NewClientConnection(id string, out chan<- *model.ClobQuote, quoteDistributor QuoteDistributor,
 	maxSubscriptions int) *clientConnection {
 
+	distToConflatorChan := make(chan *model.ClobQuote, 200)
+
+	quoteDistributor.AddOutQuoteChan(distToConflatorChan)
+
+	conflator := NewQuoteConflator(distToConflatorChan, out, maxSubscriptions)
+
 	c := &clientConnection{id: id,
-		closeChan:     make(chan  bool, 1),
-		subscribeChan: make(chan int32),
-		log:           log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
-		errLog:        log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
-
-
-	toConflator := make(chan *model.ClobQuote)
-
-	conflator := NewQuoteConflator(toConflator, out, maxSubscriptions)
-
-
-	subscribedListings := map[int32]bool{}
-
-	go func() {
-		for {
-			select {
-			case q := <-in:
-				if subscribedListings[q.ListingId] {
-					toConflator <- q
-				}
-			case l := <-c.subscribeChan:
-				subscribedListings[l] = true
-				subscribe(l)
-			case <-c.closeChan:
-				conflator.Close()
-				return
-			}
-		}
-
-	}()
+		maxSubscriptions:    maxSubscriptions,
+		quoteDistributor:    quoteDistributor,
+		quoteConflator:      conflator,
+		out:				 out,
+		subscriptions:       map[int32]bool{},
+		distToConflatorChan: distToConflatorChan,
+		log:                 log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
+		errLog:              log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
 
 	return c
 }

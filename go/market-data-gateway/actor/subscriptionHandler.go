@@ -12,7 +12,7 @@ type SubscriptionHandler interface {
 }
 
 type subscribeFn = func(symbol string)
-type subscribeToListing = func(listingId int32)
+
 
 type SubscriptionClient interface {
 	Subscribe(symbol string)
@@ -51,7 +51,7 @@ func NewSubscriptionHandler(connectionId string, fetchSymbolForListingFn fetchSy
 		log:                 log.New(os.Stdout, connectionId+"-subscriptionHandler:", log.LstdFlags),
 	}
 
-	s.actorImpl = newActorImpl("subscriptionHandler for connection " + connectionId, s.readInputChannels)
+	s.actorImpl = newActorImpl("subscriptionHandler for distConnection " + connectionId, s.readInputChannels)
 
 	return s
 }

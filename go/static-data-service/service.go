@@ -31,7 +31,7 @@ func NewService(driverName, dbConnString string) (*service, error) {
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("could not establish a connection with the database: %w", err)
+		log.Fatal("could not establish a connection with the database: ", err)
 	}
 
 	return s, nil

@@ -27,7 +27,6 @@ type mdServerConnection struct {
 	connectSignalChan      chan bool
 	requestedSubscriptions map[int32]bool
 	subscriptions          map[int32]bool
-	lastQuote              map[int32]*model.ClobQuote
 	connection             Connection
 	newConnectionFn        NewConnectionFn
 	quotesIn               <-chan *model.ClobQuote
@@ -41,7 +40,6 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 		out:					out,
 		reconnectInterval:      reconnectInterval,
 		subscriptionChan:       make(chan int32, 10000),
-		lastQuote:				map[int32]*model.ClobQuote{},
 		log:                    log.New(os.Stdout, connectionName+":", log.Ltime | log.Lshortfile),
 		errLog:                 log.New(os.Stderr, connectionName+":", log.Ltime | log.Lshortfile),
 		connectSignalChan:      make(chan bool),
@@ -59,7 +57,6 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 			select {
 			case quote, ok := <-m.quotesIn:
 				if ok {
-					m.lastQuote[quote.ListingId] = quote
 					m.out <- quote
 				} else {
 					m.log.Println("inbound quote stream has closed")
@@ -69,7 +66,6 @@ func NewMdServerConnection( connectionName string,  out chan<- *model.ClobQuote,
 						emptyQuote := &model.ClobQuote{
 							ListingId:            k,
 						}
-						m.lastQuote[k] = emptyQuote
 						m.out <- emptyQuote
 					}
 

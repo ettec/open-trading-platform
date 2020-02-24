@@ -23,12 +23,13 @@ func (c *quoteConflator) Close() {
 
 func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote,  capacity int) *quoteConflator {
 	c := &quoteConflator{
-		inChan: inChan, outChan: outChan, closeChan: make(chan  bool,1),
+		inChan: inChan, outChan: outChan, closeChan: make(chan bool),
 		pendingQuote: map[int32]*model.ClobQuote{}, receivedOrder: newBoundedCircularIntBuffer(capacity),
 	errLog:log.New(os.Stderr, "", log.Lshortfile|log.Ltime)}
 
 
 	go func() {
+
 
 		for {
 			var eq *model.ClobQuote
@@ -40,7 +41,12 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 
 			if eq != nil {
 				select {
-				case q := <-c.inChan:
+				case q, ok := <-c.inChan:
+					if !ok {
+						c.errLog.Printf("inbound quote channel has closed, exiting")
+						return
+					}
+
 					if err := c.conflate( q ); err != nil {
 						c.errLog.Println("exiting:", err)
 						return
@@ -72,6 +78,7 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 }
 
 func (c *quoteConflator) conflate(q *model.ClobQuote) error {
+
 	if _, ok := c.pendingQuote[q.ListingId]; !ok {
 		ok = c.receivedOrder.addHead(q.ListingId)
 		if !ok {

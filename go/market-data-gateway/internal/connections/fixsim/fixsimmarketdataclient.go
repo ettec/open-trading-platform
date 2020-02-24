@@ -19,6 +19,7 @@ type fixSimMarketDataClient struct {
 	client FixSimMarketDataServiceClient
 	conn   *grpc.ClientConn
 	out            chan<- *marketdata.MarketDataIncrementalRefresh
+	log         *log.Logger
 	errLog         *log.Logger
 }
 
@@ -27,8 +28,11 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 	n := &fixSimMarketDataClient{
 		id:				id,
 		out:            out,
+		log:	        log.New(os.Stdout, targetAddress, log.Lshortfile | log.Ltime),
 		errLog:         log.New(os.Stderr, targetAddress, log.Lshortfile | log.Ltime),
 	}
+
+	log.Println("connecting to fix sim market data service at:" + targetAddress)
 
 	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
