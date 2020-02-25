@@ -24,26 +24,32 @@ type service struct {
 	connMux             sync.Mutex
 }
 
-func newService(id string, fixSimAddress string, staticDataServiceAddress string) (*service, error) {
+func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (*service, error) {
 
-	sh, err := actor.NewSubscriptionHandler(staticDataServiceAddress)
+	listingSrc, err := actor.NewListingSource(staticDataServiceAddress)
 	if err != nil {
 		return nil, err
 	}
 
-	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (actor.Connection, error) {
+	newMarketDataClientFn := func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (fixsim.MarketDataClient, error) {
+		return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out, func(targetAddress string) (fixsim.FixSimMarketDataServiceClient, fixsim.GrpcConnection, error) {
+			conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
+			if err != nil {
+				return nil, nil, err
+			}
 
-		newMarketDataClient := func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (fixsim.MarketDataClient, error) {
-			return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out)
-		}
-
-		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, sh.Subscribe, out)
+			client := fixsim.NewFixSimMarketDataServiceClient(conn)
+			return client, conn, nil
+		})
 	}
 
 	serverToDistributorChan := make(chan *model.ClobQuote, 1000)
+	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing, serverToDistributorChan)
+	if err != nil {
+		return nil, err
+	}
 
-	mdConnection := actor.NewMdServerConnection(id, serverToDistributorChan, newConnection, 20*time.Second)
-	qd := actor.NewQuoteDistributor(mdConnection.Subscribe, serverToDistributorChan)
+	qd := actor.NewQuoteDistributor(fixSimConn.Subscribe, serverToDistributorChan)
 
 	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
 
@@ -112,9 +118,10 @@ func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGate
 }
 
 const (
-	GatewayIdKey  = "GATEWAY_ID"
-	FixSimAddress = "FIX_SIM_ADDRESS"
+	GatewayIdKey             = "GATEWAY_ID"
+	FixSimAddress            = "FIX_SIM_ADDRESS"
 	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
+	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
 
 	// The maximum number of listing subscriptions per connection
 	MaxSubscriptionsKey = "MAX_SUBSCRIPTIONS"
@@ -131,6 +138,7 @@ func main() {
 	id := getBootstrapEnvVar(GatewayIdKey)
 	fixSimAddress := getBootstrapEnvVar(FixSimAddress)
 	staticDataServiceAddress := getBootstrapEnvVar(StaticDataServiceAddress)
+	connectRetrySecs := getOptionalBootstrapIntEnvVar(ConnectRetrySeconds, 60 )
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
 	if ok {
@@ -146,11 +154,10 @@ func main() {
 
 	s := grpc.NewServer()
 
-	service, err := newService(id, fixSimAddress, staticDataServiceAddress)
+	service, err := newService(id, fixSimAddress, staticDataServiceAddress, time.Duration(connectRetrySecs)*time.Second)
 	if err != nil {
 		log.Fatalf("error creating service: %v", err)
 	}
-
 
 	api.RegisterMarketDataGatewayServer(s, service)
 
@@ -170,4 +177,20 @@ func getBootstrapEnvVar(key string) string {
 	log.Printf("%v set to %v", key, value)
 
 	return value
+}
+
+func getOptionalBootstrapIntEnvVar(key string, def int) int {
+	strValue, exists := os.LookupEnv(key)
+	result := def
+	if exists {
+		var err error
+		result, err = strconv.Atoi(strValue)
+		if err != nil {
+			log.Panicf("cannot parse %v, error: %v", key, err)
+		}
+	}
+
+	log.Printf("%v set to %v", key, result)
+
+	return result
 }

@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-type fixSimConnection struct {
+type fixSimAdapter struct {
 	connectionName    string
 	symbolToListingId map[string]int32
 	idToQuote         map[int32]*model.ClobQuote
@@ -28,11 +28,11 @@ type MarketDataClient interface {
 
 type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (MarketDataClient, error)
 
-func NewFixSimConnection(
+func NewFixSimAdapter(
 	newClientFn newMarketDataClient, connectionName string, symbolLookup actor.GetListingFn,
-	out chan<- *model.ClobQuote) (*fixSimConnection, error) {
+	out chan<- *model.ClobQuote) (*fixSimAdapter, error) {
 
-	c := &fixSimConnection{
+	c := &fixSimAdapter{
 		out:               out,
 		connectionName:    connectionName,
 		symbolToListingId: make(map[string]int32),
@@ -62,12 +62,11 @@ func NewFixSimConnection(
 	return c, nil
 }
 
-func (n *fixSimConnection) Subscribe(listingId int32) error {
+func (n *fixSimAdapter) Subscribe(listingId int32)  {
 	n.getListing(listingId, n.listingInChan)
-	return nil
 }
 
-func (n *fixSimConnection) readInputChannel() error {
+func (n *fixSimAdapter) readInputChannel() error {
 	select {
 	case l := <-n.listingInChan:
 		n.symbolToListingId[l.MarketSymbol] = l.Id

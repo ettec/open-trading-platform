@@ -108,6 +108,9 @@ public class MarketDataService {
                 responseObserver.onError(new IllegalArgumentException(e));
             }
 
+            responseObserver.onNext(Empty.newBuilder().build());
+            responseObserver.onCompleted();
+
         }
 
         @Override

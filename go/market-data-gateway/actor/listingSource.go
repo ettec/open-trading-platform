@@ -22,14 +22,14 @@ type SubscriptionClient interface {
 
 type GetListingFn = func(listingId int32, onSymbol chan<- *model.Listing)
 
-type subscriptionHandler struct {
+type listingSource struct {
 	fetchReqChan chan fetchRequest
 	log          *log.Logger
 	errLog       *log.Logger
 }
 
-func NewSubscriptionHandler(targetAddress string) (*subscriptionHandler, error) {
-	s := &subscriptionHandler{
+func NewListingSource(targetAddress string) (*listingSource, error) {
+	s := &listingSource{
 		fetchReqChan: make(chan fetchRequest, 10000),
 		log:          log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 		errLog:       log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
@@ -81,6 +81,6 @@ type fetchRequest struct {
 	resultChan chan<- *model.Listing
 }
 
-func (s *subscriptionHandler) Subscribe(listingId int32, result chan<- *model.Listing) {
+func (s *listingSource) GetListing(listingId int32, result chan<- *model.Listing) {
 	s.fetchReqChan <- fetchRequest{listingId: listingId, resultChan: result}
 }

@@ -38,8 +38,8 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 		id:     id,
 		out:    out,
 		subscriptions: map[string]bool{},
-		log:    log.New(os.Stdout, targetAddress, log.Lshortfile|log.Ltime),
-		errLog: log.New(os.Stderr, targetAddress, log.Lshortfile|log.Ltime),
+		log:    log.New(os.Stdout, "target:" + targetAddress + " ", log.Lshortfile|log.Ltime),
+		errLog: log.New(os.Stderr, "target:" + targetAddress + " ", log.Lshortfile|log.Ltime),
 	}
 
 	log.Println("connecting to fix sim market data service at:" + targetAddress)
@@ -70,11 +70,13 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 
 			n.log.Println("connected to quote stream")
 
+
 			err = n.resubscribeAllSymbols()
 			if err != nil {
 				n.errLog.Println("failed to resubscribe to all symbols:", err)
 				continue
 			}
+
 
 			if len(n.subscriptions) >0 {
 				n.log.Printf("resubscribed to all %v quotes", len(n.subscriptions))
@@ -82,6 +84,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 
 			for {
 				incRefresh, err := stream()
+				n.log.Println("refresh:", incRefresh)
 				if err != nil {
 					n.errLog.Println("inbound stream error:", err)
 					n.out <- nil
@@ -102,12 +105,15 @@ func (fsc *fixSimMarketDataClient) close() error {
 func (fsc *fixSimMarketDataClient) resubscribeAllSymbols() error {
 	fsc.subscribeMux.Lock()
 	defer fsc.subscribeMux.Unlock()
+	fsc.log.Println("resubscribing to all quotes")
 	for symbol := range fsc.subscriptions {
-		err := subscribe(fsc.client, symbol, fsc.id)
+		go subscribe(fsc.client, symbol, fsc.id)
+		/*err :=
 		if err != nil {
 			return err
-		}
+		}*/
 	}
+	fsc.log.Println("resubscribed to all quotes")
 
 	return nil
 }
@@ -123,6 +129,7 @@ func subscribe(client FixSimMarketDataServiceClient, symbol string, id string ) 
 	request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: id}},
 		InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}}
 	_, err := client.Subscribe(context.Background(), request)
+
 	return err
 }
 
@@ -130,9 +137,14 @@ func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
 
 	fsc.subscribeMux.Lock()
 	defer fsc.subscribeMux.Unlock()
+	fsc.log.Println("subscribing to symbol:", symbol)
 	if !fsc.subscriptions[symbol] {
 		fsc.subscriptions[symbol] = true
-		return subscribe(fsc.client, symbol, fsc.id)
+		err := subscribe(fsc.client, symbol, fsc.id)
+		if err == nil {
+			fsc.log.Println("subscribed to symbol:", symbol)
+		}
+		return err
 	}
 
 	return nil
