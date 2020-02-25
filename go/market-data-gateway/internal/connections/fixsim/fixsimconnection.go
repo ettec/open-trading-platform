@@ -1,15 +1,12 @@
 package fixsim
 
 import (
-	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
-
-
 
 type fixSimConnection struct {
 	connectionName    string
@@ -43,8 +40,8 @@ func NewFixSimConnection(
 		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		listingInChan:     make(chan *model.Listing, 1000),
 		getListing:        symbolLookup,
-		log:               log.New(os.Stdout, connectionName + " ", log.Lshortfile|log.Ltime),
-		errLog:            log.New(os.Stderr, connectionName + " ", log.Lshortfile|log.Ltime),
+		log:               log.New(os.Stdout, connectionName+" ", log.Lshortfile|log.Ltime),
+		errLog:            log.New(os.Stderr, connectionName+" ", log.Lshortfile|log.Ltime),
 	}
 
 	var err error
@@ -62,18 +59,12 @@ func NewFixSimConnection(
 		}
 	}()
 
-
 	return c, nil
 }
-
 
 func (n *fixSimConnection) Subscribe(listingId int32) error {
 	n.getListing(listingId, n.listingInChan)
 	return nil
-}
-
-func (n *fixSimConnection) Close() error {
-	return n.fixSimClient.close()
 }
 
 func (n *fixSimConnection) readInputChannel() error {
@@ -85,8 +76,9 @@ func (n *fixSimConnection) readInputChannel() error {
 				n.errLog.Printf("subscribe call failed:%v", err)
 			}
 		}()
-	case r, ok := <-n.refreshInChan:
-		if ok {
+	case r := <-n.refreshInChan:
+
+		if r != nil {
 			for _, incGrp := range r.MdIncGrp {
 				symbol := incGrp.GetInstrument().GetSymbol()
 				bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
@@ -106,14 +98,16 @@ func (n *fixSimConnection) readInputChannel() error {
 				}
 			}
 		} else {
-			close(n.out)
-			return fmt.Errorf("inbound channel is closed")
+			for id, _ := range n.idToQuote {
+				emptyQuote := newClobQuote(id)
+				n.idToQuote[id] = emptyQuote
+				n.out <- emptyQuote
+			}
 		}
 	}
 
 	return nil
 }
-
 
 func newClobQuote(listingId int32) *model.ClobQuote {
 	bids := make([]*model.ClobLine, 0)

@@ -47,10 +47,10 @@ func NewSubscriptionHandler(targetAddress string) (*subscriptionHandler, error) 
 		for {
 			state := conn.GetState()
 			for state != connectivity.Ready {
-				log.Printf("waiting for static data service connection to be ready....")
+				s.log.Printf("waiting for static data service connection to be ready....")
 				conn.WaitForStateChange(context.Background(), state)
 				state = conn.GetState()
-				log.Println("static data service connection state is:", state)
+				s.log.Println("static data service connection state is:", state)
 			}
 
 			select {

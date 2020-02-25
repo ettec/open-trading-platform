@@ -51,7 +51,7 @@ func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters)
 		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
 	}
 
-	result, err := hydrateListings(r, err)
+	result, err := hydrateListings(r)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listi
 		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
 	}
 
-	result, err := hydrateListings(r, err)
+	result, err := hydrateListings(r)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (s *service) GetListings(c context.Context, ids *api.ListingIds) (*api.List
 		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
 	}
 
-	result, err := hydrateListings(r, err)
+	result, err := hydrateListings(r)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (s *service) Close() {
 	}
 }
 
-func hydrateListings(r *sql.Rows, err error) (*api.Listings, error) {
+func hydrateListings(r *sql.Rows) (*api.Listings, error) {
 	result := api.Listings{
 		Listings: []*model.Listing{},
 	}
@@ -117,7 +117,7 @@ func hydrateListings(r *sql.Rows, err error) (*api.Listings, error) {
 		l.Instrument = &model.Instrument{}
 		l.Market = &model.Market{}
 
-		err = r.Scan(&l.Id, &l.MarketSymbol, &l.Market.Id, &l.Market.Name, &l.Market.Mic, &l.Market.CountryCode,
+		err := r.Scan(&l.Id, &l.MarketSymbol, &l.Market.Id, &l.Market.Name, &l.Market.Mic, &l.Market.CountryCode,
 			&l.Instrument.Id, &l.Instrument.Name, &l.Instrument.DisplaySymbol, &l.Instrument.Enabled)
 		if err != nil {
 			return  nil, fmt.Errorf("failed to marshal database row into listing %w", err)

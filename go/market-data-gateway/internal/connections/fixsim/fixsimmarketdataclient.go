@@ -5,83 +5,136 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/connectivity"
 	"log"
 	"os"
+	"sync"
 )
 
-
-
-
-type  receiveIncRefreshFn = func() (*marketdata.MarketDataIncrementalRefresh, error)
+type receiveIncRefreshFn = func() (*marketdata.MarketDataIncrementalRefresh, error)
 
 type fixSimMarketDataClient struct {
-	id string
-	client FixSimMarketDataServiceClient
-	conn   *grpc.ClientConn
-	out            chan<- *marketdata.MarketDataIncrementalRefresh
-	log         *log.Logger
-	errLog         *log.Logger
+	id            string
+	client        FixSimMarketDataServiceClient
+	conn          *grpc.ClientConn
+	out           chan<- *marketdata.MarketDataIncrementalRefresh
+	subscribeMux  sync.Mutex
+	subscriptions map[string]bool
+	log           *log.Logger
+	errLog        *log.Logger
 }
 
-func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *marketdata.MarketDataIncrementalRefresh) (*fixSimMarketDataClient, error) {
+type getMarketSimConnectionFn = func (targetAddress string) (FixSimMarketDataServiceClient, GrpcConnection, error)
+
+type GrpcConnection interface {
+	GetState() connectivity.State
+	WaitForStateChange(ctx context.Context, sourceState connectivity.State) bool
+}
+
+func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *marketdata.MarketDataIncrementalRefresh,
+	getConnection getMarketSimConnectionFn) (*fixSimMarketDataClient, error) {
 
 	n := &fixSimMarketDataClient{
-		id:				id,
-		out:            out,
-		log:	        log.New(os.Stdout, targetAddress, log.Lshortfile | log.Ltime),
-		errLog:         log.New(os.Stderr, targetAddress, log.Lshortfile | log.Ltime),
+		id:     id,
+		out:    out,
+		subscriptions: map[string]bool{},
+		log:    log.New(os.Stdout, targetAddress, log.Lshortfile|log.Ltime),
+		errLog: log.New(os.Stderr, targetAddress, log.Lshortfile|log.Ltime),
 	}
 
 	log.Println("connecting to fix sim market data service at:" + targetAddress)
 
-	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBlock())
+	client, conn,  err := getConnection(targetAddress)
 	if err != nil {
 		return nil, err
 	}
 
-	n.conn = conn
-	n.client = NewFixSimMarketDataServiceClient(conn)
-
-	stream, err := n.connect()
+	n.client = client
 
 	go func() {
-		defer func() {
-			close(n.out)
-			if err := n.close(); err != nil {
-				n.errLog.Println("error whilst closing:", err)
-			}
-		}()
 
 		for {
-			incRefresh, err := stream()
-			if err != nil {
-				n.errLog.Println("inbound stream error:", err)
-				return
+			state := conn.GetState()
+			for state != connectivity.Ready {
+				n.log.Printf("waiting for fix market sim connection to be ready....")
+				conn.WaitForStateChange(context.Background(), state)
+				state = conn.GetState()
+				n.log.Println("market sim connection state is:", state)
 			}
 
-			n.out <- incRefresh
+			stream, err := connect(n.client, id)
+			if err != nil {
+				n.errLog.Println("failed to connect to quote stream:", err)
+				continue
+			}
+
+			n.log.Println("connected to quote stream")
+
+			err = n.resubscribeAllSymbols()
+			if err != nil {
+				n.errLog.Println("failed to resubscribe to all symbols:", err)
+				continue
+			}
+
+			if len(n.subscriptions) >0 {
+				n.log.Printf("resubscribed to all %v quotes", len(n.subscriptions))
+			}
+
+			for {
+				incRefresh, err := stream()
+				if err != nil {
+					n.errLog.Println("inbound stream error:", err)
+					n.out <- nil
+					break
+				}
+				n.out <- incRefresh
+			}
 		}
 	}()
 
 	return n, nil
 }
 
-
-
 func (fsc *fixSimMarketDataClient) close() error {
 	return fsc.conn.Close()
 }
 
-func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
-	request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: fsc.id}},
+func (fsc *fixSimMarketDataClient) resubscribeAllSymbols() error {
+	fsc.subscribeMux.Lock()
+	defer fsc.subscribeMux.Unlock()
+	for symbol := range fsc.subscriptions {
+		err := subscribe(fsc.client, symbol, fsc.id)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func connect(client FixSimMarketDataServiceClient, id string) (receiveIncRefreshFn, error) {
+	r := &Party{PartyId: id}
+	stream, err := client.Connect(context.Background(), r)
+	return stream.Recv, err
+}
+
+
+func subscribe(client FixSimMarketDataServiceClient, symbol string, id string ) error {
+	request := &marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: id}},
 		InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}}
-	_, err := fsc.client.Subscribe(context.Background(), request)
+	_, err := client.Subscribe(context.Background(), request)
 	return err
 }
 
-func (fsc *fixSimMarketDataClient) connect() (receiveIncRefreshFn, error) {
-	r := &Party{PartyId: fsc.id}
-	stream, err := fsc.client.Connect(context.Background(), r)
-	return stream.Recv, err
+func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
+
+	fsc.subscribeMux.Lock()
+	defer fsc.subscribeMux.Unlock()
+	if !fsc.subscriptions[symbol] {
+		fsc.subscriptions[symbol] = true
+		return subscribe(fsc.client, symbol, fsc.id)
+	}
+
+	return nil
 }
 
