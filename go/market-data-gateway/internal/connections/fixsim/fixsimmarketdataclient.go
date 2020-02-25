@@ -84,7 +84,6 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 
 			for {
 				incRefresh, err := stream()
-				n.log.Println("refresh:", incRefresh)
 				if err != nil {
 					n.errLog.Println("inbound stream error:", err)
 					n.out <- nil
@@ -105,16 +104,12 @@ func (fsc *fixSimMarketDataClient) close() error {
 func (fsc *fixSimMarketDataClient) resubscribeAllSymbols() error {
 	fsc.subscribeMux.Lock()
 	defer fsc.subscribeMux.Unlock()
-	fsc.log.Println("resubscribing to all quotes")
 	for symbol := range fsc.subscriptions {
-		go subscribe(fsc.client, symbol, fsc.id)
-		/*err :=
+		err := subscribe(fsc.client, symbol, fsc.id)
 		if err != nil {
 			return err
-		}*/
+		}
 	}
-	fsc.log.Println("resubscribed to all quotes")
-
 	return nil
 }
 
@@ -137,14 +132,9 @@ func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
 
 	fsc.subscribeMux.Lock()
 	defer fsc.subscribeMux.Unlock()
-	fsc.log.Println("subscribing to symbol:", symbol)
 	if !fsc.subscriptions[symbol] {
 		fsc.subscriptions[symbol] = true
-		err := subscribe(fsc.client, symbol, fsc.id)
-		if err == nil {
-			fsc.log.Println("subscribed to symbol:", symbol)
-		}
-		return err
+		return subscribe(fsc.client, symbol, fsc.id)
 	}
 
 	return nil
