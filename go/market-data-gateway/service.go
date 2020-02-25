@@ -24,9 +24,12 @@ type service struct {
 	connMux             sync.Mutex
 }
 
-func newService(id string, fixSimAddress string) *service {
+func newService(id string, fixSimAddress string, staticDataServiceAddress string) (*service, error) {
 
-	listingIdToSymbol := map[int32]string{1: "A", 2: "B", 3: "C", 4: "D"}
+	sh, err := actor.NewSubscriptionHandler(staticDataServiceAddress)
+	if err != nil {
+		return nil, err
+	}
 
 	newConnection := func(connectionName string, out chan<- *model.ClobQuote) (actor.Connection, error) {
 
@@ -34,14 +37,7 @@ func newService(id string, fixSimAddress string) *service {
 			return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out)
 		}
 
-		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, func(listingId int32) (s string, err error) {
-			if sym, ok := listingIdToSymbol[listingId]; ok {
-				return sym, nil
-			} else {
-				return "", fmt.Errorf("symbol not found for listing id %v", listingId)
-			}
-		}, out)
-
+		return fixsim.NewFixSimConnection(newMarketDataClient, connectionName, sh.Subscribe, out)
 	}
 
 	serverToDistributorChan := make(chan *model.ClobQuote, 1000)
@@ -51,7 +47,7 @@ func newService(id string, fixSimAddress string) *service {
 
 	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
 
-	return s
+	return s, nil
 }
 
 func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
@@ -118,6 +114,7 @@ func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGate
 const (
 	GatewayIdKey  = "GATEWAY_ID"
 	FixSimAddress = "FIX_SIM_ADDRESS"
+	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
 
 	// The maximum number of listing subscriptions per connection
 	MaxSubscriptionsKey = "MAX_SUBSCRIPTIONS"
@@ -131,15 +128,9 @@ func main() {
 	fmt.Println("Starting Client Market Data Gateway on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
-	id, ok := os.LookupEnv(GatewayIdKey)
-	if !ok {
-		log.Panicf("expected %v env var to be set", GatewayIdKey)
-	}
-
-	fixSimAddress, ok := os.LookupEnv(FixSimAddress)
-	if !ok {
-		log.Panicf("expected %v env var to be set", FixSimAddress)
-	}
+	id := getBootstrapEnvVar(GatewayIdKey)
+	fixSimAddress := getBootstrapEnvVar(FixSimAddress)
+	staticDataServiceAddress := getBootstrapEnvVar(StaticDataServiceAddress)
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
 	if ok {
@@ -154,11 +145,29 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	api.RegisterMarketDataGatewayServer(s, newService(id, fixSimAddress))
+
+	service, err := newService(id, fixSimAddress, staticDataServiceAddress)
+	if err != nil {
+		log.Fatalf("error creating service: %v", err)
+	}
+
+
+	api.RegisterMarketDataGatewayServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Error while serving : %v", err)
 	}
 
+}
+
+func getBootstrapEnvVar(key string) string {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		log.Fatalf("missing required env var %v", key)
+	}
+
+	log.Printf("%v set to %v", key, value)
+
+	return value
 }

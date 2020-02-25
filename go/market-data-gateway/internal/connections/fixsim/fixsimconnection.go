@@ -2,42 +2,37 @@ package fixsim
 
 import (
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
 
-type ListingIdSymbol struct {
-	ListingId int32
-	Symbol    string
-}
+
 
 type fixSimConnection struct {
 	connectionName    string
 	symbolToListingId map[string]int32
 	idToQuote         map[int32]*model.ClobQuote
 	refreshInChan     chan *marketdata.MarketDataIncrementalRefresh
-	mappingChan       chan ListingIdSymbol
+	listingInChan     chan *model.Listing
 	out               chan<- *model.ClobQuote
 	fixSimClient      MarketDataClient
-	symbolLookup      symbolLookup
+	getListing        actor.GetListingFn
 	log               *log.Logger
 	errLog            *log.Logger
 }
 
 type MarketDataClient interface {
-
 	subscribe(symbol string) error
 	close() error
 }
 
-type symbolLookup func(listingId int32) (string, error)
-
 type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (MarketDataClient, error)
 
 func NewFixSimConnection(
-	newClientFn newMarketDataClient, connectionName string, symbolLookup symbolLookup,
+	newClientFn newMarketDataClient, connectionName string, symbolLookup actor.GetListingFn,
 	out chan<- *model.ClobQuote) (*fixSimConnection, error) {
 
 	c := &fixSimConnection{
@@ -46,8 +41,8 @@ func NewFixSimConnection(
 		symbolToListingId: make(map[string]int32),
 		idToQuote:         make(map[int32]*model.ClobQuote),
 		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
-		mappingChan:       make(chan ListingIdSymbol, 1000),
-		symbolLookup:      symbolLookup,
+		listingInChan:     make(chan *model.Listing, 1000),
+		getListing:        symbolLookup,
 		log:               log.New(os.Stdout, connectionName + " ", log.Lshortfile|log.Ltime),
 		errLog:            log.New(os.Stderr, connectionName + " ", log.Lshortfile|log.Ltime),
 	}
@@ -73,17 +68,7 @@ func NewFixSimConnection(
 
 
 func (n *fixSimConnection) Subscribe(listingId int32) error {
-	go func() {
-		if symbol, err := n.symbolLookup(listingId); err == nil {
-			n.mappingChan <- ListingIdSymbol{
-				ListingId: listingId,
-				Symbol:    symbol,
-			}
-		} else {
-			n.errLog.Printf("error lookingup symbol for listing id: %v, error:%v", listingId, err)
-		}
-	}()
-
+	n.getListing(listingId, n.listingInChan)
 	return nil
 }
 
@@ -93,10 +78,10 @@ func (n *fixSimConnection) Close() error {
 
 func (n *fixSimConnection) readInputChannel() error {
 	select {
-	case m := <-n.mappingChan:
-		n.symbolToListingId[m.Symbol] = m.ListingId
+	case l := <-n.listingInChan:
+		n.symbolToListingId[l.MarketSymbol] = l.Id
 		go func() {
-			if err := n.fixSimClient.subscribe(m.Symbol); err != nil {
+			if err := n.fixSimClient.subscribe(l.MarketSymbol); err != nil {
 				n.errLog.Printf("subscribe call failed:%v", err)
 			}
 		}()

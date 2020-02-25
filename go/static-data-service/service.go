@@ -162,6 +162,7 @@ func hydrateListings(r *sql.Rows, err error) (*api.Listings, error) {
 
 
 const (
+	Port = "PORT"
 	DatabaseConnectionString = "DB_CONN_STRING"
 	DatabaseDriverName       = "DB_DRIVER_NAME"
 )
@@ -170,8 +171,9 @@ func main() {
 
 	dbString := getBootstrapEnvVar(DatabaseConnectionString)
 	dbDriverName := getBootstrapEnvVar(DatabaseDriverName)
+	port := getOptionalBootstrapEnvVar(Port, "50551")
 
-	port := "50551"
+
 	fmt.Println("Starting static data service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
@@ -201,6 +203,17 @@ func getBootstrapEnvVar(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		log.Fatalf("missing required env var %v", key)
+	}
+
+	log.Printf("%v set to %v", key, value)
+
+	return value
+}
+
+func getOptionalBootstrapEnvVar(key string, def string) string {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		value = def
 	}
 
 	log.Printf("%v set to %v", key, value)

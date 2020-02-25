@@ -5,6 +5,7 @@
     <envs>
       <env name="GATEWAY_ID" value="fixsimgateway" />
       <env name="FIX_SIM_ADDRESS" value="0.0.0.0:50051" />
+      <env name="STATIC_DATA_SERVICE_ADDRESS" value="0.0.0.0:50531" />
     </envs>
     <kind value="FILE" />
     <filePath value="$PROJECT_DIR$/service.go" />
