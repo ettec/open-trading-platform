@@ -5,82 +5,136 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/connectivity"
 	"log"
 	"os"
+	"sync"
 )
 
-type  receiveQuote = func() (*model.ClobQuote, error)
-
-type marketDataClient struct {
-	id string
-	client api.MarketDataGatewayClient
-	conn   *grpc.ClientConn
-	out            chan<- *model.ClobQuote
-	errLog         *log.Logger
+type marketGatewayClient struct {
+	id            string
+	client        api.MarketDataGatewayClient
+	conn          *grpc.ClientConn
+	out           chan<- *model.ClobQuote
+	subscribeMux  sync.Mutex
+	subscriptions map[int32]bool
+	log           *log.Logger
+	errLog        *log.Logger
 }
 
-func NewMarketDataClient(id string, targetAddress string, out chan<- *model.ClobQuote) (*marketDataClient, error) {
+type getMarketDataGatewayClientFn = func(targetAddress string) (api.MarketDataGatewayClient, GrpcConnection, error)
 
-	n := &marketDataClient{
-		id:				id,
-		out:            out,
-		errLog:         log.New(os.Stderr, targetAddress, log.Lshortfile | log.Ltime),
+type GrpcConnection interface {
+	GetState() connectivity.State
+	WaitForStateChange(ctx context.Context, sourceState connectivity.State) bool
+}
+
+func NewMarketDataGatewayClient(id string, targetAddress string, out chan<- *model.ClobQuote,
+	getConnection getMarketDataGatewayClientFn) (*marketGatewayClient, error) {
+
+	n := &marketGatewayClient{
+		id:            id,
+		out:           out,
+		subscriptions: map[int32]bool{},
+		log:           log.New(os.Stdout, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
+		errLog:        log.New(os.Stderr, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
 	}
 
-	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBlock())
+	log.Println("connecting to fix sim market data service at:" + targetAddress)
+
+	client, conn, err := getConnection(targetAddress)
 	if err != nil {
 		return nil, err
 	}
 
-	n.conn = conn
-	n.client = api.NewMarketDataGatewayClient(conn)
-
-	stream, err := n.connect()
+	n.client = client
 
 	go func() {
-		defer func() {
-			close(n.out)
-			if err := n.Close(); err != nil {
-				n.errLog.Println("error whilst closing:", err)
-			}
-		}()
 
 		for {
-			incRefresh, err := stream()
-			if err != nil {
-				n.errLog.Println("inbound stream error:", err)
-				return
+			state := conn.GetState()
+			for state != connectivity.Ready {
+				n.log.Printf("waiting for market gateway connection to be ready....")
+				conn.WaitForStateChange(context.Background(), state)
+				state = conn.GetState()
+				n.log.Println("market gateway connection state is:", state)
 			}
 
-			n.out <- incRefresh
+			stream, err := connect(n.client, id)
+			if err != nil {
+				n.errLog.Println("failed to connect to quote stream:", err)
+				continue
+			}
+
+			n.log.Println("connected to quote stream")
+
+			err = n.resubscribeAllListings()
+			if err != nil {
+				n.errLog.Println("failed to resubscribe to all listings:", err)
+				continue
+			}
+
+			if len(n.subscriptions) > 0 {
+				n.log.Printf("resubscribed to all %v quotes", len(n.subscriptions))
+			}
+
+			for {
+				incRefresh, err := stream.Recv()
+				if err != nil {
+					n.errLog.Println("inbound stream error:", err)
+					n.out <- nil
+					break
+				}
+				n.out <- incRefresh
+			}
 		}
 	}()
 
 	return n, nil
 }
 
-
-
-func (mdc *marketDataClient) Close() error {
-	return mdc.conn.Close()
+func (mgc *marketGatewayClient) close() error {
+	return mgc.conn.Close()
 }
 
-func (mdc *marketDataClient) Subscribe(listingId int32) error  {
-
-	request := &api.SubscribeRequest{
-		SubscriberId:         mdc.id,
-		ListingId:            int32(listingId),
+func (mgc *marketGatewayClient) resubscribeAllListings() error {
+	mgc.subscribeMux.Lock()
+	defer mgc.subscribeMux.Unlock()
+	for symbol := range mgc.subscriptions {
+		err := subscribe(mgc.client, symbol, mgc.id)
+		if err != nil {
+			return err
+		}
 	}
+	return nil
+}
 
-	_, err := mdc.client.Subscribe(context.Background(), request)
+func connect(client api.MarketDataGatewayClient, id string) (api.MarketDataGateway_ConnectClient, error) {
+	r := &api.ConnectRequest{SubscriberId: id}
+	stream, err := client.Connect(context.Background(), r)
+	return stream, err
+}
+
+func subscribe(client api.MarketDataGatewayClient, listingId int32, id string) error {
+	request := &api.SubscribeRequest{
+		SubscriberId: id,
+		ListingId:    listingId,
+	}
+	_, err := client.Subscribe(context.Background(), request)
 
 	return err
 }
 
-func (mdc *marketDataClient) connect() (receiveQuote, error) {
-	r := &api.ConnectRequest{
-		SubscriberId:         mdc.id,
+func (mgc *marketGatewayClient) Subscribe(listingId int32) {
+
+	mgc.subscribeMux.Lock()
+	defer mgc.subscribeMux.Unlock()
+	if !mgc.subscriptions[listingId] {
+		mgc.subscriptions[listingId] = true
+		err := subscribe(mgc.client, listingId, mgc.id)
+		if err != nil {
+			mgc.errLog.Printf("failed to subsribe to listing %v, errorr:%v", listingId, err)
+		}
 	}
-	stream, err := mdc.client.Connect(context.Background(), r)
-	return stream.Recv, err
+
 }

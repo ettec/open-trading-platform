@@ -11,8 +11,6 @@ import (
 	"sync"
 )
 
-type receiveIncRefreshFn = func() (*marketdata.MarketDataIncrementalRefresh, error)
-
 type fixSimMarketDataClient struct {
 	id            string
 	client        FixSimMarketDataServiceClient
@@ -83,7 +81,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 			}
 
 			for {
-				incRefresh, err := stream()
+				incRefresh, err := stream.Recv()
 				if err != nil {
 					n.errLog.Println("inbound stream error:", err)
 					n.out <- nil
@@ -113,10 +111,10 @@ func (fsc *fixSimMarketDataClient) resubscribeAllSymbols() error {
 	return nil
 }
 
-func connect(client FixSimMarketDataServiceClient, id string) (receiveIncRefreshFn, error) {
+func connect(client FixSimMarketDataServiceClient, id string) (FixSimMarketDataService_ConnectClient, error) {
 	r := &Party{PartyId: id}
 	stream, err := client.Connect(context.Background(), r)
-	return stream.Recv, err
+	return stream, err
 }
 
 
