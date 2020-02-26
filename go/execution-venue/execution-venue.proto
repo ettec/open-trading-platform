@@ -1,13 +1,13 @@
 syntax = "proto3";
 import "listing.proto";
 import "order.proto";
-import "common.proto";
+import "modelcommon.proto";
 package executionvenue;
-option go_package="model";
+option go_package="api";
 
 
 message CreateAndRouteOrderParams{
-    model.Side side = 1;
+    model.Side orderSide = 1;
     model.Decimal64 quantity = 2;
     model.Decimal64 price = 3;
     model.Listing listing = 4;

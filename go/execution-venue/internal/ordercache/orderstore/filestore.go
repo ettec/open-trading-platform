@@ -2,7 +2,7 @@ package orderstore
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
+	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/golang/protobuf/proto"
 	"os"
 )

@@ -1,8 +1,8 @@
-package actor
+package common
 
 import (
 	"context"
-	api "github.com/ettec/open-trading-platform/go/market-data-gateway/services"
+	services "github.com/ettec/open-trading-platform/go/common/services"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
@@ -40,7 +40,7 @@ func NewListingSource(targetAddress string) (*listingSource, error) {
 		return nil, err
 	}
 
-	sdc := api.NewStaticDataServiceClient(conn)
+	sdc := services.NewStaticDataServiceClient(conn)
 
 	go func() {
 
@@ -55,7 +55,7 @@ func NewListingSource(targetAddress string) (*listingSource, error) {
 
 			select {
 			case fr := <-s.fetchReqChan:
-				listing, err := sdc.GetListing(context.Background(), &api.ListingId{
+				listing, err := sdc.GetListing(context.Background(), &services.ListingId{
 					ListingId: fr.listingId,
 				})
 

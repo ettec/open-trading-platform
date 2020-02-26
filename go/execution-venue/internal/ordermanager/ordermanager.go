@@ -2,12 +2,15 @@ package ordermanager
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
+	"github.com/ettec/open-trading-platform/go/execution-venue/api"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway"
+	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"
+	"time"
 )
 
 var zero decimal.Decimal
@@ -19,8 +22,8 @@ func init() {
 
 
 type OrderManager interface {
-	CancelOrder(id *model.OrderId) error
-	CreateAndRouteOrder(params *model.CreateAndRouteOrderParams) (*model.OrderId, error)
+	CancelOrder(id *api.OrderId) error
+	CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error)
 	SetOrderStatus(orderId string, status model.OrderStatus) error
 	UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error
 	Close()
@@ -127,7 +130,7 @@ func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice model
 	return result.Error
 }
 
-func (om *orderManagerImpl) CreateAndRouteOrder(params *model.CreateAndRouteOrderParams) (*model.OrderId, error) {
+func (om *orderManagerImpl) CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 
 	resultChan := make(chan createAndRouteOrderCmdResult)
 
@@ -146,7 +149,7 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *model.CreateAndRouteOrde
 	return result.OrderId, nil
 }
 
-func (om *orderManagerImpl) CancelOrder(id *model.OrderId) error {
+func (om *orderManagerImpl) CancelOrder(id *api.OrderId) error {
 
 	log.Print(id.OrderId + ":cancelling order")
 
@@ -228,7 +231,7 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.Ord
 
 }
 
-func (om *orderManagerImpl) executeCancelOrderCmd(id *model.OrderId, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeCancelOrderCmd(id *api.OrderId, resultChan chan errorCmdResult) {
 
 	order, exists := om.orderStore.GetOrder(id.OrderId)
 	if !exists {
@@ -253,7 +256,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(id *model.OrderId, resultChan 
 	resultChan <- errorCmdResult{Error:err}
 }
 
-func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *model.CreateAndRouteOrderParams,
+func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndRouteOrderParams,
 	resultChan chan createAndRouteOrderCmdResult) {
 
 	uniqueId, err := uuid.NewUUID()
@@ -266,15 +269,21 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *model.CreateAn
 
 	id := uniqueId.String()
 
+	now := time.Now()
+	
 	order := &model.Order{
 		Id:                id,
-		Side:              params.Side,
+		Side:              params.OrderSide,
 		Quantity:          params.Quantity,
 		Price:             params.Price,
 		ListingId:         params.Listing.GetId(),
 		RemainingQuantity: params.Quantity,
 		Status:            model.OrderStatus_NONE,
 		TargetStatus:      model.OrderStatus_LIVE,
+		Created:		   &timestamp.Timestamp{
+			Seconds:              now.Unix(),
+			Nanos:                int32(now.Nanosecond()),
+		},
 	}
 
 	err = om.orderStore.Store(order)
@@ -290,7 +299,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *model.CreateAn
 	err = om.gateway.Send(order, params.Listing)
 
 	resultChan <- createAndRouteOrderCmdResult{
-		OrderId: &model.OrderId{
+		OrderId: &api.OrderId{
 			OrderId: id,
 		},
 		Error: err,
@@ -312,17 +321,17 @@ type setOrderStatusCmd struct {
 }
 
 type createAndRouteOrderCmd struct {
-	Params     *model.CreateAndRouteOrderParams
+	Params     *api.CreateAndRouteOrderParams
 	ResultChan chan createAndRouteOrderCmdResult
 }
 
 type createAndRouteOrderCmdResult struct {
-	OrderId *model.OrderId
+	OrderId *api.OrderId
 	Error   error
 }
 
 type cancelOrderCmd struct {
-	Params     *model.OrderId
+	Params     *api.OrderId
 	ResultChan chan errorCmdResult
 }
 

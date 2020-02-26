@@ -3,7 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/model"
+	"github.com/ettec/open-trading-platform/go/execution-venue/api"
+	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway/fixgateway"
@@ -36,7 +37,7 @@ func NewService(om ordermanager.OrderManager) *service {
 
 
 
-func (s *service) CreateAndRouteOrder(context context.Context, params *model.CreateAndRouteOrderParams) (*model.OrderId, error) {
+func (s *service) CreateAndRouteOrder(context context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 
 	log.Printf("Received  order parameters-> %v", params)
 
@@ -60,12 +61,12 @@ func (s *service) CreateAndRouteOrder(context context.Context, params *model.Cre
 
 	log.Printf("created order id:%v", result.OrderId)
 
-	return &model.OrderId{
+	return &api.OrderId{
 		OrderId: result.OrderId,
 	}, nil
 }
 
-func (s *service) CancelOrder(ctx context.Context, id *model.OrderId) (*model.Empty, error) {
+func (s *service) CancelOrder(ctx context.Context, id *api.OrderId) (*model.Empty, error) {
 	return &model.Empty{}, s.orderManager.CancelOrder(id)
 }
 
@@ -114,7 +115,7 @@ func main() {
 	service := NewService(om)
 	defer service.Close()
 
-	model.RegisterExecutionVenueServer(s, service)
+	api.RegisterExecutionVenueServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

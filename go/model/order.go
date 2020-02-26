@@ -1,7 +1,7 @@
 package model
 
 import (
-	"fmt"
+"fmt"
 )
 
 var noneStateValidTargetStates = map[OrderStatus]bool{OrderStatus_LIVE: true, OrderStatus_CANCELLED: true}

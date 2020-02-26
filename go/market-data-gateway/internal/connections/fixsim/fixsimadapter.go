@@ -1,7 +1,7 @@
 package fixsim
 
 import (
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
+	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
@@ -16,7 +16,7 @@ type fixSimAdapter struct {
 	listingInChan     chan *model.Listing
 	out               chan<- *model.ClobQuote
 	fixSimClient      MarketDataClient
-	getListing        actor.GetListingFn
+	getListing        common.GetListingFn
 	log               *log.Logger
 	errLog            *log.Logger
 }
@@ -29,7 +29,7 @@ type MarketDataClient interface {
 type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (MarketDataClient, error)
 
 func NewFixSimAdapter(
-	newClientFn newMarketDataClient, connectionName string, symbolLookup actor.GetListingFn,
+	newClientFn newMarketDataClient, connectionName string, symbolLookup common.GetListingFn,
 	out chan<- *model.ClobQuote) (*fixSimAdapter, error) {
 
 	c := &fixSimAdapter{

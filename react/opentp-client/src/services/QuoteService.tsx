@@ -28,6 +28,7 @@ export default class QuoteServiceImpl implements QuoteService {
   idToListeners: Map<number, Array<QuoteListener>> = new Map()
   listingIdToQuote: Map<number, ClobQuote> = new Map()
 
+
   constructor() {
 
     var subscription = new MdsConnectRequest()

@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/common"
+	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
@@ -26,7 +28,7 @@ type service struct {
 
 func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (*service, error) {
 
-	listingSrc, err := actor.NewListingSource(staticDataServiceAddress)
+	listingSrc, err := common.NewListingSource(staticDataServiceAddress)
 	if err != nil {
 		return nil, err
 	}
@@ -135,10 +137,10 @@ func main() {
 	fmt.Println("Starting Client Market Data Gateway on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
-	id := getBootstrapEnvVar(GatewayIdKey)
-	fixSimAddress := getBootstrapEnvVar(FixSimAddress)
-	staticDataServiceAddress := getBootstrapEnvVar(StaticDataServiceAddress)
-	connectRetrySecs := getOptionalBootstrapIntEnvVar(ConnectRetrySeconds, 60 )
+	id := bootstrap.GetBootstrapEnvVar(GatewayIdKey)
+	fixSimAddress := bootstrap.GetBootstrapEnvVar(FixSimAddress)
+	staticDataServiceAddress := bootstrap.GetBootstrapEnvVar(StaticDataServiceAddress)
+	connectRetrySecs := bootstrap.GetOptionalBootstrapIntEnvVar(ConnectRetrySeconds, 60 )
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
 	if ok {
@@ -168,29 +170,4 @@ func main() {
 
 }
 
-func getBootstrapEnvVar(key string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		log.Fatalf("missing required env var %v", key)
-	}
 
-	log.Printf("%v set to %v", key, value)
-
-	return value
-}
-
-func getOptionalBootstrapIntEnvVar(key string, def int) int {
-	strValue, exists := os.LookupEnv(key)
-	result := def
-	if exists {
-		var err error
-		result, err = strconv.Atoi(strValue)
-		if err != nil {
-			log.Panicf("cannot parse %v, error: %v", key, err)
-		}
-	}
-
-	log.Printf("%v set to %v", key, result)
-
-	return result
-}
