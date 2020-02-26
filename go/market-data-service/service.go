@@ -124,7 +124,7 @@ var maxSubscriptions = 10000
 
 func main() {
 
-	port := "50651"
+	port := "50551"
 	fmt.Println("Starting Market Data Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 

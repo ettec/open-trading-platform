@@ -60,16 +60,20 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
         this.quoteService.UnsubscribeFromQuote(this.state.listing.getId(), this)  
       }
 
+   
+      let quote = this.quoteService.SubscribeToQuote(listing.getId(), this)
+
       let state: MarketDepthState = {
         ...this.state,...{
           listing: listing,
-          quote: undefined
+          quote: quote
         }
       }
 
-      this.setState(state)
-      this.setState(state)
-      this.quoteService.SubscribeToQuote(listing.getId(), this)
+       // A bug in the table implementation means state has to be set twice to update the table
+       this.setState(state)
+       this.setState(state)
+
     })
 
   }

@@ -3,7 +3,6 @@ import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
 import { logGrpcError, logDebug } from '../logging/Logging';
-import { Decimal64 } from '../serverapi/common_pb';
 import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
 import { CreateAndRouteOrderParams, OrderId } from '../serverapi/execution-venue_pb';
 import { Listing } from '../serverapi/listing_pb';
@@ -12,7 +11,7 @@ import { Side } from '../serverapi/order_pb';
 import { toNumber, toDecimal64 } from '../util/decimal64Conversion';
 import Login from './Login';
 import { QuoteService, QuoteListener } from '../services/QuoteService';
-import {  TicketController } from "./Container";
+import { TicketController } from "./Container";
 import { ClobQuote } from '../serverapi/clobquote_pb';
 
 interface OrderTicketState {
@@ -53,12 +52,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
   onQuote(recQuote: ClobQuote): void {
-      let state: OrderTicketState = {
-        ...this.state,...{
-          quote: recQuote
-        }
+    let state: OrderTicketState = {
+      ...this.state, ...{
+        quote: recQuote
       }
-      this.setState(state)
+    }
+    this.setState(state)
   }
 
 
@@ -99,13 +98,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   // TOdo - bind in tick size to numeric HTMLFormControlsCollection, use quote to populate in, add hotkeys for ticket 
 
 
-  private getTickSize(price:number, listing:Listing):number {
+  private getTickSize(price: number, listing: Listing): number {
     let tt = listing.getTicksize()
-    if( tt ) {
+    if (tt) {
       let el = tt.getEntriesList()
-      for(var entry of el) {
+      for (var entry of el) {
         let tickSize = this.tickSizeFromEntry(entry, price)
-        if( tickSize ) {
+        if (tickSize) {
           return tickSize
         }
       }
@@ -114,33 +113,33 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     return 1
   }
 
-  private tickSizeFromEntry(entry :TickSizeEntry, price: number  ):number | undefined {
+  private tickSizeFromEntry(entry: TickSizeEntry, price: number): number | undefined {
     let lowerBound = toNumber(entry.getLowerpricebound())
     let upperBound = toNumber(entry.getUpperpricebound())
 
-    if( lowerBound !== undefined && upperBound !== undefined ) {
-      if( price >= lowerBound && price <=upperBound) {
+    if (lowerBound !== undefined && upperBound !== undefined) {
+      if (price >= lowerBound && price <= upperBound) {
         return toNumber(entry.getTicksize())
       }
     }
-    
+
     return undefined
   }
 
 
-  private getAskText(quote?: ClobQuote):string {
-    if( quote ) {
+  private getAskText(quote?: ClobQuote): string {
+    if (quote) {
       let best = this.getBestBidAndAsk(quote)
-      return "Ask: " + best.bestAskQuantity +"@" + best.bestAskPrice
+      return "Ask: " + best.bestAskQuantity + "@" + best.bestAskPrice
     } else {
       return "Ask: <>"
     }
   }
 
-  private getBidText(quote?: ClobQuote):string {
-    if( quote ) {
+  private getBidText(quote?: ClobQuote): string {
+    if (quote) {
       let best = this.getBestBidAndAsk(quote)
-      return "Bid: " + best.bestBidQuantity +"@" + best.bestBidPrice
+      return "Bid: " + best.bestBidQuantity + "@" + best.bestBidPrice
     } else {
       return "Bid: <>"
     }
@@ -150,7 +149,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
     let listing = this.state.listing
     //let quote = this.state.quote
-    if (listing ) {
+    if (listing) {
 
       let sizeIncrement = toNumber(listing.getSizeincrement())
       let tickSize = this.getTickSize(this.state.price, listing)
@@ -166,8 +165,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
           <div className={Classes.DIALOG_BODY}>
 
             <Label>{this.getListingFullName()}</Label>
-            <Label style={{color:Colors.LIME3}}>{this.getBidText(this.state.quote)}</Label>
-            <Label style={{color:Colors.ORANGE3}}>{this.getAskText(this.state.quote)}</Label>
+            <Label style={{ color: Colors.LIME3 }}>{this.getBidText(this.state.quote)}</Label>
+            <Label style={{ color: Colors.ORANGE3 }}>{this.getAskText(this.state.quote)}</Label>
 
             <FormGroup
               label="Quantity"
@@ -287,7 +286,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
     let state: OrderTicketState = {
-      ...this.state,...{
+      ...this.state, ...{
         side: newSide,
         isOpen: true,
         listing: newListing,
@@ -307,7 +306,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
     this.setState({
-      ...this.state,...{
+      ...this.state, ...{
         isOpen: false,
         defaultPrice: undefined,
         defaultQuantity: undefined,
@@ -351,8 +350,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 }
 
 class BestBidAndAsk {
-  bestBidPrice? :number
-  bestBidQuantity? :number
-  bestAskPrice? :number
-  bestAskQuantity? :number
+  bestBidPrice?: number
+  bestBidQuantity?: number
+  bestAskPrice?: number
+  bestAskQuantity?: number
 }

@@ -164,7 +164,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
   private renderBidSize = (row: number) => <Cell>{this.state.watches[row].BidSize()}</Cell>;
   private renderBidPrice = (row: number) => <Cell>{this.state.watches[row].BidPrice()}</Cell>;
   private renderAskPrice = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
-  private renderAskSize = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
+  private renderAskSize = (row: number) => <Cell>{this.state.watches[row].AskSize()}</Cell>;
 
   renderContextMenu = () => {
     return (
@@ -332,7 +332,7 @@ class ListingWatch {
 
   AskPrice(): string {
     if (this.quote) {
-      if (this.quote.getOffersList.length >= 1) {
+      if (this.quote.getOffersList().length >= 1) {
         let depth = this.quote.getOffersList()[0]
         let sz = toNumber(depth.getPrice())
         if (sz) {
