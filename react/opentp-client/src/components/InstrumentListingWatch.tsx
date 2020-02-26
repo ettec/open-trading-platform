@@ -5,7 +5,6 @@ import React from 'react';
 import { MenuItem } from "react-contextmenu";
 import { logDebug } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
-import { Quote } from "../serverapi/market-data-service_pb";
 import { Side } from "../serverapi/order_pb";
 import { ListingId } from "../serverapi/static-data-service_pb";
 import { ListingService } from "../services/ListingService";
@@ -14,6 +13,7 @@ import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './OrderBlotter.css';
+import { ClobQuote } from '../serverapi/clobquote_pb';
 
 
 interface InstrumentListingWatchState {
@@ -116,7 +116,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
   }
 
-  onQuote(quote: Quote): void {
+  onQuote(quote: ClobQuote): void {
 
     let line = this.watchMap.get(quote.getListingid())
     if (line) {
@@ -235,7 +235,7 @@ class ListingWatch {
 
   listingId: number;
   listing?: Listing;
-  quote?: Quote;
+  quote?: ClobQuote;
 
   constructor(listingId: number) {
     this.listingId = listingId
@@ -290,9 +290,9 @@ class ListingWatch {
 
   BidSize(): string {
     if (this.quote) {
-      if (this.quote.getDepthList().length >= 1) {
-        let depth = this.quote.getDepthList()[0]
-        let sz = toNumber(depth.getBidsize())
+      if (this.quote.getBidsList().length >= 1) {
+        let depth = this.quote.getBidsList()[0]
+        let sz = toNumber(depth.getSize())
         if (sz) {
           return sz.toString()
         }
@@ -304,9 +304,9 @@ class ListingWatch {
 
   BidPrice(): string {
     if (this.quote) {
-      if (this.quote.getDepthList().length >= 1) {
-        let depth = this.quote.getDepthList()[0]
-        let sz = toNumber(depth.getBidprice())
+      if (this.quote.getBidsList().length >= 1) {
+        let depth = this.quote.getBidsList()[0]
+        let sz = toNumber(depth.getPrice())
         if (sz) {
           return sz.toString()
         }
@@ -318,9 +318,9 @@ class ListingWatch {
 
   AskSize(): string {
     if (this.quote) {
-      if (this.quote.getDepthList().length >= 1) {
-        let depth = this.quote.getDepthList()[0]
-        let sz = toNumber(depth.getAsksize())
+      if (this.quote.getOffersList().length >= 1) {
+        let depth = this.quote.getOffersList()[0]
+        let sz = toNumber(depth.getSize())
         if (sz) {
           return sz.toString()
         }
@@ -332,9 +332,9 @@ class ListingWatch {
 
   AskPrice(): string {
     if (this.quote) {
-      if (this.quote.getDepthList().length >= 1) {
-        let depth = this.quote.getDepthList()[0]
-        let sz = toNumber(depth.getAskprice())
+      if (this.quote.getOffersList.length >= 1) {
+        let depth = this.quote.getOffersList()[0]
+        let sz = toNumber(depth.getPrice())
         if (sz) {
           return sz.toString()
         }

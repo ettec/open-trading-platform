@@ -2,7 +2,7 @@ import * as jspb from "google-protobuf"
 
 import * as instrument_pb from './instrument_pb';
 import * as market_pb from './market_pb';
-import * as common_pb from './common_pb';
+import * as modelcommon_pb from './modelcommon_pb';
 
 export class Listing extends jspb.Message {
   getVersion(): number;
@@ -29,8 +29,8 @@ export class Listing extends jspb.Message {
   hasTicksize(): boolean;
   clearTicksize(): void;
 
-  getSizeincrement(): common_pb.Decimal64 | undefined;
-  setSizeincrement(value?: common_pb.Decimal64): void;
+  getSizeincrement(): modelcommon_pb.Decimal64 | undefined;
+  setSizeincrement(value?: modelcommon_pb.Decimal64): void;
   hasSizeincrement(): boolean;
   clearSizeincrement(): void;
 
@@ -50,7 +50,7 @@ export namespace Listing {
     instrument?: instrument_pb.Instrument.AsObject,
     marketsymbol: string,
     ticksize?: TickSizeTable.AsObject,
-    sizeincrement?: common_pb.Decimal64.AsObject,
+    sizeincrement?: modelcommon_pb.Decimal64.AsObject,
   }
 }
 
@@ -75,18 +75,18 @@ export namespace TickSizeTable {
 }
 
 export class TickSizeEntry extends jspb.Message {
-  getLowerpricebound(): common_pb.Decimal64 | undefined;
-  setLowerpricebound(value?: common_pb.Decimal64): void;
+  getLowerpricebound(): modelcommon_pb.Decimal64 | undefined;
+  setLowerpricebound(value?: modelcommon_pb.Decimal64): void;
   hasLowerpricebound(): boolean;
   clearLowerpricebound(): void;
 
-  getUpperpricebound(): common_pb.Decimal64 | undefined;
-  setUpperpricebound(value?: common_pb.Decimal64): void;
+  getUpperpricebound(): modelcommon_pb.Decimal64 | undefined;
+  setUpperpricebound(value?: modelcommon_pb.Decimal64): void;
   hasUpperpricebound(): boolean;
   clearUpperpricebound(): void;
 
-  getTicksize(): common_pb.Decimal64 | undefined;
-  setTicksize(value?: common_pb.Decimal64): void;
+  getTicksize(): modelcommon_pb.Decimal64 | undefined;
+  setTicksize(value?: modelcommon_pb.Decimal64): void;
   hasTicksize(): boolean;
   clearTicksize(): void;
 
@@ -100,9 +100,9 @@ export class TickSizeEntry extends jspb.Message {
 
 export namespace TickSizeEntry {
   export type AsObject = {
-    lowerpricebound?: common_pb.Decimal64.AsObject,
-    upperpricebound?: common_pb.Decimal64.AsObject,
-    ticksize?: common_pb.Decimal64.AsObject,
+    lowerpricebound?: modelcommon_pb.Decimal64.AsObject,
+    upperpricebound?: modelcommon_pb.Decimal64.AsObject,
+    ticksize?: modelcommon_pb.Decimal64.AsObject,
   }
 }
 

@@ -17,8 +17,8 @@ var instrument_pb = require('./instrument_pb.js');
 goog.object.extend(proto, instrument_pb);
 var market_pb = require('./market_pb.js');
 goog.object.extend(proto, market_pb);
-var common_pb = require('./common_pb.js');
-goog.object.extend(proto, common_pb);
+var modelcommon_pb = require('./modelcommon_pb.js');
+goog.object.extend(proto, modelcommon_pb);
 goog.exportSymbol('proto.model.Listing', null, global);
 goog.exportSymbol('proto.model.TickSizeEntry', null, global);
 goog.exportSymbol('proto.model.TickSizeTable', null, global);
@@ -123,7 +123,7 @@ proto.model.Listing.toObject = function(includeInstance, msg) {
     instrument: (f = msg.getInstrument()) && instrument_pb.Instrument.toObject(includeInstance, f),
     marketsymbol: jspb.Message.getFieldWithDefault(msg, 5, ""),
     ticksize: (f = msg.getTicksize()) && proto.model.TickSizeTable.toObject(includeInstance, f),
-    sizeincrement: (f = msg.getSizeincrement()) && common_pb.Decimal64.toObject(includeInstance, f)
+    sizeincrement: (f = msg.getSizeincrement()) && modelcommon_pb.Decimal64.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -188,8 +188,8 @@ proto.model.Listing.deserializeBinaryFromReader = function(msg, reader) {
       msg.setTicksize(value);
       break;
     case 7:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setSizeincrement(value);
       break;
     default:
@@ -271,7 +271,7 @@ proto.model.Listing.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       7,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
 };
@@ -286,9 +286,12 @@ proto.model.Listing.prototype.getVersion = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.model.Listing} returns this
+ */
 proto.model.Listing.prototype.setVersion = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -301,9 +304,12 @@ proto.model.Listing.prototype.getId = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.model.Listing} returns this
+ */
 proto.model.Listing.prototype.setId = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -317,17 +323,21 @@ proto.model.Listing.prototype.getMarket = function() {
 };
 
 
-/** @param {?proto.model.Market|undefined} value */
+/**
+ * @param {?proto.model.Market|undefined} value
+ * @return {!proto.model.Listing} returns this
+*/
 proto.model.Listing.prototype.setMarket = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Listing} returns this
  */
 proto.model.Listing.prototype.clearMarket = function() {
-  this.setMarket(undefined);
+  return this.setMarket(undefined);
 };
 
 
@@ -350,17 +360,21 @@ proto.model.Listing.prototype.getInstrument = function() {
 };
 
 
-/** @param {?proto.model.Instrument|undefined} value */
+/**
+ * @param {?proto.model.Instrument|undefined} value
+ * @return {!proto.model.Listing} returns this
+*/
 proto.model.Listing.prototype.setInstrument = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Listing} returns this
  */
 proto.model.Listing.prototype.clearInstrument = function() {
-  this.setInstrument(undefined);
+  return this.setInstrument(undefined);
 };
 
 
@@ -382,9 +396,12 @@ proto.model.Listing.prototype.getMarketsymbol = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.model.Listing} returns this
+ */
 proto.model.Listing.prototype.setMarketsymbol = function(value) {
-  jspb.Message.setProto3StringField(this, 5, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -398,17 +415,21 @@ proto.model.Listing.prototype.getTicksize = function() {
 };
 
 
-/** @param {?proto.model.TickSizeTable|undefined} value */
+/**
+ * @param {?proto.model.TickSizeTable|undefined} value
+ * @return {!proto.model.Listing} returns this
+*/
 proto.model.Listing.prototype.setTicksize = function(value) {
-  jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 6, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Listing} returns this
  */
 proto.model.Listing.prototype.clearTicksize = function() {
-  this.setTicksize(undefined);
+  return this.setTicksize(undefined);
 };
 
 
@@ -427,21 +448,25 @@ proto.model.Listing.prototype.hasTicksize = function() {
  */
 proto.model.Listing.prototype.getSizeincrement = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 7));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 7));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.Listing} returns this
+*/
 proto.model.Listing.prototype.setSizeincrement = function(value) {
-  jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Listing} returns this
  */
 proto.model.Listing.prototype.clearSizeincrement = function() {
-  this.setSizeincrement(undefined);
+  return this.setSizeincrement(undefined);
 };
 
 
@@ -586,9 +611,12 @@ proto.model.TickSizeTable.prototype.getEntriesList = function() {
 };
 
 
-/** @param {!Array<!proto.model.TickSizeEntry>} value */
+/**
+ * @param {!Array<!proto.model.TickSizeEntry>} value
+ * @return {!proto.model.TickSizeTable} returns this
+*/
 proto.model.TickSizeTable.prototype.setEntriesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
@@ -604,9 +632,10 @@ proto.model.TickSizeTable.prototype.addEntries = function(opt_value, opt_index) 
 
 /**
  * Clears the list making it empty but non-null.
+ * @return {!proto.model.TickSizeTable} returns this
  */
 proto.model.TickSizeTable.prototype.clearEntriesList = function() {
-  this.setEntriesList([]);
+  return this.setEntriesList([]);
 };
 
 
@@ -642,9 +671,9 @@ proto.model.TickSizeEntry.prototype.toObject = function(opt_includeInstance) {
  */
 proto.model.TickSizeEntry.toObject = function(includeInstance, msg) {
   var f, obj = {
-    lowerpricebound: (f = msg.getLowerpricebound()) && common_pb.Decimal64.toObject(includeInstance, f),
-    upperpricebound: (f = msg.getUpperpricebound()) && common_pb.Decimal64.toObject(includeInstance, f),
-    ticksize: (f = msg.getTicksize()) && common_pb.Decimal64.toObject(includeInstance, f)
+    lowerpricebound: (f = msg.getLowerpricebound()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    upperpricebound: (f = msg.getUpperpricebound()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    ticksize: (f = msg.getTicksize()) && modelcommon_pb.Decimal64.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -682,18 +711,18 @@ proto.model.TickSizeEntry.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setLowerpricebound(value);
       break;
     case 2:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setUpperpricebound(value);
       break;
     case 3:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setTicksize(value);
       break;
     default:
@@ -730,7 +759,7 @@ proto.model.TickSizeEntry.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       1,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getUpperpricebound();
@@ -738,7 +767,7 @@ proto.model.TickSizeEntry.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       2,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getTicksize();
@@ -746,7 +775,7 @@ proto.model.TickSizeEntry.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       3,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
 };
@@ -758,21 +787,25 @@ proto.model.TickSizeEntry.serializeBinaryToWriter = function(message, writer) {
  */
 proto.model.TickSizeEntry.prototype.getLowerpricebound = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 1));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 1));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.TickSizeEntry} returns this
+*/
 proto.model.TickSizeEntry.prototype.setLowerpricebound = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.TickSizeEntry} returns this
  */
 proto.model.TickSizeEntry.prototype.clearLowerpricebound = function() {
-  this.setLowerpricebound(undefined);
+  return this.setLowerpricebound(undefined);
 };
 
 
@@ -791,21 +824,25 @@ proto.model.TickSizeEntry.prototype.hasLowerpricebound = function() {
  */
 proto.model.TickSizeEntry.prototype.getUpperpricebound = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 2));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 2));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.TickSizeEntry} returns this
+*/
 proto.model.TickSizeEntry.prototype.setUpperpricebound = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.TickSizeEntry} returns this
  */
 proto.model.TickSizeEntry.prototype.clearUpperpricebound = function() {
-  this.setUpperpricebound(undefined);
+  return this.setUpperpricebound(undefined);
 };
 
 
@@ -824,21 +861,25 @@ proto.model.TickSizeEntry.prototype.hasUpperpricebound = function() {
  */
 proto.model.TickSizeEntry.prototype.getTicksize = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 3));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 3));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.TickSizeEntry} returns this
+*/
 proto.model.TickSizeEntry.prototype.setTicksize = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.TickSizeEntry} returns this
  */
 proto.model.TickSizeEntry.prototype.clearTicksize = function() {
-  this.setTicksize(undefined);
+  return this.setTicksize(undefined);
 };
 
 

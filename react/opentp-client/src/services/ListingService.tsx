@@ -1,8 +1,7 @@
-import { ClientReadableStream, Error } from "grpc-web";
+import {  Error } from "grpc-web";
 import Login from "../components/Login";
 import { logError } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
-import { Quote } from "../serverapi/market-data-service_pb";
 import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 import { ListingId } from "../serverapi/static-data-service_pb";
 
@@ -15,19 +14,14 @@ export interface ListingService {
 
 
 /**
- * Use this to subscribe to quotes to avoid multiple server side subscriptions to the same quote
+ * Use this to subscribe to quotes to avoid multiple server side subscriptions to the same listing
  */
 export default class ListingServiceImpl implements ListingService {
 
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
 
-  stream?: ClientReadableStream<Quote>;
-
   idToListeners: Map<number, Array<(response: Listing) => void>> = new Map()
   listingIdToListing: Map<number, Listing> = new Map()
-
-
-
 
   GetListing(listingId: number, listener: (
     response: Listing) => void) {

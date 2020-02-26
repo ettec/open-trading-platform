@@ -204,9 +204,12 @@ proto.model.Instrument.prototype.getVersion = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.model.Instrument} returns this
+ */
 proto.model.Instrument.prototype.setVersion = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -219,9 +222,12 @@ proto.model.Instrument.prototype.getId = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.model.Instrument} returns this
+ */
 proto.model.Instrument.prototype.setId = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -234,9 +240,12 @@ proto.model.Instrument.prototype.getName = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.model.Instrument} returns this
+ */
 proto.model.Instrument.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -249,9 +258,12 @@ proto.model.Instrument.prototype.getDisplaysymbol = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.model.Instrument} returns this
+ */
 proto.model.Instrument.prototype.setDisplaysymbol = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
@@ -264,9 +276,12 @@ proto.model.Instrument.prototype.getEnabled = function() {
 };
 
 
-/** @param {boolean} value */
+/**
+ * @param {boolean} value
+ * @return {!proto.model.Instrument} returns this
+ */
 proto.model.Instrument.prototype.setEnabled = function(value) {
-  jspb.Message.setProto3BooleanField(this, 5, value);
+  return jspb.Message.setProto3BooleanField(this, 5, value);
 };
 
 

@@ -4,7 +4,7 @@ import * as grpcWeb from 'grpc-web';
 import React from 'react';
 import v4 from 'uuid';
 import { Listing } from "../serverapi/listing_pb";
-import { Quote, SubscribeRequest } from '../serverapi/market-data-service_pb';
+import {  MdsSubscribeRequest } from '../serverapi/market-data-service_pb';
 import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
@@ -12,6 +12,7 @@ import { ListingContext } from "./Container";
 import Login from "./Login";
 import './OrderBlotter.css';
 import { getListingShortName } from "../common/modelutilities";
+import { ClobQuote } from "../serverapi/clobquote_pb";
 
 interface MarketDepthProps {
   quoteService : QuoteService,
@@ -20,12 +21,12 @@ interface MarketDepthProps {
 
 interface MarketDepthState {
   listing?: Listing,
-  quote?: Quote,
+  quote?: ClobQuote,
 }
 
 export default class MarketDepth extends React.Component<MarketDepthProps, MarketDepthState> implements QuoteListener {
 
-  stream?: grpcWeb.ClientReadableStream<Quote>;
+  stream?: grpcWeb.ClientReadableStream<ClobQuote>;
 
   id: string;
 
@@ -46,7 +47,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     this.count = 0;
 
-    var subscription = new SubscribeRequest()
+    var subscription = new MdsSubscribeRequest()
     subscription.setSubscriberid(this.id)
 
     this.props.listingContext.addListener((listing:Listing)=> {
@@ -73,7 +74,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   }
 
-  onQuote(receivedQuote: Quote): void {
+  onQuote(receivedQuote: ClobQuote): void {
     let state: MarketDepthState = {
       ...this.state,...{
         quote: receivedQuote,
@@ -115,10 +116,10 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
 
 
-    let depth = this.state.quote.getDepthList()
+    let depth = this.state.quote.getBidsList()
 
     if (row < depth.length) {
-      return (<Cell>{toNumber(depth[row].getBidsize())}</Cell>)
+      return (<Cell>{toNumber(depth[row].getSize())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }
@@ -129,10 +130,10 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       return (<Cell></Cell>)
     }
 
-    let depth = this.state.quote.getDepthList()
+    let depth = this.state.quote.getOffersList()
 
     if (row < depth.length) {
-      return (<Cell>{toNumber(depth[row].getAsksize())}</Cell>)
+      return (<Cell>{toNumber(depth[row].getSize())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }
@@ -143,11 +144,11 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       return (<Cell></Cell>)
     }
 
-    let depth = this.state.quote.getDepthList()
+    let depth = this.state.quote.getBidsList()
 
     if (row < depth.length) {
       let line = depth[row]
-      return (<Cell>{toNumber(line.getBidprice())}</Cell>)
+      return (<Cell>{toNumber(line.getPrice())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }
@@ -158,10 +159,10 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       return (<Cell></Cell>)
     }
 
-    let depth = this.state.quote.getDepthList()
+    let depth = this.state.quote.getOffersList()
 
     if (row < depth.length) {
-      return (<Cell>{toNumber(depth[row].getAskprice())}</Cell>)
+      return (<Cell>{toNumber(depth[row].getPrice())}</Cell>)
     } else {
       return (<Cell></Cell>)
     }

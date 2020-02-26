@@ -12,12 +12,12 @@ import { Side } from '../serverapi/order_pb';
 import { toNumber, toDecimal64 } from '../util/decimal64Conversion';
 import Login from './Login';
 import { QuoteService, QuoteListener } from '../services/QuoteService';
-import { Quote } from '../serverapi/market-data-service_pb';
 import {  TicketController } from "./Container";
+import { ClobQuote } from '../serverapi/clobquote_pb';
 
 interface OrderTicketState {
   listing?: Listing,
-  quote?: Quote,
+  quote?: ClobQuote,
   quantity: number,
   price: number,
   side: Side,
@@ -52,7 +52,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     this.sendOrder = this.sendOrder.bind(this);
   }
 
-  onQuote(recQuote: Quote): void {
+  onQuote(recQuote: ClobQuote): void {
       let state: OrderTicketState = {
         ...this.state,...{
           quote: recQuote
@@ -128,7 +128,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
 
-  private getAskText(quote?: Quote):string {
+  private getAskText(quote?: ClobQuote):string {
     if( quote ) {
       let best = this.getBestBidAndAsk(quote)
       return "Ask: " + best.bestAskQuantity +"@" + best.bestAskPrice
@@ -137,7 +137,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
   }
 
-  private getBidText(quote?: Quote):string {
+  private getBidText(quote?: ClobQuote):string {
     if( quote ) {
       let best = this.getBestBidAndAsk(quote)
       return "Bid: " + best.bestBidQuantity +"@" + best.bestBidPrice
@@ -239,17 +239,22 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
 
-  getBestBidAndAsk(quote: Quote): BestBidAndAsk {
+  getBestBidAndAsk(quote: ClobQuote): BestBidAndAsk {
     let result = new BestBidAndAsk()
-    if (quote.getDepthList().length > 0) {
-      let depthLine = quote.getDepthList()[0]
+    if (quote.getBidsList().length > 0) {
+      let depthLine = quote.getBidsList()[0]
 
-      result.bestBidPrice = toNumber(depthLine.getBidprice())
-      result.bestBidQuantity = toNumber(depthLine.getBidsize())
-      result.bestAskPrice = toNumber(depthLine.getAskprice())
-      result.bestAskQuantity = toNumber(depthLine.getAsksize())
-      
+      result.bestBidPrice = toNumber(depthLine.getPrice())
+      result.bestBidQuantity = toNumber(depthLine.getSize())
     }
+
+    if (quote.getOffersList().length > 0) {
+      let depthLine = quote.getOffersList()[0]
+
+      result.bestAskPrice = toNumber(depthLine.getPrice())
+      result.bestAskQuantity = toNumber(depthLine.getSize())
+    }
+
 
     return result
   }

@@ -13,8 +13,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var common_pb = require('./common_pb.js');
-goog.object.extend(proto, common_pb);
+var modelcommon_pb = require('./modelcommon_pb.js');
+goog.object.extend(proto, modelcommon_pb);
 goog.exportSymbol('proto.model.Order', null, global);
 goog.exportSymbol('proto.model.OrderStatus', null, global);
 goog.exportSymbol('proto.model.Side', null, global);
@@ -74,12 +74,12 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     version: jspb.Message.getFieldWithDefault(msg, 1, 0),
     id: jspb.Message.getFieldWithDefault(msg, 2, ""),
     side: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    quantity: (f = msg.getQuantity()) && common_pb.Decimal64.toObject(includeInstance, f),
-    price: (f = msg.getPrice()) && common_pb.Decimal64.toObject(includeInstance, f),
+    quantity: (f = msg.getQuantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    price: (f = msg.getPrice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     listingid: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    remainingquantity: (f = msg.getRemainingquantity()) && common_pb.Decimal64.toObject(includeInstance, f),
-    tradedquantity: (f = msg.getTradedquantity()) && common_pb.Decimal64.toObject(includeInstance, f),
-    avgtradeprice: (f = msg.getAvgtradeprice()) && common_pb.Decimal64.toObject(includeInstance, f),
+    remainingquantity: (f = msg.getRemainingquantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    tradedquantity: (f = msg.getTradedquantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    avgtradeprice: (f = msg.getAvgtradeprice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     status: jspb.Message.getFieldWithDefault(msg, 10, 0),
     targetstatus: jspb.Message.getFieldWithDefault(msg, 11, 0)
   };
@@ -131,13 +131,13 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
       msg.setSide(value);
       break;
     case 4:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setQuantity(value);
       break;
     case 5:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setPrice(value);
       break;
     case 6:
@@ -145,18 +145,18 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
       msg.setListingid(value);
       break;
     case 7:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setRemainingquantity(value);
       break;
     case 8:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setTradedquantity(value);
       break;
     case 9:
-      var value = new common_pb.Decimal64;
-      reader.readMessage(value,common_pb.Decimal64.deserializeBinaryFromReader);
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setAvgtradeprice(value);
       break;
     case 10:
@@ -222,7 +222,7 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       4,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getPrice();
@@ -230,7 +230,7 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       5,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getListingid();
@@ -245,7 +245,7 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       7,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getTradedquantity();
@@ -253,7 +253,7 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       8,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getAvgtradeprice();
@@ -261,7 +261,7 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       9,
       f,
-      common_pb.Decimal64.serializeBinaryToWriter
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
   f = message.getStatus();
@@ -290,9 +290,12 @@ proto.model.Order.prototype.getVersion = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.model.Order} returns this
+ */
 proto.model.Order.prototype.setVersion = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -305,9 +308,12 @@ proto.model.Order.prototype.getId = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
 proto.model.Order.prototype.setId = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -320,9 +326,12 @@ proto.model.Order.prototype.getSide = function() {
 };
 
 
-/** @param {!proto.model.Side} value */
+/**
+ * @param {!proto.model.Side} value
+ * @return {!proto.model.Order} returns this
+ */
 proto.model.Order.prototype.setSide = function(value) {
-  jspb.Message.setProto3EnumField(this, 3, value);
+  return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
@@ -332,21 +341,25 @@ proto.model.Order.prototype.setSide = function(value) {
  */
 proto.model.Order.prototype.getQuantity = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 4));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 4));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.Order} returns this
+*/
 proto.model.Order.prototype.setQuantity = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.clearQuantity = function() {
-  this.setQuantity(undefined);
+  return this.setQuantity(undefined);
 };
 
 
@@ -365,21 +378,25 @@ proto.model.Order.prototype.hasQuantity = function() {
  */
 proto.model.Order.prototype.getPrice = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 5));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 5));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.Order} returns this
+*/
 proto.model.Order.prototype.setPrice = function(value) {
-  jspb.Message.setWrapperField(this, 5, value);
+  return jspb.Message.setWrapperField(this, 5, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.clearPrice = function() {
-  this.setPrice(undefined);
+  return this.setPrice(undefined);
 };
 
 
@@ -401,9 +418,12 @@ proto.model.Order.prototype.getListingid = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.model.Order} returns this
+ */
 proto.model.Order.prototype.setListingid = function(value) {
-  jspb.Message.setProto3IntField(this, 6, value);
+  return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
@@ -413,21 +433,25 @@ proto.model.Order.prototype.setListingid = function(value) {
  */
 proto.model.Order.prototype.getRemainingquantity = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 7));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 7));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.Order} returns this
+*/
 proto.model.Order.prototype.setRemainingquantity = function(value) {
-  jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.clearRemainingquantity = function() {
-  this.setRemainingquantity(undefined);
+  return this.setRemainingquantity(undefined);
 };
 
 
@@ -446,21 +470,25 @@ proto.model.Order.prototype.hasRemainingquantity = function() {
  */
 proto.model.Order.prototype.getTradedquantity = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 8));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 8));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.Order} returns this
+*/
 proto.model.Order.prototype.setTradedquantity = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.clearTradedquantity = function() {
-  this.setTradedquantity(undefined);
+  return this.setTradedquantity(undefined);
 };
 
 
@@ -479,21 +507,25 @@ proto.model.Order.prototype.hasTradedquantity = function() {
  */
 proto.model.Order.prototype.getAvgtradeprice = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, common_pb.Decimal64, 9));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 9));
 };
 
 
-/** @param {?proto.model.Decimal64|undefined} value */
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.Order} returns this
+*/
 proto.model.Order.prototype.setAvgtradeprice = function(value) {
-  jspb.Message.setWrapperField(this, 9, value);
+  return jspb.Message.setWrapperField(this, 9, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
+ * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.clearAvgtradeprice = function() {
-  this.setAvgtradeprice(undefined);
+  return this.setAvgtradeprice(undefined);
 };
 
 
@@ -515,9 +547,12 @@ proto.model.Order.prototype.getStatus = function() {
 };
 
 
-/** @param {!proto.model.OrderStatus} value */
+/**
+ * @param {!proto.model.OrderStatus} value
+ * @return {!proto.model.Order} returns this
+ */
 proto.model.Order.prototype.setStatus = function(value) {
-  jspb.Message.setProto3EnumField(this, 10, value);
+  return jspb.Message.setProto3EnumField(this, 10, value);
 };
 
 
@@ -530,9 +565,12 @@ proto.model.Order.prototype.getTargetstatus = function() {
 };
 
 
-/** @param {!proto.model.OrderStatus} value */
+/**
+ * @param {!proto.model.OrderStatus} value
+ * @return {!proto.model.Order} returns this
+ */
 proto.model.Order.prototype.setTargetstatus = function(value) {
-  jspb.Message.setProto3EnumField(this, 11, value);
+  return jspb.Message.setProto3EnumField(this, 11, value);
 };
 
 

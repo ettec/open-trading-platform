@@ -9,13 +9,12 @@
 
 import * as grpcWeb from 'grpc-web';
 
-import * as common_pb from './common_pb';
+import * as modelcommon_pb from './modelcommon_pb';
+import * as clobquote_pb from './clobquote_pb';
 
 import {
-  AddSubscriptionResponse,
-  Quote,
-  SubscribeRequest,
-  Subscription} from './market-data-service_pb';
+  MdsConnectRequest,
+  MdsSubscribeRequest} from './market-data-service_pb';
 
 export class MarketDataServiceClient {
   client_: grpcWeb.AbstractClientBase;
@@ -36,45 +35,45 @@ export class MarketDataServiceClient {
     this.options_ = options;
   }
 
-  methodInfoAddSubscription = new grpcWeb.AbstractClientBase.MethodInfo(
-    AddSubscriptionResponse,
-    (request: Subscription) => {
-      return request.serializeBinary();
-    },
-    AddSubscriptionResponse.deserializeBinary
-  );
-
-  addSubscription(
-    request: Subscription,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: AddSubscriptionResponse) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/marketdataservice.MarketDataService/AddSubscription',
-      request,
-      metadata || {},
-      this.methodInfoAddSubscription,
-      callback);
-  }
-
   methodInfoSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
-    Quote,
-    (request: SubscribeRequest) => {
+    modelcommon_pb.Empty,
+    (request: MdsSubscribeRequest) => {
       return request.serializeBinary();
     },
-    Quote.deserializeBinary
+    modelcommon_pb.Empty.deserializeBinary
   );
 
   subscribe(
-    request: SubscribeRequest,
-    metadata?: grpcWeb.Metadata) {
-    return this.client_.serverStreaming(
+    request: MdsSubscribeRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: modelcommon_pb.Empty) => void) {
+    return this.client_.rpcCall(
       this.hostname_ +
         '/marketdataservice.MarketDataService/Subscribe',
       request,
       metadata || {},
-      this.methodInfoSubscribe);
+      this.methodInfoSubscribe,
+      callback);
+  }
+
+  methodInfoConnect = new grpcWeb.AbstractClientBase.MethodInfo(
+    clobquote_pb.ClobQuote,
+    (request: MdsConnectRequest) => {
+      return request.serializeBinary();
+    },
+    clobquote_pb.ClobQuote.deserializeBinary
+  );
+
+  connect(
+    request: MdsConnectRequest,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      this.hostname_ +
+        '/marketdataservice.MarketDataService/Connect',
+      request,
+      metadata || {},
+      this.methodInfoConnect);
   }
 
 }

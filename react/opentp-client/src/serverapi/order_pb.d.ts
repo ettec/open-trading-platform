@@ -1,6 +1,6 @@
 import * as jspb from "google-protobuf"
 
-import * as common_pb from './common_pb';
+import * as modelcommon_pb from './modelcommon_pb';
 
 export class Order extends jspb.Message {
   getVersion(): number;
@@ -12,31 +12,31 @@ export class Order extends jspb.Message {
   getSide(): Side;
   setSide(value: Side): void;
 
-  getQuantity(): common_pb.Decimal64 | undefined;
-  setQuantity(value?: common_pb.Decimal64): void;
+  getQuantity(): modelcommon_pb.Decimal64 | undefined;
+  setQuantity(value?: modelcommon_pb.Decimal64): void;
   hasQuantity(): boolean;
   clearQuantity(): void;
 
-  getPrice(): common_pb.Decimal64 | undefined;
-  setPrice(value?: common_pb.Decimal64): void;
+  getPrice(): modelcommon_pb.Decimal64 | undefined;
+  setPrice(value?: modelcommon_pb.Decimal64): void;
   hasPrice(): boolean;
   clearPrice(): void;
 
   getListingid(): number;
   setListingid(value: number): void;
 
-  getRemainingquantity(): common_pb.Decimal64 | undefined;
-  setRemainingquantity(value?: common_pb.Decimal64): void;
+  getRemainingquantity(): modelcommon_pb.Decimal64 | undefined;
+  setRemainingquantity(value?: modelcommon_pb.Decimal64): void;
   hasRemainingquantity(): boolean;
   clearRemainingquantity(): void;
 
-  getTradedquantity(): common_pb.Decimal64 | undefined;
-  setTradedquantity(value?: common_pb.Decimal64): void;
+  getTradedquantity(): modelcommon_pb.Decimal64 | undefined;
+  setTradedquantity(value?: modelcommon_pb.Decimal64): void;
   hasTradedquantity(): boolean;
   clearTradedquantity(): void;
 
-  getAvgtradeprice(): common_pb.Decimal64 | undefined;
-  setAvgtradeprice(value?: common_pb.Decimal64): void;
+  getAvgtradeprice(): modelcommon_pb.Decimal64 | undefined;
+  setAvgtradeprice(value?: modelcommon_pb.Decimal64): void;
   hasAvgtradeprice(): boolean;
   clearAvgtradeprice(): void;
 
@@ -59,12 +59,12 @@ export namespace Order {
     version: number,
     id: string,
     side: Side,
-    quantity?: common_pb.Decimal64.AsObject,
-    price?: common_pb.Decimal64.AsObject,
+    quantity?: modelcommon_pb.Decimal64.AsObject,
+    price?: modelcommon_pb.Decimal64.AsObject,
     listingid: number,
-    remainingquantity?: common_pb.Decimal64.AsObject,
-    tradedquantity?: common_pb.Decimal64.AsObject,
-    avgtradeprice?: common_pb.Decimal64.AsObject,
+    remainingquantity?: modelcommon_pb.Decimal64.AsObject,
+    tradedquantity?: modelcommon_pb.Decimal64.AsObject,
+    avgtradeprice?: modelcommon_pb.Decimal64.AsObject,
     status: OrderStatus,
     targetstatus: OrderStatus,
   }
