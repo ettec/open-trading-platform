@@ -270,7 +270,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 	id := uniqueId.String()
 
 	now := time.Now()
-	
+
 	order := &model.Order{
 		Id:                id,
 		Side:              params.OrderSide,

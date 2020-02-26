@@ -93,7 +93,7 @@ func floatEquals(a, b float64) bool {
 
 func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 	params := &api.CreateAndRouteOrderParams{
-		Side:     model.Side_BUY,
+		OrderSide:     model.Side_BUY,
 		Quantity: model.IntToDecimal64(15),
 		Price:    model.IntToDecimal64(20),
 		Listing:  &model.Listing{Id: 1},
@@ -153,6 +153,9 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 		},
 	}
 
+	order.Created = nil
+	testOrder.Created = nil
+
 	if !proto.Equal(testOrder, order) {
 		t.Fatalf("Expected order %v, got %v", testOrder, order)
 	}
@@ -161,7 +164,7 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 
 func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 	params := &api.CreateAndRouteOrderParams{
-		Side:     model.Side_BUY,
+		OrderSide:     model.Side_BUY,
 		Quantity: model.IntToDecimal64(15),
 		Price:    model.IntToDecimal64(20),
 		Listing:  &model.Listing{Id: 1},
@@ -207,6 +210,9 @@ func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 		},
 	}
 
+	order.Created = nil
+	testOrder.Created = nil
+
 	if !proto.Equal(testOrder, order) {
 		t.Fatalf("Expected order %v,\n got %v", testOrder, order)
 	}
@@ -216,7 +222,7 @@ func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
-		Side:     model.Side_BUY,
+		OrderSide:     model.Side_BUY,
 		Quantity: model.IntToDecimal64(10),
 		Price:    model.IntToDecimal64(20),
 		Listing:  &model.Listing{Id: 1},
@@ -247,6 +253,9 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		TargetStatus:      model.OrderStatus_NONE,
 	}
 
+	order.Created = nil
+	testOrder.Created = nil
+
 	if !proto.Equal(testOrder, order) {
 		t.Fatalf("Expected order %v, got %v", testOrder, order)
 	}
@@ -256,7 +265,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
-		Side:     model.Side_BUY,
+		OrderSide:     model.Side_BUY,
 		Quantity: model.IntToDecimal64(10),
 		Price:    model.IntToDecimal64(20),
 		Listing:  &model.Listing{Id: 1},
@@ -286,6 +295,9 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	}
 
 	order, _ := orderCache.GetOrder(id.OrderId)
+
+	order.Created = nil
+	testOrder.Created = nil
 
 	if !proto.Equal(testOrder, order) {
 		t.Fatalf("Expected order %v, got %v", testOrder, order)
