@@ -7,6 +7,30 @@ import (
 )
 
 
+func(t *Timestamp) After(o *Timestamp) bool {
+	if t.Seconds > o.Seconds {
+		return true
+	}
+
+	if t.Seconds == o.Seconds && t.Nanoseconds > o.Nanoseconds {
+		return true
+	}
+
+	return false
+}
+
+func(t *Timestamp) Before(o *Timestamp) bool {
+	if t.Seconds < o.Seconds {
+		return true
+	}
+
+	if t.Seconds == o.Seconds && t.Nanoseconds < o.Nanoseconds {
+		return true
+	}
+
+	return false
+}
+
 func (m *Decimal64) AsDecimal() decimal.Decimal {
 	if m == nil {
 		return decimal.New(0, 0)

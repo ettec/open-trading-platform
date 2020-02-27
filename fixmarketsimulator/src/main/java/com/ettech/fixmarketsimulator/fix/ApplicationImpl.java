@@ -247,6 +247,11 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
         try {
 
             OrderQty qty = order.get(ORDER_QTY);
+
+            if (qty.getValue() <= 0) {
+                throw new RejectOrderException("Quantity must be greater than 0");
+            }
+
             ClOrdID clOrdId = order.get(CL_ORD_ID);
             Symbol symbol = order.get(SYMBOL);
 
@@ -257,6 +262,7 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
             }
 
             Price price = order.get(PRICE);
+
             Side side = order.get(SIDE);
 
             com.ettech.fixmarketsimulator.exchange.Side exSide = null;

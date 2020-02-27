@@ -81,7 +81,8 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     tradedquantity: (f = msg.getTradedquantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     avgtradeprice: (f = msg.getAvgtradeprice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     status: jspb.Message.getFieldWithDefault(msg, 10, 0),
-    targetstatus: jspb.Message.getFieldWithDefault(msg, 11, 0)
+    targetstatus: jspb.Message.getFieldWithDefault(msg, 11, 0),
+    created: (f = msg.getCreated()) && modelcommon_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -166,6 +167,11 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
     case 11:
       var value = /** @type {!proto.model.OrderStatus} */ (reader.readEnum());
       msg.setTargetstatus(value);
+      break;
+    case 12:
+      var value = new modelcommon_pb.Timestamp;
+      reader.readMessage(value,modelcommon_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreated(value);
       break;
     default:
       reader.skipField();
@@ -276,6 +282,14 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeEnum(
       11,
       f
+    );
+  }
+  f = message.getCreated();
+  if (f != null) {
+    writer.writeMessage(
+      12,
+      f,
+      modelcommon_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -571,6 +585,43 @@ proto.model.Order.prototype.getTargetstatus = function() {
  */
 proto.model.Order.prototype.setTargetstatus = function(value) {
   return jspb.Message.setProto3EnumField(this, 11, value);
+};
+
+
+/**
+ * optional Timestamp created = 12;
+ * @return {?proto.model.Timestamp}
+ */
+proto.model.Order.prototype.getCreated = function() {
+  return /** @type{?proto.model.Timestamp} */ (
+    jspb.Message.getWrapperField(this, modelcommon_pb.Timestamp, 12));
+};
+
+
+/**
+ * @param {?proto.model.Timestamp|undefined} value
+ * @return {!proto.model.Order} returns this
+*/
+proto.model.Order.prototype.setCreated = function(value) {
+  return jspb.Message.setWrapperField(this, 12, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.clearCreated = function() {
+  return this.setCreated(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.Order.prototype.hasCreated = function() {
+  return jspb.Message.getField(this, 12) != null;
 };
 
 

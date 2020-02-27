@@ -11,7 +11,7 @@ import * as grpcWeb from 'grpc-web';
 
 import * as listing_pb from './listing_pb';
 import * as order_pb from './order_pb';
-import * as common_pb from './common_pb';
+import * as modelcommon_pb from './modelcommon_pb';
 
 import {
   CreateAndRouteOrderParams,
@@ -59,18 +59,18 @@ export class ExecutionVenueClient {
   }
 
   methodInfoCancelOrder = new grpcWeb.AbstractClientBase.MethodInfo(
-    common_pb.Empty,
+    modelcommon_pb.Empty,
     (request: OrderId) => {
       return request.serializeBinary();
     },
-    common_pb.Empty.deserializeBinary
+    modelcommon_pb.Empty.deserializeBinary
   );
 
   cancelOrder(
     request: OrderId,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: common_pb.Empty) => void) {
+               response: modelcommon_pb.Empty) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
         '/executionvenue.ExecutionVenue/CancelOrder',

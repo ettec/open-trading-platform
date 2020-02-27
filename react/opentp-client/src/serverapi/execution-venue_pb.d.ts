@@ -2,19 +2,19 @@ import * as jspb from "google-protobuf"
 
 import * as listing_pb from './listing_pb';
 import * as order_pb from './order_pb';
-import * as common_pb from './common_pb';
+import * as modelcommon_pb from './modelcommon_pb';
 
 export class CreateAndRouteOrderParams extends jspb.Message {
-  getSide(): order_pb.Side;
-  setSide(value: order_pb.Side): void;
+  getOrderside(): order_pb.Side;
+  setOrderside(value: order_pb.Side): void;
 
-  getQuantity(): common_pb.Decimal64 | undefined;
-  setQuantity(value?: common_pb.Decimal64): void;
+  getQuantity(): modelcommon_pb.Decimal64 | undefined;
+  setQuantity(value?: modelcommon_pb.Decimal64): void;
   hasQuantity(): boolean;
   clearQuantity(): void;
 
-  getPrice(): common_pb.Decimal64 | undefined;
-  setPrice(value?: common_pb.Decimal64): void;
+  getPrice(): modelcommon_pb.Decimal64 | undefined;
+  setPrice(value?: modelcommon_pb.Decimal64): void;
   hasPrice(): boolean;
   clearPrice(): void;
 
@@ -33,9 +33,9 @@ export class CreateAndRouteOrderParams extends jspb.Message {
 
 export namespace CreateAndRouteOrderParams {
   export type AsObject = {
-    side: order_pb.Side,
-    quantity?: common_pb.Decimal64.AsObject,
-    price?: common_pb.Decimal64.AsObject,
+    orderside: order_pb.Side,
+    quantity?: modelcommon_pb.Decimal64.AsObject,
+    price?: modelcommon_pb.Decimal64.AsObject,
     listing?: listing_pb.Listing.AsObject,
   }
 }

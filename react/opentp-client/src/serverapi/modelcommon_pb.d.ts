@@ -36,3 +36,25 @@ export namespace Decimal64 {
   }
 }
 
+export class Timestamp extends jspb.Message {
+  getSeconds(): number;
+  setSeconds(value: number): void;
+
+  getNanoseconds(): number;
+  setNanoseconds(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Timestamp.AsObject;
+  static toObject(includeInstance: boolean, msg: Timestamp): Timestamp.AsObject;
+  static serializeBinaryToWriter(message: Timestamp, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Timestamp;
+  static deserializeBinaryFromReader(message: Timestamp, reader: jspb.BinaryReader): Timestamp;
+}
+
+export namespace Timestamp {
+  export type AsObject = {
+    seconds: number,
+    nanoseconds: number,
+  }
+}
+

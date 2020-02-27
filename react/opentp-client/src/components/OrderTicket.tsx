@@ -130,19 +130,24 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   private getAskText(quote?: ClobQuote): string {
     if (quote) {
       let best = this.getBestBidAndAsk(quote)
-      return "Ask: " + best.bestAskQuantity + "@" + best.bestAskPrice
-    } else {
-      return "Ask: <>"
+      if( best.bestAskPrice && best.bestAskQuantity ) {
+        return "Ask: " + best.bestAskQuantity + "@" + best.bestAskPrice
+      }  
     }
+      return "Ask: <>"
+    
   }
 
   private getBidText(quote?: ClobQuote): string {
     if (quote) {
       let best = this.getBestBidAndAsk(quote)
-      return "Bid: " + best.bestBidQuantity + "@" + best.bestBidPrice
-    } else {
-      return "Bid: <>"
-    }
+      if( best.bestBidPrice && best.bestBidQuantity ) {
+        return "Bid: " + best.bestBidQuantity + "@" + best.bestBidPrice
+      }
+    } 
+
+    return "Bid: <>"
+    
   }
 
   public render() {
@@ -176,9 +181,9 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
                 stepSize={sizeIncrement}
                 minorStepSize={sizeIncrement}
                 value={this.state.quantity}
-                onChange={
-                  (e: any) => {
-                    this.setState({ quantity: e.target.value })
+                onValueChange={
+                  (num: number) => {
+                    this.setState({ quantity: num })
                   }
 
                 }
@@ -192,9 +197,9 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
                 value={this.state.price}
                 stepSize={tickSize}
                 minorStepSize={tickSize}
-                onChange={
-                  (e: any) => {
-                    this.setState({ price: e.target.value })
+                onValueChange={
+                  (num: number) => {
+                    this.setState({ price: num })
                   }
 
                 }
@@ -268,7 +273,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     let defaultQuantity;
     if (existingQuote) {
       let best = this.getBestBidAndAsk(existingQuote)
-      if (this.state.side === Side.SELL) {
+      if (newSide === Side.SELL) {
         defaultPrice = best.bestBidPrice
         defaultQuantity = best.bestBidQuantity
       } else {
@@ -329,16 +334,20 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       let croParams = new CreateAndRouteOrderParams()
       croParams.setListing(listing)
 
-      croParams.setSide(side)
+      croParams.setOrderside(side)
       croParams.setQuantity(toDecimal64(this.state.quantity))
       croParams.setPrice(toDecimal64(this.state.price))
+
+      logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " + 
+      croParams.getListing()?.getMarketsymbol())
+
 
       this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
         response: OrderId) => {
         if (err) {
           logGrpcError("error whilst sending order:", err)
         }
-        logDebug("create and route order result:" + response.getOrderid())
+        logDebug("create and route order created order with id:" + response.getOrderid())
       })
 
     }

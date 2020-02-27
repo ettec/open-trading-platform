@@ -1,6 +1,5 @@
 syntax = "proto3";
 import "modelcommon.proto";
-import "google/protobuf/timestamp.proto";
 
 package model;
 option go_package="model";
@@ -32,7 +31,7 @@ message Order{
     Decimal64 avgTradePrice=9;
     OrderStatus status=10;
     OrderStatus targetStatus=11;
-    google.protobuf.Timestamp created=12;
+    Timestamp created=12;
 }
 
 

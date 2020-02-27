@@ -3,8 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/model"
+	api "github.com/ettec/open-trading-platform/go/view-service/api"
 	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
-	"github.com/ettec/open-trading-platform/go/view-service/internal/model"
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -14,6 +15,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"time"
 )
 
 const (
@@ -67,9 +69,15 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 	return username, appInstanceId, nil
 }
 
-func (s *service) Subscribe(request *model.SubscribeToOrders, stream model.ViewService_SubscribeServer) error {
+func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewService_SubscribeServer) error {
 
 	username, appInstanceId, err := getMetaData(stream.Context())
+
+
+	after := request.After
+	if after == nil {
+		after = &model.Timestamp{Seconds:time.Now().Unix()}
+	}
 
 	if err != nil {
 		return err
@@ -80,7 +88,7 @@ func (s *service) Subscribe(request *model.SubscribeToOrders, stream model.ViewS
 	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
 	if !exists {
 		source := messagesource.NewKafkaMessageSource(s.orderTopic, s.kafkaBrokers)
-		streamTopic(s.orderTopic, source, appInstanceId, &s.orderSubscriptions, stream)
+		streamTopic(s.orderTopic, source, appInstanceId, &s.orderSubscriptions, stream, after)
 	} else {
 		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
 	}
@@ -89,7 +97,7 @@ func (s *service) Subscribe(request *model.SubscribeToOrders, stream model.ViewS
 }
 
 func streamTopic(topic string, reader messagesource.Source, appInstanceId string, subscriptionsMap *sync.Map,
-	stream model.ViewService_SubscribeServer) {
+	stream api.ViewService_SubscribeServer, after *model.Timestamp) {
 
 	defer subscriptionsMap.Delete(appInstanceId)
 
@@ -110,10 +118,12 @@ func streamTopic(topic string, reader messagesource.Source, appInstanceId string
 			return
 		}
 
-		err = stream.Send(&order)
-		if err != nil {
-			logTopicReadError(appInstanceId, topic, err)
-			return
+		if order.Created != nil && order.Created.After(after) {
+			err = stream.Send(&order)
+			if err != nil {
+				logTopicReadError(appInstanceId, topic, err)
+				return
+			}
 		}
 	}
 }
@@ -134,7 +144,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	model.RegisterViewServiceServer(s, newService())
+	api.RegisterViewServiceServer(s, newService())
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

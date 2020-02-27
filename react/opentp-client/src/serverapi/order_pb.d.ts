@@ -46,6 +46,11 @@ export class Order extends jspb.Message {
   getTargetstatus(): OrderStatus;
   setTargetstatus(value: OrderStatus): void;
 
+  getCreated(): modelcommon_pb.Timestamp | undefined;
+  setCreated(value?: modelcommon_pb.Timestamp): void;
+  hasCreated(): boolean;
+  clearCreated(): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Order.AsObject;
   static toObject(includeInstance: boolean, msg: Order): Order.AsObject;
@@ -67,6 +72,7 @@ export namespace Order {
     avgtradeprice?: modelcommon_pb.Decimal64.AsObject,
     status: OrderStatus,
     targetstatus: OrderStatus,
+    created?: modelcommon_pb.Timestamp.AsObject,
   }
 }
 

@@ -6,7 +6,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"
@@ -162,7 +161,7 @@ func (om *orderManagerImpl) CancelOrder(id *api.OrderId) error {
 
 	result := <-resultChan
 
-	log.Printf(id.OrderId + ":cancel order result:%v", result)
+	log.Printf(id.OrderId + ":cancel order result: %v", result)
 
 	return result.Error
 }
@@ -280,9 +279,9 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 		RemainingQuantity: params.Quantity,
 		Status:            model.OrderStatus_NONE,
 		TargetStatus:      model.OrderStatus_LIVE,
-		Created:		   &timestamp.Timestamp{
+		Created:		   &model.Timestamp{
 			Seconds:              now.Unix(),
-			Nanos:                int32(now.Nanosecond()),
+			Nanoseconds:          int32(now.Nanosecond()),
 		},
 	}
 

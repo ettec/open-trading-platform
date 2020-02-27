@@ -10,6 +10,7 @@ import { Empty } from '../serverapi/common_pb';
 import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
 import { OrderId } from '../serverapi/execution-venue_pb';
 import { Order, OrderStatus, Side } from '../serverapi/order_pb';
+import {Timestamp} from '../serverapi/modelcommon_pb';
 import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
 import { SubscribeToOrders } from '../serverapi/view-service_pb';
 import { ListingService } from '../services/ListingService';
@@ -44,6 +45,7 @@ class OrderView {
   targetStatus: string;
   private order: Order;
   listing?: Listing;
+  created?: Date;
 
   constructor(order: Order) {
     this.id = ""
@@ -53,7 +55,7 @@ class OrderView {
     this.status = "";
     this.targetStatus = "";
     this.order = order
-
+    this.created = undefined
     this.setOrder(order)
   }
 
@@ -83,6 +85,11 @@ class OrderView {
     this.avgTradePrice = toNumber(order.getAvgtradeprice())
     this.status = this.getStatusString(order.getStatus())
     this.targetStatus = this.getStatusString(order.getTargetstatus())
+    let created = order.getCreated()
+    if( created ) {
+      this.created = new Date(created.getSeconds() * 1000)
+    }
+    
   }
 
   getOrder(): Order {
@@ -151,14 +158,23 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     this.state = blotterState;
 
-    this.stream = this.viewService.subscribe(new SubscribeToOrders(), Login.grpcContext.grpcMetaData)
+    
+    let after = new Timestamp()
+
+    //let d = new Date()
+    //after.setSeconds(Math.floor(d.getTime()/1000)
+
+    let sto = new SubscribeToOrders()
+    sto.setAfter(after)
+
+    this.stream = this.viewService.subscribe(sto, Login.grpcContext.grpcMetaData)
 
     this.stream.on('data', (order: Order) => {
 
       let idx = this.orderMap.get(order.getId())
       let orderView: OrderView
       let newOrders = this.state.orders
-      if (!idx) {
+      if (idx === undefined) {
         idx = this.orderMap.size
         let orderLength = this.state.orders.length
         if (idx >= orderLength) {
@@ -197,8 +213,6 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
           this.setState(blotterState);
         })
       }
-
-
 
     });
     this.stream.on('status', (status: grpcWeb.Status) => {
@@ -258,7 +272,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
           <Column name="Traded Qty" cellRenderer={this.renderTrdQty} />
           <Column name="Avg Price" cellRenderer={this.renderAvgPrice} />
           <Column name="Listing Id" cellRenderer={this.renderListingId} />
-
+          <Column name="Created" cellRenderer={this.renderCreated} />
         </Table>
 
       </div>
@@ -278,6 +292,16 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
   private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
+
+  private renderCreated = (row: number) => {
+    let created = Array.from(this.state.orders)[row]?.created
+
+    if (created) {
+      return <Cell>{created.toLocaleTimeString()}</Cell>
+    } else {
+      return <Cell></Cell>
+    }
+  }
 
   private renderStatus = (row: number) => {
     let orderView = Array.from(this.state.orders)[row]
