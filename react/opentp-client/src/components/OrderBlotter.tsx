@@ -161,9 +161,9 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     
     let after = new Timestamp()
 
-    //let d = new Date()
-    //after.setSeconds(Math.floor(d.getTime()/1000)
-
+    let startOfLocalDay = new Date()
+    startOfLocalDay.setHours(0,0,0,0)
+    after.setSeconds(Math.floor(startOfLocalDay.getTime()/1000))
     let sto = new SubscribeToOrders()
     sto.setAfter(after)
 

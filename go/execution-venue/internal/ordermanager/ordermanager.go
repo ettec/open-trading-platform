@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"log"
+	"os"
 	"time"
 )
 
@@ -39,11 +40,16 @@ type orderManagerImpl struct {
 
 	orderStore *ordercache.OrderCache
 	gateway    ordergateway.OrderGateway
+	log 	*log.Logger
+	errLog 	*log.Logger
 }
 
 func NewOrderManager(cache *ordercache.OrderCache, gateway ordergateway.OrderGateway) OrderManager {
 
-	om := orderManagerImpl{}
+	om := orderManagerImpl{
+		log: log.New(os.Stdout, "", log.Lshortfile | log.Ltime),
+		errLog: log.New(os.Stderr, "", log.Lshortfile | log.Ltime),
+	}
 
 	om.createOrderChan = make(chan createAndRouteOrderCmd, 100)
 	om.cancelOrderChan = make(chan cancelOrderCmd, 100)
@@ -91,7 +97,7 @@ func (om *orderManagerImpl) Close() {
 
 
 func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderStatus) error {
-	log.Printf("updating order %v status to %v", orderId, status)
+	om.log.Printf("updating order %v status to %v", orderId, status)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -102,16 +108,14 @@ func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderSta
 	}
 
 	result := <-resultChan
-
-	log.Printf("update order %v status result:%v", orderId, result)
-
+	
 	return result.Error
 }
 
 
 
 func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error {
-	log.Printf( orderId +":adding execution for price %v and quantity %v", lastPrice, lastQty)
+	om.log.Printf( orderId +":adding execution for price %v and quantity %v", lastPrice, lastQty)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -124,7 +128,7 @@ func (om *orderManagerImpl) UpdateTradedQuantity(orderId string, lastPrice model
 
 	result := <-resultChan
 
-	log.Printf(orderId + ":update traded quantity result:%v", result)
+	om.log.Printf(orderId + ":update traded quantity result:%v", result)
 
 	return result.Error
 }
@@ -150,7 +154,7 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *api.CreateAndRouteOrderP
 
 func (om *orderManagerImpl) CancelOrder(id *api.OrderId) error {
 
-	log.Print(id.OrderId + ":cancelling order")
+	om.log.Print(id.OrderId + ":cancelling order")
 
 	resultChan := make(chan errorCmdResult)
 
@@ -161,7 +165,7 @@ func (om *orderManagerImpl) CancelOrder(id *api.OrderId) error {
 
 	result := <-resultChan
 
-	log.Printf(id.OrderId + ":cancel order result: %v", result)
+	om.log.Printf(id.OrderId + ":cancel order result: %v", result)
 
 	return result.Error
 }
