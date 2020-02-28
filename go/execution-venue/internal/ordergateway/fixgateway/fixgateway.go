@@ -13,7 +13,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
 	"github.com/shopspring/decimal"
 	"log"
-	"math/big"
+	"strings"
 	"time"
 )
 
@@ -38,12 +38,26 @@ func (f *FixOrderGateway) Send(order *model.Order, listing *model.Listing) error
 	msg := newordersingle.New(field.NewClOrdID(order.Id), field.NewSide(side),
 		field.NewTransactTime(time.Now()), field.NewOrdType(enum.OrdType_LIMIT_OR_BETTER))
 
-	msg.SetOrderQty(decimal.NewFromBigInt(big.NewInt(order.GetQuantity().Mantissa), order.GetQuantity().GetExponent()), 0)
-	msg.SetPrice(decimal.NewFromBigInt(big.NewInt(order.GetPrice().Mantissa), order.GetPrice().GetExponent()), 0)
+	msg.SetOrderQty(toFixDecimal(order.GetQuantity()))
+	msg.SetPrice(toFixDecimal(order.GetPrice()))
 	msg.SetSymbol(listing.MarketSymbol)
 
-	return quickfix.SendToTarget(msg, f.sessionID)
+	logSessionMsg(f.sessionID, "sending new order single:"+toReadableString(msg.Message))
 
+	return quickfix.SendToTarget(msg, f.sessionID)
+}
+
+func toFixDecimal(d *model.Decimal64) (decimal.Decimal, int32) {
+	var scale int32 = 0
+	if d.Exponent < 0 {
+		scale = -d.Exponent
+	}
+
+	return decimal.New(d.GetMantissa(), d.GetExponent()), scale
+}
+
+func toReadableString(msg *quickfix.Message) string {
+	return strings.ReplaceAll(msg.String(), "\001", "|")
 }
 
 func (f *FixOrderGateway) Cancel(order *model.Order) error {
@@ -58,7 +72,6 @@ func (f *FixOrderGateway) Cancel(order *model.Order) error {
 
 	return quickfix.SendToTarget(msg, f.sessionID)
 }
-
 
 func getFixSide(side model.Side) (enum.Side, error) {
 
@@ -91,7 +104,6 @@ func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.
 	f.inboundRouter = quickfix.NewMessageRouter()
 	f.inboundRouter.AddRoute(executionreport.Route(f.onExecutionReport))
 
-
 	return &f
 }
 
@@ -105,14 +117,14 @@ func logSessionMsgf(sessionID quickfix.SessionID, format string, v ...interface{
 
 func (f *fixHandler) onOutboundBusinessMessageReject(msg businessmessagereject.BusinessMessageReject, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 
-	logSessionMsgf(sessionID, "Sending reject message to target: %v", msg)
+	logSessionMsgf(sessionID, "Sending reject message to target: %v", toReadableString(msg.Message))
 
 	return nil
 }
 
 func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 
-	logSessionMsg(sessionID, "received execution report:"+msg.Message.String())
+	logSessionMsg(sessionID, "received execution report:"+toReadableString(msg.Message))
 
 	execType, err := msg.GetExecType()
 	if err != nil {

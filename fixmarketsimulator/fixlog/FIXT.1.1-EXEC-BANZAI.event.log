@@ -125,3 +125,48 @@
 20200226-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
 20200226-11:52:55: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
 20200226-11:52:55: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-11:54:38: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-11:54:38: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200228-11:54:38: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-11:56:42: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:48092
+20200228-11:56:42: Acceptor heartbeat set to 20 seconds
+20200228-11:56:42: Setting DefaultApplVerID (1137=9) from Logon
+20200228-11:56:42: Received logon
+20200228-11:56:42: Responding to Logon request
+20200228-12:08:58: Disconnecting: Encountered END_OF_STREAM
+20200228-12:09:04: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:48274
+20200228-12:09:04: Acceptor heartbeat set to 20 seconds
+20200228-12:09:04: Setting DefaultApplVerID (1137=9) from Logon
+20200228-12:09:04: Received logon
+20200228-12:09:04: Responding to Logon request
+20200228-12:09:24: Disconnecting: Encountered END_OF_STREAM
+20200228-12:16:51: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:48366
+20200228-12:16:51: Acceptor heartbeat set to 20 seconds
+20200228-12:16:51: Setting DefaultApplVerID (1137=9) from Logon
+20200228-12:16:51: Received logon
+20200228-12:16:51: Responding to Logon request
+20200228-12:36:55: Sent test request TEST
+20200228-12:37:13: Disconnecting: Timed out waiting for heartbeat
+20200228-12:39:23: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:48598
+20200228-12:39:23: Acceptor heartbeat set to 20 seconds
+20200228-12:39:23: Setting DefaultApplVerID (1137=9) from Logon
+20200228-12:39:23: Received logon
+20200228-12:39:23: Responding to Logon request
+20200228-12:39:23: Received ResendRequest FROM: 101 TO: infinity
+20200228-12:39:23: Sent SequenceReset TO: 104
+20200228-12:41:51: Sent test request TEST
+20200228-12:42:09: Disconnecting: Timed out waiting for heartbeat
+20200228-13:47:51: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50238
+20200228-13:47:51: Acceptor heartbeat set to 20 seconds
+20200228-13:47:51: Setting DefaultApplVerID (1137=9) from Logon
+20200228-13:47:51: Received logon
+20200228-13:47:51: Responding to Logon request
+20200228-13:47:51: MsgSeqNum too high, expecting 109 but received 111: 8=FIXT.1.19=7435=A34=11149=BANZAI52=20200228-13:47:51.96856=EXEC98=0108=201137=910=217
+20200228-13:47:51: Enqueued at pos 111: 8=FIXT.1.19=7435=A34=11149=BANZAI52=20200228-13:47:51.96856=EXEC98=0108=201137=910=217
+20200228-13:47:51: Sent ResendRequest FROM: 109 TO: 110
+20200228-13:47:51: Enqueued at pos 112: 8=FIXT.1.19=6635=234=11249=BANZAI52=20200228-13:47:51.97956=EXEC7=11016=010=079
+20200228-13:47:51: Received ResendRequest FROM: 110 TO: infinity
+20200228-13:47:51: Sent SequenceReset TO: 114
+20200228-13:47:51: Received SequenceReset FROM: 109 TO: 113
+20200228-13:48:11: ResendRequest for messages FROM 109 TO 110 has been satisfied.
+20200228-13:49:07: Sent test request TEST

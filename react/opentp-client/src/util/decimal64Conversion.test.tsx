@@ -15,15 +15,3 @@ test("convert numbers to decimal64", () => {
     }
 
 })
-
-test("convert numbers to decimal64 - B", () => {
-
-    let num : number = -0.00006309
- 
-    let result = toDecimal64(num)
-    
-    let resultAsNumber = toNumber(result);
- 
-    expect(num).toEqual(resultAsNumber)
-
-})

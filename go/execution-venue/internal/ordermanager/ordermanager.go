@@ -108,7 +108,7 @@ func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderSta
 	}
 
 	result := <-resultChan
-	
+
 	return result.Error
 }
 

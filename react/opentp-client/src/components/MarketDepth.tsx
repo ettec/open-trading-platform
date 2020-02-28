@@ -2,9 +2,7 @@ import {  Label } from "@blueprintjs/core";
 import { Cell, Column, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
-import v4 from 'uuid';
 import { Listing } from "../serverapi/listing_pb";
-import {  MdsSubscribeRequest } from '../serverapi/market-data-service_pb';
 import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
@@ -28,11 +26,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   stream?: grpcWeb.ClientReadableStream<ClobQuote>;
 
-  id: string;
-
   quoteService: QuoteService;
-
-  count: number;
 
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
 
@@ -41,14 +35,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     this.quoteService = props.quoteService
 
-    this.state = {};
-
-    this.id = v4();
-
-    this.count = 0;
-
-    var subscription = new MdsSubscribeRequest()
-    subscription.setSubscriberid(this.id)
+    this.state = {};  
 
     this.props.listingContext.addListener((listing:Listing)=> {
 
