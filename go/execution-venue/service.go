@@ -183,7 +183,7 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 	template :=
 		"[DEFAULT]\n" +
 			"ConnectionType=initiator\n" +
-			"ReconnectInterval=60\n" +
+			"ReconnectInterval=20\n" +
 			"SenderCompID=" + sessionId.SenderCompID + "\n" +
 			"FileStorePath=" + fileStorePath + "\n" +
 			"FileLogPath=" + fileLogPath + "\n" +

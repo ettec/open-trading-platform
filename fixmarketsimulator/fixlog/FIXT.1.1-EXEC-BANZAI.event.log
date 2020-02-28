@@ -170,3 +170,125 @@
 20200228-13:47:51: Received SequenceReset FROM: 109 TO: 113
 20200228-13:48:11: ResendRequest for messages FROM 109 TO 110 has been satisfied.
 20200228-13:49:07: Sent test request TEST
+20200228-13:49:25: Disconnecting: Timed out waiting for heartbeat
+20200228-14:06:28: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-14:06:28: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-14:08:55: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-14:08:55: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-14:13:43: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-14:13:43: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-14:13:48: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50754
+20200228-14:13:48: Acceptor heartbeat set to 20 seconds
+20200228-14:13:48: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:13:48: Received logon
+20200228-14:13:48: Responding to Logon request
+20200228-14:13:49: Received ResendRequest FROM: 116 TO: infinity
+20200228-14:13:49: Resending message: 116
+20200228-14:13:49: Sent SequenceReset TO: 121
+20200228-14:15:21: Sent test request TEST
+20200228-14:16:52: Disconnecting: Timed out waiting for heartbeat
+20200228-14:17:06: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50784
+20200228-14:17:06: Acceptor heartbeat set to 20 seconds
+20200228-14:17:06: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:17:43: quickfix.SessionException Logon state is not valid for message (MsgType=1)
+20200228-14:17:43: Disconnecting: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=1)
+20200228-14:17:43: No responder, not sending message: 8=FIXT.1.19=12035=534=12549=EXEC52=20200228-14:17:43.19156=BANZAI58=Invalid Logon message: SendingTime accuracy problem, field=5210=073
+20200228-14:17:43: Already disconnected: Invalid Logon message: SendingTime accuracy problem, field=52
+20200228-14:18:03: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50800
+20200228-14:18:03: Acceptor heartbeat set to 20 seconds
+20200228-14:18:03: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:18:03: Received logon
+20200228-14:18:03: Responding to Logon request
+20200228-14:18:03: MsgSeqNum too high, expecting 122 but received 123: 8=FIXT.1.19=7435=A34=12349=BANZAI52=20200228-14:18:03.19156=EXEC98=0108=201137=910=204
+20200228-14:18:03: Enqueued at pos 123: 8=FIXT.1.19=7435=A34=12349=BANZAI52=20200228-14:18:03.19156=EXEC98=0108=201137=910=204
+20200228-14:18:03: Sent ResendRequest FROM: 122 TO: 122
+20200228-14:18:03: Enqueued at pos 124: 8=FIXT.1.19=6635=234=12449=BANZAI52=20200228-14:18:03.19656=EXEC7=12316=010=073
+20200228-14:18:03: Received ResendRequest FROM: 123 TO: infinity
+20200228-14:18:03: Sent SequenceReset TO: 124
+20200228-14:18:03: Resending message: 124
+20200228-14:18:03: Sent SequenceReset TO: 128
+20200228-14:18:03: ResendRequest for messages FROM 122 TO 122 has been satisfied.
+20200228-14:18:03: Received SequenceReset FROM: 122 TO: 125
+20200228-14:22:43: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-14:22:43: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-14:22:56: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50854
+20200228-14:22:56: Acceptor heartbeat set to 20 seconds
+20200228-14:22:56: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:22:56: Received logon
+20200228-14:22:56: Responding to Logon request
+20200228-14:30:50: Sent test request TEST
+20200228-14:30:50: Disconnecting: Timed out waiting for heartbeat
+20200228-14:30:50: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50912
+20200228-14:30:50: Acceptor heartbeat set to 20 seconds
+20200228-14:30:50: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:30:50: quickfix.SessionException Logon state is not valid for message (MsgType=0)
+20200228-14:30:50: Disconnecting: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=0)
+20200228-14:30:50: quickfix.SessionException Logon state is not valid for message (MsgType=0)
+20200228-14:30:50: Already disconnected: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=0)
+20200228-14:30:50: quickfix.SessionException Logon state is not valid for message (MsgType=1)
+20200228-14:30:50: Already disconnected: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=1)
+20200228-14:30:50: No responder, not sending message: 8=FIXT.1.19=12035=534=15349=EXEC52=20200228-14:30:50.60256=BANZAI58=Invalid Logon message: SendingTime accuracy problem, field=5210=064
+20200228-14:30:50: Already disconnected: Invalid Logon message: SendingTime accuracy problem, field=52
+20200228-14:31:10: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50954
+20200228-14:31:10: Acceptor heartbeat set to 20 seconds
+20200228-14:31:10: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:31:10: Received logon
+20200228-14:31:10: Responding to Logon request
+20200228-14:31:10: MsgSeqNum too high, expecting 147 but received 151: 8=FIXT.1.19=7435=A34=15149=BANZAI52=20200228-14:31:10.60256=EXEC98=0108=201137=910=195
+20200228-14:31:10: Enqueued at pos 151: 8=FIXT.1.19=7435=A34=15149=BANZAI52=20200228-14:31:10.60256=EXEC98=0108=201137=910=195
+20200228-14:31:10: Sent ResendRequest FROM: 147 TO: 150
+20200228-14:31:10: Received SequenceReset FROM: 147 TO: 150
+20200228-14:31:10: ResendRequest for messages FROM 147 TO 150 has been satisfied.
+20200228-14:39:18: Disconnecting: Timed out waiting for heartbeat
+20200228-14:39:18: No responder, not sending message: 8=FIXT.1.19=14235=534=15749=EXEC52=20200228-14:39:18.40056=BANZAI58=Tried to send a reject while not logged on: SendingTime accuracy problem (field 52)10=138
+20200228-14:39:18: quickfix.SessionException Tried to send a reject while not logged on: SendingTime accuracy problem (field 52)
+20200228-14:39:18: Already disconnected: Verifying message failed: quickfix.SessionException: Tried to send a reject while not logged on: SendingTime accuracy problem (field 52)
+20200228-14:39:18: quickfix.SessionException Logon state is not valid for message (MsgType=2)
+20200228-14:39:18: Already disconnected: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=2)
+20200228-14:39:18: quickfix.SessionException Logon state is not valid for message (MsgType=0)
+20200228-14:39:18: Already disconnected: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=0)
+20200228-14:39:18: quickfix.SessionException Logon state is not valid for message (MsgType=1)
+20200228-14:39:18: Already disconnected: Verifying message failed: quickfix.SessionException: Logon state is not valid for message (MsgType=1)
+20200228-14:39:18: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:50962
+20200228-14:39:18: Acceptor heartbeat set to 20 seconds
+20200228-14:39:18: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:39:18: Disconnecting: Invalid Logon message: SendingTime accuracy problem, field=52
+20200228-14:42:03: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-14:42:03: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-14:42:18: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:51088
+20200228-14:42:18: Acceptor heartbeat set to 20 seconds
+20200228-14:42:18: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:42:18: Received logon
+20200228-14:42:18: Responding to Logon request
+20200228-14:42:18: MsgSeqNum too high, expecting 152 but received 156: 8=FIXT.1.19=7435=A34=15649=BANZAI52=20200228-14:42:18.41256=EXEC98=0108=201137=910=209
+20200228-14:42:18: Enqueued at pos 156: 8=FIXT.1.19=7435=A34=15649=BANZAI52=20200228-14:42:18.41256=EXEC98=0108=201137=910=209
+20200228-14:42:18: Sent ResendRequest FROM: 152 TO: 155
+20200228-14:42:18: Received SequenceReset FROM: 152 TO: 158
+20200228-14:42:18: quickfix.SessionException MsgSeqNum too low, expecting 158 but received 157
+20200228-14:42:18: Disconnecting: Verifying message failed: quickfix.SessionException: MsgSeqNum too low, expecting 158 but received 157
+20200228-14:42:38: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:51096
+20200228-14:42:38: Acceptor heartbeat set to 20 seconds
+20200228-14:42:38: Setting DefaultApplVerID (1137=9) from Logon
+20200228-14:42:38: Received logon
+20200228-14:42:38: Responding to Logon request
+20200228-14:42:38: MsgSeqNum too high, expecting 158 but received 160: 8=FIXT.1.19=7435=A34=16049=BANZAI52=20200228-14:42:38.70756=EXEC98=0108=201137=910=213
+20200228-14:42:38: Enqueued at pos 160: 8=FIXT.1.19=7435=A34=16049=BANZAI52=20200228-14:42:38.70756=EXEC98=0108=201137=910=213
+20200228-14:42:38: Sent ResendRequest FROM: 158 TO: 159
+20200228-14:42:38: Enqueued at pos 161: 8=FIXT.1.19=6635=234=16149=BANZAI52=20200228-14:42:38.71356=EXEC7=15216=010=076
+20200228-14:42:38: Received ResendRequest FROM: 152 TO: infinity
+20200228-14:42:38: Resending message: 152
+20200228-14:42:38: Sent SequenceReset TO: 156
+20200228-14:42:38: Resending message: 156
+20200228-14:42:38: Sent SequenceReset TO: 164
+20200228-14:42:38: Received SequenceReset FROM: 158 TO: 159
+20200228-14:42:38: ResendRequest for messages FROM 158 TO 159 has been satisfied.
+20200228-14:43:13: Sent test request TEST
+20200228-14:43:18: Processing queued message: 160
+20200228-14:43:18: Processing queued message: 161
+20200228-15:59:48: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200228-15:59:48: Created session: FIXT.1.1:EXEC->BANZAI
+20200228-16:00:05: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:52342
+20200228-16:00:05: Acceptor heartbeat set to 20 seconds
+20200228-16:00:05: Setting DefaultApplVerID (1137=9) from Logon
+20200228-16:00:05: Received logon
+20200228-16:00:05: Responding to Logon request

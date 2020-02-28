@@ -17,18 +17,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import quickfix.Application;
-import quickfix.DoNotSend;
-import quickfix.FieldNotFound;
-import quickfix.IncorrectDataFormat;
-import quickfix.IncorrectTagValue;
-import quickfix.Message;
-import quickfix.MessageCracker;
-import quickfix.RejectLogon;
-import quickfix.Session;
-import quickfix.SessionID;
-import quickfix.SessionNotFound;
-import quickfix.UnsupportedMessageType;
+import quickfix.*;
 import quickfix.field.*;
 import quickfix.fix50sp2.ExecutionReport;
 import quickfix.fix50sp2.NewOrderSingle;
@@ -42,6 +31,7 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
     public static final Side SIDE = new Side();
     public static final ClOrdID CL_ORD_ID = new ClOrdID();
     public static final OrderQty ORDER_QTY = new OrderQty();
+    public static final StringField PRICE_FIELD_AS_STRING = new StringField(44);
 
 
     Map<String, String> clOrderIdToOrderId = new HashMap<>();
@@ -128,8 +118,10 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
             OrderQty qty = replaceRequest.get(ORDER_QTY);
             BigDecimal newPrice = null;
             if (replaceRequest.isSet(PRICE)) {
-                Price price = replaceRequest.get(PRICE);
-                newPrice = new BigDecimal(price.getObject());
+
+                var priceStr = replaceRequest.getField(PRICE_FIELD_AS_STRING);
+                var priceString = priceStr.getValue();
+                newPrice = new BigDecimal(priceString);
             }
 
             OrderState orderState;
@@ -261,7 +253,7 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
                 throw new RejectOrderException("Price must be set");
             }
 
-            Price price = order.get(PRICE);
+
 
             Side side = order.get(SIDE);
 
@@ -275,11 +267,13 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
                 throw new RejectOrderException("Side not supported:" + side);
             }
 
-
             OrderBook orderBook = exchange.getOrderBook(symbol.getValue());
             orderBook.addTradeListenerIfNotRegistered(this);
 
-            String orderId = orderBook.addOrder(exSide, (int) qty.getValue(), new BigDecimal(price.getValue()), clOrdId.getValue());
+            var priceStr = order.getField(PRICE_FIELD_AS_STRING);
+            var priceString = priceStr.getValue();
+
+            String orderId = orderBook.addOrder(exSide, (int) qty.getValue(), new BigDecimal(priceString), clOrdId.getValue());
 
             if (clOrderIdToOrderId.containsKey(clOrdId)) {
                 throw new RejectOrderException("Already received clOrdId:" + clOrdId);

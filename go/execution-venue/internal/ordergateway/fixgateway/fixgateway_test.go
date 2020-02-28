@@ -5,18 +5,7 @@ import (
 	"testing"
 )
 
-func TestFixOrderGateway_PriceConversion(t *testing.T) {
 
-	str := toFixString(model.Decimal64{
-		Mantissa: 1936,
-		Exponent: -2,
-	})
-
-	if str != "19.36" {
-		t.FailNow()
-	}
-
-}
 
 func toFixString(decimal64 model.Decimal64) string {
 	d, s := toFixDecimal(&decimal64)

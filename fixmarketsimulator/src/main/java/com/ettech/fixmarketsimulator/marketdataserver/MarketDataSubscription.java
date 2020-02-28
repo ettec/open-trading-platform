@@ -75,15 +75,30 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
   }
 
   private void setPrice(MarketData.MDIncGrp.Builder mdEntryBuilder, BigDecimal price) {
+    Fix.Decimal64 fixPrice = getFixDecimal64(price);
+
+    mdEntryBuilder.setMdEntryPx(fixPrice);
+  }
+
+  static  Fix.Decimal64 getFixDecimal64(BigDecimal price) {
+
+    var str = price.toString();
+
+    var idx = str.indexOf('.');
+
+    int exp = 0;
+    if( idx > -1) {
+      str = str.replace(".", "");
+      exp = -(str.length() - idx);
+    }
+
+    long mantissa = Long.parseLong(str);
+
     var priceBuilder = Fix.Decimal64.newBuilder();
-    int scale = -1*price.scale();
-    priceBuilder.setExponent(scale);
+    priceBuilder.setExponent(exp);
+    priceBuilder.setMantissa(mantissa);
 
-    int unscaledValue = price.unscaledValue().intValue();
-
-    priceBuilder.setMantissa(unscaledValue);
-
-    mdEntryBuilder.setMdEntryPx(priceBuilder.build());
+    return priceBuilder.build();
   }
 
   public void close() {
