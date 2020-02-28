@@ -5,24 +5,26 @@ import * as grpcWeb from 'grpc-web';
 import React from 'react';
 import { MenuItem } from "react-contextmenu";
 import v4 from 'uuid';
-import { logDebug, logGrpcError } from '../logging/Logging';
-import { Empty } from '../serverapi/common_pb';
-import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
-import { OrderId } from '../serverapi/execution-venue_pb';
-import { Order, OrderStatus, Side } from '../serverapi/order_pb';
-import {Timestamp} from '../serverapi/modelcommon_pb';
-import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
-import { SubscribeToOrders } from '../serverapi/view-service_pb';
-import { ListingService } from '../services/ListingService';
-import { toNumber } from '../util/decimal64Conversion';
-import { OrderContext } from './Container';
-import Login from './Login';
-import './OrderBlotter.css';
-import { Listing } from '../serverapi/listing_pb';
+import { logDebug, logGrpcError } from '../../logging/Logging';
+import { Empty } from '../../serverapi/common_pb';
+import { ExecutionVenueClient } from '../../serverapi/Execution-venueServiceClientPb';
+import { OrderId } from '../../serverapi/execution-venue_pb';
+import { Order, OrderStatus } from '../../serverapi/order_pb';
+import {Timestamp} from '../../serverapi/modelcommon_pb';
+import { ViewServiceClient } from '../../serverapi/View-serviceServiceClientPb';
+import { SubscribeToOrders } from '../../serverapi/view-service_pb';
+import { ListingService } from '../../services/ListingService';
+
+import { OrderContext } from '../Container';
+import Login from '../Login';
+import '../TableCommon.css';
+import { Listing } from '../../serverapi/listing_pb';
+import { OrderView } from './OrderView';
 
 interface OrderBlotterState {
   orders: OrderView[];
   selectedOrders: Map<string, Order>
+  columns: Array<JSX.Element>
 }
 
 interface OrderBlotterProps {
@@ -30,102 +32,6 @@ interface OrderBlotterProps {
   listingService: ListingService
 }
 
-class OrderView {
-
-  version: number;
-  id: string;
-  side: string;
-  quantity?: number;
-  price?: number;
-  listingId: number;
-  remainingQuantity?: number;
-  tradedQuantity?: number;
-  avgTradePrice?: number;
-  status: string;
-  targetStatus: string;
-  private order: Order;
-  listing?: Listing;
-  created?: Date;
-
-  constructor(order: Order) {
-    this.id = ""
-    this.version = 0;
-    this.side = "";
-    this.listingId = 0;
-    this.status = "";
-    this.targetStatus = "";
-    this.order = order
-    this.created = undefined
-    this.setOrder(order)
-  }
-
-  setOrder(order: Order) {
-    this.order = order
-
-
-    this.version = order.getVersion()
-    this.id = order.getId()
-
-    switch (order.getSide()) {
-      case Side.BUY:
-        this.side = "Buy"
-        break;
-      case Side.SELL:
-        this.side = "Sell"
-        break;
-      default:
-        this.side = "Unknown Side: " + order.getSide()
-    }
-
-    this.quantity = toNumber(order.getQuantity())
-    this.price = toNumber(order.getPrice())
-    this.listingId = order.getListingid()
-    this.remainingQuantity = toNumber(order.getRemainingquantity())
-    this.tradedQuantity = toNumber(order.getTradedquantity())
-    this.avgTradePrice = toNumber(order.getAvgtradeprice())
-    this.status = this.getStatusString(order.getStatus())
-    this.targetStatus = this.getStatusString(order.getTargetstatus())
-    let created = order.getCreated()
-    if( created ) {
-      this.created = new Date(created.getSeconds() * 1000)
-    }
-    
-  }
-
-  getOrder(): Order {
-    return this.order
-  }
-
-  getStatusString(status: OrderStatus) {
-
-    switch (status) {
-      case OrderStatus.CANCELLED:
-        return "Cancelled"
-      case OrderStatus.FILLED:
-        return "Filled"
-      case OrderStatus.LIVE:
-        return "Live"
-      case OrderStatus.NONE:
-        return "None"
-    }
-
-  }
-
-
-
-  getSymbol(): string | undefined {
-    return this.listing?.getInstrument()?.getDisplaysymbol()
-  }
-
-  getMic(): string | undefined {
-    return this.listing?.getMarket()?.getMic()
-  }
-
-  getCountryCode(): string | undefined {
-    return this.listing?.getMarket()?.getCountrycode()
-  }
-
-}
 
 export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
 
@@ -139,21 +45,47 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   id: string;
 
+  columnWidths:  Array<number>
 
   constructor(props: OrderBlotterProps) {
     super(props);
 
     this.id = v4();
 
+    
+
     this.listingService = props.listingService
 
     this.orderMap = new Map<string, number>();
 
-    let view = new Array<OrderView>(5)
+    let view = new Array<OrderView>(50)
+
+    let columns = [
+      <Column id="id" name="Id" cellRenderer={this.renderId} />,
+      <Column id="side" name="Side" cellRenderer={this.renderSide} />,
+      <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
+      <Column id="mic" name="Mic" cellRenderer={this.renderMic} />,
+      <Column id="country" name="Country" cellRenderer={this.renderCountry} />,
+      <Column id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
+      <Column id="price" name="Price" cellRenderer={this.renderPrice} />,
+      <Column id="status" name="Status" cellRenderer={this.renderStatus} />,
+      <Column id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
+      <Column id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />,
+      <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
+      <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
+      <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
+      <Column id="created" name="Created" cellRenderer={this.renderCreated} />]
+
+      this.columnWidths = new Array<number>()
+      for (let i: number=0; i < columns.length; i++) { 
+        this.columnWidths.push(100)
+      }
+
 
     let blotterState: OrderBlotterState = {
       orders: view,
-      selectedOrders: new Map<string, Order>()
+      selectedOrders: new Map<string, Order>(),
+      columns:  columns
     }
 
     this.state = blotterState;
@@ -251,34 +183,22 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     }
   }
 
-
   public render() {
 
     return (
       <div>
 
         <Table enableRowResizing={false} numRows={this.state.orders.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-          bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} >
-          <Column name="Id" cellRenderer={this.renderId} />
-          <Column name="Side" cellRenderer={this.renderSide} />
-          <Column name="Symbol" cellRenderer={this.renderSymbol} />
-          <Column name="Mic" cellRenderer={this.renderMic} />
-          <Column name="Country" cellRenderer={this.renderCountry} />
-          <Column name="Quantity" cellRenderer={this.renderQuantity} />
-          <Column name="Price" cellRenderer={this.renderPrice} />
-          <Column name="Status" cellRenderer={this.renderStatus} />
-          <Column name="Target Status" cellRenderer={this.renderTargetStatus} />
-          <Column name="Rem Qty" cellRenderer={this.renderRemQty} />
-          <Column name="Traded Qty" cellRenderer={this.renderTrdQty} />
-          <Column name="Avg Price" cellRenderer={this.renderAvgPrice} />
-          <Column name="Listing Id" cellRenderer={this.renderListingId} />
-          <Column name="Created" cellRenderer={this.renderCreated} />
+          bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} enableColumnReordering={true} 
+          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.columnWidths}>
+          {this.state.columns}
         </Table>
-
       </div>
-
-
     );
+  }
+
+  columnResized = (index: number, size: number) => {
+
   }
 
   private renderId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.id}</Cell>;
@@ -337,6 +257,33 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
     return <Cell style={statusStyle}>{orderView?.targetStatus}</Cell>
+  }
+
+  
+  private reorderColumnData<T>(oldIndex: number, newIndex: number, length: number, cols: Array<T>): Array<T> {
+    
+    let colSegment = cols.slice(oldIndex, oldIndex+ length)
+    let left = cols.slice(0, oldIndex)
+    let right = cols.slice(oldIndex+length, cols.length )
+    let colsWithoutSeg = left.concat(right)
+
+    let newLeft = colsWithoutSeg.slice(0, newIndex)
+    let newRight = colsWithoutSeg.slice( newIndex, colsWithoutSeg.length)
+
+    return newLeft.concat(colSegment).concat(newRight)
+  }
+
+  onColumnsReordered = (oldIndex: number, newIndex: number, length: number)  => {
+
+    let newCols = this.reorderColumnData(oldIndex, newIndex, length, this.state.columns)
+
+    let blotterState: OrderBlotterState = {
+      ...this.state, ...{
+        columns: newCols,
+      }
+    }
+
+    this.setState(blotterState)
   }
 
 

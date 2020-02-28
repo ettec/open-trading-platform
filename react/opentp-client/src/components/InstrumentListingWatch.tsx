@@ -12,7 +12,7 @@ import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
-import './OrderBlotter.css';
+import './TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
 
 

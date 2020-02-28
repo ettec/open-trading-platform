@@ -8,7 +8,7 @@ import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext } from "./Container";
 import Login from "./Login";
-import './OrderBlotter.css';
+import './TableCommon.css';
 import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
 
