@@ -17,10 +17,12 @@ import { ListingService } from '../../services/ListingService';
 
 import { OrderContext } from '../Container';
 import Login from '../Login';
-import '../TableCommon.css';
 import { Listing } from '../../serverapi/listing_pb';
-import { OrderView } from './OrderView';
+import '../TableView/TableCommon.css';
+import '../TableView/TableLayout.ts';
 import { TabNode, Model, Actions } from 'flexlayout-react';
+import { OrderView } from './OrderView';
+import TableViewConfig, { getColIdsInOrder, getColumnState } from '../TableView/TableLayout';
 
 interface OrderBlotterState {
 
@@ -30,17 +32,13 @@ interface OrderBlotterState {
   columnWidths: Array<number>
 }
 
-interface OrderBlotterProps {
+interface OrderBlotterProps  {
   node: TabNode,
   model: Model,
   orderContext: OrderContext
   listingService: ListingService
 }
 
-interface PersistentConfig {
-  columnOrder: string[]
-  columnWidths: number[]
-}
 
 
 export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
@@ -56,30 +54,45 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   id: string;
 
 
-
-  private readonly colId = "id";
-
   constructor(props: OrderBlotterProps) {
     super(props);
 
     this.id = v4();
 
+    let columns = [ <Column id="id" name="Id" cellRenderer={this.renderId} />,
+    <Column id="side" name="Side" cellRenderer={this.renderSide} />,
+    <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
+     <Column id="mic" name="Mic" cellRenderer={this.renderMic} />,
+    <Column id="country" name="Country" cellRenderer={this.renderCountry} />,
+     <Column id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
+     <Column id="price" name="Price" cellRenderer={this.renderPrice} />,
+     <Column id="status" name="Status" cellRenderer={this.renderStatus} />,
+     <Column id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
+     <Column id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />,
+     <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
+     <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
+     <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
+    <Column id="created" name="Created" cellRenderer={this.renderCreated} /> ]
+
 
     this.props.node.setEventListener("save", (p) => {
 
-      let colOrderIds = new Array<string>()
-      for (let col of this.state.columns) {
-        colOrderIds.push(col.props[this.colId])
-      }
+      let cols = this.state.columns
+      let colOrderIds = getColIdsInOrder(cols);
 
-      let persistentConfig: PersistentConfig = {
+      let persistentConfig: TableViewConfig = {
         columnWidths: this.state.columnWidths,
         columnOrder: colOrderIds
       }
 
       this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
-    });
+    
 
+  }
+    
+    );
+
+    let config = this.props.node.getConfig() 
 
     this.listingService = props.listingService
 
@@ -87,59 +100,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     let view = new Array<OrderView>(50)
 
-    let colMap = new Map<string, JSX.Element>([
-      ["id", <Column id="id" name="Id" cellRenderer={this.renderId} />],
-      ["side", <Column id="side" name="Side" cellRenderer={this.renderSide} />],
-      ["symbol", <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />],
-      ["mic", <Column id="mic" name="Mic" cellRenderer={this.renderMic} />],
-      ["country", <Column id="country" name="Country" cellRenderer={this.renderCountry} />],
-      ["quantity", <Column id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />],
-      ["price", <Column id="price" name="Price" cellRenderer={this.renderPrice} />],
-      ["status", <Column id="status" name="Status" cellRenderer={this.renderStatus} />],
-      ["targetStatus", <Column id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />],
-      ["remQty", <Column id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />],
-      ["tradedQty", <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />],
-      ["avgPrice", <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />],
-      ["listingId", <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />],
-      ["created", <Column id="created" name="Created" cellRenderer={this.renderCreated} />]
-    ]);
-
-
-
-    let defaultCols = Array.from(colMap.values())
-
-    let defaultColWidths = new Array<number>()
-    for (let i: number = 0; i < defaultCols.length; i++) {
-      defaultColWidths.push(100)
-    }
-
-
-
-    if (this.props.node.getConfig() && this.props.node.getConfig()) {
-      let pc: PersistentConfig = this.props.node.getConfig();
-      if (pc.columnWidths && pc.columnWidths.length > 0) {
-        defaultColWidths = pc.columnWidths
-      }
-
-
-      if (pc.columnOrder && pc.columnOrder.length > 0) {
-        let cols = new Array<JSX.Element>()
-        for (let id of pc.columnOrder) {
-          let col = colMap.get(id) 
-          if( col ) {
-            cols.push(col)
-          }
-        }
-
-        defaultCols = cols
-      }
-
-      while( defaultColWidths.length < defaultCols.length ) {
-        defaultColWidths.push(100)
-      }
-    }
-
-
+    let { defaultCols, defaultColWidths } = getColumnState(columns, config);
 
     let blotterState: OrderBlotterState = {
       orders: view,
@@ -242,6 +203,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
       window.alert("modify order" + data.getId());
     }
   }
+
+  
 
   public render() {
 
@@ -429,3 +392,6 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   };
 
 }
+
+
+
