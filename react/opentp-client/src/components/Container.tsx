@@ -142,7 +142,7 @@ export default class Container extends React.Component {
                 return <OrderBlotter listingService={this.listingService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
-                return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
+                return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if (component === "instrument-watch") {
                 return<InstrumentListingWatch  listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;

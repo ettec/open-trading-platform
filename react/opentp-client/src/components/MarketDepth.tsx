@@ -11,8 +11,12 @@ import Login from "./Login";
 import './TableView/TableCommon.css';
 import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
+import TableViewConfig, { getColumnState, getColIdsInOrder, reorderColumnData } from "./TableView/TableLayout";
+import { TabNode, Actions, Model } from "flexlayout-react";
 
 interface MarketDepthProps {
+  node: TabNode,
+  model: Model,
   quoteService : QuoteService,
   listingContext : ListingContext
 }
@@ -20,6 +24,8 @@ interface MarketDepthProps {
 interface MarketDepthState {
   listing?: Listing,
   quote?: ClobQuote,
+  columns: Array<JSX.Element>
+  columnWidths: Array<number>
 }
 
 export default class MarketDepth extends React.Component<MarketDepthProps, MarketDepthState> implements QuoteListener {
@@ -35,7 +41,33 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     this.quoteService = props.quoteService
 
-    this.state = {};  
+    let columns = [<Column id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+    <Column id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+    <Column id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
+    <Column id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]  
+
+    let config = this.props.node.getConfig()
+
+    let { defaultCols, defaultColWidths } = getColumnState(columns, config);
+
+    this.props.node.setEventListener("save", (p) => {
+      let cols = this.state.columns
+      let colOrderIds = getColIdsInOrder(cols);
+
+      let persistentConfig: TableViewConfig = {
+        columnWidths: this.state.columnWidths,
+        columnOrder: colOrderIds,
+      }
+
+
+      this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
+    });
+
+
+    this.state = {
+      columns: defaultCols,
+      columnWidths: defaultColWidths
+    };  
 
     this.props.listingContext.addListener((listing:Listing)=> {
 
@@ -82,13 +114,41 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       return (
         <div className="bp3-dark">
           <Label>{this.getListingLabel()}</Label>
-          <Table enableRowResizing={false} numRows={10} className="bp3-dark">
-            <Column name="Bid Size" cellRenderer={this.renderBidSize} />
-            <Column name="Bid Px" cellRenderer={this.renderBidPrice} />
-            <Column name="Ask Px" cellRenderer={this.renderAskPrice} />
-            <Column name="Ask Size" cellRenderer={this.renderAskSize} />
-          </Table>
-        </div>);
+          <Table enableRowResizing={false} numRows={10} className="bp3-dark"enableColumnReordering={true}
+          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} 
+          columnWidths={this.state.columnWidths}>
+          {this.state.columns}
+        </Table>
+      </div>
+    );
+  }
+
+  columnResized = (index: number, size: number) => {
+    let newColWidths = this.state.columnWidths.slice();
+    newColWidths[index] = size
+    let blotterState: MarketDepthState = {
+      ...this.state, ...{
+        columnWidths: newColWidths
+      }
+    }
+
+    this.setState(blotterState)
+
+  }
+
+  onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
+
+    let newCols = reorderColumnData(oldIndex, newIndex, length, this.state.columns)
+    let newColWidths = reorderColumnData(oldIndex, newIndex, length, this.state.columnWidths)
+
+    let blotterState = {
+      ...this.state, ...{
+        columns: newCols,
+        columnWidths: newColWidths
+      }
+    }
+
+    this.setState(blotterState)
   }
 
   private getListingLabel(): string  {

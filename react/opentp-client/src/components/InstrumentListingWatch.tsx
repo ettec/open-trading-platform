@@ -14,10 +14,13 @@ import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
+import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from './TableView/TableLayout';
 
 
 interface InstrumentListingWatchState {
   watches: Array<ListingWatch>
+  columns: Array<JSX.Element>
+  columnWidths: Array<number>
 }
 
 interface InstrumentListingWatchProps {
@@ -29,7 +32,7 @@ interface InstrumentListingWatchProps {
   listingService: ListingService
 }
 
-interface PersistentConfig {
+interface PersistentConfig extends TableViewConfig {
   listingIds: number[]
 }
 
@@ -51,8 +54,32 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
     this.addListing = this.addListing.bind(this);
 
+
+    let columns = [<Column id="id" name="Id" cellRenderer={this.renderId} />,
+    <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
+    <Column id="name" name="Name" cellRenderer={this.renderName} />,
+    <Column id="mic" name="Mic" cellRenderer={this.renderMic} />,
+    <Column id="country" name="Country" cellRenderer={this.renderCountry} />,
+    <Column id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+    <Column id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+    <Column id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
+    <Column id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]  
+
+    let config = this.props.node.getConfig()
+
+    let { defaultCols, defaultColWidths } = getColumnState(columns, config);
+
     this.props.node.setEventListener("save", (p) => {
-      let persistentConfig: PersistentConfig = { listingIds: Array.from(this.state.watches.map(l => l.listingId)) }
+      let cols = this.state.columns
+      let colOrderIds = getColIdsInOrder(cols);
+
+      let persistentConfig: PersistentConfig = {
+        columnWidths: this.state.columnWidths,
+        columnOrder: colOrderIds,
+        listingIds: Array.from(this.state.watches.map(l => l.listingId)) 
+      }
+
+
       this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
     });
 
@@ -66,7 +93,9 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     }
 
     let initialState: InstrumentListingWatchState = {
-      watches: initialWatches
+      watches: initialWatches,
+      columns: defaultCols,
+      columnWidths: defaultColWidths
     }
     this.state = initialState
 
@@ -138,22 +167,42 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     return (
 
       <div className="bp3-dark">
-
         <InstrumentListingSearchBar add={this.addListing} />
         <Table enableRowResizing={false} numRows={this.state.watches.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-          onSelection={this.onSelection} bodyContextMenuRenderer={this.renderContextMenu}>
-          <Column name="Id" cellRenderer={this.renderId} />
-          <Column name="Symbol" cellRenderer={this.renderSymbol} />
-          <Column name="Name" cellRenderer={this.renderName} />
-          <Column name="Mic" cellRenderer={this.renderMic} />
-          <Column name="Country" cellRenderer={this.renderCountry} />
-          <Column name="Bid Size" cellRenderer={this.renderBidSize} />
-          <Column name="Bid Px" cellRenderer={this.renderBidPrice} />
-          <Column name="Ask Px" cellRenderer={this.renderAskPrice} />
-          <Column name="Ask Size" cellRenderer={this.renderAskSize} />
+          onSelection={this.onSelection} bodyContextMenuRenderer={this.renderContextMenu} enableColumnReordering={true}
+          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
+          {this.state.columns}
         </Table>
       </div>
     );
+  }
+
+  columnResized = (index: number, size: number) => {
+    let newColWidths = this.state.columnWidths.slice();
+    newColWidths[index] = size
+    let blotterState: InstrumentListingWatchState = {
+      ...this.state, ...{
+        columnWidths: newColWidths
+      }
+    }
+
+    this.setState(blotterState)
+
+  }
+
+  onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
+
+    let newCols = reorderColumnData(oldIndex, newIndex, length, this.state.columns)
+    let newColWidths = reorderColumnData(oldIndex, newIndex, length, this.state.columnWidths)
+
+    let blotterState = {
+      ...this.state, ...{
+        columns: newCols,
+        columnWidths: newColWidths
+      }
+    }
+
+    this.setState(blotterState)
   }
 
   private renderId = (row: number) => <Cell>{this.state.watches[row].Id()}</Cell>;
