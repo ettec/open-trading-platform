@@ -292,3 +292,10 @@
 20200228-16:00:05: Setting DefaultApplVerID (1137=9) from Logon
 20200228-16:00:05: Received logon
 20200228-16:00:05: Responding to Logon request
+20200229-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200229-00:00:00: Disconnecting: Session reset
+20200229-00:00:20: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:58618
+20200229-00:00:20: Acceptor heartbeat set to 20 seconds
+20200229-00:00:20: Setting DefaultApplVerID (1137=9) from Logon
+20200229-00:00:20: Received logon
+20200229-00:00:20: Responding to Logon request

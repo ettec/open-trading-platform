@@ -10,7 +10,7 @@ import { Empty } from '../../serverapi/common_pb';
 import { ExecutionVenueClient } from '../../serverapi/Execution-venueServiceClientPb';
 import { OrderId } from '../../serverapi/execution-venue_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
-import {Timestamp} from '../../serverapi/modelcommon_pb';
+import { Timestamp } from '../../serverapi/modelcommon_pb';
 import { ViewServiceClient } from '../../serverapi/View-serviceServiceClientPb';
 import { SubscribeToOrders } from '../../serverapi/view-service_pb';
 import { ListingService } from '../../services/ListingService';
@@ -20,16 +20,26 @@ import Login from '../Login';
 import '../TableCommon.css';
 import { Listing } from '../../serverapi/listing_pb';
 import { OrderView } from './OrderView';
+import { TabNode, Model, Actions } from 'flexlayout-react';
 
 interface OrderBlotterState {
+
   orders: OrderView[];
   selectedOrders: Map<string, Order>
   columns: Array<JSX.Element>
+  columnWidths: Array<number>
 }
 
 interface OrderBlotterProps {
+  node: TabNode,
+  model: Model,
   orderContext: OrderContext
   listingService: ListingService
+}
+
+interface PersistentConfig {
+  columnOrder: string[]
+  columnWidths: number[]
 }
 
 
@@ -45,14 +55,31 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   id: string;
 
-  columnWidths:  Array<number>
+
+
+  private readonly colId = "id";
 
   constructor(props: OrderBlotterProps) {
     super(props);
 
     this.id = v4();
 
-    
+
+    this.props.node.setEventListener("save", (p) => {
+
+      let colOrderIds = new Array<string>()
+      for (let col of this.state.columns) {
+        colOrderIds.push(col.props[this.colId])
+      }
+
+      let persistentConfig: PersistentConfig = {
+        columnWidths: this.state.columnWidths,
+        columnOrder: colOrderIds
+      }
+
+      this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
+    });
+
 
     this.listingService = props.listingService
 
@@ -60,42 +87,75 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     let view = new Array<OrderView>(50)
 
-    let columns = [
-      <Column id="id" name="Id" cellRenderer={this.renderId} />,
-      <Column id="side" name="Side" cellRenderer={this.renderSide} />,
-      <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
-      <Column id="mic" name="Mic" cellRenderer={this.renderMic} />,
-      <Column id="country" name="Country" cellRenderer={this.renderCountry} />,
-      <Column id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
-      <Column id="price" name="Price" cellRenderer={this.renderPrice} />,
-      <Column id="status" name="Status" cellRenderer={this.renderStatus} />,
-      <Column id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
-      <Column id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />,
-      <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
-      <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
-      <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
-      <Column id="created" name="Created" cellRenderer={this.renderCreated} />]
+    let colMap = new Map<string, JSX.Element>([
+      ["id", <Column id="id" name="Id" cellRenderer={this.renderId} />],
+      ["side", <Column id="side" name="Side" cellRenderer={this.renderSide} />],
+      ["symbol", <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />],
+      ["mic", <Column id="mic" name="Mic" cellRenderer={this.renderMic} />],
+      ["country", <Column id="country" name="Country" cellRenderer={this.renderCountry} />],
+      ["quantity", <Column id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />],
+      ["price", <Column id="price" name="Price" cellRenderer={this.renderPrice} />],
+      ["status", <Column id="status" name="Status" cellRenderer={this.renderStatus} />],
+      ["targetStatus", <Column id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />],
+      ["remQty", <Column id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />],
+      ["tradedQty", <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />],
+      ["avgPrice", <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />],
+      ["listingId", <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />],
+      ["created", <Column id="created" name="Created" cellRenderer={this.renderCreated} />]
+    ]);
 
-      this.columnWidths = new Array<number>()
-      for (let i: number=0; i < columns.length; i++) { 
-        this.columnWidths.push(100)
+
+
+    let defaultCols = Array.from(colMap.values())
+
+    let defaultColWidths = new Array<number>()
+    for (let i: number = 0; i < defaultCols.length; i++) {
+      defaultColWidths.push(100)
+    }
+
+
+
+    if (this.props.node.getConfig() && this.props.node.getConfig()) {
+      let pc: PersistentConfig = this.props.node.getConfig();
+      if (pc.columnWidths && pc.columnWidths.length > 0) {
+        defaultColWidths = pc.columnWidths
       }
+
+
+      if (pc.columnOrder && pc.columnOrder.length > 0) {
+        let cols = new Array<JSX.Element>()
+        for (let id of pc.columnOrder) {
+          let col = colMap.get(id) 
+          if( col ) {
+            cols.push(col)
+          }
+        }
+
+        defaultCols = cols
+      }
+
+      while( defaultColWidths.length < defaultCols.length ) {
+        defaultColWidths.push(100)
+      }
+    }
+
 
 
     let blotterState: OrderBlotterState = {
       orders: view,
       selectedOrders: new Map<string, Order>(),
-      columns:  columns
+      columns: defaultCols,
+      columnWidths: defaultColWidths
     }
 
     this.state = blotterState;
 
-    
+
     let after = new Timestamp()
 
     let startOfLocalDay = new Date()
-    startOfLocalDay.setHours(0,0,0,0)
-    after.setSeconds(Math.floor(startOfLocalDay.getTime()/1000))
+    startOfLocalDay.setHours(0, 0, 0, 0)
+    after.setSeconds(Math.floor(startOfLocalDay.getTime() / 1000))
     let sto = new SubscribeToOrders()
     sto.setAfter(after)
 
@@ -111,8 +171,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         let orderLength = this.state.orders.length
         if (idx >= orderLength) {
           newOrders = new Array<OrderView>(orderLength * 2)
-          for( let i=0; i < orderLength; i++) {
-              newOrders[i] = this.state.orders[i]
+          for (let i = 0; i < orderLength; i++) {
+            newOrders[i] = this.state.orders[i]
           }
         }
 
@@ -189,8 +249,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
       <div>
 
         <Table enableRowResizing={false} numRows={this.state.orders.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-          bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} enableColumnReordering={true} 
-          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.columnWidths}>
+          bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} enableColumnReordering={true}
+          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
           {this.state.columns}
         </Table>
       </div>
@@ -198,6 +258,16 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   }
 
   columnResized = (index: number, size: number) => {
+    let newColWidths = this.state.columnWidths.slice();
+    newColWidths[index] = size
+    let blotterState: OrderBlotterState = {
+      ...this.state, ...{
+        columnWidths: newColWidths
+      }
+    }
+
+    this.setState(blotterState)
+
 
   }
 
@@ -259,27 +329,30 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     return <Cell style={statusStyle}>{orderView?.targetStatus}</Cell>
   }
 
-  
+
   private reorderColumnData<T>(oldIndex: number, newIndex: number, length: number, cols: Array<T>): Array<T> {
-    
-    let colSegment = cols.slice(oldIndex, oldIndex+ length)
+
+    let colSegment = cols.slice(oldIndex, oldIndex + length)
     let left = cols.slice(0, oldIndex)
-    let right = cols.slice(oldIndex+length, cols.length )
+    let right = cols.slice(oldIndex + length, cols.length)
     let colsWithoutSeg = left.concat(right)
 
     let newLeft = colsWithoutSeg.slice(0, newIndex)
-    let newRight = colsWithoutSeg.slice( newIndex, colsWithoutSeg.length)
+    let newRight = colsWithoutSeg.slice(newIndex, colsWithoutSeg.length)
 
     return newLeft.concat(colSegment).concat(newRight)
   }
 
-  onColumnsReordered = (oldIndex: number, newIndex: number, length: number)  => {
+  onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
 
     let newCols = this.reorderColumnData(oldIndex, newIndex, length, this.state.columns)
+    let newColWidths = this.reorderColumnData(oldIndex, newIndex, length, this.state.columnWidths)
+
 
     let blotterState: OrderBlotterState = {
       ...this.state, ...{
         columns: newCols,
+        columnWidths: newColWidths
       }
     }
 

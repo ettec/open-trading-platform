@@ -139,7 +139,7 @@ export default class Container extends React.Component {
             var component = node.getComponent();
             
             if (component === "order-blotter") {
-                return <OrderBlotter listingService={this.listingService} orderContext={this.orderContext} />;
+                return <OrderBlotter listingService={this.listingService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService}/>;
