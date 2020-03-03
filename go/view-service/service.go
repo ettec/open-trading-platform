@@ -83,7 +83,7 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 		return err
 	}
 
-	log.Printf("received order subscription request from app instance id: %v, user:%v", appInstanceId, username)
+	log.Printf("received order subscription request from app instance id:%v, user:%v", appInstanceId, username)
 
 	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
 	if !exists {

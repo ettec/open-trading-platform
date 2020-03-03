@@ -82,7 +82,8 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     avgtradeprice: (f = msg.getAvgtradeprice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     status: jspb.Message.getFieldWithDefault(msg, 10, 0),
     targetstatus: jspb.Message.getFieldWithDefault(msg, 11, 0),
-    created: (f = msg.getCreated()) && modelcommon_pb.Timestamp.toObject(includeInstance, f)
+    created: (f = msg.getCreated()) && modelcommon_pb.Timestamp.toObject(includeInstance, f),
+    placedwithexecvenueid: jspb.Message.getFieldWithDefault(msg, 13, "")
   };
 
   if (includeInstance) {
@@ -172,6 +173,10 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
       var value = new modelcommon_pb.Timestamp;
       reader.readMessage(value,modelcommon_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreated(value);
+      break;
+    case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlacedwithexecvenueid(value);
       break;
     default:
       reader.skipField();
@@ -290,6 +295,13 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
       12,
       f,
       modelcommon_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getPlacedwithexecvenueid();
+  if (f.length > 0) {
+    writer.writeString(
+      13,
+      f
     );
   }
 };
@@ -622,6 +634,24 @@ proto.model.Order.prototype.clearCreated = function() {
  */
 proto.model.Order.prototype.hasCreated = function() {
   return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
+ * optional string placedWithExecVenueId = 13;
+ * @return {string}
+ */
+proto.model.Order.prototype.getPlacedwithexecvenueid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setPlacedwithexecvenueid = function(value) {
+  return jspb.Message.setProto3StringField(this, 13, value);
 };
 
 

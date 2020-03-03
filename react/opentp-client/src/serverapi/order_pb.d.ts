@@ -51,6 +51,9 @@ export class Order extends jspb.Message {
   hasCreated(): boolean;
   clearCreated(): void;
 
+  getPlacedwithexecvenueid(): string;
+  setPlacedwithexecvenueid(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Order.AsObject;
   static toObject(includeInstance: boolean, msg: Order): Order.AsObject;
@@ -73,6 +76,7 @@ export namespace Order {
     status: OrderStatus,
     targetstatus: OrderStatus,
     created?: modelcommon_pb.Timestamp.AsObject,
+    placedwithexecvenueid: string,
   }
 }
 

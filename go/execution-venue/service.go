@@ -106,7 +106,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := ordermanager.NewOrderManager(orderCache, gateway)
+	om := ordermanager.NewOrderManager(orderCache, gateway, execVenueId)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)

@@ -72,7 +72,9 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
     <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
     <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
-    <Column id="created" name="Created" cellRenderer={this.renderCreated} />]
+    <Column id="created" name="Created" cellRenderer={this.renderCreated} />,
+    <Column id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />
+  ]
 
 
 
@@ -264,6 +266,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
   private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
+  private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
 
   private renderCreated = (row: number) => {
     let created = Array.from(this.state.orders)[row]?.created

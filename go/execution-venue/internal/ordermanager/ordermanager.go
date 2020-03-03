@@ -38,17 +38,19 @@ type orderManagerImpl struct {
 
 	closeChan chan struct{}
 
+	execVenueId string
 	orderStore *ordercache.OrderCache
 	gateway    ordergateway.OrderGateway
 	log 	*log.Logger
 	errLog 	*log.Logger
 }
 
-func NewOrderManager(cache *ordercache.OrderCache, gateway ordergateway.OrderGateway) OrderManager {
+func NewOrderManager(cache *ordercache.OrderCache, gateway ordergateway.OrderGateway, execVenueId string) OrderManager {
 
 	om := orderManagerImpl{
 		log: log.New(os.Stdout, "", log.Lshortfile | log.Ltime),
 		errLog: log.New(os.Stderr, "", log.Lshortfile | log.Ltime),
+		execVenueId: execVenueId,
 	}
 
 	om.createOrderChan = make(chan createAndRouteOrderCmd, 100)
@@ -287,6 +289,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 			Seconds:              now.Unix(),
 			Nanoseconds:          int32(now.Nanosecond()),
 		},
+		PlacedWithExecVenueId: om.execVenueId,
 	}
 
 	err = om.orderStore.Store(order)

@@ -18,6 +18,7 @@ export class OrderView {
     private order: Order;
     listing?: Listing;
     created?: Date;
+    placedWith: string;
   
     constructor(order: Order) {
       this.id = ""
@@ -28,6 +29,7 @@ export class OrderView {
       this.targetStatus = "";
       this.order = order
       this.created = undefined
+      this.placedWith = "";
       this.setOrder(order)
     }
   
@@ -61,6 +63,8 @@ export class OrderView {
       if( created ) {
         this.created = new Date(created.getSeconds() * 1000)
       }
+
+      this.placedWith = order.getPlacedwithexecvenueid()
       
     }
   

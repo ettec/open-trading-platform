@@ -56,7 +56,13 @@ export function getColumnState(columns: JSX.Element[], config: TableViewConfig) 
                 if (col) {
                     cols.push(col);
                 }
+                colMap.delete(id)
             }
+
+            for( let newCol of colMap.values() ) {
+                cols.push(newCol);
+            }
+
             defaultCols = cols;
         }
         while (defaultColWidths.length < defaultCols.length) {
