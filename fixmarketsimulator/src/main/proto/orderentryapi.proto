@@ -1,0 +1,35 @@
+/* Simplified api for order management over grpc as an alternative to using the fix interface */
+syntax = "proto3";
+package orderentryapi;
+
+option java_package = "com.ettech.fixmarketsimulator.orderentryserver.api";
+
+enum Side {
+    BUY=0;
+    SELL=1;
+}
+
+message Decimal64 {
+    sfixed64 mantissa = 1;
+    sfixed32 exponent = 2;
+}
+
+message Empty {
+}
+
+message NewOrderParams{
+    Side orderSide = 1;
+    Decimal64 quantity = 2;
+    Decimal64 price = 3;
+    string symbol = 4;
+    string clOrderId = 5;
+}
+
+message OrderId {
+    string orderId = 1;
+}
+
+service OrderEntryService{
+    rpc SubmitNewOrder(NewOrderParams) returns (OrderId) {};
+    rpc CancelOrder(OrderId) returns (Empty) {};
+}

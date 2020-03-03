@@ -3,6 +3,7 @@ package com.ettech.fixmarketsimulator;
 import com.ettech.fixmarketsimulator.exchange.ExchangeSimulatorGuiceModule;
 import com.ettech.fixmarketsimulator.fix.ApplicationImpl;
 import com.ettech.fixmarketsimulator.marketdataserver.MarketDataService;
+import com.ettech.fixmarketsimulator.orderentryserver.OrderEntryService;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
@@ -35,6 +36,8 @@ public class App {
     public static Injector exchangeSimulatorInjector;
 
     static MarketDataService marketDataServer;
+    static OrderEntryService orderEntryServer;
+
 
     private static int fixServerPort = 9876;
 
@@ -116,6 +119,13 @@ public class App {
             marketDataServer.start();
         } catch (IOException e) {
             log.error("Failed to start market data server", e);
+        }
+
+        orderEntryServer = exchangeSimulatorInjector.getInstance(OrderEntryService.class);
+        try {
+            orderEntryServer.start();
+        } catch (IOException e) {
+            log.error("Failed to start orderEntryServer", e);
         }
 
 

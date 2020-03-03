@@ -341,3 +341,24 @@
 20200303-13:01:31: Setting DefaultApplVerID (1137=9) from Logon
 20200303-13:01:31: Received logon
 20200303-13:01:31: Responding to Logon request
+20200303-16:48:50: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200303-16:48:50: Created session: FIXT.1.1:EXEC->BANZAI
+20200303-16:48:52: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:57404
+20200303-16:48:52: Acceptor heartbeat set to 20 seconds
+20200303-16:48:52: Setting DefaultApplVerID (1137=9) from Logon
+20200303-16:48:52: Received logon
+20200303-16:48:52: Responding to Logon request
+20200303-17:00:42: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200303-17:00:42: Created session: FIXT.1.1:EXEC->BANZAI
+20200303-17:00:43: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:58140
+20200303-17:00:43: Acceptor heartbeat set to 20 seconds
+20200303-17:00:43: Setting DefaultApplVerID (1137=9) from Logon
+20200303-17:00:43: Received logon
+20200303-17:00:43: Responding to Logon request
+20200303-17:07:24: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200303-17:07:24: Created session: FIXT.1.1:EXEC->BANZAI
+20200303-17:07:43: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:58324
+20200303-17:07:43: Acceptor heartbeat set to 20 seconds
+20200303-17:07:43: Setting DefaultApplVerID (1137=9) from Logon
+20200303-17:07:43: Received logon
+20200303-17:07:43: Responding to Logon request
