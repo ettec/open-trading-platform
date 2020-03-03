@@ -32,6 +32,7 @@ message Order{
     OrderStatus status=10;
     OrderStatus targetStatus=11;
     Timestamp created=12;
+    string placedWithExecVenueId=13;
 }
 
 

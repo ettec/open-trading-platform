@@ -4,26 +4,24 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/execution-venue/api"
-	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway/fixgateway"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordermanager"
+	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 	"os"
-	"strconv"
 	"strings"
 )
 
 const (
-	UseLocalStoreKey   = "USE_LOCAL_STORE"
-	LocalStorePathKey  = "LOCAL_STORE_PATH"
 	KafkaOrderTopicKey = "KAFKA_ORDERS_TOPIC"
 	KafkaBrokersKey    = "KAFKA_BROKERS"
+	ExecVenueId = "EXEC_VENUE_ID"
 )
 
 type service struct {
@@ -34,8 +32,6 @@ func NewService(om ordermanager.OrderManager) *service {
 	service := service{orderManager: om}
 	return &service
 }
-
-
 
 func (s *service) CreateAndRouteOrder(context context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 
@@ -78,6 +74,11 @@ func (s *service) Close() {
 
 func main() {
 
+	ordersTopic := GetBootstrapEnvVar(KafkaOrderTopicKey)
+	kafkaBrokers := GetBootstrapEnvVar(KafkaBrokersKey)
+	execVenueId := GetBootstrapEnvVar(ExecVenueId)
+
+
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
@@ -88,17 +89,20 @@ func main() {
 
 	s := grpc.NewServer()
 
-	store, err := createOrderStore()
+	store, err := createOrderStore(ordersTopic, kafkaBrokers, execVenueId)
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	orderCache := ordercache.NewOrderCache(store)
+	orderCache, err := ordercache.NewOrderCache(store)
+	if err != nil {
+		log.Fatalf("failed to create order cache:%v", err)
+	}
 
 	beginString := "FIXT.1.1"
 	targetCompID := "EXEC"
 	sendCompID := "BANZAI"
-	sessionID := quickfix.SessionID{BeginString: string(beginString), TargetCompID: string(targetCompID), SenderCompID: string(sendCompID)}
+	sessionID := quickfix.SessionID{BeginString: beginString, TargetCompID: targetCompID, SenderCompID: sendCompID}
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
@@ -124,45 +128,13 @@ func main() {
 
 }
 
-func createOrderStore() (orderstore.OrderStore, error) {
+func createOrderStore(ordersTopic string, kafkaBrokers string, execVenueId string ) (orderstore.OrderStore, error) {
 	var store orderstore.OrderStore
 
-	useLocalStore := false
-	useLocalStoreValue, exists := os.LookupEnv(UseLocalStoreKey)
-	if exists {
-		var err error
-		useLocalStore, err = strconv.ParseBool(useLocalStoreValue)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse value for key %v: %w", UseLocalStoreKey, err)
-		}
-	}
-
-	if useLocalStore {
-
-		path, exists := os.LookupEnv(LocalStorePathKey)
-		if !exists {
-			log.Fatalf("must specify %v is using the local store", LocalStorePathKey)
-		}
-
-		fileStore, err := orderstore.NewFileStore(path)
-		if err != nil {
-			log.Fatalf("unable to create store: %v", err)
-		}
-		store = fileStore
-
-	} else {
-		ordersTopic, exists := os.LookupEnv(KafkaOrderTopicKey)
-		if !exists {
-			log.Fatalf("must specify %v for the kafka store", KafkaOrderTopicKey)
-		}
-
-		kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
-		if !exists {
-			log.Fatalf("must specify %v for the kafka store", KafkaBrokersKey)
-		}
-
-		store = orderstore.NewKafkaStore(ordersTopic, strings.Split(kafkaBrokers, ","))
-
+	var err error
+	store, err = orderstore.NewKafkaStore(ordersTopic, strings.Split(kafkaBrokers, ","), execVenueId)
+	if err != nil {
+		return nil, err
 	}
 
 	return store, nil
@@ -238,4 +210,15 @@ func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgate
 	}()
 
 	return nil
+}
+
+func GetBootstrapEnvVar(key string) string {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		log.Fatalf("missing required env var %v", key)
+	}
+
+	log.Printf("%v set to %v", key, value)
+
+	return value
 }

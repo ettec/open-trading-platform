@@ -299,3 +299,45 @@
 20200229-00:00:20: Setting DefaultApplVerID (1137=9) from Logon
 20200229-00:00:20: Received logon
 20200229-00:00:20: Responding to Logon request
+20200301-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200301-00:00:00: Disconnecting: Session reset
+20200301-00:00:20: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:42666
+20200301-00:00:20: Acceptor heartbeat set to 20 seconds
+20200301-00:00:20: Setting DefaultApplVerID (1137=9) from Logon
+20200301-00:00:20: Received logon
+20200301-00:00:20: Responding to Logon request
+20200302-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200302-00:00:00: Disconnecting: Session reset
+20200302-00:00:20: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:57660
+20200302-00:00:20: Acceptor heartbeat set to 20 seconds
+20200302-00:00:20: Setting DefaultApplVerID (1137=9) from Logon
+20200302-00:00:20: Received logon
+20200302-00:00:20: Responding to Logon request
+20200302-14:29:38: Disconnecting: Encountered END_OF_STREAM
+20200302-16:14:34: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200302-16:14:34: Created session: FIXT.1.1:EXEC->BANZAI
+20200302-16:14:38: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:54086
+20200302-16:14:38: Acceptor heartbeat set to 20 seconds
+20200302-16:14:38: Setting DefaultApplVerID (1137=9) from Logon
+20200302-16:14:38: Received logon
+20200302-16:14:38: Responding to Logon request
+20200303-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200303-00:00:00: Disconnecting: Session reset
+20200303-00:00:20: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:33622
+20200303-00:00:20: Acceptor heartbeat set to 20 seconds
+20200303-00:00:20: Setting DefaultApplVerID (1137=9) from Logon
+20200303-00:00:20: Received logon
+20200303-00:00:20: Responding to Logon request
+20200303-12:09:20: Disconnecting: Encountered END_OF_STREAM
+20200303-12:09:33: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:46224
+20200303-12:09:33: Acceptor heartbeat set to 20 seconds
+20200303-12:09:33: Setting DefaultApplVerID (1137=9) from Logon
+20200303-12:09:33: Received logon
+20200303-12:09:33: Responding to Logon request
+20200303-12:28:06: Session FIXT.1.1:EXEC->BANZAI schedule is daily, 00:00:00-UTC - 00:00:00-UTC
+20200303-12:28:06: Created session: FIXT.1.1:EXEC->BANZAI
+20200303-13:01:31: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:47770
+20200303-13:01:31: Acceptor heartbeat set to 20 seconds
+20200303-13:01:31: Setting DefaultApplVerID (1137=9) from Logon
+20200303-13:01:31: Received logon
+20200303-13:01:31: Responding to Logon request
