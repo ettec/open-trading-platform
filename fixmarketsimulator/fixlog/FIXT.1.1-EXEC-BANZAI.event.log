@@ -362,3 +362,11 @@
 20200303-17:07:43: Setting DefaultApplVerID (1137=9) from Logon
 20200303-17:07:43: Received logon
 20200303-17:07:43: Responding to Logon request
+20200304-00:00:00: Session state is not current; resetting FIXT.1.1:EXEC->BANZAI
+20200304-00:00:00: Disconnecting: Session reset
+20200304-00:00:20: Accepting session FIXT.1.1:EXEC->BANZAI from /127.0.0.1:37056
+20200304-00:00:20: Acceptor heartbeat set to 20 seconds
+20200304-00:00:20: Setting DefaultApplVerID (1137=9) from Logon
+20200304-00:00:20: Received logon
+20200304-00:00:20: Responding to Logon request
+20200304-10:19:28: Disconnecting: Encountered END_OF_STREAM

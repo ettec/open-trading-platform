@@ -1,0 +1,14 @@
+syntax = "proto3";
+package marketdataservice;
+import "modelcommon.proto";
+
+option go_package="api";
+
+message BuildBookForListingParams {
+    int32 listingId = 1;
+}
+
+service BookBuilderStrategy {
+    rpc BuildBookForListing(BuildBookForListingParams) returns (model.Empty) {};
+
+}

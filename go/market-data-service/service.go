@@ -3,17 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
 	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/api"
-	"github.com/ettech/open-trading-platform/go/market-data-service/internal"
+	"github.com/ettech/open-trading-platform/go/market-data-service/gatewayclient"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	"os"
-	"strconv"
 	"sync"
 	"time"
 )
@@ -28,7 +27,7 @@ func newService(id string, marketGatewayAddress string, maxReconnectInterval tim
 
 	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, internal.GrpcConnection, error) {
+	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, gatewayclient.GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 		if err != nil {
 			return nil, nil, err
@@ -38,7 +37,7 @@ func newService(id string, marketGatewayAddress string, maxReconnectInterval tim
 		return client, conn, nil
 	}
 
-	mdc, err := internal.NewMarketDataGatewayClient(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
+	mdc, err := gatewayclient.NewMarketDataGatewayClient(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
 
 	if err != nil {
 		return nil, err
@@ -115,9 +114,6 @@ const (
 	GatewayAddress = "GATEWAY_ADDRESS"
 	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
 
-	// The maximum number of listing subscriptions per connection
-	MaxSubscriptionsKey = "MAX_SUBSCRIPTIONS"
-
 )
 
 var maxSubscriptions = 10000
@@ -127,30 +123,15 @@ func main() {
 	port := "50551"
 	fmt.Println("Starting Market Data Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
-
-	id, ok := os.LookupEnv(ServiceIdKey)
-	if !ok {
-		log.Panicf("expected %v env var to be set", ServiceIdKey)
-	}
-
-	fixSimAddress, ok := os.LookupEnv(GatewayAddress)
-	if !ok {
-		log.Panicf("expected %v env var to be set", GatewayAddress)
-	}
-
-	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
-	if ok {
-		maxSubscriptions, err = strconv.Atoi(maxSubsEnv)
-		if err != nil {
-			log.Panicf("cannot parse %v, error: %v", MaxSubscriptionsKey, err)
-		}
-	}
-
-	connectRetrySecs := getOptionalBootstrapIntEnvVar(ConnectRetrySeconds, 60 )
-
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)
 	}
+
+	id := bootstrap.GetEnvVar(ServiceIdKey)
+
+	fixSimAddress:= bootstrap.GetEnvVar(GatewayAddress)
+
+	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60 )
 
 	s := grpc.NewServer()
 	mdcService, err := newService(id, fixSimAddress, time.Duration(connectRetrySecs)*time.Second)
@@ -168,18 +149,3 @@ func main() {
 }
 
 
-func getOptionalBootstrapIntEnvVar(key string, def int) int {
-	strValue, exists := os.LookupEnv(key)
-	result := def
-	if exists {
-		var err error
-		result, err = strconv.Atoi(strValue)
-		if err != nil {
-			log.Panicf("cannot parse %v, error: %v", key, err)
-		}
-	}
-
-	log.Printf("%v set to %v", key, result)
-
-	return result
-}

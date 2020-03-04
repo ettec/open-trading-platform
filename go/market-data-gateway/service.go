@@ -137,10 +137,10 @@ func main() {
 	fmt.Println("Starting Client Market Data Gateway on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
-	id := bootstrap.GetBootstrapEnvVar(GatewayIdKey)
-	fixSimAddress := bootstrap.GetBootstrapEnvVar(FixSimAddress)
-	staticDataServiceAddress := bootstrap.GetBootstrapEnvVar(StaticDataServiceAddress)
-	connectRetrySecs := bootstrap.GetOptionalBootstrapIntEnvVar(ConnectRetrySeconds, 60 )
+	id := bootstrap.GetEnvVar(GatewayIdKey)
+	fixSimAddress := bootstrap.GetEnvVar(FixSimAddress)
+	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
+	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60 )
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
 	if ok {

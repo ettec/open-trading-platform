@@ -19,8 +19,11 @@ type SubscriptionClient interface {
 	Subscribe(symbol string)
 }
 
-
 type GetListingFn = func(listingId int32, onSymbol chan<- *model.Listing)
+
+type ListingSource interface {
+	GetListing(listingId int32, result chan<- *model.Listing)
+}
 
 type listingSource struct {
 	fetchReqChan chan fetchRequest
@@ -28,19 +31,38 @@ type listingSource struct {
 	errLog       *log.Logger
 }
 
+type GrpcConnection interface {
+	GetState() connectivity.State
+	WaitForStateChange(ctx context.Context, sourceState connectivity.State) bool
+}
+
+type GetStaticDataServiceClientFn = func() (services.StaticDataServiceClient, GrpcConnection, error)
+
 func NewListingSource(targetAddress string) (*listingSource, error) {
+	return newListingSource(func() (client services.StaticDataServiceClient, connection GrpcConnection, err error) {
+		log.Println("connecting to static data service at:" + targetAddress)
+		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(120*time.Second))
+		if err != nil {
+			return nil, nil, err
+		}
+
+		sdc := services.NewStaticDataServiceClient(conn)
+
+		return sdc, conn, nil
+	} )
+}
+
+func newListingSource(getConnection GetStaticDataServiceClientFn) (*listingSource, error) {
 	s := &listingSource{
 		fetchReqChan: make(chan fetchRequest, 10000),
 		log:          log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 		errLog:       log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 	}
 
-	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(120*time.Second))
+	sdc, conn, err := getConnection()
 	if err != nil {
 		return nil, err
 	}
-
-	sdc := services.NewStaticDataServiceClient(conn)
 
 	go func() {
 

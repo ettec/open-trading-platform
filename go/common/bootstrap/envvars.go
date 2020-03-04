@@ -6,7 +6,24 @@ import (
 	"strconv"
 )
 
-func GetBootstrapEnvVar(key string) string {
+func GetIntEnvVar(key string) int {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		log.Fatalf("missing required env var %v", key)
+	}
+
+	var err error
+	result, err := strconv.Atoi(value)
+	if err != nil {
+		log.Panicf("cannot parse %v, error: %v", key, err)
+	}
+
+	log.Printf("%v set to %v", key, value)
+
+	return result
+}
+
+func GetEnvVar(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		log.Fatalf("missing required env var %v", key)
@@ -17,7 +34,7 @@ func GetBootstrapEnvVar(key string) string {
 	return value
 }
 
-func GetOptionalBootstrapIntEnvVar(key string, def int) int {
+func GetOptionalIntEnvVar(key string, def int) int {
 	strValue, exists := os.LookupEnv(key)
 	result := def
 	if exists {

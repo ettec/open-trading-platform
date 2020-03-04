@@ -32,8 +32,7 @@ class NavBarComponent extends React.Component<NavBarProps, NavBarState> {
             <Navbar.Group align={Alignment.LEFT}>
                 <Navbar.Heading>Open OMS</Navbar.Heading>
                 <Navbar.Divider />
-                <Button className="bp3-minimal" icon="home" text="Home" />
-                <Button className="bp3-minimal" icon="floppy-disk" text="Save" onClick={this.onSave}/>
+                <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave}/>
             </Navbar.Group>
         </Navbar>
          );
