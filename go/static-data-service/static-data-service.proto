@@ -24,6 +24,7 @@ message MatchParameters {
 }
 
 service StaticDataService{
+    rpc GetListingMatching(MatchParameters) returns (model.Listing) {};
     rpc GetListingsMatching(MatchParameters) returns (Listings) {};
     rpc GetListing(ListingId) returns (model.Listing) {};
     rpc GetListings(ListingIds) returns (Listings) {};

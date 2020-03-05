@@ -3,8 +3,10 @@ package model
 import (
 	"fmt"
 	"github.com/shopspring/decimal"
-	"math/big"
+
 )
+
+
 
 
 func(t *Timestamp) After(o *Timestamp) bool {
@@ -31,6 +33,9 @@ func(t *Timestamp) Before(o *Timestamp) bool {
 	return false
 }
 
+
+
+
 func (m *Decimal64) AsDecimal() decimal.Decimal {
 	if m == nil {
 		return decimal.New(0, 0)
@@ -51,38 +56,23 @@ func ToDecimal64(d decimal.Decimal) *Decimal64 {
 	}
 }
 
-func IntToDecimal64(val int64) *Decimal64 {
-	return &Decimal64{
-		Mantissa: val,
-		Exponent: 0,
-	}
+//Todo implement more efficient version of these operations that does not require interim conversion to Decimal/Rat
+func (m *Decimal64) Add(o *Decimal64) {
+	r := ToDecimal64(m.AsDecimal().Add(o.AsDecimal()))
+
+	m.Mantissa = r.Mantissa
+	m.Exponent = r.Exponent
 }
 
+func (m *Decimal64) Equal(o *Decimal64) bool {
+	return m.AsDecimal().Equal(o.AsDecimal())
+}
 
-func Compare(l Decimal64, r Decimal64) int {
+func (m *Decimal64) LessThan(o *Decimal64) bool {
+	return m.AsDecimal().LessThan(o.AsDecimal())
+}
 
-	if l.Exponent > r.Exponent {
-		expDiff := int64(l.Exponent-r.Exponent)
-		diffMultiplier := big.NewInt(0).Exp(big.NewInt(10), big.NewInt(expDiff), nil)
-		adjustedLeft := big.NewInt(0).Mul(big.NewInt(l.Mantissa), diffMultiplier )
-		return adjustedLeft.Cmp(big.NewInt(r.Mantissa))
-	} else if r.Exponent > l.Exponent {
-		expDiff := int64(r.Exponent-l.Exponent)
-		diffMultiplier := big.NewInt(0).Exp(big.NewInt(10), big.NewInt(expDiff), nil)
-		adjustedRight := big.NewInt(0).Mul(big.NewInt(r.Mantissa), diffMultiplier )
-		return big.NewInt(l.Mantissa).Cmp(adjustedRight)
-	} else {
-		diff := l.Mantissa - r.Mantissa
-		switch  {
-		case diff < 0:
-			return -1
-		case diff > 0:
-			return 1
-		default :
-			return 0
-		}
-	}
-
-
+func (m *Decimal64) GreaterThan(o *Decimal64) bool {
+	return m.AsDecimal().LessThan(o.AsDecimal())
 }
 

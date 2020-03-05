@@ -9,10 +9,12 @@ import (
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	services "github.com/ettec/open-trading-platform/go/common/services"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
 	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/market-data-service/gatewayclient"
 	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io/ioutil"
@@ -47,8 +49,13 @@ func main() {
 	staticDataServiceAddr := bootstrap.GetEnvVar(StaticDataServiceAddress)
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
+	ls, err := common.NewListingSource(staticDataServiceAddr)
+	if err != nil {
+		log.Panicf("failed to create listing source service:%v", err)
+	}
+
 	s := grpc.NewServer()
-	bbs, err := newService(serviceId, mdGatewayAddr, orderEntryAddr, staticDataServiceAddr,
+	bbs, err := newService(serviceId, mdGatewayAddr, orderEntryAddr, ls,
 		time.Duration(connectRetrySecs)*time.Second)
 
 	if err != nil {
@@ -60,9 +67,10 @@ func main() {
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Error while serving : %v", err)
+
 	}
 
-	body,err := ioutil.ReadFile("./resources/depth.json")
+	body, err := ioutil.ReadFile("./resources/depth.json")
 	if err != nil {
 		log.Fatalf("failed to read depths data:%v", err)
 	}
@@ -73,7 +81,25 @@ func main() {
 		log.Fatalf("failed to unmarshall depths data:%v", err)
 	}
 
-	here - setup up books from data
+	symToDepths := map[string]depth.Depth{}
+
+
+	for _, depth := range depths {
+		symToDepths[depth.Symbol]= depth
+	}
+
+		symbolsToRun := []string{"MSFT"}
+
+	listingChan := make(chan *model.Listing, 1)
+	for _, sym := range symbolsToRun {
+
+		ls.GetListingMatching(&services.MatchParameters{SymbolMatch: sym}, listingChan)
+		listing := <-listingChan
+		if listing != nil {
+			newBook(listing, bbs.quoteDistributor, symToDepths[sym], bbs.orderEntryService)
+		}
+
+	}
 
 }
 
@@ -86,13 +112,8 @@ type service struct {
 	booksMx           sync.Mutex
 }
 
-func newService(id string, mdGatewayAddr string, orderEntryAddr string, staticDataServiceAddr string,
+func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls common.ListingSource,
 	maxReconnectInterval time.Duration) (*service, error) {
-
-	ls, err :=common.NewListingSource(staticDataServiceAddr)
-	if err != nil {
-		return nil, err
-	}
 
 	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, gatewayclient.GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
@@ -120,11 +141,12 @@ func newService(id string, mdGatewayAddr string, orderEntryAddr string, staticDa
 
 	oec := orderentryapi.NewOrderEntryServiceClient(conn)
 
-	return &service{id: id, quoteDistributor: qd, orderEntryService: oec, listingSource:ls}, nil
+	return &service{id: id, quoteDistributor: qd, orderEntryService: oec, listingSource: ls}, nil
 }
 
 func (s *service) BuildBookForListing(c context.Context, p *api.BuildBookForListingParams) (*model.Empty, error) {
 
+	/*
 	s.booksMx.Lock()
 
 	if s.books[p.ListingId] == nil {
@@ -132,49 +154,10 @@ func (s *service) BuildBookForListing(c context.Context, p *api.BuildBookForList
 	} else {
 		return nil, fmt.Errorf("book already exists for listing id:%v", p.ListingId)
 	}
+	*/
+
 
 	return &model.Empty{}, nil
 }
 
-type book struct {
-	log *log.Logger
-}
 
-func newBook(listingId int32, ls common.ListingSource, distributor actor.QuoteDistributor) *book {
-
-	b := &book{
-		log : log.New(os.Stdout, fmt.Sprintf(" book: %v ", listingId), log.Ltime),
-	}
-
-	b.log.Println("fetching listing")
-
-	lc := make( chan *model.Listing, 1 )
-	ls.GetListing(listingId, lc )
-
-	listing := <-lc
-
-	quotesIn := make( chan *model.ClobQuote, 1000 )
-
-	distributor.AddOutQuoteChan(quotesIn)
-	distributor.Subscribe(listingId, quotesIn)
-
-
-
-
-	go func() {
-
-		select {
-			case q := <- quotesIn:
-
-
-
-		}
-
-
-	}()
-
-
-
-
-	return b
-}

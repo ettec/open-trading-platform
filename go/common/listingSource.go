@@ -26,9 +26,10 @@ type ListingSource interface {
 }
 
 type listingSource struct {
-	fetchReqChan chan fetchRequest
-	log          *log.Logger
-	errLog       *log.Logger
+	getListingByIdChan chan getListingByIdRequest
+	getListingMatchingChan chan getListingMatchingRequest
+	log                *log.Logger
+	errLog             *log.Logger
 }
 
 type GrpcConnection interface {
@@ -54,9 +55,10 @@ func NewListingSource(targetAddress string) (*listingSource, error) {
 
 func newListingSource(getConnection GetStaticDataServiceClientFn) (*listingSource, error) {
 	s := &listingSource{
-		fetchReqChan: make(chan fetchRequest, 10000),
-		log:          log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
-		errLog:       log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
+		getListingByIdChan: make(chan getListingByIdRequest, 10000),
+		getListingMatchingChan: make(chan getListingMatchingRequest, 10000),
+		log:                log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
+		errLog:             log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 	}
 
 	sdc, conn, err := getConnection()
@@ -76,20 +78,32 @@ func newListingSource(getConnection GetStaticDataServiceClientFn) (*listingSourc
 			}
 
 			select {
-			case fr := <-s.fetchReqChan:
+			case fr := <-s.getListingByIdChan:
 				listing, err := sdc.GetListing(context.Background(), &services.ListingId{
 					ListingId: fr.listingId,
 				})
 
 				if err != nil {
 					s.errLog.Printf("error retrieving listing:%v", err)
-					s.fetchReqChan <- fr
+					s.getListingByIdChan <- fr
 					break
 				}
 
 				s.log.Println("received listing:", listing )
 
 				fr.resultChan <- listing
+			case mr := <-s.getListingMatchingChan:
+				listing, err := sdc.GetListingMatching(context.Background(), mr.matchParams)
+
+				if err != nil {
+					s.errLog.Printf("error retrieving listing:%v", err)
+					s.getListingMatchingChan <- mr
+					break
+				}
+
+				s.log.Printf("received listing:%v for symbol matching:%v", listing, mr.matchParams.SymbolMatch )
+
+				mr.resultChan <- listing
 			}
 
 		}
@@ -98,11 +112,20 @@ func newListingSource(getConnection GetStaticDataServiceClientFn) (*listingSourc
 	return s, nil
 }
 
-type fetchRequest struct {
+type getListingByIdRequest struct {
 	listingId  int32
 	resultChan chan<- *model.Listing
 }
 
 func (s *listingSource) GetListing(listingId int32, result chan<- *model.Listing) {
-	s.fetchReqChan <- fetchRequest{listingId: listingId, resultChan: result}
+	s.getListingByIdChan <- getListingByIdRequest{listingId: listingId, resultChan: result}
+}
+
+type getListingMatchingRequest struct {
+	matchParams *services.MatchParameters
+	resultChan chan<- *model.Listing
+}
+
+func (s *listingSource) GetListingMatching(matchParams *services.MatchParameters, result chan<- *model.Listing) {
+	s.getListingMatchingChan <- getListingMatchingRequest{matchParams: matchParams, resultChan: result}
 }

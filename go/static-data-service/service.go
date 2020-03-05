@@ -42,6 +42,29 @@ const listingsSelect = `SELECT listings.id, listings.market_symbol, markets.id, 
 		on listings.instrument_id = instruments.id inner join markets 
 		on listings.market_id = markets.id `
 
+func (s *service) GetListingMatching(c context.Context, m *api.MatchParameters) (*model.Listing, error) {
+
+	lq := listingsSelect +  " where display_symbol = '" + m.SymbolMatch +"'"
+
+	r, err := s.db.Query(lq)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
+	}
+
+	result, err := hydrateListings(r)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(result.Listings) != 1 {
+		log.Printf("no listing found for symbol %v", m.SymbolMatch)
+		return nil, nil
+	}
+
+	return result.Listings[0], nil
+}
+
+
 func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters) (*api.Listings, error) {
 
 	lq := listingsSelect +  " where display_symbol like '" + m.SymbolMatch +"%'"
