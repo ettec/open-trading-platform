@@ -52,7 +52,7 @@ func (b *bookBuilder) stop() error {
 		return err
 	}
 
-	b.stopChan<-true
+	b.stopChan <- true
 	return nil
 }
 
@@ -63,13 +63,14 @@ func (b *bookBuilder) start() error {
 		return err
 	}
 
-	quotesIn := make(chan *model.ClobQuote, 1000)
 
-	b.quoteSource.AddOutQuoteChan(quotesIn)
-	defer b.quoteSource.RemoveOutQuoteChan(quotesIn)
-	b.quoteSource.Subscribe(b.listing.Id, quotesIn)
 
 	go func() {
+
+		quotesIn := make(chan *model.ClobQuote, 1000)
+		b.quoteSource.AddOutQuoteChan(quotesIn)
+		defer b.quoteSource.RemoveOutQuoteChan(quotesIn)
+		b.quoteSource.Subscribe(b.listing.Id, quotesIn)
 
 		firstQuote := true
 
@@ -79,32 +80,12 @@ func (b *bookBuilder) start() error {
 			case q := <-quotesIn:
 				if firstQuote {
 					firstQuote = false
-					// Clear bookBuilder and then submit initial depth
-					totalBidQty, worstBid := getTotalQtyAndLeastCompPrice(q.GetBids(), func(l *model.Decimal64, r *model.Decimal64) bool {
-						return l.LessThan(r)
-					})
 
-					totalAskQty, worstAsk := getTotalQtyAndLeastCompPrice(q.GetBids(), func(l *model.Decimal64, r *model.Decimal64) bool {
-						return l.GreaterThan(r)
-					})
+					b.clearBook(q)
 
-					uniqueId, _ := uuid.NewUUID()
-					b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
-						OrderSide: orderentryapi.Side_SELL,
-						Quantity:  toApiDec64(totalBidQty),
-						Price:     toApiDec64(worstBid),
-						Symbol:    b.listing.MarketSymbol,
-						ClOrderId: uniqueId.String(),
-					})
+					b.sendOrdersForLines(b.initialDepth.Bids, orderentryapi.Side_BUY)
+					b.sendOrdersForLines(b.initialDepth.Asks, orderentryapi.Side_SELL)
 
-					uniqueId, _ = uuid.NewUUID()
-					b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
-						OrderSide: orderentryapi.Side_BUY,
-						Quantity:  toApiDec64(totalAskQty),
-						Price:     toApiDec64(worstAsk),
-						Symbol:    b.listing.MarketSymbol,
-						ClOrderId: uniqueId.String(),
-					})
 				}
 			case <-b.stopChan:
 				break loop
@@ -116,6 +97,53 @@ func (b *bookBuilder) start() error {
 	return nil
 }
 
+func (b *bookBuilder) sendOrdersForLines(bids []struct {
+	Price     float64 `json:"price"`
+	Size      int     `json:"size"`
+	Timestamp int64   `json:"timestamp"`
+}, side orderentryapi.Side) {
+	for _, bid := range bids {
+
+		uniqueId, _ := uuid.NewUUID()
+		b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+			OrderSide: side,
+			Quantity:  &orderentryapi.Decimal64{Mantissa: int64(bid.Size), Exponent: 0},
+			Price:     toApiDec64(model.NewFromFloat(bid.Price)),
+			Symbol:    b.listing.MarketSymbol,
+			ClOrderId: uniqueId.String(),
+		})
+
+	}
+}
+
+func (b *bookBuilder) clearBook(q *model.ClobQuote) {
+	totalBidQty, worstBid := getTotalQtyAndLeastCompetitivePrice(q.GetBids(), func(l *model.Decimal64, r *model.Decimal64) bool {
+		return l.LessThan(r)
+	})
+
+	totalAskQty, worstAsk := getTotalQtyAndLeastCompetitivePrice(q.GetOffers(), func(l *model.Decimal64, r *model.Decimal64) bool {
+		return l.GreaterThan(r)
+	})
+
+	uniqueId, _ := uuid.NewUUID()
+	b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+		OrderSide: orderentryapi.Side_SELL,
+		Quantity:  toApiDec64(totalBidQty),
+		Price:     toApiDec64(worstBid),
+		Symbol:    b.listing.MarketSymbol,
+		ClOrderId: uniqueId.String(),
+	})
+
+	uniqueId, _ = uuid.NewUUID()
+	b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+		OrderSide: orderentryapi.Side_BUY,
+		Quantity:  toApiDec64(totalAskQty),
+		Price:     toApiDec64(worstAsk),
+		Symbol:    b.listing.MarketSymbol,
+		ClOrderId: uniqueId.String(),
+	})
+}
+
 func toApiDec64(d *model.Decimal64) *orderentryapi.Decimal64 {
 	return &orderentryapi.Decimal64{
 		Mantissa: d.Mantissa,
@@ -123,25 +151,25 @@ func toApiDec64(d *model.Decimal64) *orderentryapi.Decimal64 {
 	}
 }
 
-func getTotalQtyAndLeastCompPrice(lines []*model.ClobLine, lessCompetitive func(l *model.Decimal64, r *model.Decimal64) bool) (*model.Decimal64, *model.Decimal64) {
-	totalBidQty := &model.Decimal64{}
-	var worstBid *model.Decimal64
+func getTotalQtyAndLeastCompetitivePrice(lines []*model.ClobLine, lessCompetitive func(l *model.Decimal64, r *model.Decimal64) bool) (*model.Decimal64, *model.Decimal64) {
+	totalQty := &model.Decimal64{}
+	var worstPrice *model.Decimal64
 
 	firstLine := true
 
-	for _, bid := range lines {
+	for _, line := range lines {
 		if firstLine {
 			firstLine = false
-			worstBid = bid.GetPrice()
+			worstPrice = line.GetPrice()
 		}
-		totalBidQty.Add(bid.GetSize())
+		totalQty.Add(line.GetSize())
 
-		if lessCompetitive(bid.GetPrice(), worstBid) {
-			worstBid = bid.GetPrice()
+		if lessCompetitive(line.GetPrice(), worstPrice) {
+			worstPrice = line.GetPrice()
 		}
 
 	}
-	return totalBidQty, worstBid
+	return totalQty, worstPrice
 }
 
 func (b *bookBuilder) setState(newState bookBuilderState) error {

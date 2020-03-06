@@ -44,6 +44,13 @@ func (m *Decimal64) AsDecimal() decimal.Decimal {
 	return decimal.New(m.Mantissa, m.Exponent)
 }
 
+func IasD(i int) *Decimal64  {
+	return &Decimal64{
+		Mantissa:             int64(i),
+		Exponent:             0,
+	}
+}
+
 func ToDecimal64(d decimal.Decimal) *Decimal64 {
 
 	if !d.Coefficient().IsInt64() {
@@ -56,7 +63,14 @@ func ToDecimal64(d decimal.Decimal) *Decimal64 {
 	}
 }
 
-//Todo implement more efficient version of these operations that does not require interim conversion to Decimal/Rat
+// Todo implement more efficient version of these operations that does not require interim conversion to Decimal/Rat
+// (though allocation of the interim type will be on the stack so cost is minimal)
+
+func NewFromFloat(val float64) *Decimal64 {
+	return ToDecimal64(decimal.NewFromFloat(val))
+}
+
+
 func (m *Decimal64) Add(o *Decimal64) {
 	r := ToDecimal64(m.AsDecimal().Add(o.AsDecimal()))
 
@@ -73,6 +87,6 @@ func (m *Decimal64) LessThan(o *Decimal64) bool {
 }
 
 func (m *Decimal64) GreaterThan(o *Decimal64) bool {
-	return m.AsDecimal().LessThan(o.AsDecimal())
+	return m.AsDecimal().GreaterThan(o.AsDecimal())
 }
 
