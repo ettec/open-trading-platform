@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"testing"
+	"time"
 )
 
 const depthJson = `{"symbol":"XLF","marketPercent":0.02983,"volume":1569568,"lastSalePrice":27.03,"lastSaleSize":100,
@@ -83,7 +84,7 @@ func Test_bookBuilder_start(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book := newBookBuilder(&model.Listing{Id: 1,MarketSymbol: "XLF",}, qd, dep, oec)
+	book := newBookBuilder(&model.Listing{Id: 1,MarketSymbol: "XLF",}, qd, dep, oec, 10 * time.Millisecond)
 
 	book.start()
 
@@ -143,4 +144,20 @@ func asMd64( d *orderentryapi.Decimal64) *model.Decimal64{
 		Mantissa:             d.Mantissa,
 		Exponent:             d.Exponent,
 	}
+}
+
+func Test_bookBuilderBooksStats(t *testing.T) {
+	dep := depth.Depth{}
+	json.Unmarshal([]byte(depthJson), &dep)
+
+	qty, best, worst := getBookStats(dep.Bids, model.Side_BUY)
+	if qty != 6100 || best != 27.03 || worst != 27.01 {
+		t.FailNow()
+	}
+
+	qty, best, worst = getBookStats(dep.Asks, model.Side_SELL)
+	if qty != 7500 || best != 27.06 || worst != 27.08 {
+		t.FailNow()
+	}
+
 }

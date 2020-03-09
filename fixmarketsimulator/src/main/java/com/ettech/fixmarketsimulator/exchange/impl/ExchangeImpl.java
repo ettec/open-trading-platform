@@ -13,7 +13,7 @@ public class ExchangeImpl implements Exchange {
     Map<String, OrderBook> instrumentToOrderBook = new HashMap<>();
 
     @Override
-    public OrderBook getOrderBook(String instrument) {
+    public synchronized OrderBook  getOrderBook(String instrument) {
 
         OrderBook orderBook = instrumentToOrderBook.get(instrument);
         if( orderBook == null) {

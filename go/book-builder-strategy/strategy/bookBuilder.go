@@ -9,8 +9,10 @@ import (
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
 	"log"
+	"math/rand"
 	"os"
 	"sync"
+	"time"
 )
 
 type bookBuilderState int
@@ -28,22 +30,35 @@ type bookBuilder struct {
 	orderEntryService orderentryapi.OrderEntryServiceClient
 	stateMux          sync.Mutex
 	stopChan          chan bool
+	bookScanInterval  time.Duration
 	log               *log.Logger
+	errLog            *log.Logger
 }
 
 func newBookBuilder(listing *model.Listing, distributor actor.QuoteDistributor, initialDepth depth.Depth,
-	orderEntryService orderentryapi.OrderEntryServiceClient) *bookBuilder {
+	orderEntryService orderentryapi.OrderEntryServiceClient,
+	bookScanInterval time.Duration) (*bookBuilder, error) {
 
 	b := &bookBuilder{
 		log:               log.New(os.Stdout, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
+		errLog:			   log.New(os.Stderr, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
 		listing:           listing,
 		quoteSource:       distributor,
 		initialDepth:      initialDepth,
 		orderEntryService: orderEntryService,
 		stopChan:          make(chan bool),
+		bookScanInterval:  bookScanInterval,
 	}
 
-	return b
+	if len(b.initialDepth.Bids) == 0  {
+		return nil, fmt.Errorf("initial depth for listing id %v, symbol %v has no bids", listing.Id, listing.GetMarketSymbol() )
+	}
+
+	if len(b.initialDepth.Asks) == 0  {
+		return nil, fmt.Errorf("initial depth for listing id %v, symbol %v has no asks", listing.Id, listing.GetMarketSymbol() )
+	}
+
+	return b, nil
 }
 
 func (b *bookBuilder) stop() error {
@@ -63,8 +78,6 @@ func (b *bookBuilder) start() error {
 		return err
 	}
 
-
-
 	go func() {
 
 		quotesIn := make(chan *model.ClobQuote, 1000)
@@ -74,17 +87,61 @@ func (b *bookBuilder) start() error {
 
 		firstQuote := true
 
+		ticker := time.NewTicker(500 * time.Millisecond)
+
+		bidsQty, bidsBestPrice, bidsWorstPrice := getBookStats(b.initialDepth.Bids, model.Side_BUY)
+		asksQty, asksBestPrice, asksWorstPrice := getBookStats(b.initialDepth.Asks, model.Side_SELL)
+
+		var lastQuote *model.ClobQuote
+
 	loop:
 		for {
 			select {
 			case q := <-quotesIn:
+				lastQuote = q
 				if firstQuote {
 					firstQuote = false
 
 					b.clearBook(q)
-
 					b.sendOrdersForLines(b.initialDepth.Bids, orderentryapi.Side_BUY)
 					b.sendOrdersForLines(b.initialDepth.Asks, orderentryapi.Side_SELL)
+				}
+			case <-ticker.C:
+				if lastQuote != nil {
+					qQty, qBestPrice, qWorstPrice := getQuoteStats(lastQuote.Bids, model.Side_BUY)
+
+					if qQty < bidsQty * 0.9 {
+
+
+						idx := rand.Intn(len(b.initialDepth.Bids))
+						bid := b.initialDepth.Bids[idx]
+
+						price := bid.Price - (bid.Price * rand.Float64() * 0.05)
+						qty  := float64(bid.Size) - (float64(bid.Size) * rand.Float64() * 0.05)
+
+						roundedPrice, err := b.listing.RoundToTickSize(price)
+						if err != nil {
+							panic(err)
+						}
+
+
+
+
+
+						uniqueId, _ := uuid.NewUUID()
+						b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+							OrderSide: side,
+							Quantity:  &orderentryapi.Decimal64{Mantissa: int64(bid.Size), Exponent: 0},
+							Price:     toApiDec64(roundedPrice),
+							Symbol:    b.listing.MarketSymbol,
+							ClOrderId: uniqueId.String(),
+						})
+
+
+					}
+
+
+
 
 				}
 			case <-b.stopChan:
@@ -95,6 +152,80 @@ func (b *bookBuilder) start() error {
 	}()
 
 	return nil
+}
+
+
+func getQuoteStats(lines []*model.ClobLine, side model.Side) ( float64,
+	 float64,  float64) {
+
+	qty := &model.Decimal64{}
+	bestPrice := &model.Decimal64{}
+	worstPrice := &model.Decimal64{}
+
+	zero := &model.Decimal64{}
+
+	for _, line := range lines {
+		qty.Add(line.Size)
+		if bestPrice.Equal(zero)  {
+			bestPrice = line.Price
+		}
+		if worstPrice.Equal(zero) {
+			worstPrice = line.Price
+		}
+
+		if line.Price.GreaterThan(bestPrice) {
+			if side == model.Side_BUY {
+				bestPrice = line.Price
+			} else {
+				worstPrice = line.Price
+			}
+		}
+
+		if line.Price.LessThan(bestPrice) {
+			if side == model.Side_BUY {
+				worstPrice = line.Price
+			} else {
+				bestPrice = line.Price
+			}
+		}
+	}
+	return qty.ToFloat(), bestPrice.ToFloat(), worstPrice.ToFloat()
+
+}
+
+
+func getBookStats(lines []struct {
+	Price     float64 `json:"price"`
+	Size      int     `json:"size"`
+	Timestamp int64   `json:"timestamp"`
+}, side model.Side) (initialQty float64,  bestPrice float64, worstPrice float64) {
+
+	for _, line := range lines {
+		initialQty += float64(line.Size)
+		if bestPrice == 0 {
+			bestPrice = line.Price
+		}
+		if worstPrice == 0 {
+			worstPrice = line.Price
+		}
+
+		if line.Price > bestPrice {
+			if side == model.Side_BUY {
+				bestPrice = line.Price
+			} else {
+				worstPrice = line.Price
+			}
+		}
+
+		if line.Price < bestPrice {
+			if side == model.Side_BUY {
+				worstPrice = line.Price
+			} else {
+				bestPrice = line.Price
+			}
+		}
+	}
+	return initialQty, bestPrice, worstPrice
 }
 
 func (b *bookBuilder) sendOrdersForLines(bids []struct {

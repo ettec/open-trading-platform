@@ -39,34 +39,34 @@ public class OrderBookImpl implements OrderBook {
 
 
   @Override
-  public void addTradeListenerIfNotRegistered(TradeListener listener) {
+  public synchronized void addTradeListenerIfNotRegistered(TradeListener listener) {
     if (!tradeListeners.contains(listener)) {
       tradeListeners.add(listener);
     }
   }
 
   @Override
-  public void addMdEntryListener(MdEntryListener listener) {
+  public synchronized void addMdEntryListener(MdEntryListener listener) {
     mdEntryListeners.add(listener);
   }
 
   @Override
-  public void removeMdEntryListener(MdEntryListener listener) { mdEntryListeners.remove(listener); }
+  public synchronized void removeMdEntryListener(MdEntryListener listener) { mdEntryListeners.remove(listener); }
 
   @Override
-  public Order[] getBuyOrders() {
+  public synchronized Order[] getBuyOrders() {
     return buyOrders.toArray(new Order[]{});
   }
 
   @Override
-  public Order[] getSellOrders() {
+  public synchronized Order[] getSellOrders() {
     return sellOrders.toArray(new Order[]{});
   }
 
 
 
   @Override
-  public OrderState modifyOrder(String orderId, BigDecimal newPrice, int newQuantity)
+  public  synchronized OrderState modifyOrder(String orderId, BigDecimal newPrice, int newQuantity)
       throws OrderModificationException {
 
     LimitOrderImpl originalOrder = getOrder(orderId);
@@ -129,7 +129,7 @@ public class OrderBookImpl implements OrderBook {
   }
 
   @Override
-  public OrderState deleteOrder(String orderId) throws OrderDeletionException {
+  public synchronized OrderState deleteOrder(String orderId) throws OrderDeletionException {
 
     Order deletedOrder = deleteAndReturnOrder(orderId);
 
@@ -179,7 +179,7 @@ public class OrderBookImpl implements OrderBook {
 
 
   @Override
-  public String addOrder(Side side, int qty, BigDecimal price, String clOrderId) {
+  public synchronized String addOrder(Side side, int qty, BigDecimal price, String clOrderId) {
 
     log.info("Add Order qty:{} price:{} side:{} clOrderId:{}", qty, price, side, clOrderId);
 

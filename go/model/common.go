@@ -3,13 +3,9 @@ package model
 import (
 	"fmt"
 	"github.com/shopspring/decimal"
-
 )
 
-
-
-
-func(t *Timestamp) After(o *Timestamp) bool {
+func (t *Timestamp) After(o *Timestamp) bool {
 	if t.Seconds > o.Seconds {
 		return true
 	}
@@ -21,7 +17,7 @@ func(t *Timestamp) After(o *Timestamp) bool {
 	return false
 }
 
-func(t *Timestamp) Before(o *Timestamp) bool {
+func (t *Timestamp) Before(o *Timestamp) bool {
 	if t.Seconds < o.Seconds {
 		return true
 	}
@@ -33,9 +29,6 @@ func(t *Timestamp) Before(o *Timestamp) bool {
 	return false
 }
 
-
-
-
 func (m *Decimal64) AsDecimal() decimal.Decimal {
 	if m == nil {
 		return decimal.New(0, 0)
@@ -44,10 +37,10 @@ func (m *Decimal64) AsDecimal() decimal.Decimal {
 	return decimal.New(m.Mantissa, m.Exponent)
 }
 
-func IasD(i int) *Decimal64  {
+func IasD(i int) *Decimal64 {
 	return &Decimal64{
-		Mantissa:             int64(i),
-		Exponent:             0,
+		Mantissa: int64(i),
+		Exponent: 0,
 	}
 }
 
@@ -70,8 +63,13 @@ func NewFromFloat(val float64) *Decimal64 {
 	return ToDecimal64(decimal.NewFromFloat(val))
 }
 
+func (m *Decimal64) ToFloat() float64 {
+	f, _ := m.AsDecimal().Float64()
+	return f
+}
 
 func (m *Decimal64) Add(o *Decimal64) {
+
 	r := ToDecimal64(m.AsDecimal().Add(o.AsDecimal()))
 
 	m.Mantissa = r.Mantissa
@@ -82,6 +80,22 @@ func (m *Decimal64) Equal(o *Decimal64) bool {
 	return m.AsDecimal().Equal(o.AsDecimal())
 }
 
+
+func (m *Decimal64) copyFrom(r *Decimal64) {
+	m.Mantissa = r.Mantissa
+	m.Exponent = r.Exponent
+}
+
+
+
+func (m *Decimal64) GreaterThanOrEqual(o *Decimal64) bool {
+	return m.AsDecimal().GreaterThanOrEqual(o.AsDecimal())
+}
+
+func (m *Decimal64) LessThanOrEqual(o *Decimal64) bool {
+	return m.AsDecimal().LessThanOrEqual(o.AsDecimal())
+}
+
 func (m *Decimal64) LessThan(o *Decimal64) bool {
 	return m.AsDecimal().LessThan(o.AsDecimal())
 }
@@ -89,4 +103,3 @@ func (m *Decimal64) LessThan(o *Decimal64) bool {
 func (m *Decimal64) GreaterThan(o *Decimal64) bool {
 	return m.AsDecimal().GreaterThan(o.AsDecimal())
 }
-
