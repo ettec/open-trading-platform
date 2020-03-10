@@ -59,7 +59,7 @@ func ToDecimal64(d decimal.Decimal) *Decimal64 {
 // Todo implement more efficient version of these operations that does not require interim conversion to Decimal/Rat
 // (though allocation of the interim type will be on the stack so cost is minimal)
 
-func NewFromFloat(val float64) *Decimal64 {
+func FasD(val float64) *Decimal64 {
 	return ToDecimal64(decimal.NewFromFloat(val))
 }
 

@@ -84,13 +84,13 @@ func TestListing_RoundToTickSize(t *testing.T) {
 				TickSize:             tt.tst,
 			}
 
-			d, err := m.RoundToTickSize(tt.price);
+			d, err := m.RoundToNearestTick(tt.price);
 			if  (err != nil) != tt.wantErr {
-				t.Errorf("RoundToTickSize() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("RoundToNearestTick() error = %v, wantErr %v", err, tt.wantErr)
 			}
 
 			if  !d.Equal(tt.result) {
-				t.Errorf("RoundToTickSize() price = %v, wanted %v", d, tt.result)
+				t.Errorf("RoundToNearestTick() price = %v, wanted %v", d, tt.result)
 			}
 
 		})

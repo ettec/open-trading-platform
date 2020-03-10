@@ -5,22 +5,20 @@ import (
 	"math"
 )
 
-func (m *Listing) RoundToLotSize(qty float64) (*Decimal64, error) {
-	here
+func (m *Listing) RoundToLotSize(qty float64) *Decimal64 {
+	return roundToDecimal(qty, &Decimal64{Mantissa: 1})
 }
 
-
-
-func (m *Listing) RoundToTickSize(price float64) (*Decimal64, error) {
+func (m *Listing) RoundToNearestTick(price float64) (*Decimal64, error) {
 
 	for _, entry := range m.TickSize.Entries {
-		delta := entry.TickSize.ToFloat()/1000
+		delta := entry.TickSize.ToFloat() / 1000
 		lowerBound := entry.LowerPriceBound.ToFloat()
 		upperBound := entry.UpperPriceBound.ToFloat()
 
 		if compare(price, lowerBound, delta) >= 0 &&
 			compare(price, upperBound, delta) <= 0 {
-			return roundToTick(price, entry.TickSize), nil
+			return roundToDecimal(price, entry.TickSize), nil
 		}
 	}
 
@@ -29,7 +27,7 @@ func (m *Listing) RoundToTickSize(price float64) (*Decimal64, error) {
 
 func compare(f1 float64, f2 float64, delta float64) int {
 
-	diff := f1 -f2
+	diff := f1 - f2
 
 	if math.Abs(diff) < delta {
 		return 0
@@ -42,12 +40,10 @@ func compare(f1 float64, f2 float64, delta float64) int {
 	return 1
 }
 
+func roundToDecimal(price float64, tick *Decimal64) *Decimal64 {
 
-
-func roundToTick(price float64, tick *Decimal64 ) *Decimal64{
-
-	floatTicks := math.Round(price/tick.ToFloat())
+	floatTicks := math.Round(price / tick.ToFloat())
 	numTicks := int64(floatTicks)
 
-	return &Decimal64{Mantissa:numTicks*tick.Mantissa, Exponent: tick.Exponent}
+	return &Decimal64{Mantissa: numTicks * tick.Mantissa, Exponent: tick.Exponent}
 }

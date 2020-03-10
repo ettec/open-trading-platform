@@ -31,31 +31,37 @@ type bookBuilder struct {
 	stateMux          sync.Mutex
 	stopChan          chan bool
 	bookScanInterval  time.Duration
+	tradeProbability  float32
+	variation         float64
+	minQty            float64
 	log               *log.Logger
 	errLog            *log.Logger
 }
 
 func newBookBuilder(listing *model.Listing, distributor actor.QuoteDistributor, initialDepth depth.Depth,
 	orderEntryService orderentryapi.OrderEntryServiceClient,
-	bookScanInterval time.Duration) (*bookBuilder, error) {
+	bookScanInterval time.Duration, tradeProbability float32, variation float64, minQtyPercent float64) (*bookBuilder, error) {
 
 	b := &bookBuilder{
 		log:               log.New(os.Stdout, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
-		errLog:			   log.New(os.Stderr, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
+		errLog:            log.New(os.Stderr, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
 		listing:           listing,
 		quoteSource:       distributor,
 		initialDepth:      initialDepth,
 		orderEntryService: orderEntryService,
 		stopChan:          make(chan bool),
 		bookScanInterval:  bookScanInterval,
+		tradeProbability:  tradeProbability,
+		minQty:            minQtyPercent,
+		variation:         variation,
 	}
 
-	if len(b.initialDepth.Bids) == 0  {
-		return nil, fmt.Errorf("initial depth for listing id %v, symbol %v has no bids", listing.Id, listing.GetMarketSymbol() )
+	if len(b.initialDepth.Bids) == 0 {
+		return nil, fmt.Errorf("initial depth for listing id %v, symbol %v has no bids", listing.Id, listing.GetMarketSymbol())
 	}
 
-	if len(b.initialDepth.Asks) == 0  {
-		return nil, fmt.Errorf("initial depth for listing id %v, symbol %v has no asks", listing.Id, listing.GetMarketSymbol() )
+	if len(b.initialDepth.Asks) == 0 {
+		return nil, fmt.Errorf("initial depth for listing id %v, symbol %v has no asks", listing.Id, listing.GetMarketSymbol())
 	}
 
 	return b, nil
@@ -89,8 +95,8 @@ func (b *bookBuilder) start() error {
 
 		ticker := time.NewTicker(500 * time.Millisecond)
 
-		bidsQty, bidsBestPrice, bidsWorstPrice := getBookStats(b.initialDepth.Bids, model.Side_BUY)
-		asksQty, asksBestPrice, asksWorstPrice := getBookStats(b.initialDepth.Asks, model.Side_SELL)
+		bidsQty, _, _ := getBookStats(b.initialDepth.Bids, model.Side_BUY)
+		asksQty, _, _ := getBookStats(b.initialDepth.Asks, model.Side_SELL)
 
 		var lastQuote *model.ClobQuote
 
@@ -108,40 +114,11 @@ func (b *bookBuilder) start() error {
 				}
 			case <-ticker.C:
 				if lastQuote != nil {
-					qQty, qBestPrice, qWorstPrice := getQuoteStats(lastQuote.Bids, model.Side_BUY)
+					b.updateBookSide(orderentryapi.Side_BUY, bidsQty, b.initialDepth.Bids,
+						lastQuote.Bids, lastQuote.Offers)
 
-					if qQty < bidsQty * 0.9 {
-
-
-						idx := rand.Intn(len(b.initialDepth.Bids))
-						bid := b.initialDepth.Bids[idx]
-
-						price := bid.Price - (bid.Price * rand.Float64() * 0.05)
-						qty  := float64(bid.Size) - (float64(bid.Size) * rand.Float64() * 0.05)
-
-						roundedPrice, err := b.listing.RoundToTickSize(price)
-						if err != nil {
-							panic(err)
-						}
-
-
-
-
-
-						uniqueId, _ := uuid.NewUUID()
-						b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
-							OrderSide: side,
-							Quantity:  &orderentryapi.Decimal64{Mantissa: int64(bid.Size), Exponent: 0},
-							Price:     toApiDec64(roundedPrice),
-							Symbol:    b.listing.MarketSymbol,
-							ClOrderId: uniqueId.String(),
-						})
-
-
-					}
-
-
-
+					b.updateBookSide(orderentryapi.Side_SELL, asksQty, b.initialDepth.Asks,
+						lastQuote.Offers, lastQuote.Bids)
 
 				}
 			case <-b.stopChan:
@@ -154,9 +131,56 @@ func (b *bookBuilder) start() error {
 	return nil
 }
 
+func (b *bookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty float64, initialDepth []struct {
+	Price     float64 `json:"price"`
+	Size      int     `json:"size"`
+	Timestamp int64   `json:"timestamp"`
+}, lastQuoteSameSide []*model.ClobLine, lastQuoteOppositeSide []*model.ClobLine) {
 
-func getQuoteStats(lines []*model.ClobLine, side model.Side) ( float64,
-	 float64,  float64) {
+	qQty, _, _ := getQuoteStats(lastQuoteSameSide, side)
+
+	if qQty < totalInitialQty*b.minQty {
+
+		idx := rand.Intn(len(initialDepth))
+		line := initialDepth[idx]
+
+		price := line.Price - (line.Price * rand.Float64() * b.variation)
+		qty := float64(line.Size) - (float64(line.Size) * rand.Float64() * b.variation)
+
+		roundedPrice, err := b.listing.RoundToNearestTick(price)
+		if err != nil {
+			panic(err)
+		}
+
+		roundedQty := b.listing.RoundToLotSize(qty)
+
+		uniqueId, _ := uuid.NewUUID()
+		b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+			OrderSide: side,
+			Quantity:  toApiDec64(roundedQty),
+			Price:     toApiDec64(roundedPrice),
+			Symbol:    b.listing.MarketSymbol,
+			ClOrderId: uniqueId.String(),
+		})
+	}
+
+	if rand.Float32() < b.tradeProbability {
+		if len(lastQuoteOppositeSide) > 0 {
+			bestOpp := lastQuoteOppositeSide[0]
+			uniqueId, _ := uuid.NewUUID()
+			b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+				OrderSide: side,
+				Quantity:  toApiDec64(bestOpp.Size),
+				Price:     toApiDec64(bestOpp.Price),
+				Symbol:    b.listing.MarketSymbol,
+				ClOrderId: uniqueId.String(),
+			})
+		}
+	}
+}
+
+func getQuoteStats(lines []*model.ClobLine, side orderentryapi.Side) (float64,
+	float64, float64) {
 
 	qty := &model.Decimal64{}
 	bestPrice := &model.Decimal64{}
@@ -166,7 +190,7 @@ func getQuoteStats(lines []*model.ClobLine, side model.Side) ( float64,
 
 	for _, line := range lines {
 		qty.Add(line.Size)
-		if bestPrice.Equal(zero)  {
+		if bestPrice.Equal(zero) {
 			bestPrice = line.Price
 		}
 		if worstPrice.Equal(zero) {
@@ -174,7 +198,7 @@ func getQuoteStats(lines []*model.ClobLine, side model.Side) ( float64,
 		}
 
 		if line.Price.GreaterThan(bestPrice) {
-			if side == model.Side_BUY {
+			if side == orderentryapi.Side_BUY {
 				bestPrice = line.Price
 			} else {
 				worstPrice = line.Price
@@ -182,7 +206,7 @@ func getQuoteStats(lines []*model.ClobLine, side model.Side) ( float64,
 		}
 
 		if line.Price.LessThan(bestPrice) {
-			if side == model.Side_BUY {
+			if side == orderentryapi.Side_SELL {
 				worstPrice = line.Price
 			} else {
 				bestPrice = line.Price
@@ -193,12 +217,11 @@ func getQuoteStats(lines []*model.ClobLine, side model.Side) ( float64,
 
 }
 
-
 func getBookStats(lines []struct {
 	Price     float64 `json:"price"`
 	Size      int     `json:"size"`
 	Timestamp int64   `json:"timestamp"`
-}, side model.Side) (initialQty float64,  bestPrice float64, worstPrice float64) {
+}, side model.Side) (initialQty float64, bestPrice float64, worstPrice float64) {
 
 	for _, line := range lines {
 		initialQty += float64(line.Size)
@@ -239,7 +262,7 @@ func (b *bookBuilder) sendOrdersForLines(bids []struct {
 		b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
 			OrderSide: side,
 			Quantity:  &orderentryapi.Decimal64{Mantissa: int64(bid.Size), Exponent: 0},
-			Price:     toApiDec64(model.NewFromFloat(bid.Price)),
+			Price:     toApiDec64(model.FasD(bid.Price)),
 			Symbol:    b.listing.MarketSymbol,
 			ClOrderId: uniqueId.String(),
 		})
@@ -256,23 +279,28 @@ func (b *bookBuilder) clearBook(q *model.ClobQuote) {
 		return l.GreaterThan(r)
 	})
 
-	uniqueId, _ := uuid.NewUUID()
-	b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
-		OrderSide: orderentryapi.Side_SELL,
-		Quantity:  toApiDec64(totalBidQty),
-		Price:     toApiDec64(worstBid),
-		Symbol:    b.listing.MarketSymbol,
-		ClOrderId: uniqueId.String(),
-	})
+	if totalBidQty.GreaterThan(model.IasD(0)) {
+		uniqueId, _ := uuid.NewUUID()
+		b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+			OrderSide: orderentryapi.Side_SELL,
+			Quantity:  toApiDec64(totalBidQty),
+			Price:     toApiDec64(worstBid),
+			Symbol:    b.listing.MarketSymbol,
+			ClOrderId: uniqueId.String(),
+		})
 
-	uniqueId, _ = uuid.NewUUID()
-	b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
-		OrderSide: orderentryapi.Side_BUY,
-		Quantity:  toApiDec64(totalAskQty),
-		Price:     toApiDec64(worstAsk),
-		Symbol:    b.listing.MarketSymbol,
-		ClOrderId: uniqueId.String(),
-	})
+	}
+
+	if totalAskQty.GreaterThan(model.IasD(0)) {
+		uniqueId, _ := uuid.NewUUID()
+		b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+			OrderSide: orderentryapi.Side_BUY,
+			Quantity:  toApiDec64(totalAskQty),
+			Price:     toApiDec64(worstAsk),
+			Symbol:    b.listing.MarketSymbol,
+			ClOrderId: uniqueId.String(),
+		})
+	}
 }
 
 func toApiDec64(d *model.Decimal64) *orderentryapi.Decimal64 {
