@@ -124,7 +124,13 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
       incRefresh.addMdIncGrp(mdEntryBuilder.build());
     }
 
-    connection.send(incRefresh.build());
+
+    var refresh = incRefresh.build();
+
+    this.log.debug("SENDING INC REFRESH:" + refresh);
+
+
+    connection.send(refresh);
   }
 
   private MarketData.MDEntryTypeEnum getMdEntryType(Side side) {

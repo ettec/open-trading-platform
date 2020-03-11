@@ -7,6 +7,7 @@ import (
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/api"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
+	"github.com/ettec/open-trading-platform/go/book-builder-strategy/strategy"
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	services "github.com/ettec/open-trading-platform/go/common/services"
@@ -14,13 +15,12 @@ import (
 	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/market-data-service/gatewayclient"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io/ioutil"
 	"log"
 	"net"
-	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -31,11 +31,16 @@ const (
 	OrderEntryServiceAddress = "ORDER_ENTRY_SERVICE_ADDRESS"
 	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
 	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
+	BookScanIntervalMillis   = "BOOK_SCAN_INTERVAL_MILLIS"
+	TradeProbability         = "TRADE_PROBABILITY"
+	Variation                = "VARIATION"
+	MinQtyPercent            = "MIN_QTY_PERCENT"
+	SymbolsToRun             = "SYMBOLS_TO_RUN"
 )
 
 func main() {
 
-	port := "50551"
+	port := "50571"
 	fmt.Println("Starting Market Data Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
@@ -48,6 +53,13 @@ func main() {
 	orderEntryAddr := bootstrap.GetEnvVar(OrderEntryServiceAddress)
 	staticDataServiceAddr := bootstrap.GetEnvVar(StaticDataServiceAddress)
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
+	bookScanInterval := time.Duration(bootstrap.GetOptionalIntEnvVar(BookScanIntervalMillis, 1000)) * time.Millisecond
+	tradeProbability := bootstrap.GetOptionalFloatEnvVar(TradeProbability, 0.1)
+	variation := bootstrap.GetOptionalFloatEnvVar(Variation, 0.005)
+	minQty := bootstrap.GetOptionalFloatEnvVar(MinQtyPercent, 0.9)
+	symbolsToRunArg := bootstrap.GetOptionalEnvVar(SymbolsToRun, "*")
+
+
 
 	ls, err := common.NewListingSource(staticDataServiceAddr)
 	if err != nil {
@@ -62,13 +74,7 @@ func main() {
 		log.Panicf("failed to create book builder strategy service:%v", err)
 	}
 
-	api.RegisterBookBuilderStrategyServer(s, bbs)
 
-	reflection.Register(s)
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
-
-	}
 
 	body, err := ioutil.ReadFile("./resources/depth.json")
 	if err != nil {
@@ -83,12 +89,19 @@ func main() {
 
 	symToDepths := map[string]depth.Depth{}
 
-
 	for _, depth := range depths {
-		symToDepths[depth.Symbol]= depth
+		symToDepths[depth.Symbol] = depth
 	}
 
-		symbolsToRun := []string{"MSFT"}
+	var symbolsToRun []string
+	if symbolsToRunArg == "*" {
+		for k,_ := range symToDepths {
+			symbolsToRun = append(symbolsToRun, k)
+		}
+	} else {
+		symbolsToRun = strings.Split(symbolsToRunArg, ",")
+
+	}
 
 	listingChan := make(chan *model.Listing, 1)
 	for _, sym := range symbolsToRun {
@@ -96,8 +109,24 @@ func main() {
 		ls.GetListingMatching(&services.MatchParameters{SymbolMatch: sym}, listingChan)
 		listing := <-listingChan
 		if listing != nil {
-			newBook(listing, bbs.quoteDistributor, symToDepths[sym], bbs.orderEntryService)
+			book, err := strategy.NewBookBuilder(listing, bbs.quoteDistributor, symToDepths[sym], bbs.orderEntryService,
+				bookScanInterval,  tradeProbability, variation, minQty)
+			if err != nil {
+				log.Printf("failed to start strategy for listing:%v, error:%v", listing, err)
+			} else {
+				book.Start()
+			}
+
+
 		}
+
+	}
+
+	api.RegisterBookBuilderStrategyServer(s, bbs)
+
+	reflection.Register(s)
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("Error while serving : %v", err)
 
 	}
 
@@ -108,7 +137,7 @@ type service struct {
 	quoteDistributor  actor.QuoteDistributor
 	orderEntryService orderentryapi.OrderEntryServiceClient
 	listingSource     common.ListingSource
-	books             map[int32]*book
+	books             map[int32]*strategy.BookBuilder
 	booksMx           sync.Mutex
 }
 
@@ -144,20 +173,36 @@ func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls commo
 	return &service{id: id, quoteDistributor: qd, orderEntryService: oec, listingSource: ls}, nil
 }
 
-func (s *service) BuildBookForListing(c context.Context, p *api.BuildBookForListingParams) (*model.Empty, error) {
-
-	/*
+func (s *service) Start(c context.Context, p *api.ListingId) (*model.Empty, error) {
 	s.booksMx.Lock()
+	defer s.booksMx.Unlock()
 
-	if s.books[p.ListingId] == nil {
-		s.books[p.ListingId] = newBook(p.ListingId, s.listingSource, s.quoteDistributor)
+	if book, exists := s.books[p.ListingId]; exists {
+		err :=  book.Start()
+		if err != nil {
+			return nil, err
+		}
 	} else {
-		return nil, fmt.Errorf("book already exists for listing id:%v", p.ListingId)
+		return nil, fmt.Errorf("no book is setup for for listing id:%v", p.ListingId)
 	}
-	*/
 
+	return &model.Empty{}, nil
+
+}
+
+func (s *service) Stop(c context.Context, p *api.ListingId) (*model.Empty, error) {
+
+	s.booksMx.Lock()
+	defer s.booksMx.Unlock()
+
+	if book, exists := s.books[p.ListingId]; exists {
+		err :=  book.Stop()
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("no book is setup for for listing id:%v", p.ListingId)
+	}
 
 	return &model.Empty{}, nil
 }
-
-

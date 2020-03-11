@@ -181,7 +181,10 @@ public class OrderBookImpl implements OrderBook {
   @Override
   public synchronized String addOrder(Side side, int qty, BigDecimal price, String clOrderId) {
 
-    log.info("Add Order qty:{} price:{} side:{} clOrderId:{}", qty, price, side, clOrderId);
+    log.debug("Add Order qty:{} price:{} side:{} clOrderId:{}", qty, price, side, clOrderId);
+
+
+
 
     String orderId = UUID.randomUUID().toString();
 

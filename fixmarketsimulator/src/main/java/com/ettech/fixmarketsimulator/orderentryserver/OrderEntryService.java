@@ -13,6 +13,7 @@ import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -91,7 +92,10 @@ public class OrderEntryService {
             clOrdIdToSymbol.put(request.getClOrderId(), request.getSymbol());
 
             Side side = request.getOrderSide() == Orderentryapi.Side.BUY ? Side.Buy : Side.Sell;
-            int qty = (int) request.getQuantity().getMantissa() * 10 ^ request.getQuantity().getExponent();
+            var qntB = BigInteger.valueOf(request.getQuantity().getMantissa());
+            var exp = BigInteger.valueOf(10).pow(request.getQuantity().getExponent());
+            int qty = qntB.multiply(exp).intValue();
+
             BigDecimal price = BigDecimal.valueOf(request.getPrice().getMantissa(), -1 * request.getPrice().getExponent());
 
             var id = book.addOrder(side, qty, price, request.getClOrderId());

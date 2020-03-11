@@ -32,7 +32,7 @@ public class Connection {
         subscriptions.forEach(s->s.close());
         try {
             this.responseObserver.onCompleted();
-        } catch( Exception e ) {
+        } catch( Throwable e ) {
             log.error("error on closing connection",e);
         }
     }

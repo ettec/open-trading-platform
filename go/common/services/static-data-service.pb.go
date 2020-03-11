@@ -248,7 +248,7 @@ func NewStaticDataServiceClient(cc *grpc.ClientConn) StaticDataServiceClient {
 }
 
 func (c *staticDataServiceClient) GetListingMatching(ctx context.Context, in *MatchParameters, opts ...grpc.CallOption) (*model.Listing, error) {
-	out := new(Listing)
+	out := new(model.Listing)
 	err := c.cc.Invoke(ctx, "/staticdataservice.StaticDataService/GetListingMatching", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -266,7 +266,7 @@ func (c *staticDataServiceClient) GetListingsMatching(ctx context.Context, in *M
 }
 
 func (c *staticDataServiceClient) GetListing(ctx context.Context, in *ListingId, opts ...grpc.CallOption) (*model.Listing, error) {
-	out := new(Listing)
+	out := new(model.Listing)
 	err := c.cc.Invoke(ctx, "/staticdataservice.StaticDataService/GetListing", in, out, opts...)
 	if err != nil {
 		return nil, err

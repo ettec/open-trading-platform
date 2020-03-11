@@ -86,7 +86,9 @@ func (m *Decimal64) copyFrom(r *Decimal64) {
 	m.Exponent = r.Exponent
 }
 
-
+func  Compare(a Decimal64, b Decimal64) int {
+	return a.AsDecimal().Cmp(b.AsDecimal())
+}
 
 func (m *Decimal64) GreaterThanOrEqual(o *Decimal64) bool {
 	return m.AsDecimal().GreaterThanOrEqual(o.AsDecimal())

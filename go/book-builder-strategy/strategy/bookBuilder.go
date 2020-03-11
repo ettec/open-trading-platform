@@ -22,7 +22,7 @@ const (
 	Running
 )
 
-type bookBuilder struct {
+type BookBuilder struct {
 	listing           *model.Listing
 	quoteSource       actor.QuoteDistributor
 	initialDepth      depth.Depth
@@ -31,20 +31,20 @@ type bookBuilder struct {
 	stateMux          sync.Mutex
 	stopChan          chan bool
 	bookScanInterval  time.Duration
-	tradeProbability  float32
+	tradeProbability  float64
 	variation         float64
 	minQty            float64
 	log               *log.Logger
 	errLog            *log.Logger
 }
 
-func newBookBuilder(listing *model.Listing, distributor actor.QuoteDistributor, initialDepth depth.Depth,
+func NewBookBuilder(listing *model.Listing, distributor actor.QuoteDistributor, initialDepth depth.Depth,
 	orderEntryService orderentryapi.OrderEntryServiceClient,
-	bookScanInterval time.Duration, tradeProbability float32, variation float64, minQtyPercent float64) (*bookBuilder, error) {
+	bookScanInterval time.Duration, tradeProbability float64, variation float64, minQtyPercent float64) (*BookBuilder, error) {
 
-	b := &bookBuilder{
-		log:               log.New(os.Stdout, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
-		errLog:            log.New(os.Stderr, fmt.Sprintf(" bookBuilder: %v ", listing.Id), log.Ltime),
+	b := &BookBuilder{
+		log:               log.New(os.Stdout, fmt.Sprintf(" BookBuilder: %v ", listing.Id), log.Ltime),
+		errLog:            log.New(os.Stderr, fmt.Sprintf(" BookBuilder: %v ", listing.Id), log.Ltime),
 		listing:           listing,
 		quoteSource:       distributor,
 		initialDepth:      initialDepth,
@@ -67,7 +67,7 @@ func newBookBuilder(listing *model.Listing, distributor actor.QuoteDistributor, 
 	return b, nil
 }
 
-func (b *bookBuilder) stop() error {
+func (b *BookBuilder) Stop() error {
 	err := b.setState(Stopped)
 	if err != nil {
 		return err
@@ -77,12 +77,14 @@ func (b *bookBuilder) stop() error {
 	return nil
 }
 
-func (b *bookBuilder) start() error {
+func (b *BookBuilder) Start() error {
 
 	err := b.setState(Running)
 	if err != nil {
 		return err
 	}
+
+	b.log.Printf("starting book builder using initial depth bids:%v  offers:%v", b.initialDepth.Bids, b.initialDepth.Asks)
 
 	go func() {
 
@@ -93,7 +95,7 @@ func (b *bookBuilder) start() error {
 
 		firstQuote := true
 
-		ticker := time.NewTicker(500 * time.Millisecond)
+		ticker := time.NewTicker(b.bookScanInterval)
 
 		bidsQty, _, _ := getBookStats(b.initialDepth.Bids, model.Side_BUY)
 		asksQty, _, _ := getBookStats(b.initialDepth.Asks, model.Side_SELL)
@@ -114,6 +116,7 @@ func (b *bookBuilder) start() error {
 				}
 			case <-ticker.C:
 				if lastQuote != nil {
+
 					b.updateBookSide(orderentryapi.Side_BUY, bidsQty, b.initialDepth.Bids,
 						lastQuote.Bids, lastQuote.Offers)
 
@@ -131,7 +134,7 @@ func (b *bookBuilder) start() error {
 	return nil
 }
 
-func (b *bookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty float64, initialDepth []struct {
+func (b *BookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty float64, initialDepth []struct {
 	Price     float64 `json:"price"`
 	Size      int     `json:"size"`
 	Timestamp int64   `json:"timestamp"`
@@ -155,7 +158,8 @@ func (b *bookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty fl
 		roundedQty := b.listing.RoundToLotSize(qty)
 
 		uniqueId, _ := uuid.NewUUID()
-		b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+
+		b.sendOrder(&orderentryapi.NewOrderParams{
 			OrderSide: side,
 			Quantity:  toApiDec64(roundedQty),
 			Price:     toApiDec64(roundedPrice),
@@ -164,11 +168,14 @@ func (b *bookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty fl
 		})
 	}
 
-	if rand.Float32() < b.tradeProbability {
+	if rand.Float64() < b.tradeProbability {
 		if len(lastQuoteOppositeSide) > 0 {
 			bestOpp := lastQuoteOppositeSide[0]
+
+
 			uniqueId, _ := uuid.NewUUID()
-			b.orderEntryService.SubmitNewOrder(context.Background(), &orderentryapi.NewOrderParams{
+
+			b.sendOrder(&orderentryapi.NewOrderParams{
 				OrderSide: side,
 				Quantity:  toApiDec64(bestOpp.Size),
 				Price:     toApiDec64(bestOpp.Price),
@@ -177,6 +184,10 @@ func (b *bookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty fl
 			})
 		}
 	}
+}
+
+func (b *BookBuilder) sendOrder(params *orderentryapi.NewOrderParams) {
+	b.orderEntryService.SubmitNewOrder(context.Background(), params)
 }
 
 func getQuoteStats(lines []*model.ClobLine, side orderentryapi.Side) (float64,
@@ -251,7 +262,7 @@ func getBookStats(lines []struct {
 	return initialQty, bestPrice, worstPrice
 }
 
-func (b *bookBuilder) sendOrdersForLines(bids []struct {
+func (b *BookBuilder) sendOrdersForLines(bids []struct {
 	Price     float64 `json:"price"`
 	Size      int     `json:"size"`
 	Timestamp int64   `json:"timestamp"`
@@ -270,7 +281,7 @@ func (b *bookBuilder) sendOrdersForLines(bids []struct {
 	}
 }
 
-func (b *bookBuilder) clearBook(q *model.ClobQuote) {
+func (b *BookBuilder) clearBook(q *model.ClobQuote) {
 	totalBidQty, worstBid := getTotalQtyAndLeastCompetitivePrice(q.GetBids(), func(l *model.Decimal64, r *model.Decimal64) bool {
 		return l.LessThan(r)
 	})
@@ -331,13 +342,13 @@ func getTotalQtyAndLeastCompetitivePrice(lines []*model.ClobLine, lessCompetitiv
 	return totalQty, worstPrice
 }
 
-func (b *bookBuilder) setState(newState bookBuilderState) error {
+func (b *BookBuilder) setState(newState bookBuilderState) error {
 	b.stateMux.Lock()
 	defer b.stateMux.Unlock()
 
 	if newState == Running {
 		if b.state == Running {
-			return fmt.Errorf("bookBuilder for listing id %v is already running", b.listing.Id)
+			return fmt.Errorf("BookBuilder for listing id %v is already running", b.listing.Id)
 		}
 		b.state = Running
 	}

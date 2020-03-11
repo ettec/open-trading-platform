@@ -25,39 +25,39 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type BuildBookForListingParams struct {
+type ListingId struct {
 	ListingId            int32    `protobuf:"varint,1,opt,name=listingId,proto3" json:"listingId,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *BuildBookForListingParams) Reset()         { *m = BuildBookForListingParams{} }
-func (m *BuildBookForListingParams) String() string { return proto.CompactTextString(m) }
-func (*BuildBookForListingParams) ProtoMessage()    {}
-func (*BuildBookForListingParams) Descriptor() ([]byte, []int) {
+func (m *ListingId) Reset()         { *m = ListingId{} }
+func (m *ListingId) String() string { return proto.CompactTextString(m) }
+func (*ListingId) ProtoMessage()    {}
+func (*ListingId) Descriptor() ([]byte, []int) {
 	return fileDescriptor_95b4230aee025273, []int{0}
 }
 
-func (m *BuildBookForListingParams) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_BuildBookForListingParams.Unmarshal(m, b)
+func (m *ListingId) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListingId.Unmarshal(m, b)
 }
-func (m *BuildBookForListingParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_BuildBookForListingParams.Marshal(b, m, deterministic)
+func (m *ListingId) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListingId.Marshal(b, m, deterministic)
 }
-func (m *BuildBookForListingParams) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BuildBookForListingParams.Merge(m, src)
+func (m *ListingId) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListingId.Merge(m, src)
 }
-func (m *BuildBookForListingParams) XXX_Size() int {
-	return xxx_messageInfo_BuildBookForListingParams.Size(m)
+func (m *ListingId) XXX_Size() int {
+	return xxx_messageInfo_ListingId.Size(m)
 }
-func (m *BuildBookForListingParams) XXX_DiscardUnknown() {
-	xxx_messageInfo_BuildBookForListingParams.DiscardUnknown(m)
+func (m *ListingId) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListingId.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_BuildBookForListingParams proto.InternalMessageInfo
+var xxx_messageInfo_ListingId proto.InternalMessageInfo
 
-func (m *BuildBookForListingParams) GetListingId() int32 {
+func (m *ListingId) GetListingId() int32 {
 	if m != nil {
 		return m.ListingId
 	}
@@ -65,25 +65,25 @@ func (m *BuildBookForListingParams) GetListingId() int32 {
 }
 
 func init() {
-	proto.RegisterType((*BuildBookForListingParams)(nil), "marketdataservice.BuildBookForListingParams")
+	proto.RegisterType((*ListingId)(nil), "marketdataservice.ListingId")
 }
 
 func init() { proto.RegisterFile("book-builder-strategy.proto", fileDescriptor_95b4230aee025273) }
 
 var fileDescriptor_95b4230aee025273 = []byte{
-	// 185 bytes of a gzipped FileDescriptorProto
+	// 184 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x4e, 0xca, 0xcf, 0xcf,
 	0xd6, 0x4d, 0x2a, 0xcd, 0xcc, 0x49, 0x49, 0x2d, 0xd2, 0x2d, 0x2e, 0x29, 0x4a, 0x2c, 0x49, 0x4d,
 	0xaf, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0xcc, 0x4d, 0x2c, 0xca, 0x4e, 0x2d, 0x49,
 	0x49, 0x2c, 0x49, 0x2c, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0x95, 0x12, 0xcc, 0xcd, 0x4f, 0x49,
-	0xcd, 0x49, 0xce, 0xcf, 0xcd, 0xcd, 0xcf, 0x83, 0xa8, 0x52, 0xb2, 0xe4, 0x92, 0x74, 0x02, 0xe9,
-	0x77, 0xca, 0xcf, 0xcf, 0x76, 0xcb, 0x2f, 0xf2, 0xc9, 0x2c, 0x2e, 0xc9, 0xcc, 0x4b, 0x0f, 0x48,
-	0x2c, 0x4a, 0xcc, 0x2d, 0x16, 0x92, 0xe1, 0xe2, 0xcc, 0x81, 0x08, 0x78, 0xa6, 0x48, 0x30, 0x2a,
-	0x30, 0x6a, 0xb0, 0x06, 0x21, 0x04, 0x8c, 0xb2, 0xb8, 0x84, 0x41, 0xba, 0x9c, 0x20, 0xd6, 0x07,
-	0x43, 0x6d, 0x17, 0x0a, 0xe6, 0x12, 0xc6, 0x62, 0xa2, 0x90, 0x8e, 0x1e, 0x86, 0x7b, 0xf4, 0x70,
-	0xda, 0x2c, 0xc5, 0xa3, 0x07, 0x76, 0xaa, 0x9e, 0x6b, 0x6e, 0x41, 0x49, 0xa5, 0x12, 0x83, 0x13,
-	0x6b, 0x14, 0x73, 0x62, 0x41, 0x66, 0x12, 0x1b, 0xd8, 0xd1, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0xae, 0xfb, 0xf0, 0x3a, 0xf9, 0x00, 0x00, 0x00,
+	0xcd, 0x49, 0xce, 0xcf, 0xcd, 0xcd, 0xcf, 0x83, 0xa8, 0x52, 0xd2, 0xe4, 0xe2, 0xf4, 0xc9, 0x2c,
+	0x2e, 0xc9, 0xcc, 0x4b, 0xf7, 0x4c, 0x11, 0x92, 0xe1, 0xe2, 0xcc, 0x81, 0x71, 0x24, 0x18, 0x15,
+	0x18, 0x35, 0x58, 0x83, 0x10, 0x02, 0x46, 0x4d, 0x8c, 0x5c, 0xc2, 0x4e, 0xf9, 0xf9, 0xd9, 0x4e,
+	0x10, 0xfb, 0x82, 0xa1, 0xd6, 0x09, 0x99, 0x72, 0xb1, 0x06, 0x97, 0x24, 0x16, 0x95, 0x08, 0xc9,
+	0xe8, 0x61, 0x58, 0xa9, 0x07, 0x37, 0x5c, 0x8a, 0x47, 0x0f, 0x6c, 0xbb, 0x9e, 0x6b, 0x6e, 0x41,
+	0x49, 0xa5, 0x12, 0x83, 0x90, 0x09, 0x17, 0x4b, 0x70, 0x49, 0x7e, 0x01, 0x69, 0xba, 0x9c, 0x58,
+	0xa3, 0x98, 0x13, 0x0b, 0x32, 0x93, 0xd8, 0xc0, 0xae, 0x37, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff,
+	0x45, 0x35, 0x35, 0x49, 0x02, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -98,7 +98,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type BookBuilderStrategyClient interface {
-	BuildBookForListing(ctx context.Context, in *BuildBookForListingParams, opts ...grpc.CallOption) (*model.Empty, error)
+	Start(ctx context.Context, in *ListingId, opts ...grpc.CallOption) (*model.Empty, error)
+	Stop(ctx context.Context, in *ListingId, opts ...grpc.CallOption) (*model.Empty, error)
 }
 
 type bookBuilderStrategyClient struct {
@@ -109,9 +110,18 @@ func NewBookBuilderStrategyClient(cc *grpc.ClientConn) BookBuilderStrategyClient
 	return &bookBuilderStrategyClient{cc}
 }
 
-func (c *bookBuilderStrategyClient) BuildBookForListing(ctx context.Context, in *BuildBookForListingParams, opts ...grpc.CallOption) (*model.Empty, error) {
+func (c *bookBuilderStrategyClient) Start(ctx context.Context, in *ListingId, opts ...grpc.CallOption) (*model.Empty, error) {
 	out := new(model.Empty)
-	err := c.cc.Invoke(ctx, "/marketdataservice.BookBuilderStrategy/BuildBookForListing", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/marketdataservice.BookBuilderStrategy/Start", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookBuilderStrategyClient) Stop(ctx context.Context, in *ListingId, opts ...grpc.CallOption) (*model.Empty, error) {
+	out := new(model.Empty)
+	err := c.cc.Invoke(ctx, "/marketdataservice.BookBuilderStrategy/Stop", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,35 +130,57 @@ func (c *bookBuilderStrategyClient) BuildBookForListing(ctx context.Context, in 
 
 // BookBuilderStrategyServer is the server API for BookBuilderStrategy service.
 type BookBuilderStrategyServer interface {
-	BuildBookForListing(context.Context, *BuildBookForListingParams) (*model.Empty, error)
+	Start(context.Context, *ListingId) (*model.Empty, error)
+	Stop(context.Context, *ListingId) (*model.Empty, error)
 }
 
 // UnimplementedBookBuilderStrategyServer can be embedded to have forward compatible implementations.
 type UnimplementedBookBuilderStrategyServer struct {
 }
 
-func (*UnimplementedBookBuilderStrategyServer) BuildBookForListing(ctx context.Context, req *BuildBookForListingParams) (*model.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BuildBookForListing not implemented")
+func (*UnimplementedBookBuilderStrategyServer) Start(ctx context.Context, req *ListingId) (*model.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Start not implemented")
+}
+func (*UnimplementedBookBuilderStrategyServer) Stop(ctx context.Context, req *ListingId) (*model.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
 }
 
 func RegisterBookBuilderStrategyServer(s *grpc.Server, srv BookBuilderStrategyServer) {
 	s.RegisterService(&_BookBuilderStrategy_serviceDesc, srv)
 }
 
-func _BookBuilderStrategy_BuildBookForListing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BuildBookForListingParams)
+func _BookBuilderStrategy_Start_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListingId)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BookBuilderStrategyServer).BuildBookForListing(ctx, in)
+		return srv.(BookBuilderStrategyServer).Start(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/marketdataservice.BookBuilderStrategy/BuildBookForListing",
+		FullMethod: "/marketdataservice.BookBuilderStrategy/Start",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookBuilderStrategyServer).BuildBookForListing(ctx, req.(*BuildBookForListingParams))
+		return srv.(BookBuilderStrategyServer).Start(ctx, req.(*ListingId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BookBuilderStrategy_Stop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListingId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookBuilderStrategyServer).Stop(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/marketdataservice.BookBuilderStrategy/Stop",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookBuilderStrategyServer).Stop(ctx, req.(*ListingId))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -158,8 +190,12 @@ var _BookBuilderStrategy_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*BookBuilderStrategyServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "BuildBookForListing",
-			Handler:    _BookBuilderStrategy_BuildBookForListing_Handler,
+			MethodName: "Start",
+			Handler:    _BookBuilderStrategy_Start_Handler,
+		},
+		{
+			MethodName: "Stop",
+			Handler:    _BookBuilderStrategy_Stop_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

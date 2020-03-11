@@ -8,10 +8,13 @@ import (
 	"github.com/ettec/open-trading-platform/go/static-data-service/api"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/grpc/status"
 	"log"
 	"net"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -57,8 +60,7 @@ func (s *service) GetListingMatching(c context.Context, m *api.MatchParameters) 
 	}
 
 	if len(result.Listings) != 1 {
-		log.Printf("no listing found for symbol %v", m.SymbolMatch)
-		return nil, nil
+		return nil, status.Error(codes.NotFound, "no listing found for symbol " + m.SymbolMatch)
 	}
 
 	return result.Listings[0], nil
@@ -96,7 +98,7 @@ func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listi
 	}
 
 	if len(result.Listings) != 1 {
-		return nil, fmt.Errorf("expected 1 listing, found %v", len(result.Listings))
+		return nil, status.Error(codes.NotFound, "no listing found for listing id " + strconv.Itoa(int(id.ListingId)))
 	}
 
 	return result.Listings[0], nil

@@ -99,12 +99,12 @@ func Test_bookBuilder_start(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book, err := newBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 0.0, 0, 0.9)
+	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 0.0, 0, 0.9)
 	if err != nil {
 		t.FailNow()
 	}
 
-	book.start()
+	book.Start()
 
 	sink := <- qd.addQuoteChanChan
 
@@ -187,12 +187,12 @@ func Test_bookBuilder_rebuildsBook(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book, err := newBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 0.0, 0.01, 0.9)
+	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 0.0, 0.01, 0.9)
 	if err != nil {
 		t.FailNow()
 	}
 
-	book.start()
+	book.Start()
 
 	sink := <- qd.addQuoteChanChan
 
@@ -242,12 +242,12 @@ func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book, err := newBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 1.0, 0.01, 0.0)
+	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 1.0, 0.01, 0.0)
 	if err != nil {
 		t.FailNow()
 	}
 
-	book.start()
+	book.Start()
 
 	sink := <- qd.addQuoteChanChan
 

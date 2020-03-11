@@ -5,7 +5,9 @@ import (
 	services "github.com/ettec/open-trading-platform/go/common/services"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/connectivity"
+	"google.golang.org/grpc/status"
 	"log"
 	"os"
 	"time"
@@ -26,10 +28,10 @@ type ListingSource interface {
 }
 
 type listingSource struct {
-	getListingByIdChan chan getListingByIdRequest
+	getListingByIdChan     chan getListingByIdRequest
 	getListingMatchingChan chan getListingMatchingRequest
-	log                *log.Logger
-	errLog             *log.Logger
+	log                    *log.Logger
+	errLog                 *log.Logger
 }
 
 type GrpcConnection interface {
@@ -50,15 +52,15 @@ func NewListingSource(targetAddress string) (*listingSource, error) {
 		sdc := services.NewStaticDataServiceClient(conn)
 
 		return sdc, conn, nil
-	} )
+	})
 }
 
 func newListingSource(getConnection GetStaticDataServiceClientFn) (*listingSource, error) {
 	s := &listingSource{
-		getListingByIdChan: make(chan getListingByIdRequest, 10000),
+		getListingByIdChan:     make(chan getListingByIdRequest, 10000),
 		getListingMatchingChan: make(chan getListingMatchingRequest, 10000),
-		log:                log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
-		errLog:             log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
+		log:                    log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
+		errLog:                 log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 	}
 
 	sdc, conn, err := getConnection()
@@ -84,26 +86,36 @@ func newListingSource(getConnection GetStaticDataServiceClientFn) (*listingSourc
 				})
 
 				if err != nil {
-					s.errLog.Printf("error retrieving listing:%v", err)
-					s.getListingByIdChan <- fr
-					break
+					st, ok := status.FromError(err)
+					if !ok || st.Code() != codes.NotFound {
+						s.errLog.Printf("error retrieving listing:%v", err)
+						s.getListingByIdChan <- fr
+						break
+					} else {
+						s.errLog.Printf("no listing found for id:%v", fr.listingId)
+					}
+				} else {
+					s.log.Println("received listing:", listing)
+					fr.resultChan <- listing
 				}
 
-				s.log.Println("received listing:", listing )
 
-				fr.resultChan <- listing
 			case mr := <-s.getListingMatchingChan:
 				listing, err := sdc.GetListingMatching(context.Background(), mr.matchParams)
 
 				if err != nil {
-					s.errLog.Printf("error retrieving listing:%v", err)
-					s.getListingMatchingChan <- mr
-					break
+					st, ok := status.FromError(err)
+					if !ok || st.Code() != codes.NotFound {
+						s.errLog.Printf("error retrieving listing:%v", err)
+						s.getListingMatchingChan <- mr
+						break
+					} else {
+						s.errLog.Printf("no listing found for match params:%v", mr.matchParams)
+					}
+				} else {
+					s.log.Printf("received listing:%v for symbol matching:%v", listing, mr.matchParams.SymbolMatch)
+					mr.resultChan <- listing
 				}
-
-				s.log.Printf("received listing:%v for symbol matching:%v", listing, mr.matchParams.SymbolMatch )
-
-				mr.resultChan <- listing
 			}
 
 		}
@@ -123,7 +135,7 @@ func (s *listingSource) GetListing(listingId int32, result chan<- *model.Listing
 
 type getListingMatchingRequest struct {
 	matchParams *services.MatchParameters
-	resultChan chan<- *model.Listing
+	resultChan  chan<- *model.Listing
 }
 
 func (s *listingSource) GetListingMatching(matchParams *services.MatchParameters, result chan<- *model.Listing) {
