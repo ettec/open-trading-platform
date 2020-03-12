@@ -66,12 +66,12 @@ func Test_quoteNormaliser_nilRefreshResetsAllQuote(t *testing.T) {
 	n.refreshInChan <- nil
 
 	empt1 := <-out
-	if len(empt1.GetBids()) > 0 || len(empt1.GetOffers()) > 0 || (empt1.ListingId != 1 &&  empt1.ListingId != 2) {
+	if len(empt1.GetBids()) > 0 || len(empt1.GetOffers()) > 0 || (empt1.ListingId != 1 &&  empt1.ListingId != 2) || !empt1.StreamInterrupted {
 		t.FailNow()
 	}
 
 	empt2 := <-out
-	if len(empt2.GetBids()) > 0 || len(empt2.GetOffers()) > 0 || (empt1.ListingId != 1 &&  empt1.ListingId != 2) {
+	if len(empt2.GetBids()) > 0 || len(empt2.GetOffers()) > 0 || (empt1.ListingId != 1 &&  empt1.ListingId != 2) || !empt2.StreamInterrupted{
 		t.FailNow()
 	}
 

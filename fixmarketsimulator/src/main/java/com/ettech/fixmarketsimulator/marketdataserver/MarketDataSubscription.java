@@ -82,7 +82,8 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
 
   static  Fix.Decimal64 getFixDecimal64(BigDecimal price) {
 
-    var str = price.toString();
+
+    var str = price.toPlainString();
 
     var idx = str.indexOf('.');
 
@@ -127,7 +128,7 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
 
     var refresh = incRefresh.build();
 
-    this.log.debug("SENDING INC REFRESH:" + refresh);
+    this.log.info("SENDING INC REFRESH:" + refresh);
 
 
     connection.send(refresh);

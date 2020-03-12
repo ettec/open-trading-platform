@@ -99,7 +99,10 @@ func (s *service) Subscribe(c context.Context, r *api.SubscribeRequest) (*model.
 
 }
 
-func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGateway_ConnectServer) error {
+
+func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
+
+
 
 	subscriberId := request.GetSubscriberId()
 
@@ -109,12 +112,21 @@ func (s *service) Connect(request *api.ConnectRequest, stream api.MarketDataGate
 
 	s.addConnection(subscriberId, out)
 
+
+
+	for {
+		stream.R
+	}
+
 	for mdUpdate := range out {
 		if err := stream.Send(mdUpdate); err != nil {
 			log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
 			break
 		}
 	}
+
+
+
 
 	return nil
 }

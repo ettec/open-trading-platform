@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("Error while listening : %v", err)
 	}
 
-	serviceId := bootstrap.GetEnvVar(ServiceId)
+	serviceId := bootstrap.GetOptionalEnvVar(ServiceId, "bookBuilder")
 	mdGatewayAddr := bootstrap.GetEnvVar(MarketDataGatewayAddress)
 	orderEntryAddr := bootstrap.GetEnvVar(OrderEntryServiceAddress)
 	staticDataServiceAddr := bootstrap.GetEnvVar(StaticDataServiceAddress)

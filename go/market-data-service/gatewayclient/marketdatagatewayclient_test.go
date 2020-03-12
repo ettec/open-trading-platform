@@ -99,11 +99,14 @@ func Test_marketDataGatewayClient_refreshesForwaredToOut(t *testing.T) {
 	<-out
 }
 
-func Test_marketDataGatewayClient_streamErrorSendsNilToOutStream(t *testing.T) {
+func Test_marketDataGatewayClient_sendsEmptyQuoteForAllListingsOnConnectionError(t *testing.T) {
 
-	client, stream, conn, _, out := setup(t)
+	client, stream, conn, mdc, out := setup(t)
 
 	conn.getStateChan <- connectivity.Ready
+
+	mdc.Subscribe(1)
+	mdc.Subscribe(2)
 
 	client.streamOutChan <- stream
 
@@ -112,9 +115,33 @@ func Test_marketDataGatewayClient_streamErrorSendsNilToOutStream(t *testing.T) {
 
 	stream.refreshErrChan <- fmt.Errorf("testerror")
 	r := <-out
-	if r != nil {
+
+	if !r.StreamInterrupted {
 		t.FailNow()
 	}
+
+	if r.ListingId != 1 && r.ListingId != 2 {
+		t.FailNow()
+	}
+
+
+	if len(r.Bids) != 0 || len(r.Offers) != 0 {
+		t.FailNow()
+	}
+
+	r = <-out
+	if r.ListingId != 1 && r.ListingId != 2 {
+		t.FailNow()
+	}
+
+	if len(r.Bids) != 0 || len(r.Offers) != 0 {
+		t.FailNow()
+	}
+
+	if !r.StreamInterrupted {
+		t.FailNow()
+	}
+
 }
 
 

@@ -7,16 +7,13 @@ import org.fixprotocol.components.InstrmtMDReqGrp;
 import org.fixprotocol.components.MarketData;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Connection {
     org.slf4j.Logger log;
 
-    List<MarketDataSubscription> subscriptions = new ArrayList<>();
-    Set<String> symbols = new HashSet<>();
+    Map<String,MarketDataSubscription> subscriptions = new HashMap<String,MarketDataSubscription>();
+
 
     Exchange exchange;
     StreamObserver<MarketData.MarketDataIncrementalRefresh> responseObserver;
@@ -29,12 +26,7 @@ public class Connection {
 
 
     void close() {
-        subscriptions.forEach(s->s.close());
-        try {
-            this.responseObserver.onCompleted();
-        } catch( Throwable e ) {
-            log.error("error on closing connection",e);
-        }
+        subscriptions.values().forEach(s->s.close());
     }
 
     void subscribe(MarketData.MarketDataRequest msg) {
@@ -46,21 +38,29 @@ public class Connection {
 
             log.info("Received subscribe request for symbol {}", symbol);
 
-            if( symbols.contains(symbol)) {
-                log.warn("Ignoring subscribe request as already subscribed to " + symbol);
+            if( subscriptions.containsKey(symbol)) {
+                var subscription = subscriptions.remove(symbol);
+                subscription.close();
                 return;
             }
 
-            symbols.add(symbol);
-
             OrderBook book = exchange.getOrderBook(symbol);
-            subscriptions.add(new MarketDataSubscription(this, book, msg.getMdReqId()));
+            subscriptions.put(symbol, new MarketDataSubscription(this, book, msg.getMdReqId()));
         }
 
     }
 
     public void send(MarketData.MarketDataIncrementalRefresh refresh) {
-        responseObserver.onNext(refresh);
+        try {
+            responseObserver.onNext(refresh);
+
+
+        } catch (Throwable t) {
+            log.error("failed to send refresh, closing connection", t);
+            this.close();
+            responseObserver.onError(t);
+        }
+
     }
 
 }

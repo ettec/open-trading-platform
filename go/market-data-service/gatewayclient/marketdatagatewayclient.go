@@ -82,7 +82,20 @@ func NewMarketDataGatewayClient(id string, targetAddress string, out chan<- *mod
 				incRefresh, err := stream.Recv()
 				if err != nil {
 					n.errLog.Println("inbound stream error:", err)
-					n.out <- nil
+					n.subscribeMux.Lock()
+					for listingId, subscribed := range n.subscriptions {
+						if subscribed {
+							n.out <- &model.ClobQuote{
+								ListingId:         listingId,
+								Bids:              []*model.ClobLine{},
+								Offers:            []*model.ClobLine{},
+								StreamInterrupted: true,
+							}
+						}
+					}
+
+					n.subscribeMux.Unlock()
+
 					break
 				}
 				n.out <- incRefresh

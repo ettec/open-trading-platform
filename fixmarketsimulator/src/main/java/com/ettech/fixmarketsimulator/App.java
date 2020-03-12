@@ -63,6 +63,8 @@ public class App {
     public static void main(String[] args) {
         int port = 8501;
 
+
+
         log.info("Starting api server on port:" + port);
         log.info("Starting fix server on port:" + fixServerPort);
 

@@ -100,6 +100,9 @@ func (b *BookBuilder) Start() error {
 		bidsQty, _, _ := getBookStats(b.initialDepth.Bids, model.Side_BUY)
 		asksQty, _, _ := getBookStats(b.initialDepth.Asks, model.Side_SELL)
 
+		b.sendOrdersForLines(b.initialDepth.Bids[0:1], orderentryapi.Side_BUY)
+		b.sendOrdersForLines(b.initialDepth.Asks[0:1], orderentryapi.Side_SELL)
+
 		var lastQuote *model.ClobQuote
 
 	loop:
@@ -107,15 +110,17 @@ func (b *BookBuilder) Start() error {
 			select {
 			case q := <-quotesIn:
 				lastQuote = q
-				if firstQuote {
+				if firstQuote && !lastQuote.StreamInterrupted{
 					firstQuote = false
+
+					b.log.Println("first quote received")
 
 					b.clearBook(q)
 					b.sendOrdersForLines(b.initialDepth.Bids, orderentryapi.Side_BUY)
 					b.sendOrdersForLines(b.initialDepth.Asks, orderentryapi.Side_SELL)
 				}
 			case <-ticker.C:
-				if lastQuote != nil {
+				if lastQuote != nil && !lastQuote.StreamInterrupted {
 
 					b.updateBookSide(orderentryapi.Side_BUY, bidsQty, b.initialDepth.Bids,
 						lastQuote.Bids, lastQuote.Offers)
@@ -187,6 +192,8 @@ func (b *BookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty fl
 }
 
 func (b *BookBuilder) sendOrder(params *orderentryapi.NewOrderParams) {
+	b.log.Printf("sending order:%v", params)
+
 	b.orderEntryService.SubmitNewOrder(context.Background(), params)
 }
 

@@ -99,6 +99,7 @@ func (n *fixSimAdapter) readInputChannel() error {
 		} else {
 			for id, _ := range n.idToQuote {
 				emptyQuote := newClobQuote(id)
+				emptyQuote.StreamInterrupted = true
 				n.idToQuote[id] = emptyQuote
 				n.out <- emptyQuote
 			}

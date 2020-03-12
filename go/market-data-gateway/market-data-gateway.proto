@@ -20,5 +20,5 @@ message SubscribeRequest{
 
 service MarketDataGateway {
     rpc Subscribe(SubscribeRequest) returns (model.Empty) {};
-    rpc Connect(ConnectRequest) returns (stream model.ClobQuote) {};
+    rpc Connect(stream ConnectRequest) returns (stream model.ClobQuote) {};
 }

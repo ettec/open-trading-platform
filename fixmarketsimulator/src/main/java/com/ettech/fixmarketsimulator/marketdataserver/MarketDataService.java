@@ -118,6 +118,7 @@ public class MarketDataService {
 
             logger.info("market data server connect request received for:" + request);
 
+
             synchronized ( partyIdToConnection ) {
                 var partyId = request.getPartyId();
                 var connection = partyIdToConnection.get(partyId);
