@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
@@ -10,7 +9,9 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/google/uuid"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
@@ -21,9 +22,8 @@ import (
 )
 
 type service struct {
-	partyIdToConnection map[string]actor.ClientConnection
-	quoteDistributor    actor.QuoteDistributor
-	connMux             sync.Mutex
+	quoteDistributor actor.QuoteDistributor
+	connMux          sync.Mutex
 }
 
 func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (*service, error) {
@@ -53,70 +53,45 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 
 	qd := actor.NewQuoteDistributor(fixSimConn.Subscribe, serverToDistributorChan)
 
-	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
+	s := &service{quoteDistributor: qd}
 
 	return s, nil
 }
 
-func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
-
-	con, ok := s.partyIdToConnection[partyId]
-	return con, ok
-}
-
-func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) (actor.ClientConnection, error) {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
-
-	if conn, ok := s.partyIdToConnection[subscriberId]; ok {
-		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
-		conn.Close()
-		log.Print("connection closed:", subscriberId)
-	}
-
-	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
-
-	s.partyIdToConnection[subscriberId] = cc
-
-	return cc, nil
-}
-
-func (s *service) Subscribe(c context.Context, r *api.SubscribeRequest) (*model.Empty, error) {
-
-	if conn, ok := s.getConnection(r.SubscriberId); ok {
-
-		if err := conn.Subscribe(r.ListingId); err == nil {
-			return &model.Empty{}, nil
-		} else {
-			return nil, err
-		}
-
-	} else {
-		return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
-	}
-
-}
-
+const SubscriberIdKey = "subscriber_id"
 
 func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
 
+	ctx, ok := metadata.FromIncomingContext(stream.Context())
+	if !ok {
+		return fmt.Errorf("failed to retrieve call context")
+	}
 
+	vals := ctx.Get(SubscriberIdKey)
+	if len(vals) != 1 {
+		return fmt.Errorf("must specify string value for %v", SubscriberIdKey)
+	}
 
-	subscriberId := request.GetSubscriberId()
+	fromClientId := vals[0]
+	subscriberId := fromClientId + ":" + uuid.New().String()
 
-	log.Println("connect request received for subscriber ", subscriberId)
+	log.Printf("connect request received for subscriber %v, unique connection id: %v", fromClientId, subscriberId, )
 
 	out := make(chan *model.ClobQuote, 100)
+	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
 
-	s.addConnection(subscriberId, out)
+	go func() {
+		for {
+			subscription, err := stream.Recv()
 
-
-
-	for {
-		stream.R
-	}
+			if err != nil {
+				log.Printf("subscriber:%v inbound stream error:%v", subscriberId, err)
+			} else {
+				log.Printf("subscribe request, subscriber id:%v, listing id:%v", subscriberId, subscription.ListingId)
+				cc.Subscribe(subscription.ListingId)
+			}
+		}
+	}()
 
 	for mdUpdate := range out {
 		if err := stream.Send(mdUpdate); err != nil {
@@ -124,9 +99,6 @@ func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
 			break
 		}
 	}
-
-
-
 
 	return nil
 }
@@ -152,7 +124,7 @@ func main() {
 	id := bootstrap.GetEnvVar(GatewayIdKey)
 	fixSimAddress := bootstrap.GetEnvVar(FixSimAddress)
 	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60 )
+	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
 	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
 	if ok {
@@ -181,5 +153,3 @@ func main() {
 	}
 
 }
-
-

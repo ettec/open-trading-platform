@@ -55,6 +55,8 @@ func NewMarketDataGatewayClient(id string, targetAddress string, out chan<- *mod
 			state := conn.GetState()
 			for state != connectivity.Ready {
 				n.log.Printf("waiting for market gateway connection to be ready....")
+
+
 				conn.WaitForStateChange(context.Background(), state)
 				state = conn.GetState()
 				n.log.Println("market gateway connection state is:", state)
@@ -123,7 +125,11 @@ func (mgc *marketGatewayClient) resubscribeAllListings() error {
 }
 
 func connect(client api.MarketDataGatewayClient, id string) (api.MarketDataGateway_ConnectClient, error) {
-	r := &api.ConnectRequest{SubscriberId: id}
+
+
+	r := &api.ConnectRequest{SubscriberId: id
+
+
 	stream, err := client.Connect(context.Background(), r)
 	return stream, err
 }

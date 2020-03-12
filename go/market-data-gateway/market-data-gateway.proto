@@ -6,19 +6,12 @@ import "modelcommon.proto";
 option go_package="api";
 
 
-
-message ConnectRequest {
-    string subscriberId = 1;
-}
-
 message SubscribeRequest{
-    string subscriberId = 1;
-    int32 listingId = 2;
+    int32 listingId = 1;
 }
 
 
 
 service MarketDataGateway {
-    rpc Subscribe(SubscribeRequest) returns (model.Empty) {};
-    rpc Connect(stream ConnectRequest) returns (stream model.ClobQuote) {};
+    rpc Connect(stream SubscribeRequest) returns (stream model.ClobQuote) {};
 }
