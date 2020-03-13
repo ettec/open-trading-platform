@@ -26,11 +26,8 @@ type clientConnection struct {
 }
 
 func (c *clientConnection) Close() {
-
 	c.quoteDistributor.RemoveOutQuoteChan(c.distToConflatorChan)
 	c.quoteConflator.Close()
-	close(c.out)
-
 }
 
 func (c *clientConnection) Subscribe(listingId int32) error {

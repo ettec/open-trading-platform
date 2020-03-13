@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
@@ -9,7 +8,9 @@ import (
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data-service/gatewayclient"
+	"github.com/google/uuid"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
@@ -18,7 +19,6 @@ import (
 )
 
 type service struct {
-	partyIdToConnection map[string]actor.ClientConnection
 	quoteDistributor    actor.QuoteDistributor
 	connMux             sync.Mutex
 }
@@ -44,64 +44,51 @@ func newService(id string, marketGatewayAddress string, maxReconnectInterval tim
 	}
 
 	qd := actor.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
-	s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
+	s := &service{ quoteDistributor: qd}
 
 	return s, nil
 }
 
-func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
+const SubscriberIdKey = "subscriber_id"
 
-	con, ok := s.partyIdToConnection[partyId]
-	return con, ok
-}
+func (s *service) Connect(stream api.MarketDataService_ConnectServer) error {
 
-func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) actor.ClientConnection {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
-
-	if conn, ok := s.partyIdToConnection[subscriberId]; ok {
-		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
-		conn.Close()
-		log.Print("connection closed:", subscriberId)
+	ctx, ok := metadata.FromIncomingContext(stream.Context())
+	if !ok {
+		return fmt.Errorf("failed to retrieve call context")
 	}
 
-	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
-
-	s.partyIdToConnection[subscriberId] = cc
-
-	return cc
-}
-
-func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
-
-	if conn, ok := s.getConnection(r.SubscriberId); ok {
-
-		if err := conn.Subscribe(r.ListingId); err != nil {
-			return nil, err
-		}
-
-		return &model.Empty{}, nil
-	} else {
-		return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
+	values := ctx.Get(SubscriberIdKey)
+	if len(values) != 1 {
+		return fmt.Errorf("must specify string value for %v", SubscriberIdKey)
 	}
 
-}
+	fromClientId := values[0]
+	subscriberId := fromClientId + ":" + uuid.New().String()
 
-func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataService_ConnectServer) error {
-
-	subscriberId := request.GetSubscriberId()
-
-	log.Println("connect request received for subscriber ", subscriberId)
+	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId, )
 
 	out := make(chan *model.ClobQuote, 100)
+	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
+	defer cc.Close()
 
-	s.addConnection(subscriberId, out)
+	go func() {
+		for {
+			subscription, err := stream.Recv()
+
+			if err != nil {
+				log.Printf("subscriber:%v inbound stream error:%v ", subscriberId, err)
+				break
+			} else {
+				log.Printf("subscribe request, subscriber id:%v, listing id:%v", subscriberId, subscription.ListingId)
+				cc.Subscribe(subscription.ListingId)
+			}
+		}
+	}()
 
 	for mdUpdate := range out {
 		if err := stream.Send(mdUpdate); err != nil {
-			log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
+			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
 			break
 		}
 	}
@@ -120,7 +107,7 @@ var maxSubscriptions = 10000
 
 func main() {
 
-	port := "50551"
+	port := "50561"
 	fmt.Println("Starting Market Data Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {

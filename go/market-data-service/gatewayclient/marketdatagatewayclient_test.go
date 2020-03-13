@@ -33,22 +33,23 @@ func (t testConnection) WaitForStateChange(ctx context.Context, sourceState conn
 }
 
 type testClient struct {
-	subsInChan    chan *api.SubscribeRequest
 	streamOutChan chan api.MarketDataGateway_ConnectClient
 }
 
-func (t testClient) Subscribe(ctx context.Context, in *api.SubscribeRequest, opts ...grpc.CallOption) (*model.Empty, error) {
-	t.subsInChan <- in
-	return &model.Empty{}, nil
-}
 
-func (t testClient) Connect(ctx context.Context, in *api.ConnectRequest, opts ...grpc.CallOption) (api.MarketDataGateway_ConnectClient, error) {
+func (t testClient) Connect(ctx context.Context, opts ...grpc.CallOption) (api.MarketDataGateway_ConnectClient, error) {
 	return <-t.streamOutChan, nil
 }
 
 type testClientStream struct {
 	refreshChan    chan *model.ClobQuote
 	refreshErrChan chan error
+	subscribeChan chan *api.SubscribeRequest
+}
+
+func (t testClientStream) Send( request *api.SubscribeRequest)  error {
+	t.subscribeChan <- request
+	return nil
 }
 
 func (t testClientStream) Recv() (*model.ClobQuote, error) {
@@ -155,14 +156,12 @@ func Test_marketDataGatewayClient_testReconnectAfterError(t *testing.T) {
 
 	toTest.Subscribe(1)
 
-
-
 	stream.refreshChan <- &model.ClobQuote{}
 	<-out
 
 	stream.refreshErrChan <- fmt.Errorf("testerror")
 	r := <-out
-	if r != nil {
+	if r.StreamInterrupted != true {
 		t.FailNow()
 	}
 
@@ -170,9 +169,8 @@ func Test_marketDataGatewayClient_testReconnectAfterError(t *testing.T) {
 	conn.getStateChan <- connectivity.Ready
 	client.streamOutChan <- stream
 
-	// Original subscribe and resubscribe
-	<-client.subsInChan
-	<-client.subsInChan
+
+	<-stream.subscribeChan
 
 
 
@@ -184,16 +182,13 @@ func Test_marketDataGatewayClient_resubscribedOnConnect(t *testing.T) {
 	client, stream, conn, toTest, _ := setup(t)
 
 	toTest.Subscribe(1)
-	<-client.subsInChan
+
 
 	conn.getStateChan <- connectivity.Ready
 
 	client.streamOutChan <- stream
 
-	s := <-client.subsInChan
-	if s.SubscriberId != "testId" {
-		t.FailNow()
-	}
+	s := <-stream.subscribeChan
 
 	if s.ListingId != 1 {
 		t.FailNow()
@@ -205,15 +200,17 @@ func setup(t *testing.T) (testClient, testClientStream, testConnection, *marketG
 	out := make(chan *model.ClobQuote)
 
 	client := testClient{
-		subsInChan:    make(chan *api.SubscribeRequest, 10),
+
 		streamOutChan: make(chan api.MarketDataGateway_ConnectClient),
 	}
 
 	stream := testClientStream{refreshChan: make(chan *model.ClobQuote),
-		refreshErrChan: make(chan error)}
+		refreshErrChan: make(chan error),
+		subscribeChan: make(chan *api.SubscribeRequest, 10)}
 
 	conn := testConnection{
 		getStateChan: make(chan connectivity.State),
+
 	}
 
 	c, err := NewMarketDataGatewayClient("testId", "testTarget", out,

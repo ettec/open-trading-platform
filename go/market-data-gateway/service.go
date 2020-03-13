@@ -67,25 +67,27 @@ func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
 		return fmt.Errorf("failed to retrieve call context")
 	}
 
-	vals := ctx.Get(SubscriberIdKey)
-	if len(vals) != 1 {
+	values := ctx.Get(SubscriberIdKey)
+	if len(values) != 1 {
 		return fmt.Errorf("must specify string value for %v", SubscriberIdKey)
 	}
 
-	fromClientId := vals[0]
+	fromClientId := values[0]
 	subscriberId := fromClientId + ":" + uuid.New().String()
 
-	log.Printf("connect request received for subscriber %v, unique connection id: %v", fromClientId, subscriberId, )
+	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId, )
 
 	out := make(chan *model.ClobQuote, 100)
 	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
+	defer cc.Close()
 
 	go func() {
 		for {
 			subscription, err := stream.Recv()
 
 			if err != nil {
-				log.Printf("subscriber:%v inbound stream error:%v", subscriberId, err)
+				log.Printf("subscriber:%v inbound stream error:%v ", subscriberId, err)
+				break
 			} else {
 				log.Printf("subscribe request, subscriber id:%v, listing id:%v", subscriberId, subscription.ListingId)
 				cc.Subscribe(subscription.ListingId)
@@ -95,7 +97,7 @@ func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
 
 	for mdUpdate := range out {
 		if err := stream.Send(mdUpdate); err != nil {
-			log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
+			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
 			break
 		}
 	}
