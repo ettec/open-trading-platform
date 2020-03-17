@@ -1,105 +1,118 @@
 package main
 
 import (
-	"fmt"
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
-	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
-	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/ettech/open-trading-platform/go/market-data-service/api"
-	"github.com/ettech/open-trading-platform/go/market-data-service/gatewayclient"
-	"github.com/google/uuid"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
-	"google.golang.org/grpc/reflection"
-	"log"
-	"net"
-	"sync"
-	"time"
+"context"
+"fmt"
+"github.com/ettec/open-trading-platform/go/common/bootstrap"
+"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
+mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
+"github.com/ettec/open-trading-platform/go/model"
+"github.com/ettech/open-trading-platform/go/market-data-service/api"
+"github.com/ettech/open-trading-platform/go/market-data-service/gatewayclient"
+"google.golang.org/grpc"
+"google.golang.org/grpc/reflection"
+"log"
+"net"
+"sync"
+"time"
 )
 
 type service struct {
-	quoteDistributor    actor.QuoteDistributor
-	connMux             sync.Mutex
+partyIdToConnection map[string]actor.ClientConnection
+quoteDistributor    actor.QuoteDistributor
+connMux             sync.Mutex
 }
 
 func newService(id string, marketGatewayAddress string, maxReconnectInterval time.Duration) (*service, error) {
 
-	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
+mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, gatewayclient.GrpcConnection, error) {
-		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
-		if err != nil {
-			return nil, nil, err
-		}
-
-		client := mdgapi.NewMarketDataGatewayClient(conn)
-		return client, conn, nil
-	}
-
-	mdc, err := gatewayclient.NewMarketDataGatewayClient(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
-
-	if err != nil {
-		return nil, err
-	}
-
-	qd := actor.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
-	s := &service{ quoteDistributor: qd}
-
-	return s, nil
+mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, gatewayclient.GrpcConnection, error) {
+conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
+if err != nil {
+return nil, nil, err
 }
 
-const SubscriberIdKey = "subscriber_id"
+client := mdgapi.NewMarketDataGatewayClient(conn)
+return client, conn, nil
+}
 
-func (s *service) Connect(stream api.MarketDataService_ConnectServer) error {
+mdc, err := gatewayclient.NewMarketDataGatewayClient(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
 
-	ctx, ok := metadata.FromIncomingContext(stream.Context())
-	if !ok {
-		return fmt.Errorf("failed to retrieve call context")
-	}
+if err != nil {
+return nil, err
+}
 
-	values := ctx.Get(SubscriberIdKey)
-	if len(values) != 1 {
-		return fmt.Errorf("must specify string value for %v", SubscriberIdKey)
-	}
+qd := actor.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
+s := &service{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
 
-	fromClientId := values[0]
-	subscriberId := fromClientId + ":" + uuid.New().String()
+return s, nil
+}
 
-	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId, )
+func (s *service) getConnection(partyId string) (actor.ClientConnection, bool) {
+s.connMux.Lock()
+defer s.connMux.Unlock()
 
-	out := make(chan *model.ClobQuote, 100)
-	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
-	defer cc.Close()
+con, ok := s.partyIdToConnection[partyId]
+return con, ok
+}
 
-	go func() {
-		for {
-			subscription, err := stream.Recv()
+func (s *service) addConnection(subscriberId string, out chan<- *model.ClobQuote) actor.ClientConnection {
+s.connMux.Lock()
+defer s.connMux.Unlock()
 
-			if err != nil {
-				log.Printf("subscriber:%v inbound stream error:%v ", subscriberId, err)
-				break
-			} else {
-				log.Printf("subscribe request, subscriber id:%v, listing id:%v", subscriberId, subscription.ListingId)
-				cc.Subscribe(subscription.ListingId)
-			}
-		}
-	}()
+if conn, ok := s.partyIdToConnection[subscriberId]; ok {
+log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
+conn.Close()
+log.Print("connection closed:", subscriberId)
+}
 
-	for mdUpdate := range out {
-		if err := stream.Send(mdUpdate); err != nil {
-			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
-			break
-		}
-	}
+cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
 
-	return nil
+s.partyIdToConnection[subscriberId] = cc
+
+return cc
+}
+
+func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
+
+if conn, ok := s.getConnection(r.SubscriberId); ok {
+
+if err := conn.Subscribe(r.ListingId); err != nil {
+return nil, err
+}
+
+return &model.Empty{}, nil
+} else {
+return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
+}
+
+}
+
+func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataService_ConnectServer) error {
+
+subscriberId := request.GetSubscriberId()
+
+log.Println("connect request received for subscriber ", subscriberId)
+
+out := make(chan *model.ClobQuote, 100)
+
+s.addConnection(subscriberId, out)
+
+for mdUpdate := range out {
+if err := stream.Send(mdUpdate); err != nil {
+log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
+break
+}
+}
+
+return nil
 }
 
 const (
-	ServiceIdKey   = "SERVICE_ID"
-	GatewayAddress = "GATEWAY_ADDRESS"
-	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
+ServiceIdKey   = "SERVICE_ID"
+GatewayAddress = "GATEWAY_ADDRESS"
+ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
 
 )
 
@@ -107,31 +120,31 @@ var maxSubscriptions = 10000
 
 func main() {
 
-	port := "50561"
-	fmt.Println("Starting Market Data Service on port:" + port)
-	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
-	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
-	}
+port := "50551"
+fmt.Println("Starting Market Data Service on port:" + port)
+lis, err := net.Listen("tcp", "0.0.0.0:"+port)
+if err != nil {
+log.Fatalf("Error while listening : %v", err)
+}
 
-	id := bootstrap.GetEnvVar(ServiceIdKey)
+id := bootstrap.GetEnvVar(ServiceIdKey)
 
-	fixSimAddress:= bootstrap.GetEnvVar(GatewayAddress)
+fixSimAddress:= bootstrap.GetEnvVar(GatewayAddress)
 
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60 )
+connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60 )
 
-	s := grpc.NewServer()
-	mdcService, err := newService(id, fixSimAddress, time.Duration(connectRetrySecs)*time.Second)
-	if err != nil {
-		log.Panicf("failed to create market data service:%v", err)
-	}
+s := grpc.NewServer()
+mdcService, err := newService(id, fixSimAddress, time.Duration(connectRetrySecs)*time.Second)
+if err != nil {
+log.Panicf("failed to create market data service:%v", err)
+}
 
-	api.RegisterMarketDataServiceServer(s, mdcService)
+api.RegisterMarketDataServiceServer(s, mdcService)
 
-	reflection.Register(s)
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
-	}
+reflection.Register(s)
+if err := s.Serve(lis); err != nil {
+log.Fatalf("Error while serving : %v", err)
+}
 
 }
 

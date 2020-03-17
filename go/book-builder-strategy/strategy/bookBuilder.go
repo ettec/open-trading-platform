@@ -113,13 +113,16 @@ func (b *BookBuilder) Start() error {
 				if firstQuote && !lastQuote.StreamInterrupted{
 					firstQuote = false
 
-					b.log.Println("first quote received")
+					b.log.Println("first quote received", firstQuote)
 
 					b.clearBook(q)
 					b.sendOrdersForLines(b.initialDepth.Bids, orderentryapi.Side_BUY)
 					b.sendOrdersForLines(b.initialDepth.Asks, orderentryapi.Side_SELL)
 				}
 			case <-ticker.C:
+
+				b.log.Printf("tick, last quote:%v", firstQuote)
+
 				if lastQuote != nil && !lastQuote.StreamInterrupted {
 
 					b.updateBookSide(orderentryapi.Side_BUY, bidsQty, b.initialDepth.Bids,

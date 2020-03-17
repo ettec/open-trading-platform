@@ -2,17 +2,15 @@ package com.ettech.fixmarketsimulator.marketdataserver;
 
 import com.ettech.fixmarketsimulator.exchange.Exchange;
 import com.ettech.fixmarketsimulator.marketdataserver.api.FixSimMarketDataServiceGrpc;
-import com.ettech.fixmarketsimulator.marketdataserver.api.Marketdataserver;
 import com.google.inject.Inject;
-import com.google.protobuf.Empty;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.ServerInterceptors;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import io.grpc.stub.StreamObserver;
 import org.fixprotocol.components.MarketData;
 
 import java.io.IOException;
-import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -34,7 +32,9 @@ public class MarketDataService {
         /* The port on which the server should run */
         int port = 50051;
         server = ServerBuilder.forPort(port)
-                .addService(new MarketDataServiceImpl(this.exchange))
+
+                .addService(ServerInterceptors.intercept(new MarketDataServiceImpl(this.exchange),
+                        new MdAuthInterceptor()))
                 .addService(ProtoReflectionService.newInstance())
                 .build()
                 .start();
@@ -71,8 +71,6 @@ public class MarketDataService {
 
     static class MarketDataServiceImpl extends FixSimMarketDataServiceGrpc.FixSimMarketDataServiceImplBase {
 
-
-        Map<String, Connection>  partyIdToConnection = new HashMap<>();
         Exchange exchange;
 
         MarketDataServiceImpl(Exchange exchange) {
@@ -80,65 +78,39 @@ public class MarketDataService {
         }
 
         @Override
-        public void subscribe(MarketData.MarketDataRequest request, StreamObserver<Empty> responseObserver) {
+        public io.grpc.stub.StreamObserver<org.fixprotocol.components.MarketData.MarketDataRequest> connect(
+                io.grpc.stub.StreamObserver<org.fixprotocol.components.MarketData.MarketDataIncrementalRefresh> responseObserver) {
 
-            logger.info("subscription request:" + request);
+            String subscriberId = MdAuthInterceptor.SUBSCRIBER_ID.get();
 
-            try {
-                if (request.getPartiesCount() != 1) {
-                    responseObserver.onError(new IllegalArgumentException("request must specify exactly one party"));
-                    return;
-                }
+            logger.info("market data server connect request received for:" + subscriberId);
 
-                var parties = request.getParties(0);
-                String partyId = parties.getPartyId();
-                synchronized ( partyIdToConnection ) {
-                    var connection = partyIdToConnection.get(partyId);
-                    if( connection == null ) {
-                        responseObserver.onError(new IllegalArgumentException("must connect before attempting to subscribe"));
-                        return;
-                    }
+            var connection = new Connection(exchange, responseObserver, subscriberId);
+
+
+            StreamObserver<MarketData.MarketDataRequest> so = new StreamObserver<MarketData.MarketDataRequest>() {
+                @Override
+                public void onNext(MarketData.MarketDataRequest request) {
+                    logger.info(subscriberId + " subscription request:" + request);
                     connection.subscribe(request);
                 }
 
-
-
-
-            } catch (Exception e) {
-                responseObserver.onError(new IllegalArgumentException(e));
-            }
-
-            responseObserver.onNext(Empty.newBuilder().build());
-            responseObserver.onCompleted();
-
-        }
-
-        @Override
-        public void connect(Marketdataserver.Party request, StreamObserver<MarketData.MarketDataIncrementalRefresh> responseObserver) {
-
-            logger.info("market data server connect request received for:" + request);
-
-
-            synchronized ( partyIdToConnection ) {
-                var partyId = request.getPartyId();
-                var connection = partyIdToConnection.get(partyId);
-
-                if( connection != null) {
-                    try {
-                        connection.close();
-                    } catch(Exception e) {
-                        logger.info("exception when closing connection:" + e);
-                    }
+                @Override
+                public void onError(Throwable t) {
+                    connection.close();
+                    logger.severe(subscriberId + " connection error:" + t);
                 }
 
+                @Override
+                public void onCompleted() {
+                    connection.close();
+                    logger.info(subscriberId + " connection completed");
+                }
+            };
 
-                connection = new Connection(exchange, responseObserver, partyId);
-                partyIdToConnection.put(partyId, connection);
-
-            }
+            return so;
         }
     }
-
 
 
 }

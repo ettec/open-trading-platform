@@ -6,11 +6,6 @@ import "google/protobuf/empty.proto";
 option java_package = "com.ettech.fixmarketsimulator.marketdataserver.api";
 
 
-message Party {
-    string partyId = 1;
+service FixSimMarketDataService {
+    rpc Connect(stream MarketData.MarketDataRequest) returns (stream MarketData.MarketDataIncrementalRefresh) {};
 }
-
-service FixSimMarketDataService{
-    rpc Subscribe(MarketData.MarketDataRequest) returns (google.protobuf.Empty) {};
-    rpc Connect(Party) returns (stream MarketData.MarketDataIncrementalRefresh) {};
-} 

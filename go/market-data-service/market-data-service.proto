@@ -6,11 +6,18 @@ import "clobquote.proto";
 option go_package="api";
 
 
+message MdsConnectRequest {
+    string subscriberId = 1;
+    int32 maxQuotePerSecond = 2;
+}
+
 message MdsSubscribeRequest{
-    int32 listingId = 1;
+    string subscriberId = 1;
+    int32 listingId = 2;
 }
 
 
 service MarketDataService {
-    rpc Connect(stream MdsSubscribeRequest) returns (stream model.ClobQuote) {};
+    rpc Subscribe(MdsSubscribeRequest) returns (model.Empty) {};
+    rpc Connect(MdsConnectRequest) returns (stream model.ClobQuote) {};
 }

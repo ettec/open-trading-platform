@@ -38,6 +38,8 @@ const (
 	SymbolsToRun             = "SYMBOLS_TO_RUN"
 )
 
+
+
 func main() {
 
 	port := "50571"

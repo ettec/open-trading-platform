@@ -334,7 +334,8 @@ proto.model.ClobQuote.toObject = function(includeInstance, msg) {
     bidsList: jspb.Message.toObjectList(msg.getBidsList(),
     proto.model.ClobLine.toObject, includeInstance),
     offersList: jspb.Message.toObjectList(msg.getOffersList(),
-    proto.model.ClobLine.toObject, includeInstance)
+    proto.model.ClobLine.toObject, includeInstance),
+    streaminterrupted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -384,6 +385,10 @@ proto.model.ClobQuote.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.model.ClobLine;
       reader.readMessage(value,proto.model.ClobLine.deserializeBinaryFromReader);
       msg.addOffers(value);
+      break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setStreaminterrupted(value);
       break;
     default:
       reader.skipField();
@@ -435,6 +440,13 @@ proto.model.ClobQuote.serializeBinaryToWriter = function(message, writer) {
       3,
       f,
       proto.model.ClobLine.serializeBinaryToWriter
+    );
+  }
+  f = message.getStreaminterrupted();
+  if (f) {
+    writer.writeBool(
+      4,
+      f
     );
   }
 };
@@ -531,6 +543,24 @@ proto.model.ClobQuote.prototype.addOffers = function(opt_value, opt_index) {
  */
 proto.model.ClobQuote.prototype.clearOffersList = function() {
   return this.setOffersList([]);
+};
+
+
+/**
+ * optional bool streamInterrupted = 4;
+ * @return {boolean}
+ */
+proto.model.ClobQuote.prototype.getStreaminterrupted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.model.ClobQuote} returns this
+ */
+proto.model.ClobQuote.prototype.setStreaminterrupted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
