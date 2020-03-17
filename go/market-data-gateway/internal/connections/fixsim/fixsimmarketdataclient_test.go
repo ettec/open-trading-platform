@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
-	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/metadata"
@@ -33,22 +32,20 @@ func (t testConnection) WaitForStateChange(ctx context.Context, sourceState conn
 }
 
 type testClient struct {
-	subsInChan    chan *marketdata.MarketDataRequest
+
 	streamOutChan chan FixSimMarketDataService_ConnectClient
 }
 
-func (t testClient) Subscribe(ctx context.Context, in *marketdata.MarketDataRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
-	t.subsInChan <- in
-	return &empty.Empty{}, nil
-}
 
-func (t testClient) Connect(ctx context.Context, in *Party, opts ...grpc.CallOption) (FixSimMarketDataService_ConnectClient, error) {
+
+func (t testClient) Connect(ctx context.Context, opts ...grpc.CallOption) (FixSimMarketDataService_ConnectClient, error) {
 	return <-t.streamOutChan, nil
 }
 
 type testClientStream struct {
 	refreshChan    chan *marketdata.MarketDataIncrementalRefresh
 	refreshErrChan chan error
+	subsInChan    chan *marketdata.MarketDataRequest
 }
 
 func (t testClientStream) Recv() (*marketdata.MarketDataIncrementalRefresh, error) {
@@ -60,6 +57,11 @@ func (t testClientStream) Recv() (*marketdata.MarketDataIncrementalRefresh, erro
 	}
 
 	return <-t.refreshChan, nil
+}
+
+func (t testClientStream) Send(m *marketdata.MarketDataRequest) error {
+	 t.subsInChan <- m
+	return nil
 }
 
 func (t testClientStream) Header() (metadata.MD, error) {
@@ -144,8 +146,8 @@ func Test_fixSimMarketDataClient_testReconnectAfterError(t *testing.T) {
 	client.streamOutChan <- stream
 
 	// Original subscribe and resubscribe
-	<-client.subsInChan
-	<-client.subsInChan
+	<-stream.subsInChan
+	<-stream.subsInChan
 
 
 
@@ -157,13 +159,12 @@ func Test_fixSimMarketDataClient_resubscribedOnConnect(t *testing.T) {
 	client, stream, conn, toTest, _ := setup(t)
 
 	toTest.subscribe("A")
-	<-client.subsInChan
-
+	
 	conn.getStateChan <- connectivity.Ready
 
 	client.streamOutChan <- stream
 
-	s := <-client.subsInChan
+	s := <-stream.subsInChan
 	if s.Parties[0].PartyId != "testId" {
 		t.FailNow()
 	}
@@ -178,12 +179,15 @@ func setup(t *testing.T) (testClient, testClientStream, testConnection, *fixSimM
 	out := make(chan *marketdata.MarketDataIncrementalRefresh)
 
 	client := testClient{
-		subsInChan:    make(chan *marketdata.MarketDataRequest, 10),
+
 		streamOutChan: make(chan FixSimMarketDataService_ConnectClient),
+
 	}
 
 	stream := testClientStream{refreshChan: make(chan *marketdata.MarketDataIncrementalRefresh),
-		refreshErrChan: make(chan error)}
+		refreshErrChan: make(chan error),
+		subsInChan: make(chan *marketdata.MarketDataRequest),
+	}
 
 	conn := testConnection{
 		getStateChan: make(chan connectivity.State),

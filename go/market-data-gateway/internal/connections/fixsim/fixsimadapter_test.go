@@ -126,6 +126,10 @@ func setupTestClient() (*testMarketDataClient,  chan *model.ClobQuote, *fixSimAd
 	n, _ := NewFixSimAdapter(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
 		return tmd, nil
 	}, "testName", toLookupFunc(listingIdToSym), out)
+
+	n.listingInChan = make(chan *model.Listing)
+
+
 	return tmd,  out, n
 }
 
