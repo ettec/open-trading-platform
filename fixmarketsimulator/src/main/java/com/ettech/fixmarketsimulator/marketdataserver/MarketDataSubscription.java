@@ -128,9 +128,6 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
 
     var refresh = incRefresh.build();
 
-    this.log.info("SENDING INC REFRESH:" + refresh);
-
-
     connection.send(refresh);
   }
 

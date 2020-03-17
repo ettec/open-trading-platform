@@ -181,7 +181,7 @@ public class OrderBookImpl implements OrderBook {
   @Override
   public synchronized String addOrder(Side side, int qty, BigDecimal price, String clOrderId) {
 
-    log.info("Add Order  symbol:{} qty:{} price:{} side:{} clOrderId:{}", this.instrument, qty, price, side, clOrderId);
+    log.debug("Add Order  symbol:{} qty:{} price:{} side:{} clOrderId:{}", this.instrument, qty, price, side, clOrderId);
 
 
 

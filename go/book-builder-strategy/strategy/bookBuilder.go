@@ -121,7 +121,6 @@ func (b *BookBuilder) Start() error {
 				}
 			case <-ticker.C:
 
-				b.log.Printf("tick, last quote:%v", firstQuote)
 
 				if lastQuote != nil && !lastQuote.StreamInterrupted {
 
@@ -195,8 +194,6 @@ func (b *BookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty fl
 }
 
 func (b *BookBuilder) sendOrder(params *orderentryapi.NewOrderParams) {
-	b.log.Printf("sending order:%v", params)
-
 	b.orderEntryService.SubmitNewOrder(context.Background(), params)
 }
 
