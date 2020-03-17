@@ -159,7 +159,7 @@ func Test_fixSimMarketDataClient_resubscribedOnConnect(t *testing.T) {
 	client, stream, conn, toTest, _ := setup(t)
 
 	toTest.subscribe("A")
-	
+
 	conn.getStateChan <- connectivity.Ready
 
 	client.streamOutChan <- stream
