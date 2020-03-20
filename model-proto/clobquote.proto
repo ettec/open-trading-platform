@@ -17,6 +17,7 @@ message ClobQuote {
     repeated ClobLine bids = 2;
     repeated ClobLine offers = 3; 
     bool streamInterrupted = 4;
+    string streamStatusMsg = 5;
 }
 
 

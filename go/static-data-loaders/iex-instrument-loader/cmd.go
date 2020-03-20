@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"open-trading-platform/instrument-loader/common"
 	"strings"
 	"time"
 )
@@ -22,11 +21,10 @@ type iexInstrument struct {
 }
 
 type listing struct {
-	marketId int32
+	marketId     int32
 	instrumentId int
 	marketSymbol string
 }
-
 
 func main() {
 
@@ -72,21 +70,10 @@ func main() {
 
 	db.Exec(`set search_path="referencedata"`)
 
-	sql := "select id from markets where mic = $1"
-	r := db.QueryRow(sql, "IEXG")
-	common.Check(err)
-
-	var iexMarketId int32
-	err = r.Scan(&iexMarketId)
-	common.Check(err)
-
-
-	listings := make([]listing,0)
-
 	for _, iexInst := range iexInstruments {
 
 		sourceMap := make(map[string]iexInstrument)
-		sourceMap["IEX"]=iexInst
+		sourceMap["IEX"] = iexInst
 
 		bytes, err := json.Marshal(sourceMap)
 		if err != nil {
@@ -94,41 +81,13 @@ func main() {
 		}
 
 		json := string(bytes)
-		json = strings.Replace(json, "'", "''", -1);
+		json = strings.Replace(json, "'", "''", -1)
 
 		sql := "INSERT INTO instruments (name, display_symbol, enabled, raw_sources) VALUES ($1, $2, $3, $4) RETURNING id"
 
 		lastInsertId := 0
 		err = db.QueryRow(sql, iexInst.Name, iexInst.Symbol, iexInst.IsEnabled, json).Scan(&lastInsertId)
 
-		if err != nil  {
-			log.Printf("Error: Failed to insert instrument %v   error:%v  row sql:%v", iexInst.Name, err, sql)
-		} else {
-
-			listings = append( listings, listing{
-				marketId:     iexMarketId,
-				instrumentId: lastInsertId,
-				marketSymbol: iexInst.Symbol,
-			})
-
-		}
-
-
 	}
-
-	for _, listing := range listings {
-
-		sql := "INSERT INTO listings (instrument_id, market_id, market_symbol) VALUES ($1, $2, $3) RETURNING id"
-
-		_, err= db.Exec(sql, listing.instrumentId, listing.marketId, listing.marketSymbol )
-
-		if err != nil  {
-			log.Printf("Error: Failed to insert row error instid:%v marketid:%v  err: %v row sql:%v", listing.instrumentId, listing.marketId, err, sql)
-		}
-
-	}
-
-
-
 
 }

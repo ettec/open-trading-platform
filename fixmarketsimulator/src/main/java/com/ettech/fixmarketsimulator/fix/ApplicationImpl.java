@@ -87,23 +87,30 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
 
         for (Trade trade : trades) {
 
-            ExecutionReport executionReport = new ExecutionReport(new OrderID(trade.getOrderId()),
-                    new ExecID(trade.getTradeId()),
-                    new ExecType(ExecType.TRADE),
-                    new OrdStatus(trade.getLeavesQty() > 0 ? OrdStatus.PARTIALLY_FILLED : OrdStatus.FILLED),
-                    new Side(trade.getOrderSide() == com.ettech.fixmarketsimulator.exchange.Side.Buy ? Side.BUY : Side.SELL),
-                    new LeavesQty(trade.getLeavesQty()),
-                    new CumQty(trade.getCumQty()));
+            if( clOrderIdToSession.containsKey(trade.getClOrderId())) {
 
-            executionReport.set(new ClOrdID(trade.getClOrderId()));
-            executionReport.set(new LastQty(trade.getQuantity()));
-            executionReport.set(new LastPx(trade.getPrice().doubleValue()));
+                ExecutionReport executionReport = new ExecutionReport(new OrderID(trade.getOrderId()),
+                        new ExecID(trade.getTradeId()),
+                        new ExecType(ExecType.TRADE),
+                        new OrdStatus(trade.getLeavesQty() > 0 ? OrdStatus.PARTIALLY_FILLED : OrdStatus.FILLED),
+                        new Side(trade.getOrderSide() == com.ettech.fixmarketsimulator.exchange.Side.Buy ? Side.BUY : Side.SELL),
+                        new LeavesQty(trade.getLeavesQty()),
+                        new CumQty(trade.getCumQty()));
 
-            try {
-                Session.sendToTarget(executionReport, clOrderIdToSession.get(trade.getClOrderId()));
-            } catch (SessionNotFound e) {
-                log.error("Unable to send trade for client order id {} as the session is not found", trade.getClOrderId());
+                executionReport.set(new ClOrdID(trade.getClOrderId()));
+                executionReport.set(new LastQty(trade.getQuantity()));
+                executionReport.set(new LastPx(trade.getPrice().doubleValue()));
+
+                try {
+                    Session.sendToTarget(executionReport, clOrderIdToSession.get(trade.getClOrderId()));
+                } catch (SessionNotFound e) {
+                    log.error("Unable to send trade for client order id {} as the session is not found", trade.getClOrderId());
+                }
+
             }
+
+
+
         }
 
     }

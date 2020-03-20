@@ -45,7 +45,6 @@ public class MarketDataSubscription implements Closeable, MdEntryListener {
 
     var incRefresh = incRefreshBuilder.build();
     connection.send(incRefresh);
-    log.info("Sent incremental refresh" + incRefresh);
   }
 
   private MarketData.MDIncGrp getMdEntryFromOrder(OrderBook book, Order order, MarketData.MDUpdateActionEnum updateType, Side side) {

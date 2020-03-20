@@ -7,27 +7,24 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"open-trading-platform/instrument-loader/common"
 	"strings"
 )
 
-
-
-
-
 type market struct {
 	countryCode string
-	name string
-	mic string
+	name        string
+	mic         string
 }
-
 
 func main() {
 
 	markets := make([]market, 0)
-	
+
 	data, err := ioutil.ReadFile("./resources/IISO10383_MIC.csv")
-	common.Check(err)
+	if err != nil {
+		log.Fatalf("failed to read markets file:%v", err)
+	}
+
 	csvString := string(data)
 	r := csv.NewReader(strings.NewReader(csvString))
 
@@ -36,18 +33,17 @@ func main() {
 		if err == io.EOF {
 			break
 		}
-		common.Check(err)
+		log.Fatalf("error whilst reading file:%v", err)
 
-		name := record[5]
-
-		// Exclude submarkets of parent market
-		if !strings.Contains(name, "-") {
-			markets = append(markets, market{
-				countryCode: record[1],
-				name:        record[5],
-				mic:         record[3],
-			})
+		market := market{
+			countryCode: record[1],
+			name:        record[5],
+			mic:         record[2],
 		}
+
+		market.name = strings.ReplaceAll(market.name, "'", "")
+
+		markets = append(markets, market)
 
 	}
 
@@ -68,11 +64,10 @@ func main() {
 
 	for _, market := range markets {
 
-
-		sql := "INSERT INTO markets (mic, name, country_code ) VALUES ('" + market.mic +"','" + market.name + "','" + market.countryCode+"')"
+		sql := "INSERT INTO markets (mic, name, country_code ) VALUES ('" + market.mic + "','" + market.name + "','" + market.countryCode + "')"
 
 		_, err := db.Exec(sql)
-		if err != nil  {
+		if err != nil {
 			log.Printf("Error: Failed to insert row error:%v  row sql:%v", err, sql)
 		}
 

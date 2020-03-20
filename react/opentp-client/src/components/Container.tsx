@@ -20,11 +20,11 @@ export default class Container extends React.Component {
             "type": "row",
             "weight": 100,
             "children": [
-                
+
                 {
                     "type": "row",
                     "weight": 50,
-                    "children": [ 
+                    "children": [
                         {
 
 
@@ -37,7 +37,7 @@ export default class Container extends React.Component {
                                     "weight": 50,
                                     "name": "Instrument Watch",
                                     "component": "instrument-watch",
-                                 
+
                                 }
 
                             ]
@@ -105,14 +105,14 @@ export default class Container extends React.Component {
 
     state: Model;
     factory: (node: TabNode) => React.ReactNode;
-    readonly configKey : string = "open-oms-config"; 
-    
-    quoteService : QuoteService
+    readonly configKey: string = "open-oms-config";
+
+    quoteService: QuoteService
     listingService: ListingService
-    listingContext : ListingContext
-    orderContext : OrderContext
-    ticketController : TicketController
-    
+    listingContext: ListingContext
+    orderContext: OrderContext
+    ticketController: TicketController
+
 
 
     constructor() {
@@ -124,20 +124,20 @@ export default class Container extends React.Component {
         this.orderContext = new OrderContext()
         this.ticketController = new TicketController()
 
-        let layoutString : string | null= localStorage.getItem(this.configKey);
+        let layoutString: string | null = localStorage.getItem(this.configKey);
 
-        let layoutJson : {}
-        if( layoutString ) {
-             layoutJson =  JSON.parse(layoutString) ;
+        let layoutJson: {}
+        if (layoutString) {
+            layoutJson = JSON.parse(layoutString);
         } else {
-             layoutJson = this.defaultJson;
+            layoutJson = this.defaultJson;
         }
 
         this.state = FlexLayout.Model.fromJson(layoutJson);
 
         this.factory = (node: TabNode) => {
             var component = node.getComponent();
-            
+
             if (component === "order-blotter") {
                 return <OrderBlotter listingService={this.listingService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
@@ -145,10 +145,10 @@ export default class Container extends React.Component {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if (component === "instrument-watch") {
-                return<InstrumentListingWatch  listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
+                return <InstrumentListingWatch listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
-            if(component === "nav-bar") {
-                return <Navbar/>;
+            if (component === "nav-bar") {
+                return <Navbar />;
             }
         }
 
@@ -162,9 +162,9 @@ export default class Container extends React.Component {
     }
 
 
-    public render() { 
+    public render() {
 
-       
+
 
         let contents: React.ReactNode = "loading ...";
         if (this.state !== null) {
@@ -172,46 +172,46 @@ export default class Container extends React.Component {
                 ref="layout"
                 model={this.state}
                 factory={this.factory}
-                />;
+            />;
         }
 
 
         return (<div className="app" >
-            
-        <div className="toolbar" >
-        <Navbar className="bp3-dark">
-            <Navbar.Group align={Alignment.LEFT}>
-                <Navbar.Heading>Open Trading Platform</Navbar.Heading>
-                <Navbar.Divider />
-                <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave}/>
-            </Navbar.Group>
-        </Navbar>
-        </div>
-        <div>
-            <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
-        </div>
 
-        <div className="contents">
-        {contents}
-        </div>
-    </div>);
+            <div className="toolbar" >
+                <Navbar className="bp3-dark">
+                    <Navbar.Group align={Alignment.LEFT}>
+                        <Navbar.Heading>Open Trading Platform</Navbar.Heading>
+                        <Navbar.Divider />
+                        <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave} />
+                    </Navbar.Group>
+                </Navbar>
+            </div>
+            <div>
+                <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
+            </div>
+
+            <div className="contents">
+                {contents}
+            </div>
+        </div>);
 
 
-    } 
+    }
 
 }
 
 
 export class TicketController {
 
-    private orderTicket? : OrderTicket;
+    private orderTicket?: OrderTicket;
 
-    setOrderTicket(orderTicket : OrderTicket) {
+    setOrderTicket(orderTicket: OrderTicket) {
         this.orderTicket = orderTicket
     }
 
-    openTicket( side : Side, listing: Listing) {
-        if( this.orderTicket ) {
+    openTicket(side: Side, listing: Listing) {
+        if (this.orderTicket) {
             this.orderTicket.openTicket(side, listing)
         }
     }
@@ -220,20 +220,22 @@ export class TicketController {
 
 export class ListingContext {
 
-    selectedListing? : Listing
-    private listeners : Array<(listing: Listing) => void>
-    
+    selectedListing?: Listing
+
+    private listeners: Array<(listing: Listing) => void>
+
     constructor() {
         this.listeners = new Array<(listing: Listing) => void>()
+
     }
 
-    setSelectedListing( listing : Listing) {
+    setSelectedListing(listing: Listing) {
         this.selectedListing = listing
-        this.listeners.forEach(l=>l(listing))
+        this.listeners.forEach(l => l(listing))
     }
 
     addListener(listener: (listing: Listing) => void) {
-        if( this.selectedListing ) {
+        if (this.selectedListing) {
             listener(this.selectedListing)
         }
 
@@ -244,20 +246,20 @@ export class ListingContext {
 
 export class OrderContext {
 
-    selectedOrder? : Order
-    private listeners : Array<(order: Order) => void>
-    
+    selectedOrder?: Order
+    private listeners: Array<(order: Order) => void>
+
     constructor() {
         this.listeners = new Array<(order: Order) => void>()
     }
 
-    setSelectedOrder( order : Order) {
+    setSelectedOrder(order: Order) {
         this.selectedOrder = order
-        this.listeners.forEach(l=>l(order))
+        this.listeners.forEach(l => l(order))
     }
 
     addListener(listener: (order: Order) => void) {
-        if( this.selectedOrder ) {
+        if (this.selectedOrder) {
             listener(this.selectedOrder)
         }
         this.listeners.push(listener)

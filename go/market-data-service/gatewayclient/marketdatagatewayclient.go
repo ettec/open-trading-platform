@@ -79,6 +79,7 @@ func NewMarketDataGatewayClient(id string, targetAddress string, out chan<- *mod
 								Bids:              []*model.ClobLine{},
 								Offers:            []*model.ClobLine{},
 								StreamInterrupted: true,
+								StreamStatusMsg: "market data gateway client stream interrupted",
 							}
 						}
 					}

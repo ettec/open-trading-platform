@@ -45,6 +45,8 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
   watchMap: Map<number, ListingWatch> = new Map()
 
+  selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
+
   constructor(props: InstrumentListingWatchProps) {
     super(props);
 
@@ -55,15 +57,15 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     this.addListing = this.addListing.bind(this);
 
 
-    let columns = [<Column id="id" name="Id" cellRenderer={this.renderId} />,
-    <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
-    <Column id="name" name="Name" cellRenderer={this.renderName} />,
-    <Column id="mic" name="Mic" cellRenderer={this.renderMic} />,
-    <Column id="country" name="Country" cellRenderer={this.renderCountry} />,
-    <Column id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
-    <Column id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
-    <Column id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
-    <Column id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]  
+    let columns = [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
+    <Column key="symbol" id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
+    <Column key="name" id="name" name="Name" cellRenderer={this.renderName} />,
+    <Column key="mic" id="mic" name="Mic" cellRenderer={this.renderMic} />,
+    <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
+    <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+    <Column key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+    <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
+    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]
 
     let config = this.props.node.getConfig()
 
@@ -76,7 +78,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
       let persistentConfig: PersistentConfig = {
         columnWidths: this.state.columnWidths,
         columnOrder: colOrderIds,
-        listingIds: Array.from(this.state.watches.map(l => l.listingId)) 
+        listingIds: Array.from(this.state.watches.map(l => l.listingId))
       }
 
 
@@ -102,6 +104,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     this.listingContext = props.listingContext
     this.openBuyDialog = this.openBuyDialog.bind(this);
     this.openSellDialog = this.openSellDialog.bind(this);
+    this.removeListings = this.removeListings.bind(this);
   }
 
   addListing(listing?: Listing) {
@@ -130,14 +133,14 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     let id = new ListingId()
     id.setListingid(listingId)
 
-    this.listingService.GetListing(listingId, (listing: Listing)=> {
+    this.listingService.GetListing(listingId, (listing: Listing) => {
       line.listing = listing
 
       this.setState({
         watches: Object.assign([], this.state.watches)
       })
     })
-  
+
     this.watchMap.set(listingId, line);
     this.quoteService.SubscribeToQuote(listingId, this)
 
@@ -205,15 +208,19 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     this.setState(blotterState)
   }
 
-  private renderId = (row: number) => <Cell>{this.state.watches[row].Id()}</Cell>;
-  private renderSymbol = (row: number) => <Cell>{this.state.watches[row].Symbol()}</Cell>;
-  private renderName = (row: number) => <Cell>{this.state.watches[row].Name()}</Cell>;
-  private renderMic = (row: number) => <Cell>{this.state.watches[row].Mic()}</Cell>;
-  private renderCountry = (row: number) => <Cell>{this.state.watches[row].Country()}</Cell>;
-  private renderBidSize = (row: number) => <Cell>{this.state.watches[row].BidSize()}</Cell>;
-  private renderBidPrice = (row: number) => <Cell>{this.state.watches[row].BidPrice()}</Cell>;
-  private renderAskPrice = (row: number) => <Cell>{this.state.watches[row].AskPrice()}</Cell>;
-  private renderAskSize = (row: number) => <Cell>{this.state.watches[row].AskSize()}</Cell>;
+
+
+ 
+
+  private renderId = (row: number) => <Cell>{this.state.watches[row]?.Id()}</Cell>;
+  private renderSymbol = (row: number) => <Cell>{this.state.watches[row]?.Symbol()}</Cell>;
+  private renderName = (row: number) => <Cell>{this.state.watches[row]?.Name()}</Cell>;
+  private renderMic = (row: number) => <Cell>{this.state.watches[row]?.Mic()}</Cell>;
+  private renderCountry = (row: number) => <Cell>{this.state.watches[row]?.Country()}</Cell>;
+  private renderBidSize = (row: number) => <Cell>{this.state.watches[row]?.BidSize()}</Cell>;
+  private renderBidPrice = (row: number) => <Cell>{this.state.watches[row]?.BidPrice()}</Cell>;
+  private renderAskPrice = (row: number) => <Cell>{this.state.watches[row]?.AskPrice()}</Cell>;
+  private renderAskSize = (row: number) => <Cell>{this.state.watches[row]?.AskSize()}</Cell>;
 
   renderContextMenu = () => {
     return (
@@ -226,10 +233,40 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
         <MenuItem onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
           Sell
          </MenuItem>
+        <MenuItem onClick={this.removeListings} disabled={this.listingContext.selectedListing === undefined}>
+          Remove Listings
+         </MenuItem>
       </Menu>
 
     );
   };
+
+  private removeListings(e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) {
+
+    for (let watch of this.selectedWatches.values()) {
+      this.watchMap.delete(watch.listingId)
+      this.quoteService.UnsubscribeFromQuote(watch.listingId, this)
+    }
+
+    let newWatches = Array<ListingWatch>()
+
+    for( let watch of this.state.watches ) {
+      if( this.watchMap.has(watch.listingId)) {
+        newWatches.push(watch)
+      }
+    }
+
+    let blotterState = {
+      ...this.state, ...{
+        watches: newWatches
+      }
+    }
+
+    console.log("removed watches")
+
+    this.setState(blotterState)
+  }
+
 
   private openBuyDialog(e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) {
 
@@ -246,7 +283,9 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
   }
 
   private onSelection = (selectedRegions: IRegion[]) => {
-    let selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
+
+
+    this.selectedWatches.clear()
 
     for (let region of selectedRegions) {
 
@@ -263,7 +302,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
       for (let i = firstRowIdx; i <= lastRowIdx; i++) {
         let watch = this.state.watches[i]
-        selectedWatches.set(watch.Id(), watch)
+        this.selectedWatches.set(watch.Id(), watch)
 
         if (i === firstRowIdx) {
           if (watch.listing) {

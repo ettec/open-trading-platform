@@ -41,10 +41,10 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     this.quoteService = props.quoteService
 
-    let columns = [<Column id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
-    <Column id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
-    <Column id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
-    <Column id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]  
+    let columns = [<Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+    <Column  key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+    <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
+    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]  
 
     let config = this.props.node.getConfig()
 

@@ -100,6 +100,7 @@ func (n *fixSimAdapter) readInputChannel() error {
 			for id, _ := range n.idToQuote {
 				emptyQuote := newClobQuote(id)
 				emptyQuote.StreamInterrupted = true
+				emptyQuote.StreamStatusMsg = "fix sim adapter stream interrupted"
 				n.idToQuote[id] = emptyQuote
 				n.out <- emptyQuote
 			}

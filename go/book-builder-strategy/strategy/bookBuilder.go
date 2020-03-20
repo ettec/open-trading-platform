@@ -105,20 +105,45 @@ func (b *BookBuilder) Start() error {
 
 		var lastQuote *model.ClobQuote
 
+
+
+
 	loop:
 		for {
 			select {
 			case q := <-quotesIn:
+
+				if lastQuote == nil {
+					if  q.StreamInterrupted {
+						b.log.Println("first received quote is interrupted: " + q.StreamStatusMsg)
+					} else {
+						b.log.Println("quote stream established")
+					}
+				} else {
+					if lastQuote.StreamInterrupted  && !q.StreamInterrupted {
+						b.log.Println("quote stream re-established")
+					}
+
+					if q.StreamInterrupted && !lastQuote.StreamInterrupted {
+						b.log.Println("quote stream interrupted: " + q.StreamStatusMsg)
+					}
+
+				}
+
+
 				lastQuote = q
 				if firstQuote && !lastQuote.StreamInterrupted{
 					firstQuote = false
 
-					b.log.Println("first quote received", firstQuote)
+					b.log.Println("first quote received", lastQuote)
 
 					b.clearBook(q)
 					b.sendOrdersForLines(b.initialDepth.Bids, orderentryapi.Side_BUY)
 					b.sendOrdersForLines(b.initialDepth.Asks, orderentryapi.Side_SELL)
 				}
+
+
+
 			case <-ticker.C:
 
 

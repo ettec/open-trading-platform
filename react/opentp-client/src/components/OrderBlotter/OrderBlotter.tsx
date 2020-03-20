@@ -59,21 +59,21 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     this.id = v4();
 
-    let columns = [<Column id="id" name="Id" cellRenderer={this.renderId} />,
-    <Column id="side" name="Side" cellRenderer={this.renderSide} />,
-    <Column id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
-    <Column id="mic" name="Mic" cellRenderer={this.renderMic} />,
-    <Column id="country" name="Country" cellRenderer={this.renderCountry} />,
-    <Column id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
-    <Column id="price" name="Price" cellRenderer={this.renderPrice} />,
-    <Column id="status" name="Status" cellRenderer={this.renderStatus} />,
-    <Column id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
-    <Column id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />,
-    <Column id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
-    <Column id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
-    <Column id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
-    <Column id="created" name="Created" cellRenderer={this.renderCreated} />,
-    <Column id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />
+    let columns = [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
+    <Column key="side" id="side" name="Side" cellRenderer={this.renderSide} />,
+    <Column key="symbol" id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
+    <Column key="mic" id="mic" name="Mic" cellRenderer={this.renderMic} />,
+    <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
+    <Column key="quantity" id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
+    <Column key="price" id="price" name="Price" cellRenderer={this.renderPrice} />,
+    <Column key="status" id="status" name="Status" cellRenderer={this.renderStatus} />,
+    <Column key="targetStatus" id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
+    <Column key="remQty" id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />,
+    <Column key="tradedQty" id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
+    <Column key="avgPrice" id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
+    <Column key="listingId" id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
+    <Column key="created" id="created" name="Created" cellRenderer={this.renderCreated} />,
+    <Column key="placedWith" id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />
   ]
 
 
