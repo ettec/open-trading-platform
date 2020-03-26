@@ -7,8 +7,8 @@ import { MenuItem } from "react-contextmenu";
 import v4 from 'uuid';
 import { logDebug, logGrpcError } from '../../logging/Logging';
 import { Empty } from '../../serverapi/common_pb';
-import { ExecutionVenueClient } from '../../serverapi/Execution-venueServiceClientPb';
-import { OrderId } from '../../serverapi/execution-venue_pb';
+import { OrderRouterClient } from '../../serverapi/Order-routerServiceClientPb';
+import { OrderId, CancelOrderParams } from '../../serverapi/order-router_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { Timestamp } from '../../serverapi/modelcommon_pb';
 import { ViewServiceClient } from '../../serverapi/View-serviceServiceClientPb';
@@ -44,7 +44,7 @@ interface OrderBlotterProps {
 export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
 
   viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
-  executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
+  executionVenueService = new OrderRouterClient(Login.grpcContext.serviceUrl, null, null)
   listingService: ListingService
 
   orderMap: Map<string, number>;
@@ -74,7 +74,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     <Column key="listingId" id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
     <Column key="created" id="created" name="Created" cellRenderer={this.renderCreated} />,
     <Column key="placedWith" id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />
-  ]
+    ]
 
 
 
@@ -194,13 +194,22 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   cancelOrder = (e: any, orders: Array<Order>) => {
 
     orders.forEach(order => {
-      let orderId = new OrderId()
-      orderId.setOrderid(order.getId())
-      this.executionVenueService.cancelOrder(orderId, Login.grpcContext.grpcMetaData, (err: grpcWeb.Error, response: Empty) => {
-        if (err) {
-          logGrpcError("error cancelling order", err)
-        }
+
+
+      this.listingService.GetListing(order.getListingid(), (listing) => {
+        let params = new CancelOrderParams()
+        params.setOrderid(order.getId())
+        params.setListing(listing)
+
+        this.executionVenueService.cancelOrder(params, Login.grpcContext.grpcMetaData, (err: grpcWeb.Error, response: Empty) => {
+          if (err) {
+            logGrpcError("error cancelling order", err)
+          }
+        })
+
       })
+
+
     });
 
   }
@@ -315,9 +324,9 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   }
 
 
-  
 
-  
+
+
 
 
   private onSelection = (selectedRegions: IRegion[]) => {

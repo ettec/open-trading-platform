@@ -3,8 +3,8 @@ import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
 import { logGrpcError, logDebug } from '../logging/Logging';
-import { ExecutionVenueClient } from '../serverapi/Execution-venueServiceClientPb';
-import { CreateAndRouteOrderParams, OrderId } from '../serverapi/execution-venue_pb';
+import { OrderRouterClient } from '../serverapi/Order-routerServiceClientPb';
+import { CreateAndRouteOrderParams, OrderId } from '../serverapi/order-router_pb';
 import { Listing } from '../serverapi/listing_pb';
 import { TickSizeEntry } from '../serverapi/listing_pb';
 import { Side } from '../serverapi/order_pb';
@@ -31,7 +31,7 @@ interface OrderTicketProps {
 
 export default class OrderTicket extends React.Component<OrderTicketProps, OrderTicketState> implements QuoteListener {
 
-  executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
+  executionVenueService = new OrderRouterClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
 
   constructor(props: OrderTicketProps) {

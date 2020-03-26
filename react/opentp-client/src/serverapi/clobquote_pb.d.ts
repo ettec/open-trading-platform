@@ -49,6 +49,9 @@ export class ClobQuote extends jspb.Message {
   getStreaminterrupted(): boolean;
   setStreaminterrupted(value: boolean): void;
 
+  getStreamstatusmsg(): string;
+  setStreamstatusmsg(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClobQuote.AsObject;
   static toObject(includeInstance: boolean, msg: ClobQuote): ClobQuote.AsObject;
@@ -63,6 +66,7 @@ export namespace ClobQuote {
     bidsList: Array<ClobLine.AsObject>,
     offersList: Array<ClobLine.AsObject>,
     streaminterrupted: boolean,
+    streamstatusmsg: string,
   }
 }
 

@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for executionvenue
+ * @fileoverview gRPC-Web generated client stub for orderrouter
  * @enhanceable
  * @public
  */
@@ -14,10 +14,11 @@ import * as order_pb from './order_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 
 import {
+  CancelOrderParams,
   CreateAndRouteOrderParams,
-  OrderId} from './execution-venue_pb';
+  OrderId} from './order-router_pb';
 
-export class ExecutionVenueClient {
+export class OrderRouterClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
   credentials_: null | { [index: string]: string; };
@@ -51,7 +52,7 @@ export class ExecutionVenueClient {
                response: OrderId) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
-        '/executionvenue.ExecutionVenue/CreateAndRouteOrder',
+        '/orderrouter.OrderRouter/CreateAndRouteOrder',
       request,
       metadata || {},
       this.methodInfoCreateAndRouteOrder,
@@ -60,20 +61,20 @@ export class ExecutionVenueClient {
 
   methodInfoCancelOrder = new grpcWeb.AbstractClientBase.MethodInfo(
     modelcommon_pb.Empty,
-    (request: OrderId) => {
+    (request: CancelOrderParams) => {
       return request.serializeBinary();
     },
     modelcommon_pb.Empty.deserializeBinary
   );
 
   cancelOrder(
-    request: OrderId,
+    request: CancelOrderParams,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
                response: modelcommon_pb.Empty) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
-        '/executionvenue.ExecutionVenue/CancelOrder',
+        '/orderrouter.OrderRouter/CancelOrder',
       request,
       metadata || {},
       this.methodInfoCancelOrder,

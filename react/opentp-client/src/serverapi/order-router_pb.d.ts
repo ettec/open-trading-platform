@@ -58,3 +58,27 @@ export namespace OrderId {
   }
 }
 
+export class CancelOrderParams extends jspb.Message {
+  getOrderid(): string;
+  setOrderid(value: string): void;
+
+  getListing(): listing_pb.Listing | undefined;
+  setListing(value?: listing_pb.Listing): void;
+  hasListing(): boolean;
+  clearListing(): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CancelOrderParams.AsObject;
+  static toObject(includeInstance: boolean, msg: CancelOrderParams): CancelOrderParams.AsObject;
+  static serializeBinaryToWriter(message: CancelOrderParams, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CancelOrderParams;
+  static deserializeBinaryFromReader(message: CancelOrderParams, reader: jspb.BinaryReader): CancelOrderParams;
+}
+
+export namespace CancelOrderParams {
+  export type AsObject = {
+    orderid: string,
+    listing?: listing_pb.Listing.AsObject,
+  }
+}
+
