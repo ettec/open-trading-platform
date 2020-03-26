@@ -34,6 +34,9 @@ func GetEnvVar(key string) string {
 	return value
 }
 
+
+
+
 func GetOptionalEnvVar(key string, def string) string {
 	strValue, exists := os.LookupEnv(key)
 	result := def
@@ -45,6 +48,23 @@ func GetOptionalEnvVar(key string, def string) string {
 
 	return result
 }
+
+func GetOptionalBoolEnvVar(key string, def bool) bool {
+	strValue, exists := os.LookupEnv(key)
+	result := def
+	if exists {
+		var err error
+		result, err = strconv.ParseBool(strValue)
+		if err != nil {
+			log.Panicf("cannot parse %v, error: %v", key, err)
+		}
+	}
+
+	log.Printf("%v set to %v", key, result)
+
+	return result
+}
+
 
 
 func GetOptionalIntEnvVar(key string, def int) int {
