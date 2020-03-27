@@ -36,6 +36,7 @@ const (
 	Variation                = "VARIATION"
 	MinQtyPercent            = "MIN_QTY_PERCENT"
 	SymbolsToRun             = "SYMBOLS_TO_RUN"
+	TargetMic                = "TARGET_MIC"
 )
 
 
@@ -59,11 +60,13 @@ func main() {
 	tradeProbability := bootstrap.GetOptionalFloatEnvVar(TradeProbability, 0.1)
 	variation := bootstrap.GetOptionalFloatEnvVar(Variation, 0.005)
 	minQty := bootstrap.GetOptionalFloatEnvVar(MinQtyPercent, 0.9)
-	symbolsToRunArg := bootstrap.GetOptionalEnvVar(SymbolsToRun, "*")
+	symbolsToRunArg := bootstrap.GetOptionalEnvVar(SymbolsToRun, "")
+	targetMic := bootstrap.GetEnvVar(TargetMic)
 
 
 
-	ls, err := common.NewListingSource(staticDataServiceAddr)
+
+	ls, err := common.NewStaticDataSource(staticDataServiceAddr)
 	if err != nil {
 		log.Panicf("failed to create listing source service:%v", err)
 	}
@@ -108,7 +111,8 @@ func main() {
 	listingChan := make(chan *model.Listing, 1)
 	for _, sym := range symbolsToRun {
 
-		ls.GetListingMatching(&services.MatchParameters{SymbolMatch: sym}, listingChan)
+
+		ls.GetListingMatching(&services.ExactMatchParameters{Symbol: sym, Mic: targetMic}, listingChan)
 		listing := <-listingChan
 		if listing != nil {
 			book, err := strategy.NewBookBuilder(listing, bbs.quoteDistributor, symToDepths[sym], bbs.orderEntryService,
@@ -118,7 +122,6 @@ func main() {
 			} else {
 				book.Start()
 			}
-
 
 		}
 

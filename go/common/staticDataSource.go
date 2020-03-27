@@ -116,7 +116,8 @@ func newStaticDataSource(getConnection GetStaticDataServiceClientFn) (*listingSo
 						s.errLog.Printf("no listing found for match params:%v", mr.matchParams)
 					}
 				} else {
-					s.log.Printf("received listing:%v for symbol matching:%v", listing, mr.matchParams.SymbolMatch)
+					s.log.Printf("received listing:%v for symbol matching:%v and mic:%v", listing, mr.matchParams.Symbol,
+						mr.matchParams.Mic)
 					mr.resultChan <- listing
 				}
 			}
@@ -137,10 +138,10 @@ func (s *listingSource) GetListing(listingId int32, result chan<- *model.Listing
 }
 
 type getListingMatchingRequest struct {
-	matchParams *services.MatchParameters
+	matchParams *services.ExactMatchParameters
 	resultChan  chan<- *model.Listing
 }
 
-func (s *listingSource) GetListingMatching(matchParams *services.MatchParameters, result chan<- *model.Listing) {
+func (s *listingSource) GetListingMatching(matchParams *services.ExactMatchParameters, result chan<- *model.Listing) {
 	s.getListingMatchingChan <- getListingMatchingRequest{matchParams: matchParams, resultChan: result}
 }

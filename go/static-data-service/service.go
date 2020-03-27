@@ -45,9 +45,9 @@ const listingsSelect = `SELECT listings.id, listings.market_symbol, markets.id, 
 		on listings.instrument_id = instruments.id inner join markets 
 		on listings.market_id = markets.id `
 
-func (s *service) GetListingMatching(c context.Context, m *api.MatchParameters) (*model.Listing, error) {
+func (s *service) GetListingMatching(c context.Context, m *api.ExactMatchParameters) (*model.Listing, error) {
 
-	lq := listingsSelect +  " where display_symbol = '" + m.SymbolMatch +"'"
+	lq := listingsSelect +  " where display_symbol = '" + m.Symbol +"' and markets.mic = '" + m.Mic + "'"
 
 	r, err := s.db.Query(lq)
 	if err != nil {
@@ -59,8 +59,12 @@ func (s *service) GetListingMatching(c context.Context, m *api.MatchParameters) 
 		return nil, err
 	}
 
-	if len(result.Listings) != 1 {
-		return nil, status.Error(codes.NotFound, "no listing found for symbol " + m.SymbolMatch)
+	if len(result.Listings) == 0 {
+		return nil, status.Error(codes.NotFound, "no listing found for symbol " + m.Symbol + " and market " + m.Mic)
+	}
+
+	if len(result.Listings) > 1 {
+		return nil, status.Error(codes.NotFound, "more than one listing found for symbol " + m.Symbol + " and market " + m.Mic)
 	}
 
 	return result.Listings[0], nil

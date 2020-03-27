@@ -23,8 +23,15 @@ message MatchParameters {
 	string nameMatch = 2;
 }
 
+message ExactMatchParameters {
+    string symbol = 1;
+    string mic = 2;
+
+}
+
+
 service StaticDataService{
-    rpc GetListingMatching(MatchParameters) returns (model.Listing) {};
+    rpc GetListingMatching(ExactMatchParameters) returns (model.Listing) {};
     rpc GetListingsMatching(MatchParameters) returns (Listings) {};
     rpc GetListing(ListingId) returns (model.Listing) {};
     rpc GetListings(ListingIds) returns (Listings) {};

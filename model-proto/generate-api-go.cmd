@@ -9,6 +9,7 @@ protoc $SVC_PATH/$SVC_NAME.proto --go_out=plugins=grpc:$SVC_PATH/api/ --proto_pa
 sed -i 's/Empty/model.Empty/g' $GOFILE
 sed -i 's/ClobQuote/model.ClobQuote/g' $GOFILE
 sed -i 's/*Listing,/*model.Listing,/g' $GOFILE
+sed -i 's/(Listing)/(model.Listing)/g' $GOFILE
 sed -i 's/*Listing /*model.Listing /g' $GOFILE
 sed -i 's/*Listing)/*model.Listing)/g' $GOFILE
 sed -i 's/Order)/model.Order)/g' $GOFILE

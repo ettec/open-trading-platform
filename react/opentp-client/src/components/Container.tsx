@@ -194,6 +194,16 @@ export default class Container extends React.Component {
             <div className="contents">
                 {contents}
             </div>
+            <div className="toolbar" >
+                <Navbar className="bp3-dark">
+                    <Navbar.Group align={Alignment.LEFT}>
+                        <Navbar.Heading>Status</Navbar.Heading>
+                        <Navbar.Divider />
+                        <Button className="bp3-minimal" icon="floppy-disk" text="Cancel All Orders" onClick={this.onSave} />
+                    </Navbar.Group>
+                </Navbar>
+            </div>
+
         </div>);
 
 
