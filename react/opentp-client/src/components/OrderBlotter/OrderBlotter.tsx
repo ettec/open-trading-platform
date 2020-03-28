@@ -133,7 +133,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
       let idx = this.orderMap.get(order.getId())
       let orderView: OrderView
-      let newOrders = this.state.orders
+      let newOrders = [...this.state.orders]
       if (idx === undefined) {
         idx = this.orderMap.size
         let orderLength = this.state.orders.length
@@ -149,8 +149,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
         newOrders[idx] = orderView
       } else {
-        orderView = this.state.orders[idx]
-        orderView.setOrder(order)
+        orderView = new OrderView(order)
+        newOrders[idx] = orderView
       }
 
       let blotterState: OrderBlotterState = {

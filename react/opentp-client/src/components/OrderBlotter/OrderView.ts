@@ -33,7 +33,7 @@ export class OrderView {
       this.setOrder(order)
     }
   
-    setOrder(order: Order) {
+    private setOrder(order: Order) {
       this.order = order
   
   
