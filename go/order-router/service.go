@@ -7,11 +7,13 @@ import (
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/order-router/api"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/reflection"
 	v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/types"
 	watch2 "k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/rest"
-	"log"
+	logger "log"
 	"net"
 	"strconv"
 	"sync"
@@ -26,50 +28,86 @@ import (
 	"path/filepath"
 )
 
-type clientAndConn struct {
+var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
+var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
+
+type execVenue struct {
+	podId  types.UID
 	client api2.ExecutionVenueClient
 	conn   *grpc.ClientConn
 }
 
 type orderRouter struct {
-	micToExecVenue    map[string]*clientAndConn
+	micToExecVenue    map[string][]*execVenue
 	micToExecVenueMux sync.RWMutex
-	errLog            *log.Logger
 }
 
-func (o orderRouter) getExecVenue(market string) (*clientAndConn, bool) {
+func (o orderRouter) getConnectedExecVenue(market string) (*execVenue, bool) {
 	o.micToExecVenueMux.RLock()
 	defer o.micToExecVenueMux.RUnlock()
-	c, ok := o.micToExecVenue[market]
-	return c, ok
-}
+	venues, ok := o.micToExecVenue[market]
+	for _, venue := range venues {
 
-func (o orderRouter) putExecVenue(market string, client *clientAndConn) error {
-	o.micToExecVenueMux.Lock()
-	defer o.micToExecVenueMux.Unlock()
-	if _, ok := o.micToExecVenue[market]; ok {
-		return fmt.Errorf("market to execution venue map already contains an entry for market:%v", market)
+		if venue.conn.GetState() == connectivity.Ready {
+			return venue, ok
+		}
+
 	}
 
-	o.micToExecVenue[market] = client
+	return nil, false
+}
+
+func (o orderRouter) putExecVenue(market string, client *execVenue) error {
+	o.micToExecVenueMux.Lock()
+	defer o.micToExecVenueMux.Unlock()
+	o.micToExecVenue[market] = append(o.micToExecVenue[market], client)
 
 	return nil
 }
 
-func (o orderRouter) deleteExecVenue(market string) (*clientAndConn, error) {
+func (o orderRouter) hasExecVenue(podId types.UID) bool {
+
+	for _, venues := range o.micToExecVenue {
+		for _, venue := range venues {
+			if venue.podId == podId {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
+func (o orderRouter) deleteExecVenue(podId types.UID) (*execVenue, error) {
 	o.micToExecVenueMux.Lock()
 	defer o.micToExecVenueMux.Unlock()
-	if result, ok := o.micToExecVenue[market]; ok {
-		delete(o.micToExecVenue, market)
-		return result, nil
-	} else {
-		return nil, fmt.Errorf("no execution venue entry for market:%v", market)
+
+	var removed *execVenue
+
+	micToExecVenues := map[string][]*execVenue{}
+	for mic, venues := range o.micToExecVenue {
+		var newVenues []*execVenue
+		for _, venue := range venues {
+			if venue.podId != podId {
+				newVenues = append(newVenues, venue)
+			} else {
+				removed = venue
+			}
+		}
+		micToExecVenues[mic] = newVenues
 	}
+
+	if removed != nil {
+		return removed, nil
+	} else {
+		return nil, fmt.Errorf("no exec venue found for podId:%v", podId)
+	}
+
 }
 
 func (o orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 	mic := p.Listing.Market.Mic
-	if ev, ok := o.getExecVenue(mic); ok {
+	if ev, ok := o.getConnectedExecVenue(mic); ok {
 		id, err := ev.client.CreateAndRouteOrder(c, &api2.CreateAndRouteOrderParams{
 			OrderSide: p.OrderSide,
 			Quantity:  p.Quantity,
@@ -92,7 +130,7 @@ func (o orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRout
 
 func (o orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
 	mic := p.Listing.Market.Mic
-	if ev, ok := o.getExecVenue(mic); ok {
+	if ev, ok := o.getConnectedExecVenue(mic); ok {
 		_, err := ev.client.CancelOrder(c, &api2.OrderId{
 			OrderId: p.OrderId,
 		})
@@ -120,9 +158,8 @@ func main() {
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 
 	orderRouter := orderRouter{
-		micToExecVenue:    map[string]*clientAndConn{},
+		micToExecVenue:    map[string][]*execVenue{},
 		micToExecVenueMux: sync.RWMutex{},
-		errLog:            log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
 	}
 
 	var clientSet *kubernetes.Clientset
@@ -180,8 +217,9 @@ func main() {
 				log.Panic("unexpected type")
 			}
 
+
 			if _, ok := pod.Labels["market"]; !ok {
-				orderRouter.errLog.Printf("ignoring execution venue pod as it does not have a market label, pod: %v", pod)
+				errLog.Printf("ignoring execution venue pod as it does not have a market label, pod: %v", pod)
 				continue
 			}
 
@@ -189,24 +227,31 @@ func main() {
 
 			switch event.Type {
 			case watch2.Added:
-				client, targetAddress, err := createExecVenueConnection(pod, time.Duration(maxConnectRetrySecs)*time.Second)
-				if err != nil {
-					orderRouter.errLog.Printf("failed to create connection to execution venue at %v, error: %v", targetAddress, err)
-					continue
+				fallthrough
+			case watch2.Modified:
+
+				if !orderRouter.hasExecVenue(pod.UID) {
+					if targetAddress, ok := getTargetAddress(pod); ok {
+						client, err := createExecVenueConnection(pod, time.Duration(maxConnectRetrySecs)*time.Second, targetAddress)
+						if err != nil {
+							errLog.Printf("failed to create connection to execution venue at %v, error: %v", targetAddress, err)
+							continue
+						}
+
+						orderRouter.putExecVenue(market, client)
+						log.Printf("added execution venue for market: %v, venue pod name: %v, target address: %v", market, pod.Name, targetAddress)
+					}
 				}
 
-				orderRouter.putExecVenue(market, client)
-				log.Printf("added execution venue for market: %v, venue target address: %v", market, targetAddress)
-
 			case watch2.Deleted:
-				client, err := orderRouter.deleteExecVenue(market)
+				client, err := orderRouter.deleteExecVenue(pod.UID)
 				if err != nil {
-					orderRouter.errLog.Printf("failed to delete connection as no execution venue for market %v error: %v", market, err)
+					errLog.Printf("failed to delete connection as no execution venue for market %v error: %v", market, err)
 					continue
 				}
 
 				client.conn.Close()
-				log.Printf("removed execution venue for market: %v, venue: %v", market, client)
+				log.Printf("removed execution venue for market: %v, venue pod name: %v", market, pod.Name)
 			}
 
 		}
@@ -232,10 +277,30 @@ func main() {
 
 }
 
-func createExecVenueConnection(pod *v1.Pod, maxReconnectInterval time.Duration) (cac *clientAndConn,  targetAddress string,
+func createExecVenueConnection(pod *v1.Pod, maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
 	err error) {
 
+	log.Printf("connecting to execution venue pod %v at: %v", pod.Name, targetAddress)
+
+	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
+	client := api2.NewExecutionVenueClient(conn)
+
+	conn.GetState()
+
+	return &execVenue{
+		podId:  pod.UID,
+		client: client,
+		conn:   conn,
+	}, nil
+}
+
+func getTargetAddress(pod *v1.Pod) (targetAddress string, ok bool) {
 	podIp := pod.Status.PodIP
+
+	if podIp == "" {
+		return "", false
+	}
+
 	var podPort int32
 	for _, port := range pod.Spec.Containers[0].Ports {
 		if port.Name == "api" {
@@ -244,19 +309,13 @@ func createExecVenueConnection(pod *v1.Pod, maxReconnectInterval time.Duration) 
 	}
 
 	if podPort == 0 {
-		return nil, "", fmt.Errorf("execution venue pod does not have a port named api, pod: %v", pod)
+		log.Printf("execution venue pod does not have a port named api, pod: %v", pod)
+		return "", false
+
 	}
 
 	targetAddress = podIp + ":" + strconv.Itoa(int(podPort))
-	log.Printf("connecting to execution venue at:%v", targetAddress)
-
-	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
-	client := api2.NewExecutionVenueClient(conn)
-
-	return &clientAndConn{
-		client: client,
-		conn:   conn,
-	}, targetAddress, nil
+	return targetAddress, true
 }
 
 func homeDir() string {

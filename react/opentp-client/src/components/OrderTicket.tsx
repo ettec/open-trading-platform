@@ -2,7 +2,7 @@ import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, Numeri
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
-import { logGrpcError, logDebug } from '../logging/Logging';
+import { logGrpcError, logDebug, logError } from '../logging/Logging';
 import { OrderRouterClient } from '../serverapi/Order-routerServiceClientPb';
 import { CreateAndRouteOrderParams, OrderId } from '../serverapi/order-router_pb';
 import { Listing } from '../serverapi/listing_pb';
@@ -345,9 +345,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
         response: OrderId) => {
         if (err) {
-          logGrpcError("error whilst sending order:", err)
+          let msg = "error whilst sending order:" + err.message
+          logError(msg)
+          alert(msg)
+        } else {
+          logDebug("create and route order created order with id:" + response.getOrderid())
         }
-        logDebug("create and route order created order with id:" + response.getOrderid())
+        
       })
 
     }
