@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/open-trading-platform/go/common/k8s"
 	api2 "github.com/ettec/open-trading-platform/go/execution-venue/api"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/order-router/api"
@@ -10,20 +11,14 @@ import (
 	"google.golang.org/grpc/reflection"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/client-go/rest"
 	logger "log"
 	"net"
 	"strconv"
-	"sync"
 	"time"
 
-	"flag"
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
 	"os"
-	"path/filepath"
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
@@ -37,27 +32,16 @@ type execVenue struct {
 
 type orderRouter struct {
 	micToExecVenue    map[string]*execVenue
-	micToExecVenueMux sync.RWMutex
+
 }
 
-func (o orderRouter) getConnectedExecVenue(market string) (venue *execVenue, ok bool) {
-	o.micToExecVenueMux.RLock()
-	defer o.micToExecVenueMux.RUnlock()
-	venue, ok = o.micToExecVenue[market]
-	return venue, ok
-}
 
-func (o orderRouter) putExecVenue(market string, client *execVenue)  {
-	o.micToExecVenueMux.Lock()
-	defer o.micToExecVenueMux.Unlock()
-	o.micToExecVenue[market] =  client
-}
 
 
 
 func (o orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 	mic := p.Listing.Market.Mic
-	if ev, ok := o.getConnectedExecVenue(mic); ok {
+	if ev, ok := o.micToExecVenue[mic]; ok {
 		id, err := ev.client.CreateAndRouteOrder(c, &api2.CreateAndRouteOrderParams{
 			OrderSide: p.OrderSide,
 			Quantity:  p.Quantity,
@@ -80,7 +64,7 @@ func (o orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRout
 
 func (o orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
 	mic := p.Listing.Market.Mic
-	if ev, ok := o.getConnectedExecVenue(mic); ok {
+	if ev, ok := o.micToExecVenue[mic]; ok {
 		_, err := ev.client.CancelOrder(c, &api2.OrderId{
 			OrderId: p.OrderId,
 		})
@@ -109,43 +93,9 @@ func main() {
 
 	orderRouter := orderRouter{
 		micToExecVenue:    map[string]*execVenue{},
-		micToExecVenueMux: sync.RWMutex{},
 	}
 
-	var clientSet *kubernetes.Clientset
-	if external {
-		var kubeconfig *string
-		if home := homeDir(); home != "" {
-			kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-		} else {
-			kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
-		}
-		flag.Parse()
-
-		// use the current context in kubeconfig
-		config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
-		if err != nil {
-			panic(err.Error())
-		}
-
-		// create the clientSet
-		clientSet, err = kubernetes.NewForConfig(config)
-		if err != nil {
-			panic(err.Error())
-		}
-
-	} else {
-		config, err := rest.InClusterConfig()
-		if err != nil {
-			panic(err.Error())
-		}
-		// creates the clientSet
-		clientSet, err = kubernetes.NewForConfig(config)
-		if err != nil {
-			panic(err.Error())
-		}
-	}
-
+	clientSet := k8s.GetK8sClientSet(external)
 
 	namespace := "default"
 	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
@@ -181,7 +131,7 @@ func main() {
 			continue
 		}
 
-		orderRouter.putExecVenue(mic, client)
+		orderRouter.micToExecVenue[mic] = client
 		log.Printf("added execution venue for mic: %v, venue service name: %v, target address: %v", mic, service.Name, targetAddress)
 	}
 
@@ -205,6 +155,8 @@ func main() {
 
 }
 
+
+
 func createExecVenueConnection(service *v1.Service, maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
 	err error) {
 
@@ -223,9 +175,4 @@ func createExecVenueConnection(service *v1.Service, maxReconnectInterval time.Du
 
 
 
-func homeDir() string {
-	if h := os.Getenv("HOME"); h != "" {
-		return h
-	}
-	return os.Getenv("USERPROFILE") // windows
-}
+
