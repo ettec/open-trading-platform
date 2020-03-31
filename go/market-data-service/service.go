@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
-	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data-service/gatewayclient"
@@ -17,76 +15,18 @@ import (
 	"net"
 	"os"
 	"strconv"
-	"sync"
 	"time"
 )
 
 type service struct {
-	micToGateway map[string]*gatewayConnection
-}
-
-type gatewayConnection struct {
-	partyIdToConnection map[string]actor.ClientConnection
-	quoteDistributor    actor.QuoteDistributor
-	connMux             sync.Mutex
-}
-
-func newGateway(id string, marketGatewayAddress string, maxReconnectInterval time.Duration) (*gatewayConnection, error) {
-
-	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
-
-	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, gatewayclient.GrpcConnection, error) {
-		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
-		if err != nil {
-			return nil, nil, err
-		}
-
-		client := mdgapi.NewMarketDataGatewayClient(conn)
-		return client, conn, nil
-	}
-
-	mdc, err := gatewayclient.NewMarketDataGatewayClient(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
-
-	if err != nil {
-		return nil, err
-	}
-
-	qd := actor.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
-	gateway := &gatewayConnection{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd}
-
-	return gateway, nil
-}
-
-func (s *gatewayConnection) getConnection(partyId string) (actor.ClientConnection, bool) {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
-
-	con, ok := s.partyIdToConnection[partyId]
-	return con, ok
-}
-
-func (s *gatewayConnection) addConnection(subscriberId string, out chan<- *model.ClobQuote) actor.ClientConnection {
-	s.connMux.Lock()
-	defer s.connMux.Unlock()
-
-	if conn, ok := s.partyIdToConnection[subscriberId]; ok {
-		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
-		conn.Close()
-		log.Print("connection closed:", subscriberId)
-	}
-
-	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
-
-	s.partyIdToConnection[subscriberId] = cc
-
-	return cc
+	micToGateway map[string]*gatewayclient.GatewayConnection
 }
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
 	mic := r.Listing.Market.Mic
 	if gateway, ok := s.micToGateway[mic]; ok {
-		if conn, ok := gateway.getConnection(r.SubscriberId); ok {
+		if conn, ok := gateway.GetConnection(r.SubscriberId); ok {
 
 			if err := conn.Subscribe(r.Listing.Id); err != nil {
 				return nil, err
@@ -112,7 +52,7 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 	out := make(chan *model.ClobQuote, 100)
 
 	for mic, gateway := range s.micToGateway {
-		gateway.addConnection(subscriberId, out)
+		gateway.AddConnection(subscriberId, out)
 		log.Printf("connected subscriber %v to gatway for mic %ve", subscriberId, mic)
 	}
 
@@ -138,14 +78,14 @@ var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
-	
+
 	id := bootstrap.GetEnvVar(ServiceIdKey)
 
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 
-	mdService := service{micToGateway: map[string]*gatewayConnection{}}
+	mdService := service{micToGateway: map[string]*gatewayclient.GatewayConnection{}}
 
 	clientSet := k8s.GetK8sClientSet(external)
 
@@ -177,7 +117,8 @@ func main() {
 
 		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-		client, err := newGateway(id, targetAddress, time.Duration(connectRetrySecs)*time.Second)
+		client, err := gatewayclient.NewGatewayConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
+			maxSubscriptions)
 		if err != nil {
 			errLog.Printf("failed to create connection to execution venue service at %v, error: %v", targetAddress, err)
 			continue
