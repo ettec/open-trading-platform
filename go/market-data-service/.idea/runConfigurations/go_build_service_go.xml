@@ -5,6 +5,7 @@
     <envs>
       <env name="SERVICE_ID" value="mds" />
       <env name="GATEWAY_ADDRESS" value="127.0.0.1:50551" />
+      <env name="EXTERNAL" value="true" />
     </envs>
     <kind value="FILE" />
     <filePath value="$PROJECT_DIR$/service.go" />

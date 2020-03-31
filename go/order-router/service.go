@@ -102,6 +102,10 @@ func main() {
 		LabelSelector: "app=execution-venue",
 	})
 
+	if err != nil {
+		panic(err)
+	}
+
 	for _, service := range list.Items {
 		const micLabel = "mic"
 		if _, ok := service.Labels[micLabel]; !ok {

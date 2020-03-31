@@ -9,6 +9,7 @@
 
 import * as grpcWeb from 'grpc-web';
 
+import * as listing_pb from './listing_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 import * as clobquote_pb from './clobquote_pb';
 

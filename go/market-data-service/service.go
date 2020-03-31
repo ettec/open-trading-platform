@@ -91,8 +91,15 @@ func main() {
 
 	namespace := "default"
 	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
-		LabelSelector: "app=market-data-service",
+		LabelSelector: "app=market-data-source",
 	})
+
+	if err != nil {
+		panic(err)
+	}
+
+
+	log.Printf("found %v market data sources", len(list.Items))
 
 	for _, service := range list.Items {
 		const micLabel = "mic"

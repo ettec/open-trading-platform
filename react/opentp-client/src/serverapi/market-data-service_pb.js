@@ -13,6 +13,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var listing_pb = require('./listing_pb.js');
+goog.object.extend(proto, listing_pb);
 var modelcommon_pb = require('./modelcommon_pb.js');
 goog.object.extend(proto, modelcommon_pb);
 var clobquote_pb = require('./clobquote_pb.js');
@@ -254,7 +256,7 @@ proto.marketdataservice.MdsSubscribeRequest.prototype.toObject = function(opt_in
 proto.marketdataservice.MdsSubscribeRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     subscriberid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    listingid: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    listing: (f = msg.getListing()) && listing_pb.Listing.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -296,8 +298,9 @@ proto.marketdataservice.MdsSubscribeRequest.deserializeBinaryFromReader = functi
       msg.setSubscriberid(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setListingid(value);
+      var value = new listing_pb.Listing;
+      reader.readMessage(value,listing_pb.Listing.deserializeBinaryFromReader);
+      msg.setListing(value);
       break;
     default:
       reader.skipField();
@@ -335,11 +338,12 @@ proto.marketdataservice.MdsSubscribeRequest.serializeBinaryToWriter = function(m
       f
     );
   }
-  f = message.getListingid();
-  if (f !== 0) {
-    writer.writeInt32(
+  f = message.getListing();
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
+      f,
+      listing_pb.Listing.serializeBinaryToWriter
     );
   }
 };
@@ -364,20 +368,39 @@ proto.marketdataservice.MdsSubscribeRequest.prototype.setSubscriberid = function
 
 
 /**
- * optional int32 listingId = 2;
- * @return {number}
+ * optional model.Listing listing = 2;
+ * @return {?proto.model.Listing}
  */
-proto.marketdataservice.MdsSubscribeRequest.prototype.getListingid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+proto.marketdataservice.MdsSubscribeRequest.prototype.getListing = function() {
+  return /** @type{?proto.model.Listing} */ (
+    jspb.Message.getWrapperField(this, listing_pb.Listing, 2));
 };
 
 
 /**
- * @param {number} value
+ * @param {?proto.model.Listing|undefined} value
+ * @return {!proto.marketdataservice.MdsSubscribeRequest} returns this
+*/
+proto.marketdataservice.MdsSubscribeRequest.prototype.setListing = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.marketdataservice.MdsSubscribeRequest} returns this
  */
-proto.marketdataservice.MdsSubscribeRequest.prototype.setListingid = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+proto.marketdataservice.MdsSubscribeRequest.prototype.clearListing = function() {
+  return this.setListing(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.marketdataservice.MdsSubscribeRequest.prototype.hasListing = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
