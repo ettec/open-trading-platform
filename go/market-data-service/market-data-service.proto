@@ -1,5 +1,6 @@
 syntax = "proto3";
 package marketdataservice;
+import "listing.proto";
 import "modelcommon.proto";
 import "clobquote.proto";
 
@@ -13,7 +14,7 @@ message MdsConnectRequest {
 
 message MdsSubscribeRequest{
     string subscriberId = 1;
-    int32 listingId = 2;
+    model.Listing listing = 2;
 }
 
 

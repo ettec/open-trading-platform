@@ -78,7 +78,7 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 
 	if conn, ok := s.getConnection(r.SubscriberId); ok {
 
-		if err := conn.Subscribe(r.ListingId); err != nil {
+		if err := conn.Subscribe(r.Listing.Id); err != nil {
 			return nil, err
 		}
 
