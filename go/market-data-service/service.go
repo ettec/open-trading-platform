@@ -38,7 +38,7 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 		}
 
 	} else {
-		return nil, fmt.Errorf("no gateway exists for mic %v", mic)
+		return nil, fmt.Errorf("no market data source exists for mic %v", mic)
 	}
 
 }
@@ -53,7 +53,7 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	for mic, gateway := range s.micToGateway {
 		gateway.AddConnection(subscriberId, out)
-		log.Printf("connected subscriber %v to gatway for mic %ve", subscriberId, mic)
+		log.Printf("connected subscriber %v to market data source for mic %ve", subscriberId, mic)
 	}
 
 	for mdUpdate := range out {
@@ -104,7 +104,7 @@ func main() {
 	for _, service := range list.Items {
 		const micLabel = "mic"
 		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring market data service as it does not have a mic label, service: %v", service)
+			errLog.Printf("ignoring market data source as it does not have a mic label, service: %v", service)
 			continue
 		}
 
@@ -127,13 +127,13 @@ func main() {
 		client, err := gatewayclient.NewGatewayConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
 			maxSubscriptions)
 		if err != nil {
-			errLog.Printf("failed to create connection to execution venue service at %v, error: %v", targetAddress, err)
+			errLog.Printf("failed to create connection to market data source at %v, error: %v", targetAddress, err)
 			continue
 		}
 
 		mdService.micToGateway[mic] = client
 
-		log.Printf("added market data service for mic: %v, service name: %v, target address: %v", mic, service.Name, targetAddress)
+		log.Printf("added market data source for mic: %v, service name: %v, target address: %v", mic, service.Name, targetAddress)
 	}
 
 	port := "50551"
