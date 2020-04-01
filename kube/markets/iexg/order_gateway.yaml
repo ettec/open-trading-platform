@@ -31,8 +31,8 @@ spec:
       creationTimestamp: null
       labels:
         app: execution-venue
-        execution-venue-id: IEXsim
-        market: IEXG
+        execution-venue-id: IEXGsim
+        mic: IEXG
     spec:
       containers:
       - env:
@@ -49,7 +49,7 @@ spec:
         - name: KAFKA_BROKERS
           value: kafka-opentp.kafka:9092
         - name: EXEC_VENUE_ID
-          value: IEXsim
+          value: IEXGsim
         image: 192.168.1.200:5000/execution-venue:23
         imagePullPolicy: IfNotPresent
         name: execution-venue
