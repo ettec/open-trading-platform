@@ -2,7 +2,6 @@ import { Menu } from '@blueprintjs/core';
 import { Cell, Column, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import { Actions, Model, TabNode } from "flexlayout-react";
 import React from 'react';
-import { MenuItem } from "react-contextmenu";
 import { logDebug } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
 import { Side } from "../serverapi/order_pb";
@@ -228,22 +227,20 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     return (
 
       <Menu >
-        <MenuItem onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
-          Buy
-         </MenuItem>
-        <MenuItem divider />
-        <MenuItem onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
-          Sell
-         </MenuItem>
-        <MenuItem onClick={this.removeListings} disabled={this.listingContext.selectedListing === undefined}>
-          Remove Listings
-         </MenuItem>
+        <Menu.Item text="Buy" onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
+         </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item  text="Sell" onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
+         </Menu.Item>
+         <Menu.Divider />
+        <Menu.Item text="Remove Listings" onClick={this.removeListings} disabled={this.listingContext.selectedListing === undefined}>
+         </Menu.Item>
       </Menu>
 
     );
   };
 
-  private removeListings(e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) {
+  private removeListings() {
 
     for (let watch of this.selectedWatches.values()) {
       this.watchMap.delete(watch.listingId)
@@ -270,7 +267,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
   }
 
 
-  private openBuyDialog(e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) {
+  private openBuyDialog() {
 
     if (this.listingContext.selectedListing) {
       this.ticketController.openTicket(Side.BUY, this.listingContext.selectedListing)
@@ -278,7 +275,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
   }
 
-  private openSellDialog(e: any) {
+  private openSellDialog() {
     if (this.listingContext.selectedListing) {
       this.ticketController.openTicket(Side.SELL, this.listingContext.selectedListing)
     }

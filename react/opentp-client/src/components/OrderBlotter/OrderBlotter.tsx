@@ -1,9 +1,8 @@
-import { Colors, Menu } from '@blueprintjs/core';
+import { Colors, Menu, Classes, MenuItem } from '@blueprintjs/core';
 import { Cell, Column, IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
-import { MenuItem } from "react-contextmenu";
 import v4 from 'uuid';
 import { logDebug, logGrpcError } from '../../logging/Logging';
 import { Empty } from '../../serverapi/common_pb';
@@ -191,7 +190,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   }
 
 
-  cancelOrder = (e: any, orders: Array<Order>) => {
+  cancelOrder = ( orders: Array<Order>) => {
 
     orders.forEach(order => {
 
@@ -214,7 +213,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   }
 
-  modifyOrder = (e: any, data: Order) => {
+  modifyOrder = ( data: Order) => {
     if (data) {
       window.alert("modify order" + data.getId());
     }
@@ -385,14 +384,15 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     let cancelleableOrders = this.cancelleableOrders(selectedOrders)
 
     return (
-      <Menu>
-        <MenuItem data={this.props.orderContext.selectedOrder} onClick={e => this.cancelOrder(e, cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
-          Cancel Order
-              </MenuItem>
-        <MenuItem divider />
-        <MenuItem data={this.props.orderContext.selectedOrder} onClick={this.modifyOrder}>
-          Modify Order
-              </MenuItem>
+
+    
+      
+      <Menu  >
+        <Menu.Item  text="Cancel Order" onClick={() => this.cancelOrder( cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
+              </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item text="Modify Order">
+              </Menu.Item>
       </Menu>
     );
   };

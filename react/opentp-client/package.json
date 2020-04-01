@@ -24,11 +24,9 @@
     "node-fetch": "^2.6.0",
     "query-string": "^6.8.1",
     "react": "^16.9.0",
-    "react-contextmenu": "^2.11.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "react-scripts": "3.3.0",
-    "react-table-contextmenu": "^6.7.8",
     "redux": "^4.0.4",
     "types-installer": "^1.6.3",
     "typescript": "^3.7.3",
@@ -45,10 +43,10 @@
   },
   "browserslist": {
     "production": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
     ],
     "development": [
       "last 1 chrome version",
