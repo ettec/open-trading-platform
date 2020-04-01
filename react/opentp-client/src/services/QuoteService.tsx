@@ -7,9 +7,10 @@ import { ClientReadableStream, Status } from "grpc-web";
 import { logError, logDebug, logGrpcError } from "../logging/Logging";
 import { ClobQuote } from "../serverapi/clobquote_pb";
 import { Empty } from "../serverapi/modelcommon_pb";
+import { Listing } from "../serverapi/listing_pb";
 
 export interface QuoteService {
-  SubscribeToQuote(listingId: number, listener: QuoteListener): ClobQuote | undefined
+  SubscribeToQuote(listing: Listing, listener: QuoteListener): ClobQuote | undefined
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) : void
 }
 
@@ -62,14 +63,14 @@ export default class QuoteServiceImpl implements QuoteService {
 
   }
 
-  SubscribeToQuote(listingId: number, listener: QuoteListener): ClobQuote | undefined {
-    let listeners = this.idToListeners.get(listingId)
+  SubscribeToQuote(listing: Listing, listener: QuoteListener): ClobQuote | undefined {
+    let listeners = this.idToListeners.get(listing.getId())
     if (!listeners) {
       listeners = new Array<QuoteListener>();
-      this.idToListeners.set(listingId, listeners)
+      this.idToListeners.set(listing.getId(), listeners)
 
       let subscription = new MdsSubscribeRequest()
-      subscription.setListingid(listingId)
+      subscription.setListing(listing)
       subscription.setSubscriberid(Login.grpcContext.appInstanceId)
       this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData, (err: Error,
         response: Empty)=> {
@@ -82,7 +83,7 @@ export default class QuoteServiceImpl implements QuoteService {
 
     listeners.push(listener)
 
-    return this.listingIdToQuote.get(listingId)
+    return this.listingIdToQuote.get(listing.getId())
   }
 
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener ) {

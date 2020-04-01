@@ -136,13 +136,15 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     this.listingService.GetListing(listingId, (listing: Listing) => {
       line.listing = listing
 
+      this.quoteService.SubscribeToQuote(listing, this)
+
       this.setState({
         watches: Object.assign([], this.state.watches)
       })
     })
 
     this.watchMap.set(listingId, line);
-    this.quoteService.SubscribeToQuote(listingId, this)
+    
 
     return line
 

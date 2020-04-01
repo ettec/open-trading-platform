@@ -267,7 +267,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   openTicket(newSide: Side, newListing: Listing) {
 
-    let existingQuote = this.quoteService.SubscribeToQuote(newListing.getId(), this)
+    let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
 
     let defaultPrice;
     let defaultQuantity;

@@ -80,7 +80,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
       }
 
    
-      let quote = this.quoteService.SubscribeToQuote(listing.getId(), this)
+      let quote = this.quoteService.SubscribeToQuote(listing, this)
 
       let state: MarketDepthState = {
         ...this.state,...{
