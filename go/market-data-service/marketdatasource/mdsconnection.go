@@ -61,7 +61,7 @@ func (s *MdsConnection) AddConnection(subscriberId string, out chan<- *model.Clo
 	if conn, ok := s.partyIdToConnection[subscriberId]; ok {
 		log.Printf("connection for client %v already exists, closing existing connection.", subscriberId)
 		conn.Close()
-		log.Print("connection closed ", subscriberId)
+		log.Print("connection closed: ", subscriberId)
 	}
 
 	cc := marketdata.NewConflatedQuoteConnection(subscriberId, out, s.quoteDistributor, s.maxSubscriptions)
