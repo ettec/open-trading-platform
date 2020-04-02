@@ -1,4 +1,4 @@
-package actor
+package marketdata
 
 import (
 	"github.com/ettec/open-trading-platform/go/model"

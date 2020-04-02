@@ -1,4 +1,4 @@
-package actor
+package marketdata
 
 import (
 	"fmt"
@@ -28,6 +28,8 @@ type distConnection struct {
 	out           chan<- *model.ClobQuote
 	subscriptions map[int32]bool
 }
+
+type subscribeToListing = func(listingId int32)
 
 type quoteDistributor struct {
 	connections      []*distConnection

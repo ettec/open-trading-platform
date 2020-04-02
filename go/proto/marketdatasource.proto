@@ -1,9 +1,7 @@
 syntax = "proto3";
-package marketdatagateway;
+package marketdatasource;
 import "clobquote.proto";
 import "modelcommon.proto";
-
-option go_package="api";
 
 
 message SubscribeRequest{
@@ -12,6 +10,6 @@ message SubscribeRequest{
 
 
 
-service MarketDataGateway {
+service MarketDataSource {
     rpc Connect(stream SubscribeRequest) returns (stream model.ClobQuote) {};
 }

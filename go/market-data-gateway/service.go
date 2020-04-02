@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/api"
+	md "github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
@@ -22,13 +22,13 @@ import (
 )
 
 type service struct {
-	quoteDistributor actor.QuoteDistributor
+	quoteDistributor md.QuoteDistributor
 	connMux          sync.Mutex
 }
 
 func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (*service, error) {
 
-	listingSrc, err := common.NewListingSource(staticDataServiceAddress)
+	listingSrc, err := common.NewStaticDataSource(staticDataServiceAddress)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 		return nil, err
 	}
 
-	qd := actor.NewQuoteDistributor(fixSimConn.Subscribe, serverToDistributorChan)
+	qd := md.NewQuoteDistributor(fixSimConn.Subscribe, serverToDistributorChan)
 
 	s := &service{quoteDistributor: qd}
 
@@ -60,7 +60,7 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 
 const SubscriberIdKey = "subscriber_id"
 
-func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
+func (s *service) Connect(stream marketdatasource.MarketDataSource_ConnectServer) error {
 
 	ctx, ok := metadata.FromIncomingContext(stream.Context())
 	if !ok {
@@ -78,7 +78,7 @@ func (s *service) Connect(stream api.MarketDataGateway_ConnectServer) error {
 	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId, )
 
 	out := make(chan *model.ClobQuote, 100)
-	cc := actor.NewClientConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
+	cc := md.NewConflatedQuoteConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
 	defer cc.Close()
 
 	go func() {
@@ -147,7 +147,7 @@ func main() {
 		log.Fatalf("error creating service: %v", err)
 	}
 
-	api.RegisterMarketDataGatewayServer(s, service)
+	marketdatasource.RegisterMarketDataSourceServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

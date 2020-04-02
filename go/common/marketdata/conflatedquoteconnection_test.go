@@ -1,4 +1,4 @@
-package actor
+package marketdata
 
 import (
 	"github.com/ettec/open-trading-platform/go/model"
@@ -12,7 +12,7 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 
 
 
-	c := NewClientConnection("testId", out,  NewQuoteDistributor(
+	c := NewConflatedQuoteConnection("testId", out,  NewQuoteDistributor(
 		func(listingId int32) {
 		}, in), 100)
 
@@ -45,7 +45,7 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 	in := make(chan *model.ClobQuote)
 
 
-	c := NewClientConnection("testId", out,  NewQuoteDistributor(
+	c := NewConflatedQuoteConnection("testId", out,  NewQuoteDistributor(
 		func(listingId int32) {
 		}, in), 100)
 

@@ -1,8 +1,10 @@
 package gatewayclient
 
 import (
+	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
-	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
+	"github.com/ettech/open-trading-platform/go/market-data-service/api/marketdatasource"
+
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"log"
@@ -12,7 +14,7 @@ import (
 
 type GatewayConnection struct {
 	partyIdToConnection map[string]actor.ClientConnection
-	quoteDistributor    actor.QuoteDistributor
+	quoteDistributor    marketdata.QuoteDistributor
 	connMux             sync.Mutex
 	maxSubscriptions    int
 }
@@ -22,13 +24,13 @@ func NewGatewayConnection(id string, marketGatewayAddress string, maxReconnectIn
 
 	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, GrpcConnection, error) {
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 		if err != nil {
 			return nil, nil, err
 		}
 
-		client := mdgapi.NewMarketDataGatewayClient(conn)
+		client := marketdatasource.NewMarketDataSourceClient(conn)
 		return client, conn, nil
 	}
 
@@ -38,7 +40,7 @@ func NewGatewayConnection(id string, marketGatewayAddress string, maxReconnectIn
 		return nil, err
 	}
 
-	qd := actor.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
+	qd := marketdata.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
 	gateway := &GatewayConnection{partyIdToConnection: make(map[string]actor.ClientConnection), quoteDistributor: qd,
 		maxSubscriptions: maxSubscriptions}
 

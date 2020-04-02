@@ -1,10 +1,24 @@
-# Usage: generate-go.cmd  <servicename> 
+# Usage: generate-go.cmd  <servicename to generate code into> <proto-file-name without proto file extention>
 SVC_NAME=$1
-SVC_PATH=../go/$SVC_NAME
-API_PATH=$SVC_PATH/api
-GOFILE=$API_PATH/$SVC_NAME.pb.go
+PROTO_FILE_NAME=$2
+GO_PATH=../go
+SVC_PATH=$GO_PATH/$SVC_NAME
+
+if test -z "$PROTO_FILE_NAME" 
+then
+      echo "second argument must be the proto file name"
+      exit 1
+fi
+
+PROTO_PATH=$GO_PATH/proto
+PROTO_FILE_PATH=$PROTO_PATH/$PROTO_FILE_NAME.proto	
+      
+echo "using proto file: $PROTO_FILE_PATH"
+
+API_PATH=$SVC_PATH/api/$PROTO_FILE_NAME
+GOFILE=$API_PATH/$PROTO_FILE_NAME.pb.go
 mkdir -p $API_PATH
-protoc $SVC_PATH/$SVC_NAME.proto --go_out=plugins=grpc:$SVC_PATH/api/ --proto_path=$SVC_PATH:.
+protoc $PROTO_FILE_PATH --go_out=plugins=grpc:$API_PATH --proto_path=$PROTO_PATH:.
 
 sed -i 's/Empty/model.Empty/g' $GOFILE
 sed -i 's/ClobQuote/model.ClobQuote/g' $GOFILE

@@ -1,19 +1,20 @@
-package actor
+package marketdata
 
 import (
 	"fmt"
+
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
 )
 
-type ClientConnection interface {
+type ConflatedQuoteConnection interface {
 	GetId() string
 	Subscribe(listingId int32) error
 	Close()
 }
 
-type clientConnection struct {
+type conflatedQuoteConnection struct {
 	id                  string
 	maxSubscriptions    int
 	quoteDistributor    QuoteDistributor
@@ -25,12 +26,12 @@ type clientConnection struct {
 	errLog              *log.Logger
 }
 
-func (c *clientConnection) Close() {
+func (c *conflatedQuoteConnection) Close() {
 	c.quoteDistributor.RemoveOutQuoteChan(c.distToConflatorChan)
 	c.quoteConflator.Close()
 }
 
-func (c *clientConnection) Subscribe(listingId int32) error {
+func (c *conflatedQuoteConnection) Subscribe(listingId int32) error {
 
 	if len(c.subscriptions) == c.maxSubscriptions {
 		return fmt.Errorf("max number of subscriptions for this connection has been reached: %v", c.maxSubscriptions)
@@ -46,14 +47,12 @@ func (c *clientConnection) Subscribe(listingId int32) error {
 	return nil
 }
 
-func (c *clientConnection) GetId() string {
+func (c *conflatedQuoteConnection) GetId() string {
 	return c.id
 }
 
-type subscribeToListing = func(listingId int32)
-
-func NewClientConnection(id string, out chan<- *model.ClobQuote, quoteDistributor QuoteDistributor,
-	maxSubscriptions int) *clientConnection {
+func NewConflatedQuoteConnection(id string, out chan<- *model.ClobQuote, quoteDistributor QuoteDistributor,
+	maxSubscriptions int) *conflatedQuoteConnection {
 
 	distToConflatorChan := make(chan *model.ClobQuote, 200)
 
@@ -61,15 +60,15 @@ func NewClientConnection(id string, out chan<- *model.ClobQuote, quoteDistributo
 
 	conflator := NewQuoteConflator(distToConflatorChan, out, maxSubscriptions)
 
-	c := &clientConnection{id: id,
+	c := &conflatedQuoteConnection{id: id,
 		maxSubscriptions:    maxSubscriptions,
 		quoteDistributor:    quoteDistributor,
 		quoteConflator:      conflator,
-		out:				 out,
+		out:                 out,
 		subscriptions:       map[int32]bool{},
 		distToConflatorChan: distToConflatorChan,
-		log:                 log.New(os.Stdout, "clientConnection:"+id, log.LstdFlags),
-		errLog:              log.New(os.Stderr, "clientConnection:"+id, log.LstdFlags)}
+		log:                 log.New(os.Stdout, "conflatedQuoteConnection:"+id, log.LstdFlags),
+		errLog:              log.New(os.Stderr, "conflatedQuoteConnection:"+id, log.LstdFlags)}
 
 	return c
 }
