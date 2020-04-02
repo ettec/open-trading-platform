@@ -98,7 +98,6 @@ func main() {
 		panic(err)
 	}
 
-
 	log.Printf("found %v market data sources", len(list.Items))
 
 	for _, service := range list.Items {

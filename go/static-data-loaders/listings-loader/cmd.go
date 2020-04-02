@@ -6,12 +6,10 @@ import (
 	"log"
 )
 
-
 type instrument struct {
 	instId int32
 	symbol string
 }
-
 
 func main() {
 
@@ -32,7 +30,6 @@ func main() {
 
 	marketIds := []int32{}
 
-
 	sql := "select id from markets where mic = 'IEXG' or mic = 'XNAS' or mic = 'XOSR'"
 	rows, err := db.Query(sql)
 	if err != nil {
@@ -47,7 +44,6 @@ func main() {
 
 		marketIds = append(marketIds, marketId)
 	}
-
 
 	instSql := "select id, display_symbol from instruments"
 	rows, err = db.Query(instSql)
@@ -69,12 +65,11 @@ func main() {
 
 	log.Printf("creating listings for market ids: %v", marketIds)
 
-
 	sql = "INSERT INTO listings (instrument_id, market_id, market_symbol) VALUES ($1, $2, $3) RETURNING id"
 	for _, marketId := range marketIds {
 		for _, instrument := range instruments {
 
-			_, err = db.Exec(sql, instrument.instId,marketId, instrument.symbol)
+			_, err = db.Exec(sql, instrument.instId, marketId, instrument.symbol)
 
 			if err != nil {
 				log.Printf("Error: Failed to insert row error instid:%v marketid:%v  err: %v row sql:%v", instrument.instId, marketId, err, sql)
@@ -82,8 +77,5 @@ func main() {
 
 		}
 	}
-
-
-
 
 }

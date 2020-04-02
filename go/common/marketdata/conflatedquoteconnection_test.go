@@ -10,9 +10,7 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 	out := make(chan *model.ClobQuote, 100)
 	in := make(chan *model.ClobQuote, 100)
 
-
-
-	c := NewConflatedQuoteConnection("testId", out,  NewQuoteDistributor(
+	c := NewConflatedQuoteConnection("testId", out, NewQuoteDistributor(
 		func(listingId int32) {
 		}, in), 100)
 
@@ -44,21 +42,19 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 	out := make(chan *model.ClobQuote)
 	in := make(chan *model.ClobQuote)
 
-
-	c := NewConflatedQuoteConnection("testId", out,  NewQuoteDistributor(
+	c := NewConflatedQuoteConnection("testId", out, NewQuoteDistributor(
 		func(listingId int32) {
 		}, in), 100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)
 
-	for i:=0; i<2000; i++ {
-		in <- &model.ClobQuote{ListingId: 1, XXX_sizecache:int32(i)}
-		in <- &model.ClobQuote{ListingId: 2,  XXX_sizecache:int32(i)}
+	for i := 0; i < 2000; i++ {
+		in <- &model.ClobQuote{ListingId: 1, XXX_sizecache: int32(i)}
+		in <- &model.ClobQuote{ListingId: 2, XXX_sizecache: int32(i)}
 	}
 
-
-	if q := <-out; q.ListingId != 1 && q.XXX_sizecache != 1999{
+	if q := <-out; q.ListingId != 1 && q.XXX_sizecache != 1999 {
 		t.Errorf("expected quote with listing id 1")
 	}
 	if q := <-out; q.ListingId != 2 && q.XXX_sizecache != 1999 {
@@ -66,4 +62,3 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 	}
 
 }
-

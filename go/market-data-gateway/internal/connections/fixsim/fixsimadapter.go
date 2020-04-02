@@ -62,7 +62,7 @@ func NewFixSimAdapter(
 	return c, nil
 }
 
-func (n *fixSimAdapter) Subscribe(listingId int32)  {
+func (n *fixSimAdapter) Subscribe(listingId int32) {
 	n.getListing(listingId, n.listingInChan)
 }
 

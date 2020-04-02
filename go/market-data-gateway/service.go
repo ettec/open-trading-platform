@@ -75,7 +75,7 @@ func (s *service) Connect(stream marketdatasource.MarketDataSource_ConnectServer
 	fromClientId := values[0]
 	subscriberId := fromClientId + ":" + uuid.New().String()
 
-	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId, )
+	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId)
 
 	out := make(chan *model.ClobQuote, 100)
 	cc := md.NewConflatedQuoteConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)

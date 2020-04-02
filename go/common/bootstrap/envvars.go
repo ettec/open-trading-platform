@@ -34,9 +34,6 @@ func GetEnvVar(key string) string {
 	return value
 }
 
-
-
-
 func GetOptionalEnvVar(key string, def string) string {
 	strValue, exists := os.LookupEnv(key)
 	result := def
@@ -64,8 +61,6 @@ func GetOptionalBoolEnvVar(key string, def bool) bool {
 
 	return result
 }
-
-
 
 func GetOptionalIntEnvVar(key string, def int) int {
 	strValue, exists := os.LookupEnv(key)

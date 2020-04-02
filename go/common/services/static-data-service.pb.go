@@ -4,9 +4,9 @@
 package api
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
 	context "context"
 	fmt "fmt"
+	"github.com/ettec/open-trading-platform/go/model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -105,9 +105,9 @@ func (m *ListingIds) GetListingIds() []int32 {
 
 type Listings struct {
 	Listings             []*model.Listing `protobuf:"bytes,1,rep,name=listings,proto3" json:"listings,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
 }
 
 func (m *Listings) Reset()         { *m = Listings{} }

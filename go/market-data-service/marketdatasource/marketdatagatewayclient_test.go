@@ -36,7 +36,6 @@ type testClient struct {
 	streamOutChan chan marketdatasource.MarketDataSource_ConnectClient
 }
 
-
 func (t testClient) Connect(ctx context.Context, opts ...grpc.CallOption) (marketdatasource.MarketDataSource_ConnectClient, error) {
 	return <-t.streamOutChan, nil
 }
@@ -44,10 +43,10 @@ func (t testClient) Connect(ctx context.Context, opts ...grpc.CallOption) (marke
 type testClientStream struct {
 	refreshChan    chan *model.ClobQuote
 	refreshErrChan chan error
-	subscribeChan chan *marketdatasource.SubscribeRequest
+	subscribeChan  chan *marketdatasource.SubscribeRequest
 }
 
-func (t testClientStream) Send( request *marketdatasource.SubscribeRequest)  error {
+func (t testClientStream) Send(request *marketdatasource.SubscribeRequest) error {
 	t.subscribeChan <- request
 	return nil
 }
@@ -125,7 +124,6 @@ func Test_marketDataGatewayClient_sendsEmptyQuoteForAllListingsOnConnectionError
 		t.FailNow()
 	}
 
-
 	if len(r.Bids) != 0 || len(r.Offers) != 0 {
 		t.FailNow()
 	}
@@ -144,7 +142,6 @@ func Test_marketDataGatewayClient_sendsEmptyQuoteForAllListingsOnConnectionError
 	}
 
 }
-
 
 func Test_marketDataGatewayClient_testReconnectAfterError(t *testing.T) {
 
@@ -169,20 +166,15 @@ func Test_marketDataGatewayClient_testReconnectAfterError(t *testing.T) {
 	conn.getStateChan <- connectivity.Ready
 	client.streamOutChan <- stream
 
-
 	<-stream.subscribeChan
 
-
-
 }
-
 
 func Test_marketDataGatewayClient_resubscribedOnConnect(t *testing.T) {
 
 	client, stream, conn, toTest, _ := setup(t)
 
 	toTest.Subscribe(1)
-
 
 	conn.getStateChan <- connectivity.Ready
 
@@ -206,11 +198,10 @@ func setup(t *testing.T) (testClient, testClientStream, testConnection, *mdsClie
 
 	stream := testClientStream{refreshChan: make(chan *model.ClobQuote),
 		refreshErrChan: make(chan error),
-		subscribeChan: make(chan *marketdatasource.SubscribeRequest, 10)}
+		subscribeChan:  make(chan *marketdatasource.SubscribeRequest, 10)}
 
 	conn := testConnection{
 		getStateChan: make(chan connectivity.State),
-
 	}
 
 	c, err := NewMarketDataSourceClient("testId", "testTarget", out,

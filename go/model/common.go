@@ -80,13 +80,12 @@ func (m *Decimal64) Equal(o *Decimal64) bool {
 	return m.AsDecimal().Equal(o.AsDecimal())
 }
 
-
 func (m *Decimal64) copyFrom(r *Decimal64) {
 	m.Mantissa = r.Mantissa
 	m.Exponent = r.Exponent
 }
 
-func  Compare(a Decimal64, b Decimal64) int {
+func Compare(a Decimal64, b Decimal64) int {
 	return a.AsDecimal().Cmp(b.AsDecimal())
 }
 

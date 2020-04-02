@@ -13,9 +13,6 @@ import (
 	"time"
 )
 
-
-
-
 type SubscriptionHandler interface {
 	Subscribe(listingId int32)
 }
@@ -101,7 +98,6 @@ func newStaticDataSource(getConnection GetStaticDataServiceClientFn) (*listingSo
 					s.log.Println("received listing:", listing)
 					fr.resultChan <- listing
 				}
-
 
 			case mr := <-s.getListingMatchingChan:
 				listing, err := sdc.GetListingMatching(context.Background(), mr.matchParams)

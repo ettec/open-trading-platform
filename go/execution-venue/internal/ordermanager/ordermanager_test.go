@@ -93,10 +93,10 @@ func floatEquals(a, b float64) bool {
 
 func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 	params := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity: model.IntToDecimal64(15),
-		Price:    model.IntToDecimal64(20),
-		Listing:  &model.Listing{Id: 1},
+		OrderSide: model.Side_BUY,
+		Quantity:  model.IntToDecimal64(15),
+		Price:     model.IntToDecimal64(20),
+		Listing:   &model.Listing{Id: 1},
 	}
 
 	id, err := orderManager.CreateAndRouteOrder(params)
@@ -164,10 +164,10 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 
 func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 	params := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity: model.IntToDecimal64(15),
-		Price:    model.IntToDecimal64(20),
-		Listing:  &model.Listing{Id: 1},
+		OrderSide: model.Side_BUY,
+		Quantity:  model.IntToDecimal64(15),
+		Price:     model.IntToDecimal64(20),
+		Listing:   &model.Listing{Id: 1},
 	}
 
 	id, err := orderManager.CreateAndRouteOrder(params)
@@ -222,10 +222,10 @@ func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity: model.IntToDecimal64(10),
-		Price:    model.IntToDecimal64(20),
-		Listing:  &model.Listing{Id: 1},
+		OrderSide: model.Side_BUY,
+		Quantity:  model.IntToDecimal64(10),
+		Price:     model.IntToDecimal64(20),
+		Listing:   &model.Listing{Id: 1},
 	}
 
 	id, err := orderManager.CreateAndRouteOrder(params)
@@ -265,10 +265,10 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity: model.IntToDecimal64(10),
-		Price:    model.IntToDecimal64(20),
-		Listing:  &model.Listing{Id: 1},
+		OrderSide: model.Side_BUY,
+		Quantity:  model.IntToDecimal64(10),
+		Price:     model.IntToDecimal64(20),
+		Listing:   &model.Listing{Id: 1},
 	}
 
 	id, _ := orderManager.CreateAndRouteOrder(params)
@@ -312,7 +312,7 @@ func (f *TestOrderManager) Send(order *model.Order, listing *model.Listing) erro
 	return nil
 }
 
-func (f *TestOrderManager)  Cancel(order *model.Order) error {
+func (f *TestOrderManager) Cancel(order *model.Order) error {
 	return nil
 }
 

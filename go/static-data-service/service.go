@@ -47,7 +47,7 @@ const listingsSelect = `SELECT listings.id, listings.market_symbol, markets.id, 
 
 func (s *service) GetListingMatching(c context.Context, m *api.ExactMatchParameters) (*model.Listing, error) {
 
-	lq := listingsSelect +  " where display_symbol = '" + m.Symbol +"' and markets.mic = '" + m.Mic + "'"
+	lq := listingsSelect + " where display_symbol = '" + m.Symbol + "' and markets.mic = '" + m.Mic + "'"
 
 	r, err := s.db.Query(lq)
 	if err != nil {
@@ -60,20 +60,19 @@ func (s *service) GetListingMatching(c context.Context, m *api.ExactMatchParamet
 	}
 
 	if len(result.Listings) == 0 {
-		return nil, status.Error(codes.NotFound, "no listing found for symbol " + m.Symbol + " and market " + m.Mic)
+		return nil, status.Error(codes.NotFound, "no listing found for symbol "+m.Symbol+" and market "+m.Mic)
 	}
 
 	if len(result.Listings) > 1 {
-		return nil, status.Error(codes.NotFound, "more than one listing found for symbol " + m.Symbol + " and market " + m.Mic)
+		return nil, status.Error(codes.NotFound, "more than one listing found for symbol "+m.Symbol+" and market "+m.Mic)
 	}
 
 	return result.Listings[0], nil
 }
 
-
 func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters) (*api.Listings, error) {
 
-	lq := listingsSelect +  " where display_symbol like '" + m.SymbolMatch +"%'"
+	lq := listingsSelect + " where display_symbol like '" + m.SymbolMatch + "%'"
 
 	r, err := s.db.Query(lq)
 	if err != nil {
@@ -89,7 +88,7 @@ func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters)
 }
 
 func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listing, error) {
-	lq := fmt.Sprintf( "%v where listings.id = %v", listingsSelect, id.ListingId)
+	lq := fmt.Sprintf("%v where listings.id = %v", listingsSelect, id.ListingId)
 
 	r, err := s.db.Query(lq)
 	if err != nil {
@@ -102,7 +101,7 @@ func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listi
 	}
 
 	if len(result.Listings) != 1 {
-		return nil, status.Error(codes.NotFound, "no listing found for listing id " + strconv.Itoa(int(id.ListingId)))
+		return nil, status.Error(codes.NotFound, "no listing found for listing id "+strconv.Itoa(int(id.ListingId)))
 	}
 
 	return result.Listings[0], nil
@@ -111,7 +110,7 @@ func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listi
 
 func (s *service) GetListings(c context.Context, ids *api.ListingIds) (*api.Listings, error) {
 
-	lq := listingsSelect +  " where listings.id in (" +  strings.Trim(strings.Join(strings.Fields(fmt.Sprint(ids.ListingIds)), ",") , "[]")+")"
+	lq := listingsSelect + " where listings.id in (" + strings.Trim(strings.Join(strings.Fields(fmt.Sprint(ids.ListingIds)), ","), "[]") + ")"
 
 	r, err := s.db.Query(lq)
 	if err != nil {
@@ -149,35 +148,34 @@ func hydrateListings(r *sql.Rows) (*api.Listings, error) {
 		err := r.Scan(&l.Id, &l.MarketSymbol, &l.Market.Id, &l.Market.Name, &l.Market.Mic, &l.Market.CountryCode,
 			&l.Instrument.Id, &l.Instrument.Name, &l.Instrument.DisplaySymbol, &l.Instrument.Enabled)
 		if err != nil {
-			return  nil, fmt.Errorf("failed to marshal database row into listing %w", err)
+			return nil, fmt.Errorf("failed to marshal database row into listing %w", err)
 		}
 
 		l.SizeIncrement = &model.Decimal64{
-			Mantissa:             1,
-			Exponent:             0,
+			Mantissa: 1,
+			Exponent: 0,
 		}
 
 		te := model.TickSizeEntry{
-			LowerPriceBound:      &model.Decimal64{
-				Mantissa:             0,
-				Exponent:             0,
+			LowerPriceBound: &model.Decimal64{
+				Mantissa: 0,
+				Exponent: 0,
 			},
-			UpperPriceBound:      &model.Decimal64{
-				Mantissa:             1,
-				Exponent:             10,
+			UpperPriceBound: &model.Decimal64{
+				Mantissa: 1,
+				Exponent: 10,
 			},
-			TickSize:             &model.Decimal64{
-				Mantissa:             1,
-				Exponent:             -2,
+			TickSize: &model.Decimal64{
+				Mantissa: 1,
+				Exponent: -2,
 			},
-
 		}
 
-		entries := make([]*model.TickSizeEntry,0)
+		entries := make([]*model.TickSizeEntry, 0)
 		entries = append(entries, &te)
 
 		tt := model.TickSizeTable{
-			Entries:              entries,
+			Entries: entries,
 		}
 
 		l.TickSize = &tt
@@ -188,10 +186,8 @@ func hydrateListings(r *sql.Rows) (*api.Listings, error) {
 	return &result, nil
 }
 
-
-
 const (
-	Port = "PORT"
+	Port                     = "PORT"
 	DatabaseConnectionString = "DB_CONN_STRING"
 	DatabaseDriverName       = "DB_DRIVER_NAME"
 )
@@ -201,7 +197,6 @@ func main() {
 	dbString := getBootstrapEnvVar(DatabaseConnectionString)
 	dbDriverName := getBootstrapEnvVar(DatabaseDriverName)
 	port := getOptionalBootstrapEnvVar(Port, "50551")
-
 
 	fmt.Println("Starting static data service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
@@ -249,5 +244,3 @@ func getOptionalBootstrapEnvVar(key string, def string) string {
 
 	return value
 }
-
-

@@ -13,7 +13,7 @@ import (
 )
 
 type testMarketDataClient struct {
-	refreshChan     chan<- *md.MarketDataIncrementalRefresh
+	refreshChan chan<- *md.MarketDataIncrementalRefresh
 
 	subscribeChan   chan string
 	closeSignalChan chan bool
@@ -40,9 +40,8 @@ func (t *testMarketDataClient) close() error {
 	return nil
 }
 
-
 func Test_quoteNormaliser_nilRefreshResetsAllQuote(t *testing.T) {
-	_,  out, n := setupTestClient()
+	_, out, n := setupTestClient()
 
 	n.Subscribe(1)
 	n.Subscribe(2)
@@ -60,29 +59,26 @@ func Test_quoteNormaliser_nilRefreshResetsAllQuote(t *testing.T) {
 		MdIncGrp: entries,
 	}
 
-	 <-out
-	 <-out
+	<-out
+	<-out
 
 	n.refreshInChan <- nil
 
 	empt1 := <-out
-	if len(empt1.GetBids()) > 0 || len(empt1.GetOffers()) > 0 || (empt1.ListingId != 1 &&  empt1.ListingId != 2) || !empt1.StreamInterrupted {
+	if len(empt1.GetBids()) > 0 || len(empt1.GetOffers()) > 0 || (empt1.ListingId != 1 && empt1.ListingId != 2) || !empt1.StreamInterrupted {
 		t.FailNow()
 	}
 
 	empt2 := <-out
-	if len(empt2.GetBids()) > 0 || len(empt2.GetOffers()) > 0 || (empt1.ListingId != 1 &&  empt1.ListingId != 2) || !empt2.StreamInterrupted{
+	if len(empt2.GetBids()) > 0 || len(empt2.GetOffers()) > 0 || (empt1.ListingId != 1 && empt1.ListingId != 2) || !empt2.StreamInterrupted {
 		t.FailNow()
 	}
-
-
-
 
 }
 
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
-	tmd,  out, n := setupTestClient()
+	tmd, out, n := setupTestClient()
 
 	n.Subscribe(1)
 
@@ -118,25 +114,24 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	}
 }
 
-func setupTestClient() (*testMarketDataClient,  chan *model.ClobQuote, *fixSimAdapter) {
+func setupTestClient() (*testMarketDataClient, chan *model.ClobQuote, *fixSimAdapter) {
 	tmd, _ := newTestMarketDataClient()
 
 	out := make(chan *model.ClobQuote, 100)
-	listingIdToSym := map[int32]string{1: "A", 2: "B", 3:"C"}
+	listingIdToSym := map[int32]string{1: "A", 2: "B", 3: "C"}
 	n, _ := NewFixSimAdapter(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
 		return tmd, nil
 	}, "testName", toLookupFunc(listingIdToSym), out)
 
 	n.listingInChan = make(chan *model.Listing)
 
-
-	return tmd,  out, n
+	return tmd, out, n
 }
 
-func toLookupFunc(listingIdToSym map[int32]string) func(listingId int32, onSymbol chan<- *model.Listing)  {
+func toLookupFunc(listingIdToSym map[int32]string) func(listingId int32, onSymbol chan<- *model.Listing) {
 	return func(listingId int32, onSymbol chan<- *model.Listing) {
 		if sym, ok := listingIdToSym[listingId]; ok {
-			onSymbol<- &model.Listing{Id:listingId, MarketSymbol:sym}
+			onSymbol <- &model.Listing{Id: listingId, MarketSymbol: sym}
 		}
 	}
 }
@@ -166,7 +161,7 @@ func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 	return nil
 }
 
-var id  = 0
+var id = 0
 
 func getNextId() string {
 	id++
@@ -224,7 +219,6 @@ func Test_updateAsksWithInserts(t *testing.T) {
 				{EntryId: "B", Size: d64(20), Price: d64(4)},
 				{EntryId: "C", Size: d64(20), Price: d64(6)}},
 		},
-
 
 		{
 			"insert ask at same price",
@@ -701,7 +695,7 @@ func Test_updateBidsWithDelete(t *testing.T) {
 			},
 			[]*model.ClobLine{
 				{EntryId: "A", Size: d64(20), Price: d64(6)},
-				{EntryId: "B", Size: d64(20), Price: d64(4)},},
+				{EntryId: "B", Size: d64(20), Price: d64(4)}},
 		},
 	}
 
@@ -767,7 +761,7 @@ func Test_updateAsksWithDelete(t *testing.T) {
 			},
 			[]*model.ClobLine{
 				{EntryId: "A", Size: d64(20), Price: d64(6)},
-				{EntryId: "B", Size: d64(20), Price: d64(4)},},
+				{EntryId: "B", Size: d64(20), Price: d64(4)}},
 		},
 	}
 

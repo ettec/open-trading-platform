@@ -4,9 +4,9 @@
 package api
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
 	context "context"
 	fmt "fmt"
+	"github.com/ettec/open-trading-platform/go/model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -30,9 +30,9 @@ type CreateAndRouteOrderParams struct {
 	Quantity             *model.Decimal64 `protobuf:"bytes,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	Price                *model.Decimal64 `protobuf:"bytes,3,opt,name=price,proto3" json:"price,omitempty"`
 	Listing              *model.Listing   `protobuf:"bytes,4,opt,name=listing,proto3" json:"listing,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
 }
 
 func (m *CreateAndRouteOrderParams) Reset()         { *m = CreateAndRouteOrderParams{} }

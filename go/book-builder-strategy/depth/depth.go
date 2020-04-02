@@ -1,6 +1,5 @@
 package depth
 
-
 type Depths []Depth
 
 type Depth struct {
@@ -56,4 +55,3 @@ type Depth struct {
 	} `json:"trades"`
 	TradeBreaks []interface{} `json:"tradeBreaks"`
 }
-

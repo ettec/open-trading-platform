@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 func Test_quoteDistributor_Send(t *testing.T) {
 
 	in := make(chan *model.ClobQuote, 10)
@@ -34,9 +33,7 @@ func Test_quoteDistributor_Send(t *testing.T) {
 
 }
 
-
 func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
-
 
 	in := make(chan *model.ClobQuote, 10)
 
@@ -47,7 +44,7 @@ func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
 	s2 := make(chan *model.ClobQuote, 100)
 
 	d.AddOutQuoteChan(s1)
-	d.Subscribe(1,s1)
+	d.Subscribe(1, s1)
 
 	in <- &model.ClobQuote{ListingId: 1}
 
@@ -75,15 +72,13 @@ func Test_onlySubscribedQuotesReceived(t *testing.T) {
 
 	d.AddOutQuoteChan(s1)
 
-	d.Subscribe(1,s1)
-	d.Subscribe(2,s1)
-
+	d.Subscribe(1, s1)
+	d.Subscribe(2, s1)
 
 	in <- &model.ClobQuote{ListingId: 3}
 	in <- &model.ClobQuote{ListingId: 1}
 	in <- &model.ClobQuote{ListingId: 4}
 	in <- &model.ClobQuote{ListingId: 2}
-
 
 	q := <-s1
 	if q.ListingId != 1 {
@@ -94,6 +89,5 @@ func Test_onlySubscribedQuotesReceived(t *testing.T) {
 	if q.ListingId != 2 {
 		t.Errorf("unexpected quote")
 	}
-
 
 }

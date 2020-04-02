@@ -39,8 +39,6 @@ const (
 	TargetMic                = "TARGET_MIC"
 )
 
-
-
 func main() {
 
 	port := "50571"
@@ -63,9 +61,6 @@ func main() {
 	symbolsToRunArg := bootstrap.GetOptionalEnvVar(SymbolsToRun, "")
 	targetMic := bootstrap.GetEnvVar(TargetMic)
 
-
-
-
 	ls, err := common.NewStaticDataSource(staticDataServiceAddr)
 	if err != nil {
 		log.Panicf("failed to create listing source service:%v", err)
@@ -78,8 +73,6 @@ func main() {
 	if err != nil {
 		log.Panicf("failed to create book builder strategy service:%v", err)
 	}
-
-
 
 	body, err := ioutil.ReadFile("./resources/depth.json")
 	if err != nil {
@@ -100,7 +93,7 @@ func main() {
 
 	var symbolsToRun []string
 	if symbolsToRunArg == "*" {
-		for k,_ := range symToDepths {
+		for k, _ := range symToDepths {
 			symbolsToRun = append(symbolsToRun, k)
 		}
 	} else {
@@ -111,12 +104,11 @@ func main() {
 	listingChan := make(chan *model.Listing, 1)
 	for _, sym := range symbolsToRun {
 
-
 		ls.GetListingMatching(&services.ExactMatchParameters{Symbol: sym, Mic: targetMic}, listingChan)
 		listing := <-listingChan
 		if listing != nil {
 			book, err := strategy.NewBookBuilder(listing, bbs.quoteDistributor, symToDepths[sym], bbs.orderEntryService,
-				bookScanInterval,  tradeProbability, variation, minQty)
+				bookScanInterval, tradeProbability, variation, minQty)
 			if err != nil {
 				log.Printf("failed to start strategy for listing:%v, error:%v", listing, err)
 			} else {
@@ -183,7 +175,7 @@ func (s *service) Start(c context.Context, p *api.ListingId) (*model.Empty, erro
 	defer s.booksMx.Unlock()
 
 	if book, exists := s.books[p.ListingId]; exists {
-		err :=  book.Start()
+		err := book.Start()
 		if err != nil {
 			return nil, err
 		}
@@ -201,7 +193,7 @@ func (s *service) Stop(c context.Context, p *api.ListingId) (*model.Empty, error
 	defer s.booksMx.Unlock()
 
 	if book, exists := s.books[p.ListingId]; exists {
-		err :=  book.Stop()
+		err := book.Stop()
 		if err != nil {
 			return nil, err
 		}

@@ -10,26 +10,23 @@ import (
 type quoteConflator struct {
 	inChan        <-chan *model.ClobQuote
 	outChan       chan<- *model.ClobQuote
-	closeChan     chan  bool
+	closeChan     chan bool
 	pendingQuote  map[int32]*model.ClobQuote
 	receivedOrder *boundedCircularInt32Buffer
 	errLog        *log.Logger
 }
 
-
 func (c *quoteConflator) Close() {
-	c.closeChan<-true
+	c.closeChan <- true
 }
 
-func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote,  capacity int) *quoteConflator {
+func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.ClobQuote, capacity int) *quoteConflator {
 	c := &quoteConflator{
 		inChan: inChan, outChan: outChan, closeChan: make(chan bool),
 		pendingQuote: map[int32]*model.ClobQuote{}, receivedOrder: newBoundedCircularIntBuffer(capacity),
-	errLog:log.New(os.Stderr, "", log.Lshortfile|log.Ltime)}
-
+		errLog: log.New(os.Stderr, "", log.Lshortfile|log.Ltime)}
 
 	go func() {
-
 
 		for {
 			var eq *model.ClobQuote
@@ -47,21 +44,21 @@ func NewQuoteConflator(inChan <-chan *model.ClobQuote, outChan chan<- *model.Clo
 						return
 					}
 
-					if err := c.conflate( q ); err != nil {
+					if err := c.conflate(q); err != nil {
 						c.errLog.Println("exiting:", err)
 						return
 					}
 				case c.outChan <- eq:
 					delete(c.pendingQuote, eq.ListingId)
 					c.receivedOrder.removeTail()
-				case  <-c.closeChan:
+				case <-c.closeChan:
 					return
 				}
 
 			} else {
 				select {
 				case q := <-c.inChan:
-					if err := c.conflate( q ); err != nil {
+					if err := c.conflate(q); err != nil {
 						c.errLog.Println("exiting:", err)
 						return
 					}
@@ -131,7 +128,6 @@ func (b *boundedCircularInt32Buffer) getTail() (int32, bool) {
 	res := b.buffer[b.readPtr]
 	return res, true
 }
-
 
 // returns the value and true if a value is available
 func (b *boundedCircularInt32Buffer) removeTail() (int32, bool) {

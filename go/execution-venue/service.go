@@ -21,7 +21,7 @@ import (
 const (
 	KafkaOrderTopicKey = "KAFKA_ORDERS_TOPIC"
 	KafkaBrokersKey    = "KAFKA_BROKERS"
-	ExecVenueId = "EXEC_VENUE_ID"
+	ExecVenueId        = "EXEC_VENUE_ID"
 )
 
 type service struct {
@@ -78,7 +78,6 @@ func main() {
 	kafkaBrokers := GetBootstrapEnvVar(KafkaBrokersKey)
 	execVenueId := GetBootstrapEnvVar(ExecVenueId)
 
-
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
@@ -128,7 +127,7 @@ func main() {
 
 }
 
-func createOrderStore(ordersTopic string, kafkaBrokers string, execVenueId string ) (orderstore.OrderStore, error) {
+func createOrderStore(ordersTopic string, kafkaBrokers string, execVenueId string) (orderstore.OrderStore, error) {
 	var store orderstore.OrderStore
 
 	var err error

@@ -12,20 +12,19 @@ import (
 )
 
 type KafkaStore struct {
-	writer *kafka.Writer
-	log *log.Logger
-	topic string
+	writer          *kafka.Writer
+	log             *log.Logger
+	topic           string
 	kafkaBrokerUrls []string
-	execVenueId string
-
+	execVenueId     string
 }
 
-func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (*KafkaStore,  error) {
+func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (*KafkaStore, error) {
 	result := KafkaStore{
-		log : log.New(os.Stdout, "Topic: " + topic + " ", log.Lshortfile | log.Ltime),
-		topic : topic,
+		log:             log.New(os.Stdout, "Topic: "+topic+" ", log.Lshortfile|log.Ltime),
+		topic:           topic,
 		kafkaBrokerUrls: kafkaBrokerUrls,
-		execVenueId: execVenueId,
+		execVenueId:     execVenueId,
 	}
 
 	result.writer = kafka.NewWriter(kafka.WriterConfig{
@@ -54,12 +53,12 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 	result := map[string]*model.Order{}
 	now := time.Now()
 
-	readMsgCnt :=0
+	readMsgCnt := 0
 	for {
 
-		deadline, _ := context.WithDeadline(context.Background(), time.Now().Add(5 * time.Second))
+		deadline, _ := context.WithDeadline(context.Background(), time.Now().Add(5*time.Second))
 
-		msg, err := reader.ReadMessage( deadline )
+		msg, err := reader.ReadMessage(deadline)
 
 		if err != nil {
 			if err != context.DeadlineExceeded {
@@ -90,8 +89,6 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 
 	return result, nil
 }
-
-
 
 func (ks *KafkaStore) Close() {
 	ks.writer.Close()

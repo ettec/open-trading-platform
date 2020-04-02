@@ -73,10 +73,9 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 
 	username, appInstanceId, err := getMetaData(stream.Context())
 
-
 	after := request.After
 	if after == nil {
-		after = &model.Timestamp{Seconds:time.Now().Unix()}
+		after = &model.Timestamp{Seconds: time.Now().Unix()}
 	}
 
 	if err != nil {

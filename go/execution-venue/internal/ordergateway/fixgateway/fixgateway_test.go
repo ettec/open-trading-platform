@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-
-
 func toFixString(decimal64 model.Decimal64) string {
 	d, s := toFixDecimal(&decimal64)
 
@@ -24,14 +22,13 @@ func Test_toFixDecimal(t *testing.T) {
 		args args
 		want string
 	}{
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: 1936, Exponent: -2,}}, want: "19.36"},
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: 1936, Exponent: 0,}}, want: "1936"},
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: 1936, Exponent: 2,}}, want: "193600"},
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: -2,}}, want: "-19.36"},
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: 0,}}, want: "-1936"},
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: 2,}}, want: "-193600"},
-		{name: "basic", args: args{d: model.Decimal64{Mantissa: 193600, Exponent: -1,}}, want: "19360.0"},
-
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: 1936, Exponent: -2}}, want: "19.36"},
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: 1936, Exponent: 0}}, want: "1936"},
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: 1936, Exponent: 2}}, want: "193600"},
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: -2}}, want: "-19.36"},
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: 0}}, want: "-1936"},
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: 2}}, want: "-193600"},
+		{name: "basic", args: args{d: model.Decimal64{Mantissa: 193600, Exponent: -1}}, want: "19360.0"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -1,7 +1,7 @@
 package model
 
 import (
-"fmt"
+	"fmt"
 )
 
 var noneStateValidTargetStates = map[OrderStatus]bool{OrderStatus_LIVE: true, OrderStatus_CANCELLED: true}
@@ -9,9 +9,9 @@ var liveStateValidTargetStates = map[OrderStatus]bool{OrderStatus_LIVE: true, Or
 var cancelledStateValidTargetStates = map[OrderStatus]bool{OrderStatus_NONE: true}
 var filledStateValidTargetStates = map[OrderStatus]bool{OrderStatus_NONE: true}
 
-var noneTargetStateValidStates = map[OrderStatus]bool{OrderStatus_NONE: true, OrderStatus_FILLED:true}
-var liveTargetStateValidStates = map[OrderStatus]bool{OrderStatus_LIVE: true, OrderStatus_FILLED:true}
-var cancelledTargetStateValidStates = map[OrderStatus]bool{OrderStatus_CANCELLED: true, OrderStatus_NONE: true, OrderStatus_LIVE: true, OrderStatus_FILLED:true}
+var noneTargetStateValidStates = map[OrderStatus]bool{OrderStatus_NONE: true, OrderStatus_FILLED: true}
+var liveTargetStateValidStates = map[OrderStatus]bool{OrderStatus_LIVE: true, OrderStatus_FILLED: true}
+var cancelledTargetStateValidStates = map[OrderStatus]bool{OrderStatus_CANCELLED: true, OrderStatus_NONE: true, OrderStatus_LIVE: true, OrderStatus_FILLED: true}
 
 func (ord *Order) SetStatus(status OrderStatus) error {
 

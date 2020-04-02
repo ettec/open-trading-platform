@@ -41,7 +41,6 @@ func (s tops) Less(i, j int) bool {
 
 func main() {
 
-
 	body := readIexJson("https://api.iextrading.com/1.0/tops")
 
 	var t tops = make([]top, 2000)
@@ -90,7 +89,7 @@ func main() {
 
 	ioutil.WriteFile("./resources/depth.json", body, os.ModePerm)
 
-	log.Println("loaded depth for symbols:" , symbols)
+	log.Println("loaded depth for symbols:", symbols)
 
 }
 

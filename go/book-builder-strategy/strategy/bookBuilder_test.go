@@ -45,14 +45,14 @@ func (o *testOrderEntryClient) SubmitNewOrder(ctx context.Context, in *orderentr
 
 	id, _ := uuid.NewUUID()
 
-	return &orderentryapi.OrderId{OrderId: id.String(),}, nil
+	return &orderentryapi.OrderId{OrderId: id.String()}, nil
 }
 func (o *testOrderEntryClient) CancelOrder(ctx context.Context, in *orderentryapi.OrderId, opts ...grpc.CallOption) (*orderentryapi.Empty, error) {
 	return nil, nil
 }
 
 type testQuoteDist struct {
-	subscribeChan chan int32
+	subscribeChan    chan int32
 	addQuoteChanChan chan chan<- *model.ClobQuote
 }
 
@@ -79,16 +79,16 @@ func (d *testQuoteDist) RemoveOutQuoteChan(sink chan<- *model.ClobQuote) {
 func getTestListing() *model.Listing {
 
 	entry := &model.TickSizeEntry{
-		LowerPriceBound:      model.IasD(0),
-		UpperPriceBound:      model.IasD(10000000),
-		TickSize:             &model.Decimal64{Mantissa:1, Exponent:-2},
+		LowerPriceBound: model.IasD(0),
+		UpperPriceBound: model.IasD(10000000),
+		TickSize:        &model.Decimal64{Mantissa: 1, Exponent: -2},
 	}
 
 	table := &model.TickSizeTable{
-		Entries:              []*model.TickSizeEntry{entry},
+		Entries: []*model.TickSizeEntry{entry},
 	}
 
-	return &model.Listing{Id: 1,MarketSymbol: "XLF", TickSize:table}
+	return &model.Listing{Id: 1, MarketSymbol: "XLF", TickSize: table}
 }
 
 func Test_bookBuilder_start(t *testing.T) {
@@ -99,26 +99,26 @@ func Test_bookBuilder_start(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 0.0, 0, 0.9)
+	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10*time.Millisecond, 0.0, 0, 0.9)
 	if err != nil {
 		t.FailNow()
 	}
 
 	book.Start()
 
-	sink := <- qd.addQuoteChanChan
+	sink := <-qd.addQuoteChanChan
 
 	sink <- &model.ClobQuote{
 		ListingId: 1,
 		Bids: []*model.ClobLine{{Size: model.IasD(100),
-			Price: model.IasD(20),},
+			Price: model.IasD(20)},
 			{Size: model.IasD(200),
-				Price: model.IasD(30),},
+				Price: model.IasD(30)},
 		},
 		Offers: []*model.ClobLine{{Size: model.IasD(400),
-			Price: model.IasD(35),},
+			Price: model.IasD(35)},
 			{Size: model.IasD(200),
-				Price: model.IasD(25),},
+				Price: model.IasD(25)},
 		}}
 
 	p := <-oec.submitOrderChan
@@ -126,8 +126,6 @@ func Test_bookBuilder_start(t *testing.T) {
 
 	p = <-oec.submitOrderChan
 	verifyParams(p, "XLF", orderentryapi.Side_BUY, model.IasD(35), 600, t)
-
-
 
 	p = <-oec.submitOrderChan
 	verifyParams(p, "XLF", orderentryapi.Side_BUY, &model.Decimal64{Mantissa: 2703, Exponent: -2}, 1100, t)
@@ -137,7 +135,6 @@ func Test_bookBuilder_start(t *testing.T) {
 
 	p = <-oec.submitOrderChan
 	verifyParams(p, "XLF", orderentryapi.Side_BUY, &model.Decimal64{Mantissa: 2701, Exponent: -2}, 2500, t)
-
 
 	p = <-oec.submitOrderChan
 	verifyParams(p, "XLF", orderentryapi.Side_SELL, &model.Decimal64{Mantissa: 2706, Exponent: -2}, 2500, t)
@@ -150,17 +147,17 @@ func Test_bookBuilder_start(t *testing.T) {
 
 }
 
-func verifyParams(p *orderentryapi.NewOrderParams, expS string, s orderentryapi.Side, price *model.Decimal64 , qty int, t *testing.T) {
+func verifyParams(p *orderentryapi.NewOrderParams, expS string, s orderentryapi.Side, price *model.Decimal64, qty int, t *testing.T) {
 	if p.Symbol != expS || p.OrderSide != s || !asMd64(p.Price).Equal(price) ||
 		!asMd64(p.Quantity).Equal(model.IasD(qty)) {
 		t.FailNow()
 	}
 }
 
-func asMd64( d *orderentryapi.Decimal64) *model.Decimal64{
+func asMd64(d *orderentryapi.Decimal64) *model.Decimal64 {
 	return &model.Decimal64{
-		Mantissa:             d.Mantissa,
-		Exponent:             d.Exponent,
+		Mantissa: d.Mantissa,
+		Exponent: d.Exponent,
 	}
 }
 
@@ -187,21 +184,19 @@ func Test_bookBuilder_rebuildsBook(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 0.0, 0.01, 0.9)
+	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10*time.Millisecond, 0.0, 0.01, 0.9)
 	if err != nil {
 		t.FailNow()
 	}
 
 	book.Start()
 
-	sink := <- qd.addQuoteChanChan
+	sink := <-qd.addQuoteChanChan
 
 	sink <- &model.ClobQuote{
 		ListingId: 1,
-		Bids: []*model.ClobLine{
-		},
-		Offers: []*model.ClobLine{}}
-
+		Bids:      []*model.ClobLine{},
+		Offers:    []*model.ClobLine{}}
 
 	<-oec.submitOrderChan
 	<-oec.submitOrderChan
@@ -213,7 +208,7 @@ func Test_bookBuilder_rebuildsBook(t *testing.T) {
 	quote := getClobQuote([]line{
 		{27.03, 1100},
 		{27.01, 2500},
-	} , []line{
+	}, []line{
 		{27.06, 2500},
 		{27.07, 2500},
 		{27.08, 2500},
@@ -231,7 +226,6 @@ func Test_bookBuilder_rebuildsBook(t *testing.T) {
 		t.FailNow()
 	}
 
-
 }
 
 func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
@@ -242,21 +236,19 @@ func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
 	oec := newTestOrderEntryClient()
 	qd := newTestQuoteDist()
 
-	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10 * time.Millisecond, 1.0, 0.01, 0.0)
+	book, err := NewBookBuilder(getTestListing(), qd, dep, oec, 10*time.Millisecond, 1.0, 0.01, 0.0)
 	if err != nil {
 		t.FailNow()
 	}
 
 	book.Start()
 
-	sink := <- qd.addQuoteChanChan
+	sink := <-qd.addQuoteChanChan
 
 	sink <- &model.ClobQuote{
 		ListingId: 1,
-		Bids: []*model.ClobLine{
-		},
-		Offers: []*model.ClobLine{}}
-
+		Bids:      []*model.ClobLine{},
+		Offers:    []*model.ClobLine{}}
 
 	<-oec.submitOrderChan
 	<-oec.submitOrderChan
@@ -268,7 +260,7 @@ func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
 	quote := getClobQuote([]line{
 		{27.03, 1100},
 		{27.01, 2500},
-	} , []line{
+	}, []line{
 		{27.06, 2500},
 		{27.07, 2500},
 		{27.08, 2500},
@@ -285,9 +277,6 @@ func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
 	verifyParams(p, "XLF", orderentryapi.Side_SELL, &model.Decimal64{Mantissa: 2703, Exponent: -2}, 1100, t)
 
 }
-
-
-
 
 func getClobQuote(rawBids []line, rawAsks []line, listingId int32) *model.ClobQuote {
 	bids := toClobLines(rawBids)
@@ -315,6 +304,3 @@ type line struct {
 	price float64
 	size  int
 }
-
-
-

@@ -1,8 +1,8 @@
 package ordercache
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
+	"github.com/ettec/open-trading-platform/go/model"
 )
 
 type OrderCache struct {
@@ -23,7 +23,6 @@ func NewOrderCache(store orderstore.OrderStore) (*OrderCache, error) {
 
 	return &orderCache, nil
 }
-
 
 func (oc *OrderCache) Store(order *model.Order) error {
 

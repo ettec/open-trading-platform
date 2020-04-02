@@ -31,13 +31,8 @@ type execVenue struct {
 }
 
 type orderRouter struct {
-	micToExecVenue    map[string]*execVenue
-
+	micToExecVenue map[string]*execVenue
 }
-
-
-
-
 
 func (o orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 	mic := p.Listing.Market.Mic
@@ -92,7 +87,7 @@ func main() {
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 
 	orderRouter := orderRouter{
-		micToExecVenue:    map[string]*execVenue{},
+		micToExecVenue: map[string]*execVenue{},
 	}
 
 	clientSet := k8s.GetK8sClientSet(external)
@@ -159,8 +154,6 @@ func main() {
 
 }
 
-
-
 func createExecVenueConnection(service *v1.Service, maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
 	err error) {
 
@@ -176,7 +169,3 @@ func createExecVenueConnection(service *v1.Service, maxReconnectInterval time.Du
 		conn:   conn,
 	}, nil
 }
-
-
-
-

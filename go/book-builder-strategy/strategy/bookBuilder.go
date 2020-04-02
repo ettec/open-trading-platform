@@ -105,22 +105,19 @@ func (b *BookBuilder) Start() error {
 
 		var lastQuote *model.ClobQuote
 
-
-
-
 	loop:
 		for {
 			select {
 			case q := <-quotesIn:
 
 				if lastQuote == nil {
-					if  q.StreamInterrupted {
+					if q.StreamInterrupted {
 						b.log.Println("first received quote is interrupted: " + q.StreamStatusMsg)
 					} else {
 						b.log.Println("quote stream established")
 					}
 				} else {
-					if lastQuote.StreamInterrupted  && !q.StreamInterrupted {
+					if lastQuote.StreamInterrupted && !q.StreamInterrupted {
 						b.log.Println("quote stream re-established")
 					}
 
@@ -130,9 +127,8 @@ func (b *BookBuilder) Start() error {
 
 				}
 
-
 				lastQuote = q
-				if firstQuote && !lastQuote.StreamInterrupted{
+				if firstQuote && !lastQuote.StreamInterrupted {
 					firstQuote = false
 
 					b.log.Println("first quote received", lastQuote)
@@ -142,10 +138,7 @@ func (b *BookBuilder) Start() error {
 					b.sendOrdersForLines(b.initialDepth.Asks, orderentryapi.Side_SELL)
 				}
 
-
-
 			case <-ticker.C:
-
 
 				if lastQuote != nil && !lastQuote.StreamInterrupted {
 
@@ -203,7 +196,6 @@ func (b *BookBuilder) updateBookSide(side orderentryapi.Side, totalInitialQty fl
 	if rand.Float64() < b.tradeProbability {
 		if len(lastQuoteOppositeSide) > 0 {
 			bestOpp := lastQuoteOppositeSide[0]
-
 
 			uniqueId, _ := uuid.NewUUID()
 

@@ -12,10 +12,10 @@ import (
 )
 
 type fixSimMarketDataClient struct {
-	conn          *grpc.ClientConn
+	conn              *grpc.ClientConn
 	subscriptionsChan chan string
-	log           *log.Logger
-	errLog        *log.Logger
+	log               *log.Logger
+	errLog            *log.Logger
 }
 
 type getMarketSimConnectionFn = func(targetAddress string) (FixSimMarketDataServiceClient, GrpcConnection, error)
@@ -30,8 +30,8 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 
 	n := &fixSimMarketDataClient{
 		subscriptionsChan: make(chan string, 100),
-		log:           log.New(os.Stdout, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
-		errLog:        log.New(os.Stderr, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
+		log:               log.New(os.Stdout, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
+		errLog:            log.New(os.Stderr, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
 	}
 
 	log.Println("connecting to fix sim market data service at:" + targetAddress)
@@ -41,9 +41,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 		return nil, err
 	}
 
-
-	streamChan := make(chan FixSimMarketDataService_ConnectClient,1)
-
+	streamChan := make(chan FixSimMarketDataService_ConnectClient, 1)
 
 	go func() {
 		subscriptions := map[string]bool{}
@@ -65,7 +63,6 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 							break
 						}
 					}
-
 
 					n.log.Printf("resubscribed to all %v quotes", len(subscriptions))
 
@@ -100,16 +97,15 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 				n.log.Println("market gateway connection state is:", state)
 			}
 
-			stream, err := client.Connect(metadata.AppendToOutgoingContext(context.Background(),  "subscriber_id", id))
+			stream, err := client.Connect(metadata.AppendToOutgoingContext(context.Background(), "subscriber_id", id))
 			if err != nil {
 				n.errLog.Println("failed to connect to quote stream:", err)
 				continue
 			}
 
-
 			n.log.Println("connected to quote stream")
 
-			streamChan<-stream
+			streamChan <- stream
 
 			for {
 				incRefresh, err := stream.Recv()
@@ -121,7 +117,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 				out <- incRefresh
 			}
 
-			streamChan<-nil
+			streamChan <- nil
 		}
 	}()
 
@@ -132,9 +128,7 @@ func (fsc *fixSimMarketDataClient) close() error {
 	return fsc.conn.Close()
 }
 
-
 func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
-	fsc.subscriptionsChan<-symbol
+	fsc.subscriptionsChan <- symbol
 	return nil
 }
-

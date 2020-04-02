@@ -17,13 +17,12 @@ type KafkaMessageSource struct {
 
 func NewKafkaMessageSource(topic string, brokerUrls []string) *KafkaMessageSource {
 	ks := &KafkaMessageSource{}
-	ks.reader =  kafka.NewReader(kafka.ReaderConfig{
-		Brokers: brokerUrls,
-		Topic:   topic,
+	ks.reader = kafka.NewReader(kafka.ReaderConfig{
+		Brokers:        brokerUrls,
+		Topic:          topic,
 		ReadBackoffMin: 10 * time.Millisecond,
 		ReadBackoffMax: 20 * time.Millisecond,
-		MaxWait: 15 * time.Millisecond,
-
+		MaxWait:        15 * time.Millisecond,
 	})
 
 	return ks
@@ -41,7 +40,3 @@ func (k *KafkaMessageSource) ReadMessage(ctx context.Context) ([]byte, error) {
 func (k *KafkaMessageSource) Close() error {
 	return k.reader.Close()
 }
-
-
-
-

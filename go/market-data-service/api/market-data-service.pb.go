@@ -4,9 +4,9 @@
 package api
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
 	context "context"
 	fmt "fmt"
+	"github.com/ettec/open-trading-platform/go/model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -73,11 +73,11 @@ func (m *MdsConnectRequest) GetMaxQuotePerSecond() int32 {
 }
 
 type MdsSubscribeRequest struct {
-	SubscriberId         string   `protobuf:"bytes,1,opt,name=subscriberId,proto3" json:"subscriberId,omitempty"`
+	SubscriberId         string         `protobuf:"bytes,1,opt,name=subscriberId,proto3" json:"subscriberId,omitempty"`
 	Listing              *model.Listing `protobuf:"bytes,2,opt,name=listing,proto3" json:"listing,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
 func (m *MdsSubscribeRequest) Reset()         { *m = MdsSubscribeRequest{} }

@@ -177,10 +177,10 @@ func TestDecimal64_AsDecimal(t *testing.T) {
 		fields fields
 		want   decimal.Decimal
 	}{
-		{"test", fields{Mantissa: 1,Exponent: 0,}, decimal.New(1, 0)},
-		{"test", fields{Mantissa:231,Exponent: -7,}, decimal.New(231, -7)},
-		{"test", fields{Mantissa: 123,Exponent: 5}, decimal.New(123, 5)},
-		{"test", fields{Mantissa: 0,Exponent: 0,}, decimal.New(0, 0)},
+		{"test", fields{Mantissa: 1, Exponent: 0}, decimal.New(1, 0)},
+		{"test", fields{Mantissa: 231, Exponent: -7}, decimal.New(231, -7)},
+		{"test", fields{Mantissa: 123, Exponent: 5}, decimal.New(123, 5)},
+		{"test", fields{Mantissa: 0, Exponent: 0}, decimal.New(0, 0)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -201,23 +201,23 @@ func TestDecimal64_Add(t *testing.T) {
 		o Decimal64
 	}
 	tests := []struct {
-		name   string
-		args   args
+		name string
+		args args
 		want Decimal64
 	}{
-		{"test", args{Decimal64{Mantissa:0, Exponent:0},Decimal64{Mantissa:0, Exponent:0}},
-			Decimal64{Mantissa:0, Exponent:0}},
-		{"test", args{Decimal64{Mantissa:1, Exponent:0},Decimal64{Mantissa:0, Exponent:0}},
-			Decimal64{Mantissa:1, Exponent:0}},
-		{"test", args{Decimal64{Mantissa:1, Exponent:-1},Decimal64{Mantissa:1, Exponent:-1}},
-			Decimal64{Mantissa:2, Exponent:-1}},
-		{"test", args{Decimal64{Mantissa:3, Exponent:1},Decimal64{Mantissa:8, Exponent:1}},
-			Decimal64{Mantissa:110, Exponent:0}},
+		{"test", args{Decimal64{Mantissa: 0, Exponent: 0}, Decimal64{Mantissa: 0, Exponent: 0}},
+			Decimal64{Mantissa: 0, Exponent: 0}},
+		{"test", args{Decimal64{Mantissa: 1, Exponent: 0}, Decimal64{Mantissa: 0, Exponent: 0}},
+			Decimal64{Mantissa: 1, Exponent: 0}},
+		{"test", args{Decimal64{Mantissa: 1, Exponent: -1}, Decimal64{Mantissa: 1, Exponent: -1}},
+			Decimal64{Mantissa: 2, Exponent: -1}},
+		{"test", args{Decimal64{Mantissa: 3, Exponent: 1}, Decimal64{Mantissa: 8, Exponent: 1}},
+			Decimal64{Mantissa: 110, Exponent: 0}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.args.t.Add(&tt.args.o)
-			if  !tt.args.t.Equal(&tt.want) {
+			if !tt.args.t.Equal(&tt.want) {
 				t.Errorf("Add() = %v, want %v", tt.args.t, tt.want)
 			}
 		})
