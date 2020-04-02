@@ -120,7 +120,7 @@ var maxSubscriptions = 10000
 func main() {
 
 	port := "50551"
-	fmt.Println("Starting Client Market Data Gateway on port:" + port)
+	fmt.Println("Starting Market Data Gateway on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	id := bootstrap.GetEnvVar(GatewayIdKey)

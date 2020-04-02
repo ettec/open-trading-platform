@@ -25,8 +25,8 @@ type service struct {
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
 	mic := r.Listing.Market.Mic
-	if gateway, ok := s.micToSource[mic]; ok {
-		if conn, ok := gateway.GetConnection(r.SubscriberId); ok {
+	if source, ok := s.micToSource[mic]; ok {
+		if conn, ok := source.GetConnection(r.SubscriberId); ok {
 
 			if err := conn.Subscribe(r.Listing.Id); err != nil {
 				return nil, err

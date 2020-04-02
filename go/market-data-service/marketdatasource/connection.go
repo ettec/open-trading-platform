@@ -1,9 +1,10 @@
 package marketdatasource
 
 import (
+	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/ettech/open-trading-platform/go/market-data-service/api/marketdatasource"
+
 	"google.golang.org/grpc"
 	"log"
 	"sync"
@@ -23,7 +24,7 @@ func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterv
 
 	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error) {
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 		if err != nil {
 			return nil, nil, err
@@ -33,13 +34,13 @@ func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterv
 		return client, conn, nil
 	}
 
-	mdc, err := NewMarketDataSourceClient(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
+	stream, err := marketdata.NewMdsQuoteStream(id, marketGatewayAddress, mdcToDistributorChan, mdcFn)
 
 	if err != nil {
 		return nil, err
 	}
 
-	qd := marketdata.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
+	qd := marketdata.NewQuoteDistributor(stream.Subscribe, mdcToDistributorChan)
 	gateway := &MdsConnection{partyIdToConnection: make(map[string]marketdata.ConflatedQuoteConnection), quoteDistributor: qd,
 		maxSubscriptions: maxSubscriptions}
 
