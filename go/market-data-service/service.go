@@ -123,7 +123,7 @@ func main() {
 
 		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-		client, err := marketdatasource.NewGatewayConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
+		client, err := marketdatasource.NewMdsConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
 			maxSubscriptions)
 		if err != nil {
 			errLog.Printf("failed to create connection to market data source at %v, error: %v", targetAddress, err)

@@ -14,16 +14,11 @@ type MdsConnection struct {
 	partyIdToConnection map[string]marketdata.ConflatedQuoteConnection
 	quoteDistributor    marketdata.QuoteDistributor
 
-
-
-
-
-
 	connMux          sync.Mutex
 	maxSubscriptions int
 }
 
-func NewGatewayConnection(id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
+func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
 	maxSubscriptions int) (*MdsConnection, error) {
 
 	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
