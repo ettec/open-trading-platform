@@ -2,9 +2,8 @@ package marketdatasource
 
 import (
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
-	"github.com/ettech/open-trading-platform/go/market-data-service/api/marketdatasource"
-
 	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettech/open-trading-platform/go/market-data-service/api/marketdatasource"
 	"google.golang.org/grpc"
 	"log"
 	"sync"
