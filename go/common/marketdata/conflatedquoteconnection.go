@@ -52,7 +52,7 @@ func (c *conflatedQuoteConnection) GetId() string {
 }
 
 func NewConflatedQuoteConnection(id string, out chan<- *model.ClobQuote, quoteDistributor QuoteDistributor,
-	maxSubscriptions int) *conflatedQuoteConnection {
+	maxSubscriptions int) ConflatedQuoteConnection {
 
 	distToConflatorChan := make(chan *model.ClobQuote, 200)
 

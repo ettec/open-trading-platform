@@ -7,7 +7,7 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/api"
-	"github.com/ettech/open-trading-platform/go/market-data-service/gatewayclient"
+	"github.com/ettech/open-trading-platform/go/market-data-service/marketdatasource"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -19,13 +19,13 @@ import (
 )
 
 type service struct {
-	micToGateway map[string]*gatewayclient.GatewayConnection
+	micToSource map[string]*marketdatasource.MdsConnection
 }
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
 	mic := r.Listing.Market.Mic
-	if gateway, ok := s.micToGateway[mic]; ok {
+	if gateway, ok := s.micToSource[mic]; ok {
 		if conn, ok := gateway.GetConnection(r.SubscriberId); ok {
 
 			if err := conn.Subscribe(r.Listing.Id); err != nil {
@@ -51,7 +51,7 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	out := make(chan *model.ClobQuote, 100)
 
-	for mic, gateway := range s.micToGateway {
+	for mic, gateway := range s.micToSource {
 		gateway.AddConnection(subscriberId, out)
 		log.Printf("connected subscriber %v to market data source for mic %ve", subscriberId, mic)
 	}
@@ -85,7 +85,7 @@ func main() {
 
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 
-	mdService := service{micToGateway: map[string]*gatewayclient.GatewayConnection{}}
+	mdService := service{micToSource: map[string]*marketdatasource.MdsConnection{}}
 
 	clientSet := k8s.GetK8sClientSet(external)
 
@@ -124,14 +124,14 @@ func main() {
 
 		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-		client, err := gatewayclient.NewGatewayConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
+		client, err := marketdatasource.NewGatewayConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
 			maxSubscriptions)
 		if err != nil {
 			errLog.Printf("failed to create connection to market data source at %v, error: %v", targetAddress, err)
 			continue
 		}
 
-		mdService.micToGateway[mic] = client
+		mdService.micToSource[mic] = client
 
 		log.Printf("added market data source for mic: %v, service name: %v, target address: %v", mic, service.Name, targetAddress)
 	}
