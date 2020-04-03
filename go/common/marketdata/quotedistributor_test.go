@@ -3,6 +3,7 @@ package marketdata
 import (
 	"github.com/ettec/open-trading-platform/go/model"
 	"testing"
+	"time"
 )
 
 func Test_quoteDistributor_Send(t *testing.T) {
@@ -58,6 +59,32 @@ func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
 
 	if q := <-s2; q.ListingId != 1 {
 		t.Errorf("expected quote note received")
+	}
+
+}
+
+func Test_subscribeOnlyCalledOnceForAGivenListing(t *testing.T) {
+
+	in := make(chan *model.ClobQuote)
+
+	subscribeCalls := make(chan int32, 10)
+	d := NewQuoteDistributor(func(listingId int32) {
+		subscribeCalls <- listingId
+	}, in)
+
+	s1 := make(chan *model.ClobQuote, 50)
+	s2 := make(chan *model.ClobQuote, 50)
+
+	d.AddOutQuoteChan(s1)
+	d.AddOutQuoteChan(s2)
+
+	d.Subscribe(1, s1)
+	d.Subscribe(1, s2)
+
+	time.Sleep(2 * time.Second)
+
+	if len(subscribeCalls) != 1 {
+		t.FailNow()
 	}
 
 }

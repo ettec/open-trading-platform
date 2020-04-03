@@ -189,7 +189,7 @@ func Test_marketDataGatewayClient_resubscribedOnConnect(t *testing.T) {
 
 }
 
-func setup(t *testing.T) (testClient, testClientStream, testConnection, *mdsQuoteStream, chan *model.ClobQuote) {
+func setup(t *testing.T) (testClient, testClientStream, testConnection, MdsQuoteStream, chan *model.ClobQuote) {
 	out := make(chan *model.ClobQuote)
 
 	client := testClient{

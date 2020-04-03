@@ -32,25 +32,27 @@ type distConnection struct {
 type subscribeToListing = func(listingId int32)
 
 type quoteDistributor struct {
-	connections      []*distConnection
-	addOutChan       chan chan<- *model.ClobQuote
-	removeOutChan    chan chan<- *model.ClobQuote
-	subscriptionChan chan subscribeRequest
-	lastQuote        map[int32]*model.ClobQuote
-	subscribedFn     subscribeToListing
-	log              *log.Logger
-	errLog           *log.Logger
+	connections         []*distConnection
+	addOutChan          chan chan<- *model.ClobQuote
+	removeOutChan       chan chan<- *model.ClobQuote
+	subscriptionChan    chan subscribeRequest
+	lastQuote           map[int32]*model.ClobQuote
+	subscribedFn        subscribeToListing
+	subscribedToListing map[int32]bool
+	log                 *log.Logger
+	errLog              *log.Logger
 }
 
 func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *model.ClobQuote) *quoteDistributor {
 	q := &quoteDistributor{connections: make([]*distConnection, 0),
-		addOutChan:       make(chan chan<- *model.ClobQuote),
-		removeOutChan:    make(chan chan<- *model.ClobQuote),
-		subscriptionChan: make(chan subscribeRequest),
-		lastQuote:        map[int32]*model.ClobQuote{},
-		subscribedFn:     subscribedFn,
-		log:              log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
-		errLog:           log.New(os.Stderr, "", log.Ltime|log.Lshortfile),
+		addOutChan:          make(chan chan<- *model.ClobQuote),
+		removeOutChan:       make(chan chan<- *model.ClobQuote),
+		subscriptionChan:    make(chan subscribeRequest),
+		lastQuote:           map[int32]*model.ClobQuote{},
+		subscribedFn:        subscribedFn,
+		subscribedToListing: map[int32]bool{},
+		log:                 log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
+		errLog:              log.New(os.Stderr, "", log.Ltime|log.Lshortfile),
 	}
 
 	go func() {
@@ -69,7 +71,10 @@ func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *mo
 					q.errLog.Printf("unable to subscribe to listing id %v, error: %v", s.listingId, err)
 				}
 
-				go q.subscribedFn(s.listingId)
+				if !q.subscribedToListing[s.listingId] {
+					q.subscribedToListing[s.listingId] = true
+					go q.subscribedFn(s.listingId)
+				}
 			case cq := <-quoteInChan:
 				q.lastQuote[cq.ListingId] = cq
 				for _, subscription := range q.connections {
@@ -98,6 +103,7 @@ func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *mo
 }
 
 func (q *quoteDistributor) Subscribe(listingId int32, out chan<- *model.ClobQuote) {
+
 	q.subscriptionChan <- subscribeRequest{
 		listingId: listingId,
 		out:       out,

@@ -3,30 +3,23 @@ package main
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common"
+	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	md "github.com/ettec/open-trading-platform/go/common/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/google/uuid"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 	"os"
 	"strconv"
-	"sync"
 	"time"
 )
 
-type service struct {
-	quoteDistributor md.QuoteDistributor
-	connMux          sync.Mutex
-}
 
-func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (*service, error) {
+func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer , error) {
 
 	listingSrc, err := common.NewStaticDataSource(staticDataServiceAddress)
 	if err != nil {
@@ -53,57 +46,11 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 
 	qd := md.NewQuoteDistributor(fixSimConn.Subscribe, serverToDistributorChan)
 
-	s := &service{quoteDistributor: qd}
+	s := md.NewMarketDataSource(qd)
 
 	return s, nil
 }
 
-const SubscriberIdKey = "subscriber_id"
-
-func (s *service) Connect(stream marketdatasource.MarketDataSource_ConnectServer) error {
-
-	ctx, ok := metadata.FromIncomingContext(stream.Context())
-	if !ok {
-		return fmt.Errorf("failed to retrieve call context")
-	}
-
-	values := ctx.Get(SubscriberIdKey)
-	if len(values) != 1 {
-		return fmt.Errorf("must specify string value for %v", SubscriberIdKey)
-	}
-
-	fromClientId := values[0]
-	subscriberId := fromClientId + ":" + uuid.New().String()
-
-	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId)
-
-	out := make(chan *model.ClobQuote, 100)
-	cc := md.NewConflatedQuoteConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
-	defer cc.Close()
-
-	go func() {
-		for {
-			subscription, err := stream.Recv()
-
-			if err != nil {
-				log.Printf("subscriber:%v inbound stream error:%v ", subscriberId, err)
-				break
-			} else {
-				log.Printf("subscribe request, subscriber id:%v, listing id:%v", subscriberId, subscription.ListingId)
-				cc.Subscribe(subscription.ListingId)
-			}
-		}
-	}()
-
-	for mdUpdate := range out {
-		if err := stream.Send(mdUpdate); err != nil {
-			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
-			break
-		}
-	}
-
-	return nil
-}
 
 const (
 	GatewayIdKey             = "GATEWAY_ID"

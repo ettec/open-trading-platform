@@ -16,7 +16,6 @@ type MdsQuoteStream interface {
 	Subscribe(listingId int32)
 }
 
-
 type mdsQuoteStream struct {
 	conn              *grpc.ClientConn
 	subscriptionsChan chan int32
@@ -24,7 +23,7 @@ type mdsQuoteStream struct {
 	errLog            *log.Logger
 }
 
-type getMdsClientFn = func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error)
+type GetMdsClientFn = func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error)
 
 type GrpcConnection interface {
 	GetState() connectivity.State
@@ -32,7 +31,7 @@ type GrpcConnection interface {
 }
 
 func NewMdsQuoteStream(id string, targetAddress string, out chan<- *model.ClobQuote,
-	getConnection getMdsClientFn) (MdsQuoteStream, error) {
+	getConnection GetMdsClientFn) (MdsQuoteStream, error) {
 
 	n := &mdsQuoteStream{
 		subscriptionsChan: make(chan int32, 100),

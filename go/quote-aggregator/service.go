@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/google/uuid"
+	"github.com/ettec/open-trading-platform/go/quote-aggregator/quoteaggregator"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
@@ -19,69 +17,14 @@ import (
 	"time"
 )
 
-type service struct {
-	micToStream map[string]marketdata.MdsQuoteStream
-}
-
 const (
 	ServiceIdKey        = "SERVICE_ID"
 	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
 	External            = "EXTERNAL"
 )
 
-var maxSubscriptions = 10000
-
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
-
-const SubscriberIdKey = "subscriber_id"
-
-func (s *service) Connect(stream marketdatasource.MarketDataSource_ConnectServer) error {
-
-	ctx, ok := metadata.FromIncomingContext(stream.Context())
-	if !ok {
-		return fmt.Errorf("failed to retrieve call context")
-	}
-
-	values := ctx.Get(SubscriberIdKey)
-	if len(values) != 1 {
-		return fmt.Errorf("must specify string value for %v", SubscriberIdKey)
-	}
-
-	fromClientId := values[0]
-	subscriberId := fromClientId + ":" + uuid.New().String()
-
-	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId)
-
-	out := make(chan *model.ClobQuote, 100)
-	cc := marketdata.NewConflatedQuoteConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
-	defer cc.Close()
-
-	go func() {
-		for {
-			subscription, err := stream.Recv()
-
-			if err != nil {
-				log.Printf("subscriber:%v inbound stream error:%v ", subscriberId, err)
-				break
-			} else {
-				log.Printf("subscribe request, subscriber id:%v, listing id:%v", subscriberId, subscription.ListingId)
-				cc.Subscribe(subscription.ListingId)
-			}
-		}
-	}()
-
-	for mdUpdate := range out {
-		if err := stream.Send(mdUpdate); err != nil {
-			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
-			break
-		}
-	}
-
-	return nil
-}
-
-
 
 func main() {
 
@@ -91,7 +34,7 @@ func main() {
 
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 
-	mdService := service{micToStream: map[string]marketdata.MdsQuoteStream{}}
+	micToMdsAddress := map[string]string{}
 
 	clientSet := k8s.GetK8sClientSet(external)
 
@@ -109,7 +52,7 @@ func main() {
 	for _, service := range list.Items {
 		const micLabel = "mic"
 		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring market data source as it does not have a mic label, service: %v", service)
+			errLog.Printf("ignoring market data source as it does not have a mic label, marketDataSource: %v", service)
 			continue
 		}
 
@@ -123,29 +66,33 @@ func main() {
 		}
 
 		if podPort == 0 {
-			log.Printf("ignoring market data service as it does not have a port named api, service: %v", service)
+			log.Printf("ignoring market data marketDataSource as it does not have a port named api, marketDataSource: %v", service)
 			continue
 		}
 
 		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-		mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
-			conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(time.Duration(connectRetrySecs)*time.Second))
-			if err != nil {
-				return nil, nil, err
-			}
+		micToMdsAddress[mic] = targetAddress
 
-			client := marketdatasource.NewMarketDataSourceClient(conn)
-			return client, conn, nil
+		log.Printf("found market data source for mic: %v, marketDataSource name: %v, target address: %v", mic, service.Name, targetAddress)
+	}
+
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
+		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(time.Duration(connectRetrySecs)*time.Second))
+		if err != nil {
+			return nil, nil, err
 		}
 
-		out := make(chan *model.ClobQuote)
-		stream, err := marketdata.NewMdsQuoteStream(id, targetAddress, out, mdcFn)
-
-		mdService.micToStream[mic] = stream
-
-		log.Printf("added market data source for mic: %v, service name: %v, target address: %v", mic, service.Name, targetAddress)
+		client := marketdatasource.NewMarketDataSourceClient(conn)
+		return client, conn, nil
 	}
+
+	aggregatorToDistributorChan := make(chan *model.ClobQuote, 1000)
+
+	quoteAggregator := quoteaggregator.New(id, func(listingId int32, listingGroupsIn chan<- []model.Listing) {},
+		micToMdsAddress, aggregatorToDistributorChan, mdcFn)
+
+	mdService := NewMarketDataSource{marketdata.NewQuoteDistributor(quoteAggregator.Subscribe, aggregatorToDistributorChan)}
 
 	port := "50551"
 	log.Println("Starting Market Data Service on port:" + port)
@@ -156,7 +103,7 @@ func main() {
 
 	s := grpc.NewServer()
 	if err != nil {
-		log.Panicf("failed to create market data service:%v", err)
+		log.Panicf("failed to create market data marketDataSource:%v", err)
 	}
 
 	marketdatasource.RegisterMarketDataSourceServer(s, &mdService)
