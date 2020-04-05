@@ -5,8 +5,8 @@ package session
 
 import (
 	fmt "fmt"
-	common "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
-	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
+	common "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/common"
+	fix "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/fix"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
 )

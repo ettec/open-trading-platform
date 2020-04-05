@@ -5,7 +5,7 @@ package common
 
 import (
 	fmt "fmt"
-	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
+	fix "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/fix"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
 )

@@ -92,7 +92,7 @@ func main() {
 	quoteAggregator := quoteaggregator.New(id, func(listingId int32, listingGroupsIn chan<- []model.Listing) {},
 		micToMdsAddress, aggregatorToDistributorChan, mdcFn)
 
-	mdService := NewMarketDataSource{marketdata.NewQuoteDistributor(quoteAggregator.Subscribe, aggregatorToDistributorChan)}
+	mdService := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator.Subscribe, aggregatorToDistributorChan))
 
 	port := "50551"
 	log.Println("Starting Market Data Service on port:" + port)
@@ -106,7 +106,7 @@ func main() {
 		log.Panicf("failed to create market data marketDataSource:%v", err)
 	}
 
-	marketdatasource.RegisterMarketDataSourceServer(s, &mdService)
+	marketdatasource.RegisterMarketDataSourceServer(s, mdService)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

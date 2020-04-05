@@ -1,4 +1,4 @@
-module github.com/ettec/open-trading-platform/go/market-data-gateway
+module github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim
 
 go 1.13
 

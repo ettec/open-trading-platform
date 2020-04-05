@@ -2,26 +2,23 @@ package marketdata
 
 import (
 	"fmt"
+	"github.com/emicklei/go-restful/log"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
 	"google.golang.org/grpc/metadata"
-	logger "log"
-	"os"
 )
 
 type marketDataSourceServer struct {
 	quoteDistributor QuoteDistributor
 }
 
-func NewMarketDataSource(quoteDistributor QuoteDistributor ) marketdatasource.MarketDataSourceServer {
+func NewMarketDataSource(quoteDistributor QuoteDistributor) marketdatasource.MarketDataSourceServer {
 	return &marketDataSourceServer{quoteDistributor}
 }
 
 var maxSubscriptions = 10000
 
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 const SubscriberIdKey = "subscriber_id"
 

@@ -5,9 +5,9 @@ package marketdata
 
 import (
 	fmt "fmt"
-	common "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
-	fix "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
-	session "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/session"
+	common "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/common"
+	fix "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/fix"
+	session "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/session"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
 )

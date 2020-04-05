@@ -6,8 +6,8 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	md "github.com/ettec/open-trading-platform/go/common/marketdata"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/connections/fixsim"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/connections/fixsim"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -18,8 +18,7 @@ import (
 	"time"
 )
 
-
-func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer , error) {
+func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer, error) {
 
 	listingSrc, err := common.NewStaticDataSource(staticDataServiceAddress)
 	if err != nil {
@@ -50,7 +49,6 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 
 	return s, nil
 }
-
 
 const (
 	GatewayIdKey             = "GATEWAY_ID"

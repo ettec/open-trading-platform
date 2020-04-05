@@ -3,9 +3,9 @@ package fixsim
 import (
 	"fmt"
 
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/common"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/fix"
-	md "github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/common"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/fix"
+	md "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"reflect"
 	"strconv"

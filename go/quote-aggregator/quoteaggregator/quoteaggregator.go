@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-const QuoteAggregatorMic  = "XOSR"
+const QuoteAggregatorMic = "XOSR"
 
 type quoteAggregator struct {
 	getListings     getListingsWithSameInstrument
@@ -41,6 +41,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 		case listings := <-q.listingGroupsIn:
 			quoteChan := make(chan *model.ClobQuote)
 			numStreams := 0
+			var quoteAggListingId int32 = -1
 			for _, listing := range listings {
 				if listing.Market.Mic != QuoteAggregatorMic {
 					listingIdToQuoteChan[listing.Id] = quoteChan
@@ -50,6 +51,8 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 					} else {
 						log.Printf("no quote stream available for mic %v, instrument %v ", listing.Market.Mic, listing.Instrument.DisplaySymbol)
 					}
+				} else {
+					quoteAggListingId = listing.Id
 				}
 			}
 
@@ -66,7 +69,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 						quotes[idx] = q
 						idx++
 					}
-					out <- combineQuotes(quotes)
+					out <- combineQuotes(quoteAggListingId, quotes)
 				}
 
 			}()
@@ -80,8 +83,80 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	return q
 }
 
-func combineQuotes(quotes []*model.ClobQuote) *model.ClobQuote {
-  here impl this and test
+func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote) *model.ClobQuote {
+
+	bids := getCombinedLines(quotes,
+		func(quote *model.ClobQuote) []*model.ClobLine {
+			return quote.Bids
+		}, func(a *model.Decimal64, b *model.Decimal64) bool {
+			return a.GreaterThan(b)
+		})
+
+	offers := getCombinedLines(quotes,
+		func(quote *model.ClobQuote) []*model.ClobLine {
+			return quote.Offers
+		}, func(a *model.Decimal64, b *model.Decimal64) bool {
+			return a.LessThan(b)
+		})
+
+	streamInterrupted := false
+	streamStatusMsg := ""
+
+	for _, quote := range quotes {
+		if !streamInterrupted {
+			streamInterrupted = quote.StreamInterrupted
+		}
+		if quote.StreamStatusMsg != "" {
+			streamStatusMsg = quote.StreamStatusMsg
+		}
+	}
+
+	quote := &model.ClobQuote{
+		ListingId:         combinedListingId,
+		Bids:              bids,
+		Offers:            offers,
+		StreamInterrupted: streamInterrupted,
+		StreamStatusMsg:   streamStatusMsg,
+	}
+
+	return quote
+}
+
+func getCombinedLines(quotes []*model.ClobQuote, getQuoteLines func(quote *model.ClobQuote) []*model.ClobLine, compare func(a *model.Decimal64, b *model.Decimal64) bool) []*model.ClobLine {
+	result := []*model.ClobLine{}
+	levelIdxs := make([]int, len(quotes), len(quotes))
+
+	for {
+		var bestPrice *model.Decimal64 = nil
+		var bestSize *model.Decimal64 = nil
+		var bestListingId int32
+		bestQuoteIdx := 0
+
+		for quoteIdx, quote := range quotes {
+			lines := getQuoteLines(quote)
+			if levelIdxs[quoteIdx] < len(lines) {
+				price := lines[levelIdxs[quoteIdx]].Price
+				size := lines[levelIdxs[quoteIdx]].Size
+				listingId := quote.ListingId
+
+				if bestPrice == nil || compare(price, bestPrice) {
+					bestPrice = price
+					bestSize = size
+					bestQuoteIdx = quoteIdx
+					bestListingId = listingId
+				}
+			}
+		}
+
+		if bestPrice != nil {
+			levelIdxs[bestQuoteIdx] = levelIdxs[bestQuoteIdx] + 1
+			result = append(result, &model.ClobLine{Price: bestPrice, Size: bestSize, ListingId: bestListingId})
+		} else {
+			break
+		}
+
+	}
+	return result
 }
 
 func (q quoteAggregator) getListingsWithSameInstrument(listingId int32) {

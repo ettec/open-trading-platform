@@ -2,7 +2,7 @@ package fixsim
 
 import (
 	"github.com/ettec/open-trading-platform/go/common"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/internal/fix/marketdata"
+	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
