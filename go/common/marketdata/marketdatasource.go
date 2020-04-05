@@ -19,7 +19,6 @@ func NewMarketDataSource(quoteDistributor QuoteDistributor) marketdatasource.Mar
 
 var maxSubscriptions = 10000
 
-
 const SubscriberIdKey = "subscriber_id"
 
 func (s *marketDataSourceServer) Connect(stream marketdatasource.MarketDataSource_ConnectServer) error {
