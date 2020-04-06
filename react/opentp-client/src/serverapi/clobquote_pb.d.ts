@@ -16,6 +16,9 @@ export class ClobLine extends jspb.Message {
   getEntryid(): string;
   setEntryid(value: string): void;
 
+  getListingid(): number;
+  setListingid(value: number): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClobLine.AsObject;
   static toObject(includeInstance: boolean, msg: ClobLine): ClobLine.AsObject;
@@ -29,6 +32,7 @@ export namespace ClobLine {
     size?: modelcommon_pb.Decimal64.AsObject,
     price?: modelcommon_pb.Decimal64.AsObject,
     entryid: string,
+    listingid: number,
   }
 }
 

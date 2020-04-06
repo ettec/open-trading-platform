@@ -13,12 +13,14 @@ import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
 import TableViewConfig, { getColumnState, getColIdsInOrder, reorderColumnData } from "./TableView/TableLayout";
 import { TabNode, Actions, Model } from "flexlayout-react";
+import { ListingService } from "../services/ListingService";
 
 interface MarketDepthProps {
   node: TabNode,
   model: Model,
   quoteService : QuoteService,
   listingContext : ListingContext
+  listingService: ListingService
 }
 
 interface MarketDepthState {
@@ -33,6 +35,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
   stream?: grpcWeb.ClientReadableStream<ClobQuote>;
 
   quoteService: QuoteService;
+  listingService: ListingService;
 
   staticDataService = new StaticDataServiceClient(Login.grpcContext.serviceUrl, null, null)
 
@@ -40,11 +43,15 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     super(props);
 
     this.quoteService = props.quoteService
+    this.listingService = props.listingService
 
-    let columns = [<Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+    let columns = [
+    <Column key="bidMic" id="bidMic" name="Bid Mic" cellRenderer={this.renderBidMic} />,
+    <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
     <Column  key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
     <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
-    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]  
+    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />,
+    <Column key="askMic" id="askMic" name="Ask Mic" cellRenderer={this.renderAskMic} />]  
 
     let config = this.props.node.getConfig()
 
@@ -158,6 +165,47 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     return "(No Selection) "
   }
+
+  private renderBidMic = (row: number) => {
+
+    if( !this.state || !this.state.quote) {
+      return (<Cell></Cell>)
+    }
+
+    let depth = this.state.quote.getBidsList()
+
+    if (row < depth.length) {
+      let listing = this.listingService.GetListingImmediate(depth[row].getListingid())
+      if( listing ) {
+        return (<Cell>{listing.getMarket()?.getMic()}</Cell>)
+      } else {
+        return (<Cell></Cell>)
+      }
+    } else {
+      return (<Cell></Cell>)
+    }
+  }
+
+  private renderAskMic = (row: number) => {
+
+    if( !this.state || !this.state.quote) {
+      return (<Cell></Cell>)
+    }
+
+    let depth = this.state.quote.getOffersList()
+
+    if (row < depth.length) {
+      let listing = this.listingService.GetListingImmediate(depth[row].getListingid())
+      if( listing ) {
+        return (<Cell>{listing.getMarket()?.getMic()}</Cell>)
+      } else {
+        return (<Cell></Cell>)
+      }
+    } else {
+      return (<Cell></Cell>)
+    }
+  }
+
 
   private renderBidSize = (row: number) => {
 

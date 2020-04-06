@@ -8,6 +8,9 @@ import { ListingId } from "../serverapi/static-data-service_pb";
 
 
 export interface ListingService {
+
+  GetListingImmediate(listingId: number) : Listing | null
+  
   GetListing(listingId: number, listener: (
     response: Listing) => void): void
 }
@@ -22,6 +25,28 @@ export default class ListingServiceImpl implements ListingService {
 
   idToListeners: Map<number, Array<(response: Listing) => void>> = new Map()
   listingIdToListing: Map<number, Listing> = new Map()
+
+  GetListingImmediate(listingId: number) : Listing | null {
+    if (listingId <= 0) {
+      return null
+    }
+
+    let listing = this.listingIdToListing.get(listingId)
+    if (listing) {
+      return listing
+    }
+
+    let listeners = this.idToListeners.get(listingId)
+    if (!listeners) {
+      this.GetListing(listingId, (response : Listing) => void {
+        // Do nothing
+      })
+    }
+
+    return null
+  }
+
+  
 
   GetListing(listingId: number, listener: (
     response: Listing) => void) {

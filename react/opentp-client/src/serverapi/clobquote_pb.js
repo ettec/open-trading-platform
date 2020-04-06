@@ -93,7 +93,8 @@ proto.model.ClobLine.toObject = function(includeInstance, msg) {
   var f, obj = {
     size: (f = msg.getSize()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     price: (f = msg.getPrice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
-    entryid: jspb.Message.getFieldWithDefault(msg, 3, "")
+    entryid: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    listingid: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -144,6 +145,10 @@ proto.model.ClobLine.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setEntryid(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setListingid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -193,6 +198,13 @@ proto.model.ClobLine.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getListingid();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
       f
     );
   }
@@ -288,6 +300,24 @@ proto.model.ClobLine.prototype.getEntryid = function() {
  */
 proto.model.ClobLine.prototype.setEntryid = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional int32 listingId = 4;
+ * @return {number}
+ */
+proto.model.ClobLine.prototype.getListingid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.model.ClobLine} returns this
+ */
+proto.model.ClobLine.prototype.setListingid = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
