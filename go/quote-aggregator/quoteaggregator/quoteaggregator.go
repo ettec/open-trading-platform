@@ -10,10 +10,10 @@ const QuoteAggregatorMic = "XOSR"
 
 type quoteAggregator struct {
 	getListings     getListingsWithSameInstrument
-	listingGroupsIn chan []model.Listing
+	listingGroupsIn chan []*model.Listing
 }
 
-type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []model.Listing)
+type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
 func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument, micToMdsAddress map[string]string,
 	out chan<- *model.ClobQuote, mdsClientFn marketdata.GetMdsClientFn) *quoteAggregator {
@@ -66,7 +66,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 							listingIdToLastQuote[q.ListingId] = q
 							quotes = quotes[:0]
 							for _, q := range listingIdToLastQuote {
-								quotes = append(quotes,q)
+								quotes = append(quotes, q)
 							}
 							out <- combineQuotes(quoteAggListingId, quotes)
 						}

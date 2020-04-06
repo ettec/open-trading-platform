@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
@@ -18,9 +19,10 @@ import (
 )
 
 const (
-	ServiceIdKey        = "SERVICE_ID"
-	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
-	External            = "EXTERNAL"
+	ServiceIdKey             = "SERVICE_ID"
+	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
+	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
+	External                 = "EXTERNAL"
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
@@ -33,6 +35,8 @@ func main() {
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
+
+	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
 
 	micToMdsAddress := map[string]string{}
 
@@ -89,10 +93,15 @@ func main() {
 
 	aggregatorToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	quoteAggregator := quoteaggregator.New(id, func(listingId int32, listingGroupsIn chan<- []model.Listing) {},
+	sds, err := common.NewStaticDataSource(staticDataServiceAddress)
+	if err != nil {
+		panic(err)
+	}
+
+	quoteAggregator := quoteaggregator.New(id, sds.GetListingsWithSameInstrument,
 		micToMdsAddress, aggregatorToDistributorChan, mdcFn)
 
-	mdService := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator.Subscribe, aggregatorToDistributorChan))
+	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator.Subscribe, aggregatorToDistributorChan))
 
 	port := "50551"
 	log.Println("Starting Market Data Service on port:" + port)
@@ -106,7 +115,7 @@ func main() {
 		log.Panicf("failed to create market data marketDataSource:%v", err)
 	}
 
-	marketdatasource.RegisterMarketDataSourceServer(s, mdService)
+	marketdatasource.RegisterMarketDataSourceServer(s, mdSource)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

@@ -1,7 +1,6 @@
 syntax = "proto3";
 import "listing.proto";
 package staticdataservice;
-option go_package="api";
 
 
 message ListingId {
@@ -10,7 +9,7 @@ message ListingId {
 
 
 message ListingIds {
-    repeated int32 listingIds = 1; 
+    repeated int32 listingIds = 1;
 }
 
 message Listings {
@@ -31,10 +30,9 @@ message ExactMatchParameters {
 
 
 service StaticDataService{
+    rpc GetListingsWithSameInstrument(ListingId) returns (Listings) {};
     rpc GetListingMatching(ExactMatchParameters) returns (model.Listing) {};
     rpc GetListingsMatching(MatchParameters) returns (Listings) {};
     rpc GetListing(ListingId) returns (model.Listing) {};
     rpc GetListings(ListingIds) returns (Listings) {};
-} 
-
-
+}

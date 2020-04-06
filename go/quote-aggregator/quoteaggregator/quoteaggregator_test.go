@@ -20,7 +20,6 @@ func Test_quoteAggregator(t *testing.T) {
 	iexgClient, iexgStream, iexgConnection := setup(t)
 	xnasClient, xnasStream, xnasConnection := setup(t)
 
-
 	qa := New("test", func(listingId int32, listingGroupsIn chan<- []model.Listing) {
 		if listingId == 1 {
 			listingGroupsIn <- []model.Listing{{
@@ -128,7 +127,6 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-
 	q = <-out
 
 	combinedQuote := &model.ClobQuote{
@@ -156,7 +154,6 @@ func Test_quoteAggregator(t *testing.T) {
 	if !reflect.DeepEqual(combinedQuote, q) {
 		t.FailNow()
 	}
-
 
 	iexgStream.refreshChan <- &model.ClobQuote{
 
@@ -202,10 +199,6 @@ func Test_quoteAggregator(t *testing.T) {
 	if !reflect.DeepEqual(combinedQuote, q) {
 		t.FailNow()
 	}
-
-
-
-
 
 }
 

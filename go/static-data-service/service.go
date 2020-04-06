@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/ettec/open-trading-platform/go/static-data-service/api"
+	api "github.com/ettec/open-trading-platform/go/static-data-service/api/staticdataservice"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -44,6 +44,29 @@ const listingsSelect = `SELECT listings.id, listings.market_symbol, markets.id, 
 		instruments.id, instruments.name, instruments.display_symbol, instruments.enabled FROM listings inner join instruments 
 		on listings.instrument_id = instruments.id inner join markets 
 		on listings.market_id = markets.id `
+
+func (s *service) GetListingsWithSameInstrument(c context.Context, id *api.ListingId) (*api.Listings, error) {
+
+	listing, err := s.GetListing(c, id)
+	if err != nil {
+		return nil, err
+	}
+
+	lq := listingsSelect + " where instruments.id = " + strconv.Itoa(int(listing.Instrument.Id))
+
+	r, err := s.db.Query(lq)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
+	}
+
+	result, err := hydrateListings(r)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+
+}
 
 func (s *service) GetListingMatching(c context.Context, m *api.ExactMatchParameters) (*model.Listing, error) {
 
