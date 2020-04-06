@@ -20,9 +20,9 @@ func Test_quoteAggregator(t *testing.T) {
 	iexgClient, iexgStream, iexgConnection := setup(t)
 	xnasClient, xnasStream, xnasConnection := setup(t)
 
-	qa := New("test", func(listingId int32, listingGroupsIn chan<- []model.Listing) {
+	qa := New("test", func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
 		if listingId == 1 {
-			listingGroupsIn <- []model.Listing{{
+			listingGroupsIn <- []*model.Listing{{
 				Version: 0,
 				Id:      1,
 				Market:  &model.Market{Mic: "XOSR"},

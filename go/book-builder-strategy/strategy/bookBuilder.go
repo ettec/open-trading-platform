@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
+	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
 	"log"
@@ -24,7 +24,7 @@ const (
 
 type BookBuilder struct {
 	listing           *model.Listing
-	quoteSource       actor.QuoteDistributor
+	quoteSource       marketdata.QuoteDistributor
 	initialDepth      depth.Depth
 	state             bookBuilderState
 	orderEntryService orderentryapi.OrderEntryServiceClient
@@ -38,7 +38,7 @@ type BookBuilder struct {
 	errLog            *log.Logger
 }
 
-func NewBookBuilder(listing *model.Listing, distributor actor.QuoteDistributor, initialDepth depth.Depth,
+func NewBookBuilder(listing *model.Listing, distributor marketdata.QuoteDistributor, initialDepth depth.Depth,
 	orderEntryService orderentryapi.OrderEntryServiceClient,
 	bookScanInterval time.Duration, tradeProbability float64, variation float64, minQtyPercent float64) (*BookBuilder, error) {
 

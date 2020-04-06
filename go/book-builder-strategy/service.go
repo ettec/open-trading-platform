@@ -9,11 +9,10 @@ import (
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/strategy"
 	"github.com/ettec/open-trading-platform/go/common"
+	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
+	"github.com/ettec/open-trading-platform/go/common/api/staticdataservice"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
-	services "github.com/ettec/open-trading-platform/go/common/services"
-	"github.com/ettec/open-trading-platform/go/market-data-gateway/actor"
-	mdgapi "github.com/ettec/open-trading-platform/go/market-data-gateway/api"
-	"github.com/ettec/open-trading-platform/go/market-data-service/gatewayclient"
+	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -104,7 +103,7 @@ func main() {
 	listingChan := make(chan *model.Listing, 1)
 	for _, sym := range symbolsToRun {
 
-		ls.GetListingMatching(&services.ExactMatchParameters{Symbol: sym, Mic: targetMic}, listingChan)
+		ls.GetListingMatching(&staticdataservice.ExactMatchParameters{Symbol: sym, Mic: targetMic}, listingChan)
 		listing := <-listingChan
 		if listing != nil {
 			book, err := strategy.NewBookBuilder(listing, bbs.quoteDistributor, symToDepths[sym], bbs.orderEntryService,
@@ -131,7 +130,7 @@ func main() {
 
 type service struct {
 	id                string
-	quoteDistributor  actor.QuoteDistributor
+	quoteDistributor  marketdata.QuoteDistributor
 	orderEntryService orderentryapi.OrderEntryServiceClient
 	listingSource     common.ListingSource
 	books             map[int32]*strategy.BookBuilder
@@ -141,24 +140,24 @@ type service struct {
 func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls common.ListingSource,
 	maxReconnectInterval time.Duration) (*service, error) {
 
-	mdcFn := func(targetAddress string) (mdgapi.MarketDataGatewayClient, gatewayclient.GrpcConnection, error) {
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 		if err != nil {
 			return nil, nil, err
 		}
 
-		client := mdgapi.NewMarketDataGatewayClient(conn)
+		client := marketdatasource.NewMarketDataSourceClient(conn)
 		return client, conn, nil
 	}
 
 	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	mdc, err := gatewayclient.NewMarketDataGatewayClient(id, mdGatewayAddr, mdcToDistributorChan, mdcFn)
+	mdc, err := marketdata.NewMdsQuoteStream(id, mdGatewayAddr, mdcToDistributorChan, mdcFn)
 	if err != nil {
 		return nil, err
 	}
 
-	qd := actor.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
+	qd := marketdata.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
 
 	conn, err := grpc.Dial(orderEntryAddr, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 	if err != nil {

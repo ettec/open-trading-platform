@@ -20,7 +20,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 
 	q := &quoteAggregator{
 		getListings:     getListingsWithSameInstrument,
-		listingGroupsIn: make(chan []model.Listing, 1000),
+		listingGroupsIn: make(chan []*model.Listing, 1000),
 	}
 
 	quoteStreamsOut := make(chan *model.ClobQuote, 1000)
