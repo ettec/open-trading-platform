@@ -37,47 +37,46 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	listingIdToQuoteChan := map[int32]chan<- *model.ClobQuote{}
 
 	go func() {
-		select {
-		case listings := <-q.listingGroupsIn:
-			quoteChan := make(chan *model.ClobQuote)
-			numStreams := 0
-			var quoteAggListingId int32 = -1
-			for _, listing := range listings {
-				if listing.Market.Mic != QuoteAggregatorMic {
-					listingIdToQuoteChan[listing.Id] = quoteChan
-					if stream, ok := micToStream[listing.Market.Mic]; ok {
-						stream.Subscribe(listing.Id)
-						numStreams++
+		for {
+			select {
+			case listings := <-q.listingGroupsIn:
+				quoteChan := make(chan *model.ClobQuote)
+				numStreams := 0
+				var quoteAggListingId int32 = -1
+				for _, listing := range listings {
+					if listing.Market.Mic != QuoteAggregatorMic {
+						listingIdToQuoteChan[listing.Id] = quoteChan
+						if stream, ok := micToStream[listing.Market.Mic]; ok {
+							stream.Subscribe(listing.Id)
+							numStreams++
+						} else {
+							log.Printf("no quote stream available for mic %v, instrument %v ", listing.Market.Mic, listing.Instrument.DisplaySymbol)
+						}
 					} else {
-						log.Printf("no quote stream available for mic %v, instrument %v ", listing.Market.Mic, listing.Instrument.DisplaySymbol)
+						quoteAggListingId = listing.Id
 					}
-				} else {
-					quoteAggListingId = listing.Id
 				}
+
+				go func() {
+					listingIdToLastQuote := map[int32]*model.ClobQuote{}
+					quotes := make([]*model.ClobQuote, 0, numStreams)
+					for {
+						select {
+						case q := <-quoteChan:
+							listingIdToLastQuote[q.ListingId] = q
+							quotes = quotes[:0]
+							for _, q := range listingIdToLastQuote {
+								quotes = append(quotes,q)
+							}
+							out <- combineQuotes(quoteAggListingId, quotes)
+						}
+					}
+				}()
+
+			case q := <-quoteStreamsOut:
+				listingIdToQuoteChan[q.ListingId] <- q
 			}
-
-			go func() {
-				listingIdToLastQuote := map[int32]*model.ClobQuote{}
-				quotes := make([]*model.ClobQuote, 0, numStreams)
-				select {
-				case q := <-quoteChan:
-					listingIdToLastQuote[q.ListingId] = q
-
-					quotes = quotes[:0]
-					idx := 0
-					for _, q := range listingIdToLastQuote {
-						quotes[idx] = q
-						idx++
-					}
-					out <- combineQuotes(quoteAggListingId, quotes)
-				}
-
-			}()
-
-		case q := <-quoteStreamsOut:
-			listingIdToQuoteChan[q.ListingId] <- q
 		}
-
 	}()
 
 	return q
