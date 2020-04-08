@@ -62,6 +62,25 @@ func GetOptionalBoolEnvVar(key string, def bool) bool {
 	return result
 }
 
+func GetBoolEnvVar(key string) bool {
+	value, exists := os.LookupEnv(key)
+	if !exists {
+		log.Fatalf("missing required env var %v", key)
+	}
+
+	var err error
+	result, err := strconv.ParseBool(value)
+	if err != nil {
+		log.Panicf("cannot parse %v, error: %v", key, err)
+	}
+
+	log.Printf("%v set to %v", key, value)
+
+	return result
+}
+
+
+
 func GetOptionalIntEnvVar(key string, def int) int {
 	strValue, exists := os.LookupEnv(key)
 	result := def

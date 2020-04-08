@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/common/topics"
 	"github.com/ettec/open-trading-platform/go/execution-venue/api"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
@@ -19,9 +20,9 @@ import (
 )
 
 const (
-	KafkaOrderTopicKey = "KAFKA_ORDERS_TOPIC"
+
 	KafkaBrokersKey    = "KAFKA_BROKERS"
-	ExecVenueId        = "EXEC_VENUE_ID"
+	ExecVenueMic        = "MIC"
 )
 
 type service struct {
@@ -74,9 +75,9 @@ func (s *service) Close() {
 
 func main() {
 
-	ordersTopic := GetBootstrapEnvVar(KafkaOrderTopicKey)
+
 	kafkaBrokers := GetBootstrapEnvVar(KafkaBrokersKey)
-	execVenueId := GetBootstrapEnvVar(ExecVenueId)
+	execVenueMic := GetBootstrapEnvVar(ExecVenueMic)
 
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
@@ -88,7 +89,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	store, err := createOrderStore(ordersTopic, kafkaBrokers, execVenueId)
+	store, err := createOrderStore(kafkaBrokers, execVenueMic)
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
@@ -105,7 +106,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := ordermanager.NewOrderManager(orderCache, gateway, execVenueId)
+	om := ordermanager.NewOrderManager(orderCache, gateway, execVenueMic)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)
@@ -127,11 +128,11 @@ func main() {
 
 }
 
-func createOrderStore(ordersTopic string, kafkaBrokers string, execVenueId string) (orderstore.OrderStore, error) {
+func createOrderStore(kafkaBrokers string, execVenueId string) (orderstore.OrderStore, error) {
 	var store orderstore.OrderStore
 
 	var err error
-	store, err = orderstore.NewKafkaStore(ordersTopic, strings.Split(kafkaBrokers, ","), execVenueId)
+	store, err = orderstore.NewKafkaStore(topics.GetOrdersTopic(execVenueId), strings.Split(kafkaBrokers, ","), execVenueId)
 	if err != nil {
 		return nil, err
 	}

@@ -20,6 +20,9 @@ type KafkaStore struct {
 }
 
 func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (*KafkaStore, error) {
+
+
+
 	result := KafkaStore{
 		log:             log.New(os.Stdout, "Topic: "+topic+" ", log.Lshortfile|log.Ltime),
 		topic:           topic,

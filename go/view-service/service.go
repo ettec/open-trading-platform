@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	bootstrap2 "github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/open-trading-platform/go/common/k8s"
+	"github.com/ettec/open-trading-platform/go/common/topics"
 	"github.com/ettec/open-trading-platform/go/model"
 	api "github.com/ettec/open-trading-platform/go/view-service/api"
 	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
@@ -10,7 +13,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
-	"log"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	logger "log"
 	"net"
 	"os"
 	"strings"
@@ -19,31 +23,56 @@ import (
 )
 
 const (
-	KafkaOrderTopicKey = "KAFKA_ORDERS_TOPIC"
-	KafkaBrokersKey    = "KAFKA_BROKERS"
+	KafkaBrokersKey = "KAFKA_BROKERS"
+	External = "EXTERNAL"
 )
+
+var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
+var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 type service struct {
 	orderSubscriptions sync.Map
-	orderTopic         string
 	kafkaBrokers       []string
+	orderTopics        []string
 }
 
 func newService() *service {
 	s := service{}
-
-	orderTopic, exists := os.LookupEnv(KafkaOrderTopicKey)
-	if !exists {
-		log.Fatalf("must specify %v for the kafka store", KafkaOrderTopicKey)
-	}
-
-	s.orderTopic = orderTopic
 
 	kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
 	if !exists {
 		log.Fatalf("must specify %v for the kafka store", KafkaBrokersKey)
 	}
 	s.kafkaBrokers = strings.Split(kafkaBrokers, ",")
+
+	clientSet := k8s.GetK8sClientSet(bootstrap2.GetOptionalBoolEnvVar(External, false))
+
+	namespace := "default"
+	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
+		LabelSelector: "app=execution-venue",
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	log.Printf("found %v execution venues", len(list.Items))
+
+	for _, service := range list.Items {
+		const micLabel = "mic"
+		if _, ok := service.Labels[micLabel]; !ok {
+			errLog.Printf("ignoring execution venue as it does not have a mic label, service: %v", service)
+			continue
+		}
+
+		mic := service.Labels[micLabel]
+
+		topic :=  topics.GetOrdersTopic(mic)
+		s.orderTopics = append( s.orderTopics, topic)
+		log.Printf("added order topic:, %v",  topic)
+	}
+
+
 
 	return &s
 }
@@ -86,8 +115,25 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 
 	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
 	if !exists {
-		source := messagesource.NewKafkaMessageSource(s.orderTopic, s.kafkaBrokers)
-		streamTopic(s.orderTopic, source, appInstanceId, &s.orderSubscriptions, stream, after)
+
+		defer s.orderSubscriptions.Delete(appInstanceId)
+
+		out := make( chan *model.Order, 1000 )
+		for _, topic := range s.orderTopics {
+			source := messagesource.NewKafkaMessageSource(topic, s.kafkaBrokers)
+			go streamOrderTopic(topic, source, appInstanceId, out, after)
+		}
+
+		for order := range out {
+			err = stream.Send(order)
+			if err != nil {
+				errLog.Printf("closing connection as failed to send order to %v, error:%v", appInstanceId, err)
+				close(out)
+				return nil
+			}
+		}
+
+
 	} else {
 		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
 	}
@@ -95,10 +141,8 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 	return nil
 }
 
-func streamTopic(topic string, reader messagesource.Source, appInstanceId string, subscriptionsMap *sync.Map,
-	stream api.ViewService_SubscribeServer, after *model.Timestamp) {
-
-	defer subscriptionsMap.Delete(appInstanceId)
+func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId string,
+	out chan<- *model.Order , after *model.Timestamp) {
 
 	defer reader.Close()
 
@@ -118,11 +162,7 @@ func streamTopic(topic string, reader messagesource.Source, appInstanceId string
 		}
 
 		if order.Created != nil && order.Created.After(after) {
-			err = stream.Send(&order)
-			if err != nil {
-				logTopicReadError(appInstanceId, topic, err)
-				return
-			}
+			out <- &order
 		}
 	}
 }
