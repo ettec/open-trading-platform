@@ -1,15 +1,15 @@
 package main
 
 import (
-	"context"
 	"fmt"
+	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
+	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/open-trading-platform/go/common/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/topics"
-	api "github.com/ettec/open-trading-platform/go/execution-venue/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway/fixgateway"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordermanager"
-	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -24,58 +24,12 @@ const (
 	ExecVenueMic    = "MIC"
 )
 
-type service struct {
-	orderManager ordermanager.OrderManager
-}
 
-func NewService(om ordermanager.OrderManager) *service {
-	service := service{orderManager: om}
-	return &service
-}
-
-func (s *service) CreateAndRouteOrder(context context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
-
-	log.Printf("Received  order parameters-> %v", params)
-
-	if params.GetQuantity() == nil {
-		return nil, fmt.Errorf("quantity required on params:%v", params)
-	}
-
-	if params.GetPrice() == nil {
-		return nil, fmt.Errorf("price required on params:%v", params)
-	}
-
-	if params.GetListing() == nil {
-		return nil, fmt.Errorf("listing required on params:%v", params)
-	}
-
-	result, err := s.orderManager.CreateAndRouteOrder(params)
-	if err != nil {
-		log.Printf("error when creating and routing order:%v", err)
-		return nil, err
-	}
-
-	log.Printf("created order id:%v", result.OrderId)
-
-	return &api.OrderId{
-		OrderId: result.OrderId,
-	}, nil
-}
-
-func (s *service) CancelOrder(ctx context.Context, id *api.OrderId) (*model.Empty, error) {
-	return &model.Empty{}, s.orderManager.CancelOrder(id)
-}
-
-func (s *service) Close() {
-	if s.orderManager != nil {
-		s.orderManager.Close()
-	}
-}
 
 func main() {
 
-	kafkaBrokers := GetBootstrapEnvVar(KafkaBrokersKey)
-	execVenueMic := GetBootstrapEnvVar(ExecVenueMic)
+	kafkaBrokers := bootstrap.GetEnvVar(KafkaBrokersKey)
+	execVenueMic := bootstrap.GetEnvVar(ExecVenueMic)
 
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
@@ -114,7 +68,7 @@ func main() {
 
 	defer func() { fixServerCloseChan <- struct{}{} }()
 
-	service := NewService(om)
+	service := executionvenue.New(om)
 	defer service.Close()
 
 	api.RegisterExecutionVenueServer(s, service)
@@ -210,13 +164,4 @@ func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgate
 	return nil
 }
 
-func GetBootstrapEnvVar(key string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		log.Fatalf("missing required env var %v", key)
-	}
 
-	log.Printf("%v set to %v", key, value)
-
-	return value
-}

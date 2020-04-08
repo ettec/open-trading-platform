@@ -138,7 +138,6 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 	return nil
 }
 
-
 func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId string,
 	out chan<- *model.Order, after *model.Timestamp) {
 
