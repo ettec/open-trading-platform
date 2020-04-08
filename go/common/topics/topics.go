@@ -1,7 +1,5 @@
 package topics
 
-
-
-func GetOrdersTopic(mic string ) string {
+func GetOrdersTopic(mic string) string {
 	return mic + "_orders"
 }

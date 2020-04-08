@@ -79,8 +79,6 @@ func GetBoolEnvVar(key string) bool {
 	return result
 }
 
-
-
 func GetOptionalIntEnvVar(key string, def int) int {
 	strValue, exists := os.LookupEnv(key)
 	result := def

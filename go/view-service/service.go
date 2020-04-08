@@ -24,7 +24,7 @@ import (
 
 const (
 	KafkaBrokersKey = "KAFKA_BROKERS"
-	External = "EXTERNAL"
+	External        = "EXTERNAL"
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
@@ -67,12 +67,10 @@ func newService() *service {
 
 		mic := service.Labels[micLabel]
 
-		topic :=  topics.GetOrdersTopic(mic)
-		s.orderTopics = append( s.orderTopics, topic)
-		log.Printf("added order topic:, %v",  topic)
+		topic := topics.GetOrdersTopic(mic)
+		s.orderTopics = append(s.orderTopics, topic)
+		log.Printf("added order topic:, %v", topic)
 	}
-
-
 
 	return &s
 }
@@ -118,7 +116,7 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 
 		defer s.orderSubscriptions.Delete(appInstanceId)
 
-		out := make( chan *model.Order, 1000 )
+		out := make(chan *model.Order, 1000)
 		for _, topic := range s.orderTopics {
 			source := messagesource.NewKafkaMessageSource(topic, s.kafkaBrokers)
 			go streamOrderTopic(topic, source, appInstanceId, out, after)
@@ -133,7 +131,6 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 			}
 		}
 
-
 	} else {
 		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
 	}
@@ -141,8 +138,9 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 	return nil
 }
 
+
 func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId string,
-	out chan<- *model.Order , after *model.Timestamp) {
+	out chan<- *model.Order, after *model.Timestamp) {
 
 	defer reader.Close()
 

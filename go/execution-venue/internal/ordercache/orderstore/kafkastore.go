@@ -21,8 +21,6 @@ type KafkaStore struct {
 
 func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (*KafkaStore, error) {
 
-
-
 	result := KafkaStore{
 		log:             log.New(os.Stdout, "Topic: "+topic+" ", log.Lshortfile|log.Ltime),
 		topic:           topic,
@@ -38,12 +36,14 @@ func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (
 		BatchTimeout: 10 * time.Millisecond,
 	})
 
+	result.log.Printf("created order store")
+
 	return &result, nil
 }
 
 func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 
-	ks.log.Println("restoring order state from topic:")
+	ks.log.Println("restoring order state from topic")
 	reader := kafka.NewReader(kafka.ReaderConfig{
 		Brokers:        ks.kafkaBrokerUrls,
 		Topic:          ks.topic,

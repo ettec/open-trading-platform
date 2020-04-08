@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common/topics"
-	"github.com/ettec/open-trading-platform/go/execution-venue/api"
+	api "github.com/ettec/open-trading-platform/go/execution-venue/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway/fixgateway"
@@ -20,9 +20,8 @@ import (
 )
 
 const (
-
-	KafkaBrokersKey    = "KAFKA_BROKERS"
-	ExecVenueMic        = "MIC"
+	KafkaBrokersKey = "KAFKA_BROKERS"
+	ExecVenueMic    = "MIC"
 )
 
 type service struct {
@@ -74,7 +73,6 @@ func (s *service) Close() {
 }
 
 func main() {
-
 
 	kafkaBrokers := GetBootstrapEnvVar(KafkaBrokersKey)
 	execVenueMic := GetBootstrapEnvVar(ExecVenueMic)

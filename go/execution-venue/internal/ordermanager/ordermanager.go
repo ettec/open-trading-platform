@@ -2,7 +2,7 @@ package ordermanager
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venue/api"
+	api "github.com/ettec/open-trading-platform/go/execution-venue/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway"
 	"github.com/ettec/open-trading-platform/go/model"
