@@ -4,15 +4,16 @@ import (
 	"context"
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordermanager"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 )
 
 type ExecVenueService struct {
-	orderManager OrderManager
+	orderManager ordermanager.OrderManager
 }
 
-func New(om OrderManager) *ExecVenueService {
+func New(om ordermanager.OrderManager) *ExecVenueService {
 	service := ExecVenueService{orderManager: om}
 	return &service
 }

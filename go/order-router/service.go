@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	api2 "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
-	api2 "github.com/ettec/open-trading-platform/go/execution-venue/api"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/order-router/api"
 	"google.golang.org/grpc"

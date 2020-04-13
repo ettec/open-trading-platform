@@ -2,7 +2,6 @@ package ordermanager
 
 import (
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-	"github.com/ettec/open-trading-platform/go/common/executionvenue"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/golang/protobuf/proto"
@@ -18,7 +17,7 @@ func TestMain(m *testing.M) {
 }
 
 var orderCache *ordercache.OrderCache
-var orderManager executionvenue.OrderManager
+var orderManager OrderManager
 
 func setup() {
 	var err error

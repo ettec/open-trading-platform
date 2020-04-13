@@ -3,7 +3,7 @@ package ordermanager
 import (
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-	"github.com/ettec/open-trading-platform/go/common/executionvenue"
+
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordergateway"
 
@@ -19,6 +19,14 @@ var zero decimal.Decimal
 
 func init() {
 	zero = decimal.New(0, 0)
+}
+
+type OrderManager interface {
+	CancelOrder(id *api.OrderId) error
+	CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error)
+	SetOrderStatus(orderId string, status model.OrderStatus) error
+	UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error
+	Close()
 }
 
 type orderManagerImpl struct {
@@ -37,7 +45,7 @@ type orderManagerImpl struct {
 	errLog      *log.Logger
 }
 
-func NewOrderManager(cache *ordercache.OrderCache, gateway ordergateway.OrderGateway, execVenueId string) executionvenue.OrderManager {
+func NewOrderManager(cache *ordercache.OrderCache, gateway ordergateway.OrderGateway, execVenueId string) OrderManager {
 
 	om := orderManagerImpl{
 		log:         log.New(os.Stdout, "", log.Lshortfile|log.Ltime),

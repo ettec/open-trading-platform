@@ -3,14 +3,17 @@ package main
 import (
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
+
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/executionvenue"
+
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
-	"github.com/ettec/open-trading-platform/go/common/executionvenue"
+
 	"github.com/ettec/open-trading-platform/go/common/topics"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordercache/orderstore"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordergateway/fixgateway"
-	"github.com/ettec/open-trading-platform/go/execution-venue/internal/ordermanager"
-	"github.com/quickfixgo/quickfix"
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
+
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordermanager"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -40,22 +43,7 @@ func main() {
 		log.Fatalf("failed to create order cache:%v", err)
 	}
 
-	beginString := "FIXT.1.1"
-	targetCompID := "EXEC"
-	sendCompID := "BANZAI"
-	sessionID := quickfix.SessionID{BeginString: beginString, TargetCompID: targetCompID, SenderCompID: sendCompID}
-
-	gateway := fixgateway.NewFixOrderGateway(sessionID)
-
 	om := ordermanager.NewOrderManager(orderCache, gateway, execVenueMic)
-
-	fixServerCloseChan := make(chan struct{})
-	err = createFixGateway(fixServerCloseChan, sessionID, om)
-	if err != nil {
-		panic(fmt.Errorf("failed to create fix gateway: %v", err))
-	}
-
-	defer func() { fixServerCloseChan <- struct{}{} }()
 
 	service := executionvenue.New(om)
 	defer service.Close()
