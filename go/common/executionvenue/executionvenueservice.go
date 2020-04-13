@@ -9,10 +9,10 @@ import (
 )
 
 type ExecVenueService struct {
-	orderManager ordermanager.OrderManager
+	orderManager OrderManager
 }
 
-func New(om ordermanager.OrderManager) *ExecVenueService {
+func New(om OrderManager) *ExecVenueService {
 	service := ExecVenueService{orderManager: om}
 	return &service
 }
