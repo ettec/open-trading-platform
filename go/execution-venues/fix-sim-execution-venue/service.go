@@ -6,10 +6,12 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/topics"
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/ordercache"
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/ordercache/orderstore"
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/ordergateway/fixgateway"
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/ordermanager"
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache/orderstore"
+	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordermanager"
+
+	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/fixgateway"
+
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -78,8 +80,6 @@ func main() {
 	}
 
 }
-
-
 
 func getFixConfig(sessionId quickfix.SessionID) string {
 
