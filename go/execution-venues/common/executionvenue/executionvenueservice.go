@@ -47,8 +47,8 @@ func (s *ExecVenueService) CreateAndRouteOrder(context context.Context, params *
 	}, nil
 }
 
-func (s *ExecVenueService) CancelOrder(ctx context.Context, id *api.OrderId) (*model.Empty, error) {
-	return &model.Empty{}, s.orderManager.CancelOrder(id)
+func (s *ExecVenueService) CancelOrder(ctx context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
+	return &model.Empty{}, s.orderManager.CancelOrder(p.OrderId)
 }
 
 func (s *ExecVenueService) Close() {

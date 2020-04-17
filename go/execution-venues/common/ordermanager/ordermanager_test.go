@@ -276,18 +276,24 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
 func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 
+	listing := &model.Listing{Id: 1}
+
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide: model.Side_BUY,
 		Quantity:  IntToDecimal64(10),
 		Price:     IntToDecimal64(20),
-		Listing:   &model.Listing{Id: 1},
+		Listing:   listing,
 	}
 
 	id, _ := orderManager.CreateAndRouteOrder(params)
 
 	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
-	err := orderManager.CancelOrder(id)
+	err := orderManager.CancelOrder(&api.CancelOrderParams{
+		OrderId:              id.OrderId,
+		Listing:              listing,
+
+	})
 	if err != nil {
 		t.Fatalf("cancel order call failed: %v", err)
 	}

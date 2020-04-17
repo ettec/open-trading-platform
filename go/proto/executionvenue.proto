@@ -17,9 +17,14 @@ message OrderId {
     string orderId = 1;
 }
 
+message CancelOrderParams {
+    string orderId = 1;
+    model.Listing listing = 2;
+}
+
 service ExecutionVenue{
     rpc CreateAndRouteOrder(CreateAndRouteOrderParams) returns (OrderId) {};
-    rpc CancelOrder(OrderId) returns (model.Empty) {};
+    rpc CancelOrder(CancelOrderParams) returns (model.Empty) {};
 } 
 
 
