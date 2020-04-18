@@ -290,9 +290,8 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 	err := orderManager.CancelOrder(&api.CancelOrderParams{
-		OrderId:              id.OrderId,
-		Listing:              listing,
-
+		OrderId: id.OrderId,
+		Listing: listing,
 	})
 	if err != nil {
 		t.Fatalf("cancel order call failed: %v", err)

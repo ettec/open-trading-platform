@@ -4,7 +4,9 @@ import (
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
+	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordergateway"
+	"github.com/ettec/open-trading-platform/go/model"
 	"k8s.io/client-go/kubernetes"
 	"os"
 	"strconv"
@@ -29,9 +31,10 @@ import (
 )
 
 const (
-	KafkaBrokersKey = "KAFKA_BROKERS"
-	ExecVenueMic    = "MIC"
-	External        = "EXTERNAL"
+	Id					   = "ID"
+	KafkaBrokersKey        = "KAFKA_BROKERS"
+	ExecVenueMic           = "MIC"
+	External               = "EXTERNAL"
 	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
 )
 
@@ -40,7 +43,8 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
-	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)
+	id := bootstrap.GetOptionalEnvVar(Id, "smart-router")
+	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60))*time.Second
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 	kafkaBrokers := bootstrap.GetEnvVar(KafkaBrokersKey)
 	execVenueMic := bootstrap.GetEnvVar(ExecVenueMic)
@@ -60,51 +64,42 @@ func main() {
 	clientSet := k8s.GetK8sClientSet(external)
 
 	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
-		LabelSelector: "app=market-data-source",
-		
+	xosrServiceLabelSelector := "app=market-data-source,mic=XOSR"
+	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
+		LabelSelector: xosrServiceLabelSelector,
 	})
 
 	if err != nil {
 		panic(err)
 	}
 
-	log.Printf("found %v market data sources", len(list.Items))
+	if len(list.Items) != 1 {
+		log.Panicf("no service found for selector: %v", xosrServiceLabelSelector)
+	}
 
-	for _, service := range list.Items {
-		const micLabel = "mic"
-		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring market data source as it does not have a mic label, marketDataSource: %v", service)
-			continue
+	service := list.Items[0]
+
+	var podPort int32
+	for _, port := range service.Spec.Ports {
+		if port.Name == "api" {
+			podPort = port.Port
 		}
+	}
 
-		mic := service.Labels[micLabel]
+	if podPort == 0 {
+		log.Panic("aggregate quote source does not have an 'api' port")
+	}
 
-		var podPort int32
-		for _, port := range service.Spec.Ports {
-			if port.Name == "api" {
-				podPort = port.Port
-			}
-		}
+	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-		if podPort == 0 {
-			log.Printf("ignoring market data marketDataSource as it does not have a port named api, marketDataSource: %v", service)
-			continue
-		}
+	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
 
-		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-		micToMdsAddress[mic] = targetAddress
-
-		log.Printf("found market data source for mic: %v, marketDataSource name: %v, target address: %v", mic, service.Name, targetAddress)
+	if err != nil {
+		panic(err)
 	}
 
 
-
-
-
-
-	client, err := getOrderRouter(clientSet, maxConnectRetrySecs)
+	client, err := getOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
@@ -132,7 +127,7 @@ func main() {
 
 }
 
-func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs int) (api.ExecutionVenueClient, error) {
+func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (api.ExecutionVenueClient, error) {
 	namespace := "default"
 	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
 		LabelSelector: "app=order-router",
@@ -162,7 +157,7 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs int) (a
 
 		log.Printf("connecting to order router service %v at: %v", service.Name, targetAddress)
 
-		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(time.Duration(maxConnectRetrySecs)*time.Second))
+		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxConnectRetrySecs))
 
 		if err != nil {
 			panic(err)
@@ -179,6 +174,6 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs int) (a
 	return client, nil
 }
 
-func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient) ordergateway.OrderGateway{
+func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient, quoteStream marketdata.MdsQuoteStream) ordergateway.OrderGateway {
 	return nil
 }

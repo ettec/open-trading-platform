@@ -1,7 +1,6 @@
 package marketdata
 
 import (
-	"fmt"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"
@@ -43,6 +42,7 @@ type quoteDistributor struct {
 	errLog              *log.Logger
 }
 
+
 func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *model.ClobQuote) *quoteDistributor {
 	q := &quoteDistributor{connections: make([]*distConnection, 0),
 		addOutChan:          make(chan chan<- *model.ClobQuote),
@@ -61,14 +61,14 @@ func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *mo
 			select {
 			case s := <-q.subscriptionChan:
 
-				if conn, err := q.getConnection(s.out); err == nil {
+				if conn, exists := q.getConnection(s.out); exists {
 					conn.subscriptions[s.listingId] = true
 					if quote, ok := q.lastQuote[s.listingId]; ok {
 						conn.out <- quote
 					}
 
 				} else {
-					q.errLog.Printf("unable to subscribe to listing id %v, error: %v", s.listingId, err)
+					q.errLog.Printf("failed to subscribe to listing id %v as no connection exists", s.listingId)
 				}
 
 				if !q.subscribedToListing[s.listingId] {
@@ -89,10 +89,10 @@ func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *mo
 					subscriptions: map[int32]bool{},
 				})
 			case s := <-q.removeOutChan:
-				if conn, err := q.getConnection(s); err == nil {
+				if conn, exists := q.getConnection(s); exists {
 					q.removeConnection(conn)
 				} else {
-					q.errLog.Println("failed to remove connection:", err)
+					q.errLog.Println("no matching connection exists, connection not removed")
 				}
 			}
 		}
@@ -118,14 +118,14 @@ func (q *quoteDistributor) RemoveOutQuoteChan(out chan<- *model.ClobQuote) {
 	q.removeOutChan <- out
 }
 
-func (q *quoteDistributor) getConnection(out chan<- *model.ClobQuote) (*distConnection, error) {
+func (q *quoteDistributor) getConnection(out chan<- *model.ClobQuote) (*distConnection, bool) {
 	for _, o := range q.connections {
 		if o.out == out {
-			return o, nil
+			return o, false
 		}
 	}
 
-	return nil, fmt.Errorf("no connection found for chan %v", out)
+	return nil, false
 }
 
 func (q *quoteDistributor) removeConnection(s *distConnection) {

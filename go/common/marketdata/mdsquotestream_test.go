@@ -205,7 +205,7 @@ func setup(t *testing.T) (testClient, testClientStream, testConnection, MdsQuote
 		getStateChan: make(chan connectivity.State),
 	}
 
-	c, err := NewMdsQuoteStream("testId", "testTarget", out,
+	c, err := NewMdsQuoteStreamFromFn("testId", "testTarget", out,
 		func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error) {
 			return client, conn, nil
 		})

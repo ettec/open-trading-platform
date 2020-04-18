@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/model"
+	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
@@ -14,10 +15,12 @@ import (
 
 type MdsQuoteStream interface {
 	Subscribe(listingId int32)
+	GetStream() <-chan *model.ClobQuote
 }
 
 type mdsQuoteStream struct {
 	conn              *grpc.ClientConn
+	out               chan *model.ClobQuote
 	subscriptionsChan chan int32
 	log               *log.Logger
 	errLog            *log.Logger
@@ -30,11 +33,30 @@ type GrpcConnection interface {
 	WaitForStateChange(ctx context.Context, sourceState connectivity.State) bool
 }
 
-func NewMdsQuoteStream(id string, targetAddress string, out chan<- *model.ClobQuote,
+func NewMdsQuoteStream(id string, targetAddress string, maxReconnectInterval time.Duration,
+	quoteBufferSize int) (MdsQuoteStream, error) {
+
+	out := make(chan *model.ClobQuote, quoteBufferSize)
+
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error) {
+		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
+		if err != nil {
+			return nil, nil, err
+		}
+
+		client := marketdatasource.NewMarketDataSourceClient(conn)
+		return client, conn, nil
+	}
+
+	return NewMdsQuoteStreamFromFn(id, targetAddress, out, mdcFn)
+}
+
+func NewMdsQuoteStreamFromFn(id string, targetAddress string, out chan *model.ClobQuote,
 	getConnection GetMdsClientFn) (MdsQuoteStream, error) {
 
 	n := &mdsQuoteStream{
 		subscriptionsChan: make(chan int32, 100),
+		out: out,
 		log:               log.New(os.Stdout, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
 		errLog:            log.New(os.Stderr, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
 	}
@@ -142,6 +164,10 @@ func NewMdsQuoteStream(id string, targetAddress string, out chan<- *model.ClobQu
 	}()
 
 	return n, nil
+}
+
+func (mgc *mdsQuoteStream) GetStream() <-chan *model.ClobQuote {
+	return mgc.out
 }
 
 func (mgc *mdsQuoteStream) Subscribe(listingId int32) {
