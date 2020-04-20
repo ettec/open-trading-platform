@@ -42,7 +42,6 @@ type quoteDistributor struct {
 	errLog              *log.Logger
 }
 
-
 func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *model.ClobQuote) *quoteDistributor {
 	q := &quoteDistributor{connections: make([]*distConnection, 0),
 		addOutChan:          make(chan chan<- *model.ClobQuote),

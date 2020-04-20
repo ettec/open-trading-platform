@@ -32,8 +32,9 @@ message Order{
     OrderStatus status=10;
     OrderStatus targetStatus=11;
     Timestamp created=12;
-    string placedWithExecVenueId=13;
-    string originatedFromExecVenueId=14;
+    string ownerId=13;
+    string originatorId=14;
+    string originatorRef=15;
 }
 
 

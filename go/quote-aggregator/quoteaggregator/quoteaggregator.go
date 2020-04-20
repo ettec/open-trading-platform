@@ -27,7 +27,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	micToStream := map[string]marketdata.MdsQuoteStream{}
 
 	for mic, targetAddress := range micToMdsAddress {
-		stream, err := marketdata.NewMdsQuoteStream(id, targetAddress, quoteStreamsOut, mdsClientFn)
+		stream, err := marketdata.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)
 		if err != nil {
 			log.Panicf("failed to created quote stream for mic %v, targetAddress %v. Error:%v", mic, targetAddress, err)
 		}

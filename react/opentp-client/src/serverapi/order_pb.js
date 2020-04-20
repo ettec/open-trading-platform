@@ -83,7 +83,9 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     status: jspb.Message.getFieldWithDefault(msg, 10, 0),
     targetstatus: jspb.Message.getFieldWithDefault(msg, 11, 0),
     created: (f = msg.getCreated()) && modelcommon_pb.Timestamp.toObject(includeInstance, f),
-    placedwithexecvenueid: jspb.Message.getFieldWithDefault(msg, 13, "")
+    ownerid: jspb.Message.getFieldWithDefault(msg, 13, ""),
+    originatorid: jspb.Message.getFieldWithDefault(msg, 14, ""),
+    originatorref: jspb.Message.getFieldWithDefault(msg, 15, "")
   };
 
   if (includeInstance) {
@@ -176,7 +178,15 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 13:
       var value = /** @type {string} */ (reader.readString());
-      msg.setPlacedwithexecvenueid(value);
+      msg.setOwnerid(value);
+      break;
+    case 14:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOriginatorid(value);
+      break;
+    case 15:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOriginatorref(value);
       break;
     default:
       reader.skipField();
@@ -297,10 +307,24 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
       modelcommon_pb.Timestamp.serializeBinaryToWriter
     );
   }
-  f = message.getPlacedwithexecvenueid();
+  f = message.getOwnerid();
   if (f.length > 0) {
     writer.writeString(
       13,
+      f
+    );
+  }
+  f = message.getOriginatorid();
+  if (f.length > 0) {
+    writer.writeString(
+      14,
+      f
+    );
+  }
+  f = message.getOriginatorref();
+  if (f.length > 0) {
+    writer.writeString(
+      15,
       f
     );
   }
@@ -638,10 +662,10 @@ proto.model.Order.prototype.hasCreated = function() {
 
 
 /**
- * optional string placedWithExecVenueId = 13;
+ * optional string ownerId = 13;
  * @return {string}
  */
-proto.model.Order.prototype.getPlacedwithexecvenueid = function() {
+proto.model.Order.prototype.getOwnerid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
 };
 
@@ -650,8 +674,44 @@ proto.model.Order.prototype.getPlacedwithexecvenueid = function() {
  * @param {string} value
  * @return {!proto.model.Order} returns this
  */
-proto.model.Order.prototype.setPlacedwithexecvenueid = function(value) {
+proto.model.Order.prototype.setOwnerid = function(value) {
   return jspb.Message.setProto3StringField(this, 13, value);
+};
+
+
+/**
+ * optional string originatorId = 14;
+ * @return {string}
+ */
+proto.model.Order.prototype.getOriginatorid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setOriginatorid = function(value) {
+  return jspb.Message.setProto3StringField(this, 14, value);
+};
+
+
+/**
+ * optional string originatorRef = 15;
+ * @return {string}
+ */
+proto.model.Order.prototype.getOriginatorref = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setOriginatorref = function(value) {
+  return jspb.Message.setProto3StringField(this, 15, value);
 };
 
 

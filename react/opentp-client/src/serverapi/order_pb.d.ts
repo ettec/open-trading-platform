@@ -51,8 +51,14 @@ export class Order extends jspb.Message {
   hasCreated(): boolean;
   clearCreated(): void;
 
-  getPlacedwithexecvenueid(): string;
-  setPlacedwithexecvenueid(value: string): void;
+  getOwnerid(): string;
+  setOwnerid(value: string): void;
+
+  getOriginatorid(): string;
+  setOriginatorid(value: string): void;
+
+  getOriginatorref(): string;
+  setOriginatorref(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Order.AsObject;
@@ -76,7 +82,9 @@ export namespace Order {
     status: OrderStatus,
     targetstatus: OrderStatus,
     created?: modelcommon_pb.Timestamp.AsObject,
-    placedwithexecvenueid: string,
+    ownerid: string,
+    originatorid: string,
+    originatorref: string,
   }
 }
 

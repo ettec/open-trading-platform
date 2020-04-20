@@ -56,7 +56,7 @@ func NewMdsQuoteStreamFromFn(id string, targetAddress string, out chan *model.Cl
 
 	n := &mdsQuoteStream{
 		subscriptionsChan: make(chan int32, 100),
-		out: out,
+		out:               out,
 		log:               log.New(os.Stdout, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
 		errLog:            log.New(os.Stderr, "target:"+targetAddress+" ", log.Lshortfile|log.Ltime),
 	}

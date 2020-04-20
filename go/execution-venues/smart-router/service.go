@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
@@ -31,7 +32,7 @@ import (
 )
 
 const (
-	Id					   = "ID"
+	Id                     = "ID"
 	KafkaBrokersKey        = "KAFKA_BROKERS"
 	ExecVenueMic           = "MIC"
 	External               = "EXTERNAL"
@@ -44,7 +45,7 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 func main() {
 
 	id := bootstrap.GetOptionalEnvVar(Id, "smart-router")
-	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60))*time.Second
+	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 	kafkaBrokers := bootstrap.GetEnvVar(KafkaBrokersKey)
 	execVenueMic := bootstrap.GetEnvVar(ExecVenueMic)
@@ -98,18 +99,17 @@ func main() {
 		panic(err)
 	}
 
-
 	client, err := getOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
 
-	om := ordermanager.NewOrderManager(orderCache, NewSmartRouterOrderGateway(client), execVenueMic)
+	om := ordermanager.NewOrderManager(orderCache, NewSmartRouterOrderGateway(client, mdsQuoteStream), execVenueMic)
 
-	service := executionvenue.New(om)
-	defer service.Close()
+	sr := executionvenue.New(om)
+	defer sr.Close()
 
-	api.RegisterExecutionVenueServer(s, service)
+	api.RegisterExecutionVenueServer(s, sr)
 
 	reflection.Register(s)
 
@@ -174,6 +174,124 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Du
 	return client, nil
 }
 
-func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient, quoteStream marketdata.MdsQuoteStream) ordergateway.OrderGateway {
+const QuoteAggregatorMic = "XOSR"
+
+type gateway struct {
+	sendChan chan sendArgs
+	cancelChan chan cancelArgs
+	orderState chan childOrderUpdates
+}
+
+type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
+
+type childOrderUpdates struct {
+	orderId string
+	updatedChild *model.Order
+}
+
+func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient, quoteStream marketdata.MdsQuoteStream,
+	getListings getListingsWithSameInstrument) ordergateway.OrderGateway {
+	gateway := gateway{
+		sendChan:   make(chan sendArgs, 100),
+		cancelChan: make(chan cancelArgs, 100),
+	}
+
+	srListingToListings := map[int32][]*model.Listing{}
+
+	listingToLastQuote := map[int32][]*model.ClobQuote{}
+
+	listingGroupsIn := make(chan []*model.Listing, 1000)
+
+	sendsPendingQuotes  := map[int32][]sendArgs{}
+
+	go func() {
+
+		for {
+			select {
+				case s := <- gateway.sendChan:
+					if listings, ok := srListingToListings[s.listing.Id]; ok {
+
+						quotesPending := false
+						for _, listing := range listings {
+							if _, ok := listingToLastQuote[listing.Id]; !ok {
+								quotesPending = true
+								sendsPendingQuotes[listing.Id] = append(sendsPendingQuotes[listing.Id], s)
+								break
+							}
+						}
+
+						if !quotesPending {
+
+							// here - pick the best listing, split the order?
+							params := api.CreateAndRouteOrderParams{
+								OrderSide:              0,
+								Quantity:               nil,
+								Price:                  nil,
+								Listing:                nil,
+								OriginatingExecVenueId: "",
+							}
+
+							orderRouter.CreateAndRouteOrder(context.Background(), )
+
+						}
+
+
+					} else {
+						getListings(s.listing.Id, listingGroupsIn)
+					}
+				case listings := <- listingGroupsIn:
+					for _, listing := range listings {
+						var toListings []*model.Listing
+						var listingId int32
+						if listing.Market.Mic == QuoteAggregatorMic {
+							listingId = listing.Id
+						} else {
+							toListings = append(toListings, listing)
+						}
+
+						srListingToListings[listingId] = toListings
+					}
+
+			}
+
+
+		}
+
+
+
+	}()
+
+
+
+
+	return &gateway
+}
+
+type sendArgs struct {
+	order *model.Order
+	listing *model.Listing
+}
+
+func (s *gateway) Send(order *model.Order, listing *model.Listing) error {
+	s.sendChan <- sendArgs{
+		order:   order,
+		listing: listing,
+	}
+
 	return nil
 }
+
+type cancelArgs struct {
+	order *model.Order
+}
+
+func (s *gateway) Cancel(order *model.Order) error {
+
+	s.cancelChan <- cancelArgs{
+		order:   order,
+	}
+
+}
+
+
+

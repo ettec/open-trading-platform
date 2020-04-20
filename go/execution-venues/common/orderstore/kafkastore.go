@@ -6,26 +6,30 @@ import (
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
-	"log"
+	logger "log"
 	"os"
 	"time"
 )
 
+var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
+var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
+
 type KafkaStore struct {
 	writer          *kafka.Writer
-	log             *log.Logger
 	topic           string
 	kafkaBrokerUrls []string
-	execVenueId     string
+	ownerId     string
 }
 
-func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (*KafkaStore, error) {
+func NewKafkaStore( kafkaBrokerUrls []string, ownerId string) (*KafkaStore, error) {
+
+	topic := "orders"
 
 	result := KafkaStore{
-		log:             log.New(os.Stdout, "Topic: "+topic+" ", log.Lshortfile|log.Ltime),
+
 		topic:           topic,
 		kafkaBrokerUrls: kafkaBrokerUrls,
-		execVenueId:     execVenueId,
+		ownerId:     ownerId,
 	}
 
 	result.writer = kafka.NewWriter(kafka.WriterConfig{
@@ -36,14 +40,12 @@ func NewKafkaStore(topic string, kafkaBrokerUrls []string, execVenueId string) (
 		BatchTimeout: 10 * time.Millisecond,
 	})
 
-	result.log.Printf("created order store")
-
 	return &result, nil
 }
 
 func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 
-	ks.log.Println("restoring order state from topic")
+	log.Println("restoring order state")
 	reader := kafka.NewReader(kafka.ReaderConfig{
 		Brokers:        ks.kafkaBrokerUrls,
 		Topic:          ks.topic,
@@ -53,6 +55,20 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 	})
 	defer reader.Close()
 
+    owns := func(order *model.Order) bool {
+		return ks.ownerId == order.GetOwnerId()
+	}
+
+	result, err := getInitialState(reader, owns)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func getInitialState(reader orderReader, owns func(order *model.Order) bool) (map[string]*model.Order,  error) {
 	result := map[string]*model.Order{}
 	now := time.Now()
 
@@ -71,26 +87,25 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 			}
 		}
 
-		if msg.Time.After(now) {
-			break
-		}
 
 		readMsgCnt++
-		order := model.Order{}
-		err = proto.Unmarshal(msg.Value, &order)
+		order := &model.Order{}
+		err = proto.Unmarshal(msg.Value, order)
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal order whilst recovering state:%w", err)
 		}
 
-		if ks.execVenueId == order.GetPlacedWithExecVenueId() {
-			result[order.Id] = &order
+		if owns(order) {
+			result[order.Id] = order
 		}
 
+		if msg.Time.After(now) {
+			break
+		}
 	}
 
-	ks.log.Printf("order state restored, %v orders for execution venue %v reloaded from %v messages", len(result), ks.execVenueId, readMsgCnt)
-
-	return result, nil
+	log.Printf("order state restored, %v orders reloaded from %v messages", len(result), readMsgCnt)
+	return result,  nil
 }
 
 func (ks *KafkaStore) Close() {
@@ -99,6 +114,7 @@ func (ks *KafkaStore) Close() {
 
 func (ks *KafkaStore) Write(order *model.Order) error {
 
+	order.OwnerId = ks.ownerId
 	orderBytes, err := proto.Marshal(order)
 	if err != nil {
 		return err
