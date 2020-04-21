@@ -39,6 +39,8 @@ message Order{
     Decimal64 lastExecPrice = 17;
     string    lastExecId = 18;
     int32 lastExecSeqNo = 19;
+    Decimal64 exposedQuantity=20;
+    string errorMessage=21;
 }
 
 

@@ -92,6 +92,13 @@ func (o *Order) IsTerminalState() bool {
 	return o.Status == OrderStatus_FILLED || o.Status == OrderStatus_CANCELLED
 }
 
+func (o *Order) GetAvailableQty() Decimal64 {
+	quantity := *o.Quantity
+	quantity.Sub(o.GetExposedQuantity())
+	quantity.Sub(o.GetTradedQuantity())
+	return quantity
+}
+
 func (o *Order) createTargetStatusTransitionError(targetStatus OrderStatus) error {
 	return fmt.Errorf("requested transition to target status %v is invalid for an order with status %v and target status %v",
 		targetStatus.String(), o.Status.String(), o.TargetStatus.String())
@@ -102,15 +109,8 @@ func (o *Order) createStatusTransitionError(status OrderStatus) error {
 		status.String(), o.Status.String(), o.TargetStatus.String())
 }
 
-func NewOrder(OrderSide Side, Quantity *Decimal64, Price *Decimal64, listingId int32,
-	ownerId string) (*Order, error) {
-
-	uniqueId, err := uuid.NewUUID()
-	if err != nil {
-		return nil, err
-	}
-
-	id := uniqueId.String()
+func NewOrder(id string, OrderSide Side, Quantity *Decimal64, Price *Decimal64, listingId int32,
+	originatorId string, originatorRef string) *Order {
 
 	now := time.Now()
 
@@ -122,12 +122,13 @@ func NewOrder(OrderSide Side, Quantity *Decimal64, Price *Decimal64, listingId i
 		ListingId:         listingId,
 		RemainingQuantity: Quantity,
 		Status:            OrderStatus_NONE,
-		TargetStatus:      OrderStatus_LIVE,
+		TargetStatus:      OrderStatus_NONE,
 		Created: &Timestamp{
 			Seconds:     now.Unix(),
 			Nanoseconds: int32(now.Nanosecond()),
 		},
-		OwnerId: ownerId,
+		OriginatorId: originatorId,
+		OriginatorRef: originatorRef,
 	}, nil
 
 }

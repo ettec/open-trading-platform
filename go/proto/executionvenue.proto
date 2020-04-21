@@ -10,7 +10,8 @@ message CreateAndRouteOrderParams{
     model.Decimal64 quantity = 2;
     model.Decimal64 price = 3;
     model.Listing listing = 4;
-    string originatingExecVenueId = 5;
+    string originatorId = 5;
+    string originatorRef =6;
 }
 
 message OrderId {

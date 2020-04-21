@@ -3,6 +3,7 @@ package ordermanager
 import (
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
+	"github.com/google/uuid"
 
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordergateway"
@@ -228,15 +229,20 @@ func (om *orderManagerImpl) executeCancelOrderCmd(params *api.CancelOrderParams,
 func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndRouteOrderParams,
 	resultChan chan createAndRouteOrderCmdResult) {
 
-	order, err := model.NewOrder(params.OrderSide, params.Quantity,
-		params.Price, params.Listing.Id, om.execVenueId)
-
+	uniqueId, err := uuid.NewUUID()
 	if err != nil {
 		resultChan <- createAndRouteOrderCmdResult{
 			OrderId: nil,
 			Error:   fmt.Errorf("failed to create new order id: %w", err),
 		}
 	}
+
+	id := uniqueId.String()
+
+	order := model.NewOrder(id, params.OrderSide, params.Quantity,
+		params.Price, params.Listing.Id, params.OriginatorId, params.OriginatorRef )
+
+	order.SetTargetStatus(model.OrderStatus_LIVE)
 
 	err = om.orderStore.Store(order)
 	if err != nil {
