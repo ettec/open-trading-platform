@@ -52,7 +52,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	store, err := orderstore.NewKafkaStore(topics.GetOrdersTopic(execVenueMic), strings.Split(kafkaBrokers, ","), execVenueMic)
+	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), execVenueMic)
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
@@ -177,7 +177,7 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Du
 const QuoteAggregatorMic = "XOSR"
 
 type gateway struct {
-	sendChan chan sendArgs
+	sendChan   chan sendArgs
 	cancelChan chan cancelArgs
 	orderState chan childOrderUpdates
 }
@@ -185,7 +185,7 @@ type gateway struct {
 type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
 type childOrderUpdates struct {
-	orderId string
+	orderId      string
 	updatedChild *model.Order
 }
 
@@ -202,73 +202,66 @@ func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient, quoteStrea
 
 	listingGroupsIn := make(chan []*model.Listing, 1000)
 
-	sendsPendingQuotes  := map[int32][]sendArgs{}
+	sendsPendingQuotes := map[int32][]sendArgs{}
 
 	go func() {
 
 		for {
 			select {
-				case s := <- gateway.sendChan:
-					if listings, ok := srListingToListings[s.listing.Id]; ok {
+			case s := <-gateway.sendChan:
+				if listings, ok := srListingToListings[s.listing.Id]; ok {
 
-						quotesPending := false
-						for _, listing := range listings {
-							if _, ok := listingToLastQuote[listing.Id]; !ok {
-								quotesPending = true
-								sendsPendingQuotes[listing.Id] = append(sendsPendingQuotes[listing.Id], s)
-								break
-							}
-						}
-
-						if !quotesPending {
-
-							// here - pick the best listing, split the order?
-							params := api.CreateAndRouteOrderParams{
-								OrderSide:              0,
-								Quantity:               nil,
-								Price:                  nil,
-								Listing:                nil,
-								OriginatingExecVenueId: "",
-							}
-
-							orderRouter.CreateAndRouteOrder(context.Background(), )
-
-						}
-
-
-					} else {
-						getListings(s.listing.Id, listingGroupsIn)
-					}
-				case listings := <- listingGroupsIn:
+					quotesPending := false
 					for _, listing := range listings {
-						var toListings []*model.Listing
-						var listingId int32
-						if listing.Market.Mic == QuoteAggregatorMic {
-							listingId = listing.Id
-						} else {
-							toListings = append(toListings, listing)
+						if _, ok := listingToLastQuote[listing.Id]; !ok {
+							quotesPending = true
+							sendsPendingQuotes[listing.Id] = append(sendsPendingQuotes[listing.Id], s)
+							break
+						}
+					}
+
+					if !quotesPending {
+
+						// here - pick the best listing, split the order?
+						params := api.CreateAndRouteOrderParams{
+							OrderSide:              0,
+							Quantity:               nil,
+							Price:                  nil,
+							Listing:                nil,
+							OriginatingExecVenueId: "",
 						}
 
-						srListingToListings[listingId] = toListings
+						orderRouter.CreateAndRouteOrder(context.Background())
+
 					}
+
+				} else {
+					getListings(s.listing.Id, listingGroupsIn)
+				}
+			case listings := <-listingGroupsIn:
+				for _, listing := range listings {
+					var toListings []*model.Listing
+					var listingId int32
+					if listing.Market.Mic == QuoteAggregatorMic {
+						listingId = listing.Id
+					} else {
+						toListings = append(toListings, listing)
+					}
+
+					srListingToListings[listingId] = toListings
+				}
 
 			}
 
-
 		}
 
-
-
 	}()
-
-
-
 
 	return &gateway
 }
 
 type sendArgs struct {
-	order *model.Order
+	order   *model.Order
 	listing *model.Listing
 }
 
@@ -288,10 +281,7 @@ type cancelArgs struct {
 func (s *gateway) Cancel(order *model.Order) error {
 
 	s.cancelChan <- cancelArgs{
-		order:   order,
+		order: order,
 	}
 
 }
-
-
-

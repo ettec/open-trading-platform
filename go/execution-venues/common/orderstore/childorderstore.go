@@ -16,7 +16,6 @@ type ChildOrder struct {
 type orderReader interface {
 	Close() error
 	ReadMessage(ctx context.Context) (kafka.Message, error)
-
 }
 
 func GetChildOrders(id string, kafkaBrokerUrls []string) (initialState map[string][]*model.Order, updates chan ChildOrder, err error) {
@@ -56,7 +55,7 @@ func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*mode
 	}
 
 	if err != nil {
-		return nil, nil,  err
+		return nil, nil, err
 	}
 
 	updates := make(chan ChildOrder, 1000)

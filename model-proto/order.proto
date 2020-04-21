@@ -35,6 +35,10 @@ message Order{
     string ownerId=13;
     string originatorId=14;
     string originatorRef=15;
+    Decimal64 lastExecQuantity = 16;
+    Decimal64 lastExecPrice = 17;
+    string    lastExecId = 18;
+    int32 lastExecSeqNo = 19;
 }
 
 

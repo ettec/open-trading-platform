@@ -89,7 +89,7 @@ func getFixSide(side model.Side) (enum.Side, error) {
 
 type OrderHandler interface {
 	SetOrderStatus(orderId string, status model.OrderStatus) error
-	UpdateTradedQuantity(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64) error
+	AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64, execId string) error
 }
 
 type fixHandler struct {
@@ -168,7 +168,12 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 			return err
 		}
 
-		handler.UpdateTradedQuantity(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty))
+		execId, err := msg.GetExecID()
+		if err != nil {
+			return err
+		}
+
+		handler.AddExecution(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty), execId)
 	}
 
 	return nil

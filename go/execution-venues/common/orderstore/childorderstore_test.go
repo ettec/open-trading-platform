@@ -92,7 +92,6 @@ func Test_getChildOrdersFromReader(t *testing.T) {
 			OriginatorRef: "a",
 		}, now},
 
-
 		{&model.Order{
 
 			Id:            "bb",
@@ -121,7 +120,7 @@ func Test_getChildOrdersFromReader(t *testing.T) {
 		panic(err)
 	}
 
-	initial, updates, err :=getChildOrdersFromReader(id, tr)
+	initial, updates, err := getChildOrdersFromReader(id, tr)
 	if err != nil {
 		panic(err)
 	}
@@ -138,11 +137,9 @@ func Test_getChildOrdersFromReader(t *testing.T) {
 		t.FailNow()
 	}
 
-
 	if !initial["b"][0].Quantity.Equal(model.IasD(2)) {
 		t.FailNow()
 	}
-
 
 	update := <-updates
 

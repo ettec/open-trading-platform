@@ -33,68 +33,8 @@ func teardown() {
 	defer orderManager.Close()
 }
 
-func TestOrderManagerImpl_CalculateAveragePrice(t *testing.T) {
 
-	avgPrice := model.Decimal64{
-		Mantissa: 0,
-		Exponent: 0,
-	}
 
-	trdQnt := model.Decimal64{
-		Mantissa: 0,
-		Exponent: 0,
-	}
-
-	lastPrice := model.Decimal64{
-		Mantissa: 10,
-		Exponent: 1,
-	}
-
-	lastQnt := model.Decimal64{
-		Mantissa: 5,
-		Exponent: 0,
-	}
-
-	resultAsDecimal64 := calculateAveragePrice(&avgPrice, &trdQnt, &lastPrice, &lastQnt)
-	result, _ := resultAsDecimal64.AsDecimal().Float64()
-
-	expectedResult := 100.0
-	if !floatEquals(result, expectedResult) {
-		t.Fatalf("Expected avg price %v, got %v", expectedResult, result)
-	}
-
-	trdQnt = model.Decimal64{
-		Mantissa: 5,
-		Exponent: 0,
-	}
-
-	lastPrice = model.Decimal64{
-		Mantissa: 80,
-		Exponent: 0,
-	}
-
-	lastQnt = model.Decimal64{
-		Mantissa: 5,
-		Exponent: 0,
-	}
-
-	result, _ = calculateAveragePrice(resultAsDecimal64, &trdQnt, &lastPrice, &lastQnt).AsDecimal().Float64()
-
-	expectedResult = 90.0
-	if !floatEquals(result, expectedResult) {
-		t.Fatalf("Expected avg price %v, got %v", expectedResult, result)
-	}
-
-}
-
-var EPSILON = 0.00000001
-
-func floatEquals(a, b float64) bool {
-	if (a-b) < EPSILON && (b-a) < EPSILON {
-		return true
-	}
-	return false
-}
 
 func IntToDecimal64(i int) *model.Decimal64 {
 	return &model.Decimal64{
@@ -124,7 +64,7 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 
 	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
-	err = orderManager.UpdateTradedQuantity(id.OrderId, model.Decimal64{
+	err = orderManager.AddExecution(id.OrderId, model.Decimal64{
 		Mantissa: 170,
 		Exponent: -1,
 	}, model.Decimal64{
@@ -136,7 +76,7 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 		t.Fatalf("error %v", err)
 	}
 
-	err = orderManager.UpdateTradedQuantity(id.OrderId, model.Decimal64{
+	err = orderManager.AddExecution(id.OrderId, model.Decimal64{
 		Mantissa: 19,
 		Exponent: 0,
 	}, model.Decimal64{
@@ -170,63 +110,6 @@ func TestOrderManagerImpl_UpdateTradedQuantity(t *testing.T) {
 
 	if !proto.Equal(testOrder, order) {
 		t.Fatalf("Expected order %v, got %v", testOrder, order)
-	}
-
-}
-
-func TestOrderManagerImpl_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
-	params := &api.CreateAndRouteOrderParams{
-		OrderSide: model.Side_BUY,
-		Quantity:  IntToDecimal64(15),
-		Price:     IntToDecimal64(20),
-		Listing:   &model.Listing{Id: 1},
-	}
-
-	id, err := orderManager.CreateAndRouteOrder(params)
-	if err != nil {
-		t.Fatalf("Create order call failed %v", err)
-	}
-
-	err = orderManager.UpdateTradedQuantity(id.OrderId, model.Decimal64{
-		Mantissa: 170,
-		Exponent: -1,
-	}, model.Decimal64{
-		Mantissa: 15,
-		Exponent: 0,
-	})
-
-	if err != nil {
-		t.Fatalf("error %v", err)
-	}
-
-	order, ok := orderCache.GetOrder(id.OrderId)
-
-	if !ok {
-		t.Fatalf("created order not found in store")
-	}
-
-	testOrder := &model.Order{
-		Version:           1,
-		Id:                id.OrderId,
-		Side:              model.Side_BUY,
-		Quantity:          IntToDecimal64(15),
-		Price:             IntToDecimal64(20),
-		ListingId:         1,
-		RemainingQuantity: IntToDecimal64(0),
-		Status:            model.OrderStatus_FILLED,
-		TargetStatus:      model.OrderStatus_NONE,
-		TradedQuantity:    IntToDecimal64(15),
-		AvgTradePrice: &model.Decimal64{
-			Mantissa: 170000000000000000,
-			Exponent: -16,
-		},
-	}
-
-	order.Created = nil
-	testOrder.Created = nil
-
-	if !proto.Equal(testOrder, order) {
-		t.Fatalf("Expected order %v,\n got %v", testOrder, order)
 	}
 
 }

@@ -18,10 +18,10 @@ type KafkaStore struct {
 	writer          *kafka.Writer
 	topic           string
 	kafkaBrokerUrls []string
-	ownerId     string
+	ownerId         string
 }
 
-func NewKafkaStore( kafkaBrokerUrls []string, ownerId string) (*KafkaStore, error) {
+func NewKafkaStore(kafkaBrokerUrls []string, ownerId string) (*KafkaStore, error) {
 
 	topic := "orders"
 
@@ -29,7 +29,7 @@ func NewKafkaStore( kafkaBrokerUrls []string, ownerId string) (*KafkaStore, erro
 
 		topic:           topic,
 		kafkaBrokerUrls: kafkaBrokerUrls,
-		ownerId:     ownerId,
+		ownerId:         ownerId,
 	}
 
 	result.writer = kafka.NewWriter(kafka.WriterConfig{
@@ -55,7 +55,7 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 	})
 	defer reader.Close()
 
-    owns := func(order *model.Order) bool {
+	owns := func(order *model.Order) bool {
 		return ks.ownerId == order.GetOwnerId()
 	}
 
@@ -68,7 +68,7 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 	return result, nil
 }
 
-func getInitialState(reader orderReader, owns func(order *model.Order) bool) (map[string]*model.Order,  error) {
+func getInitialState(reader orderReader, owns func(order *model.Order) bool) (map[string]*model.Order, error) {
 	result := map[string]*model.Order{}
 	now := time.Now()
 
@@ -87,7 +87,6 @@ func getInitialState(reader orderReader, owns func(order *model.Order) bool) (ma
 			}
 		}
 
-
 		readMsgCnt++
 		order := &model.Order{}
 		err = proto.Unmarshal(msg.Value, order)
@@ -105,7 +104,7 @@ func getInitialState(reader orderReader, owns func(order *model.Order) bool) (ma
 	}
 
 	log.Printf("order state restored, %v orders reloaded from %v messages", len(result), readMsgCnt)
-	return result,  nil
+	return result, nil
 }
 
 func (ks *KafkaStore) Close() {
