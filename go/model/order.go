@@ -88,6 +88,10 @@ func (o *Order) SetTargetStatus(targetStatus OrderStatus) error {
 	return nil
 }
 
+func (o *Order) IsTerminalState() bool {
+	return o.Status == OrderStatus_FILLED || o.Status == OrderStatus_CANCELLED
+}
+
 func (o *Order) createTargetStatusTransitionError(targetStatus OrderStatus) error {
 	return fmt.Errorf("requested transition to target status %v is invalid for an order with status %v and target status %v",
 		targetStatus.String(), o.Status.String(), o.TargetStatus.String())

@@ -12,8 +12,6 @@ import (
 	"os"
 )
 
-
-
 type OrderManager interface {
 	CancelOrder(id *api.CancelOrderParams) error
 	CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error)
@@ -183,8 +181,6 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model
 
 }
 
-
-
 func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.OrderStatus, resultChan chan errorCmdResult) {
 
 	order, exists := om.orderStore.GetOrder(id)
@@ -267,7 +263,7 @@ type addExecutionCmd struct {
 	orderId    string
 	lastPrice  model.Decimal64
 	lastQty    model.Decimal64
-	execId	   string
+	execId     string
 	ResultChan chan errorCmdResult
 }
 

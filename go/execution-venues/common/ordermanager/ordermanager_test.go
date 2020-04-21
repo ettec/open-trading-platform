@@ -33,9 +33,6 @@ func teardown() {
 	defer orderManager.Close()
 }
 
-
-
-
 func IntToDecimal64(i int) *model.Decimal64 {
 	return &model.Decimal64{
 		Mantissa: int64(i),

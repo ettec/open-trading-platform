@@ -37,7 +37,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	store, err := orderstore.NewKafkaStore( strings.Split(kafkaBrokers, ","), execVenueMic)
+	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), execVenueMic)
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
