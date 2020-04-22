@@ -91,11 +91,11 @@ func (o *Order) IsTerminalState() bool {
 	return o.Status == OrderStatus_FILLED || o.Status == OrderStatus_CANCELLED
 }
 
-func (o *Order) GetAvailableQty() Decimal64 {
+func (o *Order) GetAvailableQty() *Decimal64 {
 	quantity := *o.Quantity
 	quantity.Sub(o.GetExposedQuantity())
 	quantity.Sub(o.GetTradedQuantity())
-	return quantity
+	return &quantity
 }
 
 func (o *Order) createTargetStatusTransitionError(targetStatus OrderStatus) error {

@@ -8,6 +8,11 @@ import (
 	"github.com/google/uuid"
 )
 
+var zero *model.Decimal64
+func init() {
+	zero = &model.Decimal64{}
+}
+
 type execution struct {
 	id    string
 	price *model.Decimal64
@@ -27,7 +32,6 @@ func newManagedOrder(order *model.Order) *managedOrder {
 		modified:    true,
 		order:       order,
 		childOrders: map[string]*model.Order{},
-		executions:  map[string]*execution{},
 	}
 }
 
@@ -69,35 +73,33 @@ func (m *managedOrder) setStatus(status model.OrderStatus) error {
 }
 
 func (m *managedOrder) getAvailableQuantity() *model.Decimal64 {
-	d := m.order.GetAvailableQty()
-	return &d
+	return m.order.GetAvailableQty()
 }
 
-func (m *managedOrder) onChildOrderUpdate(order *model.Order) {
+func (m *managedOrder) onChildOrderUpdate(childOrder *model.Order) {
 
 	var lastExecSeqNo int32
 
-	if previous, ok := m.childOrders[order.Id]; ok {
+	if previous, ok := m.childOrders[childOrder.Id]; ok {
 		lastExecSeqNo = previous.LastExecSeqNo
 	}
 
-	if order.LastExecSeqNo > lastExecSeqNo {
-		execId := order.Id + ":" + order.LastExecId
+	if childOrder.LastExecSeqNo > lastExecSeqNo {
+		execId := childOrder.Id + ":" + childOrder.LastExecId
 
 		execution := execution{
 			id:    execId,
-			price: order.LastExecPrice,
-			qty:   order.LastExecQuantity,
+			price: childOrder.LastExecPrice,
+			qty:   childOrder.LastExecQuantity,
 		}
 
-		m.executions[execId] = &execution
 
-		order.AddExecution(*execution.price, *execution.qty, execution.id)
+		m.order.AddExecution(*execution.price, *execution.qty, execution.id)
 		m.modified = true
 
 	}
 
-	m.childOrders[order.Id] = order
+	m.childOrders[childOrder.Id] = childOrder
 
 	exposedQnt := model.IasD(0)
 	for _, order := range m.childOrders {
@@ -114,7 +116,7 @@ func (m *managedOrder) onChildOrderUpdate(order *model.Order) {
 }
 
 func NewOrderManager(params *api.CreateAndRouteOrderParams,
-	execVenueId string, underlyingListings map[int32]*model.Listing, doneChan chan<- *managedOrder, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
+	execVenueId string, underlyingListings map[int32]*model.Listing, doneChan chan<-string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
 	quoteChan <-chan *model.ClobQuote, childOrderUpdates <-chan *model.Order) (*managedOrder, error) {
 
 	uniqueId, err := uuid.NewUUID()
@@ -127,6 +129,7 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 		params.OriginatorId, params.OriginatorRef)
 
 	mo := newManagedOrder(orderState)
+	mo.setTargetStatus(model.OrderStatus_LIVE)
 
 	go func() {
 
@@ -135,7 +138,7 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 		for {
 			persist(mo, store)
 			if mo.isTerminalState() {
-				doneChan <- mo
+				doneChan <- mo.GetID()
 				break
 			}
 
@@ -151,6 +154,8 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 					} else {
 						submitSellOrders(q, mo, underlyingListings, execVenueId, orderRouter)
 					}
+
+					ordersSubmitted = true
 
 					mo.setStatus(model.OrderStatus_LIVE)
 				}
@@ -178,7 +183,7 @@ func submitSellOrders(q *model.ClobQuote, mo *managedOrder, underlyingListings m
 func submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool, mo *managedOrder, side model.Side, underlyingListings map[int32]*model.Listing, execVenueId string, orderRouter api.ExecutionVenueClient) {
 	listingIdToQnt := map[int32]*model.Decimal64{}
 	for _, line := range oppositeClobLines {
-		if willTrade(line) {
+		if mo.getAvailableQuantity().GreaterThan(zero) && willTrade(line) {
 			quantity := line.Size
 
 			if line.Size.GreaterThanOrEqual(mo.getAvailableQuantity()) {
@@ -198,9 +203,9 @@ func submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *mode
 
 	}
 
-	if mo.getAvailableQuantity().GreaterThan(model.IasD(0)) {
+	if mo.getAvailableQuantity().GreaterThan(zero) {
 		var l int32
-		greatestQty := model.IasD(0)
+		greatestQty := zero
 		for listingId, qnt := range listingIdToQnt {
 			if qnt.GreaterThan(greatestQty) {
 				l = listingId
@@ -208,7 +213,7 @@ func submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *mode
 			}
 		}
 
-		if greatestQty.GreaterThan(model.IasD(0)) {
+		if greatestQty.GreaterThan(zero) {
 			sendChildOrder(side, mo.getAvailableQuantity(), mo.order.Price, underlyingListings[l], execVenueId, mo, orderRouter)
 		}
 
