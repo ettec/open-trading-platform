@@ -104,8 +104,7 @@ func main() {
 
 	om := ordermanager.NewOrderManager(orderCache, NewSmartRouterOrderGateway(client, mdsQuoteStream,
 
-
-		func(listingId int32, listingGroupsIn chan<- []*model.Listing){}), execVenueMic)
+		func(listingId int32, listingGroupsIn chan<- []*model.Listing) {}), execVenueMic)
 
 	sr := executionvenue.New(om)
 	defer sr.Close()
@@ -276,6 +275,6 @@ func (s *gateway) Cancel(order *model.Order) error {
 		order: order,
 	}
 
-		return nil
+	return nil
 
 }

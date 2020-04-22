@@ -59,46 +59,45 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	expectedParams := []*executionvenue.CreateAndRouteOrderParams{{
-			OrderSide:            model.Side_BUY,
-			Quantity:             model.IasD(10),
-			Price:                model.IasD(100),
-			Listing:              listing1,
-			OriginatorId:         evId,
-			OriginatorRef:        orderId,
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(10),
+		Price:         model.IasD(100),
+		Listing:       listing1,
+		OriginatorId:  evId,
+		OriginatorRef: orderId,
+	},
+		{
+			OrderSide:     model.Side_BUY,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(110),
+			Listing:       listing2,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
 		},
 		{
-			OrderSide:            model.Side_BUY,
-			Quantity:             model.IasD(10),
-			Price:                model.IasD(110),
-			Listing:              listing2,
-			OriginatorId:         evId,
-			OriginatorRef:        orderId,
+			OrderSide:     model.Side_BUY,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(120),
+			Listing:       listing1,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
 		},
 		{
-			OrderSide:            model.Side_BUY,
-			Quantity:             model.IasD(10),
-			Price:                model.IasD(120),
-			Listing:              listing1,
-			OriginatorId:         evId,
-			OriginatorRef:        orderId,
+			OrderSide:     model.Side_BUY,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(130),
+			Listing:       listing2,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
 		},
 		{
-			OrderSide:            model.Side_BUY,
-			Quantity:             model.IasD(10),
-			Price:                model.IasD(130),
-			Listing:              listing2,
-			OriginatorId:         evId,
-			OriginatorRef:        orderId,
+			OrderSide:     model.Side_BUY,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(130),
+			Listing:       listing1,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
 		},
-		{
-			OrderSide:            model.Side_BUY,
-			Quantity:             model.IasD(10),
-			Price:                model.IasD(130),
-			Listing:              listing1,
-			OriginatorId:         evId,
-			OriginatorRef:        orderId,
-		},
-
 	}
 
 	for idx, params := range client.params {
@@ -107,5 +106,88 @@ func Test_submitBuyOrders(t *testing.T) {
 		}
 	}
 
+}
+
+func Test_submitSellOrders(t *testing.T) {
+
+	orderId := "a"
+	evId := "testev"
+
+	q := &model.ClobQuote{
+		Bids: []*model.ClobLine{
+			{Size: model.IasD(10), Price: model.IasD(150), ListingId: 1},
+			{Size: model.IasD(10), Price: model.IasD(140), ListingId: 2},
+			{Size: model.IasD(10), Price: model.IasD(130), ListingId: 1},
+			{Size: model.IasD(10), Price: model.IasD(120), ListingId: 2},
+			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 1},
+			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
+		},
+	}
+
+	mo := newManagedOrder(model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od"))
+
+	listing1 := &model.Listing{Id: 1}
+	listing2 := &model.Listing{Id: 2}
+	underlyingListings := map[int32]*model.Listing{
+		1: listing1,
+		2: listing2,
+	}
+
+	client := &testEvClient{}
+	submitSellOrders(q, mo, underlyingListings, evId, client)
+
+	if len(client.params) != 5 {
+		t.FailNow()
+	}
+
+	expectedParams := []*executionvenue.CreateAndRouteOrderParams{{
+		OrderSide:     model.Side_SELL,
+		Quantity:      model.IasD(10),
+		Price:         model.IasD(150),
+		Listing:       listing1,
+		OriginatorId:  evId,
+		OriginatorRef: orderId,
+	},
+		{
+			OrderSide:     model.Side_SELL,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(140),
+			Listing:       listing2,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
+		},
+		{
+			OrderSide:     model.Side_SELL,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(130),
+			Listing:       listing1,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
+		},
+		{
+			OrderSide:     model.Side_SELL,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(120),
+			Listing:       listing2,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
+		},
+		{
+			OrderSide:     model.Side_SELL,
+			Quantity:      model.IasD(10),
+			Price:         model.IasD(120),
+			Listing:       listing1,
+			OriginatorId:  evId,
+			OriginatorRef: orderId,
+		},
+	}
+
+	for idx, params := range client.params {
+		if !reflect.DeepEqual(expectedParams[idx], params) {
+			t.Fatalf("expected params at idx %v do not match", idx)
+		}
+	}
 
 }
+
+
