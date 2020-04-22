@@ -255,7 +255,7 @@ func TestNewOrderManager(t *testing.T) {
 
 	paramsChan := make(chan paramsAndId)
 
-	_, err := NewOrderManager(params, evId, underlyingListings, done, func(o model.Order) error {
+	om, err := NewOrderManager(params, evId, underlyingListings, done, func(o model.Order) error {
 		orderUpdates <- o
 		return nil
 	}, &testOmClient{paramsChan}, quoteChan, childOrderUpdates)
@@ -298,7 +298,7 @@ func TestNewOrderManager(t *testing.T) {
 	}
 
 	pd = <-paramsChan
-	//child2Id := pd.id
+	child2Id := pd.id
 
 	if !reflect.DeepEqual(params2, pd.params) {
 		t.FailNow()
@@ -317,7 +317,14 @@ func TestNewOrderManager(t *testing.T) {
 	childOrderUpdates <- &model.Order{
 		Id:     child1Id,
 		Status: model.OrderStatus_LIVE,
+		RemainingQuantity: IasD(10),
 	}
+
+	order = <-orderUpdates
+	if !order.GetExposedQuantity().Equal(model.IasD(20)) {
+		t.FailNow()
+	}
+
 
 	childOrderUpdates <- &model.Order{
 		Id:               child1Id,
@@ -326,6 +333,7 @@ func TestNewOrderManager(t *testing.T) {
 		LastExecPrice:    model.IasD(100),
 		LastExecSeqNo:    1,
 		LastExecId:       "e1",
+		RemainingQuantity: IasD(0),
 	}
 
 	order = <-orderUpdates
@@ -333,6 +341,33 @@ func TestNewOrderManager(t *testing.T) {
 	if !order.GetTradedQuantity().Equal(model.IasD(10)) {
 		t.FailNow()
 	}
+
+	childOrderUpdates <- &model.Order{
+		Id:               child2Id,
+		Status:           model.OrderStatus_LIVE,
+		LastExecQuantity: model.IasD(10),
+		LastExecPrice:    model.IasD(110),
+		LastExecSeqNo:    1,
+		LastExecId:       "e1",
+		RemainingQuantity: IasD(0),
+	}
+
+	order = <-orderUpdates
+
+	if !order.GetTradedQuantity().Equal(model.IasD(20)) {
+		t.FailNow()
+	}
+
+	if order.GetStatus() != model.OrderStatus_FILLED {
+		t.FailNow()
+	}
+
+	doneId := <-done
+
+	if doneId != om.GetID() {
+		t.FailNow()
+	}
+
 
 }
 

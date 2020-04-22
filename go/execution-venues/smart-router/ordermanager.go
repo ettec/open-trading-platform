@@ -9,6 +9,7 @@ import (
 )
 
 var zero *model.Decimal64
+
 func init() {
 	zero = &model.Decimal64{}
 }
@@ -93,7 +94,6 @@ func (m *managedOrder) onChildOrderUpdate(childOrder *model.Order) {
 			qty:   childOrder.LastExecQuantity,
 		}
 
-
 		m.order.AddExecution(*execution.price, *execution.qty, execution.id)
 		m.modified = true
 
@@ -116,7 +116,7 @@ func (m *managedOrder) onChildOrderUpdate(childOrder *model.Order) {
 }
 
 func NewOrderManager(params *api.CreateAndRouteOrderParams,
-	execVenueId string, underlyingListings map[int32]*model.Listing, doneChan chan<-string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
+	execVenueId string, underlyingListings map[int32]*model.Listing, doneChan chan<- string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
 	quoteChan <-chan *model.ClobQuote, childOrderUpdates <-chan *model.Order) (*managedOrder, error) {
 
 	uniqueId, err := uuid.NewUUID()
