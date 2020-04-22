@@ -84,7 +84,6 @@ func (m *Decimal64) Sub(o *Decimal64) {
 	m.Exponent = r.Exponent
 }
 
-
 func (m *Decimal64) Equal(o *Decimal64) bool {
 	return m.AsDecimal().Equal(o.AsDecimal())
 }

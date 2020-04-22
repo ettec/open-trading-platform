@@ -2,7 +2,6 @@ package model
 
 import (
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"time"
 )
@@ -127,9 +126,9 @@ func NewOrder(id string, OrderSide Side, Quantity *Decimal64, Price *Decimal64, 
 			Seconds:     now.Unix(),
 			Nanoseconds: int32(now.Nanosecond()),
 		},
-		OriginatorId: originatorId,
+		OriginatorId:  originatorId,
 		OriginatorRef: originatorRef,
-	}, nil
+	}
 
 }
 

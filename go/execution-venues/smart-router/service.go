@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
@@ -17,7 +16,6 @@ import (
 
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 
-	"github.com/ettec/open-trading-platform/go/common/topics"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
 
@@ -104,7 +102,10 @@ func main() {
 		panic(err)
 	}
 
-	om := ordermanager.NewOrderManager(orderCache, NewSmartRouterOrderGateway(client, mdsQuoteStream), execVenueMic)
+	om := ordermanager.NewOrderManager(orderCache, NewSmartRouterOrderGateway(client, mdsQuoteStream,
+
+
+		func(listingId int32, listingGroupsIn chan<- []*model.Listing){}), execVenueMic)
 
 	sr := executionvenue.New(om)
 	defer sr.Close()
@@ -223,15 +224,6 @@ func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient, quoteStrea
 					if !quotesPending {
 
 						// here - pick the best listing, split the order?
-						params := api.CreateAndRouteOrderParams{
-							OrderSide:              0,
-							Quantity:               nil,
-							Price:                  nil,
-							Listing:                nil,
-							OriginatingExecVenueId: "",
-						}
-
-						orderRouter.CreateAndRouteOrder(context.Background())
 
 					}
 
@@ -283,5 +275,7 @@ func (s *gateway) Cancel(order *model.Order) error {
 	s.cancelChan <- cancelArgs{
 		order: order,
 	}
+
+		return nil
 
 }

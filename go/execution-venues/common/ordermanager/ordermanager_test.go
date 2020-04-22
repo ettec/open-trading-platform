@@ -40,7 +40,6 @@ func IntToDecimal64(i int) *model.Decimal64 {
 	}
 }
 
-
 func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
