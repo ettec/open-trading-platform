@@ -42,7 +42,7 @@ func Test_submitSellOrders(t *testing.T) {
 		},
 	}
 
-	mo := newManagedOrder(model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od"))
+	mo := newParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od"))
 
 	listing1 := &model.Listing{Id: 1}
 	listing2 := &model.Listing{Id: 2}
@@ -124,7 +124,7 @@ func Test_submitBuyOrders(t *testing.T) {
 		},
 	}
 
-	mo := newManagedOrder(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0, "oi", "od"))
+	mo := newParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0, "oi", "od"))
 
 	listing1 := &model.Listing{Id: 1}
 	listing2 := &model.Listing{Id: 2}
@@ -284,7 +284,7 @@ func TestNewOrderManager(t *testing.T) {
 	pd := <-paramsChan
 	child1Id := pd.id
 
-	if !reflect.DeepEqual(params1, pd.params) {
+	if !areParamsEqual(params1, pd.params) {
 		t.FailNow()
 	}
 
@@ -300,7 +300,7 @@ func TestNewOrderManager(t *testing.T) {
 	pd = <-paramsChan
 	child2Id := pd.id
 
-	if !reflect.DeepEqual(params2, pd.params) {
+	if !areParamsEqual(params2, pd.params) {
 		t.FailNow()
 	}
 
@@ -315,8 +315,8 @@ func TestNewOrderManager(t *testing.T) {
 	}
 
 	childOrderUpdates <- &model.Order{
-		Id:     child1Id,
-		Status: model.OrderStatus_LIVE,
+		Id:                child1Id,
+		Status:            model.OrderStatus_LIVE,
 		RemainingQuantity: IasD(10),
 	}
 
@@ -325,14 +325,13 @@ func TestNewOrderManager(t *testing.T) {
 		t.FailNow()
 	}
 
-
 	childOrderUpdates <- &model.Order{
-		Id:               child1Id,
-		Status:           model.OrderStatus_LIVE,
-		LastExecQuantity: model.IasD(10),
-		LastExecPrice:    model.IasD(100),
-		LastExecSeqNo:    1,
-		LastExecId:       "e1",
+		Id:                child1Id,
+		Status:            model.OrderStatus_LIVE,
+		LastExecQuantity:  model.IasD(10),
+		LastExecPrice:     model.IasD(100),
+		LastExecSeqNo:     1,
+		LastExecId:        "e1",
 		RemainingQuantity: IasD(0),
 	}
 
@@ -343,12 +342,12 @@ func TestNewOrderManager(t *testing.T) {
 	}
 
 	childOrderUpdates <- &model.Order{
-		Id:               child2Id,
-		Status:           model.OrderStatus_LIVE,
-		LastExecQuantity: model.IasD(10),
-		LastExecPrice:    model.IasD(110),
-		LastExecSeqNo:    1,
-		LastExecId:       "e1",
+		Id:                child2Id,
+		Status:            model.OrderStatus_LIVE,
+		LastExecQuantity:  model.IasD(10),
+		LastExecPrice:     model.IasD(110),
+		LastExecSeqNo:     1,
+		LastExecId:        "e1",
 		RemainingQuantity: IasD(0),
 	}
 
@@ -364,86 +363,23 @@ func TestNewOrderManager(t *testing.T) {
 
 	doneId := <-done
 
-	if doneId != om.GetID() {
+	if doneId != om.GetManagedOrderId() {
 		t.FailNow()
 	}
 
+}
+
+
+func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionvenue.CreateAndRouteOrderParams) bool {
+	return p1.Quantity.Equal(p2.Quantity) && p1.Listing.Id == p2.Listing.Id && p1.Price.Equal(p2.Price) && p1.OrderSide == p2.OrderSide &&
+		p1.OriginatorRef == p2.OriginatorRef && p1.OriginatorId == p2.OriginatorId
 
 }
+
+
+
 
 func IasD(i int) *model.Decimal64 {
 	return model.IasD(i)
 }
 
-func Test_managedOrder_onChildOrderUpdate(t *testing.T) {
-
-	mo := newManagedOrder(model.NewOrder("a", model.Side_BUY, IasD(20), IasD(50), 1, "oi", "or"))
-	mo.setStatus(model.OrderStatus_LIVE)
-
-	mo.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_LIVE, Quantity: IasD(15), RemainingQuantity: IasD(15)})
-
-	if !mo.order.ExposedQuantity.Equal(IasD(15)) {
-		t.FailNow()
-	}
-
-	if !mo.order.GetAvailableQty().Equal(IasD(5)) {
-		t.FailNow()
-	}
-
-	mo.onChildOrderUpdate(&model.Order{Id: "a2", TargetStatus: model.OrderStatus_LIVE, Quantity: IasD(5), RemainingQuantity: IasD(5)})
-
-	if !mo.order.ExposedQuantity.Equal(IasD(20)) {
-		t.FailNow()
-	}
-
-	if !mo.order.GetAvailableQty().Equal(IasD(0)) {
-		t.FailNow()
-	}
-
-	mo.onChildOrderUpdate(&model.Order{Id: "a1", LastExecPrice: IasD(50), LastExecQuantity: IasD(5), LastExecSeqNo: 1,
-		LastExecId: "e1", RemainingQuantity: IasD(10)})
-
-	if !mo.order.TradedQuantity.Equal(IasD(5)) {
-		t.FailNow()
-	}
-
-	if !mo.order.ExposedQuantity.Equal(IasD(15)) {
-		t.FailNow()
-	}
-
-	mo.onChildOrderUpdate(&model.Order{Id: "a2", TargetStatus: model.OrderStatus_LIVE, Quantity: IasD(5), RemainingQuantity: IasD(0),
-		LastExecPrice: IasD(50), LastExecQuantity: IasD(5), LastExecSeqNo: 1,
-		LastExecId: "e1"})
-
-	if !mo.order.TradedQuantity.Equal(IasD(10)) {
-		t.FailNow()
-	}
-
-	if !mo.order.ExposedQuantity.Equal(IasD(10)) {
-		t.FailNow()
-	}
-
-	if !mo.order.GetAvailableQty().Equal(IasD(0)) {
-		t.FailNow()
-	}
-
-	mo.onChildOrderUpdate(&model.Order{Id: "a1", LastExecPrice: IasD(50), LastExecQuantity: IasD(10), LastExecSeqNo: 2,
-		LastExecId: "e2", RemainingQuantity: IasD(0)})
-
-	if !mo.order.TradedQuantity.Equal(IasD(20)) {
-		t.FailNow()
-	}
-
-	if !mo.order.ExposedQuantity.Equal(IasD(0)) {
-		t.FailNow()
-	}
-
-	if !mo.order.GetAvailableQty().Equal(IasD(0)) {
-		t.FailNow()
-	}
-
-	if mo.order.GetStatus() != model.OrderStatus_FILLED {
-		t.FailNow()
-	}
-
-}
