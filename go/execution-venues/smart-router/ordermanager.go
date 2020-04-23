@@ -16,16 +16,22 @@ func init() {
 	zero = &model.Decimal64{}
 }
 
-
-
 type orderManager struct {
-	managedOrderId  string
-	lastStoredOrder model.Order
-	store           func(model.Order) error
+	lastStoredOrder    model.Order
+	cancelChan         chan bool
+	store              func(model.Order) error
+	po                 *parentOrder
+	underlyingListings map[int32]*model.Listing
+	execVenueId        string
+	orderRouter        api.ExecutionVenueClient
 }
 
 func (om *orderManager) GetManagedOrderId() string {
-	return om.managedOrderId
+	return om.po.GetId()
+}
+
+func (om *orderManager) CancelOrder() {
+	om.cancelChan <- true
 }
 
 func (om *orderManager) persist(order model.Order) error {
@@ -57,17 +63,13 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 		return nil, err
 	}
 
-	om := &orderManager{
-		managedOrderId:  uniqueId.String(),
-		lastStoredOrder: model.Order{},
-		store:           store,
-	}
-
-	orderState := model.NewOrder(uniqueId.String(), params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
+	initialState := model.NewOrder(uniqueId.String(), params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
 		params.OriginatorId, params.OriginatorRef)
+	initialState.SetTargetStatus(model.OrderStatus_LIVE)
 
-	po := newParentOrder(*orderState)
-	po.SetTargetStatus(model.OrderStatus_LIVE)
+	po := newParentOrder(*initialState)
+
+	om := newOrderManager(store, po, underlyingListings, execVenueId, orderRouter)
 
 	go func() {
 
@@ -81,6 +83,17 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 			}
 
 			select {
+			case <-om.cancelChan:
+
+				if !po.IsTerminalState() {
+					po.SetTargetStatus(model.OrderStatus_CANCELLED)
+					for _, co := range po.childOrders {
+						orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
+							OrderId: co.Id,
+							Listing: underlyingListings[co.ListingId],
+						})
+					}
+				}
 			case co := <-childOrderUpdates:
 				po.onChildOrderUpdate(co)
 			case q := <-quoteChan:
@@ -88,9 +101,9 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 				if !ordersSubmitted && !q.StreamInterrupted {
 
 					if po.GetSide() == model.Side_BUY {
-						submitBuyOrders(q, po, underlyingListings, execVenueId, orderRouter)
+						om.submitBuyOrders(q)
 					} else {
-						submitSellOrders(q, po, underlyingListings, execVenueId, orderRouter)
+						om.submitSellOrders(q)
 					}
 
 					ordersSubmitted = true
@@ -106,30 +119,43 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 	return om, nil
 }
 
-func submitBuyOrders(q *model.ClobQuote, po *parentOrder, underlyingListings map[int32]*model.Listing, execVenueId string, orderRouter api.ExecutionVenueClient) {
-	submitOrders(q.Offers, func(line *model.ClobLine) bool {
-		return line.Price.LessThanOrEqual(po.GetPrice())
-	}, po, model.Side_BUY, underlyingListings, execVenueId, orderRouter)
+func newOrderManager(store func(model.Order) error, po *parentOrder, underlyingListings map[int32]*model.Listing, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
+	om := &orderManager{
+		lastStoredOrder:    model.Order{},
+		cancelChan:         make(chan bool, 1),
+		store:              store,
+		po:                 po,
+		underlyingListings: underlyingListings,
+		execVenueId:        execVenueId,
+		orderRouter:        orderRouter,
+	}
+	return om
 }
 
-func submitSellOrders(q *model.ClobQuote, po *parentOrder, underlyingListings map[int32]*model.Listing, execVenueId string, orderRouter api.ExecutionVenueClient) {
-	submitOrders(q.Bids, func(line *model.ClobLine) bool {
-		return line.Price.GreaterThanOrEqual(po.GetPrice())
-	}, po, model.Side_SELL, underlyingListings, execVenueId, orderRouter)
+func (om *orderManager) submitBuyOrders(q *model.ClobQuote, ) {
+	om.submitOrders(q.Offers, func(line *model.ClobLine) bool {
+		return line.Price.LessThanOrEqual(om.po.GetPrice())
+	},  model.Side_BUY)
 }
 
-func submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool, po *parentOrder,
-	side model.Side, underlyingListings map[int32]*model.Listing, execVenueId string, orderRouter api.ExecutionVenueClient) {
+func (om *orderManager) submitSellOrders(q *model.ClobQuote) {
+	om.submitOrders(q.Bids, func(line *model.ClobLine) bool {
+		return line.Price.GreaterThanOrEqual(om.po.GetPrice())
+	},  model.Side_SELL)
+}
+
+func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,
+	side model.Side) {
 	listingIdToQnt := map[int32]*model.Decimal64{}
 	for _, line := range oppositeClobLines {
-		if po.GetAvailableQty().GreaterThan(zero) && willTrade(line) {
+		if om.po.GetAvailableQty().GreaterThan(zero) && willTrade(line) {
 			quantity := line.Size
 
-			if line.Size.GreaterThanOrEqual(po.GetAvailableQty()) {
-				quantity = po.GetAvailableQty()
+			if line.Size.GreaterThanOrEqual(om.po.GetAvailableQty()) {
+				quantity = om.po.GetAvailableQty()
 			}
 
-			sendChildOrder(side, quantity, line.Price, underlyingListings[line.ListingId], execVenueId, po, orderRouter)
+			sendChildOrder(side, quantity, line.Price, om.underlyingListings[line.ListingId], om.execVenueId, om.po, om.orderRouter)
 
 		} else {
 			if qnt, ok := listingIdToQnt[line.ListingId]; ok {
@@ -142,7 +168,7 @@ func submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *mode
 
 	}
 
-	if po.GetAvailableQty().GreaterThan(zero) {
+	if om.po.GetAvailableQty().GreaterThan(zero) {
 		var l int32
 		greatestQty := zero
 		for listingId, qnt := range listingIdToQnt {
@@ -153,7 +179,7 @@ func submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *mode
 		}
 
 		if greatestQty.GreaterThan(zero) {
-			sendChildOrder(side, po.GetAvailableQty(), po.Price, underlyingListings[l], execVenueId, po, orderRouter)
+			sendChildOrder(side, om.po.GetAvailableQty(), om.po.Price, om.underlyingListings[l], om.execVenueId, om.po, om.orderRouter)
 		}
 
 	}
@@ -187,5 +213,5 @@ func sendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Dec
 
 func cancelOrderWithErrorMsg(po *parentOrder, msg string) {
 	po.ErrorMessage = msg
-	//here - cancel the order - self cancel
+
 }

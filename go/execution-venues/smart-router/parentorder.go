@@ -2,11 +2,6 @@ package main
 
 import "github.com/ettec/open-trading-platform/go/model"
 
-type execution struct {
-	id    string
-	price *model.Decimal64
-	qty   *model.Decimal64
-}
 
 type parentOrder struct {
 	model.Order
@@ -31,14 +26,7 @@ func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) {
 
 	if childOrder.LastExecSeqNo > lastExecSeqNo {
 		execId := childOrder.Id + ":" + childOrder.LastExecId
-
-		execution := execution{
-			id:    execId,
-			price: childOrder.LastExecPrice,
-			qty:   childOrder.LastExecQuantity,
-		}
-
-		po.AddExecution(*execution.price, *execution.qty, execution.id)
+		po.AddExecution(*childOrder.LastExecPrice, *childOrder.LastExecQuantity, execId)
 	}
 
 	po.childOrders[childOrder.Id] = childOrder

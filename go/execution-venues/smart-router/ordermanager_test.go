@@ -52,7 +52,12 @@ func Test_submitSellOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	submitSellOrders(q, mo, underlyingListings, evId, client)
+
+	om :=  newOrderManager(func(order model.Order) error {
+		return nil
+	}, mo, underlyingListings, evId, client)
+
+	om.submitSellOrders(q)
 
 	if len(client.params) != 5 {
 		t.FailNow()
@@ -134,7 +139,11 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	submitBuyOrders(q, mo, underlyingListings, evId, client)
+	om :=  newOrderManager(func(order model.Order) error {
+		return nil
+	}, mo, underlyingListings, evId, client)
+
+	om.submitBuyOrders(q)
 
 	if len(client.params) != 5 {
 		t.FailNow()
@@ -369,17 +378,12 @@ func TestNewOrderManager(t *testing.T) {
 
 }
 
-
 func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionvenue.CreateAndRouteOrderParams) bool {
 	return p1.Quantity.Equal(p2.Quantity) && p1.Listing.Id == p2.Listing.Id && p1.Price.Equal(p2.Price) && p1.OrderSide == p2.OrderSide &&
 		p1.OriginatorRef == p2.OriginatorRef && p1.OriginatorId == p2.OriginatorId
 
 }
 
-
-
-
 func IasD(i int) *model.Decimal64 {
 	return model.IasD(i)
 }
-

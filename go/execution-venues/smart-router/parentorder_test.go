@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-
-
 func Test_parentOrder_onChildOrderUpdate(t *testing.T) {
 
 	po := newParentOrder(*model.NewOrder("a", model.Side_BUY, IasD(20), IasD(50), 1, "oi", "or"))
