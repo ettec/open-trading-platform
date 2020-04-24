@@ -102,10 +102,6 @@ func main() {
 		panic(err)
 	}
 
-
-
-
-
 	api.RegisterExecutionVenueServer(s, sr)
 
 	reflection.Register(s)
@@ -170,9 +166,3 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Du
 
 	return client, nil
 }
-
-
-
-
-
-

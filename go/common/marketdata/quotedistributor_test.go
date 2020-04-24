@@ -21,8 +21,6 @@ func Test_quoteDistributor_Send(t *testing.T) {
 	s1.Subscribe(1)
 	s2.Subscribe(1)
 
-
-
 	in <- &model.ClobQuote{ListingId: 1}
 
 	if q := <-s1.GetStream(); q.ListingId != 1 {
@@ -46,8 +44,6 @@ func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
 	s1 := d.GetNewQuoteStream()
 	s2 := d.GetNewQuoteStream()
 
-
-
 	s1.Subscribe(1)
 
 	in <- &model.ClobQuote{ListingId: 1}
@@ -55,8 +51,6 @@ func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
 	if q := <-s1.GetStream(); q.ListingId != 1 {
 		t.Errorf("expected quote note received")
 	}
-
-
 
 	s2.Subscribe(1)
 
@@ -79,7 +73,6 @@ func Test_subscribeOnlyCalledOnceForAGivenListing(t *testing.T) {
 	s1 := d.GetNewQuoteStream()
 	s2 := d.GetNewQuoteStream()
 
-
 	s1.Subscribe(1)
 	s2.Subscribe(1)
 
@@ -97,11 +90,9 @@ func Test_onlySubscribedQuotesReceived(t *testing.T) {
 
 	d := NewQuoteDistributor(testMdsQuoteStream{
 		func(listingId int32) {
-		}, in},100)
+		}, in}, 100)
 
 	s1 := d.GetNewQuoteStream()
-
-
 
 	s1.Subscribe(1)
 	s1.Subscribe(2)

@@ -8,7 +8,7 @@ import (
 )
 
 type conflatedQuoteStream struct {
-	stream MdsQuoteStream
+	stream        MdsQuoteStream
 	outChan       chan *model.ClobQuote
 	closeChan     chan bool
 	pendingQuote  map[int32]*model.ClobQuote

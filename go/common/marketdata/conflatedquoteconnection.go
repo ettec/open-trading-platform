@@ -15,15 +15,13 @@ type ConflatedQuoteConnection interface {
 }
 
 type conflatedQuoteConnection struct {
-	id                  string
-	maxSubscriptions    int
-	stream				MdsQuoteStream
-	subscriptions       map[int32]bool
-	log                 *log.Logger
-	errLog              *log.Logger
+	id               string
+	maxSubscriptions int
+	stream           MdsQuoteStream
+	subscriptions    map[int32]bool
+	log              *log.Logger
+	errLog           *log.Logger
 }
-
-
 
 func (c *conflatedQuoteConnection) GetStream() <-chan *model.ClobQuote {
 	return c.stream.GetStream()

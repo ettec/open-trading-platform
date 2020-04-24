@@ -139,8 +139,6 @@ type service struct {
 func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls common.ListingSource,
 	maxReconnectInterval time.Duration) (*service, error) {
 
-
-
 	mdc, err := marketdata.NewMdsQuoteStream(id, mdGatewayAddr, maxReconnectInterval, 1000)
 	if err != nil {
 		return nil, err

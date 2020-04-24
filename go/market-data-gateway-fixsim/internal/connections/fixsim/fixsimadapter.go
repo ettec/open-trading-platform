@@ -42,7 +42,7 @@ func NewFixSimAdapter(
 	sendBufferSize int) (*fixSimAdapter, error) {
 
 	n := &fixSimAdapter{
-		out:               make( chan *model.ClobQuote, sendBufferSize),
+		out:               make(chan *model.ClobQuote, sendBufferSize),
 		connectionName:    connectionName,
 		symbolToListingId: make(map[string]int32),
 		idToQuote:         make(map[int32]*model.ClobQuote),
@@ -113,8 +113,6 @@ func NewFixSimAdapter(
 func (n *fixSimAdapter) Subscribe(listingId int32) {
 	n.getListing(listingId, n.listingInChan)
 }
-
-
 
 func newClobQuote(listingId int32) *model.ClobQuote {
 	bids := make([]*model.ClobLine, 0)

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
+	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
@@ -56,16 +57,13 @@ type testQuoteDist struct {
 	addQuoteChanChan chan chan<- *model.ClobQuote
 }
 
-func (d *testQuoteDist) Subscribe(listingId int32) {
-	panic("implement me")
-}
+func (t testQuoteDist) GetNewQuoteStream() marketdata.MdsQuoteStream {
 
-func (d *testQuoteDist) GetStream() <-chan *model.ClobQuote {
-	panic("implement me")
-}
+	quoteChan := make( chan *model.ClobQuote)
 
-func (d *testQuoteDist) Close() {
-	panic("implement me")
+	t.addQuoteChanChan <- quoteChan
+
+	return &testQuoteStream{quoteChan: quoteChan}
 }
 
 func newTestQuoteDist() *testQuoteDist {
@@ -75,8 +73,21 @@ func newTestQuoteDist() *testQuoteDist {
 	return t
 }
 
+type testQuoteStream struct {
+	quoteChan chan *model.ClobQuote
+}
 
+func (t testQuoteStream) Subscribe(listingId int32) {
 
+}
+
+func (t testQuoteStream) GetStream() <-chan *model.ClobQuote {
+	return t.quoteChan
+}
+
+func (t testQuoteStream) Close() {
+
+}
 
 func getTestListing() *model.Listing {
 
@@ -108,6 +119,9 @@ func Test_bookBuilder_start(t *testing.T) {
 
 	book.Start()
 
+	p := <-oec.submitOrderChan
+	p = <-oec.submitOrderChan
+
 	sink := <-qd.addQuoteChanChan
 
 	sink <- &model.ClobQuote{
@@ -123,7 +137,7 @@ func Test_bookBuilder_start(t *testing.T) {
 				Price: model.IasD(25)},
 		}}
 
-	p := <-oec.submitOrderChan
+	p = <-oec.submitOrderChan
 	verifyParams(p, "XLF", orderentryapi.Side_SELL, model.IasD(20), 300, t)
 
 	p = <-oec.submitOrderChan
@@ -193,6 +207,9 @@ func Test_bookBuilder_rebuildsBook(t *testing.T) {
 
 	book.Start()
 
+	p := <-oec.submitOrderChan
+	p = <-oec.submitOrderChan
+
 	sink := <-qd.addQuoteChanChan
 
 	sink <- &model.ClobQuote{
@@ -218,7 +235,7 @@ func Test_bookBuilder_rebuildsBook(t *testing.T) {
 
 	sink <- quote
 
-	p := <-oec.submitOrderChan
+	p = <-oec.submitOrderChan
 
 	if p.Symbol != "XLF" || p.OrderSide != orderentryapi.Side_BUY {
 		t.FailNow()
@@ -245,6 +262,9 @@ func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
 
 	book.Start()
 
+	p := <-oec.submitOrderChan
+	p = <-oec.submitOrderChan
+
 	sink := <-qd.addQuoteChanChan
 
 	sink <- &model.ClobQuote{
@@ -270,7 +290,7 @@ func Test_bookBuilder_tradesOppositeSide(t *testing.T) {
 
 	sink <- quote
 
-	p := <-oec.submitOrderChan
+	p = <-oec.submitOrderChan
 
 	verifyParams(p, "XLF", orderentryapi.Side_BUY, &model.Decimal64{Mantissa: 2706, Exponent: -2}, 2500, t)
 

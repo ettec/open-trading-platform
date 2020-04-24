@@ -36,7 +36,6 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 		})
 	}
 
-
 	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing, 1000)
 	if err != nil {
 		return nil, err

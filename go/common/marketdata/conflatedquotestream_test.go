@@ -7,14 +7,11 @@ import (
 	"testing"
 )
 
-
-
-
 func Test_quotesAreConflated(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
 
-	c := NewConflatedQuoteStream(&testMdsQuoteStream{stream: in},  10)
+	c := NewConflatedQuoteStream(&testMdsQuoteStream{stream: in}, 10)
 
 	out := c.GetStream()
 
@@ -35,7 +32,6 @@ func Test_quotesAreConflated(t *testing.T) {
 func Test_quotesAreConflatedAndReceivedOrderIsMaintained(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
-
 
 	c := NewConflatedQuoteStream(&testMdsQuoteStream{stream: in}, 10)
 	out := c.GetStream()

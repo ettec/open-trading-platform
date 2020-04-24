@@ -117,7 +117,6 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 func setupTestClient() (*testMarketDataClient, <-chan *model.ClobQuote, *fixSimAdapter) {
 	tmd, _ := newTestMarketDataClient()
 
-
 	listingIdToSym := map[int32]string{1: "A", 2: "B", 3: "C"}
 	n, _ := NewFixSimAdapter(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
 		return tmd, nil

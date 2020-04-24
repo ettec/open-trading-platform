@@ -37,8 +37,7 @@ func (s *marketDataSourceServer) Connect(stream marketdatasource.MarketDataSourc
 
 	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId)
 
-
-	cc := NewConflatedQuoteConnection(subscriberId,  s.quoteDistributor.GetNewQuoteStream(), maxSubscriptions)
+	cc := NewConflatedQuoteConnection(subscriberId, s.quoteDistributor.GetNewQuoteStream(), maxSubscriptions)
 	defer cc.Close()
 
 	go func() {

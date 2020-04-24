@@ -7,7 +7,7 @@ import (
 )
 
 type QuoteDistributor interface {
-  GetNewQuoteStream() MdsQuoteStream
+	GetNewQuoteStream() MdsQuoteStream
 }
 
 type QuoteSource interface {
@@ -34,12 +34,12 @@ type quoteDistributor struct {
 	lastQuote           map[int32]*model.ClobQuote
 	subscribedFn        subscribeToListing
 	subscribedToListing map[int32]bool
-	sendBufferSize int
+	sendBufferSize      int
 	log                 *log.Logger
 	errLog              *log.Logger
 }
 
-func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int)  *quoteDistributor {
+func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int) *quoteDistributor {
 	q := &quoteDistributor{connections: make([]*distConnection, 0),
 		addOutChan:          make(chan chan<- *model.ClobQuote),
 		removeOutChan:       make(chan chan<- *model.ClobQuote),
@@ -47,7 +47,7 @@ func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int)  *quoteDistr
 		lastQuote:           map[int32]*model.ClobQuote{},
 		subscribedFn:        stream.Subscribe,
 		subscribedToListing: map[int32]bool{},
-		sendBufferSize: sendBufferSize,
+		sendBufferSize:      sendBufferSize,
 		log:                 log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 		errLog:              log.New(os.Stderr, "", log.Ltime|log.Lshortfile),
 	}
@@ -110,7 +110,7 @@ func (q *quoteDistributor) Subscribe(listingId int32, out chan<- *model.ClobQuot
 }
 
 type quoteDistributorQuoteStream struct {
-	out chan *model.ClobQuote
+	out         chan *model.ClobQuote
 	distributor *quoteDistributor
 }
 
@@ -136,7 +136,6 @@ func (q *quoteDistributorQuoteStream) Close() {
 func (q *quoteDistributor) GetNewQuoteStream() MdsQuoteStream {
 	return newQuoteDistributorQuoteStream(q)
 }
-
 
 func (q *quoteDistributor) addOutQuoteChan(out chan<- *model.ClobQuote) {
 	q.addOutChan <- out

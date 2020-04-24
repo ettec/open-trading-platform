@@ -39,8 +39,6 @@ type GrpcConnection interface {
 func NewMdsQuoteStream(id string, targetAddress string, maxReconnectInterval time.Duration,
 	quoteBufferSize int) (MdsQuoteStream, error) {
 
-
-
 	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 		if err != nil {
@@ -186,5 +184,5 @@ func (mgc *mdsQuoteStream) Subscribe(listingId int32) {
 }
 
 func (mgc *mdsQuoteStream) Close() {
-	mgc.closeWriterChan<-true
+	mgc.closeWriterChan <- true
 }

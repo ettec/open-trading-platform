@@ -211,7 +211,7 @@ func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal6
 
 }
 
-func (om *orderManager)  cancelOrderWithErrorMsg(msg string) {
+func (om *orderManager) cancelOrderWithErrorMsg(msg string) {
 	om.managedOrder.ErrorMessage = msg
-	om.cancelChan <-true
+	om.cancelChan <- true
 }

@@ -7,8 +7,7 @@ import (
 
 type testMdsQuoteStream struct {
 	subscribe func(listingId int32)
-	stream chan *model.ClobQuote
-
+	stream    chan *model.ClobQuote
 }
 
 func (t testMdsQuoteStream) Close() {
