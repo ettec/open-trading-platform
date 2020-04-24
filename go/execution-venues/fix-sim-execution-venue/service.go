@@ -8,7 +8,6 @@ import (
 
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 
-	"github.com/ettec/open-trading-platform/go/common/topics"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
 

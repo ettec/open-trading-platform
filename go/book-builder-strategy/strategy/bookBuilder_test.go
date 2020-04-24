@@ -59,7 +59,7 @@ type testQuoteDist struct {
 
 func (t testQuoteDist) GetNewQuoteStream() marketdata.MdsQuoteStream {
 
-	quoteChan := make( chan *model.ClobQuote)
+	quoteChan := make(chan *model.ClobQuote)
 
 	t.addQuoteChanChan <- quoteChan
 
