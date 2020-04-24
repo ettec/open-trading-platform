@@ -49,13 +49,13 @@ func NewMdsQuoteStream(id string, targetAddress string, maxReconnectInterval tim
 		return client, conn, nil
 	}
 
-	return NewMdsQuoteStreamFromFn(id, targetAddress, quoteBufferSize, mdcFn)
+	return NewMdsQuoteStreamFromFn(id, targetAddress,  make(chan *model.ClobQuote, quoteBufferSize), mdcFn)
 }
 
-func NewMdsQuoteStreamFromFn(id string, targetAddress string, quoteBufferSize int,
+func NewMdsQuoteStreamFromFn(id string, targetAddress string, out chan *model.ClobQuote,
 	getConnection GetMdsClientFn) (MdsQuoteStream, error) {
 
-	out := make(chan *model.ClobQuote, quoteBufferSize)
+
 
 	n := &mdsQuoteStream{
 		subscriptionsChan: make(chan int32),

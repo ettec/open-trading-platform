@@ -11,20 +11,35 @@ const QuoteAggregatorMic = "XOSR"
 type quoteAggregator struct {
 	getListings     getListingsWithSameInstrument
 	listingGroupsIn chan []*model.Listing
+	stream chan *model.ClobQuote
+	closeChan chan bool
+}
+
+func (q quoteAggregator) GetStream() <-chan *model.ClobQuote {
+	return q.stream
+}
+
+func (q quoteAggregator) Close() {
+	q.closeChan <- true
 }
 
 type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
 func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument, micToMdsAddress map[string]string,
-	out chan<- *model.ClobQuote, mdsClientFn marketdata.GetMdsClientFn) *quoteAggregator {
+	bufferSize int, mdsClientFn marketdata.GetMdsClientFn) *quoteAggregator {
 
-	q := &quoteAggregator{
+	qa := &quoteAggregator{
 		getListings:     getListingsWithSameInstrument,
 		listingGroupsIn: make(chan []*model.Listing, 1000),
+		stream: make(chan *model.ClobQuote),
+		closeChan: make(chan bool),
 	}
 
-	quoteStreamsOut := make(chan *model.ClobQuote, 1000)
+
 	micToStream := map[string]marketdata.MdsQuoteStream{}
+
+
+	quoteStreamsOut := make(chan *model.ClobQuote, 1000)
 
 	for mic, targetAddress := range micToMdsAddress {
 		stream, err := marketdata.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)
@@ -39,7 +54,9 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	go func() {
 		for {
 			select {
-			case listings := <-q.listingGroupsIn:
+			case <-qa.closeChan:
+				break
+			case listings := <-qa.listingGroupsIn:
 				quoteChan := make(chan *model.ClobQuote)
 				numStreams := 0
 				var quoteAggListingId int32 = -1
@@ -68,7 +85,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 							for _, q := range listingIdToLastQuote {
 								quotes = append(quotes, q)
 							}
-							out <- combineQuotes(quoteAggListingId, quotes)
+							qa.stream <- combineQuotes(quoteAggListingId, quotes)
 						}
 					}
 				}()
@@ -79,7 +96,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 		}
 	}()
 
-	return q
+	return qa
 }
 
 func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote) *model.ClobQuote {

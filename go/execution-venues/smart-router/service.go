@@ -1,25 +1,21 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordergateway"
 	"github.com/ettec/open-trading-platform/go/model"
 	"k8s.io/client-go/kubernetes"
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/executionvenue"
-
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
-
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordermanager"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -39,6 +35,20 @@ const (
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
+
+type smartrouter struct {
+	orderCache *ordercache.OrderCache
+	orderRouter api.ExecutionVenueClient
+	quoteDistributor marketdata.QuoteDistributor
+}
+
+func (s smartrouter) CreateAndRouteOrder(ctx context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
+	panic("implement me")
+}
+
+func (s smartrouter) CancelOrder(ctx context.Context, params *api.CancelOrderParams) (*model.Empty, error) {
+	panic("implement me")
+}
 
 func main() {
 
@@ -92,15 +102,25 @@ func main() {
 	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
 	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
+	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
+
 
 	if err != nil {
 		panic(err)
 	}
 
-	client, err := getOrderRouter(clientSet, maxConnectRetry)
+	orderRouter, err := getOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
+
+	sr := smartrouter{
+		orderCache:  orderCache,
+		orderRouter: orderRouter,
+		quoteDistributor: qd,
+	}
+
+	// recovery behaviour
 
 	api.RegisterExecutionVenueServer(s, sr)
 

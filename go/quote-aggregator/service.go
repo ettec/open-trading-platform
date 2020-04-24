@@ -6,7 +6,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
-	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettec/open-trading-platform/go/quote-aggregator/quoteaggregator"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -91,17 +90,15 @@ func main() {
 		return client, conn, nil
 	}
 
-	aggregatorToDistributorChan := make(chan *model.ClobQuote, 1000)
-
 	sds, err := common.NewStaticDataSource(staticDataServiceAddress)
 	if err != nil {
 		panic(err)
 	}
 
 	quoteAggregator := quoteaggregator.New(id, sds.GetListingsWithSameInstrument,
-		micToMdsAddress, aggregatorToDistributorChan, mdcFn)
+		micToMdsAddress, 1000, mdcFn)
 
-	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator.Subscribe, aggregatorToDistributorChan))
+	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, 1000))
 
 	port := "50551"
 	log.Println("Starting Market Data Service on port:" + port)

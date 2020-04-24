@@ -8,7 +8,7 @@ cd $line
 if ls *.go 1> /dev/null 2>&1;
 then
 
-   if go build; then
+   if go build -o /tmp/guff; then
     echo built $line 
    else
     echo failed to build $line 
