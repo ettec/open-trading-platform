@@ -21,7 +21,7 @@ func Test_parentOrder_cancelled(t *testing.T) {
 		t.FailNow()
 	}
 
-	po.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_NONE,  Status: model.OrderStatus_LIVE, Quantity: IasD(15), RemainingQuantity: IasD(15)})
+	po.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_NONE, Status: model.OrderStatus_LIVE, Quantity: IasD(15), RemainingQuantity: IasD(15)})
 
 	if !po.ExposedQuantity.Equal(IasD(15)) || !po.GetAvailableQty().Equal(IasD(5)) {
 		t.FailNow()
@@ -41,7 +41,7 @@ func Test_parentOrder_cancelled(t *testing.T) {
 
 	po.SetTargetStatus(model.OrderStatus_CANCELLED)
 
-	po.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_CANCELLED,  Status: model.OrderStatus_LIVE, Quantity: IasD(15), RemainingQuantity: IasD(15)})
+	po.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_CANCELLED, Status: model.OrderStatus_LIVE, Quantity: IasD(15), RemainingQuantity: IasD(15)})
 
 	if !po.TradedQuantity.Equal(IasD(0)) || !po.ExposedQuantity.Equal(IasD(20)) ||
 		!po.GetAvailableQty().Equal(IasD(0)) || po.GetStatus() != model.OrderStatus_LIVE {
@@ -55,7 +55,7 @@ func Test_parentOrder_cancelled(t *testing.T) {
 		t.FailNow()
 	}
 
-	po.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_NONE,  Status: model.OrderStatus_CANCELLED, Quantity: IasD(15), RemainingQuantity: IasD(15)})
+	po.onChildOrderUpdate(&model.Order{Id: "a1", TargetStatus: model.OrderStatus_NONE, Status: model.OrderStatus_CANCELLED, Quantity: IasD(15), RemainingQuantity: IasD(15)})
 
 	if !po.TradedQuantity.Equal(IasD(0)) || !po.ExposedQuantity.Equal(IasD(5)) ||
 		!po.GetAvailableQty().Equal(IasD(15)) || po.GetStatus() != model.OrderStatus_LIVE {
@@ -70,8 +70,6 @@ func Test_parentOrder_cancelled(t *testing.T) {
 	}
 
 }
-
-
 
 func Test_parentOrder_childOrdersFilled(t *testing.T) {
 

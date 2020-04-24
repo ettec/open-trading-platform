@@ -205,9 +205,8 @@ type paramsAndId struct {
 }
 
 type testOmClient struct {
-	croParamsChan chan paramsAndId
+	croParamsChan    chan paramsAndId
 	cancelParamsChan chan *executionvenue.CancelOrderParams
-	
 }
 
 func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionvenue.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*executionvenue.OrderId, error) {
@@ -223,26 +222,26 @@ func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionven
 
 func (t *testOmClient) CancelOrder(ctx context.Context, in *executionvenue.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
 	t.cancelParamsChan <- in
-	return &model.Empty{},  nil
+	return &model.Empty{}, nil
 }
 
 func TestOrderManagerSendsChildOrders(t *testing.T) {
-	send2ChildOrders(t)
+	setupOrderManagerAndSendTwoChildOrders(t)
 }
 
 func TestOrderManagerCancel(t *testing.T) {
 
-	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue := send2ChildOrders(t)
+	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue := setupOrderManagerAndSendTwoChildOrders(t)
 
 	om.Cancel()
 
-	cp1 := <- testExecVenue.cancelParamsChan
+	cp1 := <-testExecVenue.cancelParamsChan
 
 	if cp1.OrderId != child1Id {
 		t.FailNow()
 	}
 
-	cp2 := <- testExecVenue.cancelParamsChan
+	cp2 := <-testExecVenue.cancelParamsChan
 
 	if cp2.OrderId != child2Id {
 		t.FailNow()
@@ -275,11 +274,10 @@ func TestOrderManagerCancel(t *testing.T) {
 		t.FailNow()
 	}
 
-	update = <-orderUpdates
 	if update.GetStatus() != model.OrderStatus_CANCELLED {
 		t.FailNow()
 	}
-	
+
 	id := <-done
 	if id != order.Id {
 		t.FailNow()
@@ -287,11 +285,9 @@ func TestOrderManagerCancel(t *testing.T) {
 
 }
 
-
-
 func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
-	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id,_ := send2ChildOrders(t)
+	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, _ := setupOrderManagerAndSendTwoChildOrders(t)
 
 	childOrderUpdates <- &model.Order{
 		Id:                child1Id,
@@ -337,20 +333,9 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
 }
 
-func send2ChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
+func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
 	*testOmClient) {
 	evId := "testev"
-
-	q := &model.ClobQuote{
-		Offers: []*model.ClobLine{
-			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
-			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
-			{Size: model.IasD(10), Price: model.IasD(120), ListingId: 1},
-			{Size: model.IasD(10), Price: model.IasD(130), ListingId: 2},
-			{Size: model.IasD(10), Price: model.IasD(140), ListingId: 1},
-			{Size: model.IasD(10), Price: model.IasD(150), ListingId: 1},
-		},
-	}
 
 	srListing := &model.Listing{Id: 3}
 
@@ -359,15 +344,6 @@ func send2ChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.
 	underlyingListings := map[int32]*model.Listing{
 		1: listing1,
 		2: listing2,
-	}
-
-	params := &executionvenue.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity:      model.IasD(20),
-		Price:         model.IasD(130),
-		Listing:       srListing,
-		OriginatorId:  "oi",
-		OriginatorRef: "or",
 	}
 
 	done := make(chan string)
@@ -380,6 +356,15 @@ func send2ChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.
 	cancelParamsChan := make(chan *executionvenue.CancelOrderParams)
 
 	testExecVenue := &testOmClient{paramsChan, cancelParamsChan}
+
+	params := &executionvenue.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(20),
+		Price:         model.IasD(130),
+		Listing:       srListing,
+		OriginatorId:  "oi",
+		OriginatorRef: "or",
+	}
 
 	om, err := NewOrderManager(params, evId, underlyingListings, done, func(o model.Order) error {
 		orderUpdates <- o
@@ -394,6 +379,17 @@ func send2ChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.
 
 	if order.GetTargetStatus() != model.OrderStatus_LIVE {
 		t.FailNow()
+	}
+
+	q := &model.ClobQuote{
+		Offers: []*model.ClobLine{
+			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
+			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
+			{Size: model.IasD(10), Price: model.IasD(120), ListingId: 1},
+			{Size: model.IasD(10), Price: model.IasD(130), ListingId: 2},
+			{Size: model.IasD(10), Price: model.IasD(140), ListingId: 1},
+			{Size: model.IasD(10), Price: model.IasD(150), ListingId: 1},
+		},
 	}
 
 	quoteChan <- q
