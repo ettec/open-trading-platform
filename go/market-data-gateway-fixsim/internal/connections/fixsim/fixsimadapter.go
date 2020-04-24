@@ -14,11 +14,20 @@ type fixSimAdapter struct {
 	idToQuote         map[int32]*model.ClobQuote
 	refreshInChan     chan *marketdata.MarketDataIncrementalRefresh
 	listingInChan     chan *model.Listing
-	out               chan<- *model.ClobQuote
+	out               chan *model.ClobQuote
 	fixSimClient      MarketDataClient
 	getListing        common.GetListingFn
+	closeChan         chan bool
 	log               *log.Logger
 	errLog            *log.Logger
+}
+
+func (n *fixSimAdapter) GetStream() <-chan *model.ClobQuote {
+	return n.out
+}
+
+func (n *fixSimAdapter) Close() {
+	n.closeChan <- true
 }
 
 type MarketDataClient interface {
@@ -30,85 +39,82 @@ type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncr
 
 func NewFixSimAdapter(
 	newClientFn newMarketDataClient, connectionName string, symbolLookup common.GetListingFn,
-	out chan<- *model.ClobQuote) (*fixSimAdapter, error) {
+	sendBufferSize int) (*fixSimAdapter, error) {
 
-	c := &fixSimAdapter{
-		out:               out,
+	n := &fixSimAdapter{
+		out:               make( chan *model.ClobQuote, sendBufferSize),
 		connectionName:    connectionName,
 		symbolToListingId: make(map[string]int32),
 		idToQuote:         make(map[int32]*model.ClobQuote),
 		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
 		listingInChan:     make(chan *model.Listing, 1000),
 		getListing:        symbolLookup,
+		closeChan:         make(chan bool),
 		log:               log.New(os.Stdout, connectionName+" ", log.Lshortfile|log.Ltime),
 		errLog:            log.New(os.Stderr, connectionName+" ", log.Lshortfile|log.Ltime),
 	}
 
 	var err error
-	c.fixSimClient, err = newClientFn(connectionName, c.refreshInChan)
+	n.fixSimClient, err = newClientFn(connectionName, n.refreshInChan)
 	if err != nil {
 		return nil, err
 	}
 
 	go func() {
 		for {
-			if err := c.readInputChannel(); err != nil {
-				c.errLog.Printf("closing read loop: %v", err)
-				return
+			select {
+			case <-n.closeChan:
+				log.Print("closed fix sim adapter")
+				break
+			case l := <-n.listingInChan:
+				n.symbolToListingId[l.MarketSymbol] = l.Id
+				go func() {
+					if err := n.fixSimClient.subscribe(l.MarketSymbol); err != nil {
+						n.errLog.Printf("subscribe call failed:%v", err)
+					}
+				}()
+			case r := <-n.refreshInChan:
+
+				if r != nil {
+					for _, incGrp := range r.MdIncGrp {
+						symbol := incGrp.GetInstrument().GetSymbol()
+						bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
+						if listingId, ok := n.symbolToListingId[symbol]; ok {
+							if quote, ok := n.idToQuote[listingId]; ok {
+								updatedQuote := updateQuote(quote, incGrp, bids)
+								n.idToQuote[listingId] = updatedQuote
+								n.out <- updatedQuote
+							} else {
+								quote := newClobQuote(listingId)
+								updatedQuote := updateQuote(quote, incGrp, bids)
+								n.idToQuote[listingId] = updatedQuote
+								n.out <- updatedQuote
+							}
+						} else {
+							n.errLog.Printf("received refresh for unknown symbol: %v", symbol)
+						}
+					}
+				} else {
+					for id, _ := range n.idToQuote {
+						emptyQuote := newClobQuote(id)
+						emptyQuote.StreamInterrupted = true
+						emptyQuote.StreamStatusMsg = "fix sim adapter stream interrupted"
+						n.idToQuote[id] = emptyQuote
+						n.out <- emptyQuote
+					}
+				}
 			}
 		}
 	}()
 
-	return c, nil
+	return n, nil
 }
 
 func (n *fixSimAdapter) Subscribe(listingId int32) {
 	n.getListing(listingId, n.listingInChan)
 }
 
-func (n *fixSimAdapter) readInputChannel() error {
-	select {
-	case l := <-n.listingInChan:
-		n.symbolToListingId[l.MarketSymbol] = l.Id
-		go func() {
-			if err := n.fixSimClient.subscribe(l.MarketSymbol); err != nil {
-				n.errLog.Printf("subscribe call failed:%v", err)
-			}
-		}()
-	case r := <-n.refreshInChan:
 
-		if r != nil {
-			for _, incGrp := range r.MdIncGrp {
-				symbol := incGrp.GetInstrument().GetSymbol()
-				bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
-				if listingId, ok := n.symbolToListingId[symbol]; ok {
-					if quote, ok := n.idToQuote[listingId]; ok {
-						updatedQuote := updateQuote(quote, incGrp, bids)
-						n.idToQuote[listingId] = updatedQuote
-						n.out <- updatedQuote
-					} else {
-						quote := newClobQuote(listingId)
-						updatedQuote := updateQuote(quote, incGrp, bids)
-						n.idToQuote[listingId] = updatedQuote
-						n.out <- updatedQuote
-					}
-				} else {
-					n.errLog.Printf("received refresh for unknown symbol: %v", symbol)
-				}
-			}
-		} else {
-			for id, _ := range n.idToQuote {
-				emptyQuote := newClobQuote(id)
-				emptyQuote.StreamInterrupted = true
-				emptyQuote.StreamStatusMsg = "fix sim adapter stream interrupted"
-				n.idToQuote[id] = emptyQuote
-				n.out <- emptyQuote
-			}
-		}
-	}
-
-	return nil
-}
 
 func newClobQuote(listingId int32) *model.ClobQuote {
 	bids := make([]*model.ClobLine, 0)

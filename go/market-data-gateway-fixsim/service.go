@@ -8,7 +8,6 @@ import (
 	md "github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
-	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -37,13 +36,13 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 		})
 	}
 
-	serverToDistributorChan := make(chan *model.ClobQuote, 1000)
-	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing, serverToDistributorChan)
+
+	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing, 1000)
 	if err != nil {
 		return nil, err
 	}
 
-	qd := md.NewQuoteDistributor(fixSimConn.Subscribe, serverToDistributorChan)
+	qd := md.NewQuoteDistributor(fixSimConn, 100)
 
 	s := md.NewMarketDataSource(qd)
 

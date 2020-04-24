@@ -102,12 +102,9 @@ func main() {
 		panic(err)
 	}
 
-	om := ordermanager.NewOrderManager(orderCache, NewSmartRouterOrderGateway(client, mdsQuoteStream,
 
-		func(listingId int32, listingGroupsIn chan<- []*model.Listing) {}), execVenueMic)
 
-	sr := executionvenue.New(om)
-	defer sr.Close()
+
 
 	api.RegisterExecutionVenueServer(s, sr)
 
@@ -174,107 +171,8 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Du
 	return client, nil
 }
 
-const QuoteAggregatorMic = "XOSR"
 
-type gateway struct {
-	sendChan   chan sendArgs
-	cancelChan chan cancelArgs
-	orderState chan childOrderUpdates
-}
 
-type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
-type childOrderUpdates struct {
-	orderId      string
-	updatedChild *model.Order
-}
 
-func NewSmartRouterOrderGateway(orderRouter api.ExecutionVenueClient, quoteStream marketdata.MdsQuoteStream,
-	getListings getListingsWithSameInstrument) ordergateway.OrderGateway {
-	gateway := gateway{
-		sendChan:   make(chan sendArgs, 100),
-		cancelChan: make(chan cancelArgs, 100),
-	}
 
-	srListingToListings := map[int32][]*model.Listing{}
-
-	listingToLastQuote := map[int32][]*model.ClobQuote{}
-
-	listingGroupsIn := make(chan []*model.Listing, 1000)
-
-	sendsPendingQuotes := map[int32][]sendArgs{}
-
-	go func() {
-
-		for {
-			select {
-			case s := <-gateway.sendChan:
-				if listings, ok := srListingToListings[s.listing.Id]; ok {
-
-					quotesPending := false
-					for _, listing := range listings {
-						if _, ok := listingToLastQuote[listing.Id]; !ok {
-							quotesPending = true
-							sendsPendingQuotes[listing.Id] = append(sendsPendingQuotes[listing.Id], s)
-							break
-						}
-					}
-
-					if !quotesPending {
-
-						// here - pick the best listing, split the order?
-
-					}
-
-				} else {
-					getListings(s.listing.Id, listingGroupsIn)
-				}
-			case listings := <-listingGroupsIn:
-				for _, listing := range listings {
-					var toListings []*model.Listing
-					var listingId int32
-					if listing.Market.Mic == QuoteAggregatorMic {
-						listingId = listing.Id
-					} else {
-						toListings = append(toListings, listing)
-					}
-
-					srListingToListings[listingId] = toListings
-				}
-
-			}
-
-		}
-
-	}()
-
-	return &gateway
-}
-
-type sendArgs struct {
-	order   *model.Order
-	listing *model.Listing
-}
-
-func (s *gateway) Send(order *model.Order, listing *model.Listing) error {
-	s.sendChan <- sendArgs{
-		order:   order,
-		listing: listing,
-	}
-
-	return nil
-}
-
-type cancelArgs struct {
-	order *model.Order
-}
-
-func (s *gateway) Cancel(order *model.Order) error {
-
-	s.cancelChan <- cancelArgs{
-		order: order,
-	}
-
-	return nil
-
-}

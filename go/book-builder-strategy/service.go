@@ -139,14 +139,14 @@ type service struct {
 func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls common.ListingSource,
 	maxReconnectInterval time.Duration) (*service, error) {
 
-	mdcToDistributorChan := make(chan *model.ClobQuote, 1000)
 
-	mdc, err := marketdata.New(id, mdGatewayAddr, maxReconnectInterval, mdcToDistributorChan)
+
+	mdc, err := marketdata.NewMdsQuoteStream(id, mdGatewayAddr, maxReconnectInterval, 1000)
 	if err != nil {
 		return nil, err
 	}
 
-	qd := marketdata.NewQuoteDistributor(mdc.Subscribe, mdcToDistributorChan)
+	qd := marketdata.NewQuoteDistributor(mdc, 100)
 
 	conn, err := grpc.Dial(orderEntryAddr, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 	if err != nil {

@@ -10,25 +10,26 @@ func Test_quoteDistributor_Send(t *testing.T) {
 
 	in := make(chan *model.ClobQuote, 10)
 
-	d := NewQuoteDistributor(func(listingId int32) {}, in)
+	d := NewQuoteDistributor(testMdsQuoteStream{
+		func(listingId int32) {
+		}, in}, 100)
 
-	s1 := make(chan *model.ClobQuote, 100)
+	s1 := d.GetNewQuoteStream()
 
-	s2 := make(chan *model.ClobQuote, 100)
+	s2 := d.GetNewQuoteStream()
 
-	d.AddOutQuoteChan(s1)
-	d.AddOutQuoteChan(s2)
+	s1.Subscribe(1)
+	s2.Subscribe(1)
 
-	d.Subscribe(1, s1)
-	d.Subscribe(1, s2)
+
 
 	in <- &model.ClobQuote{ListingId: 1}
 
-	if q := <-s1; q.ListingId != 1 {
+	if q := <-s1.GetStream(); q.ListingId != 1 {
 		t.Errorf("expected quote not received")
 	}
 
-	if q := <-s2; q.ListingId != 1 {
+	if q := <-s2.GetStream(); q.ListingId != 1 {
 		t.Errorf("expected quote not received")
 	}
 
@@ -38,26 +39,28 @@ func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
 
 	in := make(chan *model.ClobQuote, 10)
 
-	d := NewQuoteDistributor(func(listingId int32) {}, in)
+	d := NewQuoteDistributor(testMdsQuoteStream{
+		func(listingId int32) {
+		}, in}, 100)
 
-	s1 := make(chan *model.ClobQuote, 100)
+	s1 := d.GetNewQuoteStream()
+	s2 := d.GetNewQuoteStream()
 
-	s2 := make(chan *model.ClobQuote, 100)
 
-	d.AddOutQuoteChan(s1)
-	d.Subscribe(1, s1)
+
+	s1.Subscribe(1)
 
 	in <- &model.ClobQuote{ListingId: 1}
 
-	if q := <-s1; q.ListingId != 1 {
+	if q := <-s1.GetStream(); q.ListingId != 1 {
 		t.Errorf("expected quote note received")
 	}
 
-	d.AddOutQuoteChan(s2)
 
-	d.Subscribe(1, s2)
 
-	if q := <-s2; q.ListingId != 1 {
+	s2.Subscribe(1)
+
+	if q := <-s2.GetStream(); q.ListingId != 1 {
 		t.Errorf("expected quote note received")
 	}
 
@@ -68,18 +71,17 @@ func Test_subscribeOnlyCalledOnceForAGivenListing(t *testing.T) {
 	in := make(chan *model.ClobQuote)
 
 	subscribeCalls := make(chan int32, 10)
-	d := NewQuoteDistributor(func(listingId int32) {
-		subscribeCalls <- listingId
-	}, in)
+	d := NewQuoteDistributor(testMdsQuoteStream{
+		func(listingId int32) {
+			subscribeCalls <- listingId
+		}, in}, 100)
 
-	s1 := make(chan *model.ClobQuote, 50)
-	s2 := make(chan *model.ClobQuote, 50)
+	s1 := d.GetNewQuoteStream()
+	s2 := d.GetNewQuoteStream()
 
-	d.AddOutQuoteChan(s1)
-	d.AddOutQuoteChan(s2)
 
-	d.Subscribe(1, s1)
-	d.Subscribe(1, s2)
+	s1.Subscribe(1)
+	s2.Subscribe(1)
 
 	time.Sleep(2 * time.Second)
 
@@ -93,26 +95,28 @@ func Test_onlySubscribedQuotesReceived(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
 
-	d := NewQuoteDistributor(func(listingId int32) {}, in)
+	d := NewQuoteDistributor(testMdsQuoteStream{
+		func(listingId int32) {
+		}, in},100)
 
-	s1 := make(chan *model.ClobQuote, 50)
+	s1 := d.GetNewQuoteStream()
 
-	d.AddOutQuoteChan(s1)
 
-	d.Subscribe(1, s1)
-	d.Subscribe(2, s1)
+
+	s1.Subscribe(1)
+	s1.Subscribe(2)
 
 	in <- &model.ClobQuote{ListingId: 3}
 	in <- &model.ClobQuote{ListingId: 1}
 	in <- &model.ClobQuote{ListingId: 4}
 	in <- &model.ClobQuote{ListingId: 2}
 
-	q := <-s1
+	q := <-s1.GetStream()
 	if q.ListingId != 1 {
 		t.Errorf("unexpected quote")
 	}
 
-	q = <-s1
+	q = <-s1.GetStream()
 	if q.ListingId != 2 {
 		t.Errorf("unexpected quote")
 	}

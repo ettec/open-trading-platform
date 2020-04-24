@@ -56,6 +56,18 @@ type testQuoteDist struct {
 	addQuoteChanChan chan chan<- *model.ClobQuote
 }
 
+func (d *testQuoteDist) Subscribe(listingId int32) {
+	panic("implement me")
+}
+
+func (d *testQuoteDist) GetStream() <-chan *model.ClobQuote {
+	panic("implement me")
+}
+
+func (d *testQuoteDist) Close() {
+	panic("implement me")
+}
+
 func newTestQuoteDist() *testQuoteDist {
 	t := &testQuoteDist{}
 	t.subscribeChan = make(chan int32, 100)
@@ -63,18 +75,8 @@ func newTestQuoteDist() *testQuoteDist {
 	return t
 }
 
-func (d *testQuoteDist) Subscribe(listingId int32, sink chan<- *model.ClobQuote) {
-	d.subscribeChan <- listingId
-}
 
-func (d *testQuoteDist) AddOutQuoteChan(sink chan<- *model.ClobQuote) {
-	d.addQuoteChanChan <- sink
 
-}
-
-func (d *testQuoteDist) RemoveOutQuoteChan(sink chan<- *model.ClobQuote) {
-
-}
 
 func getTestListing() *model.Listing {
 

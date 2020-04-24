@@ -17,18 +17,20 @@ type ConflatedQuoteConnection interface {
 type conflatedQuoteConnection struct {
 	id                  string
 	maxSubscriptions    int
-	quoteDistributor    QuoteDistributor
-	quoteConflator      *quoteConflator
-	distToConflatorChan chan *model.ClobQuote
-	out                 chan<- *model.ClobQuote
+	stream				MdsQuoteStream
 	subscriptions       map[int32]bool
 	log                 *log.Logger
 	errLog              *log.Logger
 }
 
+
+
+func (c *conflatedQuoteConnection) GetStream() <-chan *model.ClobQuote {
+	return c.stream.GetStream()
+}
+
 func (c *conflatedQuoteConnection) Close() {
-	c.quoteDistributor.RemoveOutQuoteChan(c.distToConflatorChan)
-	c.quoteConflator.Close()
+	c.stream.Close()
 }
 
 func (c *conflatedQuoteConnection) Subscribe(listingId int32) error {
@@ -41,7 +43,7 @@ func (c *conflatedQuoteConnection) Subscribe(listingId int32) error {
 		return fmt.Errorf("already subscribed to listing id: %v", listingId)
 	}
 
-	c.quoteDistributor.Subscribe(listingId, c.distToConflatorChan)
+	c.stream.Subscribe(listingId)
 	c.log.Println("subscribed to listing id:", listingId)
 
 	return nil
@@ -51,24 +53,17 @@ func (c *conflatedQuoteConnection) GetId() string {
 	return c.id
 }
 
-func NewConflatedQuoteConnection(id string, out chan<- *model.ClobQuote, quoteDistributor QuoteDistributor,
-	maxSubscriptions int) ConflatedQuoteConnection {
+func NewConflatedQuoteConnection(id string, stream MdsQuoteStream,
+	maxSubscriptions int) *conflatedQuoteConnection {
 
-	distToConflatorChan := make(chan *model.ClobQuote, 200)
-
-	quoteDistributor.AddOutQuoteChan(distToConflatorChan)
-
-	conflator := NewQuoteConflator(distToConflatorChan, out, maxSubscriptions)
+	conflatedStream := NewConflatedQuoteStream(stream, maxSubscriptions)
 
 	c := &conflatedQuoteConnection{id: id,
-		maxSubscriptions:    maxSubscriptions,
-		quoteDistributor:    quoteDistributor,
-		quoteConflator:      conflator,
-		out:                 out,
-		subscriptions:       map[int32]bool{},
-		distToConflatorChan: distToConflatorChan,
-		log:                 log.New(os.Stdout, "conflatedQuoteConnection:"+id, log.LstdFlags),
-		errLog:              log.New(os.Stderr, "conflatedQuoteConnection:"+id, log.LstdFlags)}
+		maxSubscriptions: maxSubscriptions,
+		subscriptions:    map[int32]bool{},
+		stream:           conflatedStream,
+		log:              log.New(os.Stdout, "conflatedQuoteConnection:"+id, log.LstdFlags),
+		errLog:           log.New(os.Stderr, "conflatedQuoteConnection:"+id, log.LstdFlags)}
 
 	return c
 }

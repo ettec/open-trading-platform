@@ -7,11 +7,7 @@ import (
 )
 
 type QuoteDistributor interface {
-	Subscribe(listingId int32, sink chan<- *model.ClobQuote)
-
-	AddOutQuoteChan(sink chan<- *model.ClobQuote)
-
-	RemoveOutQuoteChan(sink chan<- *model.ClobQuote)
+  GetNewQuoteStream() MdsQuoteStream
 }
 
 type QuoteSource interface {
@@ -38,21 +34,25 @@ type quoteDistributor struct {
 	lastQuote           map[int32]*model.ClobQuote
 	subscribedFn        subscribeToListing
 	subscribedToListing map[int32]bool
+	sendBufferSize int
 	log                 *log.Logger
 	errLog              *log.Logger
 }
 
-func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *model.ClobQuote) *quoteDistributor {
+func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int)  *quoteDistributor {
 	q := &quoteDistributor{connections: make([]*distConnection, 0),
 		addOutChan:          make(chan chan<- *model.ClobQuote),
 		removeOutChan:       make(chan chan<- *model.ClobQuote),
 		subscriptionChan:    make(chan subscribeRequest),
 		lastQuote:           map[int32]*model.ClobQuote{},
-		subscribedFn:        subscribedFn,
+		subscribedFn:        stream.Subscribe,
 		subscribedToListing: map[int32]bool{},
+		sendBufferSize: sendBufferSize,
 		log:                 log.New(os.Stdout, "", log.Ltime|log.Lshortfile),
 		errLog:              log.New(os.Stderr, "", log.Ltime|log.Lshortfile),
 	}
+
+	streamChan := stream.GetStream()
 
 	go func() {
 
@@ -74,7 +74,7 @@ func NewQuoteDistributor(subscribedFn subscribeToListing, quoteInChan <-chan *mo
 					q.subscribedToListing[s.listingId] = true
 					go q.subscribedFn(s.listingId)
 				}
-			case cq := <-quoteInChan:
+			case cq := <-streamChan:
 				q.lastQuote[cq.ListingId] = cq
 				for _, subscription := range q.connections {
 
@@ -109,18 +109,47 @@ func (q *quoteDistributor) Subscribe(listingId int32, out chan<- *model.ClobQuot
 	}
 }
 
-func (q *quoteDistributor) AddOutQuoteChan(out chan<- *model.ClobQuote) {
+type quoteDistributorQuoteStream struct {
+	out chan *model.ClobQuote
+	distributor *quoteDistributor
+}
+
+func newQuoteDistributorQuoteStream(distributor *quoteDistributor) *quoteDistributorQuoteStream {
+	result := &quoteDistributorQuoteStream{make(chan *model.ClobQuote, distributor.sendBufferSize),
+		distributor}
+	distributor.addOutQuoteChan(result.out)
+	return result
+}
+
+func (q *quoteDistributorQuoteStream) Subscribe(listingId int32) {
+	q.distributor.Subscribe(listingId, q.out)
+}
+
+func (q *quoteDistributorQuoteStream) GetStream() <-chan *model.ClobQuote {
+	return q.out
+}
+
+func (q *quoteDistributorQuoteStream) Close() {
+	q.distributor.removeOutQuoteChan(q.out)
+}
+
+func (q *quoteDistributor) GetNewQuoteStream() MdsQuoteStream {
+	return newQuoteDistributorQuoteStream(q)
+}
+
+
+func (q *quoteDistributor) addOutQuoteChan(out chan<- *model.ClobQuote) {
 	q.addOutChan <- out
 }
 
-func (q *quoteDistributor) RemoveOutQuoteChan(out chan<- *model.ClobQuote) {
+func (q *quoteDistributor) removeOutQuoteChan(out chan<- *model.ClobQuote) {
 	q.removeOutChan <- out
 }
 
 func (q *quoteDistributor) getConnection(out chan<- *model.ClobQuote) (*distConnection, bool) {
 	for _, o := range q.connections {
 		if o.out == out {
-			return o, false
+			return o, true
 		}
 	}
 

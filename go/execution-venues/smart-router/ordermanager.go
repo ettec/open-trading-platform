@@ -20,14 +20,14 @@ type orderManager struct {
 	lastStoredOrder    model.Order
 	cancelChan         chan bool
 	store              func(model.Order) error
-	po                 *parentOrder
+	managedOrder       *parentOrder
 	underlyingListings map[int32]*model.Listing
-	execVenueId        string
+	Id                 string
 	orderRouter        api.ExecutionVenueClient
 }
 
 func (om *orderManager) GetManagedOrderId() string {
-	return om.po.GetId()
+	return om.managedOrder.GetId()
 }
 
 func (om *orderManager) Cancel() {
@@ -54,7 +54,7 @@ func (om *orderManager) persist(order model.Order) error {
 }
 
 func NewOrderManager(params *api.CreateAndRouteOrderParams,
-	execVenueId string, underlyingListings map[int32]*model.Listing, doneChan chan<- string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
+	orderManagerId string, underlyingListings map[int32]*model.Listing, doneChan chan<- string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
 	quoteChan <-chan *model.ClobQuote, childOrderUpdates <-chan *model.Order) (*orderManager, error) {
 
 	uniqueId, err := uuid.NewUUID()
@@ -69,7 +69,7 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 
 	po := newParentOrder(*initialState)
 
-	om := newOrderManager(store, po, underlyingListings, execVenueId, orderRouter)
+	om := newOrderManager(store, po, underlyingListings, orderManagerId, orderRouter)
 
 	go func() {
 
@@ -124,9 +124,9 @@ func newOrderManager(store func(model.Order) error, po *parentOrder, underlyingL
 		lastStoredOrder:    model.Order{},
 		cancelChan:         make(chan bool, 1),
 		store:              store,
-		po:                 po,
+		managedOrder:       po,
 		underlyingListings: underlyingListings,
-		execVenueId:        execVenueId,
+		Id:                 execVenueId,
 		orderRouter:        orderRouter,
 	}
 	return om
@@ -134,13 +134,13 @@ func newOrderManager(store func(model.Order) error, po *parentOrder, underlyingL
 
 func (om *orderManager) submitBuyOrders(q *model.ClobQuote) {
 	om.submitOrders(q.Offers, func(line *model.ClobLine) bool {
-		return line.Price.LessThanOrEqual(om.po.GetPrice())
+		return line.Price.LessThanOrEqual(om.managedOrder.GetPrice())
 	}, model.Side_BUY)
 }
 
 func (om *orderManager) submitSellOrders(q *model.ClobQuote) {
 	om.submitOrders(q.Bids, func(line *model.ClobLine) bool {
-		return line.Price.GreaterThanOrEqual(om.po.GetPrice())
+		return line.Price.GreaterThanOrEqual(om.managedOrder.GetPrice())
 	}, model.Side_SELL)
 }
 
@@ -148,14 +148,14 @@ func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTr
 	side model.Side) {
 	listingIdToQnt := map[int32]*model.Decimal64{}
 	for _, line := range oppositeClobLines {
-		if om.po.GetAvailableQty().GreaterThan(zero) && willTrade(line) {
+		if om.managedOrder.GetAvailableQty().GreaterThan(zero) && willTrade(line) {
 			quantity := line.Size
 
-			if line.Size.GreaterThanOrEqual(om.po.GetAvailableQty()) {
-				quantity = om.po.GetAvailableQty()
+			if line.Size.GreaterThanOrEqual(om.managedOrder.GetAvailableQty()) {
+				quantity = om.managedOrder.GetAvailableQty()
 			}
 
-			sendChildOrder(side, quantity, line.Price, om.underlyingListings[line.ListingId], om.execVenueId, om.po, om.orderRouter)
+			om.sendChildOrder(side, quantity, line.Price, line.ListingId)
 
 		} else {
 			if qnt, ok := listingIdToQnt[line.ListingId]; ok {
@@ -168,7 +168,7 @@ func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTr
 
 	}
 
-	if om.po.GetAvailableQty().GreaterThan(zero) {
+	if om.managedOrder.GetAvailableQty().GreaterThan(zero) {
 		var l int32
 		greatestQty := zero
 		for listingId, qnt := range listingIdToQnt {
@@ -179,39 +179,39 @@ func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTr
 		}
 
 		if greatestQty.GreaterThan(zero) {
-			sendChildOrder(side, om.po.GetAvailableQty(), om.po.Price, om.underlyingListings[l], om.execVenueId, om.po, om.orderRouter)
+			om.sendChildOrder(side, om.managedOrder.GetAvailableQty(), om.managedOrder.Price, l)
 		}
 
 	}
 
 }
 
-func sendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listing *model.Listing,
-	execVenueId string, mo *parentOrder, orderRouter api.ExecutionVenueClient) {
+func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listingId int32) {
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide:     side,
 		Quantity:      quantity,
 		Price:         price,
-		Listing:       listing,
-		OriginatorId:  execVenueId,
-		OriginatorRef: mo.GetId(),
+		Listing:       om.underlyingListings[listingId],
+		OriginatorId:  om.Id,
+		OriginatorRef: om.GetManagedOrderId(),
 	}
 
-	id, err := orderRouter.CreateAndRouteOrder(context.Background(), params)
+	id, err := om.orderRouter.CreateAndRouteOrder(context.Background(), params)
 
 	if err != nil {
 		msg := fmt.Sprintf("failed to submit child order:%v", err)
-		cancelOrderWithErrorMsg(mo, msg)
+		om.cancelOrderWithErrorMsg(msg)
+		return
 	}
 
 	childOrder := model.NewOrder(id.OrderId, params.OrderSide, params.Quantity, params.Price, params.Listing.GetId(),
-		execVenueId, mo.GetId())
+		om.Id, om.GetManagedOrderId())
 
-	mo.onChildOrderUpdate(childOrder)
+	om.managedOrder.onChildOrderUpdate(childOrder)
 
 }
 
-func cancelOrderWithErrorMsg(po *parentOrder, msg string) {
-	po.ErrorMessage = msg
-
+func (om *orderManager)  cancelOrderWithErrorMsg(msg string) {
+	om.managedOrder.ErrorMessage = msg
+	om.cancelChan <-true
 }

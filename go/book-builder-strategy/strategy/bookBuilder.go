@@ -88,10 +88,10 @@ func (b *BookBuilder) Start() error {
 
 	go func() {
 
-		quotesIn := make(chan *model.ClobQuote, 1000)
-		b.quoteSource.AddOutQuoteChan(quotesIn)
-		defer b.quoteSource.RemoveOutQuoteChan(quotesIn)
-		b.quoteSource.Subscribe(b.listing.Id, quotesIn)
+		qs := b.quoteSource.GetNewQuoteStream()
+
+		defer qs.Close()
+		qs.Subscribe(b.listing.Id)
 
 		firstQuote := true
 
@@ -108,7 +108,7 @@ func (b *BookBuilder) Start() error {
 	loop:
 		for {
 			select {
-			case q := <-quotesIn:
+			case q := <-qs.GetStream():
 
 				if lastQuote == nil {
 					if q.StreamInterrupted {

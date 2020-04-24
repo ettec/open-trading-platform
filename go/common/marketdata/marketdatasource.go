@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/emicklei/go-restful/log"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
 	"google.golang.org/grpc/metadata"
 )
@@ -38,8 +37,8 @@ func (s *marketDataSourceServer) Connect(stream marketdatasource.MarketDataSourc
 
 	log.Printf("connect request received for subscriber %v, unique connection id: %v ", fromClientId, subscriberId)
 
-	out := make(chan *model.ClobQuote, 100)
-	cc := NewConflatedQuoteConnection(subscriberId, out, s.quoteDistributor, maxSubscriptions)
+
+	cc := NewConflatedQuoteConnection(subscriberId,  s.quoteDistributor.GetNewQuoteStream(), maxSubscriptions)
 	defer cc.Close()
 
 	go func() {
@@ -56,7 +55,7 @@ func (s *marketDataSourceServer) Connect(stream marketdatasource.MarketDataSourc
 		}
 	}()
 
-	for mdUpdate := range out {
+	for mdUpdate := range cc.GetStream() {
 		if err := stream.Send(mdUpdate); err != nil {
 			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
 			break

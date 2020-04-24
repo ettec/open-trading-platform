@@ -114,18 +114,18 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 	}
 }
 
-func setupTestClient() (*testMarketDataClient, chan *model.ClobQuote, *fixSimAdapter) {
+func setupTestClient() (*testMarketDataClient, <-chan *model.ClobQuote, *fixSimAdapter) {
 	tmd, _ := newTestMarketDataClient()
 
-	out := make(chan *model.ClobQuote, 100)
+
 	listingIdToSym := map[int32]string{1: "A", 2: "B", 3: "C"}
 	n, _ := NewFixSimAdapter(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
 		return tmd, nil
-	}, "testName", toLookupFunc(listingIdToSym), out)
+	}, "testName", toLookupFunc(listingIdToSym), 100)
 
 	n.listingInChan = make(chan *model.Listing)
 
-	return tmd, out, n
+	return tmd, n.GetStream(), n
 }
 
 func toLookupFunc(listingIdToSym map[int32]string) func(listingId int32, onSymbol chan<- *model.Listing) {
