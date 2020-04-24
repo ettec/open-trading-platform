@@ -30,7 +30,7 @@ func (om *orderManager) GetManagedOrderId() string {
 	return om.po.GetId()
 }
 
-func (om *orderManager) CancelOrder() {
+func (om *orderManager) Cancel() {
 	om.cancelChan <- true
 }
 
@@ -132,16 +132,16 @@ func newOrderManager(store func(model.Order) error, po *parentOrder, underlyingL
 	return om
 }
 
-func (om *orderManager) submitBuyOrders(q *model.ClobQuote, ) {
+func (om *orderManager) submitBuyOrders(q *model.ClobQuote) {
 	om.submitOrders(q.Offers, func(line *model.ClobLine) bool {
 		return line.Price.LessThanOrEqual(om.po.GetPrice())
-	},  model.Side_BUY)
+	}, model.Side_BUY)
 }
 
 func (om *orderManager) submitSellOrders(q *model.ClobQuote) {
 	om.submitOrders(q.Bids, func(line *model.ClobLine) bool {
 		return line.Price.GreaterThanOrEqual(om.po.GetPrice())
-	},  model.Side_SELL)
+	}, model.Side_SELL)
 }
 
 func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,

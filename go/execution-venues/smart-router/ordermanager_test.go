@@ -53,7 +53,7 @@ func Test_submitSellOrders(t *testing.T) {
 
 	client := &testEvClient{}
 
-	om :=  newOrderManager(func(order model.Order) error {
+	om := newOrderManager(func(order model.Order) error {
 		return nil
 	}, mo, underlyingListings, evId, client)
 
@@ -107,7 +107,7 @@ func Test_submitSellOrders(t *testing.T) {
 
 	for idx, params := range client.params {
 		if !reflect.DeepEqual(expectedParams[idx], params) {
-			t.Fatalf("expected params at idx %v do not match", idx)
+			t.Fatalf("expected croParamsChan at idx %v do not match", idx)
 		}
 	}
 
@@ -139,7 +139,7 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	om :=  newOrderManager(func(order model.Order) error {
+	om := newOrderManager(func(order model.Order) error {
 		return nil
 	}, mo, underlyingListings, evId, client)
 
@@ -193,7 +193,7 @@ func Test_submitBuyOrders(t *testing.T) {
 
 	for idx, params := range client.params {
 		if !reflect.DeepEqual(expectedParams[idx], params) {
-			t.Fatalf("expected params at idx %v do not match", idx)
+			t.Fatalf("expected croParamsChan at idx %v do not match", idx)
 		}
 	}
 
@@ -205,14 +205,16 @@ type paramsAndId struct {
 }
 
 type testOmClient struct {
-	params chan paramsAndId
+	croParamsChan chan paramsAndId
+	cancelParamsChan chan *executionvenue.CancelOrderParams
+	
 }
 
 func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionvenue.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*executionvenue.OrderId, error) {
 
 	id, _ := uuid.NewUUID()
 
-	t.params <- paramsAndId{in, id.String()}
+	t.croParamsChan <- paramsAndId{in, id.String()}
 
 	return &executionvenue.OrderId{
 		OrderId: id.String(),
@@ -220,11 +222,123 @@ func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionven
 }
 
 func (t *testOmClient) CancelOrder(ctx context.Context, in *executionvenue.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
-	panic("implement me")
+	t.cancelParamsChan <- in
+	return &model.Empty{},  nil
 }
 
-func TestNewOrderManager(t *testing.T) {
+func TestOrderManagerSendsChildOrders(t *testing.T) {
+	send2ChildOrders(t)
+}
 
+func TestOrderManagerCancel(t *testing.T) {
+
+	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue := send2ChildOrders(t)
+
+	om.Cancel()
+
+	cp1 := <- testExecVenue.cancelParamsChan
+
+	if cp1.OrderId != child1Id {
+		t.FailNow()
+	}
+
+	cp2 := <- testExecVenue.cancelParamsChan
+
+	if cp2.OrderId != child2Id {
+		t.FailNow()
+	}
+
+	update := <-orderUpdates
+	if update.GetTargetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+
+	childOrderUpdates <- &model.Order{
+		Id:                child1Id,
+		Status:            model.OrderStatus_CANCELLED,
+		RemainingQuantity: IasD(10),
+	}
+
+	update = <-orderUpdates
+	if !update.GetExposedQuantity().Equal(model.IasD(10)) {
+		t.FailNow()
+	}
+
+	childOrderUpdates <- &model.Order{
+		Id:                child2Id,
+		Status:            model.OrderStatus_CANCELLED,
+		RemainingQuantity: IasD(10),
+	}
+
+	update = <-orderUpdates
+	if !update.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.FailNow()
+	}
+
+	update = <-orderUpdates
+	if update.GetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+	
+	id := <-done
+	if id != order.Id {
+		t.FailNow()
+	}
+
+}
+
+
+
+func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
+
+	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id,_ := send2ChildOrders(t)
+
+	childOrderUpdates <- &model.Order{
+		Id:                child1Id,
+		Status:            model.OrderStatus_LIVE,
+		LastExecQuantity:  model.IasD(10),
+		LastExecPrice:     model.IasD(100),
+		LastExecSeqNo:     1,
+		LastExecId:        "e1",
+		RemainingQuantity: IasD(0),
+	}
+
+	order = <-orderUpdates
+
+	if !order.GetTradedQuantity().Equal(model.IasD(10)) {
+		t.FailNow()
+	}
+
+	childOrderUpdates <- &model.Order{
+		Id:                child2Id,
+		Status:            model.OrderStatus_LIVE,
+		LastExecQuantity:  model.IasD(10),
+		LastExecPrice:     model.IasD(110),
+		LastExecSeqNo:     1,
+		LastExecId:        "e1",
+		RemainingQuantity: IasD(0),
+	}
+
+	order = <-orderUpdates
+
+	if !order.GetTradedQuantity().Equal(model.IasD(20)) {
+		t.FailNow()
+	}
+
+	if order.GetStatus() != model.OrderStatus_FILLED {
+		t.FailNow()
+	}
+
+	doneId := <-done
+
+	if doneId != om.GetManagedOrderId() {
+		t.FailNow()
+	}
+
+}
+
+func send2ChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
+	*testOmClient) {
 	evId := "testev"
 
 	q := &model.ClobQuote{
@@ -263,11 +377,14 @@ func TestNewOrderManager(t *testing.T) {
 	orderUpdates := make(chan model.Order)
 
 	paramsChan := make(chan paramsAndId)
+	cancelParamsChan := make(chan *executionvenue.CancelOrderParams)
+
+	testExecVenue := &testOmClient{paramsChan, cancelParamsChan}
 
 	om, err := NewOrderManager(params, evId, underlyingListings, done, func(o model.Order) error {
 		orderUpdates <- o
 		return nil
-	}, &testOmClient{paramsChan}, quoteChan, childOrderUpdates)
+	}, testExecVenue, quoteChan, childOrderUpdates)
 
 	if err != nil {
 		t.Fatal(err)
@@ -335,47 +452,16 @@ func TestNewOrderManager(t *testing.T) {
 	}
 
 	childOrderUpdates <- &model.Order{
-		Id:                child1Id,
-		Status:            model.OrderStatus_LIVE,
-		LastExecQuantity:  model.IasD(10),
-		LastExecPrice:     model.IasD(100),
-		LastExecSeqNo:     1,
-		LastExecId:        "e1",
-		RemainingQuantity: IasD(0),
-	}
-
-	order = <-orderUpdates
-
-	if !order.GetTradedQuantity().Equal(model.IasD(10)) {
-		t.FailNow()
-	}
-
-	childOrderUpdates <- &model.Order{
 		Id:                child2Id,
 		Status:            model.OrderStatus_LIVE,
-		LastExecQuantity:  model.IasD(10),
-		LastExecPrice:     model.IasD(110),
-		LastExecSeqNo:     1,
-		LastExecId:        "e1",
-		RemainingQuantity: IasD(0),
+		RemainingQuantity: IasD(10),
 	}
 
 	order = <-orderUpdates
-
-	if !order.GetTradedQuantity().Equal(model.IasD(20)) {
+	if !order.GetExposedQuantity().Equal(model.IasD(20)) {
 		t.FailNow()
 	}
-
-	if order.GetStatus() != model.OrderStatus_FILLED {
-		t.FailNow()
-	}
-
-	doneId := <-done
-
-	if doneId != om.GetManagedOrderId() {
-		t.FailNow()
-	}
-
+	return done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue
 }
 
 func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionvenue.CreateAndRouteOrderParams) bool {
@@ -386,4 +472,8 @@ func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionv
 
 func IasD(i int) *model.Decimal64 {
 	return model.IasD(i)
+}
+
+func Test_orderManager_Cancel(t *testing.T) {
+
 }

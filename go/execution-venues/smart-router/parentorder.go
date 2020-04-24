@@ -2,7 +2,6 @@ package main
 
 import "github.com/ettec/open-trading-platform/go/model"
 
-
 type parentOrder struct {
 	model.Order
 	childOrders map[string]*model.Order
@@ -39,6 +38,13 @@ func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) {
 
 		if !po.ExposedQuantity.Equal(exposedQnt) {
 			po.ExposedQuantity = exposedQnt
+		}
+	}
+
+	if po.GetTargetStatus() == model.OrderStatus_CANCELLED {
+		if po.GetExposedQuantity().Equal(zero) {
+			po.SetTargetStatus(model.OrderStatus_NONE)
+			po.SetStatus(model.OrderStatus_CANCELLED)
 		}
 	}
 
