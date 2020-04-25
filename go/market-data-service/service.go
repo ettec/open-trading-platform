@@ -34,7 +34,7 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 
 			return &model.Empty{}, nil
 		} else {
-			return nil, fmt.Errorf("failed to subscribe, no connection exists for subscriber " + r.SubscriberId)
+			return nil, fmt.Errorf("failed  to subscribe, no connection exists for subscriber " + r.SubscriberId)
 		}
 
 	} else {
