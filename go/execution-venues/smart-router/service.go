@@ -37,8 +37,8 @@ var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 type smartrouter struct {
-	orderCache *ordercache.OrderCache
-	orderRouter api.ExecutionVenueClient
+	orderCache       *ordercache.OrderCache
+	orderRouter      api.ExecutionVenueClient
 	quoteDistributor marketdata.QuoteDistributor
 }
 
@@ -104,7 +104,6 @@ func main() {
 	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
 	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
 
-
 	if err != nil {
 		panic(err)
 	}
@@ -115,8 +114,8 @@ func main() {
 	}
 
 	sr := smartrouter{
-		orderCache:  orderCache,
-		orderRouter: orderRouter,
+		orderCache:       orderCache,
+		orderRouter:      orderRouter,
 		quoteDistributor: qd,
 	}
 

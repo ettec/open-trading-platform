@@ -15,8 +15,6 @@ import (
 
 func Test_quoteAggregator(t *testing.T) {
 
-	out := make(chan *model.ClobQuote)
-
 	iexgClient, iexgStream, iexgConnection := setup(t)
 	xnasClient, xnasStream, xnasConnection := setup(t)
 
@@ -40,7 +38,7 @@ func Test_quoteAggregator(t *testing.T) {
 			}
 		}
 
-	}, map[string]string{"IEXG": "IEXG", "XNAS": "XNAS"}, out, func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
+	}, map[string]string{"IEXG": "IEXG", "XNAS": "XNAS"}, 0, func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
 
 		if targetAddress == "IEXG" {
 			return iexgClient, iexgConnection, nil
@@ -88,7 +86,7 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-	q := <-out
+	q := <-qa.GetStream()
 
 	firstQuote := &model.ClobQuote{
 
@@ -127,7 +125,7 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-	q = <-out
+	q = <-qa.GetStream()
 
 	combinedQuote := &model.ClobQuote{
 		ListingId: 1,
@@ -172,7 +170,7 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-	q = <-out
+	q = <-qa.GetStream()
 
 	combinedQuote = &model.ClobQuote{
 		ListingId: 1,

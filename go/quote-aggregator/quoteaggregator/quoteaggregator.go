@@ -11,8 +11,8 @@ const QuoteAggregatorMic = "XOSR"
 type quoteAggregator struct {
 	getListings     getListingsWithSameInstrument
 	listingGroupsIn chan []*model.Listing
-	stream chan *model.ClobQuote
-	closeChan chan bool
+	stream          chan *model.ClobQuote
+	closeChan       chan bool
 }
 
 func (q quoteAggregator) GetStream() <-chan *model.ClobQuote {
@@ -31,13 +31,11 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	qa := &quoteAggregator{
 		getListings:     getListingsWithSameInstrument,
 		listingGroupsIn: make(chan []*model.Listing, 1000),
-		stream: make(chan *model.ClobQuote),
-		closeChan: make(chan bool),
+		stream:          make(chan *model.ClobQuote),
+		closeChan:       make(chan bool),
 	}
 
-
 	micToStream := map[string]marketdata.MdsQuoteStream{}
-
 
 	quoteStreamsOut := make(chan *model.ClobQuote, 1000)
 
