@@ -19,16 +19,39 @@ type subscribeRequest struct {
 	out       chan<- *model.ClobQuote
 }
 
-type distConnection struct {
-	out           chan<- *model.ClobQuote
-	subscriptions map[int32]bool
+type quoteDistributorQuoteStream struct {
+	out         chan *model.ClobQuote
+	distributor *quoteDistributor
+}
+
+func newQuoteDistributorQuoteStream(distributor *quoteDistributor) *quoteDistributorQuoteStream {
+	result := &quoteDistributorQuoteStream{make(chan *model.ClobQuote, distributor.sendBufferSize),
+		distributor}
+	return result
+}
+
+func (q *quoteDistributorQuoteStream) Subscribe(listingId int32) {
+
+	q.distributor.subscriptionChan <- subscribeRequest{
+		listingId: listingId,
+		out:       q.out,
+	}
+
+}
+
+func (q *quoteDistributorQuoteStream) GetStream() <-chan *model.ClobQuote {
+	return q.out
+}
+
+func (q *quoteDistributorQuoteStream) Close() {
+	q.distributor.removeOutChan <- q.out
 }
 
 type subscribeToListing = func(listingId int32)
 
 type quoteDistributor struct {
-	connections         []*distConnection
-	addOutChan          chan chan<- *model.ClobQuote
+	listingToStreams    map[int32][]chan<- *model.ClobQuote
+	streamToListings    map[chan<- *model.ClobQuote][]int32
 	removeOutChan       chan chan<- *model.ClobQuote
 	subscriptionChan    chan subscribeRequest
 	lastQuote           map[int32]*model.ClobQuote
@@ -40,8 +63,9 @@ type quoteDistributor struct {
 }
 
 func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int) *quoteDistributor {
-	q := &quoteDistributor{connections: make([]*distConnection, 0),
-		addOutChan:          make(chan chan<- *model.ClobQuote),
+	q := &quoteDistributor{
+		listingToStreams:    map[int32][]chan<- *model.ClobQuote{},
+		streamToListings:    map[chan<- *model.ClobQuote][]int32{},
 		removeOutChan:       make(chan chan<- *model.ClobQuote),
 		subscriptionChan:    make(chan subscribeRequest),
 		lastQuote:           map[int32]*model.ClobQuote{},
@@ -60,39 +84,45 @@ func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int) *quoteDistri
 			select {
 			case s := <-q.subscriptionChan:
 
-				if conn, exists := q.getConnection(s.out); exists {
-					conn.subscriptions[s.listingId] = true
-					if quote, ok := q.lastQuote[s.listingId]; ok {
-						conn.out <- quote
-					}
-
-				} else {
-					q.errLog.Printf("failed to subscribe to listing id %v as no connection exists", s.listingId)
-				}
-
-				if !q.subscribedToListing[s.listingId] {
-					q.subscribedToListing[s.listingId] = true
+				subscribedToQuotes := q.listingToStreams[s.listingId] == nil
+				if !subscribedToQuotes {
 					go q.subscribedFn(s.listingId)
 				}
-			case cq := <-streamChan:
-				q.lastQuote[cq.ListingId] = cq
-				for _, subscription := range q.connections {
 
-					if subscription.subscriptions[cq.ListingId] {
-						subscription.out <- cq
+				streamSubscribed := false
+				for _, stream := range q.listingToStreams[s.listingId] {
+					if stream == s.out {
+						streamSubscribed = true
+						break
 					}
 				}
-			case s := <-q.addOutChan:
-				q.connections = append(q.connections, &distConnection{
-					out:           s,
-					subscriptions: map[int32]bool{},
-				})
-			case s := <-q.removeOutChan:
-				if conn, exists := q.getConnection(s); exists {
-					q.removeConnection(conn)
-				} else {
-					q.errLog.Println("no matching connection exists, connection not removed")
+
+				if !streamSubscribed {
+					q.listingToStreams[s.listingId] = append(q.listingToStreams[s.listingId], s.out)
+					q.streamToListings[s.out] = append(q.streamToListings[s.out], s.listingId)
+					if lastQuote, exists := q.lastQuote[s.listingId]; exists {
+						s.out <- lastQuote
+					}
 				}
+
+			case cq := <-streamChan:
+				q.lastQuote[cq.ListingId] = cq
+
+				for _, stream := range q.listingToStreams[cq.ListingId] {
+					stream <- cq
+				}
+			case s := <-q.removeOutChan:
+				subscribedListings := q.streamToListings[s]
+				for _, listingId := range subscribedListings {
+					for idx, o := range q.listingToStreams[listingId] {
+						if o == s {
+							q.listingToStreams[listingId] = append(q.listingToStreams[listingId][:idx], q.listingToStreams[listingId][idx+1:]...)
+							break
+						}
+					}
+				}
+
+				delete(q.streamToListings, s)
 			}
 		}
 
@@ -101,65 +131,6 @@ func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int) *quoteDistri
 	return q
 }
 
-func (q *quoteDistributor) Subscribe(listingId int32, out chan<- *model.ClobQuote) {
-
-	q.subscriptionChan <- subscribeRequest{
-		listingId: listingId,
-		out:       out,
-	}
-}
-
-type quoteDistributorQuoteStream struct {
-	out         chan *model.ClobQuote
-	distributor *quoteDistributor
-}
-
-func newQuoteDistributorQuoteStream(distributor *quoteDistributor) *quoteDistributorQuoteStream {
-	result := &quoteDistributorQuoteStream{make(chan *model.ClobQuote, distributor.sendBufferSize),
-		distributor}
-	distributor.addOutQuoteChan(result.out)
-	return result
-}
-
-func (q *quoteDistributorQuoteStream) Subscribe(listingId int32) {
-	q.distributor.Subscribe(listingId, q.out)
-}
-
-func (q *quoteDistributorQuoteStream) GetStream() <-chan *model.ClobQuote {
-	return q.out
-}
-
-func (q *quoteDistributorQuoteStream) Close() {
-	q.distributor.removeOutQuoteChan(q.out)
-}
-
 func (q *quoteDistributor) GetNewQuoteStream() MdsQuoteStream {
 	return newQuoteDistributorQuoteStream(q)
-}
-
-func (q *quoteDistributor) addOutQuoteChan(out chan<- *model.ClobQuote) {
-	q.addOutChan <- out
-}
-
-func (q *quoteDistributor) removeOutQuoteChan(out chan<- *model.ClobQuote) {
-	q.removeOutChan <- out
-}
-
-func (q *quoteDistributor) getConnection(out chan<- *model.ClobQuote) (*distConnection, bool) {
-	for _, o := range q.connections {
-		if o.out == out {
-			return o, true
-		}
-	}
-
-	return nil, false
-}
-
-func (q *quoteDistributor) removeConnection(s *distConnection) {
-	for idx, o := range q.connections {
-		if o.out == s.out {
-			q.connections = append(q.connections[:idx], q.connections[idx+1:]...)
-			break
-		}
-	}
 }
