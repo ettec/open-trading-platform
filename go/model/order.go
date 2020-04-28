@@ -132,7 +132,13 @@ func NewOrder(id string, OrderSide Side, Quantity *Decimal64, Price *Decimal64, 
 
 }
 
-func (o *Order) AddExecution(lastPrice Decimal64, lastQty Decimal64, executionId string) error {
+type Execution struct {
+	Id    string
+	Price Decimal64
+	Qty   Decimal64
+}
+
+func (o *Order) AddExecution(execution Execution) error {
 
 	if o.TargetStatus == OrderStatus_LIVE {
 		err := o.SetStatus(OrderStatus_LIVE)
@@ -141,15 +147,14 @@ func (o *Order) AddExecution(lastPrice Decimal64, lastQty Decimal64, executionId
 		}
 	}
 
-	o.LastExecId = executionId
-	o.LastExecPrice = &lastPrice
-	o.LastExecQuantity = &lastQty
-	o.LastExecSeqNo = o.LastExecSeqNo + 1
+	o.LastExecId = execution.Id
+	o.LastExecPrice = &execution.Price
+	o.LastExecQuantity = &execution.Qty
 
-	o.updateAveragePrice(lastPrice, lastQty)
+	o.updateAveragePrice(execution.Price, execution.Qty)
 
-	o.RemainingQuantity = ToDecimal64(o.RemainingQuantity.AsDecimal().Sub(lastQty.AsDecimal()))
-	o.TradedQuantity = ToDecimal64(o.TradedQuantity.AsDecimal().Add(lastQty.AsDecimal()))
+	o.RemainingQuantity = ToDecimal64(o.RemainingQuantity.AsDecimal().Sub(execution.Qty.AsDecimal()))
+	o.TradedQuantity = ToDecimal64(o.TradedQuantity.AsDecimal().Add(execution.Qty.AsDecimal()))
 
 	if o.RemainingQuantity.AsDecimal().LessThanOrEqual(zero) {
 		err := o.SetStatus(OrderStatus_FILLED)

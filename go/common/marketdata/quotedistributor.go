@@ -123,6 +123,7 @@ func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int) *quoteDistri
 				}
 
 				delete(q.streamToListings, s)
+				close(s)
 			}
 		}
 

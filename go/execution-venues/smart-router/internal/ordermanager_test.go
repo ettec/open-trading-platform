@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"context"
@@ -55,7 +55,9 @@ func Test_submitSellOrders(t *testing.T) {
 
 	om := newOrderManager(func(order model.Order) error {
 		return nil
-	}, mo, underlyingListings, evId, client)
+	}, mo, evId, client)
+
+	om.underlyingListings = underlyingListings
 
 	om.submitSellOrders(q)
 
@@ -131,8 +133,8 @@ func Test_submitBuyOrders(t *testing.T) {
 
 	mo := newParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0, "oi", "od"))
 
-	listing1 := &model.Listing{Id: 1}
-	listing2 := &model.Listing{Id: 2}
+	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
+	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
 	underlyingListings := map[int32]*model.Listing{
 		1: listing1,
 		2: listing2,
@@ -141,7 +143,9 @@ func Test_submitBuyOrders(t *testing.T) {
 	client := &testEvClient{}
 	om := newOrderManager(func(order model.Order) error {
 		return nil
-	}, mo, underlyingListings, evId, client)
+	}, mo, evId, client)
+
+	om.underlyingListings = underlyingListings
 
 	om.submitBuyOrders(q)
 
@@ -254,6 +258,7 @@ func TestOrderManagerCancel(t *testing.T) {
 
 	childOrderUpdates <- &model.Order{
 		Id:                child1Id,
+		Version:           2,
 		Status:            model.OrderStatus_CANCELLED,
 		RemainingQuantity: IasD(10),
 	}
@@ -265,6 +270,7 @@ func TestOrderManagerCancel(t *testing.T) {
 
 	childOrderUpdates <- &model.Order{
 		Id:                child2Id,
+		Version:           2,
 		Status:            model.OrderStatus_CANCELLED,
 		RemainingQuantity: IasD(10),
 	}
@@ -291,11 +297,11 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
 	childOrderUpdates <- &model.Order{
 		Id:                child1Id,
+		Version:           2,
 		Status:            model.OrderStatus_LIVE,
 		LastExecQuantity:  model.IasD(10),
 		LastExecPrice:     model.IasD(100),
-		LastExecSeqNo:     1,
-		LastExecId:        "e1",
+		LastExecId:        "c1e1",
 		RemainingQuantity: IasD(0),
 	}
 
@@ -307,11 +313,11 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
 	childOrderUpdates <- &model.Order{
 		Id:                child2Id,
+		Version:           2,
 		Status:            model.OrderStatus_LIVE,
 		LastExecQuantity:  model.IasD(10),
 		LastExecPrice:     model.IasD(110),
-		LastExecSeqNo:     1,
-		LastExecId:        "e1",
+		LastExecId:        "c2e1",
 		RemainingQuantity: IasD(0),
 	}
 
@@ -333,17 +339,44 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
 }
 
+type testQuoteStream struct {
+	stream chan *model.ClobQuote
+}
+
+func (t testQuoteStream) Subscribe(listingId int32) {
+
+}
+
+func (t testQuoteStream) GetStream() <-chan *model.ClobQuote {
+	return t.stream
+}
+
+func (t testQuoteStream) Close() {
+
+}
+
+type testChildOrderStream struct {
+	stream chan *model.Order
+}
+
+func (t testChildOrderStream) GetStream() <-chan *model.Order {
+	return t.stream
+}
+
+func (t testChildOrderStream) Close() {
+}
+
 func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
 	*testOmClient) {
 	evId := "testev"
 
 	srListing := &model.Listing{Id: 3}
 
-	listing1 := &model.Listing{Id: 1}
-	listing2 := &model.Listing{Id: 2}
-	underlyingListings := map[int32]*model.Listing{
-		1: listing1,
-		2: listing2,
+	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
+	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
+	underlyingListings := []*model.Listing{
+		listing1,
+		listing2,
 	}
 
 	done := make(chan string)
@@ -366,10 +399,20 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 		OriginatorRef: "or",
 	}
 
-	om, err := NewOrderManager(params, evId, underlyingListings, done, func(o model.Order) error {
+	uniqueId, err := uuid.NewUUID()
+
+	if err != nil {
+		t.FailNow()
+	}
+
+	om, err := NewOrderManager(uniqueId.String(), params, evId, func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+		go func() {
+			listingGroupsIn <- underlyingListings
+		}()
+	}, done, func(o model.Order) error {
 		orderUpdates <- o
 		return nil
-	}, testExecVenue, quoteChan, childOrderUpdates)
+	}, testExecVenue, testQuoteStream{stream: quoteChan}, &testChildOrderStream{childOrderUpdates})
 
 	if err != nil {
 		t.Fatal(err)
@@ -438,6 +481,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 
 	childOrderUpdates <- &model.Order{
 		Id:                child1Id,
+		Version:           1,
 		Status:            model.OrderStatus_LIVE,
 		RemainingQuantity: IasD(10),
 	}
@@ -449,6 +493,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 
 	childOrderUpdates <- &model.Order{
 		Id:                child2Id,
+		Version:           1,
 		Status:            model.OrderStatus_LIVE,
 		RemainingQuantity: IasD(10),
 	}

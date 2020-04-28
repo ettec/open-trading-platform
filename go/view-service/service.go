@@ -3,9 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	bootstrap2 "github.com/ettec/open-trading-platform/go/common/bootstrap"
-	"github.com/ettec/open-trading-platform/go/common/k8s"
-	"github.com/ettec/open-trading-platform/go/common/topics"
+	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/model"
 	api "github.com/ettec/open-trading-platform/go/view-service/api"
 	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
@@ -13,7 +11,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
 	"os"
@@ -33,7 +30,6 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 type service struct {
 	orderSubscriptions sync.Map
 	kafkaBrokers       []string
-	orderTopics        []string
 }
 
 func newService() *service {
@@ -44,33 +40,6 @@ func newService() *service {
 		log.Fatalf("must specify %v for the kafka store", KafkaBrokersKey)
 	}
 	s.kafkaBrokers = strings.Split(kafkaBrokers, ",")
-
-	clientSet := k8s.GetK8sClientSet(bootstrap2.GetOptionalBoolEnvVar(External, false))
-
-	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
-		LabelSelector: "app=execution-venue",
-	})
-
-	if err != nil {
-		panic(err)
-	}
-
-	log.Printf("found %v execution venues", len(list.Items))
-
-	for _, service := range list.Items {
-		const micLabel = "mic"
-		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring execution venue as it does not have a mic label, service: %v", service)
-			continue
-		}
-
-		mic := service.Labels[micLabel]
-
-		topic := topics.GetOrdersTopic(mic)
-		s.orderTopics = append(s.orderTopics, topic)
-		log.Printf("added order topic:, %v", topic)
-	}
 
 	return &s
 }
@@ -117,10 +86,9 @@ func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewServi
 		defer s.orderSubscriptions.Delete(appInstanceId)
 
 		out := make(chan *model.Order, 1000)
-		for _, topic := range s.orderTopics {
-			source := messagesource.NewKafkaMessageSource(topic, s.kafkaBrokers)
-			go streamOrderTopic(topic, source, appInstanceId, out, after)
-		}
+
+		source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
+		go streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after)
 
 		for order := range out {
 			err = stream.Send(order)

@@ -1,13 +1,16 @@
-package main
+package internal
 
 import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/ettec/open-trading-platform/go/common"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
+	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/gogo/protobuf/proto"
-	"github.com/google/uuid"
+	logger "log"
+	"os"
 )
 
 var zero *model.Decimal64
@@ -24,6 +27,8 @@ type orderManager struct {
 	underlyingListings map[int32]*model.Listing
 	Id                 string
 	orderRouter        api.ExecutionVenueClient
+	log                *logger.Logger
+	errLog             *logger.Logger
 }
 
 func (om *orderManager) GetManagedOrderId() string {
@@ -34,50 +39,75 @@ func (om *orderManager) Cancel() {
 	om.cancelChan <- true
 }
 
-func (om *orderManager) persist(order model.Order) error {
+func (om *orderManager) persistManagedOrderChanges() error {
 
 	last, err := proto.Marshal(&om.lastStoredOrder)
 	if err != nil {
 		return err
 	}
 
-	new, err := proto.Marshal(&order)
+	new, err := proto.Marshal(om.managedOrder)
 
 	if bytes.Compare(last, new) != 0 {
-		newVersionNum := om.lastStoredOrder.Version + 1
-		om.lastStoredOrder = order
-		om.lastStoredOrder.Version = newVersionNum
-		om.store(order)
+		om.managedOrder.Version = om.managedOrder.Version + 1
+		om.lastStoredOrder = om.managedOrder.Order
+		om.store(om.managedOrder.Order)
 	}
 
 	return err
 }
 
-func NewOrderManager(params *api.CreateAndRouteOrderParams,
-	orderManagerId string, underlyingListings map[int32]*model.Listing, doneChan chan<- string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
-	quoteChan <-chan *model.ClobQuote, childOrderUpdates <-chan *model.Order) (*orderManager, error) {
+type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
-	uniqueId, err := uuid.NewUUID()
+type ChildOrderStream interface {
+	GetStream() <-chan *model.Order
+	Close()
+}
 
+func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
+	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
+	quoteStream marketdata.MdsQuoteStream, childOrderStream ChildOrderStream) (*orderManager, error) {
+
+	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
+		params.OriginatorId, params.OriginatorRef)
+	err := initialState.SetTargetStatus(model.OrderStatus_LIVE)
 	if err != nil {
 		return nil, err
 	}
 
-	initialState := model.NewOrder(uniqueId.String(), params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
-		params.OriginatorId, params.OriginatorRef)
-	initialState.SetTargetStatus(model.OrderStatus_LIVE)
-
 	po := newParentOrder(*initialState)
 
-	om := newOrderManager(store, po, underlyingListings, orderManagerId, orderRouter)
+	om := newOrderManager(store, po, orderManagerId, orderRouter)
 
 	go func() {
 
-		ordersSubmitted := false
+		om.log.Println("initialising order")
+
+		listingsIn := make(chan []*model.Listing)
+
+		getListingsWithSameInstrument(params.Listing.Id, listingsIn)
+
+		underlyingListings := map[int32]*model.Listing{}
+		select {
+		case ls := <-listingsIn:
+			for _, listing := range ls {
+				if listing.Market.Mic != common.SR_MIC {
+					underlyingListings[listing.Id] = listing
+				}
+			}
+		}
+
+		om.underlyingListings = underlyingListings
+
+		quoteStream.Subscribe(params.Listing.Id)
+
+		om.log.Println("order initialised")
 
 		for {
-			om.persist(po.Order)
+			om.persistManagedOrderChanges()
 			if po.IsTerminalState() {
+				quoteStream.Close()
+				childOrderStream.Close()
 				doneChan <- po.GetId()
 				break
 			}
@@ -86,6 +116,7 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 			case <-om.cancelChan:
 
 				if !po.IsTerminalState() {
+					om.log.Print("cancelling order")
 					po.SetTargetStatus(model.OrderStatus_CANCELLED)
 					for _, co := range po.childOrders {
 						orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
@@ -94,21 +125,30 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 						})
 					}
 				}
-			case co := <-childOrderUpdates:
-				po.onChildOrderUpdate(co)
-			case q := <-quoteChan:
+			case co, ok := <-childOrderStream.GetStream():
+				if ok {
+					po.onChildOrderUpdate(co)
+				} else {
+					om.errLog.Printf("child order update chan unexpectedly closed, cancelling order")
+					om.Cancel()
+				}
 
-				if !ordersSubmitted && !q.StreamInterrupted {
+			case q, ok := <-quoteStream.GetStream():
 
-					if po.GetSide() == model.Side_BUY {
-						om.submitBuyOrders(q)
-					} else {
-						om.submitSellOrders(q)
+				if ok {
+					if po.GetTargetStatus() == model.OrderStatus_LIVE && !q.StreamInterrupted {
+
+						if po.GetSide() == model.Side_BUY {
+							om.submitBuyOrders(q)
+						} else {
+							om.submitSellOrders(q)
+						}
+
+						po.SetStatus(model.OrderStatus_LIVE)
 					}
-
-					ordersSubmitted = true
-
-					po.SetStatus(model.OrderStatus_LIVE)
+				} else {
+					om.errLog.Printf("quote chan unexpectedly closed, cancelling order")
+					om.Cancel()
 				}
 			}
 
@@ -119,15 +159,16 @@ func NewOrderManager(params *api.CreateAndRouteOrderParams,
 	return om, nil
 }
 
-func newOrderManager(store func(model.Order) error, po *parentOrder, underlyingListings map[int32]*model.Listing, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
+func newOrderManager(store func(model.Order) error, po *parentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
 	om := &orderManager{
-		lastStoredOrder:    model.Order{},
-		cancelChan:         make(chan bool, 1),
-		store:              store,
-		managedOrder:       po,
-		underlyingListings: underlyingListings,
-		Id:                 execVenueId,
-		orderRouter:        orderRouter,
+		lastStoredOrder: model.Order{},
+		cancelChan:      make(chan bool, 1),
+		store:           store,
+		managedOrder:    po,
+		Id:              execVenueId,
+		orderRouter:     orderRouter,
+		log:             logger.New(os.Stdout, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
+		errLog:          logger.New(os.Stderr, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
 	}
 	return om
 }

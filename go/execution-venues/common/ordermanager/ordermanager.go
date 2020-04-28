@@ -171,7 +171,12 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model
 		return
 	}
 
-	err := order.AddExecution(lastPrice, lastQty, execId)
+	err := order.AddExecution(model.Execution{
+		Id:    execId,
+		Price: lastPrice,
+		Qty:   lastQty,
+	})
+
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return

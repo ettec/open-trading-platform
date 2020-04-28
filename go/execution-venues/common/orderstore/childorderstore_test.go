@@ -143,7 +143,7 @@ func Test_getChildOrdersFromReader(t *testing.T) {
 
 	update := <-updates
 
-	if update.parentOrderId != "b" || !update.child.Quantity.Equal(model.IasD(10)) {
+	if update.ParentOrderId != "b" || !update.Child.Quantity.Equal(model.IasD(10)) {
 		t.FailNow()
 	}
 

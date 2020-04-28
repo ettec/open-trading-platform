@@ -9,8 +9,8 @@ import (
 )
 
 type ChildOrder struct {
-	parentOrderId string
-	child         *model.Order
+	ParentOrderId string
+	Child         *model.Order
 }
 
 type orderReader interface {
@@ -18,7 +18,7 @@ type orderReader interface {
 	ReadMessage(ctx context.Context) (kafka.Message, error)
 }
 
-func GetChildOrders(id string, kafkaBrokerUrls []string) (initialState map[string][]*model.Order, updates chan ChildOrder, err error) {
+func GetChildOrders(id string, kafkaBrokerUrls []string) (initialState map[string][]*model.Order, updates <-chan ChildOrder, err error) {
 
 	topic := "orders"
 
@@ -38,7 +38,7 @@ func GetChildOrders(id string, kafkaBrokerUrls []string) (initialState map[strin
 	return initialState, updates, nil
 }
 
-func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*model.Order, chan ChildOrder, error) {
+func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*model.Order, <-chan ChildOrder, error) {
 	isChildOrder := func(order *model.Order) bool {
 		return id == order.GetOriginatorId()
 	}
@@ -68,7 +68,7 @@ func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*mode
 			msg, err := reader.ReadMessage(context.Background())
 
 			if err != nil {
-				errLog.Printf("exiting read loop as error occurred whilst streaming child orders:%v", err)
+				errLog.Printf("exiting read loop as error occurred whilst streaming Child orders:%v", err)
 				break
 			}
 
@@ -81,8 +81,8 @@ func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*mode
 
 			if isChildOrder(order) {
 				updates <- ChildOrder{
-					parentOrderId: getParentOrderId(order),
-					child:         order,
+					ParentOrderId: getParentOrderId(order),
+					Child:         order,
 				}
 			}
 

@@ -37,7 +37,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 
 	micToStream := map[string]marketdata.MdsQuoteStream{}
 
-	quoteStreamsOut := make(chan *model.ClobQuote, 1000)
+	quoteStreamsOut := make(chan *model.ClobQuote, bufferSize)
 
 	for mic, targetAddress := range micToMdsAddress {
 		stream, err := marketdata.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)

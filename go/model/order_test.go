@@ -8,7 +8,7 @@ func TestOrder_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 	o := Order{}
 	o.SetTargetStatus(OrderStatus_LIVE)
 
-	o.AddExecution(*IasD(5), *IasD(6), "a")
+	o.AddExecution(Execution{Price: *IasD(5), Qty: *IasD(6), Id: "a"})
 
 	if o.Status != OrderStatus_LIVE && o.TargetStatus != OrderStatus_NONE {
 		t.FailNow()
@@ -30,7 +30,7 @@ func TestOrder_AddExecution(t *testing.T) {
 		Exponent: 0,
 	}
 
-	o.AddExecution(lastPrice, lastQnt, "a")
+	o.AddExecution(Execution{Price: lastPrice, Qty: lastQnt, Id: "a"})
 
 	if !o.RemainingQuantity.Equal(IasD(35)) {
 		t.FailNow()
@@ -41,10 +41,6 @@ func TestOrder_AddExecution(t *testing.T) {
 	}
 
 	if !o.LastExecPrice.Equal(&lastPrice) {
-		t.FailNow()
-	}
-
-	if o.LastExecSeqNo != 1 {
 		t.FailNow()
 	}
 
@@ -65,7 +61,7 @@ func TestOrder_AddExecution(t *testing.T) {
 		Exponent: 0,
 	}
 
-	o.AddExecution(lastPrice, lastQnt, "b")
+	o.AddExecution(Execution{Price: lastPrice, Qty: lastQnt, Id: "b"})
 
 	if !o.RemainingQuantity.Equal(IasD(30)) {
 		t.FailNow()
@@ -76,10 +72,6 @@ func TestOrder_AddExecution(t *testing.T) {
 	}
 
 	if !o.LastExecPrice.Equal(&lastPrice) {
-		t.FailNow()
-	}
-
-	if o.LastExecSeqNo != 2 {
 		t.FailNow()
 	}
 

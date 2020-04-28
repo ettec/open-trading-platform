@@ -30,7 +30,7 @@ func (oc *OrderCache) Store(order *model.Order) error {
 	if exists {
 		order.Version = existingOrder.Version + 1
 	} else {
-		order.Version = 0
+		order.Version = 1
 	}
 
 	e := oc.store.Write(order)
