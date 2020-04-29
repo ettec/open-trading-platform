@@ -120,28 +120,42 @@ func Test_getChildOrdersFromReader(t *testing.T) {
 		panic(err)
 	}
 
-	initial, updates, err := getChildOrdersFromReader(id, tr)
+	updates, err := getChildOrdersFromReader(id, tr)
 	if err != nil {
 		panic(err)
 	}
 
-	if len(initial) != 2 {
-		t.FailNow()
-	}
-
-	if !initial["a"][0].Quantity.Equal(model.IasD(2)) {
-		t.FailNow()
-	}
-
-	if !initial["a"][1].Quantity.Equal(model.IasD(8)) {
-		t.FailNow()
-	}
-
-	if !initial["b"][0].Quantity.Equal(model.IasD(2)) {
-		t.FailNow()
-	}
-
 	update := <-updates
+
+	if update.ParentOrderId != "a" || !update.Child.Quantity.Equal(model.IasD(1)) {
+		t.FailNow()
+	}
+
+	update = <-updates
+
+	if update.ParentOrderId != "a" || !update.Child.Quantity.Equal(model.IasD(2)) {
+		t.FailNow()
+	}
+
+	update = <-updates
+
+	if update.ParentOrderId != "a" || !update.Child.Quantity.Equal(model.IasD(8)) {
+		t.FailNow()
+	}
+
+	update = <-updates
+
+	if update.ParentOrderId != "b" || !update.Child.Quantity.Equal(model.IasD(1)) {
+		t.FailNow()
+	}
+
+	update = <-updates
+
+	if update.ParentOrderId != "b" || !update.Child.Quantity.Equal(model.IasD(2)) {
+		t.FailNow()
+	}
+
+	update = <-updates
 
 	if update.ParentOrderId != "b" || !update.Child.Quantity.Equal(model.IasD(10)) {
 		t.FailNow()

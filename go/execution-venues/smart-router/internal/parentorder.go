@@ -91,7 +91,6 @@ func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) bool {
 		po.ExposedQuantity = exposedQnt
 	}
 
-
 	if po.GetTargetStatus() == model.OrderStatus_CANCELLED {
 		if po.GetExposedQuantity().Equal(zero) {
 			po.SetTargetStatus(model.OrderStatus_NONE)

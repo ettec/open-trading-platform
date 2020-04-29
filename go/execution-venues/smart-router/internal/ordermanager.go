@@ -22,7 +22,7 @@ func init() {
 type orderManager struct {
 	lastStoredOrder    []byte
 	cancelChan         chan bool
-	store              func(model.Order) error
+	store              func(*model.Order) error
 	managedOrder       *parentOrder
 	underlyingListings map[int32]*model.Listing
 	Id                 string
@@ -41,8 +41,6 @@ func (om *orderManager) Cancel() {
 
 func (om *orderManager) persistManagedOrderChanges() error {
 
-
-
 	orderAsBytes, err := proto.Marshal(om.managedOrder)
 
 	if bytes.Compare(om.lastStoredOrder, orderAsBytes) != 0 {
@@ -52,8 +50,8 @@ func (om *orderManager) persistManagedOrderChanges() error {
 
 		om.lastStoredOrder = toStore
 
-		orderCopy := model.Order{}
-		proto.Unmarshal(toStore, &orderCopy)
+		orderCopy := &model.Order{}
+		proto.Unmarshal(toStore, orderCopy)
 		om.store(orderCopy)
 
 		if err != nil {
@@ -67,13 +65,8 @@ func (om *orderManager) persistManagedOrderChanges() error {
 
 type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
-type ChildOrderStream interface {
-	GetStream() <-chan *model.Order
-	Close()
-}
-
-func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
-	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(model.Order) error, orderRouter api.ExecutionVenueClient,
+func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
+	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
 	quoteStream marketdata.MdsQuoteStream, childOrderStream ChildOrderStream) (*orderManager, error) {
 
 	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
@@ -83,6 +76,14 @@ func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
 		return nil, err
 	}
 
+	om := NewOrderManager(initialState, store, orderManagerId, orderRouter, getListingsWithSameInstrument, quoteStream, childOrderStream, doneChan)
+
+	return om, nil
+}
+
+func NewOrderManager(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient,
+	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream ChildOrderStream,
+	doneChan chan<- string) *orderManager {
 	po := newParentOrder(*initialState)
 
 	om := newOrderManager(store, po, orderManagerId, orderRouter)
@@ -93,7 +94,7 @@ func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
 
 		listingsIn := make(chan []*model.Listing)
 
-		getListingsWithSameInstrument(params.Listing.Id, listingsIn)
+		getListingsWithSameInstrument(po.ListingId, listingsIn)
 
 		underlyingListings := map[int32]*model.Listing{}
 		select {
@@ -107,7 +108,7 @@ func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
 
 		om.underlyingListings = underlyingListings
 
-		quoteStream.Subscribe(params.Listing.Id)
+		quoteStream.Subscribe(po.ListingId)
 
 		om.log.Println("order initialised")
 
@@ -163,11 +164,10 @@ func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
 		}
 
 	}()
-
-	return om, nil
+	return om
 }
 
-func newOrderManager(store func(model.Order) error, po *parentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
+func newOrderManager(store func(*model.Order) error, po *parentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
 	om := &orderManager{
 		lastStoredOrder: nil,
 		cancelChan:      make(chan bool, 1),

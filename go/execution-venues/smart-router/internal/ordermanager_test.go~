@@ -410,7 +410,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 			listingGroupsIn <- underlyingListings
 		}()
 	}, done, func(o *model.Order) error {
-		orderUpdates <- *o
+		orderUpdates <- o
 		return nil
 	}, testExecVenue, testQuoteStream{stream: quoteChan}, &testChildOrderStream{childOrderUpdates})
 

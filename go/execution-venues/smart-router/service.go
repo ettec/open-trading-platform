@@ -18,7 +18,6 @@ import (
 
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
 
 	"google.golang.org/grpc"
@@ -47,13 +46,18 @@ type OrderManager interface {
 
 type smartRouter struct {
 	id                           string
-	orderCache                   *ordercache.OrderCache
+	store                        orderstore.OrderStore
 	orderRouter                  api.ExecutionVenueClient
 	quoteDistributor             marketdata.QuoteDistributor
 	getListingsFn                internal.GetListingsWithSameInstrument
 	doneChan                     chan string
 	orders                       sync.Map
-	childOrderUpdatesDistributor *childOrderUpdatesDistributor
+	childOrderUpdatesDistributor ChildOrderUpdatesDistributor
+}
+
+type ChildOrderUpdatesDistributor interface {
+	NewOrderStream(parentOrderId string, bufferSize int) internal.ChildOrderStream
+	Start()
 }
 
 func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
@@ -63,10 +67,8 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 		return nil, err
 	}
 
-	om, err := internal.NewOrderManager(id.String(), params, s.id, s.getListingsFn, s.doneChan, func(order model.Order) error {
-		return s.orderCache.Store(&order)
-	}, s.orderRouter,
-		s.quoteDistributor.GetNewQuoteStream(), s.childOrderUpdatesDistributor.NewOrderStream(id.String(), 1000))
+	om, err := internal.NewOrderManagerFromParams(id.String(), params, s.id, s.getListingsFn, s.doneChan, s.store.Write, s.orderRouter,
+		s.quoteDistributor.GetNewQuoteStream(), s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize))
 
 	if err != nil {
 		return nil, err
@@ -90,6 +92,8 @@ func (s *smartRouter) CancelOrder(ctx context.Context, params *api.CancelOrderPa
 	}
 }
 
+const ChildUpdatesBufferSize = 1000
+
 func main() {
 
 	id := bootstrap.GetOptionalEnvVar(Id, "smart-router")
@@ -107,14 +111,9 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	orderCache, err := ordercache.NewOrderCache(store)
-	if err != nil {
-		log.Fatalf("failed to create order cache:%v", err)
-	}
-
 	sds, err := common.NewStaticDataSource(common.STATIC_DATA_SERVICE_ADDRESS)
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to create static data source:%v", err)
 	}
 
 	clientSet := k8s.GetK8sClientSet(external)
@@ -149,23 +148,27 @@ func main() {
 	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
 	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
-	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
-
 	if err != nil {
 		panic(err)
 	}
+
+	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
 
 	orderRouter, err := getOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
 
-	_, childOrderUpdates, err := orderstore.GetChildOrders(id, kafkaBrokers)
-	childUpdatesDistributor := newChildOrderUpdatesDistributor(childOrderUpdates)
+	childOrderUpdates, err := orderstore.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
+	if err != nil {
+		panic(err)
+	}
+
+	childUpdatesDistributor := internal.NewChildOrderUpdatesDistributor(childOrderUpdates)
 
 	sr := &smartRouter{
 		id:                           id,
-		orderCache:                   orderCache,
+		store:                        store,
 		orderRouter:                  orderRouter,
 		quoteDistributor:             qd,
 		getListingsFn:                sds.GetListingsWithSameInstrument,
@@ -174,7 +177,25 @@ func main() {
 		childOrderUpdatesDistributor: childUpdatesDistributor,
 	}
 
-	// recovery behaviour
+	go func() {
+		id := <-sr.doneChan
+		sr.orders.Delete(id)
+		log.Printf("order %v is done, remove from orders cache", id)
+	}()
+
+	parentOrders, err := store.RecoverInitialCache()
+	if err != nil {
+		panic(err)
+	}
+
+	for _, order := range parentOrders {
+		if !order.IsTerminalState() {
+			om := internal.NewOrderManager(order, sr.store.Write, sr.id, sr.orderRouter, sr.getListingsFn,
+				sr.quoteDistributor.GetNewQuoteStream(), sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
+				sr.doneChan)
+			sr.orders.Store(om.GetManagedOrderId(), om)
+		}
+	}
 
 	api.RegisterExecutionVenueServer(s, sr)
 
@@ -192,80 +213,6 @@ func main() {
 		log.Fatalf("error   while serving : %v", err)
 	}
 
-}
-
-type childOrderStream struct {
-	parentOrderId string
-	orderChan     chan *model.Order
-	distributor   *childOrderUpdatesDistributor
-}
-
-func newChildOrderStream(parentOrderId string, bufferSize int, d *childOrderUpdatesDistributor) *childOrderStream {
-	stream := &childOrderStream{parentOrderId: parentOrderId, orderChan: make(chan *model.Order, bufferSize), distributor: d}
-	d.openOrderChan <- parentIdAndChan{
-		parentId:  parentOrderId,
-		orderChan: stream.orderChan,
-	}
-	return stream
-}
-
-func (c *childOrderStream) GetStream() <-chan *model.Order {
-	return c.orderChan
-}
-
-func (c *childOrderStream) Close() {
-	c.distributor.closeOrderChan <- c.parentOrderId
-}
-
-type parentIdAndChan struct {
-	parentId  string
-	orderChan chan *model.Order
-}
-
-type childOrderUpdatesDistributor struct {
-	openOrderChan  chan parentIdAndChan
-	closeOrderChan chan string
-}
-
-func (d *childOrderUpdatesDistributor) NewOrderStream(parentOrderId string, bufferSize int) *childOrderStream {
-	return newChildOrderStream(parentOrderId, bufferSize, d)
-}
-
-func newChildOrderUpdatesDistributor(updates <-chan orderstore.ChildOrder) *childOrderUpdatesDistributor {
-
-	idToChan := map[string]chan *model.Order{}
-
-	d := &childOrderUpdatesDistributor{
-		openOrderChan:  make(chan parentIdAndChan),
-		closeOrderChan: make(chan string),
-	}
-
-	go func() {
-
-		for {
-			select {
-			case u := <-updates:
-				if orderChan, ok := idToChan[u.ParentOrderId]; ok {
-					select {
-					case orderChan <- u.Child:
-					default:
-						log.Printf("slow consumer, closing child order update channel, parent order id %v", u.ParentOrderId)
-						close(orderChan)
-						delete(idToChan, u.ParentOrderId)
-					}
-
-				}
-			case o := <-d.openOrderChan:
-				idToChan[o.parentId] = o.orderChan
-			case c := <-d.closeOrderChan:
-				delete(idToChan, c)
-
-			}
-		}
-
-	}()
-
-	return d
 }
 
 func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (api.ExecutionVenueClient, error) {

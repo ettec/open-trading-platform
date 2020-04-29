@@ -18,7 +18,7 @@ type orderReader interface {
 	ReadMessage(ctx context.Context) (kafka.Message, error)
 }
 
-func GetChildOrders(id string, kafkaBrokerUrls []string) (initialState map[string][]*model.Order, updates <-chan ChildOrder, err error) {
+func GetChildOrders(id string, kafkaBrokerUrls []string, bufferSize int) (<-chan ChildOrder, error) {
 
 	topic := "orders"
 
@@ -30,15 +30,6 @@ func GetChildOrders(id string, kafkaBrokerUrls []string) (initialState map[strin
 		MaxWait:        150 * time.Millisecond,
 	})
 
-	initialState, updates, err = getChildOrdersFromReader(id, reader)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return initialState, updates, nil
-}
-
-func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*model.Order, <-chan ChildOrder, error) {
 	isChildOrder := func(order *model.Order) bool {
 		return id == order.GetOriginatorId()
 	}
@@ -47,15 +38,48 @@ func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*mode
 		return order.OriginatorRef
 	}
 
-	childOrders, err := getInitialState(reader, isChildOrder)
+	updates := make(chan ChildOrder, bufferSize)
 
-	initialState := map[string][]*model.Order{}
-	for _, order := range childOrders {
-		initialState[order.OriginatorRef] = append(initialState[order.OriginatorRef], order)
+	go func() {
+		defer reader.Close()
+
+		for {
+
+			msg, err := reader.ReadMessage(context.Background())
+
+			if err != nil {
+				errLog.Printf("exiting read loop as error occurred whilst streaming Child orders:%v", err)
+				break
+			}
+
+			order := &model.Order{}
+			err = proto.Unmarshal(msg.Value, order)
+			if err != nil {
+				errLog.Printf("exiting read loop, failed to unmarshal order:%v", err)
+				break
+			}
+
+			if isChildOrder(order) {
+				updates <- ChildOrder{
+					ParentOrderId: getParentOrderId(order),
+					Child:         order,
+				}
+			}
+
+		}
+
+	}()
+
+	return updates, nil
+}
+
+func getChildOrdersFromReader(id string, reader orderReader) (<-chan ChildOrder, error) {
+	isChildOrder := func(order *model.Order) bool {
+		return id == order.GetOriginatorId()
 	}
 
-	if err != nil {
-		return nil, nil, err
+	getParentOrderId := func(order *model.Order) string {
+		return order.OriginatorRef
 	}
 
 	updates := make(chan ChildOrder, 1000)
@@ -89,5 +113,5 @@ func getChildOrdersFromReader(id string, reader orderReader) (map[string][]*mode
 		}
 
 	}()
-	return initialState, updates, nil
+	return updates, nil
 }
