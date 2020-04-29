@@ -20,7 +20,7 @@ func init() {
 }
 
 type orderManager struct {
-	lastStoredOrder    model.Order
+	lastStoredOrder    []byte
 	cancelChan         chan bool
 	store              func(model.Order) error
 	managedOrder       *parentOrder
@@ -41,17 +41,25 @@ func (om *orderManager) Cancel() {
 
 func (om *orderManager) persistManagedOrderChanges() error {
 
-	last, err := proto.Marshal(&om.lastStoredOrder)
-	if err != nil {
-		return err
-	}
 
-	new, err := proto.Marshal(om.managedOrder)
 
-	if bytes.Compare(last, new) != 0 {
+	orderAsBytes, err := proto.Marshal(om.managedOrder)
+
+	if bytes.Compare(om.lastStoredOrder, orderAsBytes) != 0 {
+
 		om.managedOrder.Version = om.managedOrder.Version + 1
-		om.lastStoredOrder = om.managedOrder.Order
-		om.store(om.managedOrder.Order)
+		toStore, err := proto.Marshal(om.managedOrder)
+
+		om.lastStoredOrder = toStore
+
+		orderCopy := model.Order{}
+		proto.Unmarshal(toStore, &orderCopy)
+		om.store(orderCopy)
+
+		if err != nil {
+			return err
+		}
+
 	}
 
 	return err
@@ -161,7 +169,7 @@ func NewOrderManager(id string, params *api.CreateAndRouteOrderParams,
 
 func newOrderManager(store func(model.Order) error, po *parentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
 	om := &orderManager{
-		lastStoredOrder: model.Order{},
+		lastStoredOrder: nil,
 		cancelChan:      make(chan bool, 1),
 		store:           store,
 		managedOrder:    po,

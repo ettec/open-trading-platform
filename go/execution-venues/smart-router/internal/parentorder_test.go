@@ -219,6 +219,10 @@ func Test_parentOrder_recovery(t *testing.T) {
 		t.FailNow()
 	}
 
+	if len(recoveredOrder.executions) != 2 {
+		t.FailNow()
+	}
+
 	recoveredOrder.onChildOrderUpdate(&model.Order{Id: "a1", Version: 3, LastExecPrice: IasD(50), LastExecQuantity: IasD(10),
 		LastExecId: "a1e2", RemainingQuantity: IasD(0)})
 
@@ -235,6 +239,10 @@ func Test_parentOrder_recovery(t *testing.T) {
 	}
 
 	if recoveredOrder.GetStatus() != model.OrderStatus_FILLED {
+		t.FailNow()
+	}
+
+	if len(recoveredOrder.executions) != 3 {
 		t.FailNow()
 	}
 

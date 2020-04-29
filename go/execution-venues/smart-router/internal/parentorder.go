@@ -6,15 +6,15 @@ type parentOrder struct {
 	model.Order
 	childOrders          map[string]*model.Order
 	executions           map[string]*model.Execution
-	childOrderRefs       map[string]*model.Ref
+	childOrderRefs       map[string]model.Ref
 	childOrdersRecovered bool
 }
 
 func newParentOrder(order model.Order) *parentOrder {
 
-	childOrderRefs := map[string]*model.Ref{}
+	childOrderRefs := map[string]model.Ref{}
 	for _, ref := range order.ChildOrdersRefs {
-		childOrderRefs[ref.Id] = ref
+		childOrderRefs[ref.Id] = *ref
 	}
 
 	return &parentOrder{
@@ -58,12 +58,22 @@ func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) bool {
 		if childOrder.Version <= ref.Version {
 			return po.childOrdersRecovered
 		} else {
-			ref.Version = childOrder.Version
+			newRef := model.Ref{Id: childOrder.Id, Version: childOrder.Version}
+			po.childOrderRefs[childOrder.Id] = newRef
+			foundIdx := -1
+			for idx, existingRef := range po.ChildOrdersRefs {
+				if existingRef.Id == newRef.Id {
+					foundIdx = idx
+					break
+				}
+			}
+
+			po.ChildOrdersRefs[foundIdx] = &newRef
 		}
 	} else {
-		newRef := &model.Ref{Id: childOrder.Id, Version: childOrder.Version}
+		newRef := model.Ref{Id: childOrder.Id, Version: childOrder.Version}
 		po.childOrderRefs[childOrder.Id] = newRef
-		po.ChildOrdersRefs = append(po.ChildOrdersRefs, newRef)
+		po.ChildOrdersRefs = append(po.ChildOrdersRefs, &newRef)
 	}
 
 	if newExecution != nil {
@@ -75,11 +85,12 @@ func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) bool {
 		if !order.IsTerminalState() {
 			exposedQnt.Add(order.RemainingQuantity)
 		}
-
-		if !po.ExposedQuantity.Equal(exposedQnt) {
-			po.ExposedQuantity = exposedQnt
-		}
 	}
+
+	if !po.ExposedQuantity.Equal(exposedQnt) {
+		po.ExposedQuantity = exposedQnt
+	}
+
 
 	if po.GetTargetStatus() == model.OrderStatus_CANCELLED {
 		if po.GetExposedQuantity().Equal(zero) {
