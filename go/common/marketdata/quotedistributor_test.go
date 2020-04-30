@@ -60,6 +60,31 @@ func Test_subscriptionReceivesLastSentQuote(t *testing.T) {
 
 }
 
+func Test_subscribeCalledOnceForAGivenListing(t *testing.T) {
+
+	in := make(chan *model.ClobQuote)
+
+	subscribeCalls := make(chan int32, 10)
+	d := NewQuoteDistributor(testMdsQuoteStream{
+		func(listingId int32) {
+			subscribeCalls <- listingId
+		}, in}, 100)
+
+	s1 := d.GetNewQuoteStream()
+	 d.GetNewQuoteStream()
+
+	s1.Subscribe(1)
+
+
+	time.Sleep(2 * time.Second)
+
+	if len(subscribeCalls) != 1 {
+		t.FailNow()
+	}
+
+}
+
+
 func Test_subscribeOnlyCalledOnceForAGivenListing(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)

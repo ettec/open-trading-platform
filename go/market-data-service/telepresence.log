@@ -1,0 +1,357 @@
+   0.0 TEL | Telepresence 0.105 launched at Thu Apr 30 15:31:39 2020
+   0.0 TEL |   /usr/bin/telepresence --swap-deployment market-data-service --expose 50551 --run ./market-data-service
+   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.3.0-51-generic', version='#44-Ubuntu SMP Wed Apr 22 21:09:44 UTC 2020', machine='x86_64', processor='x86_64')
+   0.0 TEL | Platform: linux
+   0.0 TEL | WSL: False
+   0.0 TEL | Python 3.7.5 (default, Apr 19 2020, 20:18:17)
+   0.0 TEL | [GCC 9.2.1 20191008]
+   0.0 TEL | BEGIN SPAN main.py:40(main)
+   0.0 TEL | BEGIN SPAN startup.py:83(set_kube_command)
+   0.0 TEL | Found kubectl -> /snap/bin/kubectl
+   0.0 TEL | [1] Capturing: kubectl config current-context
+   0.1 TEL | [1] captured in 0.10 secs.
+   0.1 TEL | [2] Capturing: kubectl --context kubernetes-admin@kubernetes version --short
+   0.2 TEL | [2] captured in 0.12 secs.
+   0.2 TEL | [3] Capturing: kubectl --context kubernetes-admin@kubernetes config view -o json
+   0.3 TEL | [3] captured in 0.10 secs.
+   0.3 TEL | [4] Capturing: kubectl --context kubernetes-admin@kubernetes get ns default
+   0.5 TEL | [4] captured in 0.12 secs.
+   0.5 TEL | [5] Capturing: kubectl --context kubernetes-admin@kubernetes api-versions
+   0.6 TEL | [5] captured in 0.13 secs.
+   0.6 TEL | Command: kubectl 1.18.2
+   0.6 TEL | Context: kubernetes-admin@kubernetes, namespace: default, version: 1.17.4
+   0.6 TEL | END SPAN startup.py:83(set_kube_command)    0.6s
+   0.6 TEL | Found ssh -> /usr/bin/ssh
+   0.6 TEL | [6] Capturing: ssh -V
+   0.6 TEL | [6] captured in 0.01 secs.
+   0.6 TEL | Found ./market-data-service -> ./market-data-service
+   0.6 TEL | Found sshuttle-telepresence -> /usr/libexec/sshuttle-telepresence
+   0.6 TEL | Found conntrack -> /usr/sbin/conntrack
+   0.6 TEL | Found iptables -> /usr/sbin/iptables
+   0.6 TEL | Found sudo -> /usr/bin/sudo
+   0.6 TEL | [7] Running: sudo -n echo -n
+   0.6 TEL | [7] ran in 0.01 secs.
+   0.6 TEL | [8] Capturing: sudo iptables --list
+   0.6 TEL | [8] captured in 0.01 secs.
+   0.6 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+   0.6 TEL | Found sshfs -> /usr/bin/sshfs
+   0.6 TEL | Found fusermount -> /usr/bin/fusermount
+   0.6 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+   0.6 TEL | [9] Running: kubectl --context kubernetes-admin@kubernetes --namespace default get pods telepresence-connectivity-check --ignore-not-found
+   0.7 TEL | [9] ran in 0.12 secs.
+   1.2 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
+   1.2 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
+   1.2 >>> | Starting network proxy to cluster by swapping out Deployment market-data-service with a proxy
+   1.2 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   1.2 TEL | [10] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json market-data-service
+   1.3 TEL | [10] captured in 0.12 secs.
+   1.3 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+   1.3 TEL | [11] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment market-data-servi-ef71a3d6570544ef8125eb465772bd9a --ignore-not-found
+   1.4 TEL | [11] ran in 0.11 secs.
+   1.4 TEL | [12] Running: kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
+   1.6  12 | deployment.apps/market-data-servi-ef71a3d6570544ef8125eb465772bd9a created
+   1.6 TEL | [12] ran in 0.22 secs.
+   1.6 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment market-data-service --replicas=0
+   2.0  13 | deployment.apps/market-data-service scaled
+   2.0 TEL | [13] ran in 0.34 secs.
+   2.0 TEL | END SPAN deployment.py:283(supplant_deployment)    0.8s
+   2.0 TEL | BEGIN SPAN remote.py:142(get_remote_info)
+   2.0 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   2.0 TEL | [14] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=ef71a3d6570544ef8125eb465772bd9a
+   2.1 TEL | [14] captured in 0.16 secs.
+   2.1 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
+   2.1 TEL | Searching for Telepresence pod:
+   2.1 TEL |   with name market-data-servi-ef71a3d6570544ef8125eb465772bd9a-*
+   2.1 TEL |   with labels {'app': 'market-data-service', 'telepresence': 'ef71a3d6570544ef8125eb465772bd9a'}
+   2.1 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=ef71a3d6570544ef8125eb465772bd9a
+   2.3 TEL | [15] captured in 0.14 secs.
+   2.3 TEL | Checking market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg
+   2.3 TEL | Looks like we've found our pod!
+   2.3 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
+   2.3 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg -o json
+   2.4 TEL | [16] captured in 0.11 secs.
+   2.7 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg -o json
+   2.8 TEL | [17] captured in 0.13 secs.
+   3.0 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg -o json
+   3.2 TEL | [18] captured in 0.12 secs.
+   3.4 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg -o json
+   3.5 TEL | [19] captured in 0.12 secs.
+   3.8 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg -o json
+   4.0 TEL | [20] captured in 0.23 secs.
+   4.0 TEL | END SPAN remote.py:104(wait_for_pod)    1.7s
+   4.0 TEL | END SPAN remote.py:142(get_remote_info)    2.0s
+   4.0 TEL | BEGIN SPAN connect.py:37(connect)
+   4.0 TEL | [21] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg --container market-data-service --tail=10
+   4.0 TEL | [22] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg 35595:8022
+   4.0 TEL | [23] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 35595 telepresence@127.0.0.1 /bin/true
+   4.0 TEL | [23] exit 255 in 0.01 secs.
+   4.2  21 | 2020-04-30T14:31:42+0000 [-] Loading ./forwarder.py...
+   4.2  21 | 2020-04-30T14:31:43+0000 [-] /etc/resolv.conf changed, reparsing
+   4.2  21 | 2020-04-30T14:31:43+0000 [-] Resolver added ('10.96.0.10', 53) to server list
+   4.2  21 | 2020-04-30T14:31:43+0000 [-] SOCKSv5Factory starting on 9050
+   4.2  21 | 2020-04-30T14:31:43+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7f4d9e7d90b8>
+   4.2  21 | 2020-04-30T14:31:43+0000 [-] DNSDatagramProtocol starting on 9053
+   4.2  21 | 2020-04-30T14:31:43+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7f4d9e7d9390>
+   4.2  21 | 2020-04-30T14:31:43+0000 [-] Loaded.
+   4.2  21 | 2020-04-30T14:31:43+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
+   4.2  21 | 2020-04-30T14:31:43+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+   4.2  22 | Forwarding from 127.0.0.1:35595 -> 8022
+   4.2  22 | Forwarding from [::1]:35595 -> 8022
+   4.3 TEL | [24] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 35595 telepresence@127.0.0.1 /bin/true
+   4.3  22 | Handling connection for 35595
+   4.4 TEL | [24] ran in 0.17 secs.
+   4.4 >>> | Forwarding remote port 50551 to local port 50551.
+   4.4 TEL | [25] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 35595 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
+   4.4 >>> | 
+   4.4 TEL | Launching Web server for proxy poll
+   4.4 TEL | [26] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 35595 telepresence@127.0.0.1 -L127.0.0.1:40003:127.0.0.1:9050 -R9055:127.0.0.1:38819
+   4.4  22 | Handling connection for 35595
+   4.4 TEL | END SPAN connect.py:37(connect)    0.4s
+   4.4 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
+   4.4 TEL | [27] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg --container market-data-service -- python3 podinfo.py
+   4.5  22 | Handling connection for 35595
+   4.8 TEL | [27] captured in 0.35 secs.
+   4.8 TEL | END SPAN remote_env.py:29(get_remote_env)    0.3s
+   4.8 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
+   4.8 TEL | [28] Running: sshfs -p 35595 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-sdmqt7x0/fs
+   4.8  22 | Handling connection for 35595
+   5.0 TEL | [28] ran in 0.16 secs.
+   5.0 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
+   5.0 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
+   5.0 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
+   5.0 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.0s
+   5.0 TEL | [29] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:35595 --to-ns 127.0.0.1:9053 10.244.0.0/24 10.244.1.0/24 10.96.0.0/12 10.244.2.0/24
+   5.0 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
+   5.0 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+   5.0 TEL | [30] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+   5.1 TEL | [30] exit 1 in 0.12 secs.
+   5.1 TEL | [31] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
+   5.5  29 | Starting sshuttle proxy.
+   6.1 TEL | [31] timed out after 1.00 secs.
+   6.2 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+   6.2 TEL | [32] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+   6.3 TEL | [32] exit 1 in 0.12 secs.
+   6.3 TEL | [33] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
+   6.4  29 | firewall manager: Starting firewall with Python version 3.7.5
+   6.4  29 | firewall manager: ready method name nat.
+   6.4  29 | IPv6 enabled: False
+   6.4  29 | UDP enabled: False
+   6.4  29 | DNS enabled: True
+   6.4  29 | TCP redirector listening on ('127.0.0.1', 12300).
+   6.4  29 | DNS listening on ('127.0.0.1', 12300).
+   6.4  29 | Starting client with Python version 3.7.5
+   6.4  29 | c : connecting to server...
+   6.4  22 | Handling connection for 35595
+   6.4  29 | Warning: Permanently added '[127.0.0.1]:35595' (ECDSA) to the list of known hosts.
+   6.6  29 | Starting server with Python version 3.6.8
+   6.6  29 |  s: latency control setting = True
+   6.6  29 |  s: available routes:
+   6.6  29 |  s:   2/10.244.0.0/16
+   6.6  29 |  s:   2/10.244.2.0/24
+   6.6  29 | c : Connected.
+   6.6  29 | firewall manager: setting up.
+   6.6  29 | >> iptables -t nat -N sshuttle-12300
+   6.6  29 | >> iptables -t nat -F sshuttle-12300
+   6.6  29 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
+   6.6  29 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
+   6.6  29 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
+   6.6  29 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   6.6  29 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   6.6  29 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   6.6  29 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   6.7  29 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
+   6.7  29 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
+   6.7  29 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
+   7.3 TEL | [33] timed out after 1.00 secs.
+   7.4 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+   7.4 TEL | [34] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+   7.4  29 | c : DNS request from ('127.0.0.1', 34593) to None: 48 bytes
+   7.4  21 | 2020-04-30T14:31:46+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+   7.4  21 | 2020-04-30T14:31:46+0000 [stdout#info] Result for b'hellotelepresence-2' is ['127.0.0.1']
+   7.5 TEL | [34] captured in 0.07 secs.
+   7.5 TEL | Resolved hellotelepresence-2. 2 more...
+   7.5 TEL | [35] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
+   7.5  29 | c : DNS request from ('127.0.0.1', 56374) to None: 79 bytes
+   7.5  21 | 2020-04-30T14:31:46+0000 [stdout#info] Sanity check: b'hellotelepresence-2.a.sanity.check.telepresence.io'
+   7.6 TEL | [35] exit 1 in 0.12 secs.
+   7.7 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+   7.7 TEL | [36] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+   7.7  29 | c : DNS request from ('127.0.0.1', 43190) to None: 48 bytes
+   7.7  21 | 2020-04-30T14:31:46+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
+   7.8 TEL | [36] captured in 0.07 secs.
+   7.8 TEL | Resolved hellotelepresence-3. 1 more...
+   7.8 TEL | [37] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
+   7.8  29 | c : DNS request from ('127.0.0.1', 54498) to None: 79 bytes
+   7.8  21 | 2020-04-30T14:31:47+0000 [stdout#info] Sanity check: b'hellotelepresence-3.a.sanity.check.telepresence.io'
+   7.9 TEL | [37] exit 1 in 0.12 secs.
+   8.0 TEL | Wait for vpn-tcp connection: hellotelepresence-4
+   8.0 TEL | [38] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+   8.0  29 | c : DNS request from ('127.0.0.1', 50311) to None: 48 bytes
+   8.0  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'hellotelepresence-4' is ['127.0.0.1']
+   8.0 TEL | [38] captured in 0.07 secs.
+   8.0 TEL | Resolved hellotelepresence-4. 0 more...
+   8.0 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    3.1s
+   8.0 TEL | END SPAN vpn.py:280(connect_sshuttle)    3.1s
+   8.0 >>> | Setup complete. Launching your command.
+   8.0 TEL | Everything launched. Waiting to exit...
+   8.0 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
+   8.2  29 | c : Accept TCP: 192.168.1.150:35134 -> 10.96.0.1:443.
+   8.2  29 | c : DNS request from ('127.0.0.1', 59581) to None: 53 bytes
+   8.2  29 | c : DNS request from ('127.0.0.1', 59581) to None: 53 bytes
+   8.2  29 | c : DNS request from ('127.0.0.1', 60402) to None: 53 bytes
+   8.2  29 | c : DNS request from ('127.0.0.1', 60402) to None: 53 bytes
+   8.2  29 | c : DNS request from ('127.0.0.1', 53160) to None: 53 bytes
+   8.2  29 | c : DNS request from ('127.0.0.1', 53160) to None: 53 bytes
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] A query: b'iexg-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] AAAA query, sending back A instead: b'iexg-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] A query: b'iexg-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] A query: b'xnas-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] AAAA query, sending back A instead: b'xnas-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] A query: b'xnas-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] A query: b'xosr-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] AAAA query, sending back A instead: b'xosr-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] A query: b'xosr-market-data-gateway'
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'iexg-market-data-gateway' is ['10.102.178.168']
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'iexg-market-data-gateway' is ['10.102.178.168']
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'xnas-market-data-gateway' is ['10.96.69.63']
+   8.3  29 | c : Accept TCP: 192.168.1.150:34434 -> 10.102.178.168:50551.
+   8.3  29 | c : Accept TCP: 192.168.1.150:55466 -> 10.96.69.63:50551.
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'xosr-market-data-gateway' is ['10.98.211.88']
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'xnas-market-data-gateway' is ['10.96.69.63']
+   8.3  21 | 2020-04-30T14:31:47+0000 [stdout#info] Result for b'xosr-market-data-gateway' is ['10.98.211.88']
+   8.3  29 | c : Accept TCP: 192.168.1.150:40698 -> 10.98.211.88:50551.
+  30.3  29 | c : DNS request from ('127.0.0.1', 55118) to None: 48 bytes
+  30.3  21 | 2020-04-30T14:32:09+0000 [stdout#info] A query: b'clients4.google.com'
+  30.3  21 | 2020-04-30T14:32:09+0000 [stdout#info] Result for b'clients4.google.com' is ['216.58.198.174']
+  30.6 TEL | [39] Running: sudo -n echo -n
+  30.6 TEL | [39] ran in 0.01 secs.
+  33.8 TEL | (proxy checking local liveness)
+  33.8  21 | 2020-04-30T14:32:13+0000 [Poll#info] Checkpoint
+  45.7  29 | c : DNS request from ('127.0.0.1', 33260) to None: 44 bytes
+  45.7  21 | 2020-04-30T14:32:25+0000 [stdout#info] A query: b'ssl.gstatic.com'
+  45.8  21 | 2020-04-30T14:32:25+0000 [stdout#info] Result for b'ssl.gstatic.com' is ['172.217.169.67']
+  60.7 TEL | [40] Running: sudo -n echo -n
+  60.7 TEL | [40] ran in 0.01 secs.
+  63.8 TEL | (proxy checking local liveness)
+  63.8  21 | 2020-04-30T14:32:43+0000 [Poll#info] Checkpoint
+  90.7 TEL | [41] Running: sudo -n echo -n
+  90.7 TEL | [41] ran in 0.01 secs.
+  93.8 TEL | (proxy checking local liveness)
+  93.8  21 | 2020-04-30T14:33:13+0000 [Poll#info] Checkpoint
+ 112.4 TEL | Main process (./market-data-service)
+ 112.4 TEL |  exited with code 2.
+ 112.5 TEL | END SPAN runner.py:726(wait_for_exit)  104.4s
+ 112.5 >>> | Your process exited with return code 2.
+ 112.5 TEL | EXITING successful session.
+ 112.5 >>> | Exit cleanup in progress
+ 112.5 TEL | (Cleanup) Terminate local process
+ 112.5 TEL | Local process is already dead (ret=2)
+ 112.5 TEL | (Cleanup) Kill BG process [29] sshuttle
+ 112.5 TEL | (Cleanup) Unmount remote filesystem
+ 112.5 TEL | [42] Running: fusermount -z -u /tmp/tel-sdmqt7x0/fs
+ 112.5  29 |  s: SW#-1:10.98.211.88:50551: deleting (7 remain)
+ 112.5  29 |  s: SW'unknown':Mux#15: deleting (6 remain)
+ 112.5  29 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
+ 112.5  29 |  s: SW'unknown':Mux#6: deleting (5 remain)
+ 112.5  29 |  s: SW#7:10.96.0.1:443: deleting (4 remain)
+ 112.5  29 |  s: SW'unknown':Mux#13: deleting (3 remain)
+ 112.5  29 |  s: SW#6:10.102.178.168:50551: deleting (2 remain)
+ 112.5  29 |  s: SW'unknown':Mux#14: deleting (1 remain)
+ 112.5  29 |  s: SW#14:10.96.69.63:50551: deleting (0 remain)
+ 112.5 TEL | [42] ran in 0.02 secs.
+ 112.5 TEL | (Cleanup) Kill BG process [26] SSH port forward (socks and proxy poll)
+ 112.5 TEL | [26] SSH port forward (socks and proxy poll): exit 0
+ 112.5  29 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
+ 112.5 TEL | (Cleanup) Kill Web server for proxy poll
+ 112.5  29 | >> iptables -t nat -F sshuttle-12300
+ 112.5  29 | >> iptables -t nat -X sshuttle-12300
+ 112.6 TEL | [29] sshuttle: exit -15
+ 112.8 TEL | (Cleanup) Kill BG process [25] SSH port forward (exposed ports)
+ 112.8 TEL | [25] SSH port forward (exposed ports): exit 0
+ 112.8 TEL | (Cleanup) Kill BG process [22] kubectl port-forward
+ 112.8 TEL | [22] kubectl port-forward: exit -15
+ 112.8 TEL | (Cleanup) Kill BG process [21] kubectl logs
+ 112.8 TEL | [21] kubectl logs: exit -15
+ 112.8 TEL | Background process (kubectl logs) exited with return code -15. Command was:
+ 112.8 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f market-data-servi-ef71a3d6570544ef8125eb465772bd9a-777cb5c8pwvg --container market-data-service --tail=10
+ 112.8 TEL | 
+ 112.8 TEL | Recent output was:
+ 112.8 TEL |   2020-04-30T14:31:47+0000 [stdout#info] Result for b'xosr-market-data-gateway' is ['10.98.211.88']
+ 112.8 TEL |   2020-04-30T14:31:47+0000 [stdout#info] Result for b'xnas-market-data-gateway' is ['10.96.69.63']
+ 112.8 TEL |   2020-04-30T14:31:47+0000 [stdout#info] Result for b'xosr-market-data-gateway' is ['10.98.211.88']
+ 112.8 TEL |   2020-04-30T14:32:09+0000 [stdout#info] A query: b'clients4.google.com'
+ 112.8 TEL |   2020-04-30T14:32:09+0000 [stdout#info] Result for b'clients4.google.com' is ['216.58.198.174']
+ 112.8 TEL |   2020-04-30T14:32:13+0000 [Poll#info] Checkpoint
+ 112.8 TEL |   2020-04-30T14:32:25+0000 [stdout#info] A query: b'ssl.gstatic.com'
+ 112.8 TEL |   2020-04-30T14:32:25+0000 [stdout#info] Result for b'ssl.gstatic.com' is ['172.217.169.67']
+ 112.8 TEL |   2020-04-30T14:32:43+0000 [Poll#info] Checkpoint
+ 112.8 TEL |   2020-04-30T14:33:13+0000 [Poll#info] Checkpoint
+ 112.8 TEL | (Cleanup) Re-scale original deployment
+ 112.8 TEL | [43] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment market-data-service --replicas=0
+ 112.9  43 | deployment.apps/market-data-service scaled
+ 112.9 TEL | [43] ran in 0.11 secs.
+ 112.9 TEL | (Cleanup) Delete new deployment
+ 112.9 >>> | Swapping Deployment market-data-service back to its original state
+ 112.9 TEL | [44] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment market-data-servi-ef71a3d6570544ef8125eb465772bd9a
+ 113.1  44 | deployment.apps "market-data-servi-ef71a3d6570544ef8125eb465772bd9a" deleted
+ 113.2 TEL | [44] ran in 0.22 secs.
+ 113.2 TEL | (Cleanup) Kill sudo privileges holder
+ 113.2 TEL | (Cleanup) Stop time tracking
+ 113.2 TEL | END SPAN main.py:40(main)  113.2s
+ 113.2 TEL | SPAN SUMMARY:
+ 113.2 TEL |  113.2s main.py:40(main)
+ 113.2 TEL |    0.6s   startup.py:83(set_kube_command)
+ 113.2 TEL |    0.1s     1 kubectl config current-context
+ 113.2 TEL |    0.1s     2 kubectl --context kubernetes-admin@kubernetes version --short
+ 113.2 TEL |    0.1s     3 kubectl --context kubernetes-admin@kubernetes config view -o json
+ 113.2 TEL |    0.1s     4 kubectl --context kubernetes-admin@kubernetes get ns default
+ 113.2 TEL |    0.1s     5 kubectl --context kubernetes-admin@kubernetes api-versions
+ 113.2 TEL |    0.0s   6 ssh -V
+ 113.2 TEL |    0.0s   7 sudo -n echo -n
+ 113.2 TEL |    0.0s   8 sudo iptables --list
+ 113.2 TEL |    0.1s   9 kubectl --context kubernetes-admin@kubernetes --namespace default get pods tel
+ 113.2 TEL |    0.8s   deployment.py:283(supplant_deployment)
+ 113.2 TEL |    0.1s     remote.py:75(get_deployment_json)
+ 113.2 TEL |    0.1s       10 kubectl --context kubernetes-admin@kubernetes --namespace default get deploym
+ 113.2 TEL |    0.1s     11 kubectl --context kubernetes-admin@kubernetes --namespace default delete depl
+ 113.2 TEL |    0.2s     12 kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
+ 113.2 TEL |    0.3s     13 kubectl --context kubernetes-admin@kubernetes --namespace default scale deplo
+ 113.2 TEL |    2.0s   remote.py:142(get_remote_info)
+ 113.2 TEL |    0.2s     remote.py:75(get_deployment_json)
+ 113.2 TEL |    0.2s       14 kubectl --context kubernetes-admin@kubernetes --namespace default get deploym
+ 113.2 TEL |    0.1s     15 kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o
+ 113.2 TEL |    1.7s     remote.py:104(wait_for_pod)
+ 113.2 TEL |    0.1s       16 kubectl --context kubernetes-admin@kubernetes --namespace default get pod mar
+ 113.2 TEL |    0.1s       17 kubectl --context kubernetes-admin@kubernetes --namespace default get pod mar
+ 113.2 TEL |    0.1s       18 kubectl --context kubernetes-admin@kubernetes --namespace default get pod mar
+ 113.2 TEL |    0.1s       19 kubectl --context kubernetes-admin@kubernetes --namespace default get pod mar
+ 113.2 TEL |    0.2s       20 kubectl --context kubernetes-admin@kubernetes --namespace default get pod mar
+ 113.2 TEL |    0.4s   connect.py:37(connect)
+ 113.2 TEL |    0.0s     23 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
+ 113.2 TEL |    0.2s     24 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
+ 113.2 TEL |    0.3s   remote_env.py:29(get_remote_env)
+ 113.2 TEL |    0.3s     27 kubectl --context kubernetes-admin@kubernetes --namespace default exec market
+ 113.2 TEL |    0.2s   mount.py:30(mount_remote_volumes)
+ 113.2 TEL |    0.2s     28 sshfs -p 35595 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/
+ 113.2 TEL |    3.1s   vpn.py:280(connect_sshuttle)
+ 113.2 TEL |    0.0s     vpn.py:77(get_proxy_cidrs)
+ 113.2 TEL |    3.1s     vpn.py:303(connect_sshuttle,sshuttle-wait)
+ 113.2 TEL |    0.1s       30 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+ 113.2 TEL |    1.0s       31 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity
+ 113.2 TEL |    0.1s       32 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+ 113.2 TEL |    1.0s       33 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity
+ 113.2 TEL |    0.1s       34 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+ 113.2 TEL |    0.1s       35 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity
+ 113.2 TEL |    0.1s       36 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+ 113.2 TEL |    0.1s       37 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity
+ 113.2 TEL |    0.1s       38 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+ 113.2 TEL |  104.4s   runner.py:726(wait_for_exit)
+ 113.2 TEL |    0.0s     39 sudo -n echo -n
+ 113.2 TEL |    0.0s     40 sudo -n echo -n
+ 113.2 TEL |    0.0s     41 sudo -n echo -n
+ 113.2 TEL |    0.0s   42 fusermount -z -u /tmp/tel-sdmqt7x0/fs
+ 113.2 TEL |    0.1s   43 kubectl --context kubernetes-admin@kubernetes --namespace default scale deplo
+ 113.2 TEL |    0.2s   44 kubectl --context kubernetes-admin@kubernetes --namespace default delete depl
+ 113.2 TEL | (Cleanup) Remove temporary directory
+ 113.2 TEL | (Cleanup) Save caches
+ 113.7 TEL | (sudo privileges holder thread exiting)

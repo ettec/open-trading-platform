@@ -84,8 +84,8 @@ func NewQuoteDistributor(stream MdsQuoteStream, sendBufferSize int) *quoteDistri
 			select {
 			case s := <-q.subscriptionChan:
 
-				subscribedToQuotes := q.listingToStreams[s.listingId] == nil
-				if !subscribedToQuotes {
+				subscribeToQuotes := q.listingToStreams[s.listingId] == nil
+				if subscribeToQuotes {
 					go q.subscribedFn(s.listingId)
 				}
 
