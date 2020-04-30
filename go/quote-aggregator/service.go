@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/quote-aggregator/quoteaggregator"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -90,7 +90,7 @@ func main() {
 		return client, conn, nil
 	}
 
-	sds, err := common.NewStaticDataSource(staticDataServiceAddress)
+	sds, err := staticdata.NewStaticDataSource(staticDataServiceAddress)
 	if err != nil {
 		panic(err)
 	}

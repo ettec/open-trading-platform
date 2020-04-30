@@ -7,6 +7,7 @@ import (
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/smart-router/internal"
 	"github.com/google/uuid"
@@ -111,7 +112,7 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	sds, err := common.NewStaticDataSource(common.STATIC_DATA_SERVICE_ADDRESS)
+	sds, err := staticdata.NewStaticDataSource(common.STATIC_DATA_SERVICE_ADDRESS)
 	if err != nil {
 		log.Fatalf("failed to create static data source:%v", err)
 	}

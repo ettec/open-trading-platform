@@ -8,10 +8,10 @@ import (
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/strategy"
-	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/api/staticdataservice"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -59,7 +59,7 @@ func main() {
 	symbolsToRunArg := bootstrap.GetOptionalEnvVar(SymbolsToRun, "")
 	targetMic := bootstrap.GetEnvVar(TargetMic)
 
-	ls, err := common.NewStaticDataSource(staticDataServiceAddr)
+	ls, err := staticdata.NewStaticDataSource(staticDataServiceAddr)
 	if err != nil {
 		log.Panicf("failed to create listing source service:%v", err)
 	}
@@ -131,12 +131,12 @@ type service struct {
 	id                string
 	quoteDistributor  marketdata.QuoteDistributor
 	orderEntryService orderentryapi.OrderEntryServiceClient
-	listingSource     common.ListingSource
+	listingSource     staticdata.ListingSource
 	books             map[int32]*strategy.BookBuilder
 	booksMx           sync.Mutex
 }
 
-func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls common.ListingSource,
+func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls staticdata.ListingSource,
 	maxReconnectInterval time.Duration) (*service, error) {
 
 	mdc, err := marketdata.NewMdsQuoteStream(id, mdGatewayAddr, maxReconnectInterval, 1000)

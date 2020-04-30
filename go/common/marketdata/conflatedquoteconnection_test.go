@@ -61,7 +61,7 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 	c := NewConflatedQuoteConnection("testId",
 		&testMdsQuoteStream{
 			func(listingId int32) {
-			}, in}, out,100)
+			}, in}, out, 100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)

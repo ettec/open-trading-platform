@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	md "github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
 	"google.golang.org/grpc"
@@ -19,7 +19,7 @@ import (
 
 func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer, error) {
 
-	listingSrc, err := common.NewStaticDataSource(staticDataServiceAddress)
+	listingSrc, err := staticdata.NewStaticDataSource(staticDataServiceAddress)
 	if err != nil {
 		return nil, err
 	}
