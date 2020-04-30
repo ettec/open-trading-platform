@@ -17,14 +17,10 @@ type ConflatedQuoteConnection interface {
 type conflatedQuoteConnection struct {
 	id               string
 	maxSubscriptions int
-	stream           MdsQuoteStream
+	stream           Stream
 	subscriptions    map[int32]bool
 	log              *log.Logger
 	errLog           *log.Logger
-}
-
-func (c *conflatedQuoteConnection) GetStream() <-chan *model.ClobQuote {
-	return c.stream.GetStream()
 }
 
 func (c *conflatedQuoteConnection) Close() {
@@ -51,10 +47,10 @@ func (c *conflatedQuoteConnection) GetId() string {
 	return c.id
 }
 
-func NewConflatedQuoteConnection(id string, stream MdsQuoteStream,
+func NewConflatedQuoteConnection(id string, stream MdsQuoteStream, out chan<- *model.ClobQuote,
 	maxSubscriptions int) *conflatedQuoteConnection {
 
-	conflatedStream := NewConflatedQuoteStream(stream, maxSubscriptions)
+	conflatedStream := NewConflatedQuoteStream(stream, out, maxSubscriptions)
 
 	c := &conflatedQuoteConnection{id: id,
 		maxSubscriptions: maxSubscriptions,
@@ -64,4 +60,9 @@ func NewConflatedQuoteConnection(id string, stream MdsQuoteStream,
 		errLog:           log.New(os.Stderr, "conflatedQuoteConnection:"+id, log.LstdFlags)}
 
 	return c
+}
+
+type Stream interface {
+	Subscribe(listingId int32)
+	Close()
 }

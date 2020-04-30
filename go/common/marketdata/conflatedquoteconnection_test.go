@@ -25,11 +25,12 @@ func (t testMdsQuoteStream) GetStream() <-chan *model.ClobQuote {
 func Test_clientConnection_Subscribe(t *testing.T) {
 
 	in := make(chan *model.ClobQuote, 100)
+	out := make(chan *model.ClobQuote, 100)
 
 	c := NewConflatedQuoteConnection("testId", &testMdsQuoteStream{
 		func(listingId int32) {
 
-		}, in}, 100)
+		}, in}, out, 100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)
@@ -37,15 +38,15 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 	in <- &model.ClobQuote{ListingId: 1}
 	in <- &model.ClobQuote{ListingId: 2}
 
-	if q := <-c.GetStream(); q.ListingId != 1 {
+	if q := <-out; q.ListingId != 1 {
 		t.Errorf("expected quote with listing id 1")
 	}
-	if q := <-c.GetStream(); q.ListingId != 2 {
+	if q := <-out; q.ListingId != 2 {
 		t.Errorf("expected quote with listing id 2")
 	}
 
 	select {
-	case <-c.GetStream():
+	case <-out:
 		t.Errorf("no more quotes expected")
 	default:
 	}
@@ -55,11 +56,12 @@ func Test_clientConnection_Subscribe(t *testing.T) {
 func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
+	out := make(chan *model.ClobQuote, 100)
 
 	c := NewConflatedQuoteConnection("testId",
 		&testMdsQuoteStream{
 			func(listingId int32) {
-			}, in}, 100)
+			}, in}, out,100)
 
 	c.Subscribe(1)
 	c.Subscribe(2)
@@ -69,10 +71,10 @@ func Test_slowConnectionDoesNotBlockDownstreamSender(t *testing.T) {
 		in <- &model.ClobQuote{ListingId: 2, XXX_sizecache: int32(i)}
 	}
 
-	if q := <-c.GetStream(); q.ListingId != 1 && q.XXX_sizecache != 1999 {
+	if q := <-out; q.ListingId != 1 && q.XXX_sizecache != 1999 {
 		t.Errorf("expected quote with listing id 1")
 	}
-	if q := <-c.GetStream(); q.ListingId != 2 && q.XXX_sizecache != 1999 {
+	if q := <-out; q.ListingId != 2 && q.XXX_sizecache != 1999 {
 		t.Errorf("expected quote with listing id 2")
 	}
 

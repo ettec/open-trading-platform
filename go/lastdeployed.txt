@@ -1,0 +1,8 @@
+192.168.1.200:5000/book-builder-strategy:19
+192.168.1.200:5000/common:1
+192.168.1.200:5000/order-router:9
+192.168.1.200:5000/smart-router:2
+192.168.1.200:5000/market-data-gateway-fixsim:4
+192.168.1.200:5000/market-data-service:26
+192.168.1.200:5000/model:1
+192.168.1.200:5000/quote-aggregator:4

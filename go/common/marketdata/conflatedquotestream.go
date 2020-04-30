@@ -9,7 +9,7 @@ import (
 
 type conflatedQuoteStream struct {
 	stream        MdsQuoteStream
-	outChan       chan *model.ClobQuote
+	outChan       chan<- *model.ClobQuote
 	closeChan     chan bool
 	pendingQuote  map[int32]*model.ClobQuote
 	receivedOrder *boundedCircularInt32Buffer
@@ -20,18 +20,14 @@ func (c *conflatedQuoteStream) Subscribe(listingId int32) {
 	c.stream.Subscribe(listingId)
 }
 
-func (c *conflatedQuoteStream) GetStream() <-chan *model.ClobQuote {
-	return c.outChan
-}
-
 func (c *conflatedQuoteStream) Close() {
 	c.closeChan <- true
 	c.stream.Close()
 }
 
-func NewConflatedQuoteStream(stream MdsQuoteStream, capacity int) *conflatedQuoteStream {
+func NewConflatedQuoteStream(stream MdsQuoteStream, out chan<- *model.ClobQuote, capacity int) *conflatedQuoteStream {
 	c := &conflatedQuoteStream{
-		stream: stream, outChan: make(chan *model.ClobQuote), closeChan: make(chan bool),
+		stream: stream, outChan: out, closeChan: make(chan bool),
 		pendingQuote: map[int32]*model.ClobQuote{}, receivedOrder: newBoundedCircularIntBuffer(capacity),
 		errLog: log.New(os.Stderr, "", log.Lshortfile|log.Ltime)}
 

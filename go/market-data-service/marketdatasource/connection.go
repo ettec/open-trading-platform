@@ -3,7 +3,6 @@ package marketdatasource
 import (
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
-
 	"log"
 	"sync"
 	"time"
@@ -51,7 +50,8 @@ func (s *MdsConnection) AddConnection(subscriberId string, out chan<- *model.Clo
 		log.Print("connection closed:", subscriberId)
 	}
 
-	cc := marketdata.NewConflatedQuoteConnection(subscriberId, s.quoteDistributor.GetNewQuoteStream(), s.maxSubscriptions)
+	cc := marketdata.NewConflatedQuoteConnection(subscriberId, s.quoteDistributor.GetNewQuoteStream(),
+		out, s.maxSubscriptions)
 
 	s.partyIdToConnection[subscriberId] = cc
 

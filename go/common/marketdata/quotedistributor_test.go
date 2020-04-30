@@ -71,10 +71,9 @@ func Test_subscribeCalledOnceForAGivenListing(t *testing.T) {
 		}, in}, 100)
 
 	s1 := d.GetNewQuoteStream()
-	 d.GetNewQuoteStream()
+	d.GetNewQuoteStream()
 
 	s1.Subscribe(1)
-
 
 	time.Sleep(2 * time.Second)
 
@@ -83,7 +82,6 @@ func Test_subscribeCalledOnceForAGivenListing(t *testing.T) {
 	}
 
 }
-
 
 func Test_subscribeOnlyCalledOnceForAGivenListing(t *testing.T) {
 

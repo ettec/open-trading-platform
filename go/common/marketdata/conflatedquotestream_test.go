@@ -10,10 +10,11 @@ import (
 func Test_quotesAreConflated(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
+	out := make(chan *model.ClobQuote)
 
-	c := NewConflatedQuoteStream(&testMdsQuoteStream{stream: in}, 10)
+	NewConflatedQuoteStream(&testMdsQuoteStream{stream: in}, out,10)
 
-	out := c.GetStream()
+
 
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache: 1}
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache: 2}
@@ -32,9 +33,10 @@ func Test_quotesAreConflated(t *testing.T) {
 func Test_quotesAreConflatedAndReceivedOrderIsMaintained(t *testing.T) {
 
 	in := make(chan *model.ClobQuote)
+	out := make(chan *model.ClobQuote)
 
-	c := NewConflatedQuoteStream(&testMdsQuoteStream{stream: in}, 10)
-	out := c.GetStream()
+	NewConflatedQuoteStream(&testMdsQuoteStream{stream: in}, out, 10)
+
 
 	in <- &model.ClobQuote{ListingId: 1, XXX_sizecache: 1}
 	in <- &model.ClobQuote{ListingId: 2, XXX_sizecache: 6}
