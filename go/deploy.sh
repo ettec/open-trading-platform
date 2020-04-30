@@ -45,6 +45,11 @@ TAG=192.168.1.200:5000/$COMPNAME:$NEXTVERSION
 echo Tagging image id $IMAGEID using tag $TAG:
 docker tag $IMAGEID $TAG
 docker push $TAG
+echo "$TAG" > lastdeployed.txt
+if [ ! -z "$1" ]
+  then
+    echo "$TAG" >> $1 
+fi
 
 rm $COMPNAME
 rm Dockerfile

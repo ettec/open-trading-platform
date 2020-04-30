@@ -64,7 +64,7 @@ export class OrderView {
         this.created = new Date(created.getSeconds() * 1000)
       }
 
-      this.placedWith = order.getPlacedwithexecvenueid()
+      this.placedWith = order.getOwnerid()
       
     }
   

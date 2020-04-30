@@ -19,3 +19,4 @@ fi
 cd $DIRECTORY
    
 done
+
