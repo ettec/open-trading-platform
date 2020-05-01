@@ -13,6 +13,7 @@ import { QuoteService, QuoteListener } from '../services/QuoteService';
 import { TicketController } from "./Container";
 import { ClobQuote } from '../serverapi/clobquote_pb';
 import { ExecutionVenueClient } from '../serverapi/ExecutionvenueServiceClientPb';
+import uuid from 'uuid';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -338,6 +339,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
       logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " + 
       croParams.getListing()?.getMarketsymbol())
+      croParams.setOriginatorid("desk")
+      croParams.setOriginatorref(uuid())
 
 
       this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,

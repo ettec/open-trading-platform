@@ -196,6 +196,8 @@ func main() {
 		}
 	}
 
+	childUpdatesDistributor.Start()
+
 	api.RegisterExecutionVenueServer(s, sr)
 
 	reflection.Register(s)

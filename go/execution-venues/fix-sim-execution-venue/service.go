@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/executionvenue"
 
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
@@ -95,6 +94,11 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 	allRequiredEnvVars = allRequiredEnvVars && ok
 	fixHost, ok := os.LookupEnv("FIX_SOCKET_CONNECT_HOST")
 	allRequiredEnvVars = allRequiredEnvVars && ok
+
+	if tproot, exists := os.LookupEnv("TELEPRESENCE_ROOT"); exists {
+		fileLogPath = tproot + fileLogPath
+		fileStorePath = tproot + fileStorePath
+	}
 
 	template :=
 		"[DEFAULT]\n" +

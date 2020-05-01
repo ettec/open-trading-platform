@@ -1,0 +1,415 @@
+   0.0 TEL | Telepresence 0.105 launched at Fri May  1 15:50:41 2020
+   0.0 TEL |   /usr/bin/telepresence --swap-deployment xnas-order-gateway --expose 50551 --run ./fix-sim-execution-venue
+   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.3.0-51-generic', version='#44-Ubuntu SMP Wed Apr 22 21:09:44 UTC 2020', machine='x86_64', processor='x86_64')
+   0.0 TEL | Platform: linux
+   0.0 TEL | WSL: False
+   0.0 TEL | Python 3.7.5 (default, Apr 19 2020, 20:18:17)
+   0.0 TEL | [GCC 9.2.1 20191008]
+   0.0 TEL | BEGIN SPAN main.py:40(main)
+   0.0 TEL | BEGIN SPAN startup.py:83(set_kube_command)
+   0.0 TEL | Found kubectl -> /snap/bin/kubectl
+   0.0 TEL | [1] Capturing: kubectl config current-context
+   0.1 TEL | [1] captured in 0.09 secs.
+   0.1 TEL | [2] Capturing: kubectl --context kubernetes-admin@kubernetes version --short
+   0.2 TEL | [2] captured in 0.11 secs.
+   0.2 TEL | [3] Capturing: kubectl --context kubernetes-admin@kubernetes config view -o json
+   0.3 TEL | [3] captured in 0.11 secs.
+   0.3 TEL | [4] Capturing: kubectl --context kubernetes-admin@kubernetes get ns default
+   0.4 TEL | [4] captured in 0.12 secs.
+   0.4 TEL | [5] Capturing: kubectl --context kubernetes-admin@kubernetes api-versions
+   0.6 TEL | [5] captured in 0.14 secs.
+   0.6 TEL | Command: kubectl 1.18.2
+   0.6 TEL | Context: kubernetes-admin@kubernetes, namespace: default, version: 1.17.4
+   0.6 TEL | END SPAN startup.py:83(set_kube_command)    0.6s
+   0.6 TEL | Found ssh -> /usr/bin/ssh
+   0.6 TEL | [6] Capturing: ssh -V
+   0.6 TEL | [6] captured in 0.01 secs.
+   0.6 TEL | Found ./fix-sim-execution-venue -> ./fix-sim-execution-venue
+   0.6 TEL | Found sshuttle-telepresence -> /usr/libexec/sshuttle-telepresence
+   0.6 TEL | Found conntrack -> /usr/sbin/conntrack
+   0.6 TEL | Found iptables -> /usr/sbin/iptables
+   0.6 TEL | Found sudo -> /usr/bin/sudo
+   0.6 TEL | [7] Running: sudo -n echo -n
+   0.6 TEL | [7] ran in 0.01 secs.
+   0.6 TEL | [8] Capturing: sudo iptables --list
+   0.6 TEL | [8] captured in 0.01 secs.
+   0.6 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+   0.6 TEL | Found sshfs -> /usr/bin/sshfs
+   0.6 TEL | Found fusermount -> /usr/bin/fusermount
+   0.6 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+   0.6 TEL | [9] Running: kubectl --context kubernetes-admin@kubernetes --namespace default get pods telepresence-connectivity-check --ignore-not-found
+   0.7 TEL | [9] ran in 0.13 secs.
+   1.2 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
+   1.2 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
+   1.2 >>> | Starting network proxy to cluster by swapping out Deployment xnas-order-gateway with a proxy
+   1.2 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   1.2 TEL | [10] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json xnas-order-gateway
+   1.3 TEL | [10] captured in 0.11 secs.
+   1.3 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+   1.3 TEL | [11] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a --ignore-not-found
+   1.4 TEL | [11] ran in 0.11 secs.
+   1.4 TEL | [12] Running: kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
+   1.7  12 | deployment.apps/xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a created
+   1.7 TEL | [12] ran in 0.31 secs.
+   1.7 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment xnas-order-gateway --replicas=0
+   2.0  13 | deployment.apps/xnas-order-gateway scaled
+   2.0 TEL | [13] ran in 0.35 secs.
+   2.0 TEL | END SPAN deployment.py:283(supplant_deployment)    0.9s
+   2.0 TEL | BEGIN SPAN remote.py:142(get_remote_info)
+   2.0 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   2.0 TEL | [14] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=8b672831e5e04e08949dbadd9755009a
+   2.3 TEL | [14] captured in 0.22 secs.
+   2.3 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
+   2.3 TEL | Searching for Telepresence pod:
+   2.3 TEL |   with name xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-*
+   2.3 TEL |   with labels {'app': 'execution-venue', 'execution-venue-id': 'XNASsim', 'mic': 'XNAS', 'telepresence': '8b672831e5e04e08949dbadd9755009a'}
+   2.3 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=8b672831e5e04e08949dbadd9755009a
+   2.4 TEL | [15] captured in 0.18 secs.
+   2.4 TEL | Checking xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg
+   2.4 TEL | Looks like we've found our pod!
+   2.4 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
+   2.4 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   2.6 TEL | [16] captured in 0.13 secs.
+   2.8 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   3.0 TEL | [17] captured in 0.13 secs.
+   3.2 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   3.3 TEL | [18] captured in 0.12 secs.
+   3.6 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   3.7 TEL | [19] captured in 0.13 secs.
+   4.0 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   4.1 TEL | [20] captured in 0.14 secs.
+   4.4 TEL | [21] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   4.5 TEL | [21] captured in 0.13 secs.
+   4.7 TEL | [22] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   4.9 TEL | [22] captured in 0.14 secs.
+   5.1 TEL | [23] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   5.3 TEL | [23] captured in 0.14 secs.
+   5.5 TEL | [24] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   5.7 TEL | [24] captured in 0.13 secs.
+   5.9 TEL | [25] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   6.0 TEL | [25] captured in 0.13 secs.
+   6.3 TEL | [26] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   6.4 TEL | [26] captured in 0.13 secs.
+   6.7 TEL | [27] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   6.9 TEL | [27] captured in 0.21 secs.
+   7.1 TEL | [28] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg -o json
+   7.3 TEL | [28] captured in 0.20 secs.
+   7.3 TEL | END SPAN remote.py:104(wait_for_pod)    4.9s
+   7.3 TEL | END SPAN remote.py:142(get_remote_info)    5.3s
+   7.3 TEL | BEGIN SPAN connect.py:37(connect)
+   7.3 TEL | [29] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg --container execution-venue --tail=10
+   7.3 TEL | [30] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg 45605:8022
+   7.3 TEL | [31] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45605 telepresence@127.0.0.1 /bin/true
+   7.4 TEL | [31] exit 255 in 0.01 secs.
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] Loading ./forwarder.py...
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] /etc/resolv.conf changed, reparsing
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] Resolver added ('10.96.0.10', 53) to server list
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] SOCKSv5Factory starting on 9050
+   7.5  29 | 2020-05-01T14:50:48+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7ff0c80101d0>
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] DNSDatagramProtocol starting on 9053
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7ff0c80104a8>
+   7.5  29 | 2020-05-01T14:50:48+0000 [-] Loaded.
+   7.5  29 | 2020-05-01T14:50:48+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
+   7.5  29 | 2020-05-01T14:50:48+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+   7.5  30 | Forwarding from 127.0.0.1:45605 -> 8022
+   7.5  30 | Forwarding from [::1]:45605 -> 8022
+   7.6 TEL | [32] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45605 telepresence@127.0.0.1 /bin/true
+   7.6  30 | Handling connection for 45605
+   7.8 TEL | [32] ran in 0.22 secs.
+   7.8 >>> | Forwarding remote port 50551 to local port 50551.
+   7.8 TEL | [33] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45605 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
+   7.8 >>> | 
+   7.8 TEL | Launching Web server for proxy poll
+   7.8 TEL | [34] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45605 telepresence@127.0.0.1 -L127.0.0.1:41361:127.0.0.1:9050 -R9055:127.0.0.1:38023
+   7.8  30 | Handling connection for 45605
+   7.8 TEL | END SPAN connect.py:37(connect)    0.5s
+   7.8 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
+   7.8 TEL | [35] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg --container execution-venue -- python3 podinfo.py
+   7.8  30 | Handling connection for 45605
+   8.1 TEL | [35] captured in 0.29 secs.
+   8.1 TEL | END SPAN remote_env.py:29(get_remote_env)    0.3s
+   8.1 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
+   8.1 TEL | [36] Running: sshfs -p 45605 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-p2vhz3c7/fs
+   8.1  30 | Handling connection for 45605
+   8.3 TEL | [36] ran in 0.19 secs.
+   8.3 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
+   8.3 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
+   8.3 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
+   8.3 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.0s
+   8.3 TEL | [37] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:45605 --to-ns 127.0.0.1:9053 10.96.0.0/12 10.244.0.0/24 10.244.2.0/24 10.244.1.0/24
+   8.3 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
+   8.3 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+   8.3 TEL | [38] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+   8.4 TEL | [38] exit 1 in 0.12 secs.
+   8.4 TEL | [39] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
+   8.6 TEL | [39] exit 1 in 0.12 secs.
+   8.7 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+   8.7 TEL | [40] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+   8.8 TEL | [40] exit 1 in 0.12 secs.
+   8.8 TEL | [41] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
+   8.8  37 | Starting sshuttle proxy.
+   9.7  37 | firewall manager: Starting firewall with Python version 3.7.5
+   9.7  37 | firewall manager: ready method name nat.
+   9.8  37 | IPv6 enabled: False
+   9.8  37 | UDP enabled: False
+   9.8  37 | DNS enabled: True
+   9.8  37 | TCP redirector listening on ('127.0.0.1', 12300).
+   9.8  37 | DNS listening on ('127.0.0.1', 12300).
+   9.8  37 | Starting client with Python version 3.7.5
+   9.8  37 | c : connecting to server...
+   9.8  30 | Handling connection for 45605
+   9.8 TEL | [41] timed out after 1.00 secs.
+   9.8  37 | Warning: Permanently added '[127.0.0.1]:45605' (ECDSA) to the list of known hosts.
+   9.9 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+   9.9 TEL | [42] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+  10.0 TEL | [42] exit 1 in 0.12 secs.
+  10.0 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
+  10.0  37 | Starting server with Python version 3.6.8
+  10.0  37 |  s: latency control setting = True
+  10.0  37 |  s: available routes:
+  10.0  37 |  s:   2/10.244.0.0/16
+  10.0  37 |  s:   2/10.244.1.0/24
+  10.0  37 | c : Connected.
+  10.0  37 | firewall manager: setting up.
+  10.0  37 | >> iptables -t nat -N sshuttle-12300
+  10.0  37 | >> iptables -t nat -F sshuttle-12300
+  10.0  37 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
+  10.0  37 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
+  10.0  37 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
+  10.0  37 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.0  37 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.0  37 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.0  37 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.0  37 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
+  10.1  37 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
+  10.1  37 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
+  11.0 TEL | [43] timed out after 1.00 secs.
+  11.1 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+  11.1 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+  11.1  37 | c : DNS request from ('127.0.0.1', 39923) to None: 48 bytes
+  11.1  29 | 2020-05-01T14:50:52+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  11.1  29 | 2020-05-01T14:50:52+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
+  11.2 TEL | [44] captured in 0.07 secs.
+  11.2 TEL | Resolved hellotelepresence-3. 2 more...
+  11.2 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
+  11.2  37 | c : DNS request from ('127.0.0.1', 57742) to None: 79 bytes
+  11.2  29 | 2020-05-01T14:50:52+0000 [stdout#info] Sanity check: b'hellotelepresence-3.a.sanity.check.telepresence.io'
+  11.3 TEL | [45] exit 1 in 0.12 secs.
+  11.4 TEL | Wait for vpn-tcp connection: hellotelepresence-4
+  11.4 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+  11.4  37 | c : DNS request from ('127.0.0.1', 46192) to None: 48 bytes
+  11.4  29 | 2020-05-01T14:50:53+0000 [stdout#info] Result for b'hellotelepresence-4' is ['127.0.0.1']
+  11.5 TEL | [46] captured in 0.07 secs.
+  11.5 TEL | Resolved hellotelepresence-4. 1 more...
+  11.5 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity.check.telepresence.io")'
+  11.5  37 | c : DNS request from ('127.0.0.1', 34459) to None: 79 bytes
+  11.5  29 | 2020-05-01T14:50:53+0000 [stdout#info] Sanity check: b'hellotelepresence-4.a.sanity.check.telepresence.io'
+  11.6 TEL | [47] exit 1 in 0.12 secs.
+  11.7 TEL | Wait for vpn-tcp connection: hellotelepresence-5
+  11.7 TEL | [48] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
+  11.7  37 | c : DNS request from ('127.0.0.1', 41627) to None: 48 bytes
+  11.7  29 | 2020-05-01T14:50:53+0000 [stdout#info] Result for b'hellotelepresence-5' is ['127.0.0.1']
+  11.7 TEL | [48] captured in 0.07 secs.
+  11.7 TEL | Resolved hellotelepresence-5. 0 more...
+  11.7 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    3.4s
+  11.7 TEL | END SPAN vpn.py:280(connect_sshuttle)    3.4s
+  11.7 >>> | Setup complete. Launching your command.
+  11.7 TEL | Everything launched. Waiting to exit...
+  11.7 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
+  11.8  37 | c : DNS request from ('127.0.0.1', 49383) to None: 47 bytes
+  11.8  37 | c : DNS request from ('127.0.0.1', 49383) to None: 47 bytes
+  11.8  29 | 2020-05-01T14:50:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  11.8  29 | 2020-05-01T14:50:53+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  11.8  29 | 2020-05-01T14:50:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  11.8  37 | c : Accept TCP: 192.168.1.150:48748 -> 10.102.135.241:9092.
+  11.8  37 | c : Accept TCP: 192.168.1.150:48750 -> 10.102.135.241:9092.
+  11.8  37 | c : Accept TCP: 192.168.1.150:48752 -> 10.102.135.241:9092.
+  11.8  29 | 2020-05-01T14:50:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  11.8  29 | 2020-05-01T14:50:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  11.8  37 | c : Accept TCP: 192.168.1.150:35010 -> 10.244.2.55:9092.
+  11.8  37 | c : Accept TCP: 192.168.1.150:35012 -> 10.244.2.55:9092.
+  11.8  37 |  s: SW#-1:10.102.135.241:9092: deleting (7 remain)
+  11.8  37 |  s: SW'unknown':Mux#8: deleting (6 remain)
+  11.8  37 | c : SW#8:192.168.1.150:48748: deleting (9 remain)
+  11.8  37 | c : SW'unknown':Mux#8: deleting (8 remain)
+  11.8  37 | c : SW#10:192.168.1.150:48750: deleting (7 remain)
+  11.8  37 | c : SW'unknown':Mux#9: deleting (6 remain)
+  12.1  37 | c : DNS request from ('127.0.0.1', 32833) to None: 47 bytes
+  12.1  37 | c : DNS request from ('127.0.0.1', 32833) to None: 47 bytes
+  12.1  29 | 2020-05-01T14:50:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  12.1  29 | 2020-05-01T14:50:53+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  12.1  29 | 2020-05-01T14:50:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  12.1  29 | 2020-05-01T14:50:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  12.1  37 | c : Accept TCP: 192.168.1.150:48758 -> 10.102.135.241:9092.
+  12.1  37 | c : SW#12:192.168.1.150:35010: deleting (7 remain)
+  12.1  37 | c : SW'unknown':Mux#11: deleting (6 remain)
+  12.1  29 | 2020-05-01T14:50:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  12.2  37 | c : Accept TCP: 192.168.1.150:35016 -> 10.244.2.55:9092.
+  12.2  37 |  s: SW#-1:10.102.135.241:9092: deleting (11 remain)
+  12.2  37 |  s: SW'unknown':Mux#15: deleting (10 remain)
+  12.2  37 |  s: SW'unknown':Mux#9: deleting (9 remain)
+  12.2  37 |  s: SW#7:10.102.135.241:9092: deleting (8 remain)
+  12.2  37 |  s: SW'unknown':Mux#10: deleting (7 remain)
+  12.2  37 |  s: SW#9:10.102.135.241:9092: deleting (6 remain)
+  12.2  37 |  s: SW'unknown':Mux#11: deleting (5 remain)
+  12.2  37 |  s: SW#10:10.244.2.55:9092: deleting (4 remain)
+  13.3  37 | c : DNS request from ('127.0.0.1', 57801) to None: 47 bytes
+  13.3  37 | c : DNS request from ('127.0.0.1', 57801) to None: 47 bytes
+  13.3  29 | 2020-05-01T14:50:54+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.3  29 | 2020-05-01T14:50:54+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  13.3  29 | 2020-05-01T14:50:54+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.3  29 | 2020-05-01T14:50:54+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.3  37 | c : Accept TCP: 192.168.1.150:48762 -> 10.102.135.241:9092.
+  13.3  29 | 2020-05-01T14:50:54+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.3  37 | c : Accept TCP: 192.168.1.150:35020 -> 10.244.2.55:9092.
+  13.3  37 |  s: SW#-1:10.102.135.241:9092: deleting (7 remain)
+  13.3  37 |  s: SW'unknown':Mux#19: deleting (6 remain)
+  13.4  37 | c : SW'unknown':Mux#10: deleting (11 remain)
+  13.4  37 | c : SW#11:192.168.1.150:48752: deleting (10 remain)
+  13.4  37 | c : SW#-1:192.168.1.150:48758: deleting (9 remain)
+  13.4  37 | c : SW'unknown':Mux#15: deleting (8 remain)
+  13.4  37 | c : SW'unknown':Mux#16: deleting (7 remain)
+  13.4  37 | c : SW#-1:192.168.1.150:35016: deleting (6 remain)
+  13.4  37 | c : SW#-1:192.168.1.150:35016: error was: nowrite: [Errno 107] Transport endpoint is not connected
+  13.4  37 | c : SW'unknown':Mux#19: deleting (5 remain)
+  13.4  37 | c : SW#-1:192.168.1.150:48762: deleting (4 remain)
+  13.7  37 | c : DNS request from ('127.0.0.1', 43458) to None: 47 bytes
+  13.7  37 | c : DNS request from ('127.0.0.1', 43458) to None: 47 bytes
+  13.7  29 | 2020-05-01T14:50:55+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.7  29 | 2020-05-01T14:50:55+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  13.7  29 | 2020-05-01T14:50:55+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.7  29 | 2020-05-01T14:50:55+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.7  29 | 2020-05-01T14:50:55+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.7  37 | c : Accept TCP: 192.168.1.150:48766 -> 10.102.135.241:9092.
+  13.7  37 | c : Accept TCP: 192.168.1.150:35024 -> 10.244.2.55:9092.
+  14.0  37 | c : SW'unknown':Mux#23: deleting (7 remain)
+  14.0  37 | c : SW#-1:192.168.1.150:48766: deleting (6 remain)
+  14.0  37 | c : SW#14:192.168.1.150:35020: deleting (5 remain)
+  14.0  37 | c : SW#14:192.168.1.150:35020: error was: nowrite: [Errno 107] Transport endpoint is not connected
+  14.0  37 | c : SW'unknown':Mux#20: deleting (4 remain)
+  14.1  37 |  s: SW#-1:10.102.135.241:9092: deleting (9 remain)
+  14.1  37 |  s: SW'unknown':Mux#23: deleting (8 remain)
+  14.1  37 |  s: SW'unknown':Mux#20: deleting (7 remain)
+  14.1  37 |  s: SW#10:10.244.2.55:9092: deleting (6 remain)
+  17.0 TEL | Main process (./fix-sim-execution-venue)
+  17.0 TEL |  exited with code 2.
+  17.1 TEL | END SPAN runner.py:726(wait_for_exit)    5.3s
+  17.1 >>> | Your process exited with return code 2.
+  17.1 TEL | EXITING successful session.
+  17.1 >>> | Exit cleanup in progress
+  17.1 TEL | (Cleanup) Terminate local process
+  17.1 TEL | Local process is already dead (ret=2)
+  17.1 TEL | (Cleanup) Kill BG process [37] sshuttle
+  17.1 TEL | (Cleanup) Unmount remote filesystem
+  17.1 TEL | [49] Running: fusermount -z -u /tmp/tel-p2vhz3c7/fs
+  17.1  37 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
+  17.1  37 |  s: SW#13:10.244.2.55:9092: deleting (5 remain)
+  17.1  37 |  s: SW'unknown':Mux#12: deleting (4 remain)
+  17.1  37 |  s: SW#6:10.244.2.55:9092: deleting (3 remain)
+  17.1  37 |  s: SW'unknown':Mux#16: deleting (2 remain)
+  17.1  37 |  s: SW'unknown':Mux#24: deleting (1 remain)
+  17.1  37 |  s: SW#11:10.244.2.55:9092: deleting (0 remain)
+  17.1  37 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
+  17.1 TEL | [49] ran in 0.02 secs.
+  17.1 TEL | (Cleanup) Kill BG process [34] SSH port forward (socks and proxy poll)
+  17.1 TEL | [34] SSH port forward (socks and proxy poll): exit 0
+  17.1 TEL | (Cleanup) Kill Web server for proxy poll
+  17.1  37 | >> iptables -t nat -F sshuttle-12300
+  17.1  37 | >> iptables -t nat -X sshuttle-12300
+  17.1 TEL | [37] sshuttle: exit -15
+  17.3 TEL | (Cleanup) Kill BG process [33] SSH port forward (exposed ports)
+  17.3 TEL | (Cleanup) Kill BG process [30] kubectl port-forward
+  17.3 TEL | [33] SSH port forward (exposed ports): exit 0
+  17.3 TEL | [30] kubectl port-forward: exit -15
+  17.3 TEL | (Cleanup) Kill BG process [29] kubectl logs
+  17.3 TEL | [29] kubectl logs: exit -15
+  17.3 TEL | Background process (kubectl logs) exited with return code -15. Command was:
+  17.3 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a-57dfd4b9fgfg --container execution-venue --tail=10
+  17.3 TEL | 
+  17.3 TEL | Recent output was:
+  17.3 TEL |   2020-05-01T14:50:54+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  17.3 TEL |   2020-05-01T14:50:54+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  17.3 TEL |   2020-05-01T14:50:54+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  17.3 TEL |   2020-05-01T14:50:54+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  17.3 TEL |   2020-05-01T14:50:54+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  17.3 TEL |   2020-05-01T14:50:55+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  17.3 TEL |   2020-05-01T14:50:55+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  17.3 TEL |   2020-05-01T14:50:55+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  17.3 TEL |   2020-05-01T14:50:55+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  17.3 TEL |   2020-05-01T14:50:55+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  17.3 TEL | (Cleanup) Re-scale original deployment
+  17.3 TEL | [50] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment xnas-order-gateway --replicas=1
+  17.5  50 | deployment.apps/xnas-order-gateway scaled
+  17.5 TEL | [50] ran in 0.14 secs.
+  17.5 TEL | (Cleanup) Delete new deployment
+  17.5 >>> | Swapping Deployment xnas-order-gateway back to its original state
+  17.5 TEL | [51] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a
+  17.7  51 | deployment.apps "xnas-order-gatewa-8b672831e5e04e08949dbadd9755009a" deleted
+  17.9 TEL | [51] ran in 0.39 secs.
+  17.9 TEL | (Cleanup) Kill sudo privileges holder
+  17.9 TEL | (Cleanup) Stop time tracking
+  17.9 TEL | END SPAN main.py:40(main)   17.9s
+  17.9 TEL | SPAN SUMMARY:
+  17.9 TEL |   17.9s main.py:40(main)
+  17.9 TEL |    0.6s   startup.py:83(set_kube_command)
+  17.9 TEL |    0.1s     1 kubectl config current-context
+  17.9 TEL |    0.1s     2 kubectl --context kubernetes-admin@kubernetes version --short
+  17.9 TEL |    0.1s     3 kubectl --context kubernetes-admin@kubernetes config view -o json
+  17.9 TEL |    0.1s     4 kubectl --context kubernetes-admin@kubernetes get ns default
+  17.9 TEL |    0.1s     5 kubectl --context kubernetes-admin@kubernetes api-versions
+  17.9 TEL |    0.0s   6 ssh -V
+  17.9 TEL |    0.0s   7 sudo -n echo -n
+  17.9 TEL |    0.0s   8 sudo iptables --list
+  17.9 TEL |    0.1s   9 kubectl --context kubernetes-admin@kubernetes --namespace default get pods tel
+  17.9 TEL |    0.9s   deployment.py:283(supplant_deployment)
+  17.9 TEL |    0.1s     remote.py:75(get_deployment_json)
+  17.9 TEL |    0.1s       10 kubectl --context kubernetes-admin@kubernetes --namespace default get deploym
+  17.9 TEL |    0.1s     11 kubectl --context kubernetes-admin@kubernetes --namespace default delete depl
+  17.9 TEL |    0.3s     12 kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
+  17.9 TEL |    0.3s     13 kubectl --context kubernetes-admin@kubernetes --namespace default scale deplo
+  17.9 TEL |    5.3s   remote.py:142(get_remote_info)
+  17.9 TEL |    0.2s     remote.py:75(get_deployment_json)
+  17.9 TEL |    0.2s       14 kubectl --context kubernetes-admin@kubernetes --namespace default get deploym
+  17.9 TEL |    0.2s     15 kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o
+  17.9 TEL |    4.9s     remote.py:104(wait_for_pod)
+  17.9 TEL |    0.1s       16 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       17 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       18 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       19 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       20 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       21 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       22 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       23 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       24 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       25 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.1s       26 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.2s       27 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.2s       28 kubectl --context kubernetes-admin@kubernetes --namespace default get pod xna
+  17.9 TEL |    0.5s   connect.py:37(connect)
+  17.9 TEL |    0.0s     31 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
+  17.9 TEL |    0.2s     32 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
+  17.9 TEL |    0.3s   remote_env.py:29(get_remote_env)
+  17.9 TEL |    0.3s     35 kubectl --context kubernetes-admin@kubernetes --namespace default exec xnas-o
+  17.9 TEL |    0.2s   mount.py:30(mount_remote_volumes)
+  17.9 TEL |    0.2s     36 sshfs -p 45605 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/
+  17.9 TEL |    3.4s   vpn.py:280(connect_sshuttle)
+  17.9 TEL |    0.0s     vpn.py:77(get_proxy_cidrs)
+  17.9 TEL |    3.4s     vpn.py:303(connect_sshuttle,sshuttle-wait)
+  17.9 TEL |    0.1s       38 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+  17.9 TEL |    0.1s       39 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity
+  17.9 TEL |    0.1s       40 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+  17.9 TEL |    1.0s       41 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity
+  17.9 TEL |    0.1s       42 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+  17.9 TEL |    1.0s       43 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity
+  17.9 TEL |    0.1s       44 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+  17.9 TEL |    0.1s       45 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity
+  17.9 TEL |    0.1s       46 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+  17.9 TEL |    0.1s       47 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity
+  17.9 TEL |    0.1s       48 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
+  17.9 TEL |    5.3s   runner.py:726(wait_for_exit)
+  17.9 TEL |    0.0s   49 fusermount -z -u /tmp/tel-p2vhz3c7/fs
+  17.9 TEL |    0.1s   50 kubectl --context kubernetes-admin@kubernetes --namespace default scale deplo
+  17.9 TEL |    0.4s   51 kubectl --context kubernetes-admin@kubernetes --namespace default delete depl
+  17.9 TEL | (Cleanup) Remove temporary directory
+  17.9 TEL | (Cleanup) Save caches
+  18.6 TEL | (sudo privileges holder thread exiting)

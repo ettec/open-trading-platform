@@ -34,6 +34,14 @@ func (s *ExecVenueService) CreateAndRouteOrder(context context.Context, params *
 		return nil, fmt.Errorf("listing required on params:%v", params)
 	}
 
+	if params.GetOriginatorId() == "" {
+		return nil, fmt.Errorf("originator id required on params:%v", params)
+	}
+
+	if params.GetOriginatorRef() == "" {
+		return nil, fmt.Errorf("originator ref required on params:%v", params)
+	}
+
 	result, err := s.orderManager.CreateAndRouteOrder(params)
 	if err != nil {
 		log.Printf("error when creating and routing order:%v", err)

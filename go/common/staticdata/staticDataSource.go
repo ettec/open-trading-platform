@@ -154,7 +154,6 @@ func (s *listingSource) GetListingsWithSameInstrument(listingId int32, listingGr
 				s.errLog.Printf("no listings found for same instrument, listing id:%v", listingId)
 			}
 		} else {
-			s.log.Println("received listings for same instrument:", listings)
 			listingGroupsIn <- listings.Listings
 		}
 

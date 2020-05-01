@@ -74,12 +74,7 @@ func New(external bool, maxConnectRetrySecs int) *orderRouter {
 func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 	mic := p.Listing.Market.Mic
 	if ev, ok := o.micToExecVenue[mic]; ok {
-		id, err := ev.client.CreateAndRouteOrder(c, &api.CreateAndRouteOrderParams{
-			OrderSide: p.OrderSide,
-			Quantity:  p.Quantity,
-			Price:     p.Price,
-			Listing:   p.Listing,
-		})
+		id, err := ev.client.CreateAndRouteOrder(c, p)
 
 		if err != nil {
 			return nil, fmt.Errorf("failed to route order:%v", err)
