@@ -1,4 +1,4 @@
-import { Colors, Menu, Classes, MenuItem } from '@blueprintjs/core';
+import { Colors, Menu,   } from '@blueprintjs/core';
 import { Cell, Column, IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import * as grpcWeb from 'grpc-web';
@@ -6,8 +6,7 @@ import React from 'react';
 import v4 from 'uuid';
 import { logDebug, logGrpcError } from '../../logging/Logging';
 import { Empty } from '../../serverapi/common_pb';
-import { OrderRouterClient } from '../../serverapi/Order-routerServiceClientPb';
-import { OrderId, CancelOrderParams } from '../../serverapi/order-router_pb';
+import { OrderId, CancelOrderParams } from '../../serverapi/executionvenue_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { Timestamp } from '../../serverapi/modelcommon_pb';
 import { ViewServiceClient } from '../../serverapi/View-serviceServiceClientPb';
@@ -22,6 +21,7 @@ import '../TableView/TableLayout.ts';
 import { TabNode, Model, Actions } from 'flexlayout-react';
 import { OrderView } from './OrderView';
 import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from '../TableView/TableLayout';
+import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
 
 interface OrderBlotterState {
 
@@ -43,7 +43,7 @@ interface OrderBlotterProps {
 export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
 
   viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
-  executionVenueService = new OrderRouterClient(Login.grpcContext.serviceUrl, null, null)
+  executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   listingService: ListingService
 
   orderMap: Map<string, number>;

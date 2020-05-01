@@ -25,7 +25,7 @@ files:
                 - name: local_service
                   domains: ["*"]
                   routes:
-                  - match: { prefix: "/orderrouter.OrderRouter" }
+                  - match: { prefix: "/executionvenue.ExecutionVenue" }
                     route:
                       cluster: order-router-cluster
                       max_grpc_timeout: 0s

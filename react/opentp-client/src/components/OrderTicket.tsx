@@ -2,9 +2,8 @@ import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, Numeri
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
-import { logGrpcError, logDebug, logError } from '../logging/Logging';
-import { OrderRouterClient } from '../serverapi/Order-routerServiceClientPb';
-import { CreateAndRouteOrderParams, OrderId } from '../serverapi/order-router_pb';
+import {  logDebug, logError } from '../logging/Logging';
+import { CreateAndRouteOrderParams, OrderId } from '../serverapi/executionvenue_pb';
 import { Listing } from '../serverapi/listing_pb';
 import { TickSizeEntry } from '../serverapi/listing_pb';
 import { Side } from '../serverapi/order_pb';
@@ -13,6 +12,7 @@ import Login from './Login';
 import { QuoteService, QuoteListener } from '../services/QuoteService';
 import { TicketController } from "./Container";
 import { ClobQuote } from '../serverapi/clobquote_pb';
+import { ExecutionVenueClient } from '../serverapi/ExecutionvenueServiceClientPb';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -31,7 +31,7 @@ interface OrderTicketProps {
 
 export default class OrderTicket extends React.Component<OrderTicketProps, OrderTicketState> implements QuoteListener {
 
-  executionVenueService = new OrderRouterClient(Login.grpcContext.serviceUrl, null, null)
+  executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
 
   constructor(props: OrderTicketProps) {
@@ -94,8 +94,6 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     return " "
 
   }
-
-  // TOdo - bind in tick size to numeric HTMLFormControlsCollection, use quote to populate in, add hotkeys for ticket 
 
 
   private getTickSize(price: number, listing: Listing): number {

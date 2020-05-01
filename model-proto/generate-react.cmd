@@ -1,8 +1,9 @@
-# Usage: generate-react.cmd  <servicename> 
-SVC_PATH=../go/$1
+# Usage: generate-react.cmd  <protofile name> 
+PROTOPATH=../go/proto
+PROTOFILE=$PROTOPATH/$1
 OUT=../react/opentp-client/src/serverapi
-protoc $SVC_PATH/*.proto --js_out=import_style=commonjs,binary:$OUT --grpc-web_out=import_style=typescript,mode=grpcwebtext:$OUT --proto_path=$SVC_PATH:.
-protoc ./*.proto --js_out=import_style=commonjs,binary:$OUT --grpc-web_out=import_style=typescript,mode=grpcwebtext:$OUT --proto_path=$SVC_PATH:.
+protoc $PROTOFILE --js_out=import_style=commonjs,binary:$OUT --grpc-web_out=import_style=typescript,mode=grpcwebtext:$OUT --proto_path=$PROTOPATH:.
+protoc ./*.proto --js_out=import_style=commonjs,binary:$OUT --grpc-web_out=import_style=typescript,mode=grpcwebtext:$OUT --proto_path=$PROTOPATH:.
 
 # A workaround in the typescript plugin for grpcweb 
 for f in $OUT/*.js 

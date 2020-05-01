@@ -1,4 +1,0 @@
-
-
-
-echo poopsy >> coo.txt  
