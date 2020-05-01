@@ -18,8 +18,6 @@ import (
 	"time"
 )
 
-
-
 type service struct {
 	micToSource map[string]*marketdatasource.MdsConnection
 }

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-03-31T13:23:30Z"
+  labels:
+    app: execution-venue
+    mic: XOSR
+  name: xosr-order-gateway
+  namespace: default
+  resourceVersion: "1346725"
+  selfLink: /api/v1/namespaces/default/services/xosr-order-gateway
+  uid: 01629999-e055-4ab6-875c-c1fc80d00b89
+spec:
+  ports:
+  - name: api
+    port: 50551
+    protocol: TCP
+    targetPort: 50551
+  selector:
+    app: execution-venue
+    mic: XOSR
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

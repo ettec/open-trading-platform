@@ -32,7 +32,6 @@ import (
 const (
 	Id                     = "ID"
 	KafkaBrokersKey        = "KAFKA_BROKERS"
-	ExecVenueMic           = "MIC"
 	External               = "EXTERNAL"
 	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
 )
@@ -101,13 +100,12 @@ func main() {
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
-	execVenueMic := bootstrap.GetEnvVar(ExecVenueMic)
 
 	s := grpc.NewServer()
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
-	store, err := orderstore.NewKafkaStore(kafkaBrokers, execVenueMic)
+	store, err := orderstore.NewKafkaStore(kafkaBrokers, common.SR_MIC)
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
