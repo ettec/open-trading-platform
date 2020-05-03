@@ -163,14 +163,20 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
       if (!orderView.listing) {
         this.listingService.GetListing(order.getListingid(), (listing: Listing) => {
+          let newOrders = [...this.state.orders]
+          let idx = this.orderMap.get(order.getId())
           orderView.listing = listing
-          let blotterState: OrderBlotterState = {
-            ...this.state, ...{
-              orders: this.state.orders
+          if (idx) {
+            newOrders[idx] = orderView
+            let blotterState: OrderBlotterState = {
+              ...this.state, ...{
+                orders: this.state.orders
+              }
             }
+  
+            this.setState(blotterState);
           }
-
-          this.setState(blotterState);
+         
         })
       }
 

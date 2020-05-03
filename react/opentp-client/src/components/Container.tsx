@@ -119,7 +119,7 @@ export default class Container extends React.Component {
         super({}, {});
 
         this.listingService = new ListingServiceImpl()
-        this.quoteService = new QuoteServiceImpl()
+        this.quoteService = new QuoteServiceImpl(this.listingService)
         this.listingContext = new ListingContext()
         this.orderContext = new OrderContext()
         this.ticketController = new TicketController()

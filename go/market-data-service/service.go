@@ -24,6 +24,8 @@ type service struct {
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
+	log.Printf("Subscribe request, subscribed id: %v, listing id:%v", r.SubscriberId, r.Listing.Id)
+
 	mic := r.Listing.Market.Mic
 	if source, ok := s.micToSource[mic]; ok {
 		if conn, ok := source.GetConnection(r.SubscriberId); ok {
@@ -53,10 +55,11 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	for mic, gateway := range s.micToSource {
 		gateway.AddConnection(subscriberId, out)
-		log.Printf("connected subscriber %v to market data source for mic %ve", subscriberId, mic)
+		log.Printf("connected subscriber %v to market data source for mic %v", subscriberId, mic)
 	}
 
 	for mdUpdate := range out {
+
 		if err := stream.Send(mdUpdate); err != nil {
 			log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
 			break
