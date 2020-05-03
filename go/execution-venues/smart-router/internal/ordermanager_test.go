@@ -354,8 +354,7 @@ func Test_cancelOfUnexposedOrder(t *testing.T) {
 	_, _, _, _, quoteChan, _, orderUpdates, _, _, om, order, _ := setupOrderManager(t)
 
 	q := &model.ClobQuote{
-		Offers: []*model.ClobLine{
-		},
+		Offers: []*model.ClobLine{},
 	}
 
 	quoteChan <- q
@@ -383,7 +382,6 @@ func Test_cancelOfUnexposedOrder(t *testing.T) {
 	}
 
 }
-
 
 func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 	evId, listing1, _, _, quoteChan, childOrderUpdates, orderUpdates, paramsChan, _, om, order, cancelParams := setupOrderManager(t)
@@ -444,10 +442,9 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 		t.Fatalf("parent order should be only partly exposed")
 	}
 
-
 	om.Cancel()
 
-	cp := <- cancelParams
+	cp := <-cancelParams
 
 	if cp.OrderId != pd.id {
 		t.FailNow()
@@ -463,14 +460,12 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 		t.Fatalf("parent order should be only partly exposed")
 	}
 
-
 	childOrderUpdates <- &model.Order{
 		Id:                pd.id,
 		Version:           2,
 		Status:            model.OrderStatus_CANCELLED,
 		RemainingQuantity: IasD(10),
 	}
-
 
 	order = <-orderUpdates
 
@@ -482,13 +477,10 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 		t.Fatalf("parent order should be not be exposed")
 	}
 
-
-
-
 }
 
 func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
-	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order,_ := setupOrderManager(t)
+	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(t)
 
 	q := &model.ClobQuote{
 		Offers: []*model.ClobLine{
@@ -556,7 +548,7 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
 	*testOmClient) {
-	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order,_ := setupOrderManager(t)
+	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order, _ := setupOrderManager(t)
 
 	q := &model.ClobQuote{
 		Offers: []*model.ClobLine{

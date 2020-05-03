@@ -130,11 +130,14 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 					pendingChildOrderCancels := false
 					for _, co := range po.childOrders {
-						pendingChildOrderCancels = true
-						orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
-							OrderId: co.Id,
-							Listing: underlyingListings[co.ListingId],
-						})
+						if !co.IsTerminalState() {
+							pendingChildOrderCancels = true
+							orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
+								OrderId: co.Id,
+								Listing: underlyingListings[co.ListingId],
+							})
+						}
+
 					}
 
 					if !pendingChildOrderCancels {
