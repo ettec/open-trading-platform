@@ -145,16 +145,24 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 			case q, ok := <-quoteStream.GetStream():
 
 				if ok {
-					if po.GetTargetStatus() == model.OrderStatus_LIVE && !q.StreamInterrupted {
 
-						if po.GetSide() == model.Side_BUY {
-							om.submitBuyOrders(q)
-						} else {
-							om.submitSellOrders(q)
+					if !q.StreamInterrupted {
+
+						if po.GetAvailableQty().GreaterThan(zero) {
+							if po.GetSide() == model.Side_BUY {
+								om.submitBuyOrders(q)
+							} else {
+								om.submitSellOrders(q)
+							}
+
 						}
 
-						po.SetStatus(model.OrderStatus_LIVE)
+						if po.GetTargetStatus() == model.OrderStatus_LIVE  {
+							po.SetStatus(model.OrderStatus_LIVE)
+						}
 					}
+
+
 				} else {
 					om.errLog.Printf("quote chan unexpectedly closed, cancelling order")
 					om.Cancel()
@@ -217,21 +225,7 @@ func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTr
 
 	}
 
-	if om.managedOrder.GetAvailableQty().GreaterThan(zero) {
-		var l int32
-		greatestQty := zero
-		for listingId, qnt := range listingIdToQnt {
-			if qnt.GreaterThan(greatestQty) {
-				l = listingId
-				greatestQty = qnt
-			}
-		}
 
-		if greatestQty.GreaterThan(zero) {
-			om.sendChildOrder(side, om.managedOrder.GetAvailableQty(), om.managedOrder.Price, l)
-		}
-
-	}
 
 }
 

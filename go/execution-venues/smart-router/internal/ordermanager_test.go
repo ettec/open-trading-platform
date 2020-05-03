@@ -61,7 +61,7 @@ func Test_submitSellOrders(t *testing.T) {
 
 	om.submitSellOrders(q)
 
-	if len(client.params) != 5 {
+	if len(client.params) != 4 {
 		t.FailNow()
 	}
 
@@ -97,14 +97,7 @@ func Test_submitSellOrders(t *testing.T) {
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
 		},
-		{
-			OrderSide:     model.Side_SELL,
-			Quantity:      model.IasD(10),
-			Price:         model.IasD(120),
-			Listing:       listing1,
-			OriginatorId:  evId,
-			OriginatorRef: orderId,
-		},
+
 	}
 
 	for idx, params := range client.params {
@@ -149,7 +142,7 @@ func Test_submitBuyOrders(t *testing.T) {
 
 	om.submitBuyOrders(q)
 
-	if len(client.params) != 5 {
+	if len(client.params) != 4 {
 		t.FailNow()
 	}
 
@@ -182,14 +175,6 @@ func Test_submitBuyOrders(t *testing.T) {
 			Quantity:      model.IasD(10),
 			Price:         model.IasD(130),
 			Listing:       listing2,
-			OriginatorId:  evId,
-			OriginatorRef: orderId,
-		},
-		{
-			OrderSide:     model.Side_BUY,
-			Quantity:      model.IasD(10),
-			Price:         model.IasD(130),
-			Listing:       listing1,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
 		},
@@ -366,63 +351,84 @@ func (t testChildOrderStream) GetStream() <-chan *model.Order {
 func (t testChildOrderStream) Close() {
 }
 
+func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
+	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order := setupOrderManager(t)
+
+	q := &model.ClobQuote{
+		Offers: []*model.ClobLine{
+			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
+
+		},
+	}
+
+	quoteChan <- q
+
+	params1 := &executionvenue.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(10),
+		Price:         model.IasD(100),
+		Listing:       listing1,
+		OriginatorId:  evId,
+		OriginatorRef: order.Id,
+	}
+
+	pd := <-paramsChan
+
+	if !areParamsEqual(params1, pd.params) {
+		t.FailNow()
+	}
+
+	q = &model.ClobQuote{
+		Offers: []*model.ClobLine{
+			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
+
+		},
+	}
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+
+	quoteChan <- q
+
+
+	params2 := &executionvenue.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(10),
+		Price:         model.IasD(110),
+		Listing:       listing2,
+		OriginatorId:  evId,
+		OriginatorRef: order.Id,
+	}
+
+	pd = <-paramsChan
+
+
+	if !areParamsEqual(params2, pd.params) {
+		t.FailNow()
+	}
+
+
+	order = <-orderUpdates
+
+
+	if !order.GetExposedQuantity().Equal(model.IasD(20)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+
+}
+
 func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
 	*testOmClient) {
-	evId := "testev"
-
-	srListing := &model.Listing{Id: 3}
-
-	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
-	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
-	underlyingListings := []*model.Listing{
-		listing1,
-		listing2,
-	}
-
-	done := make(chan string)
-	quoteChan := make(chan *model.ClobQuote)
-	childOrderUpdates := make(chan *model.Order)
-
-	orderUpdates := make(chan model.Order)
-
-	paramsChan := make(chan paramsAndId)
-	cancelParamsChan := make(chan *executionvenue.CancelOrderParams)
-
-	testExecVenue := &testOmClient{paramsChan, cancelParamsChan}
-
-	params := &executionvenue.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity:      model.IasD(20),
-		Price:         model.IasD(130),
-		Listing:       srListing,
-		OriginatorId:  "oi",
-		OriginatorRef: "or",
-	}
-
-	uniqueId, err := uuid.NewUUID()
-
-	if err != nil {
-		t.FailNow()
-	}
-
-	om, err := NewOrderManagerFromParams(uniqueId.String(), params, evId, func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
-		go func() {
-			listingGroupsIn <- underlyingListings
-		}()
-	}, done, func(o *model.Order) error {
-		orderUpdates <- *o
-		return nil
-	}, testExecVenue, testQuoteStream{stream: quoteChan}, &testChildOrderStream{childOrderUpdates})
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	order := <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_LIVE {
-		t.FailNow()
-	}
+	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order := setupOrderManager(t)
 
 	q := &model.ClobQuote{
 		Offers: []*model.ClobLine{
@@ -503,6 +509,65 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 		t.FailNow()
 	}
 	return done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue
+}
+
+func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote, chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *orderManager, model.Order) {
+	evId := "testev"
+
+	srListing := &model.Listing{Id: 3}
+
+	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
+	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
+	underlyingListings := []*model.Listing{
+		listing1,
+		listing2,
+	}
+
+	done := make(chan string)
+	quoteChan := make(chan *model.ClobQuote)
+	childOrderUpdates := make(chan *model.Order)
+
+	orderUpdates := make(chan model.Order)
+
+	paramsChan := make(chan paramsAndId)
+	cancelParamsChan := make(chan *executionvenue.CancelOrderParams)
+
+	testExecVenue := &testOmClient{paramsChan, cancelParamsChan}
+
+	params := &executionvenue.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(20),
+		Price:         model.IasD(130),
+		Listing:       srListing,
+		OriginatorId:  "oi",
+		OriginatorRef: "or",
+	}
+
+	uniqueId, err := uuid.NewUUID()
+
+	if err != nil {
+		t.FailNow()
+	}
+
+	om, err := NewOrderManagerFromParams(uniqueId.String(), params, evId, func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+		go func() {
+			listingGroupsIn <- underlyingListings
+		}()
+	}, done, func(o *model.Order) error {
+		orderUpdates <- *o
+		return nil
+	}, testExecVenue, testQuoteStream{stream: quoteChan}, &testChildOrderStream{childOrderUpdates})
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	order := <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+	return evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order
 }
 
 func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionvenue.CreateAndRouteOrderParams) bool {
