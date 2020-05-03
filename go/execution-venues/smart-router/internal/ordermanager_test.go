@@ -97,7 +97,6 @@ func Test_submitSellOrders(t *testing.T) {
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
 		},
-
 	}
 
 	for idx, params := range client.params {
@@ -351,13 +350,47 @@ func (t testChildOrderStream) GetStream() <-chan *model.Order {
 func (t testChildOrderStream) Close() {
 }
 
-func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
-	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order := setupOrderManager(t)
+func Test_cancelOfUnexposedOrder(t *testing.T) {
+	_, _, _, _, quoteChan, _, orderUpdates, _, _, om, order, _ := setupOrderManager(t)
+
+	q := &model.ClobQuote{
+		Offers: []*model.ClobLine{
+		},
+	}
+
+	quoteChan <- q
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+	om.Cancel()
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+}
+
+
+func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
+	evId, listing1, _, _, quoteChan, childOrderUpdates, orderUpdates, paramsChan, _, om, order, cancelParams := setupOrderManager(t)
 
 	q := &model.ClobQuote{
 		Offers: []*model.ClobLine{
 			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
-
 		},
 	}
 
@@ -381,7 +414,6 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 	q = &model.ClobQuote{
 		Offers: []*model.ClobLine{
 			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
-
 		},
 	}
 
@@ -395,9 +427,109 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 		t.Fatalf("parent order should be only partly exposed")
 	}
 
+	childOrderUpdates <- &model.Order{
+		Id:                pd.id,
+		Version:           1,
+		Status:            model.OrderStatus_LIVE,
+		RemainingQuantity: IasD(10),
+	}
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+
+	om.Cancel()
+
+	cp := <- cancelParams
+
+	if cp.OrderId != pd.id {
+		t.FailNow()
+	}
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_CANCELLED || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+
+	childOrderUpdates <- &model.Order{
+		Id:                pd.id,
+		Version:           2,
+		Status:            model.OrderStatus_CANCELLED,
+		RemainingQuantity: IasD(10),
+	}
+
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.Fatalf("parent order should be not be exposed")
+	}
+
+
+
+
+}
+
+func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
+	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order,_ := setupOrderManager(t)
+
+	q := &model.ClobQuote{
+		Offers: []*model.ClobLine{
+			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
+		},
+	}
 
 	quoteChan <- q
 
+	params1 := &executionvenue.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(10),
+		Price:         model.IasD(100),
+		Listing:       listing1,
+		OriginatorId:  evId,
+		OriginatorRef: order.Id,
+	}
+
+	pd := <-paramsChan
+
+	if !areParamsEqual(params1, pd.params) {
+		t.FailNow()
+	}
+
+	q = &model.ClobQuote{
+		Offers: []*model.ClobLine{
+			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
+		},
+	}
+
+	order = <-orderUpdates
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+	quoteChan <- q
 
 	params2 := &executionvenue.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
@@ -410,25 +542,21 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 	pd = <-paramsChan
 
-
 	if !areParamsEqual(params2, pd.params) {
 		t.FailNow()
 	}
 
-
 	order = <-orderUpdates
-
 
 	if !order.GetExposedQuantity().Equal(model.IasD(20)) {
 		t.Fatalf("parent order should be only partly exposed")
 	}
 
-
 }
 
 func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
 	*testOmClient) {
-	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order := setupOrderManager(t)
+	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order,_ := setupOrderManager(t)
 
 	q := &model.ClobQuote{
 		Offers: []*model.ClobLine{
@@ -511,7 +639,9 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 	return done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue
 }
 
-func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote, chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *orderManager, model.Order) {
+func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
+	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *orderManager, model.Order,
+	chan *executionvenue.CancelOrderParams) {
 	evId := "testev"
 
 	srListing := &model.Listing{Id: 3}
@@ -567,7 +697,7 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 	if order.GetTargetStatus() != model.OrderStatus_LIVE {
 		t.FailNow()
 	}
-	return evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order
+	return evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order, cancelParamsChan
 }
 
 func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionvenue.CreateAndRouteOrderParams) bool {

@@ -127,12 +127,20 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 				if !po.IsTerminalState() {
 					om.log.Print("cancelling order")
 					po.SetTargetStatus(model.OrderStatus_CANCELLED)
+
+					pendingChildOrderCancels := false
 					for _, co := range po.childOrders {
+						pendingChildOrderCancels = true
 						orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
 							OrderId: co.Id,
 							Listing: underlyingListings[co.ListingId],
 						})
 					}
+
+					if !pendingChildOrderCancels {
+						po.SetStatus(model.OrderStatus_CANCELLED)
+					}
+
 				}
 			case co, ok := <-childOrderStream.GetStream():
 				if ok {
@@ -157,11 +165,10 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 						}
 
-						if po.GetTargetStatus() == model.OrderStatus_LIVE  {
+						if po.GetTargetStatus() == model.OrderStatus_LIVE {
 							po.SetStatus(model.OrderStatus_LIVE)
 						}
 					}
-
 
 				} else {
 					om.errLog.Printf("quote chan unexpectedly closed, cancelling order")
@@ -224,8 +231,6 @@ func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTr
 		}
 
 	}
-
-
 
 }
 

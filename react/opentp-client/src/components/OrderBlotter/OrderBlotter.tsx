@@ -67,7 +67,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     <Column key="price" id="price" name="Price" cellRenderer={this.renderPrice} />,
     <Column key="status" id="status" name="Status" cellRenderer={this.renderStatus} />,
     <Column key="targetStatus" id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
-    <Column key="remQty" id="remQty" name="Rem Qty" cellRenderer={this.renderRemQty} />,
+    <Column key="remQty" id="remQty" name="Rem. Qty" cellRenderer={this.renderRemQty} />,
+    <Column key="exposedQty" id="exposedQty" name="Exp. Qty" cellRenderer={this.renderExpQty} />,
     <Column key="tradedQty" id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
     <Column key="avgPrice" id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
     <Column key="listingId" id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
@@ -272,6 +273,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   private renderPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.price}</Cell>;
   private renderListingId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.listingId}</Cell>;
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
+  private renderExpQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.exposedQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
   private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
   private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;

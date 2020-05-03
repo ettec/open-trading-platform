@@ -11,6 +11,7 @@ export class OrderView {
     price?: number;
     listingId: number;
     remainingQuantity?: number;
+    exposedQuantity?: number;
     tradedQuantity?: number;
     avgTradePrice?: number;
     status: string;
@@ -55,6 +56,7 @@ export class OrderView {
       this.price = toNumber(order.getPrice())
       this.listingId = order.getListingid()
       this.remainingQuantity = toNumber(order.getRemainingquantity())
+      this.exposedQuantity = toNumber(order.getExposedquantity())
       this.tradedQuantity = toNumber(order.getTradedquantity())
       this.avgTradePrice = toNumber(order.getAvgtradeprice())
       this.status = this.getStatusString(order.getStatus())
