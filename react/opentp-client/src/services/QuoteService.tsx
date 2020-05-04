@@ -48,9 +48,7 @@ export default class QuoteServiceImpl implements QuoteService {
 
       let keys = this.listingIdToQuote.keys()
       for (var listingId of keys) {
-        let listing = this.listingService.GetListingImmediate(listingId)
-
-        if (listing) {
+        this.listingService.GetListing(listingId, (listing: Listing)=> {
           let subscription = new MdsSubscribeRequest()
           subscription.setListing(listing)
           subscription.setSubscriberid(Login.grpcContext.appInstanceId)
@@ -60,7 +58,8 @@ export default class QuoteServiceImpl implements QuoteService {
               logError("market data subscription failed:" + err)
             }
           })
-        }
+        })
+
 
       }
 
