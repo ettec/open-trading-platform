@@ -1,4 +1,4 @@
-import { Colors, Menu,   } from '@blueprintjs/core';
+import { Colors, Menu, } from '@blueprintjs/core';
 import { Cell, Column, IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import * as grpcWeb from 'grpc-web';
@@ -22,6 +22,7 @@ import { TabNode, Model, Actions } from 'flexlayout-react';
 import { OrderView } from './OrderView';
 import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from '../TableView/TableLayout';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
+import { OrderService } from '../../services/OrderService';
 
 interface OrderBlotterState {
 
@@ -36,19 +37,20 @@ interface OrderBlotterProps {
   model: Model,
   orderContext: OrderContext
   listingService: ListingService
+  orderService: OrderService
 }
 
 
 
 export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
 
-  viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
+
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   listingService: ListingService
 
   orderMap: Map<string, number>;
 
-  stream?: grpcWeb.ClientReadableStream<Order>;
+  orderService: OrderService
 
   id: string;
 
@@ -113,23 +115,12 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     );
 
     this.listingService = props.listingService
+    this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
 
 
-
-
-    let after = new Timestamp()
-
-    let startOfLocalDay = new Date()
-    startOfLocalDay.setHours(0, 0, 0, 0)
-    after.setSeconds(Math.floor(startOfLocalDay.getTime() / 1000))
-    let sto = new SubscribeToOrders()
-    sto.setAfter(after)
-
-    this.stream = this.viewService.subscribe(sto, Login.grpcContext.grpcMetaData)
-
-    this.stream.on('data', (order: Order) => {
+    this.orderService.SubscribeToAllParentOrders((order: Order) => {
 
       let idx = this.orderMap.get(order.getId())
       let orderView: OrderView
@@ -173,31 +164,20 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
                 orders: this.state.orders
               }
             }
-  
+
             this.setState(blotterState);
           }
-         
+
         })
       }
 
-    });
-    this.stream.on('status', (status: grpcWeb.Status) => {
-      if (status.metadata) {
-        logDebug('Received metadata:' + status.metadata);
-      }
-    });
-    this.stream.on('error', (err: grpcWeb.Error) => {
-      logGrpcError('Error subscribing to orders:', err)
-    });
-    this.stream.on('end', () => {
-      logDebug('stream end signal received');
-    });
 
+    })
 
   }
 
 
-  cancelOrder = ( orders: Array<Order>) => {
+  cancelOrder = (orders: Array<Order>) => {
 
     orders.forEach(order => {
 
@@ -220,7 +200,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   }
 
-  modifyOrder = ( data: Order) => {
+  modifyOrder = (data: Order) => {
     if (data) {
       window.alert("modify order" + data.getId());
     }
@@ -393,14 +373,14 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     return (
 
-    
-      
+
+
       <Menu  >
-        <Menu.Item  text="Cancel Order" onClick={() => this.cancelOrder( cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
-              </Menu.Item>
+        <Menu.Item text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
+        </Menu.Item>
         <Menu.Divider />
         <Menu.Item text="Modify Order">
-              </Menu.Item>
+        </Menu.Item>
       </Menu>
     );
   };

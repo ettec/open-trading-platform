@@ -10,6 +10,8 @@ import OrderTicket from './OrderTicket';
 import OrderBlotter from "./OrderBlotter/OrderBlotter";
 import { Order, Side } from "../serverapi/order_pb";
 import ListingServiceImpl, { ListingService } from "../services/ListingService";
+import OrderServiceImpl, { OrderService } from "../services/OrderService";
+
 
 export default class Container extends React.Component {
 
@@ -108,6 +110,7 @@ export default class Container extends React.Component {
     readonly configKey: string = "open-oms-config";
 
     quoteService: QuoteService
+    orderService: OrderService
     listingService: ListingService
     listingContext: ListingContext
     orderContext: OrderContext
@@ -120,6 +123,7 @@ export default class Container extends React.Component {
 
         this.listingService = new ListingServiceImpl()
         this.quoteService = new QuoteServiceImpl(this.listingService)
+        this.orderService = new OrderServiceImpl()
         this.listingContext = new ListingContext()
         this.orderContext = new OrderContext()
         this.ticketController = new TicketController()
@@ -139,7 +143,7 @@ export default class Container extends React.Component {
             var component = node.getComponent();
 
             if (component === "order-blotter") {
-                return <OrderBlotter listingService={this.listingService} orderContext={this.orderContext} node={node} model={this.state} />;
+                return <OrderBlotter listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
