@@ -22,6 +22,7 @@ interface ChildOrderBlotterState {
     columnWidths: Array<number>
     orders: OrderView[];
     selectedOrders: Map<string, Order>,
+    width: number
 }
 
 
@@ -45,6 +46,7 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
             columnWidths: new Array<number>(),
             orders: new Array<OrderView>(10),
             selectedOrders: new Map<string, Order>(),
+            width: 0
         }
 
     }
@@ -55,6 +57,7 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
                 icon="bring-data"
                 onClose={this.handleClose}
                 title={this.state.parentOrder?.getId()}
+                style={{minWidth:this.state.width}}
                 {...this.state}
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >
@@ -140,13 +143,13 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
     }
 
 
-    open(parentOrder : Order, orders: Array<Order>, columns: Array<JSX.Element>, columnWidths: Array<number>) {
+    open(parentOrder : Order, orders: Array<Order>, columns: Array<JSX.Element>, columnWidths: Array<number>, width: number) {
 
 
         let ordersView = new Array<OrderView>()
 
         for( let order of orders ) {
-            ordersView.push(new OrderView(order))
+                ordersView.push(new OrderView(order))
         }
 
         let state = 
@@ -158,6 +161,7 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
             columnWidths: columnWidths,
             orders: ordersView,
             selectedOrders: new Map<string, Order>(),
+            width: width
         }
        
         this.setState(state)

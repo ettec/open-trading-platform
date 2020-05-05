@@ -28,6 +28,7 @@ interface OrderBlotterState {
   selectedOrders: Map<string, Order>
   columns: Array<JSX.Element>
   columnWidths: Array<number>
+
 }
 
 interface OrderBlotterProps {
@@ -94,7 +95,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
       orders: view,
       selectedOrders: new Map<string, Order>(),
       columns: defaultCols,
-      columnWidths: defaultColWidths
+      columnWidths: defaultColWidths,
     }
 
     this.state = blotterState;
@@ -177,6 +178,10 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   }
 
+  
+
+  
+
 
   showChildOrders = (orders: IterableIterator<Order>) => {
 
@@ -184,7 +189,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     
     let childOrders = this.orderService.GetChildOrders(order.value)
 
-    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.state.columns, this.state.columnWidths)
+    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.state.columns, this.state.columnWidths,
+      window.innerWidth)
 
   }
 

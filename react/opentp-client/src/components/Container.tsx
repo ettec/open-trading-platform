@@ -229,9 +229,9 @@ export class ChildOrderBlotterController {
     }
 
     openBlotter(parentOrder : Order, orders: Array<Order>, 
-        columns: Array<JSX.Element>, columnWidths: Array<number>) {
+        columns: Array<JSX.Element>, columnWidths: Array<number>, width:number) {
         if (this.childOrderBlotter) {
-            this.childOrderBlotter.open(parentOrder,orders, columns, columnWidths)
+            this.childOrderBlotter.open(parentOrder,orders, columns, columnWidths, width)
         }
     }
 
