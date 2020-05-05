@@ -11,6 +11,7 @@ import Login from '../components/Login';
 
 export interface OrderService {
     SubscribeToAllParentOrders(onUpdate : (order : Order)=>void) : void
+    GetChildOrders(order : Order) : Array<Order>
 }
 
 
@@ -67,5 +68,12 @@ export interface OrderService {
             onUpdate(order)
         }
     }
+
+    GetChildOrders(order : Order) : Array<Order> {
+        let result = new Array<Order>()
+        result.push(order)
+        return result
+    }
+
 
 }

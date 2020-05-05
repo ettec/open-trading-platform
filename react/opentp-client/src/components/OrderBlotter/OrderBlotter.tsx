@@ -1,28 +1,26 @@
-import { Colors, Menu, } from '@blueprintjs/core';
+import { Colors, Menu } from '@blueprintjs/core';
 import { Cell, Column, IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
+import { Actions, Model, TabNode } from 'flexlayout-react';
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
 import v4 from 'uuid';
-import { logDebug, logGrpcError } from '../../logging/Logging';
+import { logGrpcError } from '../../logging/Logging';
 import { Empty } from '../../serverapi/common_pb';
-import { OrderId, CancelOrderParams } from '../../serverapi/executionvenue_pb';
-import { Order, OrderStatus } from '../../serverapi/order_pb';
-import { Timestamp } from '../../serverapi/modelcommon_pb';
-import { ViewServiceClient } from '../../serverapi/View-serviceServiceClientPb';
-import { SubscribeToOrders } from '../../serverapi/view-service_pb';
-import { ListingService } from '../../services/ListingService';
-
-import { OrderContext } from '../Container';
-import Login from '../Login';
-import { Listing } from '../../serverapi/listing_pb';
-import '../TableView/TableCommon.css';
-import '../TableView/TableLayout.ts';
-import { TabNode, Model, Actions } from 'flexlayout-react';
-import { OrderView } from './OrderView';
-import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from '../TableView/TableLayout';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
+import { CancelOrderParams } from '../../serverapi/executionvenue_pb';
+import { Listing } from '../../serverapi/listing_pb';
+import { Order, OrderStatus } from '../../serverapi/order_pb';
+import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
+import { OrderContext, ChildOrderBlotterController } from '../Container';
+import Login from '../Login';
+import '../TableView/TableCommon.css';
+import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from '../TableView/TableLayout';
+import '../TableView/TableLayout.ts';
+import { OrderView } from './OrderView';
+import Blotter from './Blotter';
+
 
 interface OrderBlotterState {
 
@@ -38,6 +36,7 @@ interface OrderBlotterProps {
   orderContext: OrderContext
   listingService: ListingService
   orderService: OrderService
+  childOrderBlotterController: ChildOrderBlotterController
 }
 
 
@@ -47,6 +46,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   listingService: ListingService
+  childOrderBlotterController: ChildOrderBlotterController
 
   orderMap: Map<string, number>;
 
@@ -115,6 +115,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
     );
 
     this.listingService = props.listingService
+    this.childOrderBlotterController = props.childOrderBlotterController
     this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
@@ -176,6 +177,16 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
   }
 
+
+  showChildOrders = (orders: IterableIterator<Order>) => {
+
+    let order = orders.next()
+    
+    let childOrders = this.orderService.GetChildOrders(order.value)
+
+    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.state.columns, this.state.columnWidths)
+
+  }
 
   cancelOrder = (orders: Array<Order>) => {
 
@@ -313,11 +324,8 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
 
-
-
-
   private onSelection = (selectedRegions: IRegion[]) => {
-    let newSelectedOrders: Map<string, Order> = this.getSelectedOrdersFromRegions(selectedRegions);
+    let newSelectedOrders: Map<string, Order> = Blotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
     let blotterState: OrderBlotterState = {
       ...this.state, ...{
@@ -329,47 +337,10 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   }
 
 
-  private getSelectedOrdersFromRegions(selectedRegions: IRegion[]): Map<string, Order> {
-    let newSelectedOrders: Map<string, Order> = new Map<string, Order>();
-    for (let region of selectedRegions) {
-      let firstRowIdx: number;
-      let lastRowIdx: number;
-      if (region.rows) {
-        firstRowIdx = region.rows[0];
-        lastRowIdx = region.rows[1];
-      }
-      else {
-        firstRowIdx = 0;
-        lastRowIdx = this.state.orders.length - 1;
-      }
-      for (let i = firstRowIdx; i <= lastRowIdx; i++) {
-        let orderView = this.state.orders[i];
-        if (orderView) {
-          newSelectedOrders.set(orderView.getOrder().getId(), orderView.getOrder());
-        }
-      }
-    }
-    return newSelectedOrders;
-  }
-
-
-  cancelleableOrders(orders: Map<string, Order>): Array<Order> {
-
-    let result = new Array<Order>()
-    for (let order of orders.values()) {
-      if (order.getStatus() === OrderStatus.LIVE) {
-        result.push(order)
-      }
-    }
-
-    return result
-  }
-
-
   private renderBodyContextMenu = (context: IMenuContext) => {
 
-    let selectedOrders = this.getSelectedOrdersFromRegions(context.getRegions())
-    let cancelleableOrders = this.cancelleableOrders(selectedOrders)
+    let selectedOrders = Blotter.getSelectedOrdersFromRegions(context.getRegions(), this.state.orders)
+    let cancelleableOrders = Blotter.cancelleableOrders(selectedOrders)
 
     return (
 
@@ -380,6 +351,9 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item text="Modify Order">
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item text="View Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.size === 0} >
         </Menu.Item>
       </Menu>
     );
