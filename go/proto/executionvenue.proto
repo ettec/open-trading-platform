@@ -12,6 +12,9 @@ message CreateAndRouteOrderParams{
     model.Listing listing = 4;
     string originatorId = 5;
     string originatorRef =6;
+    string rootOriginatorId = 7;
+    string rootOriginatorRef =8;
+ 
 }
 
 message OrderId {

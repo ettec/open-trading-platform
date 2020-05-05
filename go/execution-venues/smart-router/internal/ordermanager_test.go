@@ -42,7 +42,8 @@ func Test_submitSellOrders(t *testing.T) {
 		},
 	}
 
-	mo := newParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od"))
+	mo := newParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
+		"ri", "rr"))
 
 	listing1 := &model.Listing{Id: 1}
 	listing2 := &model.Listing{Id: 2}
@@ -123,7 +124,8 @@ func Test_submitBuyOrders(t *testing.T) {
 		},
 	}
 
-	mo := newParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0, "oi", "od"))
+	mo := newParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+		"oi", "od", "ri", "rr"))
 
 	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
 	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}

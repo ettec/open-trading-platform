@@ -122,7 +122,9 @@ proto.executionvenue.CreateAndRouteOrderParams.toObject = function(includeInstan
     price: (f = msg.getPrice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     listing: (f = msg.getListing()) && listing_pb.Listing.toObject(includeInstance, f),
     originatorid: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    originatorref: jspb.Message.getFieldWithDefault(msg, 6, "")
+    originatorref: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    rootoriginatorid: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    rootoriginatorref: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -185,6 +187,14 @@ proto.executionvenue.CreateAndRouteOrderParams.deserializeBinaryFromReader = fun
     case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setOriginatorref(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRootoriginatorid(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRootoriginatorref(value);
       break;
     default:
       reader.skipField();
@@ -257,6 +267,20 @@ proto.executionvenue.CreateAndRouteOrderParams.serializeBinaryToWriter = functio
   if (f.length > 0) {
     writer.writeString(
       6,
+      f
+    );
+  }
+  f = message.getRootoriginatorid();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getRootoriginatorref();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
       f
     );
   }
@@ -425,6 +449,42 @@ proto.executionvenue.CreateAndRouteOrderParams.prototype.getOriginatorref = func
  */
 proto.executionvenue.CreateAndRouteOrderParams.prototype.setOriginatorref = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional string rootOriginatorId = 7;
+ * @return {string}
+ */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.getRootoriginatorid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.executionvenue.CreateAndRouteOrderParams} returns this
+ */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.setRootoriginatorid = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string rootOriginatorRef = 8;
+ * @return {string}
+ */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.getRootoriginatorref = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.executionvenue.CreateAndRouteOrderParams} returns this
+ */
+proto.executionvenue.CreateAndRouteOrderParams.prototype.setRootoriginatorref = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
 };
 
 

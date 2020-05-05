@@ -39,12 +39,15 @@ message Order{
     string ownerId=13;
     string originatorId=14;
     string originatorRef=15;
-    Decimal64 lastExecQuantity = 16;
-    Decimal64 lastExecPrice = 17;
-    string    lastExecId = 18;
-    Decimal64 exposedQuantity=20;
-    string errorMessage=21;
-    repeated Ref childOrdersRefs = 22;
+    string rootOriginatorId=16;
+    string rootOriginatorRef=17;
+    Decimal64 lastExecQuantity = 18;
+    Decimal64 lastExecPrice = 19;
+    string    lastExecId = 20;
+    Decimal64 exposedQuantity=21;
+    string errorMessage=22;
+    repeated Ref childOrdersRefs = 23;
+
 }
 
 

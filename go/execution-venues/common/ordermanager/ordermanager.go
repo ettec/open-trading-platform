@@ -245,7 +245,8 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 	id := uniqueId.String()
 
 	order := model.NewOrder(id, params.OrderSide, params.Quantity,
-		params.Price, params.Listing.Id, params.OriginatorId, params.OriginatorRef)
+		params.Price, params.Listing.Id, params.OriginatorId, params.OriginatorRef,
+		params.RootOriginatorId, params.RootOriginatorRef)
 
 	order.SetTargetStatus(model.OrderStatus_LIVE)
 

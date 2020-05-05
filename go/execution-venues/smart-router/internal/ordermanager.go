@@ -70,7 +70,7 @@ func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
 	quoteStream marketdata.MdsQuoteStream, childOrderStream ChildOrderStream) (*orderManager, error) {
 
 	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
-		params.OriginatorId, params.OriginatorRef)
+		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
 	err := initialState.SetTargetStatus(model.OrderStatus_LIVE)
 	if err != nil {
 		return nil, err
@@ -256,7 +256,7 @@ func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal6
 	}
 
 	childOrder := model.NewOrder(id.OrderId, params.OrderSide, params.Quantity, params.Price, params.Listing.GetId(),
-		om.Id, om.GetManagedOrderId())
+		om.Id, om.GetManagedOrderId(), om.managedOrder.RootOriginatorId, om.managedOrder.RootOriginatorRef)
 
 	om.managedOrder.onChildOrderUpdate(childOrder)
 

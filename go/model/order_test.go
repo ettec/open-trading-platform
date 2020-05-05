@@ -18,7 +18,8 @@ func TestOrder_UpdateTradedQuantityOnPendingLiveOrder(t *testing.T) {
 
 func TestOrder_AddExecution(t *testing.T) {
 
-	o := NewOrder("a", Side_BUY, IasD(40), IasD(20), 1, "oid", "oref")
+	o := NewOrder("a", Side_BUY, IasD(40), IasD(20), 1, "oid", "oref",
+		"roid", "rref")
 
 	lastPrice := Decimal64{
 		Mantissa: 10,

@@ -29,6 +29,12 @@ export class CreateAndRouteOrderParams extends jspb.Message {
   getOriginatorref(): string;
   setOriginatorref(value: string): void;
 
+  getRootoriginatorid(): string;
+  setRootoriginatorid(value: string): void;
+
+  getRootoriginatorref(): string;
+  setRootoriginatorref(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateAndRouteOrderParams.AsObject;
   static toObject(includeInstance: boolean, msg: CreateAndRouteOrderParams): CreateAndRouteOrderParams.AsObject;
@@ -45,6 +51,8 @@ export namespace CreateAndRouteOrderParams {
     listing?: listing_pb.Listing.AsObject,
     originatorid: string,
     originatorref: string,
+    rootoriginatorid: string,
+    rootoriginatorref: string,
   }
 }
 

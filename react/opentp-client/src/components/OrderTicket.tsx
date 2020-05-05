@@ -339,8 +339,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
       logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " + 
       croParams.getListing()?.getMarketsymbol())
-      croParams.setOriginatorid("desk")
-      croParams.setOriginatorref(uuid())
+      let origId = "desk"
+      croParams.setOriginatorid(origId)
+      let ref = uuid()
+      croParams.setOriginatorref(ref)
+      croParams.setRootoriginatorid(origId)
+      croParams.setRootoriginatorid(ref)
 
 
       this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,

@@ -227,7 +227,7 @@ proto.model.Ref.prototype.setId = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.model.Order.repeatedFields_ = [22];
+proto.model.Order.repeatedFields_ = [23];
 
 
 
@@ -275,11 +275,13 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     ownerid: jspb.Message.getFieldWithDefault(msg, 13, ""),
     originatorid: jspb.Message.getFieldWithDefault(msg, 14, ""),
     originatorref: jspb.Message.getFieldWithDefault(msg, 15, ""),
+    rootoriginatorid: jspb.Message.getFieldWithDefault(msg, 16, ""),
+    rootoriginatorref: jspb.Message.getFieldWithDefault(msg, 17, ""),
     lastexecquantity: (f = msg.getLastexecquantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
     lastexecprice: (f = msg.getLastexecprice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
-    lastexecid: jspb.Message.getFieldWithDefault(msg, 18, ""),
+    lastexecid: jspb.Message.getFieldWithDefault(msg, 20, ""),
     exposedquantity: (f = msg.getExposedquantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
-    errormessage: jspb.Message.getFieldWithDefault(msg, 21, ""),
+    errormessage: jspb.Message.getFieldWithDefault(msg, 22, ""),
     childordersrefsList: jspb.Message.toObjectList(msg.getChildordersrefsList(),
     proto.model.Ref.toObject, includeInstance)
   };
@@ -385,29 +387,37 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
       msg.setOriginatorref(value);
       break;
     case 16:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRootoriginatorid(value);
+      break;
+    case 17:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRootoriginatorref(value);
+      break;
+    case 18:
       var value = new modelcommon_pb.Decimal64;
       reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setLastexecquantity(value);
       break;
-    case 17:
+    case 19:
       var value = new modelcommon_pb.Decimal64;
       reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setLastexecprice(value);
       break;
-    case 18:
+    case 20:
       var value = /** @type {string} */ (reader.readString());
       msg.setLastexecid(value);
       break;
-    case 20:
+    case 21:
       var value = new modelcommon_pb.Decimal64;
       reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
       msg.setExposedquantity(value);
       break;
-    case 21:
+    case 22:
       var value = /** @type {string} */ (reader.readString());
       msg.setErrormessage(value);
       break;
-    case 22:
+    case 23:
       var value = new proto.model.Ref;
       reader.readMessage(value,proto.model.Ref.deserializeBinaryFromReader);
       msg.addChildordersrefs(value);
@@ -552,10 +562,24 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getRootoriginatorid();
+  if (f.length > 0) {
+    writer.writeString(
+      16,
+      f
+    );
+  }
+  f = message.getRootoriginatorref();
+  if (f.length > 0) {
+    writer.writeString(
+      17,
+      f
+    );
+  }
   f = message.getLastexecquantity();
   if (f != null) {
     writer.writeMessage(
-      16,
+      18,
       f,
       modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
@@ -563,7 +587,7 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
   f = message.getLastexecprice();
   if (f != null) {
     writer.writeMessage(
-      17,
+      19,
       f,
       modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
@@ -571,14 +595,14 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
   f = message.getLastexecid();
   if (f.length > 0) {
     writer.writeString(
-      18,
+      20,
       f
     );
   }
   f = message.getExposedquantity();
   if (f != null) {
     writer.writeMessage(
-      20,
+      21,
       f,
       modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
@@ -586,14 +610,14 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
   f = message.getErrormessage();
   if (f.length > 0) {
     writer.writeString(
-      21,
+      22,
       f
     );
   }
   f = message.getChildordersrefsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      22,
+      23,
       f,
       proto.model.Ref.serializeBinaryToWriter
     );
@@ -986,12 +1010,48 @@ proto.model.Order.prototype.setOriginatorref = function(value) {
 
 
 /**
- * optional Decimal64 lastExecQuantity = 16;
+ * optional string rootOriginatorId = 16;
+ * @return {string}
+ */
+proto.model.Order.prototype.getRootoriginatorid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setRootoriginatorid = function(value) {
+  return jspb.Message.setProto3StringField(this, 16, value);
+};
+
+
+/**
+ * optional string rootOriginatorRef = 17;
+ * @return {string}
+ */
+proto.model.Order.prototype.getRootoriginatorref = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 17, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setRootoriginatorref = function(value) {
+  return jspb.Message.setProto3StringField(this, 17, value);
+};
+
+
+/**
+ * optional Decimal64 lastExecQuantity = 18;
  * @return {?proto.model.Decimal64}
  */
 proto.model.Order.prototype.getLastexecquantity = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 16));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 18));
 };
 
 
@@ -1000,7 +1060,7 @@ proto.model.Order.prototype.getLastexecquantity = function() {
  * @return {!proto.model.Order} returns this
 */
 proto.model.Order.prototype.setLastexecquantity = function(value) {
-  return jspb.Message.setWrapperField(this, 16, value);
+  return jspb.Message.setWrapperField(this, 18, value);
 };
 
 
@@ -1018,17 +1078,17 @@ proto.model.Order.prototype.clearLastexecquantity = function() {
  * @return {boolean}
  */
 proto.model.Order.prototype.hasLastexecquantity = function() {
-  return jspb.Message.getField(this, 16) != null;
+  return jspb.Message.getField(this, 18) != null;
 };
 
 
 /**
- * optional Decimal64 lastExecPrice = 17;
+ * optional Decimal64 lastExecPrice = 19;
  * @return {?proto.model.Decimal64}
  */
 proto.model.Order.prototype.getLastexecprice = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 17));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 19));
 };
 
 
@@ -1037,7 +1097,7 @@ proto.model.Order.prototype.getLastexecprice = function() {
  * @return {!proto.model.Order} returns this
 */
 proto.model.Order.prototype.setLastexecprice = function(value) {
-  return jspb.Message.setWrapperField(this, 17, value);
+  return jspb.Message.setWrapperField(this, 19, value);
 };
 
 
@@ -1055,16 +1115,16 @@ proto.model.Order.prototype.clearLastexecprice = function() {
  * @return {boolean}
  */
 proto.model.Order.prototype.hasLastexecprice = function() {
-  return jspb.Message.getField(this, 17) != null;
+  return jspb.Message.getField(this, 19) != null;
 };
 
 
 /**
- * optional string lastExecId = 18;
+ * optional string lastExecId = 20;
  * @return {string}
  */
 proto.model.Order.prototype.getLastexecid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 18, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 20, ""));
 };
 
 
@@ -1073,17 +1133,17 @@ proto.model.Order.prototype.getLastexecid = function() {
  * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.setLastexecid = function(value) {
-  return jspb.Message.setProto3StringField(this, 18, value);
+  return jspb.Message.setProto3StringField(this, 20, value);
 };
 
 
 /**
- * optional Decimal64 exposedQuantity = 20;
+ * optional Decimal64 exposedQuantity = 21;
  * @return {?proto.model.Decimal64}
  */
 proto.model.Order.prototype.getExposedquantity = function() {
   return /** @type{?proto.model.Decimal64} */ (
-    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 20));
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 21));
 };
 
 
@@ -1092,7 +1152,7 @@ proto.model.Order.prototype.getExposedquantity = function() {
  * @return {!proto.model.Order} returns this
 */
 proto.model.Order.prototype.setExposedquantity = function(value) {
-  return jspb.Message.setWrapperField(this, 20, value);
+  return jspb.Message.setWrapperField(this, 21, value);
 };
 
 
@@ -1110,16 +1170,16 @@ proto.model.Order.prototype.clearExposedquantity = function() {
  * @return {boolean}
  */
 proto.model.Order.prototype.hasExposedquantity = function() {
-  return jspb.Message.getField(this, 20) != null;
+  return jspb.Message.getField(this, 21) != null;
 };
 
 
 /**
- * optional string errorMessage = 21;
+ * optional string errorMessage = 22;
  * @return {string}
  */
 proto.model.Order.prototype.getErrormessage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 21, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 22, ""));
 };
 
 
@@ -1128,17 +1188,17 @@ proto.model.Order.prototype.getErrormessage = function() {
  * @return {!proto.model.Order} returns this
  */
 proto.model.Order.prototype.setErrormessage = function(value) {
-  return jspb.Message.setProto3StringField(this, 21, value);
+  return jspb.Message.setProto3StringField(this, 22, value);
 };
 
 
 /**
- * repeated Ref childOrdersRefs = 22;
+ * repeated Ref childOrdersRefs = 23;
  * @return {!Array<!proto.model.Ref>}
  */
 proto.model.Order.prototype.getChildordersrefsList = function() {
   return /** @type{!Array<!proto.model.Ref>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.model.Ref, 22));
+    jspb.Message.getRepeatedWrapperField(this, proto.model.Ref, 23));
 };
 
 
@@ -1147,7 +1207,7 @@ proto.model.Order.prototype.getChildordersrefsList = function() {
  * @return {!proto.model.Order} returns this
 */
 proto.model.Order.prototype.setChildordersrefsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 22, value);
+  return jspb.Message.setRepeatedWrapperField(this, 23, value);
 };
 
 
@@ -1157,7 +1217,7 @@ proto.model.Order.prototype.setChildordersrefsList = function(value) {
  * @return {!proto.model.Ref}
  */
 proto.model.Order.prototype.addChildordersrefs = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 22, opt_value, proto.model.Ref, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 23, opt_value, proto.model.Ref, opt_index);
 };
 
 
