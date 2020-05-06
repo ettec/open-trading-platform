@@ -97,7 +97,7 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 				return nil, err
 			}
 			orders = append(orders, order)
-			if order.Version == args.ToVersion {
+			if order.Version >= args.ToVersion {
 				return &api.Orders{Orders: orders}, nil
 			}
 		}

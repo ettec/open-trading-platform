@@ -4,9 +4,9 @@
 package model
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
 	context "context"
 	fmt "fmt"
+	"github.com/ettec/open-trading-platform/go/model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -27,10 +27,10 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type SubscribeToOrdersWithRootOriginatorIdArgs struct {
 	After                *model.Timestamp `protobuf:"bytes,1,opt,name=after,proto3" json:"after,omitempty"`
-	RootOriginatorId     string     `protobuf:"bytes,2,opt,name=rootOriginatorId,proto3" json:"rootOriginatorId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	RootOriginatorId     string           `protobuf:"bytes,2,opt,name=rootOriginatorId,proto3" json:"rootOriginatorId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
 }
 
 func (m *SubscribeToOrdersWithRootOriginatorIdArgs) Reset() {
@@ -123,9 +123,9 @@ func (m *GetOrderHistoryArgs) GetToVersion() int32 {
 
 type Orders struct {
 	Orders               []*model.Order `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
 func (m *Orders) Reset()         { *m = Orders{} }
