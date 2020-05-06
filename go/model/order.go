@@ -126,9 +126,9 @@ func NewOrder(id string, OrderSide Side, Quantity *Decimal64, Price *Decimal64, 
 			Seconds:     now.Unix(),
 			Nanoseconds: int32(now.Nanosecond()),
 		},
-		OriginatorId:  originatorId,
-		OriginatorRef: originatorRef,
-		RootOriginatorId: rootOriginatorId,
+		OriginatorId:      originatorId,
+		OriginatorRef:     originatorRef,
+		RootOriginatorId:  rootOriginatorId,
 		RootOriginatorRef: rootOriginatorRef,
 	}
 

@@ -63,7 +63,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 	testOrder := &model.Order{
-		Version:           2,
+		Version:           1,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),
@@ -109,7 +109,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
 
 	testOrder := &model.Order{
-		Version:           4,
+		Version:           3,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),

@@ -45,7 +45,10 @@ func (om *orderManager) persistManagedOrderChanges() error {
 
 	if bytes.Compare(om.lastStoredOrder, orderAsBytes) != 0 {
 
-		om.managedOrder.Version = om.managedOrder.Version + 1
+		if om.lastStoredOrder != nil {
+			om.managedOrder.Version = om.managedOrder.Version + 1
+		}
+
 		toStore, err := proto.Marshal(om.managedOrder)
 
 		om.lastStoredOrder = toStore
@@ -255,10 +258,13 @@ func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal6
 		return
 	}
 
-	childOrder := model.NewOrder(id.OrderId, params.OrderSide, params.Quantity, params.Price, params.Listing.GetId(),
+	pendingOrder := model.NewOrder(id.OrderId, params.OrderSide, params.Quantity, params.Price, params.Listing.GetId(),
 		om.Id, om.GetManagedOrderId(), om.managedOrder.RootOriginatorId, om.managedOrder.RootOriginatorRef)
 
-	om.managedOrder.onChildOrderUpdate(childOrder)
+	// First persisted orders start at version 0, this is a placeholder until the first child order update is received
+	pendingOrder.Version = -1
+
+	om.managedOrder.onChildOrderUpdate(pendingOrder)
 
 }
 

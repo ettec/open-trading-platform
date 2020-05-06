@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/model"
-	api "github.com/ettec/open-trading-platform/go/view-service/api"
+	api "github.com/ettec/open-trading-platform/go/view-service/api/viewservice"
+
 	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
@@ -30,6 +31,51 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 type service struct {
 	orderSubscriptions sync.Map
 	kafkaBrokers       []string
+}
+
+func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeToOrdersWithRootOriginatorIdArgs, stream api.ViewService_SubscribeToOrdersWithRootOriginatorIdServer) error {
+	username, appInstanceId, err := getMetaData(stream.Context())
+
+	after := request.After
+	if after == nil {
+		after = &model.Timestamp{Seconds: time.Now().Unix()}
+	}
+
+	if err != nil {
+		return err
+	}
+
+	log.Printf("received order subscription request from app instance id:%v, user:%v", appInstanceId, username)
+
+	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
+	if !exists {
+
+		defer s.orderSubscriptions.Delete(appInstanceId)
+
+		out := make(chan *model.Order, 1000)
+
+		source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
+		go streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after, request.RootOriginatorId)
+
+		for order := range out {
+			err = stream.Send(order)
+			if err != nil {
+				errLog.Printf("closing connection as failed to send order to %v, error:%v", appInstanceId, err)
+				close(out)
+				return nil
+			}
+		}
+
+	} else {
+		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
+	}
+
+	return nil
+
+}
+
+func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.Orders, error) {
+	panic("implement me")
 }
 
 func newService() *service {
@@ -65,49 +111,8 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 	return username, appInstanceId, nil
 }
 
-func (s *service) Subscribe(request *api.SubscribeToOrders, stream api.ViewService_SubscribeServer) error {
-
-	username, appInstanceId, err := getMetaData(stream.Context())
-
-	after := request.After
-	if after == nil {
-		after = &model.Timestamp{Seconds: time.Now().Unix()}
-	}
-
-	if err != nil {
-		return err
-	}
-
-	log.Printf("received order subscription request from app instance id:%v, user:%v", appInstanceId, username)
-
-	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
-	if !exists {
-
-		defer s.orderSubscriptions.Delete(appInstanceId)
-
-		out := make(chan *model.Order, 1000)
-
-		source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
-		go streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after)
-
-		for order := range out {
-			err = stream.Send(order)
-			if err != nil {
-				errLog.Printf("closing connection as failed to send order to %v, error:%v", appInstanceId, err)
-				close(out)
-				return nil
-			}
-		}
-
-	} else {
-		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
-	}
-
-	return nil
-}
-
 func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId string,
-	out chan<- *model.Order, after *model.Timestamp) {
+	out chan<- *model.Order, after *model.Timestamp, rootOriginatorId string) {
 
 	defer reader.Close()
 
@@ -126,7 +131,7 @@ func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId s
 			return
 		}
 
-		if order.Created != nil && order.Created.After(after) {
+		if order.Created != nil && order.Created.After(after) && order.RootOriginatorId == rootOriginatorId {
 			out <- &order
 		}
 	}

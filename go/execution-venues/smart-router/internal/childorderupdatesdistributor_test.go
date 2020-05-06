@@ -1,26 +1,25 @@
 package internal
 
 import (
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
 	"github.com/ettec/open-trading-platform/go/model"
 	"testing"
 )
 
 func Test_childOrderUpdatesDistributor(t *testing.T) {
 
-	updates := make(chan orderstore.ChildOrder, 100)
+	updates := make(chan ChildOrder, 100)
 
 	d := NewChildOrderUpdatesDistributor(updates)
 
 	astream := d.NewOrderStream("a", 200)
 	bstream := d.NewOrderStream("b", 200)
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "a",
 		Child:         &model.Order{Id: "a1"},
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "b",
 		Child:         &model.Order{Id: "b1"},
 	}
@@ -39,12 +38,12 @@ func Test_childOrderUpdatesDistributor(t *testing.T) {
 
 	cstream := d.NewOrderStream("c", 200)
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "a",
 		Child:         &model.Order{Id: "a1"},
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "c",
 		Child:         &model.Order{Id: "c1"},
 	}
@@ -63,19 +62,19 @@ func Test_childOrderUpdatesDistributor(t *testing.T) {
 
 func Test_closingChildOrderStream(t *testing.T) {
 
-	updates := make(chan orderstore.ChildOrder, 100)
+	updates := make(chan ChildOrder, 100)
 
 	d := NewChildOrderUpdatesDistributor(updates)
 
 	astream := d.NewOrderStream("a", 200)
 	bstream := d.NewOrderStream("b", 200)
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "a",
 		Child:         &model.Order{Id: "a1"},
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "b",
 		Child:         &model.Order{Id: "b1"},
 	}
@@ -94,12 +93,12 @@ func Test_closingChildOrderStream(t *testing.T) {
 
 	astream.Close()
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "a",
 		Child:         &model.Order{Id: "a1"},
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "b",
 		Child:         &model.Order{Id: "b1"},
 	}
@@ -118,19 +117,19 @@ func Test_closingChildOrderStream(t *testing.T) {
 
 func Test_blockedStreamDoesNotStopOtherStreamEvents(t *testing.T) {
 
-	updates := make(chan orderstore.ChildOrder, 100)
+	updates := make(chan ChildOrder, 100)
 
 	d := NewChildOrderUpdatesDistributor(updates)
 
 	d.NewOrderStream("a", 1)
 	bstream := d.NewOrderStream("b", 1)
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "a",
 		Child:         &model.Order{Id: "a1"},
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "b",
 		Child:         &model.Order{Id: "b1"},
 	}
@@ -142,12 +141,12 @@ func Test_blockedStreamDoesNotStopOtherStreamEvents(t *testing.T) {
 		t.FailNow()
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "a",
 		Child:         &model.Order{Id: "a1"},
 	}
 
-	updates <- orderstore.ChildOrder{
+	updates <- ChildOrder{
 		ParentOrderId: "b",
 		Child:         &model.Order{Id: "b1"},
 	}

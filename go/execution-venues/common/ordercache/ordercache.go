@@ -29,8 +29,6 @@ func (oc *OrderCache) Store(order *model.Order) error {
 	existingOrder, exists := oc.cache[order.Id]
 	if exists {
 		order.Version = existingOrder.Version + 1
-	} else {
-		order.Version = 1
 	}
 
 	e := oc.store.Write(order)

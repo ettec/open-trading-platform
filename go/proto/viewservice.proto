@@ -1,0 +1,28 @@
+syntax = "proto3";
+package viewservice;
+import "modelcommon.proto";
+import "order.proto";
+
+option go_package="model";
+
+
+message SubscribeToOrdersWithRootOriginatorIdArgs {
+    model.Timestamp after = 1;
+    string rootOriginatorId = 2;
+}
+
+message GetOrderHistoryArgs {
+    string orderId = 1;
+}
+
+message Orders {
+    repeated model.Order orders =1;
+}
+
+
+service ViewService {
+    rpc SubscribeToOrdersWithRootOriginatorId(SubscribeToOrdersWithRootOriginatorIdArgs) returns (stream model.Order) {};
+    rpc GetOrderHistory(GetOrderHistoryArgs) returns (Orders){};
+
+
+}  

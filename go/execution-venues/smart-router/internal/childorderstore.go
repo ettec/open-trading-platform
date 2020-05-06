@@ -1,10 +1,12 @@
-package orderstore
+package internal
 
 import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/gogo/protobuf/proto"
 	"github.com/segmentio/kafka-go"
+	logger "log"
+	"os"
 	"time"
 )
 
@@ -17,6 +19,8 @@ type orderReader interface {
 	Close() error
 	ReadMessage(ctx context.Context) (kafka.Message, error)
 }
+
+var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func GetChildOrders(id string, kafkaBrokerUrls []string, bufferSize int) (<-chan ChildOrder, error) {
 

@@ -158,7 +158,7 @@ func main() {
 		panic(err)
 	}
 
-	childOrderUpdates, err := orderstore.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
+	childOrderUpdates, err := internal.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}

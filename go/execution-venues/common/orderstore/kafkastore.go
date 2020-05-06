@@ -21,6 +21,11 @@ type KafkaStore struct {
 	ownerId         string
 }
 
+type orderReader interface {
+	Close() error
+	ReadMessage(ctx context.Context) (kafka.Message, error)
+}
+
 func NewKafkaStore(kafkaBrokerUrls []string, ownerId string) (*KafkaStore, error) {
 
 	topic := "orders"

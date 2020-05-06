@@ -609,7 +609,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 
 	childOrderUpdates <- &model.Order{
 		Id:                child1Id,
-		Version:           1,
+		Version:           0,
 		Status:            model.OrderStatus_LIVE,
 		RemainingQuantity: IasD(10),
 	}
@@ -621,7 +621,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 
 	childOrderUpdates <- &model.Order{
 		Id:                child2Id,
-		Version:           1,
+		Version:           0,
 		Status:            model.OrderStatus_LIVE,
 		RemainingQuantity: IasD(10),
 	}

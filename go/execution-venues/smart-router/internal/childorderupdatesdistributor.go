@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 )
@@ -49,7 +48,7 @@ func (d *childOrderUpdatesDistributor) NewOrderStream(parentOrderId string, buff
 	return newChildOrderStream(parentOrderId, bufferSize, d)
 }
 
-func NewChildOrderUpdatesDistributor(updates <-chan orderstore.ChildOrder) *childOrderUpdatesDistributor {
+func NewChildOrderUpdatesDistributor(updates <-chan ChildOrder) *childOrderUpdatesDistributor {
 
 	idToChan := map[string]chan *model.Order{}
 

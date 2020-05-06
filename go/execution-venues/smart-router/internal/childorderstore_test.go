@@ -1,4 +1,4 @@
-package orderstore
+package internal
 
 import (
 	"context"
