@@ -35,14 +35,13 @@ type service struct {
 
 func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeToOrdersWithRootOriginatorIdArgs, stream api.ViewService_SubscribeToOrdersWithRootOriginatorIdServer) error {
 	username, appInstanceId, err := getMetaData(stream.Context())
+	if err != nil {
+		return err
+	}
 
 	after := request.After
 	if after == nil {
 		after = &model.Timestamp{Seconds: time.Now().Unix()}
-	}
-
-	if err != nil {
-		return err
 	}
 
 	log.Printf("received order subscription request from app instance id:%v, user:%v", appInstanceId, username)
@@ -75,7 +74,16 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 }
 
 func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.Orders, error) {
-	panic("implement me")
+	_, _, err := getMetaData(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
+	defer source.Close()
+
+	return nil, nil
+
 }
 
 func newService() *service {
