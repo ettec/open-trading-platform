@@ -73,17 +73,37 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 
 }
 
+
+
 func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.Orders, error) {
 	_, _, err := getMetaData(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
-	defer source.Close()
+	reader := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
+	defer reader.Close()
 
-	return nil, nil
+	var orders []*model.Order
+	for {
+		key, value, err := reader.ReadMessage(ctx)
+		if err != nil {
+			return nil, err
+		}
 
+		orderId := string(key)
+		if orderId == args.OrderId {
+			order := &model.Order{}
+			err = proto.Unmarshal(value, order)
+			if err != nil {
+				return nil, err
+			}
+			orders = append(orders, order)
+			if order.Version == 0 {
+				return &api.Orders{Orders: orders}, nil
+			}
+		}
+	}
 }
 
 func newService() *service {
@@ -125,7 +145,7 @@ func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId s
 	defer reader.Close()
 
 	for {
-		msg, err := reader.ReadMessage(context.Background())
+		_, value, err := reader.ReadMessage(context.Background())
 
 		if err != nil {
 			logTopicReadError(appInstanceId, topic, err)
@@ -133,7 +153,7 @@ func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId s
 		}
 
 		order := model.Order{}
-		err = proto.Unmarshal(msg, &order)
+		err = proto.Unmarshal(value, &order)
 		if err != nil {
 			logTopicReadError(appInstanceId, topic, err)
 			return

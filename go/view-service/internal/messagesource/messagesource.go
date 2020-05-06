@@ -7,7 +7,7 @@ import (
 )
 
 type Source interface {
-	ReadMessage(ctx context.Context) ([]byte, error)
+	ReadMessage(ctx context.Context) (key []byte, value []byte, err error)
 	Close() error
 }
 
@@ -28,13 +28,13 @@ func NewKafkaMessageSource(topic string, brokerUrls []string) *KafkaMessageSourc
 	return ks
 }
 
-func (k *KafkaMessageSource) ReadMessage(ctx context.Context) ([]byte, error) {
+func (k *KafkaMessageSource) ReadMessage(ctx context.Context) (key []byte, value []byte, err error) {
 	m, err := k.reader.ReadMessage(ctx)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	return m.Value, nil
+	return m.Key, m.Value, nil
 }
 
 func (k *KafkaMessageSource) Close() error {
