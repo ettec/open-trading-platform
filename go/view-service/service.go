@@ -73,8 +73,6 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 
 }
 
-
-
 func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.Orders, error) {
 	_, _, err := getMetaData(ctx)
 	if err != nil {
@@ -99,7 +97,7 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 				return nil, err
 			}
 			orders = append(orders, order)
-			if order.Version == 0 {
+			if order.Version == args.ToVersion {
 				return &api.Orders{Orders: orders}, nil
 			}
 		}
