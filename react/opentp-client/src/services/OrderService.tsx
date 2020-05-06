@@ -2,10 +2,11 @@
 
 import { Timestamp } from '../serverapi/modelcommon_pb';
 import { Order } from '../serverapi/order_pb';
-import { ViewServiceClient } from '../serverapi/View-serviceServiceClientPb';
-import { SubscribeToOrders } from '../serverapi/view-service_pb';
+
 import Stream from './impl/Stream';
 import Login from '../components/Login';
+import { ViewServiceClient } from '../serverapi/ViewserviceServiceClientPb';
+import { SubscribeToOrdersWithRootOriginatorIdArgs } from '../serverapi/viewservice_pb';
 
 
 
@@ -30,12 +31,13 @@ export interface OrderService {
         let startOfLocalDay = new Date()
         startOfLocalDay.setHours(0, 0, 0, 0)
         after.setSeconds(Math.floor(startOfLocalDay.getTime() / 1000))
-        let sto = new SubscribeToOrders()
+        let sto = new SubscribeToOrdersWithRootOriginatorIdArgs()
         sto.setAfter(after)
+        sto.setRootoriginatorid("desk")
     
         
         this.orderStream = new Stream(() => {
-            return  this.viewService.subscribe(sto, Login.grpcContext.grpcMetaData)
+            return  this.viewService.subscribeToOrdersWithRootOriginatorId(sto, Login.grpcContext.grpcMetaData)
         }, (order : Order)=> {
 
             let updateOrders = false

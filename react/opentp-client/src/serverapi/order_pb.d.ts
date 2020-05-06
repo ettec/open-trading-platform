@@ -82,12 +82,6 @@ export class Order extends jspb.Message {
   getOriginatorref(): string;
   setOriginatorref(value: string): void;
 
-  getRootoriginatorid(): string;
-  setRootoriginatorid(value: string): void;
-
-  getRootoriginatorref(): string;
-  setRootoriginatorref(value: string): void;
-
   getLastexecquantity(): modelcommon_pb.Decimal64 | undefined;
   setLastexecquantity(value?: modelcommon_pb.Decimal64): void;
   hasLastexecquantity(): boolean;
@@ -114,6 +108,12 @@ export class Order extends jspb.Message {
   clearChildordersrefsList(): void;
   addChildordersrefs(value?: Ref, index?: number): Ref;
 
+  getRootoriginatorid(): string;
+  setRootoriginatorid(value: string): void;
+
+  getRootoriginatorref(): string;
+  setRootoriginatorref(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Order.AsObject;
   static toObject(includeInstance: boolean, msg: Order): Order.AsObject;
@@ -139,14 +139,14 @@ export namespace Order {
     ownerid: string,
     originatorid: string,
     originatorref: string,
-    rootoriginatorid: string,
-    rootoriginatorref: string,
     lastexecquantity?: modelcommon_pb.Decimal64.AsObject,
     lastexecprice?: modelcommon_pb.Decimal64.AsObject,
     lastexecid: string,
     exposedquantity?: modelcommon_pb.Decimal64.AsObject,
     errormessage: string,
     childordersrefsList: Array<Ref.AsObject>,
+    rootoriginatorid: string,
+    rootoriginatorref: string,
   }
 }
 

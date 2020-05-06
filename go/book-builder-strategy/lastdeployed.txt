@@ -1,1 +1,1 @@
-192.168.1.200:5000/book-builder-strategy:20
+192.168.1.200:5000/book-builder-strategy:22
