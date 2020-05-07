@@ -6,7 +6,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/model"
 	api "github.com/ettec/open-trading-platform/go/view-service/api/viewservice"
-
 	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
@@ -33,6 +32,13 @@ type service struct {
 	kafkaBrokers       []string
 }
 
+type orderAndWriteTime struct {
+	order     *model.Order
+	writeTime time.Time
+}
+
+const maxInitialOrderConflationInterval = 500 * time.Millisecond
+
 func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeToOrdersWithRootOriginatorIdArgs, stream api.ViewService_SubscribeToOrdersWithRootOriginatorIdServer) error {
 	username, appInstanceId, err := getMetaData(stream.Context())
 	if err != nil {
@@ -44,25 +50,21 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 		after = &model.Timestamp{Seconds: time.Now().Unix()}
 	}
 
-	log.Printf("received order subscription request from app instance id:%v, user:%v", appInstanceId, username)
+	log.Printf("subscribe to orders from app instance id:%v, user:%v, args:%v", appInstanceId, username, request)
 
 	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
 	if !exists {
 
 		defer s.orderSubscriptions.Delete(appInstanceId)
 
-		out := make(chan *model.Order, 1000)
+		out := make(chan orderAndWriteTime, 1000)
 
 		source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
 		go streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after, request.RootOriginatorId)
 
-		for order := range out {
-			err = stream.Send(order)
-			if err != nil {
-				errLog.Printf("closing connection as failed to send order to %v, error:%v", appInstanceId, err)
-				close(out)
-				return nil
-			}
+		err := sendUpdates(out, stream.Send)
+		if err != nil {
+			return err
 		}
 
 	} else {
@@ -71,6 +73,92 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 
 	return nil
 
+}
+
+func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) error {
+
+	firstOrder := true
+	startTime := time.Time{}
+	conflatedOrders := map[string]*model.Order{}
+	conflatingInitialOrderState := true
+
+	ticker := time.NewTicker(maxInitialOrderConflationInterval)
+	tickerChan := ticker.C
+	var lastReceivedTime time.Time
+	var lastReceivedOrder *orderAndWriteTime
+
+	for {
+
+		select {
+		case oat, ok := <-out:
+			if !ok {
+				close(out)
+				return nil
+			}
+
+			if conflatingInitialOrderState {
+
+				if firstOrder {
+					firstOrder = false
+					startTime = time.Now()
+				}
+
+				lastReceivedOrder = &oat
+				lastReceivedTime = time.Now()
+
+				conflatedOrders[oat.order.Id] = oat.order
+
+				conflatingInitialOrderState = conflatingOrders(startTime, lastReceivedOrder, lastReceivedTime)
+
+				if !conflatingInitialOrderState {
+					err := sendConflatedOrders(out, send, conflatedOrders)
+					if err != nil {
+						return err
+					}
+				}
+
+				continue
+			}
+
+			err := send(oat.order)
+			if err != nil {
+				close(out)
+				return fmt.Errorf("failed to send order, closing connection, error:%v", err)
+			}
+		case <-tickerChan:
+			conflatingInitialOrderState = conflatingOrders(startTime, lastReceivedOrder, lastReceivedTime)
+			if !conflatingInitialOrderState {
+				ticker.Stop()
+				err := sendConflatedOrders(out, send, conflatedOrders)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+}
+
+func sendConflatedOrders(out chan orderAndWriteTime, send func(*model.Order) error, conflatedOrders map[string]*model.Order) error {
+	for id, order := range conflatedOrders {
+		err := send(order)
+		if err != nil {
+			close(out)
+			return fmt.Errorf("failed to send order, closing connection, error:%v", err)
+		}
+		delete(conflatedOrders, id)
+	}
+
+	return nil
+}
+
+func conflatingOrders(startTime time.Time, lastReceivedOrder *orderAndWriteTime, lastReceivedTime time.Time) bool {
+	if lastReceivedOrder == nil {
+		return true
+	}
+	now := time.Now()
+
+	return lastReceivedOrder.writeTime.Before(startTime) && now.Sub(lastReceivedTime) < maxInitialOrderConflationInterval
 }
 
 func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.Orders, error) {
@@ -84,7 +172,7 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 
 	var orders []*model.Order
 	for {
-		key, value, err := reader.ReadMessage(ctx)
+		key, value, _, err := reader.ReadMessage(ctx)
 		if err != nil {
 			return nil, err
 		}
@@ -138,27 +226,30 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 }
 
 func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId string,
-	out chan<- *model.Order, after *model.Timestamp, rootOriginatorId string) {
+	out chan<- orderAndWriteTime, after *model.Timestamp, rootOriginatorId string) {
 
 	defer reader.Close()
 
 	for {
-		_, value, err := reader.ReadMessage(context.Background())
+		_, value, writeTime, err := reader.ReadMessage(context.Background())
 
 		if err != nil {
 			logTopicReadError(appInstanceId, topic, err)
 			return
 		}
 
-		order := model.Order{}
-		err = proto.Unmarshal(value, &order)
+		order := &model.Order{}
+		err = proto.Unmarshal(value, order)
 		if err != nil {
 			logTopicReadError(appInstanceId, topic, err)
 			return
 		}
 
 		if order.Created != nil && order.Created.After(after) && order.RootOriginatorId == rootOriginatorId {
-			out <- &order
+			out <- orderAndWriteTime{
+				order:     order,
+				writeTime: writeTime,
+			}
 		}
 	}
 }

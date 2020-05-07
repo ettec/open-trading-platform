@@ -344,7 +344,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       let ref = uuid()
       croParams.setOriginatorref(ref)
       croParams.setRootoriginatorid(origId)
-      croParams.setRootoriginatorid(ref)
+      croParams.setRootoriginatorref(ref)
 
 
       this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,

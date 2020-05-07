@@ -9,7 +9,7 @@ import { ListingId } from "../serverapi/static-data-service_pb";
 
 export interface ListingService {
 
-  GetListingImmediate(listingId: number): Listing | null
+  GetListingImmediate(listingId: number): Listing | undefined
 
   GetListing(listingId: number, listener: (
     response: Listing) => void): void
@@ -42,9 +42,9 @@ export default class ListingServiceImpl implements ListingService {
   }
 
 
-  GetListingImmediate(listingId: number): Listing | null {
+  GetListingImmediate(listingId: number): Listing | undefined {
     if (listingId <= 0) {
-      return null
+      return 
     }
 
     let listing = this.listingIdToListing.get(listingId)
@@ -52,7 +52,7 @@ export default class ListingServiceImpl implements ListingService {
       return listing
     }
 
-    return null
+    return 
   }
 
 

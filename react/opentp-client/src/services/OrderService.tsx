@@ -35,7 +35,7 @@ export interface OrderService {
         sto.setAfter(after)
         sto.setRootoriginatorid("desk")
     
-        
+    
         this.orderStream = new Stream(() => {
             return  this.viewService.subscribeToOrdersWithRootOriginatorId(sto, Login.grpcContext.grpcMetaData)
         }, (order : Order)=> {
