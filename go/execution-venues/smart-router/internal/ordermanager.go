@@ -242,13 +242,13 @@ func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTr
 
 func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listingId int32) {
 	params := &api.CreateAndRouteOrderParams{
-		OrderSide:     side,
-		Quantity:      quantity,
-		Price:         price,
-		Listing:       om.underlyingListings[listingId],
-		OriginatorId:  om.Id,
-		OriginatorRef: om.GetManagedOrderId(),
-		RootOriginatorId: om.managedOrder.RootOriginatorId,
+		OrderSide:         side,
+		Quantity:          quantity,
+		Price:             price,
+		Listing:           om.underlyingListings[listingId],
+		OriginatorId:      om.Id,
+		OriginatorRef:     om.GetManagedOrderId(),
+		RootOriginatorId:  om.managedOrder.RootOriginatorId,
 		RootOriginatorRef: om.managedOrder.RootOriginatorRef,
 	}
 
