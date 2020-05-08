@@ -2,18 +2,16 @@ import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, Numeri
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
-import {  logDebug, logError } from '../logging/Logging';
-import { CreateAndRouteOrderParams, OrderId } from '../serverapi/executionvenue_pb';
-import { Listing } from '../serverapi/listing_pb';
-import { TickSizeEntry } from '../serverapi/listing_pb';
-import { Side } from '../serverapi/order_pb';
-import { toNumber, toDecimal64 } from '../util/decimal64Conversion';
-import Login from './Login';
-import { QuoteService, QuoteListener } from '../services/QuoteService';
-import { TicketController } from "./Container";
+import { logDebug, logError } from '../logging/Logging';
 import { ClobQuote } from '../serverapi/clobquote_pb';
 import { ExecutionVenueClient } from '../serverapi/ExecutionvenueServiceClientPb';
-import uuid from 'uuid';
+import { CreateAndRouteOrderParams, OrderId } from '../serverapi/executionvenue_pb';
+import { Listing, TickSizeEntry } from '../serverapi/listing_pb';
+import { Side } from '../serverapi/order_pb';
+import { QuoteListener, QuoteService } from '../services/QuoteService';
+import { toDecimal64, toNumber } from '../util/decimal64Conversion';
+import { TicketController } from "./Container";
+import Login from './Login';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -339,12 +337,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
       logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " + 
       croParams.getListing()?.getMarketsymbol())
-      let origId = "desk"
-      croParams.setOriginatorid(origId)
-      let ref = uuid()
-      croParams.setOriginatorref(ref)
-      croParams.setRootoriginatorid(origId)
-      croParams.setRootoriginatorref(ref)
+      croParams.setOriginatorid(Login.desk)
+      croParams.setOriginatorref(Login.username)
+      croParams.setRootoriginatorid(Login.desk)
+      croParams.setRootoriginatorref(Login.username)
 
 
       this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,

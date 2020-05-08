@@ -73,6 +73,8 @@ func Test_submitSellOrders(t *testing.T) {
 		Listing:       listing1,
 		OriginatorId:  evId,
 		OriginatorRef: orderId,
+		RootOriginatorId : "ri",
+		RootOriginatorRef:  "rr",
 	},
 		{
 			OrderSide:     model.Side_SELL,
@@ -81,6 +83,8 @@ func Test_submitSellOrders(t *testing.T) {
 			Listing:       listing2,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
+			RootOriginatorId : "ri",
+			RootOriginatorRef:  "rr",
 		},
 		{
 			OrderSide:     model.Side_SELL,
@@ -89,6 +93,8 @@ func Test_submitSellOrders(t *testing.T) {
 			Listing:       listing1,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
+			RootOriginatorId : "ri",
+			RootOriginatorRef:  "rr",
 		},
 		{
 			OrderSide:     model.Side_SELL,
@@ -97,6 +103,8 @@ func Test_submitSellOrders(t *testing.T) {
 			Listing:       listing2,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
+			RootOriginatorId : "ri",
+			RootOriginatorRef:  "rr",
 		},
 	}
 
@@ -154,6 +162,8 @@ func Test_submitBuyOrders(t *testing.T) {
 		Listing:       listing1,
 		OriginatorId:  evId,
 		OriginatorRef: orderId,
+		RootOriginatorId : "ri",
+		RootOriginatorRef:  "rr",
 	},
 		{
 			OrderSide:     model.Side_BUY,
@@ -162,6 +172,8 @@ func Test_submitBuyOrders(t *testing.T) {
 			Listing:       listing2,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
+			RootOriginatorId : "ri",
+			RootOriginatorRef:  "rr",
 		},
 		{
 			OrderSide:     model.Side_BUY,
@@ -170,6 +182,8 @@ func Test_submitBuyOrders(t *testing.T) {
 			Listing:       listing1,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
+			RootOriginatorId : "ri",
+			RootOriginatorRef:  "rr",
 		},
 		{
 			OrderSide:     model.Side_BUY,
@@ -178,6 +192,8 @@ func Test_submitBuyOrders(t *testing.T) {
 			Listing:       listing2,
 			OriginatorId:  evId,
 			OriginatorRef: orderId,
+			RootOriginatorId : "ri",
+			RootOriginatorRef:  "rr",
 		},
 	}
 

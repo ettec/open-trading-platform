@@ -26,8 +26,10 @@ export interface GrcpContextData {
 export default class Login extends React.Component<Props, State> {
 
     static grpcContext : GrcpContextData
+    static username: string
+    static desk: string
 
-    username: string
+  
     appInstanceId: string
 
     constructor(props: Props) {
@@ -35,12 +37,13 @@ export default class Login extends React.Component<Props, State> {
 
         this.appInstanceId = v4();
 
-        this.username = "bert"
+        Login.username = "bert"
+        Login.desk = "Delta1"
 
         Login.grpcContext = {
             serviceUrl : 'http://192.168.1.100:32365', 
-            grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId},
-            appInstanceId : this.username + "@" + this.appInstanceId
+            grpcMetaData : {"user-name": Login.username, "app-instance-id": this.appInstanceId},
+            appInstanceId : Login.username + "@" + this.appInstanceId
         }
 
 
@@ -54,12 +57,12 @@ export default class Login extends React.Component<Props, State> {
 
       handleUserNameChange(e:any) {
         if( e.target && e.target.value) {
-            this.username = e.target.value;
+            Login.username = e.target.value;
 
             Login.grpcContext = {
                 serviceUrl : 'http://192.168.1.100:32365', 
-                grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId},
-                appInstanceId : this.username + "@" + this.appInstanceId
+                grpcMetaData : {"user-name": Login.username, "app-instance-id": this.appInstanceId},
+                appInstanceId : Login.username + "@" + this.appInstanceId
             }
 
           }
@@ -77,7 +80,7 @@ export default class Login extends React.Component<Props, State> {
         if( this.state.loggedIn ) {
             
             return (
-                <GrpcContextProvider serviceUrl='http://192.168.1.100:32365' username={this.username} appInstanceId={this.appInstanceId} >
+                <GrpcContextProvider serviceUrl='http://192.168.1.100:32365' username={Login.username} appInstanceId={this.appInstanceId} >
                     <Container ></Container>
                 </GrpcContextProvider>
             )

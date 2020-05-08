@@ -152,6 +152,9 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         }
       }
 
+      orderView.listing = this.listingService.GetListingImmediate(order.getListingid())
+
+
       this.setState(blotterState);
 
       if (!orderView.listing) {

@@ -248,6 +248,8 @@ func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal6
 		Listing:       om.underlyingListings[listingId],
 		OriginatorId:  om.Id,
 		OriginatorRef: om.GetManagedOrderId(),
+		RootOriginatorId: om.managedOrder.RootOriginatorId,
+		RootOriginatorRef: om.managedOrder.RootOriginatorRef,
 	}
 
 	id, err := om.orderRouter.CreateAndRouteOrder(context.Background(), params)

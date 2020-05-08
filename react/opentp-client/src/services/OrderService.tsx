@@ -1,12 +1,12 @@
 
 
+import Login from '../components/Login';
 import { Timestamp } from '../serverapi/modelcommon_pb';
 import { Order } from '../serverapi/order_pb';
-
-import Stream from './impl/Stream';
-import Login from '../components/Login';
 import { ViewServiceClient } from '../serverapi/ViewserviceServiceClientPb';
 import { SubscribeToOrdersWithRootOriginatorIdArgs } from '../serverapi/viewservice_pb';
+import Stream from './impl/Stream';
+
 
 
 
@@ -24,6 +24,7 @@ export interface OrderService {
     orders = new Map<string,Order>()
     listeners = new Array<(order : Order)=>void>()
 
+    childOrders = new Map<string, Set<string>>()
 
     constructor() {
         let after = new Timestamp()
@@ -33,7 +34,7 @@ export interface OrderService {
         after.setSeconds(Math.floor(startOfLocalDay.getTime() / 1000))
         let sto = new SubscribeToOrdersWithRootOriginatorIdArgs()
         sto.setAfter(after)
-        sto.setRootoriginatorid("desk")
+        sto.setRootoriginatorid(Login.desk)
     
     
         this.orderStream = new Stream(() => {
@@ -53,8 +54,21 @@ export interface OrderService {
 
             if( updateOrders ) {
                 this.orders.set(order.getId(), order)
-                for( let listener of this.listeners ) {
-                    listener(order)
+                
+
+                if (this.IsParentOrder(order)) {
+                    for( let listener of this.listeners ) {
+                        listener(order)
+                    }
+                } else {
+                    let childIds = this.childOrders.get(order.getOriginatorref())
+
+                    if (!childIds) {
+                        childIds = new Set<string>()
+                        this.childOrders.set(order.getOriginatorref(), childIds)
+                    }
+
+                    childIds.add(order.getId())
                 }
             }
 
@@ -63,17 +77,34 @@ export interface OrderService {
 
     }
 
+    IsParentOrder(order :Order ) : boolean {
+        return order.getOriginatorid() === Login.desk
+    }
+
+
     SubscribeToAllParentOrders(onUpdate : (order : Order)=>void) {
         this.listeners.push(onUpdate)
 
         for( var order of this.orders.values()) {
-            onUpdate(order)
+            if (this.IsParentOrder(order)) {
+                onUpdate(order)
+            }
         }
     }
 
     GetChildOrders(order : Order) : Array<Order> {
+
         let result = new Array<Order>()
-        result.push(order)
+        let childIds = this.childOrders.get(order.getId())
+        if (childIds) {
+            for( let id of childIds) {
+                let order = this.orders.get(id)
+                if(order) {
+                    result.push(order)
+                }
+            }
+        }
+        
         return result
     }
 
