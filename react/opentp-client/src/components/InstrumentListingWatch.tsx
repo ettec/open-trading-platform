@@ -13,7 +13,7 @@ import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
-import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from './TableView/TableLayout';
+import TableViewConfig, { getColIdsInOrder, getConfiguredColumns, reorderColumnData } from './TableView/TableLayout';
 
 
 interface InstrumentListingWatchState {
@@ -68,7 +68,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
 
     let config = this.props.node.getConfig()
 
-    let { defaultCols, defaultColWidths } = getColumnState(columns, config);
+    let [ defaultCols, defaultColWidths ] = getConfiguredColumns(columns, config);
 
     this.props.node.setEventListener("save", (p) => {
       let cols = this.state.columns

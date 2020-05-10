@@ -11,7 +11,7 @@ import Login from "./Login";
 import './TableView/TableCommon.css';
 import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
-import TableViewConfig, { getColumnState, getColIdsInOrder, reorderColumnData } from "./TableView/TableLayout";
+import TableViewConfig, { getConfiguredColumns, getColIdsInOrder, reorderColumnData } from "./TableView/TableLayout";
 import { TabNode, Actions, Model } from "flexlayout-react";
 import { ListingService } from "../services/ListingService";
 
@@ -55,7 +55,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
     let config = this.props.node.getConfig()
 
-    let { defaultCols, defaultColWidths } = getColumnState(columns, config);
+    let [ defaultCols, defaultColWidths ] = getConfiguredColumns(columns, config);
 
     this.props.node.setEventListener("save", (p) => {
       let cols = this.state.columns

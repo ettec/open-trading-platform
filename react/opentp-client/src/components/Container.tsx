@@ -12,6 +12,7 @@ import { Order, Side } from "../serverapi/order_pb";
 import ListingServiceImpl, { ListingService } from "../services/ListingService";
 import OrderServiceImpl, { OrderService } from "../services/OrderService";
 import ChildOrderBlotter from "./OrderBlotter/ChildOrderBlotter";
+import TableViewConfig from "./TableView/TableLayout";
 
 
 export default class Container extends React.Component {
@@ -229,9 +230,9 @@ export class ChildOrderBlotterController {
     }
 
     openBlotter(parentOrder : Order, orders: Array<Order>, 
-        columns: Array<JSX.Element>, columnWidths: Array<number>, width:number) {
+        columns: Array<JSX.Element>, config: TableViewConfig, width:number) {
         if (this.childOrderBlotter) {
-            this.childOrderBlotter.open(parentOrder,orders, columns, columnWidths, width)
+            this.childOrderBlotter.open(parentOrder,orders, columns, config, width)
         }
     }
 

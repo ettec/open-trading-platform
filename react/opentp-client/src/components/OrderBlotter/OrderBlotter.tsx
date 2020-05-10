@@ -16,7 +16,7 @@ import { OrderService } from '../../services/OrderService';
 import { OrderContext, ChildOrderBlotterController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
-import TableViewConfig, { getColIdsInOrder, getColumnState, reorderColumnData } from '../TableView/TableLayout';
+import TableViewConfig, { getColIdsInOrder, getConfiguredColumns, reorderColumnData } from '../TableView/TableLayout';
 import '../TableView/TableLayout.ts';
 import { OrderView } from './OrderView';
 import Blotter from './Blotter';
@@ -63,14 +63,11 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     let columns = this.getColumns()
 
-
-
-
     let view = new Array<OrderView>(50)
 
     let config = this.props.node.getConfig()
 
-    let { defaultCols, defaultColWidths } = getColumnState(columns, config);
+    let [defaultCols, defaultColWidths] = getConfiguredColumns(columns, config);
 
     let blotterState: OrderBlotterState = {
       orders: view,
@@ -173,7 +170,15 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     let childOrders = this.orderService.GetChildOrders(order.value)
 
-    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.getColumns(), this.state.columnWidths,
+    let cols = this.state.columns
+      let colOrderIds = getColIdsInOrder(cols);
+
+      let config: TableViewConfig = {
+        columnWidths: this.state.columnWidths,
+        columnOrder: colOrderIds
+      }
+
+    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.getColumns(), config,
       window.innerWidth)
 
   }

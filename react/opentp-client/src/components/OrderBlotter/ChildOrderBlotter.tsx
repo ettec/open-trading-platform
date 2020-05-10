@@ -7,6 +7,8 @@ import { ChildOrderBlotterController } from '../Container';
 import { reorderColumnData } from "../TableView/TableLayout";
 import Blotter from "./Blotter";
 import { OrderView } from "./OrderView";
+import TableViewConfig from "../TableView/TableLayout";
+import { getConfiguredColumns } from "../TableView/TableLayout";
 
 export interface ChildOrderProps {
     orderService: OrderService
@@ -29,7 +31,7 @@ interface ChildOrderBlotterState {
 export default class ChildOrderBlotter extends React.Component<ChildOrderProps, ChildOrderBlotterState> {
 
     orderService: OrderService
-    childOrderBlotterController : ChildOrderBlotterController
+    childOrderBlotterController: ChildOrderBlotterController
 
     constructor(props: ChildOrderProps) {
         super(props)
@@ -53,11 +55,11 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
 
     render() {
         return (
-            <Dialog 
+            <Dialog
                 icon="bring-data"
                 onClose={this.handleClose}
                 title={this.state.parentOrder?.getId()}
-                style={{minWidth:this.state.width}}
+                style={{ minWidth: this.state.width }}
                 {...this.state}
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >
@@ -143,27 +145,29 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
     }
 
 
-    open(parentOrder : Order, orders: Array<Order>, columns: Array<JSX.Element>, columnWidths: Array<number>, width: number) {
+    open(parentOrder: Order, orders: Array<Order>, columns: Array<JSX.Element>, config: TableViewConfig, width: number) {
 
+
+        let [cols, widths] = getConfiguredColumns(columns, config);
 
         let ordersView = new Array<OrderView>()
 
-        for( let order of orders ) {
-                ordersView.push(new OrderView(order))
+        for (let order of orders) {
+            ordersView.push(new OrderView(order))
         }
 
-        let state = 
+        let state =
         {
             parentOrder: parentOrder,
             isOpen: true,
             usePortal: false,
-            columns: columns,
-            columnWidths: columnWidths,
+            columns: cols,
+            columnWidths: widths,
             orders: ordersView,
             selectedOrders: new Map<string, Order>(),
             width: width
         }
-       
+
         this.setState(state)
     }
 

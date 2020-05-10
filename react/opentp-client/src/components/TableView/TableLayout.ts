@@ -34,7 +34,7 @@ export function getColIdsInOrder(cols: JSX.Element[]) {
     return colOrderIds;
 }
 
-export function getColumnState(columns: JSX.Element[], config: TableViewConfig) {
+export function getConfiguredColumns(columns: JSX.Element[], config: TableViewConfig) :  [Array<JSX.Element>,  Array<number>] {
     let colMap = new Map<string, JSX.Element>();
     for (let col of columns) {
         colMap.set(col.props["id"], col);
@@ -69,5 +69,5 @@ export function getColumnState(columns: JSX.Element[], config: TableViewConfig) 
             defaultColWidths.push(100);
         }
     }
-    return { defaultCols, defaultColWidths };
+    return [ defaultCols, defaultColWidths ];
 }
