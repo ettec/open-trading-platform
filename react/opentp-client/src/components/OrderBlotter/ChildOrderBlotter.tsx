@@ -4,11 +4,9 @@ import * as React from "react";
 import { Order } from '../../serverapi/order_pb';
 import { OrderService } from "../../services/OrderService";
 import { ChildOrderBlotterController } from '../Container';
-import { reorderColumnData } from "../TableView/TableLayout";
+import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
 import Blotter from "./Blotter";
 import { OrderView } from "./OrderView";
-import TableViewConfig from "../TableView/TableLayout";
-import { getConfiguredColumns } from "../TableView/TableLayout";
 
 export interface ChildOrderProps {
     orderService: OrderService
@@ -28,7 +26,7 @@ interface ChildOrderBlotterState {
 }
 
 
-export default class ChildOrderBlotter extends React.Component<ChildOrderProps, ChildOrderBlotterState> {
+export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrderBlotterState> {
 
     orderService: OrderService
     childOrderBlotterController: ChildOrderBlotterController
@@ -116,33 +114,7 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
         this.setState(blotterState)
     }
 
-    columnResized = (index: number, size: number) => {
-        let newColWidths = this.state.columnWidths.slice();
-        newColWidths[index] = size
-        let blotterState: ChildOrderBlotterState = {
-            ...this.state, ...{
-                columnWidths: newColWidths
-            }
-        }
-
-        this.setState(blotterState)
-
-    }
-
-    onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
-
-        let newCols = reorderColumnData(oldIndex, newIndex, length, this.state.columns)
-        let newColWidths = reorderColumnData(oldIndex, newIndex, length, this.state.columnWidths)
-
-        let blotterState = {
-            ...this.state, ...{
-                columns: newCols,
-                columnWidths: newColWidths
-            }
-        }
-
-        this.setState(blotterState)
-    }
+   
 
 
     open(parentOrder: Order, orders: Array<Order>, columns: Array<JSX.Element>, config: TableViewConfig, width: number) {

@@ -161,7 +161,7 @@ func conflatingOrders(startTime time.Time, lastReceivedOrder *orderAndWriteTime,
 	return lastReceivedOrder.writeTime.Before(startTime) && now.Sub(lastReceivedTime) < maxInitialOrderConflationInterval
 }
 
-func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.Orders, error) {
+func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.OrderHistory, error) {
 	_, _, err := getMetaData(ctx)
 	if err != nil {
 		return nil, err
@@ -170,9 +170,9 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 	reader := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
 	defer reader.Close()
 
-	var orders []*model.Order
+	var updates []*api.OrderUpdate
 	for {
-		key, value, _, err := reader.ReadMessage(ctx)
+		key, value, time, err := reader.ReadMessage(ctx)
 		if err != nil {
 			return nil, err
 		}
@@ -184,9 +184,13 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 			if err != nil {
 				return nil, err
 			}
-			orders = append(orders, order)
+			updates = append(updates, &api.OrderUpdate{
+				Order:                order,
+				Time:                model.NewTimeStamp(time),
+
+			})
 			if order.Version >= args.ToVersion {
-				return &api.Orders{Orders: orders}, nil
+				return &api.OrderHistory{Updates:updates}, nil
 			}
 		}
 	}

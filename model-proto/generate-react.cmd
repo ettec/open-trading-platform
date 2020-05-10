@@ -1,6 +1,6 @@
-# Usage: generate-react.cmd  <protofile name> 
+# Usage: generate-react.cmd  <protofile name without proto extension> 
 PROTOPATH=../go/proto
-PROTOFILE=$PROTOPATH/$1
+PROTOFILE=$PROTOPATH/$1.proto
 OUT=../react/opentp-client/src/serverapi
 protoc $PROTOFILE --js_out=import_style=commonjs,binary:$OUT --grpc-web_out=import_style=typescript,mode=grpcwebtext:$OUT --proto_path=$PROTOPATH:.
 protoc ./*.proto --js_out=import_style=commonjs,binary:$OUT --grpc-web_out=import_style=typescript,mode=grpcwebtext:$OUT --proto_path=$PROTOPATH:.

@@ -160,8 +160,11 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   }
 
 
+  showOrderHistory = (orders: IterableIterator<Order>) => {
 
 
+    
+  }
 
 
   showChildOrders = (orders: IterableIterator<Order>) => {
@@ -369,6 +372,9 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item text="View Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.size === 0} >
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.size === 0} >
         </Menu.Item>
       </Menu>
     );

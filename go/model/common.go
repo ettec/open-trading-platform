@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 func (t *Timestamp) After(o *Timestamp) bool {
@@ -111,4 +112,11 @@ func (m *Decimal64) LessThan(o *Decimal64) bool {
 
 func (m *Decimal64) GreaterThan(o *Decimal64) bool {
 	return m.AsDecimal().GreaterThan(o.AsDecimal())
+}
+
+func  NewTimeStamp(time time.Time) *Timestamp {
+	return &Timestamp{
+		Seconds:              time.Unix(),
+		Nanoseconds:          int32(time.Nanosecond()),
+	}
 }

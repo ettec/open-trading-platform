@@ -16,14 +16,18 @@ message GetOrderHistoryArgs {
     int32 toVersion = 2;
 }
 
-message Orders {
-    repeated model.Order orders =1;
+
+message OrderUpdate {
+     model.Order order =1;
+     model.Timestamp time = 2;
+}
+
+message OrderHistory {
+    repeated OrderUpdate updates =1;
 }
 
 
 service ViewService {
     rpc SubscribeToOrdersWithRootOriginatorId(SubscribeToOrdersWithRootOriginatorIdArgs) returns (stream model.Order) {};
-    rpc GetOrderHistory(GetOrderHistoryArgs) returns (Orders){};
-
-
+    rpc GetOrderHistory(GetOrderHistoryArgs) returns (OrderHistory){};
 }  

@@ -14,7 +14,7 @@ import * as order_pb from './order_pb';
 
 import {
   GetOrderHistoryArgs,
-  Orders,
+  OrderHistory,
   SubscribeToOrdersWithRootOriginatorIdArgs} from './viewservice_pb';
 
 export class ViewServiceClient {
@@ -56,18 +56,18 @@ export class ViewServiceClient {
   }
 
   methodInfoGetOrderHistory = new grpcWeb.AbstractClientBase.MethodInfo(
-    Orders,
+    OrderHistory,
     (request: GetOrderHistoryArgs) => {
       return request.serializeBinary();
     },
-    Orders.deserializeBinary
+    OrderHistory.deserializeBinary
   );
 
   getOrderHistory(
     request: GetOrderHistoryArgs,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: Orders) => void) {
+               response: OrderHistory) => void) {
     return this.client_.rpcCall(
       this.hostname_ +
         '/viewservice.ViewService/GetOrderHistory',

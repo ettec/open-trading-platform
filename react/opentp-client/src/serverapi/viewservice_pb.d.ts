@@ -49,23 +49,49 @@ export namespace GetOrderHistoryArgs {
   }
 }
 
-export class Orders extends jspb.Message {
-  getOrdersList(): Array<order_pb.Order>;
-  setOrdersList(value: Array<order_pb.Order>): void;
-  clearOrdersList(): void;
-  addOrders(value?: order_pb.Order, index?: number): order_pb.Order;
+export class OrderUpdate extends jspb.Message {
+  getOrder(): order_pb.Order | undefined;
+  setOrder(value?: order_pb.Order): void;
+  hasOrder(): boolean;
+  clearOrder(): void;
+
+  getTime(): modelcommon_pb.Timestamp | undefined;
+  setTime(value?: modelcommon_pb.Timestamp): void;
+  hasTime(): boolean;
+  clearTime(): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Orders.AsObject;
-  static toObject(includeInstance: boolean, msg: Orders): Orders.AsObject;
-  static serializeBinaryToWriter(message: Orders, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Orders;
-  static deserializeBinaryFromReader(message: Orders, reader: jspb.BinaryReader): Orders;
+  toObject(includeInstance?: boolean): OrderUpdate.AsObject;
+  static toObject(includeInstance: boolean, msg: OrderUpdate): OrderUpdate.AsObject;
+  static serializeBinaryToWriter(message: OrderUpdate, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrderUpdate;
+  static deserializeBinaryFromReader(message: OrderUpdate, reader: jspb.BinaryReader): OrderUpdate;
 }
 
-export namespace Orders {
+export namespace OrderUpdate {
   export type AsObject = {
-    ordersList: Array<order_pb.Order.AsObject>,
+    order?: order_pb.Order.AsObject,
+    time?: modelcommon_pb.Timestamp.AsObject,
+  }
+}
+
+export class OrderHistory extends jspb.Message {
+  getUpdatesList(): Array<OrderUpdate>;
+  setUpdatesList(value: Array<OrderUpdate>): void;
+  clearUpdatesList(): void;
+  addUpdates(value?: OrderUpdate, index?: number): OrderUpdate;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrderHistory.AsObject;
+  static toObject(includeInstance: boolean, msg: OrderHistory): OrderHistory.AsObject;
+  static serializeBinaryToWriter(message: OrderHistory, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrderHistory;
+  static deserializeBinaryFromReader(message: OrderHistory, reader: jspb.BinaryReader): OrderHistory;
+}
+
+export namespace OrderHistory {
+  export type AsObject = {
+    updatesList: Array<OrderUpdate.AsObject>,
   }
 }
 
