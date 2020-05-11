@@ -4,10 +4,10 @@ import * as React from "react";
 import { Order } from '../../serverapi/order_pb';
 import { OrderService } from "../../services/OrderService";
 import { ChildOrderBlotterController } from '../Container';
-import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
 import OrderBlotter from "./OrderBlotter";
 import { OrderView } from "./OrderView";
 import { ListingService } from '../../services/ListingService';
+import { TableViewConfig, getConfiguredColumns } from '../TableView/TableView';
 
 export interface ChildOrderProps {
     orderService: OrderService
@@ -107,7 +107,7 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
 
 
     private onSelection = (selectedRegions: IRegion[]) => {
-        let newSelectedOrders: Array<Order> = OrderBlotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
+        let newSelectedOrders: Array<Order> = this.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
         let blotterState: ChildOrderBlotterState = {
             ...this.state, ...{

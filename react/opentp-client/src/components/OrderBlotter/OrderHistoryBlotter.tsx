@@ -5,13 +5,12 @@ import * as React from "react";
 import { Timestamp } from '../../serverapi/modelcommon_pb';
 import { Order } from '../../serverapi/order_pb';
 import { OrderHistory } from '../../serverapi/viewservice_pb';
+import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from '../Container';
-import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
+import  { getConfiguredColumns, TableViewConfig } from "../TableView/TableView";
 import OrderBlotter from "./OrderBlotter";
 import { OrderView } from "./OrderView";
-import { ListingService } from '../../services/ListingService';
-import { ViewServiceClient } from '../../serverapi/ViewserviceServiceClientPb';
 
 export interface OrderHistoryBlotterProps {
     orderService: OrderService
@@ -100,8 +99,6 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
 
             let newViews = new Array<OrderUpdateView>()
             for (let update of history.getUpdatesList()) {
-
-                console.log("update:" + update)
 
                 let order = update.getOrder()
                 let time = update.getTime()

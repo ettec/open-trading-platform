@@ -3,18 +3,19 @@ import FlexLayout, { Model, TabNode } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React from 'react';
 import { Listing } from "../serverapi/listing_pb";
-import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
-import InstrumentListingWatch from "./InstrumentListingWatch";
-import MarketDepth from './MarketDepth';
-import OrderTicket from './OrderTicket';
-import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
 import { Order, Side } from "../serverapi/order_pb";
 import ListingServiceImpl, { ListingService } from "../services/ListingService";
 import OrderServiceImpl, { OrderService } from "../services/OrderService";
+import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
+import Executions from "./Executions";
+import InstrumentListingWatch from "./InstrumentListingWatch";
+import MarketDepth from './MarketDepth';
 import ChildOrderBlotter from "./OrderBlotter/ChildOrderBlotter";
-import TableViewConfig from "./TableView/TableLayout";
 import OrderHistoryBlotter from "./OrderBlotter/OrderHistoryBlotter";
-import { OrderHistory } from "../serverapi/viewservice_pb";
+import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
+import OrderTicket from './OrderTicket';
+import { TableViewConfig } from "./TableView/TableView";
+
 
 
 export default class Container extends React.Component {
@@ -121,6 +122,7 @@ export default class Container extends React.Component {
     ticketController: TicketController
     childOrderBlotterController : ChildOrderBlotterController
     orderHistoryBlotterController : OrderHistoryBlotterController
+    executionsController : ExecutionsController
     
 
 
@@ -136,6 +138,7 @@ export default class Container extends React.Component {
         this.ticketController = new TicketController()
         this.childOrderBlotterController = new ChildOrderBlotterController()
         this.orderHistoryBlotterController = new OrderHistoryBlotterController()
+        this.executionsController = new ExecutionsController()
 
         let layoutString: string | null = localStorage.getItem(this.configKey);
 
@@ -152,7 +155,7 @@ export default class Container extends React.Component {
             var component = node.getComponent();
 
             if (component === "order-blotter") {
-                return <OrderBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
+                return <OrderBlotter executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
@@ -204,6 +207,7 @@ export default class Container extends React.Component {
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
                 <ChildOrderBlotter childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
                 <OrderHistoryBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
+                <Executions executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
             </div>
 
             <div className="contents">
@@ -226,6 +230,22 @@ export default class Container extends React.Component {
 
 }
 
+
+export class ExecutionsController {
+
+    private executions?: Executions;
+
+    setView(executions: Executions) {
+        this.executions = executions
+    }
+
+    open(order : Order, width:number) {
+        if (this.executions) {
+            this.executions.open(order,  width)
+        }
+    }
+
+}
 
 export class OrderHistoryBlotterController {
 

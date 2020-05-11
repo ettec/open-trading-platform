@@ -13,11 +13,10 @@ import { Listing } from '../../serverapi/listing_pb';
 import { Order } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
-import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController } from '../Container';
+import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
-import TableViewConfig, { getColIdsInOrder, getConfiguredColumns } from '../TableView/TableLayout';
-import '../TableView/TableLayout.ts';
+import { getColIdsInOrder, getConfiguredColumns, TableViewConfig } from '../TableView/TableView';
 import OrderBlotter from './OrderBlotter';
 import { OrderView } from './OrderView';
 
@@ -39,6 +38,7 @@ interface ParentOrderBlotterProps {
   orderService: OrderService
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
+  executionsController: ExecutionsController
 }
 
 
@@ -50,6 +50,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
   listingService: ListingService
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
+  executionsController: ExecutionsController 
 
   orderMap: Map<string, number>;
 
@@ -98,6 +99,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     this.listingService = props.listingService
     this.childOrderBlotterController = props.childOrderBlotterController
     this.orderHistoryBlotterController = props.orderHistoryBlotterController 
+    this.executionsController = props.executionsController
     this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
@@ -178,6 +180,12 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
       window.innerWidth)
   }
 
+  showExecutions = (orders: IterableIterator<Order>) => {
+    let order = orders.next()      
+    this.executionsController.open(order.value, 
+      window.innerWidth)
+  }
+
 
   showChildOrders = (orders: IterableIterator<Order>) => {
 
@@ -248,7 +256,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
 
   private onSelection = (selectedRegions: IRegion[]) => {
-    let newSelectedOrders: Array< Order> = OrderBlotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
+    let newSelectedOrders: Array< Order> = this.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
     let blotterState: ParentOrderBlotterState = {
       ...this.state, ...{
@@ -262,7 +270,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
   private renderBodyContextMenu = (context: IMenuContext) => {
 
-    let selectedOrders = OrderBlotter.getSelectedOrdersFromRegions(context.getRegions(), this.state.orders)
+    let selectedOrders = this.getSelectedOrdersFromRegions(context.getRegions(), this.state.orders)
     let cancelleableOrders = OrderBlotter.cancelleableOrders(selectedOrders)
 
     return (
@@ -278,6 +286,9 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.length === 0} >
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item text="Executions" onClick={() => this.showExecutions(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
       </Menu>
     );

@@ -13,7 +13,7 @@ import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
-import TableViewConfig, { getColIdsInOrder, getConfiguredColumns, reorderColumnData } from './TableView/TableLayout';
+import  { getColIdsInOrder, getConfiguredColumns, reorderColumnData, TableViewConfig } from './TableView/TableView';
 
 
 interface InstrumentListingWatchState {

@@ -11,7 +11,7 @@ import Login from "./Login";
 import './TableView/TableCommon.css';
 import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
-import TableViewConfig, { getConfiguredColumns, getColIdsInOrder, reorderColumnData } from "./TableView/TableLayout";
+import  { getConfiguredColumns, getColIdsInOrder, reorderColumnData, TableViewConfig } from "./TableView/TableView";
 import { TabNode, Actions, Model } from "flexlayout-react";
 import { ListingService } from "../services/ListingService";
 

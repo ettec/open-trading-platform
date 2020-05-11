@@ -4,8 +4,7 @@ import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import '../TableView/TableCommon.css';
-import { reorderColumnData } from '../TableView/TableLayout';
-import '../TableView/TableLayout.ts';
+import TableView from '../TableView/TableView';
 import { OrderView } from './OrderView';
 
 
@@ -17,7 +16,7 @@ export interface OrderBlotterState {
 }
 
 
-export default class OrderBlotter<P,S extends OrderBlotterState >  extends React.Component<P, S>{
+export default class OrderBlotter<P, S extends OrderBlotterState> extends TableView<P, S>{
 
   getColumns() {
     return [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
@@ -101,41 +100,15 @@ export default class OrderBlotter<P,S extends OrderBlotterState >  extends React
 
 
 
-  columnResized = (index: number, size: number) => {
-    let newColWidths = this.state.columnWidths.slice();
-    newColWidths[index] = size
-    let blotterState = {
-        ...this.state, ...{
-            columnWidths: newColWidths
-        }
-    }
-
-    this.setState(blotterState)
-
-}
-
-onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
-
-    let newCols = reorderColumnData(oldIndex, newIndex, length, this.state.columns)
-    let newColWidths = reorderColumnData(oldIndex, newIndex, length, this.state.columnWidths)
-
-    let blotterState = {
-        ...this.state, ...{
-            columns: newCols,
-            columnWidths: newColWidths
-        }
-    }
-
-    this.setState(blotterState)
-}
 
 
-static getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderView[]): Array<Order> {
-    let newSelectedOrders: Array< Order> = new Array<Order>();
 
-    let selectedOrderArray: Array<OrderView> = OrderBlotter.getSelectedItems(selectedRegions, orders);
+  getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderView[]): Array<Order> {
+    let newSelectedOrders: Array<Order> = new Array<Order>();
 
-    for( let orderView of selectedOrderArray ) {
+    let selectedOrderArray: Array<OrderView> = this.getSelectedItems(selectedRegions, orders);
+
+    for (let orderView of selectedOrderArray) {
       newSelectedOrders.push(orderView.getOrder())
     }
 
@@ -144,30 +117,8 @@ static getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderVie
   }
 
 
-  private static getSelectedItems<T>(selectedRegions: IRegion[], items: T[]) {
-    let selectedOrderArray: Array<T> = new Array<T>();
-    for (let region of selectedRegions) {
-      let firstRowIdx: number;
-      let lastRowIdx: number;
-      if (region.rows) {
-        firstRowIdx = region.rows[0];
-        lastRowIdx = region.rows[1];
-      }
-      else {
-        firstRowIdx = 0;
-        lastRowIdx = items.length - 1;
-      }
-      for (let i = firstRowIdx; i <= lastRowIdx; i++) {
-        let item = items[i];
-        if (item) {
-          selectedOrderArray.push(item);
-        }
-      }
-    }
-    return selectedOrderArray;
-  }
 
-  static cancelleableOrders(orders: Array< Order>): Array<Order> {
+  static cancelleableOrders(orders: Array<Order>): Array<Order> {
 
     let result = new Array<Order>()
     for (let order of orders) {
