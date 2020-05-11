@@ -5,7 +5,7 @@ import { Order } from '../../serverapi/order_pb';
 import { OrderService } from "../../services/OrderService";
 import { ChildOrderBlotterController } from '../Container';
 import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
-import Blotter from "./Blotter";
+import OrderBlotter from "./OrderBlotter";
 import { OrderView } from "./OrderView";
 import { ListingService } from '../../services/ListingService';
 
@@ -28,7 +28,7 @@ interface ChildOrderBlotterState {
 }
 
 
-export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrderBlotterState> {
+export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, ChildOrderBlotterState> {
 
     orderService: OrderService
     listingService: ListingService
@@ -107,7 +107,7 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
 
 
     private onSelection = (selectedRegions: IRegion[]) => {
-        let newSelectedOrders: Array<Order> = Blotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
+        let newSelectedOrders: Array<Order> = OrderBlotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
         let blotterState: ChildOrderBlotterState = {
             ...this.state, ...{

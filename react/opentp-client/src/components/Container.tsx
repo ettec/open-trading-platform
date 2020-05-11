@@ -7,7 +7,7 @@ import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
 import InstrumentListingWatch from "./InstrumentListingWatch";
 import MarketDepth from './MarketDepth';
 import OrderTicket from './OrderTicket';
-import OrderBlotter from "./OrderBlotter/OrderBlotter";
+import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
 import { Order, Side } from "../serverapi/order_pb";
 import ListingServiceImpl, { ListingService } from "../services/ListingService";
 import OrderServiceImpl, { OrderService } from "../services/OrderService";

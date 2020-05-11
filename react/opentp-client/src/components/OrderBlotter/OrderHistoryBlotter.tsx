@@ -8,7 +8,7 @@ import { OrderHistory } from '../../serverapi/viewservice_pb';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from '../Container';
 import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
-import Blotter from "./Blotter";
+import OrderBlotter from "./OrderBlotter";
 import { OrderView } from "./OrderView";
 import { ListingService } from '../../services/ListingService';
 import { ViewServiceClient } from '../../serverapi/ViewserviceServiceClientPb';
@@ -31,7 +31,7 @@ interface OrderHistoryBlotterState {
 }
 
 
-export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProps, OrderHistoryBlotterState> {
+export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotterProps, OrderHistoryBlotterState> {
 
     orderService: OrderService
     listingService: ListingService
