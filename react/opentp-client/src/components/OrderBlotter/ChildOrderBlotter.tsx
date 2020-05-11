@@ -7,9 +7,11 @@ import { ChildOrderBlotterController } from '../Container';
 import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
 import Blotter from "./Blotter";
 import { OrderView } from "./OrderView";
+import { ListingService } from '../../services/ListingService';
 
 export interface ChildOrderProps {
     orderService: OrderService
+    listingService: ListingService
     childOrderBlotterController: ChildOrderBlotterController
 }
 
@@ -29,12 +31,14 @@ interface ChildOrderBlotterState {
 export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrderBlotterState> {
 
     orderService: OrderService
+    listingService: ListingService
     childOrderBlotterController: ChildOrderBlotterController
 
     constructor(props: ChildOrderProps) {
         super(props)
 
         this.orderService = props.orderService
+        this.listingService = props.listingService
         this.childOrderBlotterController = props.childOrderBlotterController
 
         this.childOrderBlotterController.setBlotter(this)
@@ -116,21 +120,21 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
 
    
 
+    open(parentOrder: Order, orders: Array<Order>,  config: TableViewConfig, width: number) {
 
-    open(parentOrder: Order, orders: Array<Order>, columns: Array<JSX.Element>, config: TableViewConfig, width: number) {
 
-
-        let [cols, widths] = getConfiguredColumns(columns, config);
-
-        let newCols = new Array<JSX.Element>()
-        for( let col of cols) {
-            newCols.push(React.cloneElement(col))
-        }
+        let [cols, widths] = getConfiguredColumns(this.getColumns(), config);
 
         let ordersView = new Array<OrderView>()
 
         for (let order of orders) {
-            ordersView.push(new OrderView(order))
+            let view = new OrderView(order)
+            let listing = this.listingService.GetListingImmediate(order.getListingid())
+            if(listing) {
+                view.listing = listing
+            }
+
+            ordersView.push(view)
         }
 
         let state =
@@ -138,7 +142,7 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
             parentOrder: parentOrder,
             isOpen: true,
             usePortal: false,
-            columns: newCols,
+            columns: cols,
             columnWidths: widths,
             orders: ordersView,
             selectedOrders: new Array<Order>(),

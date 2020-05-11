@@ -202,7 +202,7 @@ export default class Container extends React.Component {
             </div>
             <div>
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
-                <ChildOrderBlotter childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService}></ChildOrderBlotter>
+                <ChildOrderBlotter childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
                 <OrderHistoryBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService}></OrderHistoryBlotter>
             </div>
 
@@ -254,9 +254,9 @@ export class ChildOrderBlotterController {
     }
 
     openBlotter(parentOrder : Order, orders: Array<Order>, 
-        columns: Array<JSX.Element>, config: TableViewConfig, width:number) {
+         config: TableViewConfig, width:number) {
         if (this.childOrderBlotter) {
-            this.childOrderBlotter.open(parentOrder,orders, columns, config, width)
+            this.childOrderBlotter.open(parentOrder,orders,  config, width)
         }
     }
 

@@ -43,7 +43,7 @@ interface OrderBlotterProps {
 
 
 
-export default class OrderBlotter extends React.Component<OrderBlotterProps, OrderBlotterState> {
+export default class OrderBlotter extends Blotter<OrderBlotterProps, OrderBlotterState> {
 
 
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
@@ -193,7 +193,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         columnOrder: colOrderIds
       }
 
-    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.getColumns(), config,
+    this.childOrderBlotterController.openBlotter(order.value, childOrders,  config,
       window.innerWidth)
 
   }
@@ -229,25 +229,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
 
-  private getColumns() {
-    return [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
-    <Column key="side" id="side" name="Side" cellRenderer={this.renderSide} />,
-    <Column key="symbol" id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
-    <Column key="mic" id="mic" name="Mic" cellRenderer={this.renderMic} />,
-    <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
-    <Column key="quantity" id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
-    <Column key="price" id="price" name="Price" cellRenderer={this.renderPrice} />,
-    <Column key="status" id="status" name="Status" cellRenderer={this.renderStatus} />,
-    <Column key="targetStatus" id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
-    <Column key="remQty" id="remQty" name="Rem. Qty" cellRenderer={this.renderRemQty} />,
-    <Column key="exposedQty" id="exposedQty" name="Exp. Qty" cellRenderer={this.renderExpQty} />,
-    <Column key="tradedQty" id="tradedQty" name="Traded Qty" cellRenderer={this.renderTrdQty} />,
-    <Column key="avgPrice" id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
-    <Column key="listingId" id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
-    <Column key="created" id="created" name="Created" cellRenderer={this.renderCreated} />,
-    <Column key="placedWith" id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />
-    ];
-  }
+  
 
   public render() {
 
@@ -262,95 +244,6 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
       </div>
     );
   }
-
-  columnResized = (index: number, size: number) => {
-    let newColWidths = this.state.columnWidths.slice();
-    newColWidths[index] = size
-    let blotterState: OrderBlotterState = {
-      ...this.state, ...{
-        columnWidths: newColWidths
-      }
-    }
-
-    this.setState(blotterState)
-
-  }
-
-  onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
-
-    let newCols = reorderColumnData(oldIndex, newIndex, length, this.state.columns)
-    let newColWidths = reorderColumnData(oldIndex, newIndex, length, this.state.columnWidths)
-
-    let blotterState = {
-      ...this.state, ...{
-        columns: newCols,
-        columnWidths: newColWidths
-      }
-    }
-
-    this.setState(blotterState)
-  }
-
-  private renderId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.id}</Cell>;
-  private renderSide = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.side}</Cell>;
-  private renderQuantity = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.quantity}</Cell>;
-  private renderSymbol = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getSymbol()}</Cell>;
-  private renderMic = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getMic()}</Cell>;
-  private renderCountry = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getCountryCode()}</Cell>;
-  private renderPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.price}</Cell>;
-  private renderListingId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.listingId}</Cell>;
-  private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
-  private renderExpQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.exposedQuantity}</Cell>;
-  private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
-  private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
-  private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
-
-  private renderCreated = (row: number) => {
-    let created = Array.from(this.state.orders)[row]?.created
-
-    if (created) {
-      return <Cell>{created.toLocaleTimeString()}</Cell>
-    } else {
-      return <Cell></Cell>
-    }
-  }
-
-  private renderStatus = (row: number) => {
-    let orderView = Array.from(this.state.orders)[row]
-    let statusStyle = {}
-    if (orderView) {
-      switch (orderView.getOrder().getStatus()) {
-        case OrderStatus.LIVE:
-          statusStyle = { background: Colors.GREEN3 }
-          break
-        case OrderStatus.CANCELLED:
-          statusStyle = { background: Colors.RED3 }
-          break
-        case OrderStatus.FILLED:
-          statusStyle = { background: Colors.BLUE3 }
-          break
-      }
-    }
-
-
-
-    return <Cell style={statusStyle}>{orderView?.status}</Cell>
-  }
-
-
-  private renderTargetStatus = (row: number) => {
-    let orderView = Array.from(this.state.orders)[row]
-    let statusStyle = {}
-    if (orderView) {
-      if (orderView.getOrder().getTargetstatus() !== OrderStatus.NONE) {
-        statusStyle = { background: Colors.ORANGE3 }
-      }
-    }
-
-
-    return <Cell style={statusStyle}>{orderView?.targetStatus}</Cell>
-  }
-
 
 
 

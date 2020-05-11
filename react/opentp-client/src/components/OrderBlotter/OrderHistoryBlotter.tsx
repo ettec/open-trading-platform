@@ -17,6 +17,7 @@ export interface OrderHistoryBlotterProps {
 }
 
 interface OrderHistoryBlotterState {
+    orders: OrderView[];
     isOpen: boolean,
     usePortal: boolean
     order?: Order
@@ -46,6 +47,7 @@ export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProp
             columns: new Array<JSX.Element>(),
             columnWidths: new Array<number>(),
             updates: new Array<OrderUpdateView>(0),
+            orders: new Array<OrderView>(),
             width: 0
         }
 
