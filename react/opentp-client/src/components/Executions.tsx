@@ -127,14 +127,20 @@ export default class Executions extends TableView<ExecutionsProps, ExecutionsSta
     }
 
 
+    getTitle(order? : Order ) : string {
+        if( order ) {
+            return "Executions for order " + order.getId()
+        }
 
+        return ""
+    }
 
     render() {
         return (
             <Dialog
-                icon="bring-data"
+                icon="tick"
                 onClose={this.handleClose}
-                title={this.state.parentOrder?.getId()}
+                title={this.getTitle(this.state.parentOrder)}
                 style={{ minWidth: this.state.width }}
                 {...this.state}
                 className="bp3-dark">

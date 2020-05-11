@@ -58,12 +58,20 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
 
     }
 
+    getTitle(order? : Order ) : string {
+        if( order ) {
+            return "History of order " + order.getId()
+        }
+
+        return ""
+    }
+
     render() {
         return (
             <Dialog
                 icon="bring-data"
                 onClose={this.handleClose}
-                title={this.state.order?.getId()}
+                title={this.getTitle(this.state.order)}
                 style={{ minWidth: this.state.width }}
                 {...this.state}
                 className="bp3-dark">

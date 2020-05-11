@@ -55,12 +55,20 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
 
     }
 
+    getTitle(order? : Order ) : string {
+        if( order ) {
+            return "Children of order " + order.getId()
+        }
+
+        return ""
+    }
+
     render() {
         return (
             <Dialog
-                icon="bring-data"
+                icon="fork"
                 onClose={this.handleClose}
-                title={this.state.parentOrder?.getId()}
+                title={this.getTitle(this.state.parentOrder)}
                 style={{ minWidth: this.state.width }}
                 {...this.state}
                 className="bp3-dark">
