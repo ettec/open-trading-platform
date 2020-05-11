@@ -174,7 +174,7 @@ export default class OrderBlotter extends Blotter<OrderBlotterProps, OrderBlotte
         columnOrder: colOrderIds
       }
 
-    this.orderHistoryBlotterController.openBlotter(order.value,  this.getColumns(), config,
+    this.orderHistoryBlotterController.openBlotter(order.value, config,
       window.innerWidth)
   }
 

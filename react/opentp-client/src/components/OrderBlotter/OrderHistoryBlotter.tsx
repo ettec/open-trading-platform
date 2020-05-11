@@ -10,9 +10,12 @@ import { OrderHistoryBlotterController } from '../Container';
 import TableViewConfig, { getConfiguredColumns } from "../TableView/TableLayout";
 import Blotter from "./Blotter";
 import { OrderView } from "./OrderView";
+import { ListingService } from '../../services/ListingService';
+import { ViewServiceClient } from '../../serverapi/ViewserviceServiceClientPb';
 
 export interface OrderHistoryBlotterProps {
     orderService: OrderService
+    listingService: ListingService
     orderHistoryBlotterController: OrderHistoryBlotterController
 }
 
@@ -31,12 +34,15 @@ interface OrderHistoryBlotterState {
 export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProps, OrderHistoryBlotterState> {
 
     orderService: OrderService
+    listingService: ListingService
     orderHistoryBlotterController: OrderHistoryBlotterController
+
 
     constructor(props: OrderHistoryBlotterProps) {
         super(props)
 
         this.orderService = props.orderService
+        this.listingService = props.listingService
         this.orderHistoryBlotterController = props.orderHistoryBlotterController
 
         this.orderHistoryBlotterController.setBlotter(this)
@@ -86,28 +92,35 @@ export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProp
 
 
 
-    open(order: Order, columns: Array<JSX.Element>, config: TableViewConfig, width: number) {
+    open(order: Order, config: TableViewConfig, width: number) {
 
-        
+
 
         this.orderService.GetOrderHistory(order, (err: grpcWeb.Error, history: OrderHistory) => {
 
             let newViews = new Array<OrderUpdateView>()
-            for( let update of history.getUpdatesList()) {
+            for (let update of history.getUpdatesList()) {
 
                 console.log("update:" + update)
-                
+
                 let order = update.getOrder()
                 let time = update.getTime()
-                if( order && time ) {
-                    newViews.push(new OrderUpdateView(order,time))
+                if (order && time) {
+                    let view = new OrderUpdateView(order, time)
+                    let listing = this.listingService.GetListingImmediate(order.getListingid())
+                    if( listing ) {
+                        view.listing = listing
+                    }
+
+                    newViews.push(view)
                 }
             }
 
 
             let blotterState = {
                 ...this.state, ...{
-                    updates: newViews
+                    updates: newViews,
+                    orders: newViews
                 }
             }
 
@@ -116,7 +129,7 @@ export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProp
         })
 
 
-        let [cols, widths] = getConfiguredColumns(columns, config);
+        let [cols, widths] = getConfiguredColumns(this.getColumns(), config);
 
 
         let newWidths = new Array<number>()
@@ -137,7 +150,9 @@ export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProp
             columns: newCols,
             columnWidths: newWidths,
             updates: new Array<OrderUpdateView>(),
+            orders: new Array<OrderUpdateView>(),
             width: width
+
         }
 
         this.setState(state)
@@ -154,13 +169,13 @@ export default class OrderHistoryBlotter extends Blotter<OrderHistoryBlotterProp
 
     private renderUpdateTime = (row: number) => {
         let updateTime = Array.from(this.state.updates)[row]?.time
-    
+
         if (updateTime) {
-          return <Cell>{updateTime.toLocaleTimeString()}</Cell>
+            return <Cell>{updateTime.toLocaleTimeString()}</Cell>
         } else {
-          return <Cell></Cell>
+            return <Cell></Cell>
         }
-      }
+    }
 
 }
 
@@ -174,9 +189,6 @@ class OrderUpdateView extends OrderView {
         if (updateTime) {
             this.time = new Date(updateTime.getSeconds() * 1000)
         }
-
-
-
     }
 
 }

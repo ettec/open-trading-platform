@@ -71,3 +71,4 @@ export function getConfiguredColumns(columns: JSX.Element[], config: TableViewCo
     }
     return [ defaultCols, defaultColWidths ];
 }
+
