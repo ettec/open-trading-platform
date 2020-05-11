@@ -13,6 +13,8 @@ import ListingServiceImpl, { ListingService } from "../services/ListingService";
 import OrderServiceImpl, { OrderService } from "../services/OrderService";
 import ChildOrderBlotter from "./OrderBlotter/ChildOrderBlotter";
 import TableViewConfig from "./TableView/TableLayout";
+import OrderHistoryBlotter from "./OrderBlotter/OrderHistoryBlotter";
+import { OrderHistory } from "../serverapi/viewservice_pb";
 
 
 export default class Container extends React.Component {
@@ -118,6 +120,7 @@ export default class Container extends React.Component {
     orderContext: OrderContext
     ticketController: TicketController
     childOrderBlotterController : ChildOrderBlotterController
+    orderHistoryBlotterController : OrderHistoryBlotterController
     
 
 
@@ -132,6 +135,7 @@ export default class Container extends React.Component {
         this.orderContext = new OrderContext()
         this.ticketController = new TicketController()
         this.childOrderBlotterController = new ChildOrderBlotterController()
+        this.orderHistoryBlotterController = new OrderHistoryBlotterController()
 
         let layoutString: string | null = localStorage.getItem(this.configKey);
 
@@ -148,7 +152,7 @@ export default class Container extends React.Component {
             var component = node.getComponent();
 
             if (component === "order-blotter") {
-                return <OrderBlotter childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
+                return <OrderBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
@@ -199,6 +203,7 @@ export default class Container extends React.Component {
             <div>
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
                 <ChildOrderBlotter childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService}></ChildOrderBlotter>
+                <OrderHistoryBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService}></OrderHistoryBlotter>
             </div>
 
             <div className="contents">
@@ -217,6 +222,24 @@ export default class Container extends React.Component {
         </div>);
 
 
+    }
+
+}
+
+
+export class OrderHistoryBlotterController {
+
+    private orderHistoryBlotter?: OrderHistoryBlotter;
+
+    setBlotter(orderHistoryBlotter: OrderHistoryBlotter) {
+        this.orderHistoryBlotter = orderHistoryBlotter
+    }
+
+    openBlotter(order : Order, 
+        columns: Array<JSX.Element>, config: TableViewConfig, width:number) {
+        if (this.orderHistoryBlotter) {
+            this.orderHistoryBlotter.open(order, columns, config, width)
+        }
     }
 
 }

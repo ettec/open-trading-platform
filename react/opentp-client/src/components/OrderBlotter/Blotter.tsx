@@ -49,18 +49,13 @@ onColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
 }
 
 
-
-
-
-
-
-static getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderView[]): Map<string, Order> {
-    let newSelectedOrders: Map<string, Order> = new Map<string, Order>();
+static getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderView[]): Array<Order> {
+    let newSelectedOrders: Array< Order> = new Array<Order>();
 
     let selectedOrderArray: Array<OrderView> = Blotter.getSelectedItems(selectedRegions, orders);
 
     for( let orderView of selectedOrderArray ) {
-      newSelectedOrders.set(orderView.getOrder().getId(), orderView.getOrder());
+      newSelectedOrders.push(orderView.getOrder())
     }
 
 
@@ -68,7 +63,7 @@ static getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderVie
   }
 
 
-  private static getSelectedItems<T>(selectedRegions: IRegion[], orders: T[]) {
+  private static getSelectedItems<T>(selectedRegions: IRegion[], items: T[]) {
     let selectedOrderArray: Array<T> = new Array<T>();
     for (let region of selectedRegions) {
       let firstRowIdx: number;
@@ -79,22 +74,22 @@ static getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderVie
       }
       else {
         firstRowIdx = 0;
-        lastRowIdx = orders.length - 1;
+        lastRowIdx = items.length - 1;
       }
       for (let i = firstRowIdx; i <= lastRowIdx; i++) {
-        let orderView = orders[i];
-        if (orderView) {
-          selectedOrderArray.push(orderView);
+        let item = items[i];
+        if (item) {
+          selectedOrderArray.push(item);
         }
       }
     }
     return selectedOrderArray;
   }
 
-  static cancelleableOrders(orders: Map<string, Order>): Array<Order> {
+  static cancelleableOrders(orders: Array< Order>): Array<Order> {
 
     let result = new Array<Order>()
-    for (let order of orders.values()) {
+    for (let order of orders) {
       if (order.getStatus() === OrderStatus.LIVE) {
         result.push(order)
       }

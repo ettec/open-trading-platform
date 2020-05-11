@@ -185,12 +185,11 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 				return nil, err
 			}
 			updates = append(updates, &api.OrderUpdate{
-				Order:                order,
-				Time:                model.NewTimeStamp(time),
-
+				Order: order,
+				Time:  model.NewTimeStamp(time),
 			})
 			if order.Version >= args.ToVersion {
-				return &api.OrderHistory{Updates:updates}, nil
+				return &api.OrderHistory{Updates: updates}, nil
 			}
 		}
 	}

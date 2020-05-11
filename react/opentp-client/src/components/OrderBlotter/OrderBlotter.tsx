@@ -13,7 +13,7 @@ import { Listing } from '../../serverapi/listing_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
-import { OrderContext, ChildOrderBlotterController } from '../Container';
+import { OrderContext, ChildOrderBlotterController, OrderHistoryBlotterController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
 import TableViewConfig, { getColIdsInOrder, getConfiguredColumns, reorderColumnData } from '../TableView/TableLayout';
@@ -25,7 +25,7 @@ import Blotter from './Blotter';
 interface OrderBlotterState {
 
   orders: OrderView[];
-  selectedOrders: Map<string, Order>
+  selectedOrders: Array< Order>
   columns: Array<JSX.Element>
   columnWidths: Array<number>
 
@@ -38,6 +38,7 @@ interface OrderBlotterProps {
   listingService: ListingService
   orderService: OrderService
   childOrderBlotterController: ChildOrderBlotterController
+  orderHistoryBlotterController: OrderHistoryBlotterController
 }
 
 
@@ -48,6 +49,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   listingService: ListingService
   childOrderBlotterController: ChildOrderBlotterController
+  orderHistoryBlotterController: OrderHistoryBlotterController
 
   orderMap: Map<string, number>;
 
@@ -71,7 +73,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     let blotterState: OrderBlotterState = {
       orders: view,
-      selectedOrders: new Map<string, Order>(),
+      selectedOrders: new Array<Order>(),
       columns: defaultCols,
       columnWidths: defaultColWidths,
     }
@@ -95,6 +97,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     this.listingService = props.listingService
     this.childOrderBlotterController = props.childOrderBlotterController
+    this.orderHistoryBlotterController = props.orderHistoryBlotterController 
     this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
@@ -161,9 +164,18 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
   showOrderHistory = (orders: IterableIterator<Order>) => {
+    let order = orders.next()
 
+    let cols = this.state.columns
+      let colOrderIds = getColIdsInOrder(cols);
 
-    
+      let config: TableViewConfig = {
+        columnWidths: this.state.columnWidths,
+        columnOrder: colOrderIds
+      }
+
+    this.orderHistoryBlotterController.openBlotter(order.value,  this.getColumns(), config,
+      window.innerWidth)
   }
 
 
@@ -343,7 +355,7 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
 
   private onSelection = (selectedRegions: IRegion[]) => {
-    let newSelectedOrders: Map<string, Order> = Blotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
+    let newSelectedOrders: Array< Order> = Blotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
     let blotterState: OrderBlotterState = {
       ...this.state, ...{
@@ -362,8 +374,6 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
 
     return (
 
-
-
       <Menu  >
         <Menu.Item text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
         </Menu.Item>
@@ -371,10 +381,10 @@ export default class OrderBlotter extends React.Component<OrderBlotterProps, Ord
         <Menu.Item text="Modify Order">
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item text="View Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.size === 0} >
+        <Menu.Item text="View Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.size === 0} >
+        <Menu.Item text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
       </Menu>
     );

@@ -20,8 +20,8 @@ interface ChildOrderBlotterState {
     parentOrder?: Order
     columns: Array<JSX.Element>
     columnWidths: Array<number>
-    orders: OrderView[];
-    selectedOrders: Map<string, Order>,
+    orders: Array<OrderView>;
+    selectedOrders: Array<Order>,
     width: number
 }
 
@@ -45,7 +45,7 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
             columns: new Array<JSX.Element>(),
             columnWidths: new Array<number>(),
             orders: new Array<OrderView>(10),
-            selectedOrders: new Map<string, Order>(),
+            selectedOrders: new Array<Order>(),
             width: 0
         }
 
@@ -103,7 +103,7 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
 
 
     private onSelection = (selectedRegions: IRegion[]) => {
-        let newSelectedOrders: Map<string, Order> = Blotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
+        let newSelectedOrders: Array<Order> = Blotter.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
         let blotterState: ChildOrderBlotterState = {
             ...this.state, ...{
@@ -122,6 +122,11 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
 
         let [cols, widths] = getConfiguredColumns(columns, config);
 
+        let newCols = new Array<JSX.Element>()
+        for( let col of cols) {
+            newCols.push(React.cloneElement(col))
+        }
+
         let ordersView = new Array<OrderView>()
 
         for (let order of orders) {
@@ -133,10 +138,10 @@ export default class ChildOrderBlotter extends Blotter<ChildOrderProps, ChildOrd
             parentOrder: parentOrder,
             isOpen: true,
             usePortal: false,
-            columns: cols,
+            columns: newCols,
             columnWidths: widths,
             orders: ordersView,
-            selectedOrders: new Map<string, Order>(),
+            selectedOrders: new Array<Order>(),
             width: width
         }
 

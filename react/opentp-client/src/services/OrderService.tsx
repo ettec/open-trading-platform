@@ -1,18 +1,16 @@
-
-
 import Login from '../components/Login';
 import { Timestamp } from '../serverapi/modelcommon_pb';
 import { Order } from '../serverapi/order_pb';
 import { ViewServiceClient } from '../serverapi/ViewserviceServiceClientPb';
-import { SubscribeToOrdersWithRootOriginatorIdArgs } from '../serverapi/viewservice_pb';
+import { SubscribeToOrdersWithRootOriginatorIdArgs, OrderHistory, GetOrderHistoryArgs } from '../serverapi/viewservice_pb';
 import Stream from './impl/Stream';
-
-
-
+import * as grpcWeb from 'grpc-web';
 
 export interface OrderService {
     SubscribeToAllParentOrders(onUpdate : (order : Order)=>void) : void
     GetChildOrders(order : Order) : Array<Order>
+    GetOrderHistory(order : Order, callback: (err: grpcWeb.Error, response: OrderHistory) => void)  :void 
+    
 }
 
 
@@ -106,6 +104,15 @@ export interface OrderService {
         }
         
         return result
+    }
+
+    GetOrderHistory(order : Order, callback: (err: grpcWeb.Error,
+        response: OrderHistory) => void) : void {
+        let args = new GetOrderHistoryArgs()
+        args.setOrderid(order.getId())
+        args.setToversion(order.getVersion())
+
+        this.viewService.getOrderHistory(args, Login.grpcContext.grpcMetaData, callback)
     }
 
 

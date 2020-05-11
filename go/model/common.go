@@ -114,9 +114,9 @@ func (m *Decimal64) GreaterThan(o *Decimal64) bool {
 	return m.AsDecimal().GreaterThan(o.AsDecimal())
 }
 
-func  NewTimeStamp(time time.Time) *Timestamp {
+func NewTimeStamp(time time.Time) *Timestamp {
 	return &Timestamp{
-		Seconds:              time.Unix(),
-		Nanoseconds:          int32(time.Nanosecond()),
+		Seconds:     time.Unix(),
+		Nanoseconds: int32(time.Nanosecond()),
 	}
 }
