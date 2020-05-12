@@ -71,7 +71,7 @@ spec:
       volumes:
       - name: execution-venue-storage
         persistentVolumeClaim:
-          claimName: opentp-nfs
+          claimName: opentp-order-gateway 
 status:
   availableReplicas: 1
   conditions:

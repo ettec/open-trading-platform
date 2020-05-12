@@ -60,7 +60,7 @@ spec:
       volumes:
       - name: fixsim-storage
         persistentVolumeClaim:
-          claimName: opentp-nfs
+          claimName: opentp-fixsim 
 status:
   availableReplicas: 1
   conditions:
