@@ -1,6 +1,8 @@
 package internal
 
-import "github.com/ettec/open-trading-platform/go/model"
+import (
+	"github.com/ettec/open-trading-platform/go/model"
+)
 
 type parentOrder struct {
 	model.Order
@@ -27,7 +29,7 @@ func newParentOrder(order model.Order) *parentOrder {
 }
 
 func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) bool {
-
+	
 	po.childOrders[childOrder.Id] = childOrder
 
 	var newExecution *model.Execution
