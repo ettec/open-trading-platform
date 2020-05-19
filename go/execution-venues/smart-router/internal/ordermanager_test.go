@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"reflect"
@@ -496,6 +497,25 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 	}
 
 }
+
+func Test_marshalAndUnmarshal(t *testing.T) {
+	//o := model.Order{Id: "test"}
+
+	o := parentOrder{
+		Order:                model.Order{Id: "testp"},
+	}
+
+	bytes, err := proto.Marshal(&o.Order)
+	if err != nil {
+		t.FailNow()
+	}
+
+	if len(bytes) == 0 {
+		t.FailNow()
+	}
+
+}
+
 
 func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(t)

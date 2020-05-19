@@ -5,13 +5,17 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/quotestream"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/source"
 	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/quote-aggregator/quoteaggregator"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -36,6 +40,9 @@ func main() {
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 
 	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
+
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
 
 	micToMdsAddress := map[string]string{}
 
@@ -80,7 +87,7 @@ func main() {
 		log.Printf("found market data source for mic: %v, marketDataSource name: %v, target address: %v", mic, service.Name, targetAddress)
 	}
 
-	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, quotestream.GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(time.Duration(connectRetrySecs)*time.Second))
 		if err != nil {
 			return nil, nil, err
@@ -98,7 +105,7 @@ func main() {
 	quoteAggregator := quoteaggregator.New(id, sds.GetListingsWithSameInstrument,
 		micToMdsAddress, 1000, mdcFn)
 
-	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, 1000))
+	mdSource := source.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, 1000))
 
 	port := "50551"
 	log.Println("Starting Market Data Service on port:" + port)

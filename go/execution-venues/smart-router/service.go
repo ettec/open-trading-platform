@@ -7,6 +7,7 @@ import (
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/k8s"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/quotestream"
 	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/smart-router/internal"
@@ -146,7 +147,7 @@ func main() {
 
 	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := quotestream.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
 	if err != nil {
 		panic(err)
 	}

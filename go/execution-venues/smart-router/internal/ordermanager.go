@@ -8,7 +8,7 @@ import (
 	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	logger "log"
 	"os"
 )
@@ -41,7 +41,7 @@ func (om *orderManager) Cancel() {
 
 func (om *orderManager) persistManagedOrderChanges() error {
 
-	orderAsBytes, err := proto.Marshal(om.managedOrder)
+	orderAsBytes, err := proto.Marshal(&om.managedOrder.Order)
 
 	if bytes.Compare(om.lastStoredOrder, orderAsBytes) != 0 {
 
@@ -49,7 +49,7 @@ func (om *orderManager) persistManagedOrderChanges() error {
 			om.managedOrder.Version = om.managedOrder.Version + 1
 		}
 
-		toStore, err := proto.Marshal(om.managedOrder)
+		toStore, err := proto.Marshal(&om.managedOrder.Order)
 
 		om.lastStoredOrder = toStore
 

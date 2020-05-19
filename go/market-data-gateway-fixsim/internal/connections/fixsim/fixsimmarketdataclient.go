@@ -4,12 +4,27 @@ import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/metadata"
 	"log"
 	"os"
 )
+
+
+
+var outboundSubscriptions = promauto.NewCounter(prometheus.CounterOpts{
+	Name: "outbound_subscriptions",
+	Help: "The number of outbound subscriptions",
+})
+
+
+var quotesReceived = promauto.NewCounter(prometheus.CounterOpts{
+	Name: "quotes_received",
+	Help: "The number of quotes received from all streams",
+})
 
 type fixSimMarketDataClient struct {
 	conn              *grpc.ClientConn
@@ -70,6 +85,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 			case symbol := <-n.subscriptionsChan:
 				if !subscriptions[symbol] {
 					subscriptions[symbol] = true
+					outboundSubscriptions.Inc()
 					if stream != nil {
 						err := stream.Send(&marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: id}},
 							InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}})
@@ -115,6 +131,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 					break
 				}
 				out <- incRefresh
+				quotesReceived.Inc()
 			}
 
 			streamChan <- nil

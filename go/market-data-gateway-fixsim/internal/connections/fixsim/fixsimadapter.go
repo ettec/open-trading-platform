@@ -8,6 +8,7 @@ import (
 	"os"
 )
 
+
 type fixSimAdapter struct {
 	connectionName    string
 	symbolToListingId map[string]int32
@@ -90,6 +91,8 @@ func NewFixSimAdapter(
 								n.idToQuote[listingId] = updatedQuote
 								n.out <- updatedQuote
 							}
+
+
 						} else {
 							n.errLog.Printf("received refresh for unknown symbol: %v", symbol)
 						}

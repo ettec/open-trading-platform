@@ -3,9 +3,28 @@ package marketdata
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"log"
 	"os"
 )
+
+var conflatorQuotesSent = promauto.NewCounter(prometheus.CounterOpts{
+	Name: "conflator_quotes_sent",
+	Help: "The number of quotes sent across all clients",
+})
+
+var conflatorQuotesReceived = promauto.NewCounter(prometheus.CounterOpts{
+	Name: "conflator_quotes_received",
+	Help: "The number of quotes received from all streams",
+})
+
+
+type MdsQuoteStream interface {
+	Subscribe(listingId int32)
+	GetStream() <-chan *model.ClobQuote
+	Close()
+}
 
 type conflatedQuoteStream struct {
 	stream        MdsQuoteStream
@@ -55,9 +74,14 @@ func NewConflatedQuoteStream(stream MdsQuoteStream, out chan<- *model.ClobQuote,
 						c.errLog.Println("exiting:", err)
 						return
 					}
+
+					conflatorQuotesReceived.Inc()
+
 				case c.outChan <- eq:
 					delete(c.pendingQuote, eq.ListingId)
 					c.receivedOrder.removeTail()
+					conflatorQuotesSent.Inc()
+
 				case <-c.closeChan:
 					return
 				}
@@ -69,6 +93,8 @@ func NewConflatedQuoteStream(stream MdsQuoteStream, out chan<- *model.ClobQuote,
 						c.errLog.Println("exiting:", err)
 						return
 					}
+
+					conflatorQuotesReceived.Inc()
 				case <-c.closeChan:
 					return
 				}

@@ -2,6 +2,7 @@ package quoteaggregator
 
 import (
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/quotestream"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 )
@@ -26,7 +27,7 @@ func (q quoteAggregator) Close() {
 type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
 func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument, micToMdsAddress map[string]string,
-	bufferSize int, mdsClientFn marketdata.GetMdsClientFn) *quoteAggregator {
+	bufferSize int, mdsClientFn quotestream.GetMdsClientFn) *quoteAggregator {
 
 	qa := &quoteAggregator{
 		getListings:     getListingsWithSameInstrument,
@@ -40,7 +41,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	quoteStreamsOut := make(chan *model.ClobQuote, bufferSize)
 
 	for mic, targetAddress := range micToMdsAddress {
-		stream, err := marketdata.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)
+		stream, err := quotestream.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)
 		if err != nil {
 			log.Panicf("failed to created quote stream for mic %v, targetAddress %v. Error:%v", mic, targetAddress, err)
 		}

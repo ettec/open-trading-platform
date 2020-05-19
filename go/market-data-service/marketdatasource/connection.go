@@ -2,6 +2,7 @@ package marketdatasource
 
 import (
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/quotestream"
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"sync"
@@ -19,7 +20,7 @@ type MdsConnection struct {
 func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
 	maxSubscriptions int) (*MdsConnection, error) {
 
-	stream, err := marketdata.NewMdsQuoteStream(id, marketGatewayAddress, maxReconnectInterval, 1000)
+	stream, err := quotestream.NewMdsQuoteStream(id, marketGatewayAddress, maxReconnectInterval, 1000)
 
 	if err != nil {
 		return nil, err

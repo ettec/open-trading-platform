@@ -1,11 +1,7 @@
-192.168.1.200:5000/book-builder-strategy:22
+192.168.1.200:5000/book-builder-strategy:26
 192.168.1.200:5000/common:1
-192.168.1.200:5000/fix-sim-execution-venue:6
-192.168.1.200:5000/order-router:12
-192.168.1.200:5000/smart-router:10
-192.168.1.200:5000/market-data-gateway-fixsim:7
-192.168.1.200:5000/market-data-service:29
+192.168.1.200:5000/smart-router:16
+192.168.1.200:5000/market-data-gateway-fixsim:13
+192.168.1.200:5000/market-data-service:36
 192.168.1.200:5000/model:1
-192.168.1.200:5000/quote-aggregator:7
-192.168.1.200:5000/static-data-service:11
-192.168.1.200:5000/view-service:12
+192.168.1.200:5000/quote-aggregator:12

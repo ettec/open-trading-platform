@@ -11,7 +11,7 @@ protoc ./fixsimmarketdataservice.proto --go_out=plugins=grpc:$FIXSIM_PATH --prot
 GOFILE=$FIXSIM_PATH/fixsimmarketdataservice.pb.go
 sed -i 's/MarketDataRequest/marketdata.MarketDataRequest/g' $GOFILE
 sed -i 's/MarketDataIncrementalRefresh/marketdata.MarketDataIncrementalRefresh/g' $GOFILE
-sed -i 's/import (/import (\n\tmarketdata \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/marketdata\"/g' $GOFILE
+sed -i 's/import (/import (\n\tmarketdata \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/marketdata\"/g' $GOFILE
 
 
 
@@ -27,12 +27,12 @@ protoc ./common.proto --go_out=$SVC_PATH/internal/fix/common --proto_path=$SVC_P
 sed -i 's/Decimal64/fix.Decimal64/g' $GOFILE
 sed -i 's/Timestamp/fix.Timestamp/g' $GOFILE
 sed -i 's/ Tenor/ fix.Tenor/g' $GOFILE
-sed -i 's/TrdRegfix./TrdRegfix_/g' $GOFILE
+sed -i 's/TrdRegfix./TrdReg/g' $GOFILE
 sed -i 's/LocalTimeOnly/fix.LocalTimeOnly/g' $GOFILE
 sed -i 's/ Tenor/fix.Tenor/g' $GOFILE
 sed -i 's/*Tenor/*fix.Tenor/g' $GOFILE
 sed -i 's/*TimeOnly/*fix.TimeOnly/g' $GOFILE
-sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/fix\"/g' $GOFILE 
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/fix\"/g' $GOFILE 
 
 
 
@@ -42,7 +42,7 @@ protoc ./marketdata.proto --go_out=$SVC_PATH/internal/fix/marketdata --proto_pat
 sed -i 's/Decimal64/fix.Decimal64/g' $GOFILE
 sed -i 's/Timestamp/fix.Timestamp/g' $GOFILE
 sed -i 's/ Tenor/ fix.Tenor/g' $GOFILE
-sed -i 's/TrdRegfix./TrdRegfix_/g' $GOFILE
+sed -i 's/TrdRegfix./TrdReg/g' $GOFILE
 sed -i 's/LocalTimeOnly/fix.LocalTimeOnly/g' $GOFILE
 sed -i 's/ Tenor/fix.Tenor/g' $GOFILE
 sed -i 's/*Tenor/*fix.Tenor/g' $GOFILE
@@ -65,9 +65,9 @@ sed -i 's/*StandardTrailer/*session.StandardTrailer/g' $GOFILE
 
 
 
-sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/fix\"/g' $GOFILE
-sed -i 's/import (/import (\n\tcommon \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/common\"/g' $GOFILE
-sed -i 's/import (/import (\n\session \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/session\"/g' $GOFILE
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/fix\"/g' $GOFILE
+sed -i 's/import (/import (\n\tcommon \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/common\"/g' $GOFILE
+sed -i 's/import (/import (\n\session \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/session\"/g' $GOFILE
 
 mkdir -p $SVC_PATH/internal/fix/meta
 protoc ./meta.proto --go_out=$SVC_PATH/internal/fix/meta --proto_path=$SVC_PATH:.
@@ -77,8 +77,8 @@ protoc ./session.proto --go_out=$SVC_PATH/internal/fix/session --proto_path=$SVC
 GOFILE=$SVC_PATH/internal/fix/session/session.pb.go
 sed -i 's/*MsgTypeGrp/*common.MsgTypeGrp/g' $GOFILE
 sed -i 's/Timestamp/fix.Timestamp/g' $GOFILE
-sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/fix\"/g' $GOFILE
-sed -i 's/import (/import (\n\tcommon \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway\/internal\/fix\/common\"/g' $GOFILE
+sed -i 's/import (/import (\n\tfix \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/fix\"/g' $GOFILE
+sed -i 's/import (/import (\n\tcommon \"github.com\/ettec\/open-trading-platform\/go\/market-data-gateway-fixsim\/internal\/fix\/common\"/g' $GOFILE
 
 
 

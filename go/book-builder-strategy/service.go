@@ -11,6 +11,7 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/api/staticdataservice"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/quotestream"
 	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
@@ -139,7 +140,7 @@ type service struct {
 func newService(id string, mdGatewayAddr string, orderEntryAddr string, ls staticdata.ListingSource,
 	maxReconnectInterval time.Duration) (*service, error) {
 
-	mdc, err := marketdata.NewMdsQuoteStream(id, mdGatewayAddr, maxReconnectInterval, 1000)
+	mdc, err := quotestream.NewMdsQuoteStream(id, mdGatewayAddr, maxReconnectInterval, 1000)
 	if err != nil {
 		return nil, err
 	}

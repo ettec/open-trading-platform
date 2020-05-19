@@ -5,15 +5,16 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 	md "github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/source"
 	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	"os"
-	"strconv"
+	"net/http"
 	"time"
 )
 
@@ -43,7 +44,7 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 
 	qd := md.NewQuoteDistributor(fixSimConn, 100)
 
-	s := md.NewMarketDataSource(qd)
+	s := source.NewMarketDataSource(qd)
 
 	return s, nil
 }
@@ -53,9 +54,6 @@ const (
 	FixSimAddress            = "FIX_SIM_ADDRESS"
 	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
 	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
-
-	// The maximum number of listing subscriptions per connection
-	MaxSubscriptionsKey = "MAX_SUBSCRIPTIONS"
 )
 
 var maxSubscriptions = 10000
@@ -71,13 +69,9 @@ func main() {
 	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
-	maxSubsEnv, ok := os.LookupEnv(MaxSubscriptionsKey)
-	if ok {
-		maxSubscriptions, err = strconv.Atoi(maxSubsEnv)
-		if err != nil {
-			log.Panicf("cannot parse %v, error: %v", MaxSubscriptionsKey, err)
-		}
-	}
+
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
 
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)

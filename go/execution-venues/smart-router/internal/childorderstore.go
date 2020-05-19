@@ -3,7 +3,7 @@ package internal
 import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/model"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
 	logger "log"
 	"os"

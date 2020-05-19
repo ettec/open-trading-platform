@@ -29,7 +29,7 @@ func newParentOrder(order model.Order) *parentOrder {
 }
 
 func (po *parentOrder) onChildOrderUpdate(childOrder *model.Order) bool {
-	
+
 	po.childOrders[childOrder.Id] = childOrder
 
 	var newExecution *model.Execution

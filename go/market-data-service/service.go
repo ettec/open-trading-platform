@@ -8,15 +8,29 @@ import (
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/ettech/open-trading-platform/go/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data-service/marketdatasource"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
 )
+
+var connections = promauto.NewGauge(prometheus.GaugeOpts{
+	Name: "active_connections",
+	Help: "The number of active connections",
+})
+
+var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
+	Name: "quotes_sent",
+	Help: "The number of quotes sent across all clients",
+})
 
 type service struct {
 	micToSource map[string]*marketdatasource.MdsConnection
@@ -58,13 +72,19 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 		log.Printf("connected subscriber %v to market data source for mic %v", subscriberId, mic)
 	}
 
+	connections.Inc()
+
 	for mdUpdate := range out {
 
 		if err := stream.Send(mdUpdate); err != nil {
 			log.Printf("error on connection for subscriber %v, closing connection, error:%v", subscriberId, err)
 			break
 		}
+
+		quotesSent.Inc()
 	}
+
+	connections.Dec()
 
 	return nil
 }
@@ -87,6 +107,9 @@ func main() {
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
+
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
 
 	mdService := service{micToSource: map[string]*marketdatasource.MdsConnection{}}
 

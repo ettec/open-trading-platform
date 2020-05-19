@@ -2,7 +2,6 @@ package marketdata
 
 import (
 	"fmt"
-
 	"github.com/ettec/open-trading-platform/go/model"
 	"log"
 	"os"

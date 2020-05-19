@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	"github.com/ettec/open-trading-platform/go/common/marketdata/quotestream"
 	"github.com/ettec/open-trading-platform/go/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
@@ -38,7 +38,7 @@ func Test_quoteAggregator(t *testing.T) {
 			}
 		}
 
-	}, map[string]string{"IEXG": "IEXG", "XNAS": "XNAS"}, 0, func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
+	}, map[string]string{"IEXG": "IEXG", "XNAS": "XNAS"}, 0, func(targetAddress string) (marketdatasource.MarketDataSourceClient, quotestream.GrpcConnection, error) {
 
 		if targetAddress == "IEXG" {
 			return iexgClient, iexgConnection, nil
