@@ -7,8 +7,20 @@ import (
 	"github.com/ettec/open-trading-platform/go/common/marketdata"
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"google.golang.org/grpc/metadata"
 )
+
+var connections = promauto.NewGauge(prometheus.GaugeOpts{
+	Name: "active_connections",
+	Help: "The number of active connections",
+})
+
+var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
+	Name: "quotes_sent",
+	Help: "The number of quotes sent across all clients",
+})
 
 type marketDataSourceServer struct {
 	quoteDistributor marketdata.QuoteDistributor
@@ -58,12 +70,18 @@ func (s *marketDataSourceServer) Connect(stream marketdatasource.MarketDataSourc
 		}
 	}()
 
+	connections.Inc()
+
 	for mdUpdate := range out {
 		if err := stream.Send(mdUpdate); err != nil {
 			log.Printf("error on connection for subscriber %v, closing connection, error:%v ", subscriberId, err)
 			break
 		}
+
+		quotesSent.Inc()
 	}
+
+	connections.Dec()
 
 	return nil
 }

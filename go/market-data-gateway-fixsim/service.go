@@ -69,7 +69,6 @@ func main() {
 	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
-
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
 

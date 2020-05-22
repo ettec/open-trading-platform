@@ -502,7 +502,7 @@ func Test_marshalAndUnmarshal(t *testing.T) {
 	//o := model.Order{Id: "test"}
 
 	o := parentOrder{
-		Order:                model.Order{Id: "testp"},
+		Order: model.Order{Id: "testp"},
 	}
 
 	bytes, err := proto.Marshal(&o.Order)
@@ -515,7 +515,6 @@ func Test_marshalAndUnmarshal(t *testing.T) {
 	}
 
 }
-
 
 func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(t)

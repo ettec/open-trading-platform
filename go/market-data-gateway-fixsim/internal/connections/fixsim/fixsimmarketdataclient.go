@@ -13,13 +13,10 @@ import (
 	"os"
 )
 
-
-
 var outboundSubscriptions = promauto.NewCounter(prometheus.CounterOpts{
 	Name: "outbound_subscriptions",
 	Help: "The number of outbound subscriptions",
 })
-
 
 var quotesReceived = promauto.NewCounter(prometheus.CounterOpts{
 	Name: "quotes_received",

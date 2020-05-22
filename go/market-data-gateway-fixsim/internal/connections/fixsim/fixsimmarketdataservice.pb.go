@@ -4,9 +4,9 @@
 package fixsim
 
 import (
-	marketdata "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
 	context "context"
 	fmt "fmt"
+	marketdata "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/marketdata"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

@@ -4,9 +4,9 @@
 package session
 
 import (
+	fmt "fmt"
 	common "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/common"
 	fix "github.com/ettec/open-trading-platform/go/market-data-gateway-fixsim/internal/fix/fix"
-	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
 )
@@ -1093,39 +1093,39 @@ func (DefaultApplVerIDEnum) EnumDescriptor() ([]byte, []int) {
 }
 
 type StandardHeader struct {
-	BeginString            string        `protobuf:"bytes,1,opt,name=begin_string,json=beginString,proto3" json:"begin_string,omitempty"`
-	BodyLength             int64         `protobuf:"fixed64,2,opt,name=body_length,json=bodyLength,proto3" json:"body_length,omitempty"`
-	DeliverToCompId        string        `protobuf:"bytes,3,opt,name=deliver_to_comp_id,json=deliverToCompId,proto3" json:"deliver_to_comp_id,omitempty"`
-	DeliverToSubId         string        `protobuf:"bytes,4,opt,name=deliver_to_sub_id,json=deliverToSubId,proto3" json:"deliver_to_sub_id,omitempty"`
-	MsgSeqNum              int64         `protobuf:"fixed64,5,opt,name=msg_seq_num,json=msgSeqNum,proto3" json:"msg_seq_num,omitempty"`
-	MsgType                MsgTypeEnum   `protobuf:"varint,6,opt,name=msg_type,json=msgType,proto3,enum=Session.MsgTypeEnum" json:"msg_type,omitempty"`
-	OnBehalfOfCompId       string        `protobuf:"bytes,7,opt,name=on_behalf_of_comp_id,json=onBehalfOfCompId,proto3" json:"on_behalf_of_comp_id,omitempty"`
-	OnBehalfOfSubId        string        `protobuf:"bytes,8,opt,name=on_behalf_of_sub_id,json=onBehalfOfSubId,proto3" json:"on_behalf_of_sub_id,omitempty"`
-	OrigSendingTime        *fix.Timestamp    `protobuf:"bytes,9,opt,name=orig_sending_time,json=origSendingTime,proto3" json:"orig_sending_time,omitempty"`
-	PossDupFlag            bool          `protobuf:"varint,10,opt,name=poss_dup_flag,json=possDupFlag,proto3" json:"poss_dup_flag,omitempty"`
-	PossResend             bool          `protobuf:"varint,11,opt,name=poss_resend,json=possResend,proto3" json:"poss_resend,omitempty"`
-	SecureData             string        `protobuf:"bytes,12,opt,name=secure_data,json=secureData,proto3" json:"secure_data,omitempty"`
-	SecureDataLen          int64         `protobuf:"fixed64,13,opt,name=secure_data_len,json=secureDataLen,proto3" json:"secure_data_len,omitempty"`
-	SenderCompId           string        `protobuf:"bytes,14,opt,name=sender_comp_id,json=senderCompId,proto3" json:"sender_comp_id,omitempty"`
-	SenderSubId            string        `protobuf:"bytes,15,opt,name=sender_sub_id,json=senderSubId,proto3" json:"sender_sub_id,omitempty"`
-	SendingTime            *fix.Timestamp    `protobuf:"bytes,16,opt,name=sending_time,json=sendingTime,proto3" json:"sending_time,omitempty"`
-	TargetCompId           string        `protobuf:"bytes,17,opt,name=target_comp_id,json=targetCompId,proto3" json:"target_comp_id,omitempty"`
-	TargetSubId            string        `protobuf:"bytes,18,opt,name=target_sub_id,json=targetSubId,proto3" json:"target_sub_id,omitempty"`
-	DeliverToLocationId    string        `protobuf:"bytes,19,opt,name=deliver_to_location_id,json=deliverToLocationId,proto3" json:"deliver_to_location_id,omitempty"`
-	OnBehalfOfLocationId   string        `protobuf:"bytes,20,opt,name=on_behalf_of_location_id,json=onBehalfOfLocationId,proto3" json:"on_behalf_of_location_id,omitempty"`
-	SenderLocationId       string        `protobuf:"bytes,21,opt,name=sender_location_id,json=senderLocationId,proto3" json:"sender_location_id,omitempty"`
-	TargetLocationId       string        `protobuf:"bytes,22,opt,name=target_location_id,json=targetLocationId,proto3" json:"target_location_id,omitempty"`
-	LastMsgSeqNumProcessed int64         `protobuf:"fixed64,23,opt,name=last_msg_seq_num_processed,json=lastMsgSeqNumProcessed,proto3" json:"last_msg_seq_num_processed,omitempty"`
-	MessageEncoding        string        `protobuf:"bytes,24,opt,name=message_encoding,json=messageEncoding,proto3" json:"message_encoding,omitempty"`
-	XmlData                string        `protobuf:"bytes,25,opt,name=xml_data,json=xmlData,proto3" json:"xml_data,omitempty"`
-	XmlDataLen             int64         `protobuf:"fixed64,26,opt,name=xml_data_len,json=xmlDataLen,proto3" json:"xml_data_len,omitempty"`
-	ApplVerId              ApplVerIDEnum `protobuf:"varint,27,opt,name=appl_ver_id,json=applVerId,proto3,enum=Session.ApplVerIDEnum" json:"appl_ver_id,omitempty"`
-	CstmApplVerId          string        `protobuf:"bytes,28,opt,name=cstm_appl_ver_id,json=cstmApplVerId,proto3" json:"cstm_appl_ver_id,omitempty"`
-	HopGrp                 []*HopGrp     `protobuf:"bytes,29,rep,name=hop_grp,json=hopGrp,proto3" json:"hop_grp,omitempty"`
-	ApplExtId              int64         `protobuf:"fixed64,30,opt,name=appl_ext_id,json=applExtId,proto3" json:"appl_ext_id,omitempty"`
-	XXX_NoUnkeyedLiteral   struct{}      `json:"-"`
-	XXX_unrecognized       []byte        `json:"-"`
-	XXX_sizecache          int32         `json:"-"`
+	BeginString            string         `protobuf:"bytes,1,opt,name=begin_string,json=beginString,proto3" json:"begin_string,omitempty"`
+	BodyLength             int64          `protobuf:"fixed64,2,opt,name=body_length,json=bodyLength,proto3" json:"body_length,omitempty"`
+	DeliverToCompId        string         `protobuf:"bytes,3,opt,name=deliver_to_comp_id,json=deliverToCompId,proto3" json:"deliver_to_comp_id,omitempty"`
+	DeliverToSubId         string         `protobuf:"bytes,4,opt,name=deliver_to_sub_id,json=deliverToSubId,proto3" json:"deliver_to_sub_id,omitempty"`
+	MsgSeqNum              int64          `protobuf:"fixed64,5,opt,name=msg_seq_num,json=msgSeqNum,proto3" json:"msg_seq_num,omitempty"`
+	MsgType                MsgTypeEnum    `protobuf:"varint,6,opt,name=msg_type,json=msgType,proto3,enum=Session.MsgTypeEnum" json:"msg_type,omitempty"`
+	OnBehalfOfCompId       string         `protobuf:"bytes,7,opt,name=on_behalf_of_comp_id,json=onBehalfOfCompId,proto3" json:"on_behalf_of_comp_id,omitempty"`
+	OnBehalfOfSubId        string         `protobuf:"bytes,8,opt,name=on_behalf_of_sub_id,json=onBehalfOfSubId,proto3" json:"on_behalf_of_sub_id,omitempty"`
+	OrigSendingTime        *fix.Timestamp `protobuf:"bytes,9,opt,name=orig_sending_time,json=origSendingTime,proto3" json:"orig_sending_time,omitempty"`
+	PossDupFlag            bool           `protobuf:"varint,10,opt,name=poss_dup_flag,json=possDupFlag,proto3" json:"poss_dup_flag,omitempty"`
+	PossResend             bool           `protobuf:"varint,11,opt,name=poss_resend,json=possResend,proto3" json:"poss_resend,omitempty"`
+	SecureData             string         `protobuf:"bytes,12,opt,name=secure_data,json=secureData,proto3" json:"secure_data,omitempty"`
+	SecureDataLen          int64          `protobuf:"fixed64,13,opt,name=secure_data_len,json=secureDataLen,proto3" json:"secure_data_len,omitempty"`
+	SenderCompId           string         `protobuf:"bytes,14,opt,name=sender_comp_id,json=senderCompId,proto3" json:"sender_comp_id,omitempty"`
+	SenderSubId            string         `protobuf:"bytes,15,opt,name=sender_sub_id,json=senderSubId,proto3" json:"sender_sub_id,omitempty"`
+	SendingTime            *fix.Timestamp `protobuf:"bytes,16,opt,name=sending_time,json=sendingTime,proto3" json:"sending_time,omitempty"`
+	TargetCompId           string         `protobuf:"bytes,17,opt,name=target_comp_id,json=targetCompId,proto3" json:"target_comp_id,omitempty"`
+	TargetSubId            string         `protobuf:"bytes,18,opt,name=target_sub_id,json=targetSubId,proto3" json:"target_sub_id,omitempty"`
+	DeliverToLocationId    string         `protobuf:"bytes,19,opt,name=deliver_to_location_id,json=deliverToLocationId,proto3" json:"deliver_to_location_id,omitempty"`
+	OnBehalfOfLocationId   string         `protobuf:"bytes,20,opt,name=on_behalf_of_location_id,json=onBehalfOfLocationId,proto3" json:"on_behalf_of_location_id,omitempty"`
+	SenderLocationId       string         `protobuf:"bytes,21,opt,name=sender_location_id,json=senderLocationId,proto3" json:"sender_location_id,omitempty"`
+	TargetLocationId       string         `protobuf:"bytes,22,opt,name=target_location_id,json=targetLocationId,proto3" json:"target_location_id,omitempty"`
+	LastMsgSeqNumProcessed int64          `protobuf:"fixed64,23,opt,name=last_msg_seq_num_processed,json=lastMsgSeqNumProcessed,proto3" json:"last_msg_seq_num_processed,omitempty"`
+	MessageEncoding        string         `protobuf:"bytes,24,opt,name=message_encoding,json=messageEncoding,proto3" json:"message_encoding,omitempty"`
+	XmlData                string         `protobuf:"bytes,25,opt,name=xml_data,json=xmlData,proto3" json:"xml_data,omitempty"`
+	XmlDataLen             int64          `protobuf:"fixed64,26,opt,name=xml_data_len,json=xmlDataLen,proto3" json:"xml_data_len,omitempty"`
+	ApplVerId              ApplVerIDEnum  `protobuf:"varint,27,opt,name=appl_ver_id,json=applVerId,proto3,enum=Session.ApplVerIDEnum" json:"appl_ver_id,omitempty"`
+	CstmApplVerId          string         `protobuf:"bytes,28,opt,name=cstm_appl_ver_id,json=cstmApplVerId,proto3" json:"cstm_appl_ver_id,omitempty"`
+	HopGrp                 []*HopGrp      `protobuf:"bytes,29,rep,name=hop_grp,json=hopGrp,proto3" json:"hop_grp,omitempty"`
+	ApplExtId              int64          `protobuf:"fixed64,30,opt,name=appl_ext_id,json=applExtId,proto3" json:"appl_ext_id,omitempty"`
+	XXX_NoUnkeyedLiteral   struct{}       `json:"-"`
+	XXX_unrecognized       []byte         `json:"-"`
+	XXX_sizecache          int32          `json:"-"`
 }
 
 func (m *StandardHeader) Reset()         { *m = StandardHeader{} }
@@ -1419,12 +1419,12 @@ func (m *StandardTrailer) GetSignatureLength() int64 {
 }
 
 type HopGrp struct {
-	HopCompId            string     `protobuf:"bytes,1,opt,name=hop_comp_id,json=hopCompId,proto3" json:"hop_comp_id,omitempty"`
-	HopRefId             int64      `protobuf:"fixed64,2,opt,name=hop_ref_id,json=hopRefId,proto3" json:"hop_ref_id,omitempty"`
+	HopCompId            string         `protobuf:"bytes,1,opt,name=hop_comp_id,json=hopCompId,proto3" json:"hop_comp_id,omitempty"`
+	HopRefId             int64          `protobuf:"fixed64,2,opt,name=hop_ref_id,json=hopRefId,proto3" json:"hop_ref_id,omitempty"`
 	HopSendingTime       *fix.Timestamp `protobuf:"bytes,3,opt,name=hop_sending_time,json=hopSendingTime,proto3" json:"hop_sending_time,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
 func (m *HopGrp) Reset()         { *m = HopGrp{} }
@@ -2010,7 +2010,7 @@ type Logon struct {
 	TestMessageIndicator    bool                 `protobuf:"varint,10,opt,name=test_message_indicator,json=testMessageIndicator,proto3" json:"test_message_indicator,omitempty"`
 	Username                string               `protobuf:"bytes,11,opt,name=username,proto3" json:"username,omitempty"`
 	DefaultApplVerId        DefaultApplVerIDEnum `protobuf:"varint,12,opt,name=default_appl_ver_id,json=defaultApplVerId,proto3,enum=Session.DefaultApplVerIDEnum" json:"default_appl_ver_id,omitempty"`
-	MsgTypeGrp              []*common.MsgTypeGrp        `protobuf:"bytes,13,rep,name=msg_type_grp,json=msgTypeGrp,proto3" json:"msg_type_grp,omitempty"`
+	MsgTypeGrp              []*common.MsgTypeGrp `protobuf:"bytes,13,rep,name=msg_type_grp,json=msgTypeGrp,proto3" json:"msg_type_grp,omitempty"`
 	NextExpectedMsgSeqNum   int64                `protobuf:"fixed64,14,opt,name=next_expected_msg_seq_num,json=nextExpectedMsgSeqNum,proto3" json:"next_expected_msg_seq_num,omitempty"`
 	DefaultApplExtId        int64                `protobuf:"fixed64,15,opt,name=default_appl_ext_id,json=defaultApplExtId,proto3" json:"default_appl_ext_id,omitempty"`
 	DefaultCstmApplVerId    string               `protobuf:"bytes,16,opt,name=default_cstm_appl_ver_id,json=defaultCstmApplVerId,proto3" json:"default_cstm_appl_ver_id,omitempty"`

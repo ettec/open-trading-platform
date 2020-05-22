@@ -19,7 +19,6 @@ var conflatorQuotesReceived = promauto.NewCounter(prometheus.CounterOpts{
 	Help: "The number of quotes received from all streams",
 })
 
-
 type MdsQuoteStream interface {
 	Subscribe(listingId int32)
 	GetStream() <-chan *model.ClobQuote

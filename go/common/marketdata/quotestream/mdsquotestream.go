@@ -15,7 +15,6 @@ import (
 	"os"
 )
 
-
 type mdsQuoteStream struct {
 	conn              *grpc.ClientConn
 	out               chan *model.ClobQuote
@@ -27,7 +26,7 @@ type mdsQuoteStream struct {
 }
 
 var outboundSubscriptions = promauto.NewCounter(prometheus.CounterOpts{
-	Name: "outbound_subscription",
+	Name: "outbound_subscriptions",
 	Help: "The number of outbound subscriptions",
 })
 
