@@ -82,6 +82,8 @@ func (s *orderMonitor) CancelAllOrdersForOriginatorId(ctx context.Context, param
 	return &model.Empty{}, nil
 }
 
+
+
 func main() {
 
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
@@ -134,10 +136,10 @@ func main() {
 			select {
 
 			case cr := <-cancelChan:
-				log.Print("cancelling all orders for root originator id:", cr.RootOriginatorId)
+				log.Print("cancelling all orders for root originator id:", cr.OriginatorId)
 				var cancelParams []*api.CancelOrderParams
 				for _, order := range orders {
-					if order.GetRootOriginatorId() == cr.RootOriginatorId &&
+					if order.GetOriginatorId() == cr.OriginatorId &&
 						order.Status == model.OrderStatus_LIVE {
 						if listing, exists := listings[order.GetListingId()]; exists {
 							cancelParams = append(cancelParams, &api.CancelOrderParams{
@@ -149,7 +151,7 @@ func main() {
 				}
 
 				numOrdersToCancel := len(cancelParams)
-				log.Printf("%v cancellable orders found for root originator id:%v", numOrdersToCancel, cr.RootOriginatorId)
+				log.Printf("%v cancellable orders found for originator id:%v", numOrdersToCancel, cr.OriginatorId)
 
 				go func() {
 					for idx, params := range cancelParams {
