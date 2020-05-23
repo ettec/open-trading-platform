@@ -4,9 +4,9 @@
 package ordermonitor
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
 	context "context"
 	fmt "fmt"
+	"github.com/ettec/open-trading-platform/go/model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

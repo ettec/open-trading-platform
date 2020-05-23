@@ -80,7 +80,6 @@ func (ks *KafkaStore) getNewReader() *kafka.Reader {
 
 func (ks *KafkaStore) SubscribeToAllOrders(updatesChan chan<- *model.Order) (map[string]*model.Order, error) {
 	reader := ks.getNewReader()
-	defer reader.Close()
 
 	owns := func(order *model.Order) bool {
 		return true
@@ -125,8 +124,8 @@ func getInitialState(reader orderReader, owns func(order *model.Order) bool) (ma
 	for {
 
 		deadline, cancel := context.WithDeadline(context.Background(), time.Now().Add(5*time.Second))
-		cancel()
 		msg, err := reader.ReadMessage(deadline)
+		cancel()
 
 		if err != nil {
 			if err != context.DeadlineExceeded {

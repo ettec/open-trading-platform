@@ -12,6 +12,8 @@ import (
 	"github.com/ettech/open-trading-platform/go/order-monitor/api/ordermonitor"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"net/http"
 
 	"k8s.io/client-go/kubernetes"
 	"os"
@@ -82,8 +84,6 @@ func (s *orderMonitor) CancelAllOrdersForOriginatorId(ctx context.Context, param
 	return &model.Empty{}, nil
 }
 
-
-
 func main() {
 
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
@@ -91,7 +91,10 @@ func main() {
 	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
 	cancelTimeoutDuration := time.Duration(bootstrap.GetOptionalIntEnvVar(CancelTimeoutSecs, 5)) * time.Second
 
-	s := grpc.NewServer()
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
+
+
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
@@ -120,7 +123,13 @@ func main() {
 	listings := map[int32]*model.Listing{}
 	updates := make(chan *model.Order, 1000)
 	listingsChan := make(chan *model.Listing, 1000)
+
 	orders, err := store.SubscribeToAllOrders(updates)
+	if err != nil {
+		log.Panic("failed to subscribe to orders:", err)
+	}
+
+	log.Print("initial order size", len(orders))
 
 	for _, order := range orders {
 		totalOrders.Inc()
@@ -210,6 +219,8 @@ func main() {
 
 	}()
 
+
+	s := grpc.NewServer()
 	ordermonitor.RegisterOrderMonitorServer(s, om)
 	reflection.Register(s)
 
@@ -228,6 +239,7 @@ func main() {
 }
 
 func getStatusGauge(order *model.Order) (prometheus.Gauge, error) {
+
 
 	if order.TargetStatus == model.OrderStatus_CANCELLED {
 		return pendingCancelOrders, nil
