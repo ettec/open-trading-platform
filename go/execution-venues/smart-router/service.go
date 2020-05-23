@@ -20,7 +20,7 @@ import (
 
 	"github.com/ettec/open-trading-platform/go/common/bootstrap"
 
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
+	"github.com/ettec/open-trading-platform/go/common/orderstore"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

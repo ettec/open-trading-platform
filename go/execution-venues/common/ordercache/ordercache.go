@@ -1,7 +1,7 @@
 package ordercache
 
 import (
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/orderstore"
+	"github.com/ettec/open-trading-platform/go/common/orderstore"
 	"github.com/ettec/open-trading-platform/go/model"
 )
 

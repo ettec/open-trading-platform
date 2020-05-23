@@ -1,0 +1,14 @@
+syntax = "proto3";
+import "modelcommon.proto";
+package ordermonitor;
+
+
+message CancelAllOrdersForOriginatorIdParams {
+    string rootOriginatorId = 1;
+}
+
+service OrderMonitor{
+    rpc CancelAllOrdersForOriginatorId(CancelAllOrdersForOriginatorIdParams) returns (model.Empty) {};
+} 
+
+
