@@ -94,9 +94,10 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
 
-
-
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
+
+	now := time.Now()
+	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(),0,0,0, 0, time.Local)
 
 	store, err := orderstore.NewKafkaStore(kafkaBrokers, "")
 	if err != nil {
@@ -124,7 +125,7 @@ func main() {
 	updates := make(chan *model.Order, 1000)
 	listingsChan := make(chan *model.Listing, 1000)
 
-	orders, err := store.SubscribeToAllOrders(updates)
+	orders, err := store.SubscribeToAllOrders(updates, ordersAfter)
 	if err != nil {
 		log.Panic("failed to subscribe to orders:", err)
 	}
@@ -219,7 +220,6 @@ func main() {
 
 	}()
 
-
 	s := grpc.NewServer()
 	ordermonitor.RegisterOrderMonitorServer(s, om)
 	reflection.Register(s)
@@ -239,7 +239,6 @@ func main() {
 }
 
 func getStatusGauge(order *model.Order) (prometheus.Gauge, error) {
-
 
 	if order.TargetStatus == model.OrderStatus_CANCELLED {
 		return pendingCancelOrders, nil
