@@ -137,7 +137,6 @@ proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.prototype.toObject =
  */
 proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.toObject = function(includeInstance, msg) {
   var f, obj = {
-    after: (f = msg.getAfter()) && modelcommon_pb.Timestamp.toObject(includeInstance, f),
     rootoriginatorid: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
@@ -175,11 +174,6 @@ proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.deserializeBinaryFro
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = new modelcommon_pb.Timestamp;
-      reader.readMessage(value,modelcommon_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setAfter(value);
-      break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
       msg.setRootoriginatorid(value);
@@ -213,14 +207,6 @@ proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.prototype.serializeB
  */
 proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAfter();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      modelcommon_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
   f = message.getRootoriginatorid();
   if (f.length > 0) {
     writer.writeString(
@@ -228,43 +214,6 @@ proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.serializeBinaryToWri
       f
     );
   }
-};
-
-
-/**
- * optional model.Timestamp after = 1;
- * @return {?proto.model.Timestamp}
- */
-proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.prototype.getAfter = function() {
-  return /** @type{?proto.model.Timestamp} */ (
-    jspb.Message.getWrapperField(this, modelcommon_pb.Timestamp, 1));
-};
-
-
-/**
- * @param {?proto.model.Timestamp|undefined} value
- * @return {!proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs} returns this
-*/
-proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.prototype.setAfter = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs} returns this
- */
-proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.prototype.clearAfter = function() {
-  return this.setAfter(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.viewservice.SubscribeToOrdersWithRootOriginatorIdArgs.prototype.hasAfter = function() {
-  return jspb.Message.getField(this, 1) != null;
 };
 
 

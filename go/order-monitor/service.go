@@ -97,7 +97,7 @@ func main() {
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
 	now := time.Now()
-	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(),0,0,0, 0, time.Local)
+	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Local)
 
 	store, err := orderstore.NewKafkaStore(kafkaBrokers, "")
 	if err != nil {
@@ -130,9 +130,10 @@ func main() {
 		log.Panic("failed to subscribe to orders:", err)
 	}
 
-	log.Print("initial order size", len(orders))
-
+	listingsToFetch := map[int32]bool{}
 	for _, order := range orders {
+		listingsToFetch[order.ListingId] = true
+
 		totalOrders.Inc()
 		gauge, err := getStatusGauge(order)
 		if err != nil {
@@ -142,6 +143,10 @@ func main() {
 	}
 
 	go func() {
+		for listingId, _:=range listingsToFetch {
+			sds.GetListing(listingId, listingsChan)
+		}
+
 		for {
 			select {
 

@@ -15,6 +15,13 @@ import OrderHistoryBlotter from "./OrderBlotter/OrderHistoryBlotter";
 import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
 import OrderTicket from './OrderTicket';
 import { TableViewConfig } from "./TableView/TableView";
+import QuestionDialog from "./QuestionDialog";
+import { OrderMonitorClient } from "../serverapi/OrdermonitorServiceClientPb";
+import Login from "./Login";
+import { CancelAllOrdersForOriginatorIdParams } from "../serverapi/ordermonitor_pb";
+import { Error } from "grpc-web";
+import { Empty } from "../serverapi/modelcommon_pb";
+import { logError, logDebug } from "../logging/Logging";
 
 
 
@@ -110,6 +117,8 @@ export default class Container extends React.Component {
     };
 
 
+    orderMonitorClient = new OrderMonitorClient(Login.grpcContext.serviceUrl, null, null)
+
     state: Model;
     factory: (node: TabNode) => React.ReactNode;
     readonly configKey: string = "open-oms-config";
@@ -123,6 +132,7 @@ export default class Container extends React.Component {
     childOrderBlotterController : ChildOrderBlotterController
     orderHistoryBlotterController : OrderHistoryBlotterController
     executionsController : ExecutionsController
+    questionDialogController: QuestionDialogController
     
 
 
@@ -139,6 +149,7 @@ export default class Container extends React.Component {
         this.childOrderBlotterController = new ChildOrderBlotterController()
         this.orderHistoryBlotterController = new OrderHistoryBlotterController()
         this.executionsController = new ExecutionsController()
+        this.questionDialogController = new QuestionDialogController()
 
         let layoutString: string | null = localStorage.getItem(this.configKey);
 
@@ -169,12 +180,35 @@ export default class Container extends React.Component {
         }
 
         this.onSave = this.onSave.bind(this);
+        this.onCancelAllOrders = this.onCancelAllOrders.bind(this);
     }
 
     onSave() {
         var jsonStr = JSON.stringify(this.state!.toJson(), null, "\t");
         localStorage.setItem(this.configKey, jsonStr);
         console.log("JSON IS:" + jsonStr);
+    }
+
+    onCancelAllOrders() {
+        this.questionDialogController.open("Cancel all orders?", "Cancel All Orders", (response: boolean)=> {
+            var params = new CancelAllOrdersForOriginatorIdParams()
+            params.setOriginatorid(Login.desk)
+
+            this.orderMonitorClient.cancelAllOrdersForOriginatorId(params, Login.grpcContext.grpcMetaData, (err: Error,
+                response: Empty) => {
+
+                    if (err) {
+                        let msg = "error whilst cancelling all orders:" + err.message
+                        logError(msg)
+                        alert(msg)
+                      } else {
+                        logDebug("cancelled all orders")
+                      }
+
+                } )
+        })
+
+        
     }
 
 
@@ -208,6 +242,7 @@ export default class Container extends React.Component {
                 <ChildOrderBlotter childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
                 <OrderHistoryBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
                 <Executions executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
+                <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
             </div>
 
             <div className="contents">
@@ -218,7 +253,7 @@ export default class Container extends React.Component {
                     <Navbar.Group align={Alignment.LEFT}>
                         <Navbar.Heading>Status</Navbar.Heading>
                         <Navbar.Divider />
-                        <Button className="bp3-minimal" icon="floppy-disk" text="Cancel All Orders" onClick={this.onSave} />
+                        <Button className="bp3-minimal" icon="delete" text="Cancel All Orders" onClick={this.onCancelAllOrders} />
                     </Navbar.Group>
                 </Navbar>
             </div>
@@ -226,6 +261,22 @@ export default class Container extends React.Component {
         </div>);
 
 
+    }
+
+}
+
+export class QuestionDialogController {
+
+    private dialog?: QuestionDialog
+
+    setDialog(dialog: QuestionDialog) {
+        this.dialog = dialog
+    }
+
+    open(question : string, title: string, callback: (response: boolean)=>void) {
+        if( this.dialog ) {
+            this.dialog.open(question, title, callback)
+        }
     }
 
 }

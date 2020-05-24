@@ -1,5 +1,4 @@
 import Login from '../components/Login';
-import { Timestamp } from '../serverapi/modelcommon_pb';
 import { Order } from '../serverapi/order_pb';
 import { ViewServiceClient } from '../serverapi/ViewserviceServiceClientPb';
 import { SubscribeToOrdersWithRootOriginatorIdArgs, OrderHistory, GetOrderHistoryArgs } from '../serverapi/viewservice_pb';
@@ -25,13 +24,13 @@ export interface OrderService {
     childOrders = new Map<string, Set<string>>()
 
     constructor() {
-        let after = new Timestamp()
+        
 
-        let startOfLocalDay = new Date()
-        startOfLocalDay.setHours(0, 0, 0, 0)
-        after.setSeconds(Math.floor(startOfLocalDay.getTime() / 1000))
+        
+        
+        
         let sto = new SubscribeToOrdersWithRootOriginatorIdArgs()
-        sto.setAfter(after)
+        
         sto.setRootoriginatorid(Login.desk)
     
     

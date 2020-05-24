@@ -54,7 +54,7 @@ func (ks *KafkaStore) RecoverInitialCache() (map[string]*model.Order, error) {
 	reader := ks.getNewReader()
 	defer reader.Close()
 
-	owns := func(order *model.Order, msgTime time.Time) bool {
+	owns := func(order *model.Order) bool {
 		return ks.ownerId == order.GetOwnerId()
 	}
 
@@ -78,11 +78,13 @@ func (ks *KafkaStore) getNewReader() *kafka.Reader {
 	return reader
 }
 
-func (ks *KafkaStore) SubscribeToAllOrders(updatesChan chan<- *model.Order, after time.Time ) (map[string]*model.Order, error) {
+func (ks *KafkaStore) SubscribeToAllOrders(updatesChan chan<- *model.Order, after time.Time) (map[string]*model.Order, error) {
 	reader := ks.getNewReader()
 
-	timeFilter := func(order *model.Order, msgTime time.Time) bool {
-		return msgTime.After(after)
+
+	afterTimestamp := &model.Timestamp{Seconds: after.Unix()}
+	timeFilter := func(order *model.Order) bool {
+		return order.GetCreated().After(afterTimestamp)
 	}
 
 	initialState, err := getInitialState(reader, timeFilter)
@@ -116,7 +118,7 @@ func (ks *KafkaStore) SubscribeToAllOrders(updatesChan chan<- *model.Order, afte
 
 }
 
-func getInitialState(reader orderReader, filter func(order *model.Order, msgTime time.Time) bool) (map[string]*model.Order, error) {
+func getInitialState(reader orderReader, filter func(order *model.Order) bool) (map[string]*model.Order, error) {
 	result := map[string]*model.Order{}
 	now := time.Now()
 
@@ -144,7 +146,7 @@ func getInitialState(reader orderReader, filter func(order *model.Order, msgTime
 			return nil, fmt.Errorf("failed to unmarshal order whilst recovering state:%w", err)
 		}
 
-		if filter(order, msg.Time) {
+		if filter(order) {
 			result[order.Id] = order
 		}
 

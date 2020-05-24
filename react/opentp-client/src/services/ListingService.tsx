@@ -60,6 +60,8 @@ export default class ListingServiceImpl implements ListingService {
   GetListing(listingId: number, listener: (
     response: Listing) => void) {
 
+      
+
     if (listingId <= 0) {
       return
     }
@@ -82,9 +84,12 @@ export default class ListingServiceImpl implements ListingService {
   }
 
   private fetchListing(listingId: number) {
+    console.log("getting listing:" + listingId)
     let listingParam = new ListingId();
     listingParam.setListingid(listingId);
     this.staticDataService.getListing(listingParam, Login.grpcContext.grpcMetaData, (err: Error, listing: Listing) => {
+      console.log("got listing:" + listing)
+
       if (err) {
         logError("get listing for id " + listingId + " failed:" + err);
         this.pendingListing.add(listingId);

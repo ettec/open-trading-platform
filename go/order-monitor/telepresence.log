@@ -1,6 +1,6 @@
-   0.0 TEL | Telepresence 0.105 launched at Sat May 23 17:56:33 2020
+   0.0 TEL | Telepresence 0.105 launched at Sun May 24 22:39:55 2020
    0.0 TEL |   /usr/bin/telepresence --swap-deployment order-monitor --expose 50551 --run ./order-monitor
-   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.3.0-51-generic', version='#44-Ubuntu SMP Wed Apr 22 21:09:44 UTC 2020', machine='x86_64', processor='x86_64')
+   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.3.0-53-generic', version='#47-Ubuntu SMP Thu May 7 12:18:16 UTC 2020', machine='x86_64', processor='x86_64')
    0.0 TEL | Platform: linux
    0.0 TEL | WSL: False
    0.0 TEL | Python 3.7.5 (default, Apr 19 2020, 20:18:17)
@@ -9,9 +9,9 @@
    0.0 TEL | BEGIN SPAN startup.py:83(set_kube_command)
    0.0 TEL | Found kubectl -> /snap/bin/kubectl
    0.0 TEL | [1] Capturing: kubectl config current-context
-   0.1 TEL | [1] captured in 0.12 secs.
+   0.1 TEL | [1] captured in 0.10 secs.
    0.1 TEL | [2] Capturing: kubectl --context kubernetes-admin@kubernetes version --short
-   0.2 TEL | [2] captured in 0.11 secs.
+   0.2 TEL | [2] captured in 0.13 secs.
    0.2 TEL | [3] Capturing: kubectl --context kubernetes-admin@kubernetes config view -o json
    0.3 TEL | [3] captured in 0.10 secs.
    0.3 TEL | [4] Capturing: kubectl --context kubernetes-admin@kubernetes get ns default
@@ -38,657 +38,487 @@
    0.6 TEL | Found fusermount -> /usr/bin/fusermount
    0.6 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
    0.6 TEL | [9] Running: kubectl --context kubernetes-admin@kubernetes --namespace default get pods telepresence-connectivity-check --ignore-not-found
-   0.8 TEL | [9] ran in 0.16 secs.
-   1.3 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
-   1.3 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
-   1.3 >>> | Starting network proxy to cluster by swapping out Deployment order-monitor with a proxy
-   1.3 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
-   1.3 TEL | [10] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json order-monitor
-   1.4 TEL | [10] captured in 0.13 secs.
-   1.4 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
-   1.4 TEL | [11] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment order-monitor-9ce88b021d39430487928559f9ccff8b --ignore-not-found
-   1.6 TEL | [11] ran in 0.15 secs.
+   0.9 TEL | [9] ran in 0.23 secs.
+   1.4 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
+   1.4 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
+   1.4 >>> | Starting network proxy to cluster by swapping out Deployment order-monitor with a proxy
+   1.4 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   1.4 TEL | [10] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json order-monitor
+   1.5 TEL | [10] captured in 0.13 secs.
+   1.5 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+   1.5 TEL | [11] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment order-monitor-15ed57ff971c4e45a9ca44ad797223aa --ignore-not-found
+   1.6 TEL | [11] ran in 0.14 secs.
    1.6 TEL | [12] Running: kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
-   1.9  12 | deployment.apps/order-monitor-9ce88b021d39430487928559f9ccff8b created
-   1.9 TEL | [12] ran in 0.36 secs.
-   1.9 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment order-monitor --replicas=0
+   1.8  12 | deployment.apps/order-monitor-15ed57ff971c4e45a9ca44ad797223aa created
+   1.8 TEL | [12] ran in 0.22 secs.
+   1.8 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment order-monitor --replicas=0
    2.2  13 | deployment.apps/order-monitor scaled
-   2.3 TEL | [13] ran in 0.33 secs.
-   2.3 TEL | END SPAN deployment.py:283(supplant_deployment)    1.0s
-   2.3 TEL | BEGIN SPAN remote.py:142(get_remote_info)
-   2.3 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
-   2.3 TEL | [14] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=9ce88b021d39430487928559f9ccff8b
-   2.5 TEL | [14] captured in 0.22 secs.
-   2.5 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
-   2.5 TEL | Searching for Telepresence pod:
-   2.5 TEL |   with name order-monitor-9ce88b021d39430487928559f9ccff8b-*
-   2.5 TEL |   with labels {'app': 'order-monitor', 'telepresence': '9ce88b021d39430487928559f9ccff8b'}
-   2.5 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=9ce88b021d39430487928559f9ccff8b
-   2.6 TEL | [15] captured in 0.13 secs.
-   2.6 TEL | Checking order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m
-   2.6 TEL | Looks like we've found our pod!
-   2.6 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
-   2.6 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   2.8 TEL | [16] captured in 0.16 secs.
-   3.0 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   3.3 TEL | [17] captured in 0.31 secs.
-   3.6 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   3.7 TEL | [18] captured in 0.11 secs.
-   3.9 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   4.1 TEL | [19] captured in 0.15 secs.
-   4.3 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   4.5 TEL | [20] captured in 0.15 secs.
-   4.7 TEL | [21] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   4.9 TEL | [21] captured in 0.14 secs.
-   5.1 TEL | [22] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   5.2 TEL | [22] captured in 0.12 secs.
-   5.5 TEL | [23] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   5.6 TEL | [23] captured in 0.15 secs.
-   5.9 TEL | [24] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   6.0 TEL | [24] captured in 0.13 secs.
-   6.3 TEL | [25] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   6.4 TEL | [25] captured in 0.12 secs.
-   6.6 TEL | [26] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m -o json
-   6.8 TEL | [26] captured in 0.20 secs.
-   6.8 TEL | END SPAN remote.py:104(wait_for_pod)    4.2s
-   6.8 TEL | END SPAN remote.py:142(get_remote_info)    4.6s
-   6.8 TEL | BEGIN SPAN connect.py:37(connect)
-   6.8 TEL | [27] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m --container order-monitor --tail=10
-   6.9 TEL | [28] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m 41535:8022
-   6.9 TEL | [29] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41535 telepresence@127.0.0.1 /bin/true
-   6.9 TEL | [29] exit 255 in 0.01 secs.
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] Loading ./forwarder.py...
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] /etc/resolv.conf changed, reparsing
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] Resolver added ('10.96.0.10', 53) to server list
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] SOCKSv5Factory starting on 9050
-   7.0  27 | 2020-05-23T16:56:40+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7fb08c327160>
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] DNSDatagramProtocol starting on 9053
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7fb08c327438>
-   7.0  27 | 2020-05-23T16:56:40+0000 [-] Loaded.
-   7.0  27 | 2020-05-23T16:56:40+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
-   7.0  27 | 2020-05-23T16:56:40+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
-   7.1  28 | Forwarding from 127.0.0.1:41535 -> 8022
-   7.1  28 | Forwarding from [::1]:41535 -> 8022
-   7.1 TEL | [30] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41535 telepresence@127.0.0.1 /bin/true
-   7.1  28 | Handling connection for 41535
-   7.3 TEL | [30] ran in 0.22 secs.
-   7.3 >>> | Forwarding remote port 50551 to local port 50551.
-   7.3 TEL | [31] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41535 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
-   7.3 >>> | 
-   7.3 TEL | Launching Web server for proxy poll
-   7.3 TEL | [32] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41535 telepresence@127.0.0.1 -L127.0.0.1:42801:127.0.0.1:9050 -R9055:127.0.0.1:38987
-   7.3  28 | Handling connection for 41535
-   7.3 TEL | END SPAN connect.py:37(connect)    0.5s
-   7.3 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
-   7.4 TEL | [33] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m --container order-monitor -- python3 podinfo.py
-   7.4  28 | Handling connection for 41535
-   7.7 TEL | [33] captured in 0.34 secs.
-   7.7 TEL | END SPAN remote_env.py:29(get_remote_env)    0.3s
-   7.7 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
-   7.7 TEL | [34] Running: sshfs -p 41535 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-g6rl0w2f/fs
-   7.7  28 | Handling connection for 41535
-   7.9 TEL | [34] ran in 0.19 secs.
-   7.9 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
-   7.9 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
-   7.9 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
-   7.9 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.0s
-   7.9 TEL | [35] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:41535 --to-ns 127.0.0.1:9053 10.244.0.0/24 10.96.0.0/12 10.244.1.0/24 10.244.2.0/24
-   7.9 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
-   7.9 TEL | Wait for vpn-tcp connection: hellotelepresence-0
-   7.9 TEL | [36] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
-   8.0 TEL | [36] exit 1 in 0.12 secs.
-   8.0 TEL | [37] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
-   8.4  35 | Starting sshuttle proxy.
-   9.0 TEL | [37] timed out after 1.00 secs.
-   9.1 TEL | Wait for vpn-tcp connection: hellotelepresence-1
-   9.1 TEL | [38] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
-   9.2 TEL | [38] exit 1 in 0.12 secs.
-   9.2 TEL | [39] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
-   9.3 TEL | [39] exit 1 in 0.12 secs.
-   9.4  35 | firewall manager: Starting firewall with Python version 3.7.5
-   9.4  35 | firewall manager: ready method name nat.
-   9.4  35 | IPv6 enabled: False
-   9.4  35 | UDP enabled: False
-   9.4  35 | DNS enabled: True
-   9.4  35 | TCP redirector listening on ('127.0.0.1', 12300).
-   9.4  35 | DNS listening on ('127.0.0.1', 12300).
-   9.4  35 | Starting client with Python version 3.7.5
-   9.4  35 | c : connecting to server...
-   9.4  28 | Handling connection for 41535
-   9.4 TEL | Wait for vpn-tcp connection: hellotelepresence-2
-   9.4 TEL | [40] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
-   9.5  35 | Warning: Permanently added '[127.0.0.1]:41535' (ECDSA) to the list of known hosts.
-   9.6 TEL | [40] exit 1 in 0.12 secs.
-   9.6 TEL | [41] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
-   9.6  35 | Starting server with Python version 3.6.8
-   9.6  35 |  s: latency control setting = True
-   9.6  35 |  s: available routes:
-   9.6  35 |  s:   2/10.244.0.0/16
-   9.6  35 |  s:   2/10.244.1.0/24
-   9.6  35 | c : Connected.
-   9.6  35 | firewall manager: setting up.
-   9.6  35 | >> iptables -t nat -N sshuttle-12300
-   9.7  35 | >> iptables -t nat -F sshuttle-12300
-   9.7  35 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
-   9.7  35 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
-   9.7  35 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
-   9.7  35 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
-  10.5  35 | c : DNS request from ('127.0.0.1', 59090) to None: 44 bytes
-  10.5  27 | 2020-05-23T16:56:44+0000 [stdout#info] A query: b'play.google.com'
-  10.5  27 | 2020-05-23T16:56:44+0000 [stdout#info] Result for b'play.google.com' is ['172.217.169.46']
-  10.6 TEL | [41] timed out after 1.00 secs.
-  10.7 TEL | Wait for vpn-tcp connection: hellotelepresence-3
-  10.7 TEL | [42] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
-  10.7  35 | c : DNS request from ('127.0.0.1', 54326) to None: 48 bytes
-  10.7  27 | 2020-05-23T16:56:44+0000 [stdout#info] Set DNS suffix we filter out to: [()]
-  10.7  27 | 2020-05-23T16:56:44+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
-  10.7 TEL | [42] captured in 0.07 secs.
-  10.7 TEL | Resolved hellotelepresence-3. 2 more...
-  10.7 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
-  10.8  35 | c : DNS request from ('127.0.0.1', 41702) to None: 79 bytes
-  10.8  27 | 2020-05-23T16:56:44+0000 [stdout#info] Sanity check: b'hellotelepresence-3.a.sanity.check.telepresence.io'
-  10.9 TEL | [43] exit 1 in 0.12 secs.
-  11.0 TEL | Wait for vpn-tcp connection: hellotelepresence-4
-  11.0 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
-  11.0  35 | c : DNS request from ('127.0.0.1', 39411) to None: 48 bytes
-  11.0  27 | 2020-05-23T16:56:44+0000 [stdout#info] Result for b'hellotelepresence-4' is ['127.0.0.1']
-  11.0 TEL | [44] captured in 0.07 secs.
-  11.0 TEL | Resolved hellotelepresence-4. 1 more...
-  11.0 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity.check.telepresence.io")'
-  11.0  35 | c : DNS request from ('127.0.0.1', 55694) to None: 79 bytes
-  11.1  27 | 2020-05-23T16:56:44+0000 [stdout#info] Sanity check: b'hellotelepresence-4.a.sanity.check.telepresence.io'
-  11.1 TEL | [45] exit 1 in 0.12 secs.
-  11.2 TEL | Wait for vpn-tcp connection: hellotelepresence-5
-  11.2 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
-  11.3  35 | c : DNS request from ('127.0.0.1', 58011) to None: 48 bytes
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'hellotelepresence-5' is ['127.0.0.1']
-  11.3 TEL | [46] captured in 0.07 secs.
-  11.3 TEL | Resolved hellotelepresence-5. 0 more...
-  11.3 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    3.4s
-  11.3 TEL | END SPAN vpn.py:280(connect_sshuttle)    3.4s
-  11.3 >>> | Setup complete. Launching your command.
-  11.3 TEL | Everything launched. Waiting to exit...
-  11.3 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
-  11.3  35 | c : DNS request from ('127.0.0.1', 39552) to None: 47 bytes
-  11.3  35 | c : DNS request from ('127.0.0.1', 47113) to None: 48 bytes
-  11.3  35 | c : DNS request from ('127.0.0.1', 47113) to None: 48 bytes
-  11.3  35 | c : DNS request from ('127.0.0.1', 39552) to None: 47 bytes
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] A query: b'static-data-service'
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] AAAA query, sending back A instead: b'static-data-service'
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] A query: b'static-data-service'
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'static-data-service' is ['10.98.151.249']
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'static-data-service' is ['10.98.151.249']
-  11.3  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  11.3  35 | c : Accept TCP: 192.168.1.150:42810 -> 10.98.151.249:50551.
-  11.3  35 | c : Accept TCP: 192.168.1.150:57414 -> 10.102.135.241:9092.
-  11.5  35 | c : Accept TCP: 192.168.1.150:45596 -> 10.96.0.1:443.
-  11.5  35 |  s: SW#-1:10.102.135.241:9092: deleting (5 remain)
-  11.5  35 |  s: SW'unknown':Mux#12: deleting (4 remain)
-  11.5  35 | c : DNS request from ('127.0.0.1', 56482) to None: 41 bytes
-  11.5  35 | c : DNS request from ('127.0.0.1', 56482) to None: 41 bytes
-  11.5  27 | 2020-05-23T16:56:45+0000 [stdout#info] A query: b'order-router'
-  11.5  27 | 2020-05-23T16:56:45+0000 [stdout#info] AAAA query, sending back A instead: b'order-router'
-  11.5  27 | 2020-05-23T16:56:45+0000 [stdout#info] A query: b'order-router'
-  11.5  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'order-router' is ['10.103.5.179']
-  11.5  27 | 2020-05-23T16:56:45+0000 [stdout#info] Result for b'order-router' is ['10.103.5.179']
-  11.5  35 | c : Accept TCP: 192.168.1.150:46126 -> 10.103.5.179:50581.
-  11.6  35 | c : SW#10:192.168.1.150:57414: deleting (7 remain)
-  11.6  35 | c : SW'unknown':Mux#12: deleting (6 remain)
-  26.3  35 | c : DNS request from ('127.0.0.1', 52012) to None: 47 bytes
-  26.3  35 | c : DNS request from ('127.0.0.1', 52012) to None: 47 bytes
-  26.3  27 | 2020-05-23T16:57:00+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  26.3  27 | 2020-05-23T16:57:00+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  26.3  27 | 2020-05-23T16:57:00+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  26.3  35 | c : Accept TCP: 192.168.1.150:57428 -> 10.102.135.241:9092.
-  26.3  27 | 2020-05-23T16:57:00+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  26.3  27 | 2020-05-23T16:57:00+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  30.6 TEL | [47] Running: sudo -n echo -n
-  30.7 TEL | [47] ran in 0.01 secs.
-  35.1  35 | c : DNS request from ('127.0.0.1', 57614) to None: 47 bytes
-  35.1  35 | c : DNS request from ('127.0.0.1', 57614) to None: 47 bytes
-  35.1  27 | 2020-05-23T16:57:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  35.1  27 | 2020-05-23T16:57:08+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  35.1  27 | 2020-05-23T16:57:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  35.1  27 | 2020-05-23T16:57:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  35.1  35 | c : Accept TCP: 192.168.1.150:57432 -> 10.102.135.241:9092.
-  35.1  35 | c : Accept TCP: 192.168.1.150:57430 -> 10.102.135.241:9092.
-  35.1  35 | c : SW'unknown':Mux#19: deleting (11 remain)
-  35.1  35 | c : SW#-1:192.168.1.150:57428: deleting (10 remain)
-  35.1  27 | 2020-05-23T16:57:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  35.1  35 |  s: SW#-1:10.102.135.241:9092: deleting (11 remain)
-  35.1  35 |  s: SW'unknown':Mux#19: deleting (10 remain)
-  35.1  35 | c : Accept TCP: 192.168.1.150:45506 -> 10.244.1.133:9092.
-  35.1  35 | c : Accept TCP: 192.168.1.150:45508 -> 10.244.1.133:9092.
-  35.1  35 | c : SW#13:192.168.1.150:57432: deleting (13 remain)
-  35.1  35 | c : SW'unknown':Mux#22: deleting (12 remain)
-  35.2  35 |  s: SW#-1:10.244.1.133:9092: deleting (13 remain)
-  35.2  35 |  s: SW'unknown':Mux#24: deleting (12 remain)
-  35.2  35 |  s: SW'unknown':Mux#22: deleting (11 remain)
-  35.2  35 |  s: SW#16:10.102.135.241:9092: deleting (10 remain)
-  35.2  35 |  s: SW'unknown':Mux#23: deleting (9 remain)
-  35.2  35 |  s: SW#17:10.102.135.241:9092: deleting (8 remain)
-  35.2  35 | c : SW'unknown':Mux#23: deleting (11 remain)
-  35.2  35 | c : SW#14:192.168.1.150:57430: deleting (10 remain)
-  35.2  35 | c : SW'unknown':Mux#24: deleting (9 remain)
-  35.2  35 | c : SW#10:192.168.1.150:45506: deleting (8 remain)
-  35.3  35 | c : DNS request from ('127.0.0.1', 50007) to None: 47 bytes
-  35.3  35 | c : DNS request from ('127.0.0.1', 50007) to None: 47 bytes
-  35.3  27 | 2020-05-23T16:57:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  35.3  27 | 2020-05-23T16:57:09+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  35.3  27 | 2020-05-23T16:57:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  35.3  27 | 2020-05-23T16:57:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  35.3  35 | c : Accept TCP: 192.168.1.150:57440 -> 10.102.135.241:9092.
-  35.3  27 | 2020-05-23T16:57:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  35.3  35 | c : Accept TCP: 192.168.1.150:45512 -> 10.244.1.133:9092.
-  35.4  35 |  s: SW#-1:10.102.135.241:9092: deleting (11 remain)
-  35.4  35 |  s: SW'unknown':Mux#28: deleting (10 remain)
-  35.6  35 | c : DNS request from ('127.0.0.1', 46765) to None: 47 bytes
-  35.6  35 | c : DNS request from ('127.0.0.1', 46765) to None: 47 bytes
-  35.6  27 | 2020-05-23T16:57:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  35.6  27 | 2020-05-23T16:57:09+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  35.6  27 | 2020-05-23T16:57:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  35.6  27 | 2020-05-23T16:57:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  35.6  27 | 2020-05-23T16:57:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  35.6  35 | c : Accept TCP: 192.168.1.150:57444 -> 10.102.135.241:9092.
-  35.7  35 | c : Accept TCP: 192.168.1.150:45516 -> 10.244.1.133:9092.
-  35.7  35 |  s: SW#-1:10.102.135.241:9092: deleting (13 remain)
-  35.7  35 |  s: SW'unknown':Mux#32: deleting (12 remain)
-  35.7  35 | c : SW#14:192.168.1.150:57444: deleting (15 remain)
-  35.7  35 | c : SW'unknown':Mux#32: deleting (14 remain)
-  36.6 TEL | (proxy checking local liveness)
-  36.6  27 | 2020-05-23T16:57:10+0000 [Poll#info] Checkpoint
-  40.5  35 | c : SW'unknown':Mux#28: deleting (13 remain)
-  40.5  35 | c : SW#10:192.168.1.150:57440: deleting (12 remain)
-  44.5  35 | c : DNS request from ('127.0.0.1', 42953) to None: 47 bytes
-  44.5  27 | 2020-05-23T16:57:18+0000 [stdout#info] A query: b'cdn.optimizely.com'
-  44.5  27 | 2020-05-23T16:57:18+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['104.116.97.127']
-  46.6  35 | c : DNS request from ('127.0.0.1', 51955) to None: 47 bytes
-  46.6  35 | c : DNS request from ('127.0.0.1', 51955) to None: 47 bytes
-  46.6  27 | 2020-05-23T16:57:20+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  46.6  27 | 2020-05-23T16:57:20+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  46.6  27 | 2020-05-23T16:57:20+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  46.6  27 | 2020-05-23T16:57:20+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  46.6  27 | 2020-05-23T16:57:20+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  51.8  35 | c : DNS request from ('127.0.0.1', 44627) to None: 48 bytes
-  51.8  27 | 2020-05-23T16:57:25+0000 [stdout#info] A query: b'clients6.google.com'
-  51.8  27 | 2020-05-23T16:57:25+0000 [stdout#info] Result for b'clients6.google.com' is ['216.58.206.110']
-  53.4  35 | c : DNS request from ('127.0.0.1', 34315) to None: 47 bytes
-  53.4  35 | c : DNS request from ('127.0.0.1', 34315) to None: 47 bytes
-  53.4  27 | 2020-05-23T16:57:27+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  53.4  27 | 2020-05-23T16:57:27+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  53.4  27 | 2020-05-23T16:57:27+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  53.4  27 | 2020-05-23T16:57:27+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  53.4  35 | c : SW#16:192.168.1.150:45516: deleting (11 remain)
-  53.4  35 | c : SW#16:192.168.1.150:45516: error was: uread: [Errno 104] Connection reset by peer
-  53.4  35 | c : SW'unknown':Mux#33: deleting (10 remain)
-  53.4  27 | 2020-05-23T16:57:27+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  58.8  35 | c : DNS request from ('127.0.0.1', 51184) to None: 47 bytes
-  58.8  35 | c : DNS request from ('127.0.0.1', 51184) to None: 47 bytes
-  58.8  27 | 2020-05-23T16:57:32+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  58.8  27 | 2020-05-23T16:57:32+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  58.8  27 | 2020-05-23T16:57:32+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  58.8  35 |  s: SW'unknown':Mux#33: deleting (11 remain)
-  58.8  35 |  s: SW#14:10.244.1.133:9092: deleting (10 remain)
-  58.8  27 | 2020-05-23T16:57:32+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  58.8  27 | 2020-05-23T16:57:32+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  58.8  35 | c : Accept TCP: 192.168.1.150:57456 -> 10.102.135.241:9092.
-  58.8  35 | c : Accept TCP: 192.168.1.150:45528 -> 10.244.1.133:9092.
-  59.1  35 |  s: SW#-1:10.102.135.241:9092: deleting (13 remain)
-  59.1  35 |  s: SW'unknown':Mux#42: deleting (12 remain)
-  59.1  35 | c : SW#10:192.168.1.150:57456: deleting (13 remain)
-  59.1  35 | c : SW'unknown':Mux#42: deleting (12 remain)
-  60.7 TEL | [48] Running: sudo -n echo -n
-  60.7 TEL | [48] ran in 0.01 secs.
-  66.6 TEL | (proxy checking local liveness)
-  66.6  27 | 2020-05-23T16:57:40+0000 [Poll#info] Checkpoint
-  69.2  35 | c : DNS request from ('127.0.0.1', 42776) to None: 58 bytes
-  69.2  27 | 2020-05-23T16:57:42+0000 [stdout#info] AAAA query, sending back A instead: b'connectivity-check.ubuntu.com'
-  69.2  27 | 2020-05-23T16:57:42+0000 [stdout#info] A query: b'connectivity-check.ubuntu.com'
-  69.3  27 | 2020-05-23T16:57:43+0000 [stdout#info] Result for b'connectivity-check.ubuntu.com' is ['35.222.85.5', '35.224.99.156']
-  76.1  35 | c : DNS request from ('127.0.0.1', 43708) to None: 47 bytes
-  76.1  35 | c : DNS request from ('127.0.0.1', 43708) to None: 47 bytes
-  76.1  27 | 2020-05-23T16:57:49+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  76.2  27 | 2020-05-23T16:57:49+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  76.2  27 | 2020-05-23T16:57:49+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  76.2  27 | 2020-05-23T16:57:49+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  76.2  35 | c : Accept TCP: 192.168.1.150:57466 -> 10.102.135.241:9092.
-  76.2  35 | c : Accept TCP: 192.168.1.150:57464 -> 10.102.135.241:9092.
-  76.2  27 | 2020-05-23T16:57:49+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  76.2  35 | c : Accept TCP: 192.168.1.150:45538 -> 10.244.1.133:9092.
-  76.2  35 | c : SW#10:192.168.1.150:57466: deleting (17 remain)
-  76.2  35 | c : SW'unknown':Mux#47: deleting (16 remain)
-  76.2  35 | c : SW#16:192.168.1.150:57464: deleting (15 remain)
-  76.2  35 | c : SW'unknown':Mux#48: deleting (14 remain)
-  76.3  35 |  s: SW'unknown':Mux#47: deleting (17 remain)
-  76.3  35 |  s: SW#7:10.102.135.241:9092: deleting (16 remain)
-  76.3  35 |  s: SW'unknown':Mux#48: deleting (15 remain)
-  76.3  35 |  s: SW#15:10.102.135.241:9092: deleting (14 remain)
-  76.4  35 | c : DNS request from ('127.0.0.1', 57264) to None: 47 bytes
-  76.4  35 | c : DNS request from ('127.0.0.1', 57264) to None: 47 bytes
-  76.5  27 | 2020-05-23T16:57:50+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  76.5  27 | 2020-05-23T16:57:50+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  76.5  27 | 2020-05-23T16:57:50+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  76.5  35 | c : Accept TCP: 192.168.1.150:57470 -> 10.102.135.241:9092.
-  76.5  27 | 2020-05-23T16:57:50+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  76.5  27 | 2020-05-23T16:57:50+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  76.5  35 | c : Accept TCP: 192.168.1.150:45542 -> 10.244.1.133:9092.
-  76.5  35 |  s: SW#-1:10.102.135.241:9092: deleting (17 remain)
-  76.5  35 |  s: SW'unknown':Mux#52: deleting (16 remain)
-  76.5  35 | c : SW'unknown':Mux#52: deleting (17 remain)
-  76.5  35 | c : SW#-1:192.168.1.150:57470: deleting (16 remain)
-  86.3  35 | c : DNS request from ('127.0.0.1', 49367) to None: 47 bytes
-  86.3  35 | c : DNS request from ('127.0.0.1', 49367) to None: 47 bytes
-  86.3  27 | 2020-05-23T16:58:00+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  86.3  27 | 2020-05-23T16:58:00+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  86.3  27 | 2020-05-23T16:58:00+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  86.3  35 | c : Accept TCP: 192.168.1.150:57474 -> 10.102.135.241:9092.
-  86.3  27 | 2020-05-23T16:58:00+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  86.3  27 | 2020-05-23T16:58:00+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  86.9  35 | c : SW#10:192.168.1.150:57474: deleting (17 remain)
-  86.9  35 | c : SW'unknown':Mux#56: deleting (16 remain)
-  87.1  35 |  s: SW'unknown':Mux#56: deleting (17 remain)
-  87.1  35 |  s: SW#15:10.102.135.241:9092: deleting (16 remain)
-  87.2  35 | c : DNS request from ('127.0.0.1', 59476) to None: 56 bytes
-  87.2  27 | 2020-05-23T16:58:00+0000 [stdout#info] A query: b'safebrowsing.googleapis.com'
-  87.3  27 | 2020-05-23T16:58:01+0000 [stdout#info] Result for b'safebrowsing.googleapis.com' is ['216.58.198.170']
-  90.7 TEL | [49] Running: sudo -n echo -n
-  90.7 TEL | [49] ran in 0.01 secs.
-  95.1  35 | c : DNS request from ('127.0.0.1', 39020) to None: 47 bytes
-  95.1  35 | c : DNS request from ('127.0.0.1', 39020) to None: 47 bytes
-  95.1  27 | 2020-05-23T16:58:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  95.1  27 | 2020-05-23T16:58:08+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  95.1  27 | 2020-05-23T16:58:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  95.1  27 | 2020-05-23T16:58:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  95.1  35 | c : Accept TCP: 192.168.1.150:57478 -> 10.102.135.241:9092.
-  95.1  27 | 2020-05-23T16:58:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  95.1  35 | c : Accept TCP: 192.168.1.150:45550 -> 10.244.1.133:9092.
-  95.2  35 | c : SW#10:192.168.1.150:57478: deleting (19 remain)
-  95.2  35 | c : SW'unknown':Mux#60: deleting (18 remain)
-  95.2  35 | c : SW#18:192.168.1.150:45550: deleting (17 remain)
-  95.2  35 | c : SW'unknown':Mux#61: deleting (16 remain)
-  95.3  35 | c : DNS request from ('127.0.0.1', 48571) to None: 47 bytes
-  95.3  35 | c : DNS request from ('127.0.0.1', 48571) to None: 47 bytes
-  95.3  27 | 2020-05-23T16:58:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  95.3  27 | 2020-05-23T16:58:09+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
-  95.3  27 | 2020-05-23T16:58:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
-  95.3  27 | 2020-05-23T16:58:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  95.3  27 | 2020-05-23T16:58:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
-  95.3  35 | c : Accept TCP: 192.168.1.150:57494 -> 10.102.135.241:9092.
-  95.4  35 |  s: SW#-1:10.244.1.133:9092: deleting (21 remain)
-  95.4  35 |  s: SW'unknown':Mux#61: deleting (20 remain)
-  95.4  35 | c : Accept TCP: 192.168.1.150:45566 -> 10.244.1.133:9092.
-  95.4  35 | c : SW#16:192.168.1.150:45542: deleting (19 remain)
-  95.4  35 | c : SW#16:192.168.1.150:45542: error was: nowrite: [Errno 107] Transport endpoint is not connected
-  95.4  35 | c : SW'unknown':Mux#53: deleting (18 remain)
-  95.4  35 | c : SW#10:192.168.1.150:57494: deleting (17 remain)
-  95.4  35 | c : SW'unknown':Mux#64: deleting (16 remain)
-  95.5  35 |  s: SW'unknown':Mux#60: deleting (21 remain)
-  95.5  35 |  s: SW#7:10.102.135.241:9092: deleting (20 remain)
-  95.5  35 |  s: SW'unknown':Mux#64: deleting (19 remain)
-  95.5  35 |  s: SW#15:10.102.135.241:9092: deleting (18 remain)
-  95.5  35 |  s: SW'unknown':Mux#53: deleting (17 remain)
-  95.5  35 |  s: SW#16:10.244.1.133:9092: deleting (16 remain)
-  96.6 TEL | (proxy checking local liveness)
-  96.6  27 | 2020-05-23T16:58:10+0000 [Poll#info] Checkpoint
- 101.3  35 | c : DNS request from ('127.0.0.1', 41505) to None: 47 bytes
- 101.3  35 | c : DNS request from ('127.0.0.1', 41505) to None: 47 bytes
- 101.3  27 | 2020-05-23T16:58:15+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 101.3  27 | 2020-05-23T16:58:15+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 101.3  27 | 2020-05-23T16:58:15+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 101.3  27 | 2020-05-23T16:58:15+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 101.3  27 | 2020-05-23T16:58:15+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 101.3  35 | c : Accept TCP: 192.168.1.150:57500 -> 10.102.135.241:9092.
- 101.5  35 |  s: SW#-1:10.102.135.241:9092: deleting (17 remain)
- 101.5  35 |  s: SW'unknown':Mux#68: deleting (16 remain)
- 101.8  35 | c : SW#11:192.168.1.150:45596: deleting (17 remain)
- 101.8  35 | c : SW#11:192.168.1.150:45596: error was: nowrite: [Errno 107] Transport endpoint is not connected
- 101.8  35 | c : SW'unknown':Mux#13: deleting (16 remain)
- 102.4  35 |  s: SW'unknown':Mux#13: deleting (15 remain)
- 102.4  35 |  s: SW#8:10.96.0.1:443: deleting (14 remain)
- 104.9  35 | c : SW#10:192.168.1.150:57500: deleting (15 remain)
- 104.9  35 | c : SW'unknown':Mux#68: deleting (14 remain)
- 112.5  35 | c : DNS request from ('127.0.0.1', 47748) to None: 56 bytes
- 112.5  27 | 2020-05-23T16:58:26+0000 [stdout#info] A query: b'chat-pa.clients6.google.com'
- 112.5  27 | 2020-05-23T16:58:26+0000 [stdout#info] Result for b'chat-pa.clients6.google.com' is ['172.217.169.74']
- 116.3  35 | c : DNS request from ('127.0.0.1', 42635) to None: 47 bytes
- 116.3  35 | c : DNS request from ('127.0.0.1', 42635) to None: 47 bytes
- 116.3  27 | 2020-05-23T16:58:30+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 116.3  27 | 2020-05-23T16:58:30+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 116.3  27 | 2020-05-23T16:58:30+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 116.3  35 | c : Accept TCP: 192.168.1.150:57504 -> 10.102.135.241:9092.
- 116.3  27 | 2020-05-23T16:58:30+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 116.3  27 | 2020-05-23T16:58:30+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 116.5  35 | c : DNS request from ('127.0.0.1', 35187) to None: 47 bytes
- 116.5  27 | 2020-05-23T16:58:30+0000 [stdout#info] A query: b'cdn.optimizely.com'
- 116.5  27 | 2020-05-23T16:58:30+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['104.116.97.127']
- 116.5  35 |  s: SW#-1:10.102.135.241:9092: deleting (15 remain)
- 116.5  35 |  s: SW'unknown':Mux#72: deleting (14 remain)
- 118.1  35 | c : SW'unknown':Mux#72: deleting (15 remain)
- 118.1  35 | c : SW#10:192.168.1.150:57504: deleting (14 remain)
- 120.8 TEL | [50] Running: sudo -n echo -n
- 120.8 TEL | [50] ran in 0.01 secs.
- 121.0  35 | c : DNS request from ('127.0.0.1', 36289) to None: 47 bytes
- 121.0  35 | c : DNS request from ('127.0.0.1', 36289) to None: 47 bytes
- 121.0  35 | c : SW#18:192.168.1.150:45566: deleting (13 remain)
- 121.0  35 | c : SW#18:192.168.1.150:45566: error was: nowrite: [Errno 107] Transport endpoint is not connected
- 121.0  35 | c : SW'unknown':Mux#65: deleting (12 remain)
- 121.0  27 | 2020-05-23T16:58:34+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 121.1  27 | 2020-05-23T16:58:34+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 121.1  27 | 2020-05-23T16:58:34+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 121.1  27 | 2020-05-23T16:58:34+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 121.1  35 | c : Accept TCP: 192.168.1.150:57508 -> 10.102.135.241:9092.
- 121.1  27 | 2020-05-23T16:58:34+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 121.1  35 | c : Accept TCP: 192.168.1.150:45580 -> 10.244.1.133:9092.
- 121.1  35 |  s: SW#-1:10.102.135.241:9092: deleting (17 remain)
- 121.1  35 |  s: SW'unknown':Mux#76: deleting (16 remain)
- 121.2  35 | c : SW#10:192.168.1.150:57508: deleting (15 remain)
- 121.3  35 | c : SW'unknown':Mux#76: deleting (14 remain)
- 126.5  35 | c : DNS request from ('127.0.0.1', 58423) to None: 45 bytes
- 126.5  27 | 2020-05-23T16:58:40+0000 [stdout#info] A query: b'vmp.boldchat.com'
- 126.6 TEL | (proxy checking local liveness)
- 126.6  27 | 2020-05-23T16:58:40+0000 [Poll#info] Checkpoint
- 126.6  27 | 2020-05-23T16:58:40+0000 [stdout#info] Result for b'vmp.boldchat.com' is ['67.217.81.22', '67.217.81.10', '67.217.81.13', '67.217.81.16', '67.217.81.7', '67.217.81.31', '67.217.81.1', '67.217.81.34']
- 129.7  35 | c : DNS request from ('127.0.0.1', 59602) to None: 48 bytes
- 129.7  27 | 2020-05-23T16:58:43+0000 [stdout#info] A query: b'clients4.google.com'
- 129.7  27 | 2020-05-23T16:58:43+0000 [stdout#info] Result for b'clients4.google.com' is ['216.58.206.142']
- 131.3  35 | c : DNS request from ('127.0.0.1', 43200) to None: 47 bytes
- 131.3  35 | c : DNS request from ('127.0.0.1', 43200) to None: 47 bytes
- 131.3  27 | 2020-05-23T16:58:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 131.3  27 | 2020-05-23T16:58:45+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 131.3  27 | 2020-05-23T16:58:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 131.3  27 | 2020-05-23T16:58:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 131.3  35 | c : Accept TCP: 192.168.1.150:57520 -> 10.102.135.241:9092.
- 131.3  27 | 2020-05-23T16:58:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 131.5  35 |  s: SW#-1:10.102.135.241:9092: deleting (17 remain)
- 131.5  35 |  s: SW'unknown':Mux#82: deleting (16 remain)
- 131.7  35 | c : SW#10:192.168.1.150:57520: deleting (15 remain)
- 131.7  35 | c : SW'unknown':Mux#82: deleting (14 remain)
- 146.3  35 | c : DNS request from ('127.0.0.1', 55571) to None: 47 bytes
- 146.3  35 | c : DNS request from ('127.0.0.1', 55571) to None: 47 bytes
- 146.3  27 | 2020-05-23T16:59:00+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 146.3  27 | 2020-05-23T16:59:00+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 146.3  27 | 2020-05-23T16:59:00+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 146.3  27 | 2020-05-23T16:59:00+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 146.3  27 | 2020-05-23T16:59:00+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 146.3  35 | c : Accept TCP: 192.168.1.150:57522 -> 10.102.135.241:9092.
- 146.5  35 | c : SW'unknown':Mux#85: deleting (15 remain)
- 146.5  35 | c : SW#-1:192.168.1.150:57522: deleting (14 remain)
- 146.9  35 |  s: SW#-1:10.102.135.241:9092: deleting (17 remain)
- 146.9  35 |  s: SW'unknown':Mux#85: deleting (16 remain)
- 150.8 TEL | [51] Running: sudo -n echo -n
- 150.8 TEL | [51] ran in 0.01 secs.
- 155.1  35 | c : DNS request from ('127.0.0.1', 57339) to None: 47 bytes
- 155.1  35 | c : DNS request from ('127.0.0.1', 57339) to None: 47 bytes
- 155.1  27 | 2020-05-23T16:59:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 155.1  27 | 2020-05-23T16:59:08+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 155.1  27 | 2020-05-23T16:59:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 155.1  27 | 2020-05-23T16:59:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 155.1  35 | c : Accept TCP: 192.168.1.150:57524 -> 10.102.135.241:9092.
- 155.1  27 | 2020-05-23T16:59:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 155.1  35 |  s: SW'unknown':Mux#65: deleting (17 remain)
- 155.1  35 |  s: SW#14:10.244.1.133:9092: deleting (16 remain)
- 155.1  35 | c : Accept TCP: 192.168.1.150:45596 -> 10.244.1.133:9092.
- 155.1  35 | c : SW#10:192.168.1.150:57524: deleting (17 remain)
- 155.1  35 | c : SW'unknown':Mux#88: deleting (16 remain)
- 155.3  35 | c : DNS request from ('127.0.0.1', 33990) to None: 47 bytes
- 155.3  35 | c : DNS request from ('127.0.0.1', 33990) to None: 47 bytes
- 155.3  27 | 2020-05-23T16:59:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 155.3  27 | 2020-05-23T16:59:09+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 155.3  27 | 2020-05-23T16:59:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 155.3  27 | 2020-05-23T16:59:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 155.3  35 | c : Accept TCP: 192.168.1.150:57528 -> 10.102.135.241:9092.
- 155.3  27 | 2020-05-23T16:59:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 155.4  35 | c : SW#16:192.168.1.150:45596: deleting (17 remain)
- 155.4  35 | c : SW'unknown':Mux#89: deleting (16 remain)
- 155.4  35 | c : SW#15:192.168.1.150:45508: deleting (15 remain)
- 155.4  35 | c : SW'unknown':Mux#25: deleting (14 remain)
- 155.4  35 | c : SW#13:192.168.1.150:45512: deleting (13 remain)
- 155.4  35 | c : SW'unknown':Mux#29: deleting (12 remain)
- 155.4  35 | c : SW#14:192.168.1.150:45528: deleting (11 remain)
- 155.4  35 | c : SW'unknown':Mux#43: deleting (10 remain)
- 155.4  35 | c : SW#17:192.168.1.150:45538: deleting (9 remain)
- 155.4  35 | c : SW'unknown':Mux#49: deleting (8 remain)
- 155.4  35 | c : Accept TCP: 192.168.1.150:45600 -> 10.244.1.133:9092.
- 155.4  35 |  s: SW#-1:10.102.135.241:9092: deleting (21 remain)
- 155.4  35 |  s: SW'unknown':Mux#92: deleting (20 remain)
- 155.4  35 |  s: SW'unknown':Mux#77: deleting (19 remain)
- 155.4  35 |  s: SW#16:10.244.1.133:9092: deleting (18 remain)
- 155.4  35 |  s: SW'unknown':Mux#43: deleting (17 remain)
- 155.4  35 |  s: SW#11:10.244.1.133:9092: deleting (16 remain)
- 155.4  35 |  s: SW'unknown':Mux#29: deleting (15 remain)
- 155.4  35 |  s: SW#13:10.244.1.133:9092: deleting (14 remain)
- 155.9  35 | c : SW#10:192.168.1.150:57528: deleting (9 remain)
- 155.9  35 | c : SW'unknown':Mux#92: deleting (8 remain)
- 156.6 TEL | (proxy checking local liveness)
- 156.6  27 | 2020-05-23T16:59:10+0000 [Poll#info] Checkpoint
- 161.3  35 | c : DNS request from ('127.0.0.1', 40309) to None: 47 bytes
- 161.3  35 | c : DNS request from ('127.0.0.1', 40309) to None: 47 bytes
- 161.3  27 | 2020-05-23T16:59:15+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 161.3  27 | 2020-05-23T16:59:15+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 161.3  27 | 2020-05-23T16:59:15+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 161.3  27 | 2020-05-23T16:59:15+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 161.3  35 | c : Accept TCP: 192.168.1.150:57534 -> 10.102.135.241:9092.
- 161.3  27 | 2020-05-23T16:59:15+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 161.9  35 |  s: SW#-1:10.102.135.241:9092: deleting (15 remain)
- 161.9  35 |  s: SW'unknown':Mux#96: deleting (14 remain)
- 162.4  35 | c : SW#10:192.168.1.150:57534: deleting (9 remain)
- 162.4  35 | c : SW'unknown':Mux#96: deleting (8 remain)
- 173.4  35 |  s: SW'unknown':Mux#89: deleting (13 remain)
- 173.4  35 |  s: SW#8:10.244.1.133:9092: deleting (12 remain)
- 173.4  35 |  s: SW'unknown':Mux#25: deleting (11 remain)
- 173.4  35 |  s: SW#10:10.244.1.133:9092: deleting (10 remain)
- 174.5  35 | c : DNS request from ('127.0.0.1', 46549) to None: 44 bytes
- 174.5  27 | 2020-05-23T16:59:28+0000 [stdout#info] A query: b'play.google.com'
- 174.5  27 | 2020-05-23T16:59:28+0000 [stdout#info] Result for b'play.google.com' is ['216.58.198.174']
- 176.3  35 | c : DNS request from ('127.0.0.1', 54926) to None: 47 bytes
- 176.3  35 | c : DNS request from ('127.0.0.1', 54926) to None: 47 bytes
- 176.3  27 | 2020-05-23T16:59:30+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 176.3  27 | 2020-05-23T16:59:30+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 176.3  27 | 2020-05-23T16:59:30+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 176.3  35 | c : Accept TCP: 192.168.1.150:57538 -> 10.102.135.241:9092.
- 176.3  27 | 2020-05-23T16:59:30+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 176.3  27 | 2020-05-23T16:59:30+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 176.4  35 |  s: SW#-1:10.102.135.241:9092: deleting (11 remain)
- 176.4  35 |  s: SW'unknown':Mux#100: deleting (10 remain)
- 177.1  35 | c : SW#10:192.168.1.150:57538: deleting (9 remain)
- 177.1  35 | c : SW'unknown':Mux#100: deleting (8 remain)
- 180.1  35 | c : DNS request from ('127.0.0.1', 38919) to None: 47 bytes
- 180.1  35 | c : DNS request from ('127.0.0.1', 38919) to None: 47 bytes
- 180.1  27 | 2020-05-23T16:59:33+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 180.1  27 | 2020-05-23T16:59:33+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 180.1  27 | 2020-05-23T16:59:33+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 180.1  27 | 2020-05-23T16:59:33+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 180.1  27 | 2020-05-23T16:59:33+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 180.1  35 | c : Accept TCP: 192.168.1.150:57540 -> 10.102.135.241:9092.
- 180.1  35 | c : Accept TCP: 192.168.1.150:45612 -> 10.244.1.133:9092.
- 180.1  35 | c : SW'unknown':Mux#103: deleting (11 remain)
- 180.1  35 | c : SW#-1:192.168.1.150:57540: deleting (10 remain)
- 180.8 TEL | [52] Running: sudo -n echo -n
- 180.8 TEL | [52] ran in 0.01 secs.
- 181.1  35 |  s: SW'unknown':Mux#103: deleting (13 remain)
- 181.1  35 |  s: SW#11:10.102.135.241:9092: deleting (12 remain)
- 184.4  35 | c : SW#13:192.168.1.150:45600: deleting (9 remain)
- 184.4  35 | c : SW#13:192.168.1.150:45600: error was: nowrite: [Errno 107] Transport endpoint is not connected
- 184.4  35 | c : SW'unknown':Mux#93: deleting (8 remain)
- 186.6 TEL | (proxy checking local liveness)
- 186.6  27 | 2020-05-23T16:59:40+0000 [Poll#info] Checkpoint
- 191.3  35 | c : DNS request from ('127.0.0.1', 48546) to None: 47 bytes
- 191.3  35 | c : DNS request from ('127.0.0.1', 48546) to None: 47 bytes
- 191.3  27 | 2020-05-23T16:59:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 191.3  27 | 2020-05-23T16:59:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 191.3  27 | 2020-05-23T16:59:45+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 191.3  27 | 2020-05-23T16:59:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 191.3  35 | c : Accept TCP: 192.168.1.150:57546 -> 10.102.135.241:9092.
- 191.3  27 | 2020-05-23T16:59:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 191.8  35 |  s: SW#-1:10.102.135.241:9092: deleting (13 remain)
- 191.8  35 |  s: SW'unknown':Mux#107: deleting (12 remain)
- 192.1  35 | c : SW'unknown':Mux#107: deleting (9 remain)
- 192.1  35 | c : SW#-1:192.168.1.150:57546: deleting (8 remain)
- 193.8  35 |  s: SW'unknown':Mux#93: deleting (11 remain)
- 193.8  35 |  s: SW#18:10.244.1.133:9092: deleting (10 remain)
- 200.3 >>> | Keyboard interrupt (Ctrl-C/Ctrl-Break) pressed
- 200.3 >>> | Exit cleanup in progress
- 200.3 TEL | (Cleanup) Terminate local process
- 200.3 TEL | Killing local process...
- 200.3 TEL | Main process (./order-monitor)
- 200.3 TEL |  exited with code -2.
- 200.3 TEL | (Cleanup) Kill BG process [35] sshuttle
- 200.3  35 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
- 200.3 TEL | (Cleanup) Unmount remote filesystem
- 200.3 TEL | [53] Running: fusermount -z -u /tmp/tel-g6rl0w2f/fs
- 200.3  35 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
- 200.3 TEL | [53] exit 1 in 0.01 secs.
- 200.3  53 | fusermount: entry for /tmp/tel-g6rl0w2f/fs not found in /etc/mtab
- 200.3 TEL | (Cleanup) Unmount remote filesystem failed:
- 200.3 TEL | (Cleanup)   Command '['fusermount', '-z', '-u', '/tmp/tel-g6rl0w2f/fs']' returned non-zero exit status 1.
- 200.3 TEL | (Cleanup) Kill BG process [32] SSH port forward (socks and proxy poll)
- 200.3 TEL | [32] SSH port forward (socks and proxy poll): exit 0
- 200.3 TEL | (Cleanup) Kill Web server for proxy poll
- 200.3  35 | >> iptables -t nat -F sshuttle-12300
- 200.3  35 | >> iptables -t nat -X sshuttle-12300
- 200.4 TEL | [35] sshuttle: exit -15
- 200.6 TEL | (Cleanup) Kill BG process [31] SSH port forward (exposed ports)
- 200.6 TEL | [31] SSH port forward (exposed ports): exit 0
- 200.6 TEL | (Cleanup) Kill BG process [28] kubectl port-forward
- 200.6 TEL | [28] kubectl port-forward: exit -15
- 200.6 TEL | (Cleanup) Kill BG process [27] kubectl logs
- 200.6 TEL | [27] kubectl logs: exit -15
- 200.6 TEL | Background process (kubectl logs) exited with return code -15. Command was:
- 200.6 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f order-monitor-9ce88b021d39430487928559f9ccff8b-8d6c5bc8c-rhw8m --container order-monitor --tail=10
- 200.6 TEL | 
- 200.6 TEL | Recent output was:
- 200.6 TEL |   2020-05-23T16:59:33+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 200.6 TEL |   2020-05-23T16:59:33+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 200.6 TEL |   2020-05-23T16:59:33+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 200.6 TEL |   2020-05-23T16:59:33+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 200.6 TEL |   2020-05-23T16:59:40+0000 [Poll#info] Checkpoint
- 200.6 TEL |   2020-05-23T16:59:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 200.6 TEL |   2020-05-23T16:59:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 200.6 TEL |   2020-05-23T16:59:45+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
- 200.6 TEL |   2020-05-23T16:59:45+0000 [stdout#info] A query: b'kafka-opentp.kafka'
- 200.6 TEL |   2020-05-23T16:59:45+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
- 200.6 TEL | (Cleanup) Re-scale original deployment
- 200.6 TEL | [54] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment order-monitor --replicas=1
- 200.7  54 | deployment.apps/order-monitor scaled
- 200.7 TEL | [54] ran in 0.13 secs.
- 200.7 TEL | (Cleanup) Delete new deployment
- 200.7 >>> | Swapping Deployment order-monitor back to its original state
- 200.7 TEL | [55] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment order-monitor-9ce88b021d39430487928559f9ccff8b
- 201.0  55 | deployment.apps "order-monitor-9ce88b021d39430487928559f9ccff8b" deleted
- 201.0 TEL | [55] ran in 0.26 secs.
- 201.0 TEL | (Cleanup) Kill sudo privileges holder
- 201.0 TEL | (Cleanup) Stop time tracking
- 201.0 TEL | END SPAN main.py:40(main)  201.0s
- 201.0 TEL | (Cleanup) Remove temporary directory
- 201.0 TEL | (Cleanup) Save caches
- 201.9 TEL | (sudo privileges holder thread exiting)
+   2.2 TEL | [13] ran in 0.35 secs.
+   2.2 TEL | END SPAN deployment.py:283(supplant_deployment)    0.8s
+   2.2 TEL | BEGIN SPAN remote.py:142(get_remote_info)
+   2.2 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   2.2 TEL | [14] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=15ed57ff971c4e45a9ca44ad797223aa
+   2.4 TEL | [14] captured in 0.22 secs.
+   2.4 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
+   2.4 TEL | Searching for Telepresence pod:
+   2.4 TEL |   with name order-monitor-15ed57ff971c4e45a9ca44ad797223aa-*
+   2.4 TEL |   with labels {'app': 'order-monitor', 'telepresence': '15ed57ff971c4e45a9ca44ad797223aa'}
+   2.4 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=15ed57ff971c4e45a9ca44ad797223aa
+   2.5 TEL | [15] captured in 0.13 secs.
+   2.5 TEL | Checking order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p
+   2.5 TEL | Looks like we've found our pod!
+   2.5 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
+   2.5 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   2.7 TEL | [16] captured in 0.13 secs.
+   2.9 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   3.1 TEL | [17] captured in 0.13 secs.
+   3.3 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   3.4 TEL | [18] captured in 0.13 secs.
+   3.7 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   3.8 TEL | [19] captured in 0.11 secs.
+   4.1 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   4.2 TEL | [20] captured in 0.13 secs.
+   4.4 TEL | [21] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   4.6 TEL | [21] captured in 0.13 secs.
+   4.8 TEL | [22] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   5.0 TEL | [22] captured in 0.14 secs.
+   5.2 TEL | [23] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   5.3 TEL | [23] captured in 0.13 secs.
+   5.6 TEL | [24] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   5.7 TEL | [24] captured in 0.11 secs.
+   6.0 TEL | [25] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   6.1 TEL | [25] captured in 0.16 secs.
+   6.4 TEL | [26] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   6.5 TEL | [26] captured in 0.14 secs.
+   6.8 TEL | [27] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   6.9 TEL | [27] captured in 0.14 secs.
+   7.1 TEL | [28] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   7.3 TEL | [28] captured in 0.13 secs.
+   7.5 TEL | [29] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   7.6 TEL | [29] captured in 0.13 secs.
+   7.9 TEL | [30] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p -o json
+   8.1 TEL | [30] captured in 0.19 secs.
+   8.1 TEL | END SPAN remote.py:104(wait_for_pod)    5.5s
+   8.1 TEL | END SPAN remote.py:142(get_remote_info)    5.9s
+   8.1 TEL | BEGIN SPAN connect.py:37(connect)
+   8.1 TEL | [31] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p --container order-monitor --tail=10
+   8.1 TEL | [32] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p 41045:8022
+   8.1 TEL | [33] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41045 telepresence@127.0.0.1 /bin/true
+   8.1 TEL | [33] exit 255 in 0.01 secs.
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] Loading ./forwarder.py...
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] /etc/resolv.conf changed, reparsing
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] Resolver added ('10.96.0.10', 53) to server list
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] SOCKSv5Factory starting on 9050
+   8.3  31 | 2020-05-24T21:40:03+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7fd8e74f30f0>
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] DNSDatagramProtocol starting on 9053
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7fd8e74f33c8>
+   8.3  31 | 2020-05-24T21:40:03+0000 [-] Loaded.
+   8.3  31 | 2020-05-24T21:40:03+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
+   8.3  31 | 2020-05-24T21:40:03+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+   8.3  32 | Forwarding from 127.0.0.1:41045 -> 8022
+   8.3  32 | Forwarding from [::1]:41045 -> 8022
+   8.4 TEL | [34] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41045 telepresence@127.0.0.1 /bin/true
+   8.4  32 | Handling connection for 41045
+   8.6 TEL | [34] ran in 0.22 secs.
+   8.6 >>> | Forwarding remote port 50551 to local port 50551.
+   8.6 TEL | [35] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41045 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
+   8.6 >>> | 
+   8.6 TEL | Launching Web server for proxy poll
+   8.6 TEL | [36] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 41045 telepresence@127.0.0.1 -L127.0.0.1:37925:127.0.0.1:9050 -R9055:127.0.0.1:34857
+   8.6  32 | Handling connection for 41045
+   8.6 TEL | END SPAN connect.py:37(connect)    0.5s
+   8.6 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
+   8.6 TEL | [37] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p --container order-monitor -- python3 podinfo.py
+   8.6  32 | Handling connection for 41045
+   8.9 TEL | [37] captured in 0.34 secs.
+   8.9 TEL | END SPAN remote_env.py:29(get_remote_env)    0.3s
+   8.9 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
+   8.9 TEL | [38] Running: sshfs -p 41045 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-i7sx2paq/fs
+   8.9  32 | Handling connection for 41045
+   9.1 TEL | [38] ran in 0.19 secs.
+   9.1 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
+   9.1 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
+   9.1 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
+   9.1 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.0s
+   9.1 TEL | [39] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:41045 --to-ns 127.0.0.1:9053 10.244.2.0/24 10.244.1.0/24 10.96.0.0/12 10.244.0.0/24
+   9.1 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
+   9.1 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+   9.1 TEL | [40] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+   9.2 TEL | [40] exit 1 in 0.12 secs.
+   9.2 TEL | [41] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
+   9.6  39 | Starting sshuttle proxy.
+  10.2 TEL | [41] timed out after 1.00 secs.
+  10.3 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+  10.3 TEL | [42] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+  10.5 TEL | [42] exit 1 in 0.12 secs.
+  10.5 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
+  10.6 TEL | [43] exit 1 in 0.12 secs.
+  10.6  39 | firewall manager: Starting firewall with Python version 3.7.5
+  10.6  39 | firewall manager: ready method name nat.
+  10.6  39 | IPv6 enabled: False
+  10.6  39 | UDP enabled: False
+  10.6  39 | DNS enabled: True
+  10.6  39 | TCP redirector listening on ('127.0.0.1', 12300).
+  10.6  39 | DNS listening on ('127.0.0.1', 12300).
+  10.6  39 | Starting client with Python version 3.7.5
+  10.6  39 | c : connecting to server...
+  10.6  32 | Handling connection for 41045
+  10.7 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+  10.7 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+  10.7  39 | Warning: Permanently added '[127.0.0.1]:41045' (ECDSA) to the list of known hosts.
+  10.8 TEL | [44] exit 1 in 0.12 secs.
+  10.8 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
+  10.9  39 | Starting server with Python version 3.6.8
+  10.9  39 |  s: latency control setting = True
+  10.9  39 |  s: available routes:
+  10.9  39 |  s:   2/10.244.0.0/16
+  10.9  39 |  s:   2/10.244.1.0/24
+  10.9  39 | c : Connected.
+  10.9  39 | firewall manager: setting up.
+  10.9  39 | >> iptables -t nat -N sshuttle-12300
+  10.9  39 | >> iptables -t nat -F sshuttle-12300
+  10.9  39 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
+  10.9  39 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
+  10.9  39 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
+  11.0  39 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
+  11.8 TEL | [45] timed out after 1.00 secs.
+  11.9 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+  11.9 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+  11.9  39 | c : DNS request from ('127.0.0.1', 50630) to None: 48 bytes
+  11.9  31 | 2020-05-24T21:40:07+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  11.9  31 | 2020-05-24T21:40:07+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
+  11.9 TEL | [46] captured in 0.03 secs.
+  11.9 TEL | Resolved hellotelepresence-3. 2 more...
+  11.9 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
+  12.0  39 | c : DNS request from ('127.0.0.1', 43626) to None: 79 bytes
+  12.0  31 | 2020-05-24T21:40:07+0000 [stdout#info] Sanity check: b'hellotelepresence-3.a.sanity.check.telepresence.io'
+  12.1 TEL | [47] exit 1 in 0.12 secs.
+  12.2 TEL | Wait for vpn-tcp connection: hellotelepresence-4
+  12.2 TEL | [48] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+  12.2  39 | c : DNS request from ('127.0.0.1', 51717) to None: 48 bytes
+  12.2  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'hellotelepresence-4' is ['127.0.0.1']
+  12.2 TEL | [48] captured in 0.07 secs.
+  12.2 TEL | Resolved hellotelepresence-4. 1 more...
+  12.2 TEL | [49] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity.check.telepresence.io")'
+  12.2  39 | c : DNS request from ('127.0.0.1', 56634) to None: 79 bytes
+  12.3  31 | 2020-05-24T21:40:08+0000 [stdout#info] Sanity check: b'hellotelepresence-4.a.sanity.check.telepresence.io'
+  12.3 TEL | [49] exit 1 in 0.12 secs.
+  12.4 TEL | Wait for vpn-tcp connection: hellotelepresence-5
+  12.4 TEL | [50] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
+  12.5  39 | c : DNS request from ('127.0.0.1', 50108) to None: 48 bytes
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'hellotelepresence-5' is ['127.0.0.1']
+  12.5 TEL | [50] captured in 0.07 secs.
+  12.5 TEL | Resolved hellotelepresence-5. 0 more...
+  12.5 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    3.4s
+  12.5 TEL | END SPAN vpn.py:280(connect_sshuttle)    3.4s
+  12.5 >>> | Setup complete. Launching your command.
+  12.5 TEL | Everything launched. Waiting to exit...
+  12.5 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
+  12.5  39 | c : DNS request from ('127.0.0.1', 56527) to None: 48 bytes
+  12.5  39 | c : DNS request from ('127.0.0.1', 39429) to None: 47 bytes
+  12.5  39 | c : DNS request from ('127.0.0.1', 56527) to None: 48 bytes
+  12.5  39 | c : DNS request from ('127.0.0.1', 39429) to None: 47 bytes
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'static-data-service'
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'static-data-service' is ['10.98.151.249']
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] AAAA query, sending back A instead: b'static-data-service'
+  12.5  39 | c : Accept TCP: 192.168.1.150:45884 -> 10.98.151.249:50551.
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'static-data-service'
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'static-data-service' is ['10.98.151.249']
+  12.5  39 | c : Accept TCP: 192.168.1.150:39604 -> 10.102.135.241:9092.
+  12.5  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  12.7  39 | c : Accept TCP: 192.168.1.150:58634 -> 10.96.0.1:443.
+  12.7  39 |  s: SW#-1:10.102.135.241:9092: deleting (5 remain)
+  12.7  39 |  s: SW'unknown':Mux#11: deleting (4 remain)
+  12.7  39 | c : DNS request from ('127.0.0.1', 41827) to None: 47 bytes
+  12.7  39 | c : DNS request from ('127.0.0.1', 34433) to None: 41 bytes
+  12.7  39 | c : DNS request from ('127.0.0.1', 41827) to None: 47 bytes
+  12.7  39 | c : DNS request from ('127.0.0.1', 34433) to None: 41 bytes
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'order-router'
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] AAAA query, sending back A instead: b'order-router'
+  12.7  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'order-router'
+  12.8  39 | c : Accept TCP: 192.168.1.150:51590 -> 10.103.5.179:50581.
+  12.8  39 | c : Accept TCP: 192.168.1.150:39610 -> 10.102.135.241:9092.
+  12.8  39 | c : Accept TCP: 192.168.1.150:39612 -> 10.102.135.241:9092.
+  12.8  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'order-router' is ['10.103.5.179']
+  12.8  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'order-router' is ['10.103.5.179']
+  12.8  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  12.8  39 | c : Accept TCP: 192.168.1.150:55134 -> 10.244.1.195:9092.
+  12.8  39 | c : Accept TCP: 192.168.1.150:55136 -> 10.244.1.195:9092.
+  12.8  39 |  s: SW#-1:10.102.135.241:9092: deleting (13 remain)
+  12.8  39 |  s: SW'unknown':Mux#18: deleting (12 remain)
+  12.8  39 |  s: SW#-1:10.102.135.241:9092: deleting (11 remain)
+  12.8  39 |  s: SW'unknown':Mux#19: deleting (10 remain)
+  12.8  39 | c : SW#14:192.168.1.150:39612: deleting (15 remain)
+  12.8  39 | c : SW'unknown':Mux#19: deleting (14 remain)
+  12.8  39 | c : SW#13:192.168.1.150:39610: deleting (13 remain)
+  12.8  39 | c : SW'unknown':Mux#18: deleting (12 remain)
+  12.8  39 |  s: SW'unknown':Mux#21: deleting (9 remain)
+  12.8  39 |  s: SW#16:10.244.1.195:9092: deleting (8 remain)
+  12.8  39 | c : SW#10:192.168.1.150:39604: deleting (11 remain)
+  12.8  39 | c : SW'unknown':Mux#11: deleting (10 remain)
+  12.8  39 | c : SW'unknown':Mux#21: deleting (9 remain)
+  12.8  39 | c : SW#16:192.168.1.150:55136: deleting (8 remain)
+  13.0  39 | c : DNS request from ('127.0.0.1', 37588) to None: 47 bytes
+  13.0  39 | c : DNS request from ('127.0.0.1', 37588) to None: 47 bytes
+  13.0  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.0  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.0  31 | 2020-05-24T21:40:08+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  13.0  31 | 2020-05-24T21:40:08+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.0  31 | 2020-05-24T21:40:08+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.0  39 | c : Accept TCP: 192.168.1.150:39618 -> 10.102.135.241:9092.
+  13.1  39 | c : Accept TCP: 192.168.1.150:55140 -> 10.244.1.195:9092.
+  13.2  39 | c : SW#10:192.168.1.150:39618: deleting (11 remain)
+  13.2  39 | c : SW'unknown':Mux#24: deleting (10 remain)
+  13.2  39 |  s: SW'unknown':Mux#24: deleting (11 remain)
+  13.2  39 |  s: SW#10:10.102.135.241:9092: deleting (10 remain)
+  13.4  39 | c : DNS request from ('127.0.0.1', 42277) to None: 47 bytes
+  13.4  39 | c : DNS request from ('127.0.0.1', 42277) to None: 47 bytes
+  13.4  31 | 2020-05-24T21:40:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.4  31 | 2020-05-24T21:40:09+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  13.4  31 | 2020-05-24T21:40:09+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  13.4  31 | 2020-05-24T21:40:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.4  39 | c : Accept TCP: 192.168.1.150:39622 -> 10.102.135.241:9092.
+  13.4  31 | 2020-05-24T21:40:09+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  13.4  39 | c : SW#15:192.168.1.150:55134: deleting (11 remain)
+  13.4  39 | c : SW'unknown':Mux#20: deleting (10 remain)
+  13.4  39 | c : Accept TCP: 192.168.1.150:55144 -> 10.244.1.195:9092.
+  13.4  39 |  s: SW#-1:10.102.135.241:9092: deleting (13 remain)
+  13.4  39 |  s: SW'unknown':Mux#28: deleting (12 remain)
+  13.5  39 | c : SW#10:192.168.1.150:39622: deleting (11 remain)
+  13.5  39 | c : SW'unknown':Mux#28: deleting (10 remain)
+  19.7  39 |  s: SW'unknown':Mux#20: deleting (11 remain)
+  19.7  39 |  s: SW#15:10.244.1.195:9092: deleting (10 remain)
+  22.0  39 | c : DNS request from ('127.0.0.1', 54413) to None: 47 bytes
+  22.0  39 | c : DNS request from ('127.0.0.1', 54413) to None: 47 bytes
+  22.0  31 | 2020-05-24T21:40:17+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  22.0  31 | 2020-05-24T21:40:17+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  22.0  31 | 2020-05-24T21:40:17+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  22.0  31 | 2020-05-24T21:40:17+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  22.0  31 | 2020-05-24T21:40:17+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  22.0  39 | c : Accept TCP: 192.168.1.150:39626 -> 10.102.135.241:9092.
+  22.0  39 | c : Accept TCP: 192.168.1.150:55148 -> 10.244.1.195:9092.
+  22.0  39 | c : SW'unknown':Mux#32: deleting (13 remain)
+  22.0  39 | c : SW#-1:192.168.1.150:39626: deleting (12 remain)
+  25.8  39 | c : DNS request from ('127.0.0.1', 41149) to None: 47 bytes
+  25.8  39 | c : DNS request from ('127.0.0.1', 41149) to None: 47 bytes
+  25.8  31 | 2020-05-24T21:40:21+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  25.8  31 | 2020-05-24T21:40:21+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  25.8  31 | 2020-05-24T21:40:21+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  25.8  31 | 2020-05-24T21:40:21+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  25.8  31 | 2020-05-24T21:40:21+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  25.8  39 | c : Accept TCP: 192.168.1.150:39630 -> 10.102.135.241:9092.
+  25.8  39 | c : Accept TCP: 192.168.1.150:55152 -> 10.244.1.195:9092.
+  25.9  39 |  s: SW#-1:10.102.135.241:9092: deleting (17 remain)
+  25.9  39 |  s: SW'unknown':Mux#36: deleting (16 remain)
+  26.1  39 | c : DNS request from ('127.0.0.1', 39902) to None: 47 bytes
+  26.1  39 | c : DNS request from ('127.0.0.1', 39902) to None: 47 bytes
+  26.1  39 | c : SW#10:192.168.1.150:39630: deleting (15 remain)
+  26.1  39 | c : SW'unknown':Mux#36: deleting (14 remain)
+  26.1  31 | 2020-05-24T21:40:21+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  26.1  31 | 2020-05-24T21:40:21+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  26.1  31 | 2020-05-24T21:40:21+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  26.1  39 | c : Accept TCP: 192.168.1.150:39634 -> 10.102.135.241:9092.
+  26.1  31 | 2020-05-24T21:40:21+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  26.1  31 | 2020-05-24T21:40:21+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  26.1  39 | c : Accept TCP: 192.168.1.150:55156 -> 10.244.1.195:9092.
+  26.1  39 | c : SW'unknown':Mux#40: deleting (17 remain)
+  26.1  39 | c : SW#-1:192.168.1.150:39634: deleting (16 remain)
+  26.2  39 |  s: SW#-1:10.102.135.241:9092: deleting (19 remain)
+  26.2  39 |  s: SW'unknown':Mux#40: deleting (18 remain)
+  27.5  39 | c : DNS request from ('127.0.0.1', 37209) to None: 47 bytes
+  27.5  39 | c : DNS request from ('127.0.0.1', 37209) to None: 47 bytes
+  27.5  31 | 2020-05-24T21:40:23+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  27.5  31 | 2020-05-24T21:40:23+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  27.5  31 | 2020-05-24T21:40:23+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  27.5  39 | c : Accept TCP: 192.168.1.150:39638 -> 10.102.135.241:9092.
+  27.5  31 | 2020-05-24T21:40:23+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  27.5  31 | 2020-05-24T21:40:23+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  28.4  39 |  s: SW'unknown':Mux#44: deleting (19 remain)
+  28.4  39 |  s: SW#10:10.102.135.241:9092: deleting (18 remain)
+  30.5  39 |  s: SW'unknown':Mux#32: deleting (17 remain)
+  30.5  39 |  s: SW#11:10.102.135.241:9092: deleting (16 remain)
+  30.5  39 |  s: SW'unknown':Mux#29: deleting (15 remain)
+  30.5  39 |  s: SW#13:10.244.1.195:9092: deleting (14 remain)
+  30.6 TEL | [51] Running: sudo -n echo -n
+  30.7 TEL | [51] ran in 0.01 secs.
+  32.1  39 | c : SW'unknown':Mux#44: deleting (17 remain)
+  32.1  39 | c : SW#10:192.168.1.150:39638: deleting (16 remain)
+  34.1  39 | c : DNS request from ('127.0.0.1', 51816) to None: 47 bytes
+  34.1  39 | c : DNS request from ('127.0.0.1', 51816) to None: 47 bytes
+  34.1  31 | 2020-05-24T21:40:29+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  34.1  31 | 2020-05-24T21:40:29+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  34.1  31 | 2020-05-24T21:40:29+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  34.1  31 | 2020-05-24T21:40:29+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  34.1  31 | 2020-05-24T21:40:29+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  34.1  39 | c : Accept TCP: 192.168.1.150:39640 -> 10.102.135.241:9092.
+  34.1  39 | c : Accept TCP: 192.168.1.150:55162 -> 10.244.1.195:9092.
+  34.1  39 | c : SW#10:192.168.1.150:39640: deleting (19 remain)
+  34.1  39 | c : SW'unknown':Mux#47: deleting (18 remain)
+  34.4  39 | c : DNS request from ('127.0.0.1', 46317) to None: 47 bytes
+  34.4  39 | c : DNS request from ('127.0.0.1', 46317) to None: 47 bytes
+  34.4  31 | 2020-05-24T21:40:30+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  34.4  31 | 2020-05-24T21:40:30+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  34.4  31 | 2020-05-24T21:40:30+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  34.4  31 | 2020-05-24T21:40:30+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  34.4  39 | c : Accept TCP: 192.168.1.150:39644 -> 10.102.135.241:9092.
+  34.4  31 | 2020-05-24T21:40:30+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  34.4  39 | c : Accept TCP: 192.168.1.150:55166 -> 10.244.1.195:9092.
+  36.2  39 | c : SW'unknown':Mux#51: deleting (21 remain)
+  36.2  39 | c : SW#10:192.168.1.150:39644: deleting (20 remain)
+  36.7  39 | c : SW'unknown':Mux#29: deleting (19 remain)
+  36.7  39 | c : SW#14:192.168.1.150:55144: deleting (18 remain)
+  36.7  39 | c : SW#14:192.168.1.150:55144: error was: nowrite: [Errno 107] Transport endpoint is not connected
+  37.4 TEL | (proxy checking local liveness)
+  37.4  31 | 2020-05-24T21:40:33+0000 [Poll#info] Checkpoint
+  39.5  39 |  s: SW'unknown':Mux#47: deleting (21 remain)
+  39.5  39 |  s: SW#13:10.102.135.241:9092: deleting (20 remain)
+  39.5  39 |  s: SW'unknown':Mux#51: deleting (19 remain)
+  39.5  39 |  s: SW#11:10.102.135.241:9092: deleting (18 remain)
+  42.5  39 | c : DNS request from ('127.0.0.1', 38887) to None: 47 bytes
+  42.5  39 | c : DNS request from ('127.0.0.1', 38887) to None: 47 bytes
+  42.5  31 | 2020-05-24T21:40:38+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  42.5  31 | 2020-05-24T21:40:38+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  42.5  31 | 2020-05-24T21:40:38+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  42.5  39 | c : Accept TCP: 192.168.1.150:39650 -> 10.102.135.241:9092.
+  42.5  31 | 2020-05-24T21:40:38+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  42.5  31 | 2020-05-24T21:40:38+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  42.8  39 | c : SW#10:192.168.1.150:39650: deleting (19 remain)
+  42.8  39 | c : SW'unknown':Mux#55: deleting (18 remain)
+  42.8  39 |  s: SW'unknown':Mux#55: deleting (19 remain)
+  42.8  39 |  s: SW#15:10.102.135.241:9092: deleting (18 remain)
+  42.9  39 | c : DNS request from ('127.0.0.1', 54163) to None: 47 bytes
+  42.9  39 | c : DNS request from ('127.0.0.1', 54163) to None: 47 bytes
+  42.9  31 | 2020-05-24T21:40:38+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  42.9  31 | 2020-05-24T21:40:38+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  42.9  31 | 2020-05-24T21:40:38+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  42.9  39 | c : Accept TCP: 192.168.1.150:39652 -> 10.102.135.241:9092.
+  42.9  31 | 2020-05-24T21:40:38+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  42.9  31 | 2020-05-24T21:40:38+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  42.9  39 | c : Accept TCP: 192.168.1.150:55174 -> 10.244.1.195:9092.
+  42.9  39 |  s: SW#-1:10.102.135.241:9092: deleting (21 remain)
+  42.9  39 |  s: SW'unknown':Mux#58: deleting (20 remain)
+  43.0  39 | c : SW#10:192.168.1.150:39652: deleting (21 remain)
+  43.0  39 | c : SW'unknown':Mux#58: deleting (20 remain)
+  46.2  39 | c : DNS request from ('127.0.0.1', 39323) to None: 47 bytes
+  46.2  39 | c : DNS request from ('127.0.0.1', 39323) to None: 47 bytes
+  46.2  31 | 2020-05-24T21:40:42+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  46.2  31 | 2020-05-24T21:40:42+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  46.2  31 | 2020-05-24T21:40:42+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  46.2  31 | 2020-05-24T21:40:42+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  46.2  39 | c : Accept TCP: 192.168.1.150:39658 -> 10.102.135.241:9092.
+  46.2  31 | 2020-05-24T21:40:42+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  46.3  39 | c : Accept TCP: 192.168.1.150:55180 -> 10.244.1.195:9092.
+  46.3  39 | c : SW#10:192.168.1.150:39658: deleting (23 remain)
+  46.3  39 | c : SW'unknown':Mux#62: deleting (22 remain)
+  46.5  39 | c : DNS request from ('127.0.0.1', 33473) to None: 47 bytes
+  46.5  39 | c : DNS request from ('127.0.0.1', 33473) to None: 47 bytes
+  46.5  31 | 2020-05-24T21:40:42+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  46.5  31 | 2020-05-24T21:40:42+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  46.5  31 | 2020-05-24T21:40:42+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  46.5  31 | 2020-05-24T21:40:42+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  46.5  39 | c : Accept TCP: 192.168.1.150:39662 -> 10.102.135.241:9092.
+  46.5  31 | 2020-05-24T21:40:42+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  46.6  39 | c : Accept TCP: 192.168.1.150:55184 -> 10.244.1.195:9092.
+  46.6  39 | c : SW#10:192.168.1.150:39662: deleting (25 remain)
+  46.6  39 | c : SW'unknown':Mux#66: deleting (24 remain)
+  46.6  39 |  s: SW'unknown':Mux#66: deleting (27 remain)
+  46.6  39 |  s: SW#15:10.102.135.241:9092: deleting (26 remain)
+  57.5  39 | c : DNS request from ('127.0.0.1', 60233) to None: 47 bytes
+  57.5  39 | c : DNS request from ('127.0.0.1', 60233) to None: 47 bytes
+  57.5  31 | 2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  57.5  31 | 2020-05-24T21:40:53+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  57.5  31 | 2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  57.5  31 | 2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  57.5  31 | 2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  57.5  39 | c : Accept TCP: 192.168.1.150:39666 -> 10.102.135.241:9092.
+  57.8  39 | c : DNS request from ('127.0.0.1', 51716) to None: 47 bytes
+  57.8  39 | c : DNS request from ('127.0.0.1', 51716) to None: 47 bytes
+  57.8  39 | c : SW#10:192.168.1.150:39666: deleting (25 remain)
+  57.8  39 | c : SW'unknown':Mux#70: deleting (24 remain)
+  57.8  31 | 2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  57.8  31 | 2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  57.8  31 | 2020-05-24T21:40:53+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  57.8  31 | 2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  57.8  39 | c : Accept TCP: 192.168.1.150:39668 -> 10.102.135.241:9092.
+  57.8  31 | 2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  57.9  39 | c : Accept TCP: 192.168.1.150:55190 -> 10.244.1.195:9092.
+  57.9  39 |  s: SW'unknown':Mux#73: deleting (31 remain)
+  57.9  39 |  s: SW#22:10.102.135.241:9092: deleting (30 remain)
+  58.1  39 | c : SW'unknown':Mux#73: deleting (27 remain)
+  58.1  39 | c : SW#10:192.168.1.150:39668: deleting (26 remain)
+  59.2  39 |  s: SW'unknown':Mux#70: deleting (29 remain)
+  59.2  39 |  s: SW#21:10.102.135.241:9092: deleting (28 remain)
+  59.2  39 |  s: SW'unknown':Mux#67: deleting (27 remain)
+  59.2  39 |  s: SW#11:10.244.1.195:9092: deleting (26 remain)
+  60.7 TEL | [52] Running: sudo -n echo -n
+  60.7 TEL | [52] ran in 0.01 secs.
+  62.2 >>> | Keyboard interrupt (Ctrl-C/Ctrl-Break) pressed
+  62.2 >>> | Exit cleanup in progress
+  62.2 TEL | (Cleanup) Terminate local process
+  62.2 TEL | Killing local process...
+  62.2 TEL | Main process (./order-monitor)
+  62.2 TEL |  exited with code -2.
+  62.2 TEL | (Cleanup) Kill BG process [39] sshuttle
+  62.2 TEL | (Cleanup) Unmount remote filesystem
+  62.2 TEL | [53] Running: fusermount -z -u /tmp/tel-i7sx2paq/fs
+  62.2 TEL | [53] exit 1 in 0.01 secs.
+  62.2  53 | fusermount: entry for /tmp/tel-i7sx2paq/fs not found in /etc/mtab
+  62.2 TEL | (Cleanup) Unmount remote filesystem failed:
+  62.2 TEL | (Cleanup)   Command '['fusermount', '-z', '-u', '/tmp/tel-i7sx2paq/fs']' returned non-zero exit status 1.
+  62.2 TEL | (Cleanup) Kill BG process [36] SSH port forward (socks and proxy poll)
+  62.2 TEL | [36] SSH port forward (socks and proxy poll): exit 0
+  62.2 TEL | (Cleanup) Kill Web server for proxy poll
+  62.2  39 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
+  62.2  39 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
+  62.2  39 | >> iptables -t nat -F sshuttle-12300
+  62.2  39 | >> iptables -t nat -X sshuttle-12300
+  62.3 TEL | [39] sshuttle: exit -15
+  62.4 TEL | (Cleanup) Kill BG process [35] SSH port forward (exposed ports)
+  62.4 TEL | [35] SSH port forward (exposed ports): exit 0
+  62.4 TEL | (Cleanup) Kill BG process [32] kubectl port-forward
+  62.4 TEL | [32] kubectl port-forward: exit -15
+  62.4 TEL | (Cleanup) Kill BG process [31] kubectl logs
+  62.4 TEL | [31] kubectl logs: exit -15
+  62.4 TEL | Background process (kubectl logs) exited with return code -15. Command was:
+  62.4 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f order-monitor-15ed57ff971c4e45a9ca44ad797223aa-5fc84d4498-plq5p --container order-monitor --tail=10
+  62.4 TEL | 
+  62.4 TEL | Recent output was:
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] AAAA query, sending back A instead: b'kafka-opentp.kafka'
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] A query: b'kafka-opentp.kafka'
+  62.4 TEL |   2020-05-24T21:40:53+0000 [stdout#info] Result for b'kafka-opentp.kafka' is ['10.102.135.241']
+  62.4 TEL | (Cleanup) Re-scale original deployment
+  62.4 TEL | [54] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment order-monitor --replicas=1
+  62.6  54 | deployment.apps/order-monitor scaled
+  62.6 TEL | [54] ran in 0.13 secs.
+  62.6 TEL | (Cleanup) Delete new deployment
+  62.6 >>> | Swapping Deployment order-monitor back to its original state
+  62.6 TEL | [55] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment order-monitor-15ed57ff971c4e45a9ca44ad797223aa
+  62.8  55 | deployment.apps "order-monitor-15ed57ff971c4e45a9ca44ad797223aa" deleted
+  62.9 TEL | [55] ran in 0.33 secs.
+  62.9 TEL | (Cleanup) Kill sudo privileges holder
+  62.9 TEL | (Cleanup) Stop time tracking
+  62.9 TEL | END SPAN main.py:40(main)   62.9s
+  62.9 TEL | (Cleanup) Remove temporary directory
+  62.9 TEL | (Cleanup) Save caches
+  63.7 TEL | (sudo privileges holder thread exiting)

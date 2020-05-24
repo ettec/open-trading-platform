@@ -4,11 +4,6 @@ import * as modelcommon_pb from './modelcommon_pb';
 import * as order_pb from './order_pb';
 
 export class SubscribeToOrdersWithRootOriginatorIdArgs extends jspb.Message {
-  getAfter(): modelcommon_pb.Timestamp | undefined;
-  setAfter(value?: modelcommon_pb.Timestamp): void;
-  hasAfter(): boolean;
-  clearAfter(): void;
-
   getRootoriginatorid(): string;
   setRootoriginatorid(value: string): void;
 
@@ -22,7 +17,6 @@ export class SubscribeToOrdersWithRootOriginatorIdArgs extends jspb.Message {
 
 export namespace SubscribeToOrdersWithRootOriginatorIdArgs {
   export type AsObject = {
-    after?: modelcommon_pb.Timestamp.AsObject,
     rootoriginatorid: string,
   }
 }

@@ -30,6 +30,7 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 type service struct {
 	orderSubscriptions sync.Map
 	kafkaBrokers       []string
+	ordersAfter time.Time
 }
 
 type orderAndWriteTime struct {
@@ -44,11 +45,7 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 	if err != nil {
 		return err
 	}
-
-	after := request.After
-	if after == nil {
-		after = &model.Timestamp{Seconds: time.Now().Unix()}
-	}
+	after := &model.Timestamp{Seconds: s.ordersAfter.Unix()}
 
 	log.Printf("subscribe to orders from app instance id:%v, user:%v, args:%v", appInstanceId, username, request)
 
@@ -196,7 +193,12 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 }
 
 func newService() *service {
-	s := service{}
+
+	now := time.Now()
+	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Local)
+	s := service{
+		ordersAfter:        ordersAfter,
+	}
 
 	kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
 	if !exists {

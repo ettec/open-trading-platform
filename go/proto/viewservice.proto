@@ -7,7 +7,6 @@ option go_package="model";
 
 
 message SubscribeToOrdersWithRootOriginatorIdArgs {
-    model.Timestamp after = 1;
     string rootOriginatorId = 2;
 }
 

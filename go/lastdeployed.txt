@@ -1,5 +1,6 @@
 192.168.1.200:5000/common:1
-192.168.1.200:5000/fix-sim-execution-venue:8
-192.168.1.200:5000/smart-router:18
+192.168.1.200:5000/fix-sim-execution-venue:10
+192.168.1.200:5000/smart-router:20
 192.168.1.200:5000/model:1
-192.168.1.200:5000/order-monitor:1
+192.168.1.200:5000/order-monitor:6
+192.168.1.200:5000/view-service:17
