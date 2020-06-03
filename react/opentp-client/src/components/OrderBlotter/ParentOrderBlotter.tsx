@@ -13,7 +13,7 @@ import { Listing } from '../../serverapi/listing_pb';
 import { Order } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
-import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController } from '../Container';
+import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController, ColumnChooserController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
 import { getColIdsInOrder, getConfiguredColumns, TableViewConfig } from '../TableView/TableView';
@@ -39,6 +39,7 @@ interface ParentOrderBlotterProps {
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController
+  colsChooserController : ColumnChooserController
 }
 
 
@@ -51,6 +52,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController 
+  colsChooserController : ColumnChooserController
 
   orderMap: Map<string, number>;
 
@@ -72,6 +74,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
     let [defaultCols, defaultColWidths] = getConfiguredColumns(columns, config);
 
+  
     let blotterState: ParentOrderBlotterState = {
       orders: view,
       selectedOrders: new Array<Order>(),
@@ -100,6 +103,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     this.childOrderBlotterController = props.childOrderBlotterController
     this.orderHistoryBlotterController = props.orderHistoryBlotterController 
     this.executionsController = props.executionsController
+    this.colsChooserController = props.colsChooserController
     this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
@@ -149,7 +153,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
             newOrders[idx] = orderView
             let blotterState: ParentOrderBlotterState = {
               ...this.state, ...{
-                orders: this.state.orders
+                orders: newOrders
               }
             }
 
@@ -178,6 +182,26 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
     this.orderHistoryBlotterController.openBlotter(order.value, config,
       window.innerWidth)
+  }
+
+  editVisibleColumns = () => {
+
+    this.colsChooserController.open("Order Blotter", this.state.columns, this.state.columnWidths,
+    this.getColumns(), (newCols, newWidths)=> {
+
+      if( newCols && newWidths ) {
+        let newState: ParentOrderBlotterState = {
+          ...this.state, ...{
+            columns : newCols,
+            columnWidths : newWidths
+          }
+        }
+  
+        this.setState(newState)
+      }
+      
+    })
+    
   }
 
   showExecutions = (orders: IterableIterator<Order>) => {
@@ -284,11 +308,12 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
         <Menu.Divider />
         <Menu.Item text="View Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
-        <Menu.Divider />
         <Menu.Item text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
-        <Menu.Divider />
         <Menu.Item text="Executions" onClick={() => this.showExecutions(selectedOrders.values())} disabled={selectedOrders.length === 0} >
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item text="Edit Visible Columns" onClick={() => this.editVisibleColumns()}  >
         </Menu.Item>
       </Menu>
     );

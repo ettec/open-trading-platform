@@ -5,11 +5,15 @@ import { logError } from "../../logging/Logging";
 import '../TableView/TableCommon.css';
 
 
+
+
+
 export interface TableViewState {
 
     columns: Array<JSX.Element>
     columnWidths: Array<number>
 }
+
 
 export interface TableViewConfig {
     columnOrder: string[]
@@ -107,47 +111,41 @@ export function getColIdsInOrder(cols: JSX.Element[]) {
         if (colId) {
             colOrderIds.push(colId);
         } else {
-            logError("columnd is missing id field, column:" + col)
+            logError("column is missing id field, column:" + col)
         }
     }
     return colOrderIds;
 }
+
+
+export const defaultColumnWidth = 100;
 
 export function getConfiguredColumns(columns: JSX.Element[], config?: TableViewConfig) :  [Array<JSX.Element>,  Array<number>] {
     let colMap = new Map<string, JSX.Element>();
     for (let col of columns) {
         colMap.set(col.props["id"], col);
     }
-    let defaultCols = Array.from(colMap.values());
-    let defaultColWidths = new Array<number>();
-    for (let i: number = 0; i < defaultCols.length; i++) {
-        defaultColWidths.push(100);
-    }
+    
     if (config) {
-        let pc: TableViewConfig = config;
-        if (pc.columnWidths && pc.columnWidths.length > 0) {
-            defaultColWidths = pc.columnWidths;
-        }
-        if (pc.columnOrder && pc.columnOrder.length > 0) {
+        
             let cols = new Array<JSX.Element>();
-            for (let id of pc.columnOrder) {
+            let widths =  new Array<number>()
+            let idx=0
+            for (let id of config.columnOrder) {
                 let col = colMap.get(id);
                 if (col) {
                     cols.push(col);
+                    widths.push(config.columnWidths[idx])
                 }
-                colMap.delete(id)
+                
+                idx++
             }
 
-            for( let newCol of colMap.values() ) {
-                cols.push(newCol);
-            }
+            return [cols, widths]
 
-            defaultCols = cols;
-        }
-        while (defaultColWidths.length < defaultCols.length) {
-            defaultColWidths.push(100);
-        }
+    
     }
-    return [ defaultCols, defaultColWidths ];
+
+    return [ new Array<JSX.Element>() , new Array<number>() ];
 }
 

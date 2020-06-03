@@ -22,6 +22,7 @@ import { CancelAllOrdersForOriginatorIdParams } from "../serverapi/ordermonitor_
 import { Error } from "grpc-web";
 import { Empty } from "../serverapi/modelcommon_pb";
 import { logError, logDebug } from "../logging/Logging";
+import ColumnChooser from "./TableView/ColumnChooser";
 
 
 
@@ -133,7 +134,7 @@ export default class Container extends React.Component {
     orderHistoryBlotterController : OrderHistoryBlotterController
     executionsController : ExecutionsController
     questionDialogController: QuestionDialogController
-    
+    colChooserController: ColumnChooserController
 
 
 
@@ -150,6 +151,7 @@ export default class Container extends React.Component {
         this.orderHistoryBlotterController = new OrderHistoryBlotterController()
         this.executionsController = new ExecutionsController()
         this.questionDialogController = new QuestionDialogController()
+        this.colChooserController = new ColumnChooserController()
 
         let layoutString: string | null = localStorage.getItem(this.configKey);
 
@@ -166,7 +168,7 @@ export default class Container extends React.Component {
             var component = node.getComponent();
 
             if (component === "order-blotter") {
-                return <OrderBlotter executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
+                return <OrderBlotter colsChooserController={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
                 return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
@@ -243,6 +245,7 @@ export default class Container extends React.Component {
                 <OrderHistoryBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
                 <Executions executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
+                <ColumnChooser controller={this.colChooserController}></ColumnChooser>
             </div>
 
             <div className="contents">
@@ -261,6 +264,23 @@ export default class Container extends React.Component {
         </div>);
 
 
+    }
+
+}
+
+export class ColumnChooserController {
+
+    private dialog?: ColumnChooser
+
+    setDialog(dialog: ColumnChooser) {
+        this.dialog = dialog
+    }
+
+    open(tableName: string, visibleColumns: JSX.Element[], widths: number[], allColumns: JSX.Element[], callback: (newVisibleCols: JSX.Element[] | undefined,
+        widths: number[] | undefined) => void) {
+        if( this.dialog ) {
+            this.dialog.open(tableName, visibleColumns, widths, allColumns, callback)
+        }
     }
 
 }

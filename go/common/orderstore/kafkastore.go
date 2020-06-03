@@ -81,7 +81,6 @@ func (ks *KafkaStore) getNewReader() *kafka.Reader {
 func (ks *KafkaStore) SubscribeToAllOrders(updatesChan chan<- *model.Order, after time.Time) (map[string]*model.Order, error) {
 	reader := ks.getNewReader()
 
-
 	afterTimestamp := &model.Timestamp{Seconds: after.Unix()}
 	timeFilter := func(order *model.Order) bool {
 		return order.GetCreated().After(afterTimestamp)

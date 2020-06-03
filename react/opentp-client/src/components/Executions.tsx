@@ -1,5 +1,5 @@
 import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
-import { SelectionModes, Table, Column, Cell } from "@blueprintjs/table";
+import { Cell, Column, SelectionModes, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import * as React from "react";
 import { logError } from '../logging/Logging';

@@ -143,7 +143,7 @@ func main() {
 	}
 
 	go func() {
-		for listingId, _:=range listingsToFetch {
+		for listingId, _ := range listingsToFetch {
 			sds.GetListing(listingId, listingsChan)
 		}
 

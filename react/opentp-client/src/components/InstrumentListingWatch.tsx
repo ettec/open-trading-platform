@@ -209,6 +209,8 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     this.setState(blotterState)
   }
 
+  
+
 
 
  

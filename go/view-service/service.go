@@ -30,7 +30,7 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 type service struct {
 	orderSubscriptions sync.Map
 	kafkaBrokers       []string
-	ordersAfter time.Time
+	ordersAfter        time.Time
 }
 
 type orderAndWriteTime struct {
@@ -197,7 +197,7 @@ func newService() *service {
 	now := time.Now()
 	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Local)
 	s := service{
-		ordersAfter:        ordersAfter,
+		ordersAfter: ordersAfter,
 	}
 
 	kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
