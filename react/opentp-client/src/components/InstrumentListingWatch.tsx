@@ -13,7 +13,7 @@ import { ListingContext, TicketController } from "./Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
-import  { getColIdsInOrder, getConfiguredColumns, reorderColumnData, TableViewConfig } from './TableView/TableView';
+import  TableView, { getColIdsInOrder, getConfiguredColumns, reorderColumnData, TableViewConfig, TableViewProperties } from './TableView/TableView';
 
 
 interface InstrumentListingWatchState {
@@ -22,7 +22,7 @@ interface InstrumentListingWatchState {
   columnWidths: Array<number>
 }
 
-interface InstrumentListingWatchProps {
+interface InstrumentListingWatchProps extends TableViewProperties{
   node: TabNode,
   model: Model,
   quoteService: QuoteService,
@@ -35,7 +35,7 @@ interface PersistentConfig extends TableViewConfig {
   listingIds: number[]
 }
 
-export default class InstrumentListingWatch extends React.Component<InstrumentListingWatchProps, InstrumentListingWatchState> implements QuoteListener {
+export default class InstrumentListingWatch extends TableView<InstrumentListingWatchProps, InstrumentListingWatchState> implements QuoteListener {
 
   quoteService: QuoteService
   listingContext: ListingContext
@@ -45,7 +45,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
   watchMap: Map<number, ListingWatch> = new Map()
 
   selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
-
+  
   constructor(props: InstrumentListingWatchProps) {
     super(props);
 
@@ -56,15 +56,7 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     this.addListing = this.addListing.bind(this);
 
 
-    let columns = [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
-    <Column key="symbol" id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
-    <Column key="name" id="name" name="Name" cellRenderer={this.renderName} />,
-    <Column key="mic" id="mic" name="Mic" cellRenderer={this.renderMic} />,
-    <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
-    <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
-    <Column key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
-    <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
-    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]
+    let columns = this.getColumns()
 
     let config = this.props.node.getConfig()
 
@@ -122,6 +114,23 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
     }
   }
 
+  protected  getColumns() : JSX.Element[] {
+    return [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
+    <Column key="symbol" id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
+    <Column key="name" id="name" name="Name" cellRenderer={this.renderName} />,
+    <Column key="mic" id="mic" name="Mic" cellRenderer={this.renderMic} />,
+    <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
+    <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+    <Column key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+    <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
+    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]
+
+  }
+
+
+  protected getTableName() : string {
+    return "Instrument Watch"
+  }
 
 
   private getListingWatch(listingId: number): ListingWatch {
@@ -237,6 +246,9 @@ export default class InstrumentListingWatch extends React.Component<InstrumentLi
          <Menu.Divider />
         <Menu.Item text="Remove Listings" onClick={this.removeListings} disabled={this.listingContext.selectedListing === undefined}>
          </Menu.Item>
+         <Menu.Divider />
+        <Menu.Item text="Edit Visible Columns" onClick={() => this.editVisibleColumns()}  >
+        </Menu.Item>
       </Menu>
 
     );

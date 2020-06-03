@@ -165,16 +165,16 @@ export default class Container extends React.Component {
         this.state = FlexLayout.Model.fromJson(layoutJson);
 
         this.factory = (node: TabNode) => {
-            var component = node.getComponent();
+            var component = node.getComponent(); 
 
             if (component === "order-blotter") {
-                return <OrderBlotter colsChooserController={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
+                return <OrderBlotter colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
             }
             if (component === "market-depth") {
-                return <MarketDepth listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
+                return <MarketDepth  colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
             }
             if (component === "instrument-watch") {
-                return <InstrumentListingWatch listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
+                return <InstrumentListingWatch   colsChooser={this.colChooserController}  listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
             }
             if (component === "nav-bar") {
                 return <Navbar />;
@@ -241,9 +241,9 @@ export default class Container extends React.Component {
             </div>
             <div>
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
-                <ChildOrderBlotter childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
-                <OrderHistoryBlotter orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
-                <Executions executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
+                <ChildOrderBlotter colsChooser={this.colChooserController} childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
+                <OrderHistoryBlotter  colsChooser={this.colChooserController} orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
+                <Executions colsChooser={this.colChooserController} executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
                 <ColumnChooser controller={this.colChooserController}></ColumnChooser>
             </div>

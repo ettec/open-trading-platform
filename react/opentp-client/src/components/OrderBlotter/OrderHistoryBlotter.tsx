@@ -8,11 +8,11 @@ import { OrderHistory } from '../../serverapi/viewservice_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from '../Container';
-import  { getConfiguredColumns, TableViewConfig } from "../TableView/TableView";
+import  { getConfiguredColumns, TableViewConfig, TableViewProperties } from "../TableView/TableView";
 import OrderBlotter from "./OrderBlotter";
 import { OrderView } from "./OrderView";
 
-export interface OrderHistoryBlotterProps {
+export interface OrderHistoryBlotterProps extends TableViewProperties {
     orderService: OrderService
     listingService: ListingService
     orderHistoryBlotterController: OrderHistoryBlotterController
@@ -56,6 +56,10 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
             width: 0
         }
 
+    }
+
+    protected  getTableName() : string {
+        return "Child Orders"
     }
 
     getTitle(order? : Order ) : string {

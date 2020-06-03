@@ -4,11 +4,11 @@ import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import '../TableView/TableCommon.css';
-import TableView from '../TableView/TableView';
+import TableView, { TableViewProperties } from '../TableView/TableView';
 import { OrderView } from './OrderView';
 
 
-export interface OrderBlotterState {
+export interface OrderBlotterState  {
 
   orders: OrderView[];
   columns: Array<JSX.Element>
@@ -16,7 +16,7 @@ export interface OrderBlotterState {
 }
 
 
-export default class OrderBlotter<P, S extends OrderBlotterState> extends TableView<P, S>{
+export default abstract class OrderBlotter<P extends TableViewProperties , S extends OrderBlotterState> extends TableView<P , S>{
 
   getColumns() {
     return [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,

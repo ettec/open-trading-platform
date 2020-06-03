@@ -3,9 +3,14 @@ import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
 import { logError } from "../../logging/Logging";
 import '../TableView/TableCommon.css';
+import { ColumnChooserController } from "../Container";
 
 
 
+
+export interface TableViewProperties {
+    colsChooser : ColumnChooserController
+}
 
 
 export interface TableViewState {
@@ -21,7 +26,39 @@ export interface TableViewConfig {
 }
 
 
-export default class TableView<P, S extends TableViewState> extends React.Component<P, S>{
+export default abstract class TableView<P extends TableViewProperties, S extends TableViewState> extends React.Component<P, S>{
+
+
+    private colsChooser : ColumnChooserController
+
+    protected abstract getTableName() : string
+    protected abstract getColumns() : JSX.Element[]
+
+    constructor( props: P) {
+        super(props)
+        this.colsChooser = props.colsChooser
+    }
+
+
+    protected editVisibleColumns = () => {
+
+        this.colsChooser.open(this.getTableName(), this.state.columns, this.state.columnWidths,
+        this.getColumns(), (newCols, newWidths)=> {
+    
+          if( newCols && newWidths ) {
+            let newState: TableViewState = {
+              ...this.state, ...{
+                columns : newCols,
+                columnWidths : newWidths
+              }
+            }
+      
+            this.setState(newState)
+          }
+          
+        })
+        
+      }
 
 
     columnResized = (index: number, size: number) => {

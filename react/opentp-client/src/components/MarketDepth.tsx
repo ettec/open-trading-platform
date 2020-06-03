@@ -1,4 +1,4 @@
-import {  Label } from "@blueprintjs/core";
+import {  Label, Menu } from "@blueprintjs/core";
 import { Cell, Column, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
@@ -11,11 +11,11 @@ import Login from "./Login";
 import './TableView/TableCommon.css';
 import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
-import  { getConfiguredColumns, getColIdsInOrder, reorderColumnData, TableViewConfig } from "./TableView/TableView";
+import  TableView, { getConfiguredColumns, getColIdsInOrder, reorderColumnData, TableViewConfig, TableViewProperties } from "./TableView/TableView";
 import { TabNode, Actions, Model } from "flexlayout-react";
 import { ListingService } from "../services/ListingService";
 
-interface MarketDepthProps {
+interface MarketDepthProps extends TableViewProperties {
   node: TabNode,
   model: Model,
   quoteService : QuoteService,
@@ -30,7 +30,7 @@ interface MarketDepthState {
   columnWidths: Array<number>
 }
 
-export default class MarketDepth extends React.Component<MarketDepthProps, MarketDepthState> implements QuoteListener {
+export default class MarketDepth extends TableView<MarketDepthProps, MarketDepthState> implements QuoteListener {
 
   stream?: grpcWeb.ClientReadableStream<ClobQuote>;
 
@@ -45,13 +45,7 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
     this.quoteService = props.quoteService
     this.listingService = props.listingService
 
-    let columns = [
-    <Column key="bidMic" id="bidMic" name="Bid Mic" cellRenderer={this.renderBidMic} />,
-    <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
-    <Column  key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
-    <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
-    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />,
-    <Column key="askMic" id="askMic" name="Ask Mic" cellRenderer={this.renderAskMic} />]  
+    let columns = this.getColumns() 
 
     let config = this.props.node.getConfig()
 
@@ -104,6 +98,21 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
 
   }
 
+  protected  getColumns() : JSX.Element[] {
+    return [
+      <Column key="bidMic" id="bidMic" name="Bid Mic" cellRenderer={this.renderBidMic} />,
+      <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
+      <Column  key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+      <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
+      <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />,
+      <Column key="askMic" id="askMic" name="Ask Mic" cellRenderer={this.renderAskMic} />] 
+  }
+
+
+  protected getTableName() : string {
+    return "Market Depth"
+  }
+
   onQuote(receivedQuote: ClobQuote): void {
     let state: MarketDepthState = {
       ...this.state,...{
@@ -123,12 +132,25 @@ export default class MarketDepth extends React.Component<MarketDepthProps, Marke
           <Label>{this.getListingLabel()}</Label>
           <Table enableRowResizing={false} numRows={10} className="bp3-dark"enableColumnReordering={true}
           onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} 
-          columnWidths={this.state.columnWidths}>
+          columnWidths={this.state.columnWidths}  bodyContextMenuRenderer={this.renderContextMenu} >
           {this.state.columns}
         </Table>
       </div>
     );
   }
+
+  renderContextMenu = () => {
+    return (
+
+      <Menu >
+     
+        <Menu.Item text="Edit Visible Columns" onClick={() => this.editVisibleColumns()}  >
+        </Menu.Item>
+      </Menu>
+
+    );
+  };
+
 
   columnResized = (index: number, size: number) => {
     let newColWidths = this.state.columnWidths.slice();

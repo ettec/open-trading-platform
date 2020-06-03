@@ -11,11 +11,11 @@ import { ListingService } from '../services/ListingService';
 import { OrderService } from "../services/OrderService";
 import { toNumber } from '../util/decimal64Conversion';
 import { ExecutionsController } from './Container';
-import TableView, { getConfiguredColumns } from './TableView/TableView';
+import TableView, { getConfiguredColumns, TableViewProperties } from './TableView/TableView';
 
 
 
-export interface ExecutionsProps {
+export interface ExecutionsProps extends TableViewProperties {
     orderService: OrderService
     listingService: ListingService
     executionsController: ExecutionsController
@@ -94,6 +94,10 @@ export default class Executions extends TableView<ExecutionsProps, ExecutionsSta
             width: 0
         }
 
+    }
+
+    protected  getTableName() : string {
+        return "Executions"
     }
 
     getColumns() {

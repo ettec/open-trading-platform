@@ -16,21 +16,20 @@ import { OrderService } from '../../services/OrderService';
 import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController, ColumnChooserController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
-import { getColIdsInOrder, getConfiguredColumns, TableViewConfig } from '../TableView/TableView';
+import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewState, TableViewProperties } from '../TableView/TableView';
 import OrderBlotter from './OrderBlotter';
 import { OrderView } from './OrderView';
 
 
-interface ParentOrderBlotterState {
+interface ParentOrderBlotterState extends TableViewState {
 
   orders: OrderView[];
   selectedOrders: Array< Order>
-  columns: Array<JSX.Element>
-  columnWidths: Array<number>
+  
 
 }
 
-interface ParentOrderBlotterProps {
+interface ParentOrderBlotterProps extends TableViewProperties{
   node: TabNode,
   model: Model,
   orderContext: OrderContext
@@ -39,7 +38,6 @@ interface ParentOrderBlotterProps {
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController
-  colsChooserController : ColumnChooserController
 }
 
 
@@ -52,8 +50,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController 
-  colsChooserController : ColumnChooserController
-
+  
   orderMap: Map<string, number>;
 
   orderService: OrderService
@@ -103,7 +100,6 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     this.childOrderBlotterController = props.childOrderBlotterController
     this.orderHistoryBlotterController = props.orderHistoryBlotterController 
     this.executionsController = props.executionsController
-    this.colsChooserController = props.colsChooserController
     this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
@@ -133,7 +129,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
         newOrders[idx] = orderView
       }
 
-      let blotterState: ParentOrderBlotterState = {
+      let blotterState: TableViewState = {
         ...this.state, ...{
           orders: newOrders
         }
@@ -168,6 +164,10 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
   }
 
+  protected  getTableName() : string {
+    return "Order Blotter"
+}
+
 
   showOrderHistory = (orders: IterableIterator<Order>) => {
     let order = orders.next()
@@ -184,25 +184,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
       window.innerWidth)
   }
 
-  editVisibleColumns = () => {
-
-    this.colsChooserController.open("Order Blotter", this.state.columns, this.state.columnWidths,
-    this.getColumns(), (newCols, newWidths)=> {
-
-      if( newCols && newWidths ) {
-        let newState: ParentOrderBlotterState = {
-          ...this.state, ...{
-            columns : newCols,
-            columnWidths : newWidths
-          }
-        }
   
-        this.setState(newState)
-      }
-      
-    })
-    
-  }
 
   showExecutions = (orders: IterableIterator<Order>) => {
     let order = orders.next()      

@@ -7,15 +7,15 @@ import { ChildOrderBlotterController } from '../Container';
 import OrderBlotter from "./OrderBlotter";
 import { OrderView } from "./OrderView";
 import { ListingService } from '../../services/ListingService';
-import { TableViewConfig, getConfiguredColumns } from '../TableView/TableView';
+import { TableViewConfig, getConfiguredColumns, TableViewProperties } from '../TableView/TableView';
 
-export interface ChildOrderProps {
+export interface ChildOrderProps extends TableViewProperties   {
     orderService: OrderService
     listingService: ListingService
     childOrderBlotterController: ChildOrderBlotterController
 }
 
-
+  
 interface ChildOrderBlotterState {
     isOpen: boolean,
     usePortal: boolean
@@ -54,6 +54,11 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
         }
 
     }
+
+    protected  getTableName() : string {
+        return "Child Orders"
+    }
+
 
     getTitle(order? : Order ) : string {
         if( order ) {
