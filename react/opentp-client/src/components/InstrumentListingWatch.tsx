@@ -44,7 +44,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
 
   watchMap: Map<number, ListingWatch> = new Map()
 
-  selectedWatches: Map<number, ListingWatch> = new Map<number, ListingWatch>()
+  selectedWatches: Array<ListingWatch> = new Array<ListingWatch>()
   
   constructor(props: InstrumentListingWatchProps) {
     super(props);
@@ -96,6 +96,8 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
     this.openBuyDialog = this.openBuyDialog.bind(this);
     this.openSellDialog = this.openSellDialog.bind(this);
     this.removeListings = this.removeListings.bind(this);
+    this.moveListingsUp = this.moveListingsUp.bind(this);
+    this.moveListingsDown = this.moveListingsDown.bind(this);
   }
 
   addListing(listing?: Listing) {
@@ -238,12 +240,16 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
     return (
 
       <Menu >
-        <Menu.Item text="Buy" onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
+        <Menu.Item icon="arrow-left" text="Buy" onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
          </Menu.Item>
         <Menu.Divider />
-        <Menu.Item  text="Sell" onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
+        <Menu.Item  icon="arrow-right"  text="Sell" onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
          </Menu.Item>
          <Menu.Divider />
+         <Menu.Item text="Move Listings Up" onClick={this.moveListingsUp} disabled={this.listingContext.selectedListing === undefined}>
+         </Menu.Item>
+         <Menu.Item text="Move Listings Down" onClick={this.moveListingsDown} disabled={this.listingContext.selectedListing === undefined}>
+         </Menu.Item>
         <Menu.Item text="Remove Listings" onClick={this.removeListings} disabled={this.listingContext.selectedListing === undefined}>
          </Menu.Item>
          <Menu.Divider />
@@ -253,6 +259,85 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
 
     );
   };
+
+
+  private moveListingsUp() {
+
+
+
+    let watches = this.state.watches
+
+    let watchesCopy = new Array<ListingWatch>(); 
+    watches.forEach(val => watchesCopy.push(val));
+
+    for (let selWatch of this.selectedWatches.values()) {
+        let idx = 0
+        for( let watch of watchesCopy) {
+          if( selWatch.listingId === watch.listingId ) {
+              if( idx >0 ) {
+                let toSwap = watchesCopy[idx-1] 
+                watchesCopy[idx-1] = watch
+                watchesCopy[idx] = toSwap
+              }
+              
+              break
+          }
+          idx++
+
+        }
+    }
+
+
+    let blotterState = {
+      ...this.state, ...{
+        watches: watchesCopy
+      }
+    }
+
+    this.setState(blotterState)
+    
+
+
+  }
+
+  private moveListingsDown() {
+
+    let watches = this.state.watches
+
+    let watchesCopy = new Array<ListingWatch>(); 
+    watches.forEach(val => watchesCopy.push(val));
+
+    let reversedSelectedWatches = new Array<ListingWatch>(); 
+    this.selectedWatches.forEach(val => reversedSelectedWatches.push(val));
+    reversedSelectedWatches.reverse()
+
+    for (let selWatch of reversedSelectedWatches.values()) {
+        let idx = 0
+        for( let watch of watchesCopy) {
+          if( selWatch.listingId === watch.listingId ) {
+              if( idx < watchesCopy.length - 1 ) {
+                let toSwap = watchesCopy[idx+1] 
+                watchesCopy[idx+1] = watch
+                watchesCopy[idx] = toSwap
+              }
+              
+              break
+          }
+          idx++
+
+        }
+    }
+
+
+    let blotterState = {
+      ...this.state, ...{
+        watches: watchesCopy
+      }
+    }
+
+    this.setState(blotterState)
+
+  }
 
   private removeListings() {
 
@@ -275,8 +360,6 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
       }
     }
 
-    console.log("removed watches")
-
     this.setState(blotterState)
   }
 
@@ -298,7 +381,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
   private onSelection = (selectedRegions: IRegion[]) => {
 
 
-    this.selectedWatches.clear()
+    this.selectedWatches = new Array<ListingWatch>()
 
     for (let region of selectedRegions) {
 
@@ -315,7 +398,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
 
       for (let i = firstRowIdx; i <= lastRowIdx; i++) {
         let watch = this.state.watches[i]
-        this.selectedWatches.set(watch.Id(), watch)
+        this.selectedWatches.push(watch)
 
         if (i === firstRowIdx) {
           if (watch.listing) {

@@ -282,17 +282,17 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     return (
 
       <Menu  >
-        <Menu.Item text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
+        <Menu.Item icon="delete"  text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item text="Modify Order">
+        <Menu.Item icon="edit" text="Modify Order">
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item text="View Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length === 0} >
+        <Menu.Item icon="fork" text="Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
-        <Menu.Item text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.length === 0} >
+        <Menu.Item icon="bring-data" text="History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
-        <Menu.Item text="Executions" onClick={() => this.showExecutions(selectedOrders.values())} disabled={selectedOrders.length === 0} >
+        <Menu.Item icon="tick" text="Executions" onClick={() => this.showExecutions(selectedOrders.values())} disabled={selectedOrders.length === 0} >
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item text="Edit Visible Columns" onClick={() => this.editVisibleColumns()}  >

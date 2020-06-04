@@ -183,6 +183,11 @@ export function getConfiguredColumns(columns: JSX.Element[], config?: TableViewC
     
     }
 
-    return [ new Array<JSX.Element>() , new Array<number>() ];
+    let widths = new Array<number>()
+    for( let i=0; i< columns.length; i++) {
+        widths.push(defaultColumnWidth)
+    }
+
+    return [ columns, widths ];
 }
 
