@@ -23,10 +23,16 @@ import { Error } from "grpc-web";
 import { Empty } from "../serverapi/modelcommon_pb";
 import { logError, logDebug } from "../logging/Logging";
 import ColumnChooser from "./TableView/ColumnChooser";
+import { ClientConfigServiceClient } from "../serverapi/ClientconfigserviceServiceClientPb";
+import { GetConfigParameters, Config, StoreConfigParams } from "../serverapi/clientconfigservice_pb";
 
 
 
-export default class Container extends React.Component {
+interface ContainerState {
+    model: Model | undefined
+}
+
+export default class Container extends React.Component<any, ContainerState> {
 
     defaultJson = {
         global: {},
@@ -93,22 +99,7 @@ export default class Container extends React.Component {
 
                             ]
                         },
-                        {
-
-
-                            "type": "tabset",
-                            "weight": 50,
-                            "children": [
-
-                                {
-                                    "type": "tab",
-                                    "weight": 50,
-                                    "name": "Order Ticket",
-                                    "component": "order-ticket",
-                                }
-
-                            ]
-                        }
+                 
 
 
                     ]
@@ -119,10 +110,10 @@ export default class Container extends React.Component {
 
 
     orderMonitorClient = new OrderMonitorClient(Login.grpcContext.serviceUrl, null, null)
+    clientConfigServiceClient = new ClientConfigServiceClient(Login.grpcContext.serviceUrl, null, null)
 
-    state: Model;
+
     factory: (node: TabNode) => React.ReactNode;
-    readonly configKey: string = "open-oms-config";
 
     quoteService: QuoteService
     orderService: OrderService
@@ -130,9 +121,9 @@ export default class Container extends React.Component {
     listingContext: ListingContext
     orderContext: OrderContext
     ticketController: TicketController
-    childOrderBlotterController : ChildOrderBlotterController
-    orderHistoryBlotterController : OrderHistoryBlotterController
-    executionsController : ExecutionsController
+    childOrderBlotterController: ChildOrderBlotterController
+    orderHistoryBlotterController: OrderHistoryBlotterController
+    executionsController: ExecutionsController
     questionDialogController: QuestionDialogController
     colChooserController: ColumnChooserController
 
@@ -153,64 +144,93 @@ export default class Container extends React.Component {
         this.questionDialogController = new QuestionDialogController()
         this.colChooserController = new ColumnChooserController()
 
-        let layoutString: string | null = localStorage.getItem(this.configKey);
-
-        let layoutJson: {}
-        if (layoutString) {
-            layoutJson = JSON.parse(layoutString);
-        } else {
-            layoutJson = this.defaultJson;
-        }
-
-        this.state = FlexLayout.Model.fromJson(layoutJson);
 
         this.factory = (node: TabNode) => {
-            var component = node.getComponent(); 
+            var component = node.getComponent();
 
-            if (component === "order-blotter") {
-                return <OrderBlotter colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state} />;
+            if (this.state && this.state.model) {
+
+                if (component === "order-blotter") {
+                    return <OrderBlotter colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
+                }
+                if (component === "market-depth") {
+                    return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model} />;
+                }
+                if (component === "instrument-watch") {
+                    return <InstrumentListingWatch colsChooser={this.colChooserController} listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state.model} />;
+                }
+                if (component === "nav-bar") {
+                    return <Navbar />;
+                }
+            } else {
+                return <div>Model not set</div>
             }
-            if (component === "market-depth") {
-                return <MarketDepth  colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state} />;
-            }
-            if (component === "instrument-watch") {
-                return <InstrumentListingWatch   colsChooser={this.colChooserController}  listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state} />;
-            }
-            if (component === "nav-bar") {
-                return <Navbar />;
-            }
+
+
         }
+
+
+        let params = new GetConfigParameters()
+        params.setUserid(Login.username)
+        this.clientConfigServiceClient.getClientConfig(params, Login.grpcContext.grpcMetaData, (err: Error,
+            response: Config) => {
+            let layoutJson: {}
+            if (err) {
+                layoutJson = this.defaultJson;
+            } else {
+                layoutJson = JSON.parse(response.getConfig());
+
+            }
+
+            this.setState({
+                model: FlexLayout.Model.fromJson(layoutJson)
+            })
+
+        })
+
 
         this.onSave = this.onSave.bind(this);
         this.onCancelAllOrders = this.onCancelAllOrders.bind(this);
     }
 
     onSave() {
-        var jsonStr = JSON.stringify(this.state!.toJson(), null, "\t");
-        localStorage.setItem(this.configKey, jsonStr);
-        console.log("JSON IS:" + jsonStr);
+
+        if (this.state && this.state.model) {
+            var jsonStr = JSON.stringify(this.state.model.toJson(), null, "\t");
+
+            let params = new StoreConfigParams()
+            params.setUserid(Login.username)
+            params.setConfig(jsonStr)
+            this.clientConfigServiceClient.storeClientConfig(params, Login.grpcContext.grpcMetaData, (err: Error,
+                response: Empty) => {
+                if (err) {
+                    logError("failed to store configuration:" + err)
+                }
+            })
+        }
+
     }
 
     onCancelAllOrders() {
-        this.questionDialogController.open("Cancel all orders?", "Cancel All Orders", (response: boolean)=> {
+        this.questionDialogController.open("Cancel all orders?", "Cancel All Orders", (response: boolean) => {
             var params = new CancelAllOrdersForOriginatorIdParams()
             params.setOriginatorid(Login.desk)
 
             this.orderMonitorClient.cancelAllOrdersForOriginatorId(params, Login.grpcContext.grpcMetaData, (err: Error,
                 response: Empty) => {
 
-                    if (err) {
-                        let msg = "error whilst cancelling all orders:" + err.message
-                        logError(msg)
-                        alert(msg)
-                      } else {
-                        logDebug("cancelled all orders")
-                      }
+                if (err) {
+                    let msg = "error whilst cancelling all orders:" + err.message
+                    logError(msg)
+                    alert(msg)
+                } else {
+                    logDebug("cancelled all orders")
+                }
 
-                } )
+            })
         })
 
-        
+
     }
 
 
@@ -219,10 +239,10 @@ export default class Container extends React.Component {
 
 
         let contents: React.ReactNode = "loading ...";
-        if (this.state !== null) {
+        if (this.state && this.state.model) {
             contents = <FlexLayout.Layout
                 ref="layout"
-                model={this.state}
+                model={this.state.model}
                 factory={this.factory}
             />;
         }
@@ -242,7 +262,7 @@ export default class Container extends React.Component {
             <div>
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
                 <ChildOrderBlotter colsChooser={this.colChooserController} childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
-                <OrderHistoryBlotter  colsChooser={this.colChooserController} orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
+                <OrderHistoryBlotter colsChooser={this.colChooserController} orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
                 <Executions colsChooser={this.colChooserController} executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
                 <ColumnChooser controller={this.colChooserController}></ColumnChooser>
@@ -254,8 +274,15 @@ export default class Container extends React.Component {
             <div className="toolbar" >
                 <Navbar className="bp3-dark">
                     <Navbar.Group align={Alignment.LEFT}>
+
+                        <Navbar.Heading>{Login.username + "@" + Login.desk}</Navbar.Heading>
+                        <Navbar.Divider />
                         <Navbar.Heading>Status</Navbar.Heading>
                         <Navbar.Divider />
+
+                    </Navbar.Group>
+
+                    <Navbar.Group align={Alignment.RIGHT}>
                         <Button className="bp3-minimal" icon="delete" text="Cancel All Orders" onClick={this.onCancelAllOrders} />
                     </Navbar.Group>
                 </Navbar>
@@ -278,7 +305,7 @@ export class ColumnChooserController {
 
     open(tableName: string, visibleColumns: JSX.Element[], widths: number[], allColumns: JSX.Element[], callback: (newVisibleCols: JSX.Element[] | undefined,
         widths: number[] | undefined) => void) {
-        if( this.dialog ) {
+        if (this.dialog) {
             this.dialog.open(tableName, visibleColumns, widths, allColumns, callback)
         }
     }
@@ -293,8 +320,8 @@ export class QuestionDialogController {
         this.dialog = dialog
     }
 
-    open(question : string, title: string, callback: (response: boolean)=>void) {
-        if( this.dialog ) {
+    open(question: string, title: string, callback: (response: boolean) => void) {
+        if (this.dialog) {
             this.dialog.open(question, title, callback)
         }
     }
@@ -310,9 +337,9 @@ export class ExecutionsController {
         this.executions = executions
     }
 
-    open(order : Order, width:number) {
+    open(order: Order, width: number) {
         if (this.executions) {
-            this.executions.open(order,  width)
+            this.executions.open(order, width)
         }
     }
 
@@ -326,9 +353,9 @@ export class OrderHistoryBlotterController {
         this.orderHistoryBlotter = orderHistoryBlotter
     }
 
-    openBlotter(order : Order, config: TableViewConfig, width:number) {
+    openBlotter(order: Order, config: TableViewConfig, width: number) {
         if (this.orderHistoryBlotter) {
-            this.orderHistoryBlotter.open(order,  config, width)
+            this.orderHistoryBlotter.open(order, config, width)
         }
     }
 
@@ -343,10 +370,10 @@ export class ChildOrderBlotterController {
         this.childOrderBlotter = childOrderBlotter
     }
 
-    openBlotter(parentOrder : Order, orders: Array<Order>, 
-         config: TableViewConfig, width:number) {
+    openBlotter(parentOrder: Order, orders: Array<Order>,
+        config: TableViewConfig, width: number) {
         if (this.childOrderBlotter) {
-            this.childOrderBlotter.open(parentOrder,orders,  config, width)
+            this.childOrderBlotter.open(parentOrder, orders, config, width)
         }
     }
 

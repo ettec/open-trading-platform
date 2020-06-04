@@ -1,0 +1,778 @@
+   0.0 TEL | Telepresence 0.105 launched at Thu Jun  4 19:42:05 2020
+   0.0 TEL |   /usr/bin/telepresence --swap-deployment client-config-service --expose 50551 --run ./client-config-service
+   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.3.0-55-generic', version='#49-Ubuntu SMP Thu May 21 12:47:19 UTC 2020', machine='x86_64', processor='x86_64')
+   0.0 TEL | Platform: linux
+   0.0 TEL | WSL: False
+   0.0 TEL | Python 3.7.5 (default, Apr 19 2020, 20:18:17)
+   0.0 TEL | [GCC 9.2.1 20191008]
+   0.0 TEL | BEGIN SPAN main.py:40(main)
+   0.0 TEL | BEGIN SPAN startup.py:83(set_kube_command)
+   0.0 TEL | Found kubectl -> /snap/bin/kubectl
+   0.0 TEL | [1] Capturing: kubectl config current-context
+   0.1 TEL | [1] captured in 0.10 secs.
+   0.1 TEL | [2] Capturing: kubectl --context kubernetes-admin@kubernetes version --short
+   0.2 TEL | [2] captured in 0.11 secs.
+   0.2 TEL | [3] Capturing: kubectl --context kubernetes-admin@kubernetes config view -o json
+   0.3 TEL | [3] captured in 0.10 secs.
+   0.3 TEL | [4] Capturing: kubectl --context kubernetes-admin@kubernetes get ns default
+   0.4 TEL | [4] captured in 0.11 secs.
+   0.4 TEL | [5] Capturing: kubectl --context kubernetes-admin@kubernetes api-versions
+   0.6 TEL | [5] captured in 0.13 secs.
+   0.6 TEL | Command: kubectl 1.18.2
+   0.6 TEL | Context: kubernetes-admin@kubernetes, namespace: default, version: 1.17.4
+   0.6 TEL | END SPAN startup.py:83(set_kube_command)    0.5s
+   0.6 TEL | Found ssh -> /usr/bin/ssh
+   0.6 TEL | [6] Capturing: ssh -V
+   0.6 TEL | [6] captured in 0.01 secs.
+   0.6 TEL | Found ./client-config-service -> ./client-config-service
+   0.6 TEL | Found sshuttle-telepresence -> /usr/libexec/sshuttle-telepresence
+   0.6 TEL | Found conntrack -> /usr/sbin/conntrack
+   0.6 TEL | Found iptables -> /usr/sbin/iptables
+   0.6 TEL | Found sudo -> /usr/bin/sudo
+   0.6 TEL | [7] Running: sudo -n echo -n
+   0.6 TEL | [7] ran in 0.01 secs.
+   0.6 TEL | [8] Capturing: sudo iptables --list
+   0.6 TEL | [8] captured in 0.01 secs.
+   0.6 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+   0.6 TEL | Found sshfs -> /usr/bin/sshfs
+   0.6 TEL | Found fusermount -> /usr/bin/fusermount
+   0.6 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+   0.6 TEL | [9] Running: kubectl --context kubernetes-admin@kubernetes --namespace default get pods telepresence-connectivity-check --ignore-not-found
+   0.7 TEL | [9] ran in 0.13 secs.
+   1.2 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
+   1.2 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
+   1.2 >>> | Starting network proxy to cluster by swapping out Deployment client-config-service with a proxy
+   1.2 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   1.2 TEL | [10] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json client-config-service
+   1.3 TEL | [10] captured in 0.13 secs.
+   1.3 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+   1.3 TEL | [11] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment client-config-ser-16c0a44314ac4cb499b6b48518926e58 --ignore-not-found
+   1.5 TEL | [11] ran in 0.19 secs.
+   1.5 TEL | [12] Running: kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
+   1.7  12 | deployment.apps/client-config-ser-16c0a44314ac4cb499b6b48518926e58 created
+   1.7 TEL | [12] ran in 0.24 secs.
+   1.7 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment client-config-service --replicas=0
+   2.0  13 | deployment.apps/client-config-service scaled
+   2.0 TEL | [13] ran in 0.30 secs.
+   2.0 TEL | END SPAN deployment.py:283(supplant_deployment)    0.9s
+   2.0 TEL | BEGIN SPAN remote.py:142(get_remote_info)
+   2.0 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+   2.0 TEL | [14] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=16c0a44314ac4cb499b6b48518926e58
+   2.2 TEL | [14] captured in 0.20 secs.
+   2.2 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
+   2.2 TEL | Searching for Telepresence pod:
+   2.2 TEL |   with name client-config-ser-16c0a44314ac4cb499b6b48518926e58-*
+   2.2 TEL |   with labels {'app': 'client-config-service', 'telepresence': '16c0a44314ac4cb499b6b48518926e58'}
+   2.2 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=16c0a44314ac4cb499b6b48518926e58
+   2.4 TEL | [15] captured in 0.13 secs.
+   2.4 TEL | Checking client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b
+   2.4 TEL | Looks like we've found our pod!
+   2.4 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
+   2.4 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   2.5 TEL | [16] captured in 0.13 secs.
+   2.7 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   2.9 TEL | [17] captured in 0.12 secs.
+   3.1 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   3.2 TEL | [18] captured in 0.12 secs.
+   3.5 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   3.6 TEL | [19] captured in 0.15 secs.
+   3.9 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   4.0 TEL | [20] captured in 0.14 secs.
+   4.3 TEL | [21] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   4.4 TEL | [21] captured in 0.13 secs.
+   4.7 TEL | [22] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   4.8 TEL | [22] captured in 0.12 secs.
+   5.0 TEL | [23] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   5.2 TEL | [23] captured in 0.12 secs.
+   5.4 TEL | [24] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   5.5 TEL | [24] captured in 0.14 secs.
+   5.8 TEL | [25] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   5.9 TEL | [25] captured in 0.13 secs.
+   6.2 TEL | [26] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   6.3 TEL | [26] captured in 0.15 secs.
+   6.6 TEL | [27] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b -o json
+   6.8 TEL | [27] captured in 0.23 secs.
+   6.8 TEL | END SPAN remote.py:104(wait_for_pod)    4.4s
+   6.8 TEL | END SPAN remote.py:142(get_remote_info)    4.8s
+   6.8 TEL | BEGIN SPAN connect.py:37(connect)
+   6.8 TEL | [28] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b --container client-config-service --tail=10
+   6.8 TEL | [29] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b 45383:8022
+   6.8 TEL | [30] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45383 telepresence@127.0.0.1 /bin/true
+   6.8 TEL | [30] exit 255 in 0.01 secs.
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] Loading ./forwarder.py...
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] /etc/resolv.conf changed, reparsing
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] Resolver added ('10.96.0.10', 53) to server list
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] SOCKSv5Factory starting on 9050
+   7.0  28 | 2020-06-04T18:42:12+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7fb5942ef128>
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] DNSDatagramProtocol starting on 9053
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7fb5942ef400>
+   7.0  28 | 2020-06-04T18:42:12+0000 [-] Loaded.
+   7.0  28 | 2020-06-04T18:42:12+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
+   7.0  28 | 2020-06-04T18:42:12+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+   7.0  29 | Forwarding from 127.0.0.1:45383 -> 8022
+   7.0  29 | Forwarding from [::1]:45383 -> 8022
+   7.1 TEL | [31] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45383 telepresence@127.0.0.1 /bin/true
+   7.1  29 | Handling connection for 45383
+   7.3 TEL | [31] ran in 0.22 secs.
+   7.3 >>> | Forwarding remote port 50551 to local port 50551.
+   7.3 TEL | [32] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45383 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
+   7.3 >>> | 
+   7.3 TEL | Launching Web server for proxy poll
+   7.3 TEL | [33] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 45383 telepresence@127.0.0.1 -L127.0.0.1:37815:127.0.0.1:9050 -R9055:127.0.0.1:41101
+   7.3  29 | Handling connection for 45383
+   7.3 TEL | END SPAN connect.py:37(connect)    0.5s
+   7.3 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
+   7.3 TEL | [34] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b --container client-config-service -- python3 podinfo.py
+   7.3  29 | Handling connection for 45383
+   7.6 TEL | [34] captured in 0.34 secs.
+   7.6 TEL | END SPAN remote_env.py:29(get_remote_env)    0.3s
+   7.6 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
+   7.6 TEL | [35] Running: sshfs -p 45383 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-ev16hc3n/fs
+   7.7  29 | Handling connection for 45383
+   7.8 TEL | [35] ran in 0.19 secs.
+   7.8 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
+   7.8 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
+   7.8 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
+   7.8 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.0s
+   7.8 TEL | [36] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:45383 --to-ns 127.0.0.1:9053 10.244.0.0/24 10.244.2.0/24 10.244.1.0/24 10.96.0.0/12
+   7.8 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
+   7.8 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+   7.8 TEL | [37] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+   8.0 TEL | [37] exit 1 in 0.12 secs.
+   8.0 TEL | [38] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
+   8.3  36 | Starting sshuttle proxy.
+   9.0 TEL | [38] timed out after 1.02 secs.
+   9.1 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+   9.1 TEL | [39] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+   9.2 TEL | [39] exit 1 in 0.12 secs.
+   9.2 TEL | [40] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
+   9.3  36 | firewall manager: Starting firewall with Python version 3.7.5
+   9.3  36 | firewall manager: ready method name nat.
+   9.3  36 | IPv6 enabled: False
+   9.3  36 | UDP enabled: False
+   9.3  36 | DNS enabled: True
+   9.3  36 | TCP redirector listening on ('127.0.0.1', 12300).
+   9.3  36 | DNS listening on ('127.0.0.1', 12300).
+   9.3  36 | Starting client with Python version 3.7.5
+   9.3  36 | c : connecting to server...
+   9.3 TEL | [40] exit 1 in 0.12 secs.
+   9.3  29 | Handling connection for 45383
+   9.4  36 | Warning: Permanently added '[127.0.0.1]:45383' (ECDSA) to the list of known hosts.
+   9.4 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+   9.4 TEL | [41] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+   9.5 TEL | [41] exit 1 in 0.12 secs.
+   9.5 TEL | [42] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
+   9.6  36 | Starting server with Python version 3.6.8
+   9.6  36 |  s: latency control setting = True
+   9.6  36 |  s: available routes:
+   9.6  36 |  s:   2/10.244.0.0/16
+   9.6  36 |  s:   2/10.244.1.0/24
+   9.6  36 | c : Connected.
+   9.6  36 | firewall manager: setting up.
+   9.6  36 | >> iptables -t nat -N sshuttle-12300
+   9.6  36 | >> iptables -t nat -F sshuttle-12300
+   9.6  36 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
+   9.6  36 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
+   9.6  36 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
+   9.6  36 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
+  10.0  36 | c : DNS request from ('127.0.0.1', 45234) to None: 43 bytes
+  10.0  28 | 2020-06-04T18:42:15+0000 [stdout#info] A query: b'www.ebay.co.uk'
+  10.1  28 | 2020-06-04T18:42:15+0000 [stdout#info] Result for b'www.ebay.co.uk' is ['23.217.10.165']
+  10.5 TEL | [42] timed out after 1.00 secs.
+  10.6 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+  10.6 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+  10.7  36 | c : DNS request from ('127.0.0.1', 55191) to None: 48 bytes
+  10.7  28 | 2020-06-04T18:42:16+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  10.7  28 | 2020-06-04T18:42:16+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
+  10.7 TEL | [43] captured in 0.07 secs.
+  10.7 TEL | Resolved hellotelepresence-3. 2 more...
+  10.7 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
+  10.7  36 | c : DNS request from ('127.0.0.1', 56362) to None: 79 bytes
+  10.7  28 | 2020-06-04T18:42:16+0000 [stdout#info] Sanity check: b'hellotelepresence-3.a.sanity.check.telepresence.io'
+  10.8 TEL | [44] exit 1 in 0.12 secs.
+  10.9 TEL | Wait for vpn-tcp connection: hellotelepresence-4
+  10.9 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+  11.0  36 | c : DNS request from ('127.0.0.1', 56157) to None: 48 bytes
+  11.0  28 | 2020-06-04T18:42:16+0000 [stdout#info] Result for b'hellotelepresence-4' is ['127.0.0.1']
+  11.0 TEL | [45] captured in 0.07 secs.
+  11.0 TEL | Resolved hellotelepresence-4. 1 more...
+  11.0 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity.check.telepresence.io")'
+  11.0  36 | c : DNS request from ('127.0.0.1', 50897) to None: 79 bytes
+  11.0  28 | 2020-06-04T18:42:16+0000 [stdout#info] Sanity check: b'hellotelepresence-4.a.sanity.check.telepresence.io'
+  11.1 TEL | [46] exit 1 in 0.12 secs.
+  11.2 TEL | Wait for vpn-tcp connection: hellotelepresence-5
+  11.2 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
+  11.2  36 | c : DNS request from ('127.0.0.1', 35609) to None: 48 bytes
+  11.2  28 | 2020-06-04T18:42:17+0000 [stdout#info] Result for b'hellotelepresence-5' is ['127.0.0.1']
+  11.3 TEL | [47] captured in 0.07 secs.
+  11.3 TEL | Resolved hellotelepresence-5. 0 more...
+  11.3 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    3.4s
+  11.3 TEL | END SPAN vpn.py:280(connect_sshuttle)    3.4s
+  11.3 >>> | Setup complete. Launching your command.
+  11.3 TEL | Everything launched. Waiting to exit...
+  11.3 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
+  30.6 TEL | [48] Running: sudo -n echo -n
+  30.6 TEL | [48] ran in 0.01 secs.
+  32.0  36 | c : DNS request from ('127.0.0.1', 58562) to None: 47 bytes
+  32.0  28 | 2020-06-04T18:42:37+0000 [stdout#info] A query: b'cdn.optimizely.com'
+  32.1  28 | 2020-06-04T18:42:37+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['23.212.233.34']
+  36.9 TEL | (proxy checking local liveness)
+  36.9  28 | 2020-06-04T18:42:42+0000 [Poll#info] Checkpoint
+  60.7 TEL | [49] Running: sudo -n echo -n
+  60.7 TEL | [49] ran in 0.01 secs.
+  64.0  36 | c : DNS request from ('127.0.0.1', 60723) to None: 50 bytes
+  64.0  28 | 2020-06-04T18:43:09+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+  64.0  28 | 2020-06-04T18:43:09+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+  66.8 TEL | (proxy checking local liveness)
+  66.9  28 | 2020-06-04T18:43:12+0000 [Poll#info] Checkpoint
+  90.7 TEL | [50] Running: sudo -n echo -n
+  90.7 TEL | [50] ran in 0.01 secs.
+  96.9 TEL | (proxy checking local liveness)
+  96.9  28 | 2020-06-04T18:43:42+0000 [Poll#info] Checkpoint
+ 100.0  36 | c : DNS request from ('127.0.0.1', 41428) to None: 60 bytes
+ 100.0  28 | 2020-06-04T18:43:45+0000 [stdout#info] A query: b'content-autofill.googleapis.com'
+ 100.1  28 | 2020-06-04T18:43:45+0000 [stdout#info] Result for b'content-autofill.googleapis.com' is ['172.217.169.42']
+ 111.4  36 | c : DNS request from ('127.0.0.1', 49255) to None: 59 bytes
+ 111.4  28 | 2020-06-04T18:43:57+0000 [stdout#info] A query: b'telegraphmedia.stream1.fyre.co'
+ 111.4  28 | 2020-06-04T18:43:57+0000 [stdout#info] Result for b'telegraphmedia.stream1.fyre.co' is ['35.169.151.90', '35.169.15.163', '54.82.142.106']
+ 120.7 TEL | [51] Running: sudo -n echo -n
+ 120.7 TEL | [51] ran in 0.01 secs.
+ 125.0  36 | c : DNS request from ('127.0.0.1', 51272) to None: 50 bytes
+ 125.0  28 | 2020-06-04T18:44:10+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 125.0  28 | 2020-06-04T18:44:10+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 126.2  36 | c : DNS request from ('127.0.0.1', 54771) to None: 57 bytes
+ 126.2  36 | c : DNS request from ('127.0.0.1', 54771) to None: 57 bytes
+ 126.2  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 126.2  28 | 2020-06-04T18:44:12+0000 [stdout#info] AAAA query, sending back A instead: b'dc.services.visualstudio.com'
+ 126.2  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'dc.services.visualstudio.com'
+ 126.3  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'dc.services.visualstudio.com' is ['51.140.6.23']
+ 126.3  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'dc.services.visualstudio.com' is ['51.140.6.23']
+ 126.6  36 | c : DNS request from ('127.0.0.1', 54791) to None: 48 bytes
+ 126.6  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'redirector.gvt1.com'
+ 126.6  36 | c : DNS request from ('127.0.0.1', 58347) to None: 48 bytes
+ 126.6  36 | c : DNS request from ('127.0.0.1', 33997) to None: 58 bytes
+ 126.6  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'redirector.gvt1.com' is ['216.58.213.14']
+ 126.6  36 | c : DNS request from ('127.0.0.1', 35532) to None: 48 bytes
+ 126.6  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'clients2.google.com'
+ 126.6  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'clientservices.googleapis.com'
+ 126.7  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'clients2.google.com' is ['216.58.213.110']
+ 126.7  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'accounts.google.com'
+ 126.7  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'clientservices.googleapis.com' is ['216.58.213.99']
+ 126.7  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'accounts.google.com' is ['216.58.204.45']
+ 126.7  36 | c : DNS request from ('127.0.0.1', 54442) to None: 54 bytes
+ 126.7  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'r5---sn-cu-ajtel.gvt1.com'
+ 126.8  36 | c : DNS request from ('127.0.0.1', 39430) to None: 59 bytes
+ 126.8  28 | 2020-06-04T18:44:12+0000 [stdout#info] A query: b'clients2.googleusercontent.com'
+ 126.8  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'r5---sn-cu-ajtel.gvt1.com' is ['109.144.3.84']
+ 126.8  28 | 2020-06-04T18:44:12+0000 [stdout#info] Result for b'clients2.googleusercontent.com' is ['216.58.213.1']
+ 126.8 TEL | (proxy checking local liveness)
+ 126.9  28 | 2020-06-04T18:44:12+0000 [Poll#info] Checkpoint
+ 131.3  36 | c : DNS request from ('127.0.0.1', 47627) to None: 54 bytes
+ 131.3  36 | c : DNS request from ('127.0.0.1', 47627) to None: 54 bytes
+ 131.3  28 | 2020-06-04T18:44:17+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 131.3  28 | 2020-06-04T18:44:17+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 131.3  28 | 2020-06-04T18:44:17+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 131.3  28 | 2020-06-04T18:44:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 131.4  28 | 2020-06-04T18:44:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 133.5  36 | c : DNS request from ('127.0.0.1', 41611) to None: 42 bytes
+ 133.5  36 | c : DNS request from ('127.0.0.1', 43032) to None: 36 bytes
+ 133.5  36 | c : DNS request from ('127.0.0.1', 52407) to None: 43 bytes
+ 133.5  28 | 2020-06-04T18:44:19+0000 [stdout#info] A query: b'mllagjteyqihc'
+ 133.5  28 | 2020-06-04T18:44:19+0000 [stdout#info] A query: b'zwqlmwc'
+ 133.5  28 | 2020-06-04T18:44:19+0000 [stdout#info] A query: b'vqfweqdlgxzlaf'
+ 133.5  28 | 2020-06-04T18:44:19+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 133.6  28 | 2020-06-04T18:44:19+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 133.6  28 | 2020-06-04T18:44:19+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 133.7  36 | c : DNS request from ('127.0.0.1', 37353) to None: 44 bytes
+ 133.7  28 | 2020-06-04T18:44:19+0000 [stdout#info] A query: b'www.gstatic.com'
+ 133.8  28 | 2020-06-04T18:44:19+0000 [stdout#info] Result for b'www.gstatic.com' is ['216.58.213.3']
+ 133.9  36 | c : DNS request from ('127.0.0.1', 52273) to None: 54 bytes
+ 133.9  28 | 2020-06-04T18:44:19+0000 [stdout#info] A query: b'r1---sn-cu-ajtel.gvt1.com'
+ 133.9  28 | 2020-06-04T18:44:19+0000 [stdout#info] Result for b'r1---sn-cu-ajtel.gvt1.com' is ['109.144.3.80']
+ 134.2  36 | c : DNS request from ('127.0.0.1', 42709) to None: 54 bytes
+ 134.2  28 | 2020-06-04T18:44:19+0000 [stdout#info] A query: b'r5---sn-cu-ajtes.gvt1.com'
+ 134.2  28 | 2020-06-04T18:44:20+0000 [stdout#info] Result for b'r5---sn-cu-ajtes.gvt1.com' is ['213.123.245.20']
+ 136.5  36 | c : DNS request from ('127.0.0.1', 56787) to None: 44 bytes
+ 136.5  28 | 2020-06-04T18:44:22+0000 [stdout#info] A query: b'ssl.gstatic.com'
+ 136.5  28 | 2020-06-04T18:44:22+0000 [stdout#info] Result for b'ssl.gstatic.com' is ['216.58.210.195']
+ 139.0  36 | c : DNS request from ('127.0.0.1', 35697) to None: 44 bytes
+ 139.0  28 | 2020-06-04T18:44:24+0000 [stdout#info] A query: b'c.go-mpulse.net'
+ 139.0  28 | 2020-06-04T18:44:24+0000 [stdout#info] Result for b'c.go-mpulse.net' is ['2.17.148.125']
+ 141.2  36 | c : DNS request from ('127.0.0.1', 37187) to None: 54 bytes
+ 141.2  36 | c : DNS request from ('127.0.0.1', 37187) to None: 54 bytes
+ 141.2  28 | 2020-06-04T18:44:27+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 141.3  28 | 2020-06-04T18:44:27+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 141.3  28 | 2020-06-04T18:44:27+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 141.3  28 | 2020-06-04T18:44:27+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 141.3  28 | 2020-06-04T18:44:27+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 147.0  36 | c : DNS request from ('127.0.0.1', 39265) to None: 54 bytes
+ 147.0  36 | c : DNS request from ('127.0.0.1', 39265) to None: 54 bytes
+ 147.1  28 | 2020-06-04T18:44:32+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 147.1  28 | 2020-06-04T18:44:32+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 147.1  28 | 2020-06-04T18:44:32+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 147.1  28 | 2020-06-04T18:44:32+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 147.1  28 | 2020-06-04T18:44:32+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 150.8 TEL | [52] Running: sudo -n echo -n
+ 150.8 TEL | [52] ran in 0.01 secs.
+ 156.9 TEL | (proxy checking local liveness)
+ 156.9  28 | 2020-06-04T18:44:42+0000 [Poll#info] Checkpoint
+ 159.8  36 | c : DNS request from ('127.0.0.1', 55306) to None: 54 bytes
+ 159.8  36 | c : DNS request from ('127.0.0.1', 55306) to None: 54 bytes
+ 159.8  28 | 2020-06-04T18:44:45+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 159.8  28 | 2020-06-04T18:44:45+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 159.8  28 | 2020-06-04T18:44:45+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 159.8  28 | 2020-06-04T18:44:45+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 159.8  28 | 2020-06-04T18:44:45+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 172.1  36 | c : DNS request from ('127.0.0.1', 57532) to None: 58 bytes
+ 172.1  28 | 2020-06-04T18:44:57+0000 [stdout#info] AAAA query, sending back A instead: b'connectivity-check.ubuntu.com'
+ 172.1  28 | 2020-06-04T18:44:57+0000 [stdout#info] A query: b'connectivity-check.ubuntu.com'
+ 172.1  28 | 2020-06-04T18:44:57+0000 [stdout#info] Result for b'connectivity-check.ubuntu.com' is ['35.222.85.5', '35.224.99.156']
+ 177.4  36 | c : DNS request from ('127.0.0.1', 38257) to None: 54 bytes
+ 177.4  36 | c : DNS request from ('127.0.0.1', 38257) to None: 54 bytes
+ 177.4  28 | 2020-06-04T18:45:03+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 177.4  28 | 2020-06-04T18:45:03+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 177.4  28 | 2020-06-04T18:45:03+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 177.4  28 | 2020-06-04T18:45:03+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 177.5  28 | 2020-06-04T18:45:03+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 180.8 TEL | [53] Running: sudo -n echo -n
+ 180.8 TEL | [53] ran in 0.01 secs.
+ 186.0  36 | c : DNS request from ('127.0.0.1', 53440) to None: 50 bytes
+ 186.0  28 | 2020-06-04T18:45:11+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 186.0  28 | 2020-06-04T18:45:11+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 186.6  36 | c : DNS request from ('127.0.0.1', 43451) to None: 50 bytes
+ 186.6  28 | 2020-06-04T18:45:12+0000 [stdout#info] A query: b'update.googleapis.com'
+ 186.7  28 | 2020-06-04T18:45:12+0000 [stdout#info] Result for b'update.googleapis.com' is ['216.58.204.227']
+ 186.7  36 | c : DNS request from ('127.0.0.1', 54135) to None: 48 bytes
+ 186.7  28 | 2020-06-04T18:45:12+0000 [stdout#info] A query: b'redirector.gvt1.com'
+ 186.8  28 | 2020-06-04T18:45:12+0000 [stdout#info] Result for b'redirector.gvt1.com' is ['216.58.206.142']
+ 186.8  36 | c : DNS request from ('127.0.0.1', 50529) to None: 54 bytes
+ 186.8  28 | 2020-06-04T18:45:12+0000 [stdout#info] A query: b'r4---sn-cu-ajtes.gvt1.com'
+ 186.8 TEL | (proxy checking local liveness)
+ 186.9  28 | 2020-06-04T18:45:12+0000 [Poll#info] Checkpoint
+ 186.9  28 | 2020-06-04T18:45:12+0000 [stdout#info] Result for b'r4---sn-cu-ajtes.gvt1.com' is ['213.123.245.19']
+ 188.8  36 | c : DNS request from ('127.0.0.1', 42717) to None: 54 bytes
+ 188.8  28 | 2020-06-04T18:45:14+0000 [stdout#info] A query: b'r6---sn-cu-ajtes.gvt1.com'
+ 188.9  28 | 2020-06-04T18:45:14+0000 [stdout#info] Result for b'r6---sn-cu-ajtes.gvt1.com' is ['213.123.245.21']
+ 191.3  36 | c : DNS request from ('127.0.0.1', 55585) to None: 54 bytes
+ 191.3  36 | c : DNS request from ('127.0.0.1', 55585) to None: 54 bytes
+ 191.3  28 | 2020-06-04T18:45:17+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 191.3  28 | 2020-06-04T18:45:17+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 191.3  28 | 2020-06-04T18:45:17+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 191.3  28 | 2020-06-04T18:45:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 191.3  28 | 2020-06-04T18:45:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 192.6  36 | c : DNS request from ('127.0.0.1', 41648) to None: 55 bytes
+ 192.6  28 | 2020-06-04T18:45:18+0000 [stdout#info] A query: b'r11---sn-cu-ajtes.gvt1.com'
+ 192.7  28 | 2020-06-04T18:45:18+0000 [stdout#info] Result for b'r11---sn-cu-ajtes.gvt1.com' is ['213.123.245.26']
+ 194.8  36 | c : DNS request from ('127.0.0.1', 42096) to None: 54 bytes
+ 194.8  28 | 2020-06-04T18:45:20+0000 [stdout#info] A query: b'r1---sn-cu-ajtel.gvt1.com'
+ 194.9  28 | 2020-06-04T18:45:20+0000 [stdout#info] Result for b'r1---sn-cu-ajtel.gvt1.com' is ['109.144.3.80']
+ 195.0  36 | c : DNS request from ('127.0.0.1', 39382) to None: 55 bytes
+ 195.0  28 | 2020-06-04T18:45:20+0000 [stdout#info] A query: b'r12---sn-cu-ajtee.gvt1.com'
+ 195.1  28 | 2020-06-04T18:45:20+0000 [stdout#info] Result for b'r12---sn-cu-ajtee.gvt1.com' is ['109.144.3.27']
+ 195.4  36 | c : DNS request from ('127.0.0.1', 38044) to None: 54 bytes
+ 195.4  28 | 2020-06-04T18:45:21+0000 [stdout#info] A query: b'r7---sn-cu-ajtes.gvt1.com'
+ 195.4  28 | 2020-06-04T18:45:21+0000 [stdout#info] Result for b'r7---sn-cu-ajtes.gvt1.com' is ['213.123.245.22']
+ 195.6  36 | c : DNS request from ('127.0.0.1', 54304) to None: 55 bytes
+ 195.6  28 | 2020-06-04T18:45:21+0000 [stdout#info] A query: b'r10---sn-cu-ajtee.gvt1.com'
+ 195.6  28 | 2020-06-04T18:45:21+0000 [stdout#info] Result for b'r10---sn-cu-ajtee.gvt1.com' is ['109.144.3.25']
+ 196.0  36 | c : DNS request from ('127.0.0.1', 60992) to None: 55 bytes
+ 196.0  28 | 2020-06-04T18:45:21+0000 [stdout#info] A query: b'r11---sn-cu-ajtee.gvt1.com'
+ 196.0  28 | 2020-06-04T18:45:21+0000 [stdout#info] Result for b'r11---sn-cu-ajtee.gvt1.com' is ['109.144.3.26']
+ 198.0  36 | c : DNS request from ('127.0.0.1', 57263) to None: 56 bytes
+ 198.0  28 | 2020-06-04T18:45:23+0000 [stdout#info] A query: b'chat-pa.clients6.google.com'
+ 198.0  28 | 2020-06-04T18:45:23+0000 [stdout#info] Result for b'chat-pa.clients6.google.com' is ['216.58.212.202']
+ 210.9 TEL | [54] Running: sudo -n echo -n
+ 210.9 TEL | [54] ran in 0.01 secs.
+ 216.9 TEL | (proxy checking local liveness)
+ 216.9  28 | 2020-06-04T18:45:42+0000 [Poll#info] Checkpoint
+ 219.5  36 | c : DNS request from ('127.0.0.1', 35803) to None: 56 bytes
+ 219.5  28 | 2020-06-04T18:45:45+0000 [stdout#info] A query: b'safebrowsing.googleapis.com'
+ 219.6  28 | 2020-06-04T18:45:45+0000 [stdout#info] Result for b'safebrowsing.googleapis.com' is ['172.217.169.42']
+ 240.9 TEL | [55] Running: sudo -n echo -n
+ 240.9 TEL | [55] ran in 0.01 secs.
+ 246.9 TEL | (proxy checking local liveness)
+ 246.9  28 | 2020-06-04T18:46:12+0000 [Poll#info] Checkpoint
+ 247.0  36 | c : DNS request from ('127.0.0.1', 35046) to None: 50 bytes
+ 247.0  28 | 2020-06-04T18:46:12+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 247.0  28 | 2020-06-04T18:46:12+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 270.9 TEL | [56] Running: sudo -n echo -n
+ 270.9 TEL | [56] ran in 0.01 secs.
+ 276.9 TEL | (proxy checking local liveness)
+ 276.9  28 | 2020-06-04T18:46:42+0000 [Poll#info] Checkpoint
+ 280.0  36 | c : DNS request from ('127.0.0.1', 48271) to None: 43 bytes
+ 280.0  28 | 2020-06-04T18:46:45+0000 [stdout#info] A query: b'www.ebay.co.uk'
+ 280.0  28 | 2020-06-04T18:46:45+0000 [stdout#info] Result for b'www.ebay.co.uk' is ['23.217.10.165']
+ 287.8  36 | c : DNS request from ('127.0.0.1', 56825) to None: 54 bytes
+ 287.8  36 | c : DNS request from ('127.0.0.1', 56825) to None: 54 bytes
+ 287.8  28 | 2020-06-04T18:46:53+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 287.9  28 | 2020-06-04T18:46:53+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 287.9  28 | 2020-06-04T18:46:53+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 287.9  28 | 2020-06-04T18:46:53+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 287.9  28 | 2020-06-04T18:46:53+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 301.0 TEL | [57] Running: sudo -n echo -n
+ 301.0 TEL | [57] ran in 0.02 secs.
+ 303.5  36 | c : DNS request from ('127.0.0.1', 46436) to None: 54 bytes
+ 303.5  36 | c : DNS request from ('127.0.0.1', 46436) to None: 54 bytes
+ 303.5  28 | 2020-06-04T18:47:09+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 303.5  28 | 2020-06-04T18:47:09+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 303.5  28 | 2020-06-04T18:47:09+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 303.5  28 | 2020-06-04T18:47:09+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 303.5  28 | 2020-06-04T18:47:09+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 306.8 TEL | (proxy checking local liveness)
+ 306.9  28 | 2020-06-04T18:47:12+0000 [Poll#info] Checkpoint
+ 308.0  36 | c : DNS request from ('127.0.0.1', 36178) to None: 50 bytes
+ 308.0  28 | 2020-06-04T18:47:13+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 308.0  28 | 2020-06-04T18:47:13+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 312.0  36 | c : DNS request from ('127.0.0.1', 50212) to None: 54 bytes
+ 312.0  36 | c : DNS request from ('127.0.0.1', 50212) to None: 54 bytes
+ 312.0  28 | 2020-06-04T18:47:17+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 312.0  28 | 2020-06-04T18:47:17+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 312.0  28 | 2020-06-04T18:47:17+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 312.0  28 | 2020-06-04T18:47:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 312.0  28 | 2020-06-04T18:47:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 331.0 TEL | [58] Running: sudo -n echo -n
+ 331.0 TEL | [58] ran in 0.01 secs.
+ 336.9 TEL | (proxy checking local liveness)
+ 336.9  28 | 2020-06-04T18:47:42+0000 [Poll#info] Checkpoint
+ 356.4  36 | c : DNS request from ('127.0.0.1', 50287) to None: 54 bytes
+ 356.4  36 | c : DNS request from ('127.0.0.1', 50287) to None: 54 bytes
+ 356.4  28 | 2020-06-04T18:48:02+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 356.4  28 | 2020-06-04T18:48:02+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 356.4  28 | 2020-06-04T18:48:02+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 356.5  28 | 2020-06-04T18:48:02+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 356.5  28 | 2020-06-04T18:48:02+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 361.1 TEL | [59] Running: sudo -n echo -n
+ 361.1 TEL | [59] ran in 0.01 secs.
+ 366.9 TEL | (proxy checking local liveness)
+ 366.9  28 | 2020-06-04T18:48:12+0000 [Poll#info] Checkpoint
+ 369.0  36 | c : DNS request from ('127.0.0.1', 40539) to None: 50 bytes
+ 369.0  28 | 2020-06-04T18:48:14+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 369.0  28 | 2020-06-04T18:48:14+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 391.1 TEL | [60] Running: sudo -n echo -n
+ 391.1 TEL | [60] ran in 0.01 secs.
+ 396.9 TEL | (proxy checking local liveness)
+ 396.9  28 | 2020-06-04T18:48:42+0000 [Poll#info] Checkpoint
+ 405.8  36 | c : DNS request from ('127.0.0.1', 50874) to None: 58 bytes
+ 405.8  36 | c : DNS request from ('127.0.0.1', 51478) to None: 48 bytes
+ 405.8  28 | 2020-06-04T18:48:51+0000 [stdout#info] A query: b'clientservices.googleapis.com'
+ 405.8  28 | 2020-06-04T18:48:51+0000 [stdout#info] A query: b'accounts.google.com'
+ 405.9  28 | 2020-06-04T18:48:51+0000 [stdout#info] Result for b'accounts.google.com' is ['216.58.206.109']
+ 405.9  28 | 2020-06-04T18:48:51+0000 [stdout#info] Result for b'clientservices.googleapis.com' is ['172.217.169.35']
+ 410.0  36 | c : DNS request from ('127.0.0.1', 41210) to None: 54 bytes
+ 410.0  36 | c : DNS request from ('127.0.0.1', 41210) to None: 54 bytes
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 410.0  36 | c : DNS request from ('127.0.0.1', 53604) to None: 54 bytes
+ 410.0  36 | c : DNS request from ('127.0.0.1', 53604) to None: 54 bytes
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 410.0  28 | 2020-06-04T18:48:55+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 410.1  28 | 2020-06-04T18:48:55+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 412.7  36 | c : DNS request from ('127.0.0.1', 57580) to None: 43 bytes
+ 412.7  36 | c : DNS request from ('127.0.0.1', 34037) to None: 38 bytes
+ 412.7  36 | c : DNS request from ('127.0.0.1', 34212) to None: 44 bytes
+ 412.7  28 | 2020-06-04T18:48:58+0000 [stdout#info] A query: b'euduzfnngoykpe'
+ 412.7  28 | 2020-06-04T18:48:58+0000 [stdout#info] A query: b'ffbnvbchx'
+ 412.7  28 | 2020-06-04T18:48:58+0000 [stdout#info] A query: b'kqzpsmgwheujmcs'
+ 412.8  28 | 2020-06-04T18:48:58+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 412.8  28 | 2020-06-04T18:48:58+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 412.8  28 | 2020-06-04T18:48:58+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 415.7  36 | c : DNS request from ('127.0.0.1', 46469) to None: 44 bytes
+ 415.7  28 | 2020-06-04T18:49:01+0000 [stdout#info] A query: b'ssl.gstatic.com'
+ 415.8  28 | 2020-06-04T18:49:01+0000 [stdout#info] Result for b'ssl.gstatic.com' is ['216.58.204.227']
+ 416.0  36 | c : DNS request from ('127.0.0.1', 38631) to None: 50 bytes
+ 416.0  28 | 2020-06-04T18:49:01+0000 [stdout#info] A query: b'update.googleapis.com'
+ 416.0  28 | 2020-06-04T18:49:01+0000 [stdout#info] Result for b'update.googleapis.com' is ['216.58.198.163']
+ 421.1 TEL | [61] Running: sudo -n echo -n
+ 421.1 TEL | [61] ran in 0.01 secs.
+ 426.7  36 | c : DNS request from ('127.0.0.1', 33431) to None: 54 bytes
+ 426.7  36 | c : DNS request from ('127.0.0.1', 33431) to None: 54 bytes
+ 426.7  28 | 2020-06-04T18:49:12+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 426.7  28 | 2020-06-04T18:49:12+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 426.7  28 | 2020-06-04T18:49:12+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 426.7  28 | 2020-06-04T18:49:12+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 426.7  28 | 2020-06-04T18:49:12+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 426.8 TEL | (proxy checking local liveness)
+ 426.9  28 | 2020-06-04T18:49:12+0000 [Poll#info] Checkpoint
+ 427.0  36 | c : DNS request from ('127.0.0.1', 59951) to None: 54 bytes
+ 427.0  36 | c : DNS request from ('127.0.0.1', 59951) to None: 54 bytes
+ 427.0  28 | 2020-06-04T18:49:12+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 427.0  28 | 2020-06-04T18:49:12+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 427.0  28 | 2020-06-04T18:49:12+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 427.0  28 | 2020-06-04T18:49:12+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 427.0  28 | 2020-06-04T18:49:12+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 430.0  36 | c : DNS request from ('127.0.0.1', 57565) to None: 50 bytes
+ 430.0  28 | 2020-06-04T18:49:15+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 430.0  28 | 2020-06-04T18:49:15+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 446.8  36 | c : DNS request from ('127.0.0.1', 55437) to None: 54 bytes
+ 446.8  36 | c : DNS request from ('127.0.0.1', 55437) to None: 54 bytes
+ 446.8  28 | 2020-06-04T18:49:32+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 446.8  28 | 2020-06-04T18:49:32+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 446.8  28 | 2020-06-04T18:49:32+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 446.9  28 | 2020-06-04T18:49:32+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 446.9  28 | 2020-06-04T18:49:32+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 451.2 TEL | [62] Running: sudo -n echo -n
+ 451.2 TEL | [62] ran in 0.01 secs.
+ 456.9 TEL | (proxy checking local liveness)
+ 456.9  28 | 2020-06-04T18:49:42+0000 [Poll#info] Checkpoint
+ 461.0  36 | c : DNS request from ('127.0.0.1', 33413) to None: 60 bytes
+ 461.0  28 | 2020-06-04T18:49:46+0000 [stdout#info] A query: b'content-autofill.googleapis.com'
+ 461.0  28 | 2020-06-04T18:49:46+0000 [stdout#info] Result for b'content-autofill.googleapis.com' is ['216.58.204.234']
+ 463.8  36 | c : DNS request from ('127.0.0.1', 36748) to None: 54 bytes
+ 463.8  36 | c : DNS request from ('127.0.0.1', 36748) to None: 54 bytes
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 463.8  36 | c : DNS request from ('127.0.0.1', 35663) to None: 54 bytes
+ 463.8  36 | c : DNS request from ('127.0.0.1', 35663) to None: 54 bytes
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 463.8  28 | 2020-06-04T18:49:49+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 465.8  36 | c : DNS request from ('127.0.0.1', 60884) to None: 50 bytes
+ 465.8  28 | 2020-06-04T18:49:51+0000 [stdout#info] A query: b'update.googleapis.com'
+ 465.9  28 | 2020-06-04T18:49:51+0000 [stdout#info] Result for b'update.googleapis.com' is ['216.58.204.67']
+ 470.0  36 | c : DNS request from ('127.0.0.1', 45511) to None: 44 bytes
+ 470.0  28 | 2020-06-04T18:49:55+0000 [stdout#info] A query: b'c.go-mpulse.net'
+ 470.0  28 | 2020-06-04T18:49:55+0000 [stdout#info] Result for b'c.go-mpulse.net' is ['2.17.21.190']
+ 472.1  36 | c : DNS request from ('127.0.0.1', 41693) to None: 58 bytes
+ 472.1  28 | 2020-06-04T18:49:57+0000 [stdout#info] AAAA query, sending back A instead: b'connectivity-check.ubuntu.com'
+ 472.1  28 | 2020-06-04T18:49:57+0000 [stdout#info] A query: b'connectivity-check.ubuntu.com'
+ 472.1  28 | 2020-06-04T18:49:57+0000 [stdout#info] Result for b'connectivity-check.ubuntu.com' is ['35.222.85.5', '35.224.99.156']
+ 477.9  36 | c : DNS request from ('127.0.0.1', 46435) to None: 56 bytes
+ 477.9  28 | 2020-06-04T18:50:03+0000 [stdout#info] A query: b'safebrowsing.googleapis.com'
+ 478.0  28 | 2020-06-04T18:50:03+0000 [stdout#info] Result for b'safebrowsing.googleapis.com' is ['172.217.20.138']
+ 481.2 TEL | [63] Running: sudo -n echo -n
+ 481.2 TEL | [63] ran in 0.01 secs.
+ 482.5  36 | c : DNS request from ('127.0.0.1', 46417) to None: 54 bytes
+ 482.5  36 | c : DNS request from ('127.0.0.1', 46417) to None: 54 bytes
+ 482.5  28 | 2020-06-04T18:50:08+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 482.5  28 | 2020-06-04T18:50:08+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 482.5  28 | 2020-06-04T18:50:08+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 482.5  28 | 2020-06-04T18:50:08+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 482.5  28 | 2020-06-04T18:50:08+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 483.5  36 | c : DNS request from ('127.0.0.1', 34843) to None: 54 bytes
+ 483.5  36 | c : DNS request from ('127.0.0.1', 34843) to None: 54 bytes
+ 483.5  28 | 2020-06-04T18:50:09+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 483.5  28 | 2020-06-04T18:50:09+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 483.5  28 | 2020-06-04T18:50:09+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 483.5  28 | 2020-06-04T18:50:09+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 483.5  28 | 2020-06-04T18:50:09+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 486.8 TEL | (proxy checking local liveness)
+ 486.9  28 | 2020-06-04T18:50:12+0000 [Poll#info] Checkpoint
+ 491.0  36 | c : DNS request from ('127.0.0.1', 51377) to None: 50 bytes
+ 491.0  28 | 2020-06-04T18:50:16+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 491.0  28 | 2020-06-04T18:50:16+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 503.7  36 | c : DNS request from ('127.0.0.1', 55637) to None: 54 bytes
+ 503.7  36 | c : DNS request from ('127.0.0.1', 55637) to None: 54 bytes
+ 503.7  28 | 2020-06-04T18:50:29+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 503.7  28 | 2020-06-04T18:50:29+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 503.7  28 | 2020-06-04T18:50:29+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 503.7  28 | 2020-06-04T18:50:29+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 503.7  28 | 2020-06-04T18:50:29+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 511.3 TEL | [64] Running: sudo -n echo -n
+ 511.3 TEL | [64] ran in 0.01 secs.
+ 516.9 TEL | (proxy checking local liveness)
+ 516.9  28 | 2020-06-04T18:50:42+0000 [Poll#info] Checkpoint
+ 522.9  36 | c : DNS request from ('127.0.0.1', 49972) to None: 58 bytes
+ 522.9  36 | c : DNS request from ('127.0.0.1', 39411) to None: 48 bytes
+ 522.9  28 | 2020-06-04T18:50:48+0000 [stdout#info] A query: b'clientservices.googleapis.com'
+ 522.9  28 | 2020-06-04T18:50:48+0000 [stdout#info] A query: b'accounts.google.com'
+ 525.0  28 | 2020-06-04T18:50:50+0000 [stdout#info] Result for b'clientservices.googleapis.com' is ['172.217.169.35']
+ 525.1  36 | c : DNS request from ('127.0.0.1', 52879) to None: 50 bytes
+ 525.1  28 | 2020-06-04T18:50:50+0000 [stdout#info] A query: b'update.googleapis.com'
+ 525.1  28 | 2020-06-04T18:50:50+0000 [stdout#info] Result for b'update.googleapis.com' is ['216.58.210.35']
+ 525.5  28 | 2020-06-04T18:50:51+0000 [stdout#info] Result for b'accounts.google.com' is ['216.58.204.77']
+ 529.8  36 | c : DNS request from ('127.0.0.1', 41709) to None: 39 bytes
+ 529.8  36 | c : DNS request from ('127.0.0.1', 33643) to None: 37 bytes
+ 529.8  36 | c : DNS request from ('127.0.0.1', 38746) to None: 39 bytes
+ 529.8  28 | 2020-06-04T18:50:55+0000 [stdout#info] A query: b'hxcxhlxmpk'
+ 529.8  28 | 2020-06-04T18:50:55+0000 [stdout#info] A query: b'uigecbqn'
+ 529.8  28 | 2020-06-04T18:50:55+0000 [stdout#info] A query: b'rcrwisyxzj'
+ 529.8  28 | 2020-06-04T18:50:55+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 529.8  28 | 2020-06-04T18:50:55+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 529.8  28 | 2020-06-04T18:50:55+0000 [stdout#info] getaddrinfo error: [Errno -2] Name does not resolve
+ 532.8  36 | c : DNS request from ('127.0.0.1', 57326) to None: 44 bytes
+ 532.8  28 | 2020-06-04T18:50:58+0000 [stdout#info] A query: b'ssl.gstatic.com'
+ 532.8  28 | 2020-06-04T18:50:58+0000 [stdout#info] Result for b'ssl.gstatic.com' is ['216.58.204.35']
+ 534.9  36 | c : DNS request from ('127.0.0.1', 57522) to None: 54 bytes
+ 534.9  36 | c : DNS request from ('127.0.0.1', 57522) to None: 54 bytes
+ 534.9  28 | 2020-06-04T18:51:00+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 534.9  28 | 2020-06-04T18:51:00+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 534.9  28 | 2020-06-04T18:51:00+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 534.9  36 | c : DNS request from ('127.0.0.1', 51016) to None: 54 bytes
+ 534.9  36 | c : DNS request from ('127.0.0.1', 51016) to None: 54 bytes
+ 535.0  28 | 2020-06-04T18:51:00+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 535.0  28 | 2020-06-04T18:51:00+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 535.0  28 | 2020-06-04T18:51:00+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 535.0  28 | 2020-06-04T18:51:00+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 535.0  28 | 2020-06-04T18:51:00+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 535.1  28 | 2020-06-04T18:51:00+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 535.1  28 | 2020-06-04T18:51:00+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 541.0  36 | c : DNS request from ('127.0.0.1', 50439) to None: 47 bytes
+ 541.0  28 | 2020-06-04T18:51:06+0000 [stdout#info] A query: b'cdn.optimizely.com'
+ 541.1  28 | 2020-06-04T18:51:06+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['23.217.8.240']
+ 541.3 TEL | [65] Running: sudo -n echo -n
+ 541.3 TEL | [65] ran in 0.01 secs.
+ 545.0  36 | c : DNS request from ('127.0.0.1', 53481) to None: 56 bytes
+ 545.0  28 | 2020-06-04T18:51:10+0000 [stdout#info] A query: b'chat-pa.clients6.google.com'
+ 545.0  28 | 2020-06-04T18:51:10+0000 [stdout#info] Result for b'chat-pa.clients6.google.com' is ['216.58.206.106']
+ 546.9 TEL | (proxy checking local liveness)
+ 546.9  28 | 2020-06-04T18:51:12+0000 [Poll#info] Checkpoint
+ 550.0  36 | c : DNS request from ('127.0.0.1', 41425) to None: 43 bytes
+ 550.0  28 | 2020-06-04T18:51:15+0000 [stdout#info] A query: b'www.ebay.co.uk'
+ 551.2  36 | c : DNS request from ('127.0.0.1', 33009) to None: 54 bytes
+ 551.2  36 | c : DNS request from ('127.0.0.1', 33009) to None: 54 bytes
+ 551.2  28 | 2020-06-04T18:51:16+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 551.2  28 | 2020-06-04T18:51:16+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 551.2  28 | 2020-06-04T18:51:16+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 551.2  28 | 2020-06-04T18:51:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 551.2  28 | 2020-06-04T18:51:17+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 552.0  36 | c : DNS request from ('127.0.0.1', 47333) to None: 50 bytes
+ 552.0  28 | 2020-06-04T18:51:17+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 552.0  28 | 2020-06-04T18:51:17+0000 [stdout#info] Result for b'www.ebay.co.uk' is ['104.82.150.215']
+ 552.2  36 | c : DNS request from ('127.0.0.1', 53713) to None: 54 bytes
+ 552.2  36 | c : DNS request from ('127.0.0.1', 53713) to None: 54 bytes
+ 552.3  28 | 2020-06-04T18:51:18+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 552.3  28 | 2020-06-04T18:51:18+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 552.3  28 | 2020-06-04T18:51:18+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 552.3  28 | 2020-06-04T18:51:18+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 552.3  28 | 2020-06-04T18:51:18+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 554.0  28 | 2020-06-04T18:51:19+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 571.3 TEL | [66] Running: sudo -n echo -n
+ 571.3 TEL | [66] ran in 0.01 secs.
+ 571.4  36 | c : DNS request from ('127.0.0.1', 42656) to None: 54 bytes
+ 571.4  36 | c : DNS request from ('127.0.0.1', 42656) to None: 54 bytes
+ 571.4  28 | 2020-06-04T18:51:37+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 571.4  28 | 2020-06-04T18:51:37+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 571.4  28 | 2020-06-04T18:51:37+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 571.5  28 | 2020-06-04T18:51:37+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 571.5  28 | 2020-06-04T18:51:37+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 572.4  36 | c : DNS request from ('127.0.0.1', 51301) to None: 54 bytes
+ 572.4  36 | c : DNS request from ('127.0.0.1', 51301) to None: 54 bytes
+ 572.4  28 | 2020-06-04T18:51:38+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 572.4  28 | 2020-06-04T18:51:38+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 572.4  28 | 2020-06-04T18:51:38+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 572.4  28 | 2020-06-04T18:51:38+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 572.4  28 | 2020-06-04T18:51:38+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 576.9 TEL | (proxy checking local liveness)
+ 576.9  28 | 2020-06-04T18:51:42+0000 [Poll#info] Checkpoint
+ 582.9  36 | c : DNS request from ('127.0.0.1', 54353) to None: 50 bytes
+ 582.9  28 | 2020-06-04T18:51:48+0000 [stdout#info] A query: b'update.googleapis.com'
+ 582.9  28 | 2020-06-04T18:51:48+0000 [stdout#info] Result for b'update.googleapis.com' is ['172.217.169.67']
+ 587.0  36 | c : DNS request from ('127.0.0.1', 58404) to None: 58 bytes
+ 587.0  28 | 2020-06-04T18:51:52+0000 [stdout#info] A query: b'people-pa.clients6.google.com'
+ 587.0  28 | 2020-06-04T18:51:52+0000 [stdout#info] Result for b'people-pa.clients6.google.com' is ['216.58.204.234']
+ 587.3  36 | c : DNS request from ('127.0.0.1', 40955) to None: 54 bytes
+ 587.3  36 | c : DNS request from ('127.0.0.1', 40955) to None: 54 bytes
+ 587.3  28 | 2020-06-04T18:51:53+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 587.3  28 | 2020-06-04T18:51:53+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 587.3  28 | 2020-06-04T18:51:53+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 587.3  28 | 2020-06-04T18:51:53+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 587.3  28 | 2020-06-04T18:51:53+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 596.8  36 | c : DNS request from ('127.0.0.1', 33542) to None: 54 bytes
+ 596.8  36 | c : DNS request from ('127.0.0.1', 33542) to None: 54 bytes
+ 596.8  28 | 2020-06-04T18:52:02+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 596.8  28 | 2020-06-04T18:52:02+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 596.8  28 | 2020-06-04T18:52:02+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 596.9  28 | 2020-06-04T18:52:02+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 596.9  28 | 2020-06-04T18:52:02+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 601.4 TEL | [67] Running: sudo -n echo -n
+ 601.4 TEL | [67] ran in 0.01 secs.
+ 606.9 TEL | (proxy checking local liveness)
+ 606.9  28 | 2020-06-04T18:52:12+0000 [Poll#info] Checkpoint
+ 615.0  36 | c : DNS request from ('127.0.0.1', 50128) to None: 50 bytes
+ 615.0  28 | 2020-06-04T18:52:20+0000 [stdout#info] A query: b'lc94.dsr.livefyre.com'
+ 615.0  28 | 2020-06-04T18:52:20+0000 [stdout#info] Result for b'lc94.dsr.livefyre.com' is ['3.94.68.58']
+ 617.3  36 | c : DNS request from ('127.0.0.1', 33949) to None: 54 bytes
+ 617.3  36 | c : DNS request from ('127.0.0.1', 33949) to None: 54 bytes
+ 617.3  28 | 2020-06-04T18:52:23+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 617.3  28 | 2020-06-04T18:52:23+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 617.3  28 | 2020-06-04T18:52:23+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 617.3  28 | 2020-06-04T18:52:23+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 617.3  28 | 2020-06-04T18:52:23+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 619.4  36 | c : DNS request from ('127.0.0.1', 46436) to None: 54 bytes
+ 619.4  36 | c : DNS request from ('127.0.0.1', 46436) to None: 54 bytes
+ 619.4  28 | 2020-06-04T18:52:25+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 619.4  28 | 2020-06-04T18:52:25+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 619.4  28 | 2020-06-04T18:52:25+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 619.4  28 | 2020-06-04T18:52:25+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 619.4  28 | 2020-06-04T18:52:25+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 631.4 TEL | [68] Running: sudo -n echo -n
+ 631.4 TEL | [68] ran in 0.01 secs.
+ 633.0  36 | c : DNS request from ('127.0.0.1', 49499) to None: 47 bytes
+ 633.0  28 | 2020-06-04T18:52:38+0000 [stdout#info] A query: b'cdn.optimizely.com'
+ 633.0  28 | 2020-06-04T18:52:38+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['23.217.8.240']
+ 636.8 TEL | (proxy checking local liveness)
+ 636.9  28 | 2020-06-04T18:52:42+0000 [Poll#info] Checkpoint
+ 661.4 TEL | [69] Running: sudo -n echo -n
+ 661.5 TEL | [69] ran in 0.01 secs.
+ 666.7 >>> | Keyboard interrupt (Ctrl-C/Ctrl-Break) pressed
+ 666.7 >>> | Exit cleanup in progress
+ 666.7 TEL | (Cleanup) Terminate local process
+ 666.7 TEL | Killing local process...
+ 666.7 TEL | Main process (./client-config-service)
+ 666.7 TEL |  exited with code -2.
+ 666.7 TEL | (Cleanup) Kill BG process [36] sshuttle
+ 666.7  36 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
+ 666.7 TEL | (Cleanup) Unmount remote filesystem
+ 666.7 TEL | [70] Running: fusermount -z -u /tmp/tel-ev16hc3n/fs
+ 666.7  36 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
+ 666.8  36 | >> iptables -t nat -F sshuttle-12300
+ 666.8  70 | fusermount: entry for /tmp/tel-ev16hc3n/fs not found in /etc/mtab
+ 666.8 TEL | [70] exit 1 in 0.01 secs.
+ 666.8 TEL | (Cleanup) Unmount remote filesystem failed:
+ 666.8 TEL | (Cleanup)   Command '['fusermount', '-z', '-u', '/tmp/tel-ev16hc3n/fs']' returned non-zero exit status 1.
+ 666.8 TEL | (Cleanup) Kill BG process [33] SSH port forward (socks and proxy poll)
+ 666.8  36 | >> iptables -t nat -X sshuttle-12300
+ 666.8 TEL | [33] SSH port forward (socks and proxy poll): exit 0
+ 666.8 TEL | (Cleanup) Kill Web server for proxy poll
+ 666.8 TEL | [36] sshuttle: exit -15
+ 666.9 TEL | (Cleanup) Kill BG process [32] SSH port forward (exposed ports)
+ 666.9 TEL | [32] SSH port forward (exposed ports): exit 0
+ 666.9 TEL | (Cleanup) Kill BG process [29] kubectl port-forward
+ 666.9 TEL | [29] kubectl port-forward: exit -15
+ 666.9 TEL | (Cleanup) Kill BG process [28] kubectl logs
+ 666.9 TEL | [28] kubectl logs: exit -15
+ 666.9 TEL | Background process (kubectl logs) exited with return code -15. Command was:
+ 666.9 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f client-config-ser-16c0a44314ac4cb499b6b48518926e58-7b7d645v974b --container client-config-service --tail=10
+ 666.9 TEL | 
+ 666.9 TEL | Recent output was:
+ 666.9 TEL |   2020-06-04T18:52:23+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['40.77.226.250']
+ 666.9 TEL |   2020-06-04T18:52:23+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 666.9 TEL |   2020-06-04T18:52:25+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 666.9 TEL |   2020-06-04T18:52:25+0000 [stdout#info] AAAA query, sending back A instead: b'vortex.data.microsoft.com'
+ 666.9 TEL |   2020-06-04T18:52:25+0000 [stdout#info] A query: b'vortex.data.microsoft.com'
+ 666.9 TEL |   2020-06-04T18:52:25+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 666.9 TEL |   2020-06-04T18:52:25+0000 [stdout#info] Result for b'vortex.data.microsoft.com' is ['65.55.44.109']
+ 666.9 TEL |   2020-06-04T18:52:38+0000 [stdout#info] A query: b'cdn.optimizely.com'
+ 666.9 TEL |   2020-06-04T18:52:38+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['23.217.8.240']
+ 666.9 TEL |   2020-06-04T18:52:42+0000 [Poll#info] Checkpoint
+ 666.9 TEL | (Cleanup) Re-scale original deployment
+ 666.9 TEL | [71] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment client-config-service --replicas=1
+ 667.5  71 | deployment.apps/client-config-service scaled
+ 667.5 TEL | [71] ran in 0.63 secs.
+ 667.5 TEL | (Cleanup) Delete new deployment
+ 667.5 >>> | Swapping Deployment client-config-service back to its original state
+ 667.5 TEL | [72] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment client-config-ser-16c0a44314ac4cb499b6b48518926e58
+ 667.7  72 | deployment.apps "client-config-ser-16c0a44314ac4cb499b6b48518926e58" deleted
+ 667.8 TEL | [72] ran in 0.31 secs.
+ 667.8 TEL | (Cleanup) Kill sudo privileges holder
+ 667.8 TEL | (Cleanup) Stop time tracking
+ 667.8 TEL | END SPAN main.py:40(main)  667.8s
+ 667.8 TEL | (Cleanup) Remove temporary directory
+ 667.8 TEL | (Cleanup) Save caches
+ 668.5 TEL | (sudo privileges holder thread exiting)
