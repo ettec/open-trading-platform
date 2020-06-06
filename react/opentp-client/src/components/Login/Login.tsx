@@ -108,10 +108,6 @@ export default class Login extends React.Component<Props, State> {
 
         })
 
-
-here - wire up to service and test
-
-
       }
 
 
@@ -133,7 +129,7 @@ here - wire up to service and test
         if( this.state.loggedIn ) {
             
             return (
-                <GrpcContextProvider serviceUrl='http://192.168.1.100:32365' username={Login.username} appInstanceId={this.appInstanceId} >
+                <GrpcContextProvider serviceUrl={serverUrl} username={Login.username} appInstanceId={this.appInstanceId} >
                     <Container ></Container>
                 </GrpcContextProvider>
             )

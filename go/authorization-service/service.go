@@ -27,6 +27,21 @@ func (l LoginService) Login(ctx context.Context, params *loginservice.LoginParam
 	return nil, errors.New("invalid username/password")
 }
 
+type LoginServer struct{}
+
+func (l LoginServer) Login(ctx context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
+
+	if params.User == "bert" && params.Password == "password" {
+		return &loginservice.Token{
+			Token:                "bob",
+			Desk:                 "Delta1",
+
+		}, nil
+	}
+
+	return nil, errors.New("user not found")
+}
+
 // empty struct because this isn't a fancy example
 type AuthorizationServer struct{}
 
@@ -34,7 +49,7 @@ type AuthorizationServer struct{}
 func (a *AuthorizationServer) Check(ctx context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
 
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
-	if ok && path == "/clientconfigservice.ClientConfigService/GetClientConfig" {
+	if ok && path == "/loginservice.LoginService/Login" {
 		log.Print("allowing it:", req)
 		return &auth.CheckResponse{
 			Status: &status.Status{
@@ -101,7 +116,28 @@ func (a *AuthorizationServer) Check(ctx context.Context, req *auth.CheckRequest)
 }
 
 func main() {
-	// create a TCP listener on port 4000
+
+
+	go func() {
+		loginPort := "50551"
+		lis, err := net.Listen("tcp", ":"+loginPort)
+		if err != nil {
+			log.Fatalf("failed to listen: %v", err)
+		}
+		log.Printf("listening on %s", lis.Addr())
+
+		grpcServer := grpc.NewServer()
+		loginServer := &LoginServer{}
+		loginservice.RegisterLoginServiceServer(grpcServer, loginServer)
+
+		log.Print("starting login server of port:", loginPort)
+		if err := grpcServer.Serve(lis); err != nil {
+			log.Fatalf("Failed to start server: %v", err)
+		}
+	}()
+
+
+
 	authPort := "4000"
 	lis, err := net.Listen("tcp", ":"+authPort)
 	if err != nil {

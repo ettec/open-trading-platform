@@ -26,6 +26,10 @@ files:
                 - name: local_service
                   domains: ["*"]
                   routes:
+                  - match: { prefix: "/loginservice.LoginService" }
+                    route:
+                      cluster: authorization-service-cluster
+                      max_grpc_timeout: 0s
                   - match: { prefix: "/executionvenue.ExecutionVenue" }
                     route:
                       cluster: order-router-cluster
@@ -68,6 +72,12 @@ files:
               - name: envoy.grpc_web
               - name: envoy.router
       clusters:
+      - name: authorization-service-cluster
+        connect_timeout: 0.25s
+        type: logical_dns
+        http2_protocol_options: {}
+        lb_policy: round_robin
+        hosts: [{ socket_address: { address: authorization-service, port_value: 50551 }}]
       - name: market-data-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
