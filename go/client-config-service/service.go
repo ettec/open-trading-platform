@@ -33,7 +33,7 @@ func (s *service) StoreClientConfig(ctx context.Context, params *api.StoreConfig
 	r.Scan(&count)
 
 	var q string
-	if count == 0{
+	if count == 0 {
 		q = fmt.Sprintf("insert into clientconfig.reactclientconfig (userid, config) values ('%v', '%v')", params.UserId, params.Config)
 	} else {
 		q = fmt.Sprintf("update  clientconfig.reactclientconfig set config = '%v' where  userid = '%v'", params.Config, params.UserId)
@@ -112,7 +112,6 @@ func main() {
 	dbString := bootstrap.GetEnvVar(DatabaseConnectionString)
 	dbDriverName := bootstrap.GetEnvVar(DatabaseDriverName)
 	port := bootstrap.GetOptionalEnvVar(Port, "50551")
-
 
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
