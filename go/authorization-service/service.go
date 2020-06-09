@@ -11,18 +11,17 @@ import (
 	"github.com/ettech/open-trading-platform/go/authorization-service/api/loginservice"
 	rpc "github.com/gogo/googleapis/google/rpc"
 	"github.com/google/uuid"
+	_ "github.com/lib/pq"
 	status "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"log"
 	"net"
 	"strings"
-	_ "github.com/lib/pq"
 )
-
 
 func (a AuthService) Login(ctx context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
 
-	if user, ok := a.users[params.User]; ok  {
+	if user, ok := a.users[params.User]; ok {
 		return &loginservice.Token{
 			Token: user.token,
 			Desk:  user.desk,
@@ -32,7 +31,7 @@ func (a AuthService) Login(ctx context.Context, params *loginservice.LoginParams
 	return nil, errors.New("user not found")
 }
 
-type AuthService struct{
+type AuthService struct {
 	users map[string]user
 }
 
@@ -43,7 +42,6 @@ func (a *AuthService) Check(ctx context.Context, req *auth.CheckRequest) (*auth.
 	if ok && strings.HasPrefix(path, "/loginservice.LoginService") {
 		return newOkResponse(), nil
 	}
-
 
 	authHeader, ok := req.Attributes.Request.Http.Headers["auth-token"]
 	if !ok {
@@ -129,24 +127,21 @@ func newUnauthenticatedResponse(message string) *auth.CheckResponse {
 }
 
 const (
-
 	DatabaseConnectionString = "DB_CONN_STRING"
 	DatabaseDriverName       = "DB_DRIVER_NAME"
 )
 
 type user struct {
-	id string
-	desk string
+	id              string
+	desk            string
 	permissionFlags string
-	token string
+	token           string
 }
 
 func main() {
 
 	dbString := bootstrap.GetEnvVar(DatabaseConnectionString)
 	dbDriverName := bootstrap.GetEnvVar(DatabaseDriverName)
-
-
 
 	db, err := sql.Open(dbDriverName, dbString)
 	defer db.Close()

@@ -75,12 +75,15 @@ export default class ListingServiceImpl implements ListingService {
     let listeners = this.idToListeners.get(listingId)
     if (!listeners) {
       listeners = new Array<(response: Listing) => void>();
+      listeners.push(listener)
       this.idToListeners.set(listingId, listeners)
 
       this.fetchListing(listingId);
+    } else {
+      listeners.push(listener)
     }
 
-    listeners.push(listener)
+    
   }
 
   private fetchListing(listingId: number) {
