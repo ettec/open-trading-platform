@@ -27,6 +27,10 @@ func (t *testEvClient) CancelOrder(ctx context.Context, in *executionvenue.Cance
 	panic("implement me")
 }
 
+func (t *testEvClient) ModifyOrder(ctx context.Context, in *executionvenue.ModifyOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
+	panic("implement me")
+}
+
 func Test_submitSellOrders(t *testing.T) {
 
 	orderId := "a"
@@ -230,6 +234,10 @@ func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionven
 func (t *testOmClient) CancelOrder(ctx context.Context, in *executionvenue.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
 	t.cancelParamsChan <- in
 	return &model.Empty{}, nil
+}
+
+func (t *testOmClient) ModifyOrder(ctx context.Context, in *executionvenue.ModifyOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
+	panic("implement me")
 }
 
 func TestOrderManagerSendsChildOrders(t *testing.T) {

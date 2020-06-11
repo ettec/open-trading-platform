@@ -56,7 +56,22 @@ func (s *ExecVenueService) CreateAndRouteOrder(context context.Context, params *
 }
 
 func (s *ExecVenueService) CancelOrder(ctx context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
-	return &model.Empty{}, s.orderManager.CancelOrder(p)
+	err := s.orderManager.CancelOrder(p)
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Empty{}, nil
+}
+
+func (s *ExecVenueService) ModifyOrder(ctx context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
+
+	err := s.orderManager.ModifyOrder(params)
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Empty{}, nil
 }
 
 func (s *ExecVenueService) Close() {

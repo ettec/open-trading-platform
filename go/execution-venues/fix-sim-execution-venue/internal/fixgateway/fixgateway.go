@@ -3,6 +3,8 @@ package fixgateway
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordergateway"
+	"github.com/quickfixgo/quickfix/fix40/ordercancelreject"
+	"github.com/quickfixgo/quickfix/fix50sp1/ordercancelreplacerequest"
 
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/quickfixgo/quickfix"
@@ -48,6 +50,24 @@ func (f *FixOrderGateway) Send(order *model.Order, listing *model.Listing) error
 	return quickfix.SendToTarget(msg, f.sessionID)
 }
 
+func (f *FixOrderGateway) Modify(order *model.Order, listing *model.Listing, quantity *model.Decimal64, price *model.Decimal64) error {
+	side, err := getFixSide(order.Side)
+	if err != nil {
+		return err
+	}
+
+	msg := ordercancelreplacerequest.New(field.NewClOrdID(order.Id), field.NewSide(side),
+		field.NewTransactTime(time.Now()), field.NewOrdType(enum.OrdType_LIMIT_OR_BETTER))
+
+	msg.SetOrderQty(toFixDecimal(quantity))
+	msg.SetPrice(toFixDecimal(price))
+	msg.SetSymbol(listing.MarketSymbol)
+
+	logSessionMsg(f.sessionID, "sending order cancel replace request:"+toReadableString(msg.Message))
+
+	return quickfix.SendToTarget(msg, f.sessionID)
+}
+
 func toFixDecimal(d *model.Decimal64) (decimal.Decimal, int32) {
 	var scale int32 = 0
 	if d.Exponent < 0 {
@@ -89,6 +109,7 @@ func getFixSide(side model.Side) (enum.Side, error) {
 
 type OrderHandler interface {
 	SetOrderStatus(orderId string, status model.OrderStatus) error
+	SetErrorMsg(orderId string, msg string) error
 	AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64, execId string) error
 }
 
@@ -104,8 +125,34 @@ func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.
 	f.sessionToHandler[sessionID] = handler
 	f.inboundRouter = quickfix.NewMessageRouter()
 	f.inboundRouter.AddRoute(executionreport.Route(f.onExecutionReport))
+	f.inboundRouter.AddRoute(ordercancelreject.Route(f.onOrderCancelReject))
 
 	return &f
+}
+
+func (f *fixHandler) onOrderCancelReject(msg ordercancelreject.OrderCancelReject, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+
+	logSessionMsg(sessionID, "received order cancel/modification reject:"+toReadableString(msg.Message))
+
+	handler, exists := f.sessionToHandler[sessionID]
+	if !exists {
+		logSessionMsg(sessionID, "Error: No handler found for session id")
+		return nil
+	}
+
+	orderId, err := msg.GetClOrdID()
+	if err != nil {
+		return err
+	}
+
+	errMsg, err := msg.GetText()
+	if err != nil {
+		return err
+	}
+
+	handler.SetErrorMsg(orderId, errMsg)
+
+	return nil
 }
 
 func logSessionMsg(sessionID quickfix.SessionID, msg string) {
@@ -152,6 +199,12 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 		}
 	case enum.ExecType_CANCELED:
 		err := handler.SetOrderStatus(orderId, model.OrderStatus_CANCELLED)
+		if err != nil {
+			logSessionMsgf(sessionID, "Error: Failed to set order status: %v", err)
+			return nil
+		}
+	case enum.ExecType_REPLACED:
+		err := handler.SetOrderStatus(orderId, model.OrderStatus_LIVE)
 		if err != nil {
 			logSessionMsgf(sessionID, "Error: Failed to set order status: %v", err)
 			return nil

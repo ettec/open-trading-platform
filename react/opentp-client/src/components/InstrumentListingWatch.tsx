@@ -367,14 +367,14 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
   private openBuyDialog() {
 
     if (this.listingContext.selectedListing) {
-      this.ticketController.openTicket(Side.BUY, this.listingContext.selectedListing)
+      this.ticketController.openNewOrderTicket(Side.BUY, this.listingContext.selectedListing)
     }
 
   }
 
   private openSellDialog() {
     if (this.listingContext.selectedListing) {
-      this.ticketController.openTicket(Side.SELL, this.listingContext.selectedListing)
+      this.ticketController.openNewOrderTicket(Side.SELL, this.listingContext.selectedListing)
     }
   }
 

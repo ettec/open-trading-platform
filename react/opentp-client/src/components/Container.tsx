@@ -151,7 +151,7 @@ export default class Container extends React.Component<any, ContainerState> {
             if (this.state && this.state.model) {
 
                 if (component === "order-blotter") {
-                    return <OrderBlotter colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
+                    return <OrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === "market-depth") {
                     return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model} />;
@@ -389,9 +389,15 @@ export class TicketController {
         this.orderTicket = orderTicket
     }
 
-    openTicket(side: Side, listing: Listing) {
+    openNewOrderTicket(side: Side, listing: Listing) {
         if (this.orderTicket) {
-            this.orderTicket.openTicket(side, listing)
+            this.orderTicket.openNewOrderTicket(side, listing)
+        }
+    }
+
+    openModifyOrderTicket(order: Order, listing: Listing) {
+        if (this.orderTicket) {
+            this.orderTicket.openModifyOrderTicket(order, listing)
         }
     }
 

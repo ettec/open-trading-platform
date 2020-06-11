@@ -82,6 +82,10 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 	}, nil
 }
 
+func (s *smartRouter) ModifyOrder(ctx context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
+	return nil, fmt.Errorf("order modification not supported")
+}
+
 func (s *smartRouter) CancelOrder(ctx context.Context, params *api.CancelOrderParams) (*model.Empty, error) {
 
 	if val, exists := s.orders.Load(params.OrderId); exists {

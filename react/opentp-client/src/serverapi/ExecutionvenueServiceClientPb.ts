@@ -16,6 +16,7 @@ import * as modelcommon_pb from './modelcommon_pb';
 import {
   CancelOrderParams,
   CreateAndRouteOrderParams,
+  ModifyOrderParams,
   OrderId} from './executionvenue_pb';
 
 export class ExecutionVenueClient {
@@ -78,6 +79,28 @@ export class ExecutionVenueClient {
       request,
       metadata || {},
       this.methodInfoCancelOrder,
+      callback);
+  }
+
+  methodInfoModifyOrder = new grpcWeb.AbstractClientBase.MethodInfo(
+    modelcommon_pb.Empty,
+    (request: ModifyOrderParams) => {
+      return request.serializeBinary();
+    },
+    modelcommon_pb.Empty.deserializeBinary
+  );
+
+  modifyOrder(
+    request: ModifyOrderParams,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: modelcommon_pb.Empty) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/executionvenue.ExecutionVenue/ModifyOrder',
+      request,
+      metadata || {},
+      this.methodInfoModifyOrder,
       callback);
   }
 

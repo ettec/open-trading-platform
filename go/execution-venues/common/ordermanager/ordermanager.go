@@ -16,16 +16,19 @@ import (
 type OrderManager interface {
 	CancelOrder(id *api.CancelOrderParams) error
 	CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error)
+	ModifyOrder(params *api.ModifyOrderParams) error
 	SetOrderStatus(orderId string, status model.OrderStatus) error
+	SetErrorMsg(orderId string, msg string) error
 	AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64, execId string) error
 	Close()
 }
 
 type orderManagerImpl struct {
-	//TODO Prometheus stat these queues
 	createOrderChan    chan createAndRouteOrderCmd
 	cancelOrderChan    chan cancelOrderCmd
+	modifyOrderChan    chan modifyOrderCmd
 	setOrderStatusChan chan setOrderStatusCmd
+	setOrderErrMsgChan chan setOrderErrorMsgCmd
 	addExecChan        chan addExecutionCmd
 
 	closeChan chan struct{}
@@ -47,7 +50,9 @@ func NewOrderManager(cache *ordercache.OrderCache, gateway ordergateway.OrderGat
 
 	om.createOrderChan = make(chan createAndRouteOrderCmd, 100)
 	om.cancelOrderChan = make(chan cancelOrderCmd, 100)
+	om.modifyOrderChan = make(chan modifyOrderCmd, 100)
 	om.setOrderStatusChan = make(chan setOrderStatusCmd, 100)
+	om.setOrderErrMsgChan = make(chan setOrderErrorMsgCmd, 100)
 	om.addExecChan = make(chan addExecutionCmd, 100)
 
 	om.closeChan = make(chan struct{}, 1)
@@ -73,10 +78,14 @@ func (om *orderManagerImpl) executeOrderCommands() {
 			select {
 			case oc := <-om.cancelOrderChan:
 				om.executeCancelOrderCmd(oc.Params, oc.ResultChan)
+			case mp := <-om.modifyOrderChan:
+				om.executeModifyOrderCmd(mp.Params, mp.ResultChan)
 			case cro := <-om.createOrderChan:
 				om.executeCreateAndRouteOrderCmd(cro.Params, cro.ResultChan)
 			case su := <-om.setOrderStatusChan:
 				om.executeSetOrderStatusCmd(su.orderId, su.status, su.ResultChan)
+			case em := <-om.setOrderErrMsgChan:
+				om.executeSetErrorMsg(em.orderId, em.msg, em.ResultChan)
 			case tu := <-om.addExecChan:
 				om.executeUpdateTradedQntCmd(tu.orderId, tu.lastPrice, tu.lastQty, tu.execId, tu.ResultChan)
 			}
@@ -87,6 +96,22 @@ func (om *orderManagerImpl) executeOrderCommands() {
 
 func (om *orderManagerImpl) Close() {
 	om.closeChan <- struct{}{}
+}
+
+func (om *orderManagerImpl) SetErrorMsg(orderId string, msg string) error {
+	om.log.Printf("updating order %v error message to %v", orderId, msg)
+
+	resultChan := make(chan errorCmdResult)
+
+	om.setOrderErrMsgChan <- setOrderErrorMsgCmd{
+		orderId:    orderId,
+		msg:        msg,
+		ResultChan: resultChan,
+	}
+
+	result := <-resultChan
+
+	return result.Error
 }
 
 func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderStatus) error {
@@ -144,6 +169,22 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *api.CreateAndRouteOrderP
 	return result.OrderId, nil
 }
 
+func (om *orderManagerImpl) ModifyOrder(params *api.ModifyOrderParams) error {
+	om.log.Printf("modifying order %v, price %v, quantity %v", params.OrderId, params.Price, params.Quantity)
+	resultChan := make(chan errorCmdResult)
+
+	om.modifyOrderChan <- modifyOrderCmd{
+		Params:     params,
+		ResultChan: resultChan,
+	}
+
+	result := <-resultChan
+
+	om.log.Printf(params.OrderId+":modify order result: %v", result)
+
+	return result.Error
+}
+
 func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 
 	om.log.Print(params.OrderId + ":cancelling order")
@@ -187,6 +228,21 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model
 
 }
 
+func (om *orderManagerImpl) executeSetErrorMsg(id string, msg string, resultChan chan errorCmdResult) {
+
+	order, exists := om.orderStore.GetOrder(id)
+	if !exists {
+		resultChan <- errorCmdResult{Error: fmt.Errorf("set order error message failed, no order found for id %v", id)}
+		return
+	}
+
+	order.ErrorMessage = msg
+
+	err := om.orderStore.Store(order)
+	resultChan <- errorCmdResult{Error: err}
+
+}
+
 func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.OrderStatus, resultChan chan errorCmdResult) {
 
 	order, exists := om.orderStore.GetOrder(id)
@@ -204,6 +260,34 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.Ord
 	err = om.orderStore.Store(order)
 	resultChan <- errorCmdResult{Error: err}
 
+}
+
+func (om *orderManagerImpl) executeModifyOrderCmd(params *api.ModifyOrderParams, resultChan chan errorCmdResult) {
+
+	order, exists := om.orderStore.GetOrder(params.OrderId)
+	if !exists {
+		resultChan <- errorCmdResult{Error: fmt.Errorf("modify order failed, no order found for id %v", params.OrderId)}
+		return
+	}
+
+	err := order.SetTargetStatus(model.OrderStatus_LIVE)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
+	order.Price = params.Price
+	order.Quantity = params.Quantity
+
+	err = om.orderStore.Store(order)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
+	err = om.gateway.Modify(order, params.Listing, params.Quantity, params.Price)
+
+	resultChan <- errorCmdResult{Error: err}
 }
 
 func (om *orderManagerImpl) executeCancelOrderCmd(params *api.CancelOrderParams, resultChan chan errorCmdResult) {
@@ -285,6 +369,12 @@ type setOrderStatusCmd struct {
 	ResultChan chan errorCmdResult
 }
 
+type setOrderErrorMsgCmd struct {
+	orderId    string
+	msg        string
+	ResultChan chan errorCmdResult
+}
+
 type createAndRouteOrderCmd struct {
 	Params     *api.CreateAndRouteOrderParams
 	ResultChan chan createAndRouteOrderCmdResult
@@ -297,6 +387,11 @@ type createAndRouteOrderCmdResult struct {
 
 type cancelOrderCmd struct {
 	Params     *api.CancelOrderParams
+	ResultChan chan errorCmdResult
+}
+
+type modifyOrderCmd struct {
+	Params     *api.ModifyOrderParams
 	ResultChan chan errorCmdResult
 }
 

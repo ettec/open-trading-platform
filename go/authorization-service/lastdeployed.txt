@@ -1,1 +1,1 @@
-192.168.1.200:5000/authorization-service:13
+192.168.1.200:5000/authorization-service:14

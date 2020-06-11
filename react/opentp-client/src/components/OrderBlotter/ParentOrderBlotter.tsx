@@ -13,7 +13,7 @@ import { Listing } from '../../serverapi/listing_pb';
 import { Order } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
-import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController, ColumnChooserController } from '../Container';
+import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController, ColumnChooserController, TicketController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
 import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewState, TableViewProperties } from '../TableView/TableView';
@@ -38,6 +38,7 @@ interface ParentOrderBlotterProps extends TableViewProperties{
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController
+  ticketController: TicketController
 }
 
 
@@ -50,6 +51,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController 
+  ticketController: TicketController
   
   orderMap: Map<string, number>;
 
@@ -100,6 +102,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     this.childOrderBlotterController = props.childOrderBlotterController
     this.orderHistoryBlotterController = props.orderHistoryBlotterController 
     this.executionsController = props.executionsController
+    this.ticketController = props.ticketController
     this.orderService = props.orderService
 
     this.orderMap = new Map<string, number>();
@@ -235,15 +238,14 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
   }
 
-  modifyOrder = (data: Order) => {
-    if (data) {
-      window.alert("modify order" + data.getId());
+  modifyOrder = (order: Order) => {
+
+    let listing = this.listingService.GetListingImmediate(order.getListingid())
+
+    if (listing) {
+      this.ticketController.openModifyOrderTicket(order, listing)
     }
   }
-
-
-
-  
 
   public render() {
 
@@ -285,7 +287,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
         <Menu.Item icon="delete"  text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item icon="edit" text="Modify Order">
+        <Menu.Item icon="edit" text="Modify Order" onClick={() => this.modifyOrder(cancelleableOrders[0])} disabled={cancelleableOrders.length === 0}>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item icon="fork" text="Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length === 0} >

@@ -26,9 +26,19 @@ message CancelOrderParams {
     model.Listing listing = 2;
 }
 
+message ModifyOrderParams {
+    string orderId = 1;
+    model.Listing listing = 2;
+    model.Decimal64 quantity = 3;
+    model.Decimal64 price = 4;
+
+}
+
+
 service ExecutionVenue{
     rpc CreateAndRouteOrder(CreateAndRouteOrderParams) returns (OrderId) {};
     rpc CancelOrder(CancelOrderParams) returns (model.Empty) {};
+    rpc ModifyOrder(ModifyOrderParams) returns (model.Empty) {};
 } 
 
 

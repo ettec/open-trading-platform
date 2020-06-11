@@ -5,9 +5,9 @@ import { getListingLongName, getListingShortName } from '../common/modelutilitie
 import { logDebug, logError } from '../logging/Logging';
 import { ClobQuote } from '../serverapi/clobquote_pb';
 import { ExecutionVenueClient } from '../serverapi/ExecutionvenueServiceClientPb';
-import { CreateAndRouteOrderParams, OrderId } from '../serverapi/executionvenue_pb';
+import { CreateAndRouteOrderParams, OrderId, ModifyOrderParams } from '../serverapi/executionvenue_pb';
 import { Listing, TickSizeEntry } from '../serverapi/listing_pb';
-import { Side } from '../serverapi/order_pb';
+import { Side, Order } from '../serverapi/order_pb';
 import { QuoteListener, QuoteService } from '../services/QuoteService';
 import { toDecimal64, toNumber } from '../util/decimal64Conversion';
 import { TicketController } from "./Container";
@@ -21,6 +21,7 @@ interface OrderTicketState {
   side: Side,
   isOpen: boolean,
   usePortal: boolean
+  orderToModify: Order | null
 }
 
 interface OrderTicketProps {
@@ -45,9 +46,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       side: Side.BUY,
       isOpen: false,
       usePortal: true,
+      orderToModify: null
     };
 
-    this.sendOrder = this.sendOrder.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onQuote(recQuote: ClobQuote): void {
@@ -61,32 +63,44 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
 
 
-  private getSideAsString(side: Side): string {
-    switch (side) {
-      case Side.BUY:
-        return "BUY"
-      case Side.SELL:
-        return "SELL"
-      default:
-        return "Side not recognised:" + side
+  private getSubmitButtonAsString(): string {
+
+    if (this.state.orderToModify) {
+      return "Modify"
+    } else {
+      switch (this.state.side) {
+        case Side.BUY:
+          return "BUY"
+        case Side.SELL:
+          return "SELL"
+        default:
+          return "Side not recognised:" + this.state.side
+
+      }
 
     }
+
+
   }
 
-  private getListingShortName(): string {
+  private getDialogTitle(): string {
+
+    if (this.state.orderToModify) {
+      return "Modify Order " + this.state.orderToModify.getId()
+    }
+
+
     let side = this.state.side
     if (this.state && this.state.listing && side !== undefined) {
 
-      return this.getSideAsString(side) + " " + getListingShortName(this.state.listing)
+      return this.getSubmitButtonAsString() + " " + getListingShortName(this.state.listing)
     }
 
     return " "
   }
 
   private getListingFullName(): string {
-    let side = this.state.side
-    if (this.state && this.state.listing && side !== undefined) {
-
+    if (this.state && this.state.listing) {
       return getListingLongName(this.state.listing)
     }
 
@@ -127,30 +141,29 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   private getAskText(quote?: ClobQuote): string {
     if (quote) {
       let best = this.getBestBidAndAsk(quote)
-      if( best.bestAskPrice && best.bestAskQuantity ) {
+      if (best.bestAskPrice && best.bestAskQuantity) {
         return "Ask: " + best.bestAskQuantity + "@" + best.bestAskPrice
-      }  
+      }
     }
-      return "Ask: <>"
-    
+    return "Ask: <>"
+
   }
 
   private getBidText(quote?: ClobQuote): string {
     if (quote) {
       let best = this.getBestBidAndAsk(quote)
-      if( best.bestBidPrice && best.bestBidQuantity ) {
+      if (best.bestBidPrice && best.bestBidQuantity) {
         return "Bid: " + best.bestBidQuantity + "@" + best.bestBidPrice
       }
-    } 
+    }
 
     return "Bid: <>"
-    
+
   }
 
   public render() {
 
     let listing = this.state.listing
-    //let quote = this.state.quote
     if (listing) {
 
       let sizeIncrement = toNumber(listing.getSizeincrement())
@@ -161,7 +174,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
         <Dialog
           icon="exchange"
           onClose={this.handleClose}
-          title={this.getListingShortName()}
+          title={this.getDialogTitle()}
           {...this.state}
           className="bp3-dark">
           <div className={Classes.DIALOG_BODY}>
@@ -206,9 +219,9 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
           </div>
           <div className={Classes.DIALOG_FOOTER}>
             <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-              <AnchorButton onClick={this.sendOrder}
+              <AnchorButton onClick={this.onSubmit}
                 intent={Intent.PRIMARY} style={this.getBuySellButtonStyle(this.state.side)}><h2>
-                  {this.getSideAsString(this.state.side)}</h2>
+                  {this.getSubmitButtonAsString()}</h2>
               </AnchorButton>
             </div>
           </div>
@@ -261,8 +274,42 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
 
+  openModifyOrderTicket(order: Order, newListing: Listing) {
 
-  openTicket(newSide: Side, newListing: Listing) {
+    let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
+
+
+    let price = toNumber(order.getPrice())
+    if (!price) {
+      price = 0
+    }
+
+    let quantity = toNumber(order.getQuantity())
+    if (!quantity) {
+      quantity = 0
+    }
+
+
+
+    let state: OrderTicketState = {
+      ...this.state, ...{
+        side: order.getSide(),
+        isOpen: true,
+        listing: newListing,
+        price: price,
+        quantity: quantity,
+        quote: existingQuote,
+        orderToModify: order
+      }
+    }
+
+    this.setState(state)
+
+
+  }
+
+
+  openNewOrderTicket(newSide: Side, newListing: Listing) {
 
     let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
 
@@ -322,39 +369,58 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   };
 
 
-  private sendOrder(event: React.MouseEvent<HTMLElement>) {
-
-    let listing = this.state.listing
-    let side = this.state.side
-    if (listing) {
-
-      let croParams = new CreateAndRouteOrderParams()
-      croParams.setListing(listing)
-
-      croParams.setOrderside(side)
-      croParams.setQuantity(toDecimal64(this.state.quantity))
-      croParams.setPrice(toDecimal64(this.state.price))
-
-      logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " + 
-      croParams.getListing()?.getMarketsymbol())
-      croParams.setOriginatorid(Login.desk)
-      croParams.setOriginatorref(Login.username)
-      croParams.setRootoriginatorid(Login.desk)
-      croParams.setRootoriginatorref(Login.username)
+  private onSubmit(event: React.MouseEvent<HTMLElement>) {
 
 
-      this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
-        response: OrderId) => {
+    if (this.state.orderToModify) {
+
+      let modifyParams = new ModifyOrderParams()
+      modifyParams.setListing(this.state.listing)
+      modifyParams.setQuantity(toDecimal64(this.state.quantity))
+      modifyParams.setPrice(toDecimal64(this.state.price))
+      modifyParams.setOrderid(this.state.orderToModify.getId())
+
+      logDebug("modify order " + this.state.orderToModify.getId() + " to " + toNumber(modifyParams.getQuantity()) + 
+      "@" + toNumber(modifyParams.getPrice()) )
+
+      this.executionVenueService.modifyOrder(modifyParams, Login.grpcContext.grpcMetaData, (err: Error) => {
         if (err) {
-          let msg = "error whilst sending order:" + err.message
+          let msg = "error whilst modifying order:" + err.message
           logError(msg)
           alert(msg)
-        } else {
-          logDebug("create and route order created order with id:" + response.getOrderid())
-        }
-        
+        } 
       })
+    } else {
+      let listing = this.state.listing
+      let side = this.state.side
+      if (listing) {
 
+        let croParams = new CreateAndRouteOrderParams()
+        croParams.setListing(listing)
+
+        croParams.setOrderside(side)
+        croParams.setQuantity(toDecimal64(this.state.quantity))
+        croParams.setPrice(toDecimal64(this.state.price))
+
+        logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " +
+          croParams.getListing()?.getMarketsymbol())
+        croParams.setOriginatorid(Login.desk)
+        croParams.setOriginatorref(Login.username)
+        croParams.setRootoriginatorid(Login.desk)
+        croParams.setRootoriginatorref(Login.username)
+
+        this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
+          response: OrderId) => {
+          if (err) {
+            let msg = "error whilst sending order:" + err.message
+            logError(msg)
+            alert(msg)
+          } else {
+            logDebug("create and route order created order with id:" + response.getOrderid())
+          }
+
+        })
+      }
     }
 
     this.handleClose()

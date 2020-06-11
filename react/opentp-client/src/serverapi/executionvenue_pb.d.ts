@@ -98,3 +98,39 @@ export namespace CancelOrderParams {
   }
 }
 
+export class ModifyOrderParams extends jspb.Message {
+  getOrderid(): string;
+  setOrderid(value: string): void;
+
+  getListing(): listing_pb.Listing | undefined;
+  setListing(value?: listing_pb.Listing): void;
+  hasListing(): boolean;
+  clearListing(): void;
+
+  getQuantity(): modelcommon_pb.Decimal64 | undefined;
+  setQuantity(value?: modelcommon_pb.Decimal64): void;
+  hasQuantity(): boolean;
+  clearQuantity(): void;
+
+  getPrice(): modelcommon_pb.Decimal64 | undefined;
+  setPrice(value?: modelcommon_pb.Decimal64): void;
+  hasPrice(): boolean;
+  clearPrice(): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ModifyOrderParams.AsObject;
+  static toObject(includeInstance: boolean, msg: ModifyOrderParams): ModifyOrderParams.AsObject;
+  static serializeBinaryToWriter(message: ModifyOrderParams, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ModifyOrderParams;
+  static deserializeBinaryFromReader(message: ModifyOrderParams, reader: jspb.BinaryReader): ModifyOrderParams;
+}
+
+export namespace ModifyOrderParams {
+  export type AsObject = {
+    orderid: string,
+    listing?: listing_pb.Listing.AsObject,
+    quantity?: modelcommon_pb.Decimal64.AsObject,
+    price?: modelcommon_pb.Decimal64.AsObject,
+  }
+}
+

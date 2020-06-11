@@ -89,6 +89,24 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRou
 	}
 }
 
+func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (*model.Empty, error) {
+
+	mic := p.Listing.Market.Mic
+	if ev, ok := o.micToExecVenue[mic]; ok {
+		_, err := ev.client.ModifyOrder(c, p)
+
+		if err != nil {
+			return nil, fmt.Errorf("failed to modify order on market: %v, error: %v", mic, err)
+		}
+
+		return &model.Empty{}, nil
+
+	} else {
+		return nil, fmt.Errorf("no execution venue found for mic:%v", mic)
+	}
+
+}
+
 func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
 	mic := p.Listing.Market.Mic
 	if ev, ok := o.micToExecVenue[mic]; ok {
