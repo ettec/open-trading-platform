@@ -32,10 +32,8 @@ type Tags struct {
 
 type upgradeCandidate struct {
 	deployment v1.Deployment
-	newImage string
-
+	newImage   string
 }
-
 
 func main() {
 

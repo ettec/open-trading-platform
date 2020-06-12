@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
 	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
-	"github.com/ettec/open-trading-platform/go/common/marketdata"
+	marketdata "github.com/ettech/open-trading-platform/go/market-data/market-data-common"
+
 	"github.com/ettec/open-trading-platform/go/model"
 	"github.com/google/uuid"
 	"log"
