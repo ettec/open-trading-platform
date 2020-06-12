@@ -138,7 +138,7 @@ public class ApplicationImpl extends MessageCracker implements Application, Trad
 
 
                 if (orderId == null) {
-                    throw new OrderModificationException("No order found for client order id:" + clOrdId);
+                    throw new OrderModificationException("no order found for client order id:" + clOrdId);
                 }
 
 

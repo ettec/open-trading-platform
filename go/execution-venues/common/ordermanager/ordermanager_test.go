@@ -142,7 +142,7 @@ func (f *TestOrderManager) Cancel(order *model.Order) error {
 	return nil
 }
 
-func (f *TestOrderManager)  Modify(order *model.Order, listing *model.Listing, Quantity *model.Decimal64, Price *model.Decimal64) error {
+func (f *TestOrderManager) Modify(order *model.Order, listing *model.Listing, Quantity *model.Decimal64, Price *model.Decimal64) error {
 	return nil
 }
 

@@ -181,7 +181,7 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 
 	handler, exists := f.sessionToHandler[sessionID]
 	if !exists {
-		logSessionMsg(sessionID, "Error: No handler found for session id")
+		logSessionMsg(sessionID, "Error: No handler found for  session id")
 		return nil
 	}
 
