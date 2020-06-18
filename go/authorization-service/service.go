@@ -42,18 +42,8 @@ func (a *AuthService) Check(ctx context.Context, req *auth.CheckRequest) (*auth.
 
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
 
-	if ok {
-		log.Printf("checking path:%v", path)
-	}
-
-
 	if ok && strings.HasPrefix(path, "/loginservice.LoginService") {
 		log.Printf("permitted login for path:%v", path)
-		return newOkResponse(), nil
-	}
-
-	if ok && path == "/opentp" {
-		log.Printf("permitted path:%v", path)
 		return newOkResponse(), nil
 	}
 
