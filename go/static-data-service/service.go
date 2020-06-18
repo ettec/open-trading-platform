@@ -41,8 +41,8 @@ func NewService(driverName, dbConnString string) (*service, error) {
 }
 
 const listingsSelect = `SELECT listings.id, listings.market_symbol, markets.id, markets.name, markets.mic, markets.country_code,
-		instruments.id, instruments.name, instruments.display_symbol, instruments.enabled FROM listings inner join instruments 
-		on listings.instrument_id = instruments.id inner join markets 
+		instruments.id, instruments.name, instruments.display_symbol, instruments.enabled FROM referencedata.listings inner join referencedata.instruments 
+		on listings.instrument_id = instruments.id inner join referencedata.markets 
 		on listings.market_id = markets.id `
 
 func (s *service) GetListingsWithSameInstrument(c context.Context, id *api.ListingId) (*api.Listings, error) {

@@ -102,7 +102,7 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
-	id := bootstrap.GetEnvVar(ServiceIdKey)
+	id := bootstrap.GetOptionalEnvVar(ServiceIdKey, "MarketDataService")
 
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
@@ -162,7 +162,7 @@ func main() {
 	}
 
 	port := "50551"
-	fmt.Println("Starting Market Data Service on port:" + port)
+	fmt.Println("starting Market Data Service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)
@@ -176,6 +176,7 @@ func main() {
 	api.RegisterMarketDataServiceServer(s, &mdService)
 
 	reflection.Register(s)
+
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Error while serving : %v", err)
 	}

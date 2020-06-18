@@ -1,7 +1,6 @@
 package quoteaggregator
 
 import (
-
 	"github.com/ettec/open-trading-platform/go/model"
 	marketdata "github.com/ettech/open-trading-platform/go/market-data/market-data-common"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-common/quotestream"
