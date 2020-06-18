@@ -221,7 +221,6 @@ func main() {
 	dbDriverName := getBootstrapEnvVar(DatabaseDriverName)
 	port := getOptionalBootstrapEnvVar(Port, "50551")
 
-	fmt.Println("Starting static data service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
@@ -238,6 +237,9 @@ func main() {
 	api.RegisterStaticDataServiceServer(s, service)
 
 	reflection.Register(s)
+
+	fmt.Println("Starting static data service on port:" + port)
+
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Error while serving : %v", err)
 	}

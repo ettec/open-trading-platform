@@ -21,6 +21,8 @@ import (
 
 func (a AuthService) Login(ctx context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
 
+	log.Printf("logging in")
+
 	if user, ok := a.users[params.User]; ok {
 		return &loginservice.Token{
 			Token: user.token,
@@ -39,7 +41,19 @@ type AuthService struct {
 func (a *AuthService) Check(ctx context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
 
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
+
+	if ok {
+		log.Printf("checking path:%v", path)
+	}
+
+
 	if ok && strings.HasPrefix(path, "/loginservice.LoginService") {
+		log.Printf("permitted login for path:%v", path)
+		return newOkResponse(), nil
+	}
+
+	if ok && path == "/opentp" {
+		log.Printf("permitted path:%v", path)
 		return newOkResponse(), nil
 	}
 

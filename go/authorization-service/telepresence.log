@@ -1,6 +1,6 @@
-   0.0 TEL | Telepresence 0.105 launched at Mon Jun  8 14:05:00 2020
+   0.0 TEL | Telepresence 0.105 launched at Thu Jun 18 12:51:50 2020
    0.0 TEL |   /usr/bin/telepresence --swap-deployment authorization-service --expose 50551 --run ./authorization-service
-   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.4.0-33-generic', version='#37-Ubuntu SMP Thu May 21 12:53:59 UTC 2020', machine='x86_64', processor='x86_64')
+   0.0 TEL | uname: uname_result(system='Linux', node='mpendrey-Veriton-X4620G', release='5.4.0-37-generic', version='#41-Ubuntu SMP Wed Jun 3 18:57:02 UTC 2020', machine='x86_64', processor='x86_64')
    0.0 TEL | Platform: linux
    0.0 TEL | WSL: False
    0.0 TEL | Python 3.8.2 (default, Apr 27 2020, 15:53:34)
@@ -9,407 +9,349 @@
    0.0 TEL | BEGIN SPAN startup.py:83(set_kube_command)
    0.0 TEL | Found kubectl -> /snap/bin/kubectl
    0.0 TEL | [1] Capturing: kubectl config current-context
-   0.1 TEL | [1] captured in 0.11 secs.
+   0.1 TEL | [1] captured in 0.10 secs.
    0.1 TEL | [2] Capturing: kubectl --context kubernetes-admin@kubernetes version --short
    0.2 TEL | [2] captured in 0.12 secs.
    0.2 TEL | [3] Capturing: kubectl --context kubernetes-admin@kubernetes config view -o json
-   0.3 TEL | [3] captured in 0.10 secs.
-   0.3 TEL | [4] Capturing: kubectl --context kubernetes-admin@kubernetes get ns default
-   0.7 TEL | [4] captured in 0.38 secs.
-   0.7 TEL | [5] Capturing: kubectl --context kubernetes-admin@kubernetes api-versions
-   0.9 TEL | [5] captured in 0.14 secs.
-   0.9 TEL | Command: kubectl 1.18.2
-   0.9 TEL | Context: kubernetes-admin@kubernetes, namespace: default, version: 1.17.4
-   0.9 TEL | END SPAN startup.py:83(set_kube_command)    0.9s
-   0.9 TEL | Found ssh -> /usr/bin/ssh
-   0.9 TEL | [6] Capturing: ssh -V
-   0.9 TEL | [6] captured in 0.01 secs.
-   0.9 TEL | Found ./authorization-service -> ./authorization-service
-   0.9 TEL | Found sshuttle-telepresence -> /usr/libexec/sshuttle-telepresence
-   0.9 TEL | Found conntrack -> /usr/sbin/conntrack
-   0.9 TEL | Found iptables -> /usr/sbin/iptables
-   0.9 TEL | Found sudo -> /usr/bin/sudo
-   0.9 TEL | [7] Running: sudo -n echo -n
-   0.9   7 | sudo: a password is required
-   0.9 TEL | [7] exit 1 in 0.01 secs.
-   0.9 >>> | How Telepresence uses sudo: https://www.telepresence.io/reference/install#dependencies
-   0.9 >>> | Invoking sudo. Please enter your sudo password.
-   0.9 TEL | [8] Running: sudo echo -n
-   4.1 TEL | [8] ran in 3.20 secs.
-   4.1 TEL | [9] Capturing: sudo iptables --list
-   4.1 TEL | [9] captured in 0.01 secs.
-   4.1 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
-   4.1 TEL | Found sshfs -> /usr/bin/sshfs
-   4.1 TEL | Found fusermount -> /usr/bin/fusermount
-   4.1 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
-   4.1 TEL | [10] Running: kubectl --context kubernetes-admin@kubernetes --namespace default get pods telepresence-connectivity-check --ignore-not-found
-   4.2 TEL | [10] ran in 0.12 secs.
-   4.7 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
-   4.7 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
-   4.7 >>> | Starting network proxy to cluster by swapping out Deployment authorization-service with a proxy
-   4.7 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
-   4.7 TEL | [11] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json authorization-service
-   4.8 TEL | [11] captured in 0.12 secs.
-   4.8 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
-   4.8 TEL | [12] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment authorization-ser-39dca501fe254077bc964ff42764e474 --ignore-not-found
-   4.9 TEL | [12] ran in 0.13 secs.
-   4.9 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
-   5.1  13 | deployment.apps/authorization-ser-39dca501fe254077bc964ff42764e474 created
-   5.1 TEL | [13] ran in 0.23 secs.
-   5.1 TEL | [14] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment authorization-service --replicas=0
-   5.3  14 | deployment.apps/authorization-service scaled
-   5.3 TEL | [14] ran in 0.18 secs.
-   5.3 TEL | END SPAN deployment.py:283(supplant_deployment)    0.7s
-   5.3 TEL | BEGIN SPAN remote.py:142(get_remote_info)
-   5.3 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
-   5.3 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=39dca501fe254077bc964ff42764e474
-   5.5 TEL | [15] captured in 0.16 secs.
-   5.5 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
-   5.5 TEL | Searching for Telepresence pod:
-   5.5 TEL |   with name authorization-ser-39dca501fe254077bc964ff42764e474-*
-   5.5 TEL |   with labels {'app': 'authorization-service', 'telepresence': '39dca501fe254077bc964ff42764e474'}
-   5.5 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=39dca501fe254077bc964ff42764e474
-   5.6 TEL | [16] captured in 0.16 secs.
-   5.6 TEL | Checking authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6
-   5.6 TEL | Looks like we've found our pod!
-   5.6 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
-   5.6 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   5.8 TEL | [17] captured in 0.14 secs.
-   6.0 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   6.2 TEL | [18] captured in 0.13 secs.
-   6.4 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   6.5 TEL | [19] captured in 0.13 secs.
-   6.8 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   6.9 TEL | [20] captured in 0.13 secs.
-   7.2 TEL | [21] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   7.3 TEL | [21] captured in 0.12 secs.
-   7.5 TEL | [22] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   7.7 TEL | [22] captured in 0.14 secs.
-   7.9 TEL | [23] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   8.1 TEL | [23] captured in 0.15 secs.
-   8.3 TEL | [24] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   8.5 TEL | [24] captured in 0.13 secs.
-   8.7 TEL | [25] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   8.8 TEL | [25] captured in 0.14 secs.
-   9.1 TEL | [26] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   9.2 TEL | [26] captured in 0.13 secs.
-   9.5 TEL | [27] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-   9.6 TEL | [27] captured in 0.13 secs.
-   9.9 TEL | [28] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  10.1 TEL | [28] captured in 0.22 secs.
-  10.3 TEL | [29] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  10.4 TEL | [29] captured in 0.12 secs.
-  10.7 TEL | [30] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  10.8 TEL | [30] captured in 0.12 secs.
-  11.1 TEL | [31] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  11.2 TEL | [31] captured in 0.13 secs.
-  11.4 TEL | [32] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  11.6 TEL | [32] captured in 0.13 secs.
-  11.8 TEL | [33] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  12.0 TEL | [33] captured in 0.13 secs.
-  12.2 TEL | [34] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 -o json
-  12.3 TEL | [34] captured in 0.14 secs.
-  12.3 TEL | END SPAN remote.py:104(wait_for_pod)    6.7s
-  12.3 TEL | END SPAN remote.py:142(get_remote_info)    7.0s
-  12.3 TEL | BEGIN SPAN connect.py:37(connect)
-  12.3 TEL | [35] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 --container authorization-service --tail=10
-  12.3 TEL | [36] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 42659:8022
-  12.3 TEL | [37] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42659 telepresence@127.0.0.1 /bin/true
-  12.4 TEL | [37] exit 255 in 0.01 secs.
-  12.5  36 | Forwarding from 127.0.0.1:42659 -> 8022
-  12.5  36 | Forwarding from [::1]:42659 -> 8022
-  12.6 TEL | [38] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42659 telepresence@127.0.0.1 /bin/true
-  12.6  36 | Handling connection for 42659
-  13.0 TEL | [38] ran in 0.42 secs.
-  13.0 >>> | Forwarding remote port 50551 to local port 50551.
-  13.0 TEL | [39] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42659 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
-  13.0 >>> | 
-  13.0 TEL | Launching Web server for proxy poll
-  13.0 TEL | [40] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42659 telepresence@127.0.0.1 -L127.0.0.1:44953:127.0.0.1:9050 -R9055:127.0.0.1:33839
-  13.0  36 | Handling connection for 42659
-  13.0 TEL | END SPAN connect.py:37(connect)    0.7s
-  13.0 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
-  13.0 TEL | [41] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 --container authorization-service -- python3 podinfo.py
-  13.0  36 | Handling connection for 42659
-  13.4 TEL | [41] captured in 0.33 secs.
-  13.4 TEL | END SPAN remote_env.py:29(get_remote_env)    0.3s
-  13.4 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
-  13.4 TEL | [42] Running: sshfs -p 42659 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-y4hiqtb4/fs
-  13.4  36 | Handling connection for 42659
-  13.6 TEL | [42] ran in 0.21 secs.
-  13.6 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
-  13.6 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
-  13.6 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
-  13.6 TEL | [43] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get nodes -o json
-  13.6  35 | Retrieving this pod's namespace from the process environment
-  13.6  35 | Pod's namespace is 'default'
-  13.6  35 | Listening...
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] Loading ./forwarder.py...
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] /etc/resolv.conf changed, reparsing
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] Resolver added ('10.96.0.10', 53) to server list
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] SOCKSv5Factory starting on 9050
-  13.6  35 | 2020-06-08T13:05:14+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7feb6c6fe2b0>
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] DNSDatagramProtocol starting on 9053
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7feb6c6fe588>
-  13.6  35 | 2020-06-08T13:05:14+0000 [-] Loaded.
-  13.6  35 | 2020-06-08T13:05:14+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
-  13.6  35 | 2020-06-08T13:05:14+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
-  13.7 TEL | [43] captured in 0.15 secs.
-  13.7 TEL | [44] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get services -o json
-  13.9 TEL | [44] captured in 0.14 secs.
-  13.9 >>> | Guessing that Services IP range is 10.96.0.0/12. Services started after this point will be inaccessible if are outside this range; restart telepresence if you can't access a new Service.
-  13.9 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.3s
-  13.9 TEL | [45] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:42659 --to-ns 127.0.0.1:9053 10.244.0.0/24 10.96.0.0/12 10.244.1.0/24 10.244.2.0/24
-  13.9 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
-  13.9 TEL | Wait for vpn-tcp connection: hellotelepresence-0
-  13.9 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
-  14.0 TEL | [46] exit 1 in 0.17 secs.
-  14.0 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
-  14.3 TEL | [47] exit 1 in 0.22 secs.
-  14.4 TEL | Wait for vpn-tcp connection: hellotelepresence-1
-  14.4 TEL | [48] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
-  14.4  45 | Starting sshuttle proxy.
-  14.5 TEL | [48] exit 1 in 0.17 secs.
-  14.5 TEL | [49] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
-  14.9 TEL | [49] exit 1 in 0.42 secs.
-  15.0 TEL | Wait for vpn-tcp connection: hellotelepresence-2
-  15.0 TEL | [50] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
-  15.2 TEL | [50] exit 1 in 0.17 secs.
-  15.2 TEL | [51] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
-  15.4 TEL | [51] exit 1 in 0.22 secs.
-  15.5  45 | firewall manager: Starting firewall with Python version 3.8.2
-  15.5  45 | firewall manager: ready method name nat.
-  15.5  45 | IPv6 enabled: False
-  15.5  45 | UDP enabled: False
-  15.5  45 | DNS enabled: True
-  15.5  45 | TCP redirector listening on ('127.0.0.1', 12300).
-  15.5  45 | DNS listening on ('127.0.0.1', 12300).
-  15.5  45 | Starting client with Python version 3.8.2
-  15.5  45 | c : connecting to server...
-  15.5  36 | Handling connection for 42659
-  15.5 TEL | Wait for vpn-tcp connection: hellotelepresence-3
-  15.5 TEL | [52] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
-  15.6  45 | Warning: Permanently added '[127.0.0.1]:42659' (ECDSA) to the list of known hosts.
-  15.7 TEL | [52] exit 1 in 0.17 secs.
-  15.7 TEL | [53] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
-  15.7  45 | Starting server with Python version 3.6.8
-  15.7  45 |  s: latency control setting = True
-  15.7  45 |  s: available routes:
-  15.7  45 |  s:   2/10.244.0.0/16
-  15.7  45 |  s:   2/10.244.1.0/24
-  15.7  45 | c : Connected.
-  15.7  45 | firewall manager: setting up.
-  15.7  45 | >> iptables -t nat -N sshuttle-12300
-  15.7  45 | >> iptables -t nat -F sshuttle-12300
-  15.7  45 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
-  15.7  45 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
-  15.7  45 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
-  15.8  45 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
-  15.8  45 | c : DNS request from ('127.0.0.1', 44907) to None: 83 bytes
-  15.8  35 | 2020-06-08T13:05:16+0000 [stdout#info] Set DNS suffix we filter out to: [(b'a', b'sanity', b'check', b'telepresence', b'io', b'lan')]
-  15.8  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'hellotelepresence-3.a.sanity.check.telepresence.io.lan' is ['127.0.0.1']
-  15.8 TEL | [53] captured in 0.12 secs.
-  15.9 TEL | Wait for vpn-tcp connection: hellotelepresence-4
-  15.9 TEL | [54] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
-  15.9  45 | c : DNS request from ('127.0.0.1', 54406) to None: 53 bytes
-  15.9  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'www.google-analytics.com'
-  15.9  45 | c : DNS request from ('127.0.0.1', 51921) to None: 52 bytes
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'www.google-analytics.com' is ['216.58.206.110']
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] Set DNS suffix we filter out to: [(b'a', b'sanity', b'check', b'telepresence', b'io', b'lan'), (b'lan',)]
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'hellotelepresence-4.lan' is ['127.0.0.1']
-  16.0  45 | c : DNS request from ('127.0.0.1', 41817) to None: 58 bytes
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'analytics.eip.telegraph.co.uk'
-  16.0 TEL | [54] captured in 0.07 secs.
-  16.0 TEL | Resolved hellotelepresence-4. 2 more...
-  16.0 TEL | [55] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity.check.telepresence.io")'
-  16.0  45 | c : DNS request from ('127.0.0.1', 53571) to None: 48 bytes
-  16.0  45 | c : DNS request from ('127.0.0.1', 57006) to None: 51 bytes
-  16.0  45 | c : DNS request from ('127.0.0.1', 47764) to None: 49 bytes
-  16.0  45 | c : DNS request from ('127.0.0.1', 41935) to None: 44 bytes
-  16.0  45 | c : DNS request from ('127.0.0.1', 49052) to None: 54 bytes
-  16.0  45 | c : DNS request from ('127.0.0.1', 49267) to None: 79 bytes
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'www.telegraph.co.uk'
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'adservice.google.co.uk'
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'adservice.google.com'
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'tr.outbrain.com'
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'amplifypixel.outbrain.com'
-  16.0  45 | c : DNS request from ('127.0.0.1', 42794) to None: 83 bytes
-  16.0  45 | c : DNS request from ('127.0.0.1', 41755) to None: 46 bytes
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] Sanity check: b'hellotelepresence-4.a.sanity.check.telepresence.io'
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'analytics.eip.telegraph.co.uk' is ['52.50.238.71', '52.18.23.201']
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'hellotelepresence-4.a.sanity.check.telepresence.io.lan' is ['127.0.0.1']
-  16.0  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'api.permutive.com'
-  16.0 TEL | [55] captured in 0.07 secs.
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'amplifypixel.outbrain.com' is ['64.202.112.63']
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'api.permutive.com' is ['34.107.254.252']
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'adservice.google.co.uk' is ['216.58.204.226']
-  16.1  45 | c : DNS request from ('127.0.0.1', 39042) to None: 44 bytes
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'trc.taboola.com'
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'adservice.google.com' is ['216.58.210.194']
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'www.telegraph.co.uk' is ['104.127.237.55']
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'tr.outbrain.com' is ['70.42.32.95']
-  16.1  45 | c : DNS request from ('127.0.0.1', 46691) to None: 44 bytes
-  16.1  45 | c : DNS request from ('127.0.0.1', 36158) to None: 48 bytes
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'cdn.polyfill.io'
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] Result for b'cdn.polyfill.io' is ['151.101.194.109', '151.101.66.109', '151.101.130.109', '151.101.2.109']
-  16.1  45 | c : DNS request from ('127.0.0.1', 43410) to None: 51 bytes
-  16.1  35 | 2020-06-08T13:05:16+0000 [stdout#info] A query: b'assets.adobedtm.com'
-  16.1 TEL | Wait for vpn-tcp connection: hellotelepresence-5
-  16.1 TEL | [56] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
-  16.2  45 | c : DNS request from ('127.0.0.1', 45578) to None: 52 bytes
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] A query: b'cf.eip.telegraph.co.uk'
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] Result for b'trc.taboola.com' is ['151.101.193.44', '151.101.1.44', '151.101.129.44', '151.101.65.44']
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] Result for b'hellotelepresence-5.lan' is ['127.0.0.1']
-  16.2 TEL | [56] captured in 0.07 secs.
-  16.2 TEL | Resolved hellotelepresence-5. 1 more...
-  16.2 TEL | [57] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5.a.sanity.check.telepresence.io")'
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] Result for b'assets.adobedtm.com' is ['23.193.41.38']
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] Result for b'cf.eip.telegraph.co.uk' is ['143.204.191.25', '143.204.191.105', '143.204.191.59', '143.204.191.75']
-  16.2  45 | c : DNS request from ('127.0.0.1', 36303) to None: 79 bytes
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] Sanity check: b'hellotelepresence-5.a.sanity.check.telepresence.io'
-  16.2  45 | c : DNS request from ('127.0.0.1', 43943) to None: 83 bytes
-  16.2  35 | 2020-06-08T13:05:17+0000 [stdout#info] Result for b'hellotelepresence-5.a.sanity.check.telepresence.io.lan' is ['127.0.0.1']
-  16.3 TEL | [57] captured in 0.07 secs.
-  16.4 TEL | Wait for vpn-tcp connection: hellotelepresence-6
-  16.4 TEL | [58] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-6")'
-  16.4  45 | c : DNS request from ('127.0.0.1', 48367) to None: 52 bytes
-  16.4  35 | 2020-06-08T13:05:17+0000 [stdout#info] Result for b'hellotelepresence-6.lan' is ['127.0.0.1']
-  16.4 TEL | [58] captured in 0.07 secs.
-  16.4 TEL | Resolved hellotelepresence-6. 0 more...
-  16.4 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    2.6s
-  16.4 TEL | END SPAN vpn.py:280(connect_sshuttle)    2.9s
-  16.4 >>> | Setup complete. Launching your command.
-  16.5 TEL | Everything launched. Waiting to exit...
-  16.5 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
-  16.5 TEL | Main process (./authorization-service)
-  16.5 TEL |  exited with code 1.
-  16.6 TEL | END SPAN runner.py:726(wait_for_exit)    0.1s
-  16.6 >>> | Your process exited with return code 1.
-  16.6 TEL | EXITING successful session.
-  16.6 >>> | Exit cleanup in progress
-  16.6 TEL | (Cleanup) Terminate local process
-  16.6 TEL | Local process is already dead (ret=1)
-  16.6 TEL | (Cleanup) Kill BG process [45] sshuttle
-  16.6 TEL | (Cleanup) Unmount remote filesystem
-  16.6 TEL | [59] Running: fusermount -z -u /tmp/tel-y4hiqtb4/fs
-  16.6  45 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
-  16.6 TEL | [59] ran in 0.02 secs.
-  16.6 TEL | (Cleanup) Kill BG process [40] SSH port forward (socks and proxy poll)
-  16.6  45 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
-  16.6 TEL | [40] SSH port forward (socks and proxy poll): exit 0
-  16.6 TEL | (Cleanup) Kill Web server for proxy poll
-  16.6  45 | >> iptables -t nat -F sshuttle-12300
-  16.6  45 | >> iptables -t nat -X sshuttle-12300
-  16.6 TEL | [45] sshuttle: exit -15
-  17.0 TEL | (Cleanup) Kill BG process [39] SSH port forward (exposed ports)
-  17.0 TEL | [39] SSH port forward (exposed ports): exit 0
-  17.0 TEL | (Cleanup) Kill BG process [36] kubectl port-forward
-  17.0 TEL | [36] kubectl port-forward: exit -15
-  17.0 TEL | (Cleanup) Kill BG process [35] kubectl logs
-  17.0 TEL | [35] kubectl logs: exit -15
-  17.0 TEL | Background process (kubectl logs) exited with return code -15. Command was:
-  17.0 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f authorization-ser-39dca501fe254077bc964ff42764e474-7997bcctfts6 --container authorization-service --tail=10
-  17.0 TEL | 
-  17.0 TEL | Recent output was:
-  17.0 TEL |   2020-06-08T13:05:16+0000 [stdout#info] Result for b'cdn.polyfill.io' is ['151.101.194.109', '151.101.66.109', '151.101.130.109', '151.101.2.109']
-  17.0 TEL |   2020-06-08T13:05:16+0000 [stdout#info] A query: b'assets.adobedtm.com'
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] A query: b'cf.eip.telegraph.co.uk'
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Result for b'trc.taboola.com' is ['151.101.193.44', '151.101.1.44', '151.101.129.44', '151.101.65.44']
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Result for b'hellotelepresence-5.lan' is ['127.0.0.1']
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Result for b'assets.adobedtm.com' is ['23.193.41.38']
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Result for b'cf.eip.telegraph.co.uk' is ['143.204.191.25', '143.204.191.105', '143.204.191.59', '143.204.191.75']
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Sanity check: b'hellotelepresence-5.a.sanity.check.telepresence.io'
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Result for b'hellotelepresence-5.a.sanity.check.telepresence.io.lan' is ['127.0.0.1']
-  17.0 TEL |   2020-06-08T13:05:17+0000 [stdout#info] Result for b'hellotelepresence-6.lan' is ['127.0.0.1']
-  17.0 TEL | (Cleanup) Re-scale original deployment
-  17.0 TEL | [60] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment authorization-service --replicas=1
-  17.2  60 | deployment.apps/authorization-service scaled
-  17.2 TEL | [60] ran in 0.17 secs.
-  17.2 TEL | (Cleanup) Delete new deployment
-  17.2 >>> | Swapping Deployment authorization-service back to its original state
-  17.2 TEL | [61] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment authorization-ser-39dca501fe254077bc964ff42764e474
-  17.5  61 | deployment.apps "authorization-ser-39dca501fe254077bc964ff42764e474" deleted
-  17.5 TEL | [61] ran in 0.32 secs.
-  17.5 TEL | (Cleanup) Kill sudo privileges holder
-  17.5 TEL | (Cleanup) Stop time tracking
-  17.5 TEL | END SPAN main.py:40(main)   17.5s
-  17.5 TEL | SPAN SUMMARY:
-  17.5 TEL |   17.5s main.py:40(main)
-  17.5 TEL |    0.9s   startup.py:83(set_kube_command)
-  17.5 TEL |    0.1s     1 kubectl config current-context
-  17.5 TEL |    0.1s     2 kubectl --context kubernetes-admin@kubernetes version --short
-  17.5 TEL |    0.1s     3 kubectl --context kubernetes-admin@kubernetes config view -o json
-  17.5 TEL |    0.4s     4 kubectl --context kubernetes-admin@kubernetes get ns default
-  17.5 TEL |    0.1s     5 kubectl --context kubernetes-admin@kubernetes api-versions
-  17.5 TEL |    0.0s   6 ssh -V
-  17.5 TEL |    0.0s   7 sudo -n echo -n
-  17.5 TEL |    3.2s   8 sudo echo -n
-  17.5 TEL |    0.0s   9 sudo iptables --list
-  17.5 TEL |    0.1s   10 kubectl --context kubernetes-admin@kubernetes --namespace default get pods te
-  17.5 TEL |    0.7s   deployment.py:283(supplant_deployment)
-  17.5 TEL |    0.1s     remote.py:75(get_deployment_json)
-  17.5 TEL |    0.1s       11 kubectl --context kubernetes-admin@kubernetes --namespace default get deploym
-  17.5 TEL |    0.1s     12 kubectl --context kubernetes-admin@kubernetes --namespace default delete depl
-  17.5 TEL |    0.2s     13 kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
-  17.5 TEL |    0.2s     14 kubectl --context kubernetes-admin@kubernetes --namespace default scale deplo
-  17.5 TEL |    7.0s   remote.py:142(get_remote_info)
-  17.5 TEL |    0.2s     remote.py:75(get_deployment_json)
-  17.5 TEL |    0.2s       15 kubectl --context kubernetes-admin@kubernetes --namespace default get deploym
-  17.5 TEL |    0.2s     16 kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o
-  17.5 TEL |    6.7s     remote.py:104(wait_for_pod)
-  17.5 TEL |    0.1s       17 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       18 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       19 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       20 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       21 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       22 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       23 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       24 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       25 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       26 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       27 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.2s       28 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       29 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       30 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       31 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       32 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       33 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.1s       34 kubectl --context kubernetes-admin@kubernetes --namespace default get pod aut
-  17.5 TEL |    0.7s   connect.py:37(connect)
-  17.5 TEL |    0.0s     37 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
-  17.5 TEL |    0.4s     38 ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q
-  17.5 TEL |    0.3s   remote_env.py:29(get_remote_env)
-  17.5 TEL |    0.3s     41 kubectl --context kubernetes-admin@kubernetes --namespace default exec author
-  17.5 TEL |    0.2s   mount.py:30(mount_remote_volumes)
-  17.5 TEL |    0.2s     42 sshfs -p 42659 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/
-  17.5 TEL |    2.9s   vpn.py:280(connect_sshuttle)
-  17.5 TEL |    0.3s     vpn.py:77(get_proxy_cidrs)
-  17.5 TEL |    0.1s       43 kubectl --context kubernetes-admin@kubernetes --namespace default get nodes -
-  17.5 TEL |    0.1s       44 kubectl --context kubernetes-admin@kubernetes --namespace default get service
-  17.5 TEL |    2.6s     vpn.py:303(connect_sshuttle,sshuttle-wait)
-  17.5 TEL |    0.2s       46 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
-  17.5 TEL |    0.2s       47 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity
-  17.5 TEL |    0.2s       48 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
-  17.5 TEL |    0.4s       49 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity
-  17.5 TEL |    0.2s       50 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
-  17.5 TEL |    0.2s       51 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity
-  17.5 TEL |    0.2s       52 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
-  17.5 TEL |    0.1s       53 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity
-  17.5 TEL |    0.1s       54 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
-  17.5 TEL |    0.1s       55 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4.a.sanity
-  17.5 TEL |    0.1s       56 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5")'
-  17.5 TEL |    0.1s       57 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-5.a.sanity
-  17.5 TEL |    0.1s       58 python3 -c 'import socket; socket.gethostbyname("hellotelepresence-6")'
-  17.5 TEL |    0.1s   runner.py:726(wait_for_exit)
-  17.5 TEL |    0.0s   59 fusermount -z -u /tmp/tel-y4hiqtb4/fs
-  17.5 TEL |    0.2s   60 kubectl --context kubernetes-admin@kubernetes --namespace default scale deplo
-  17.5 TEL |    0.3s   61 kubectl --context kubernetes-admin@kubernetes --namespace default delete depl
-  17.5 TEL | (Cleanup) Remove temporary directory
-  17.5 TEL | (Cleanup) Save caches
-  18.1 TEL | (sudo privileges holder thread exiting)
+   0.3 TEL | [3] captured in 0.11 secs.
+   0.4 TEL | [4] Capturing: kubectl --context kubernetes-admin@kubernetes get ns default
+   0.5 TEL | [4] captured in 0.13 secs.
+   0.5 TEL | [5] Capturing: kubectl --context kubernetes-admin@kubernetes api-versions
+   0.6 TEL | [5] captured in 0.14 secs.
+   0.6 TEL | Command: kubectl 1.18.3
+   0.6 TEL | Context: kubernetes-admin@kubernetes, namespace: default, version: 1.17.4
+   0.6 TEL | END SPAN startup.py:83(set_kube_command)    0.6s
+   0.6 TEL | Found ssh -> /usr/bin/ssh
+   0.6 TEL | [6] Capturing: ssh -V
+   0.6 TEL | [6] captured in 0.01 secs.
+   0.6 TEL | Found ./authorization-service -> ./authorization-service
+   0.6 TEL | Found sshuttle-telepresence -> /usr/libexec/sshuttle-telepresence
+   0.6 TEL | Found conntrack -> /usr/sbin/conntrack
+   0.6 TEL | Found iptables -> /usr/sbin/iptables
+   0.6 TEL | Found sudo -> /usr/bin/sudo
+   0.6 TEL | [7] Running: sudo -n echo -n
+   0.6   7 | sudo: a password is required
+   0.6 TEL | [7] exit 1 in 0.02 secs.
+   0.6 >>> | How Telepresence uses sudo: https://www.telepresence.io/reference/install#dependencies
+   0.6 >>> | Invoking sudo. Please enter your sudo password.
+   0.6 TEL | [8] Running: sudo echo -n
+  11.7 TEL | [8] ran in 11.09 secs.
+  11.7 TEL | [9] Capturing: sudo iptables --list
+  11.8 TEL | [9] captured in 0.01 secs.
+  11.8 >>> | Starting proxy with method 'vpn-tcp', which has the following limitations: All processes are affected, only one telepresence can run per machine, and you can't use other VPNs. You may need to add cloud hosts and headless services with --also-proxy. For a full list of method limitations see https://telepresence.io/reference/methods.html
+  11.8 TEL | Found sshfs -> /usr/bin/sshfs
+  11.8 TEL | Found fusermount -> /usr/bin/fusermount
+  11.8 >>> | Volumes are rooted at $TELEPRESENCE_ROOT. See https://telepresence.io/howto/volumes.html for details.
+  11.8 TEL | [10] Running: kubectl --context kubernetes-admin@kubernetes --namespace default get pods telepresence-connectivity-check --ignore-not-found
+  11.9 TEL | [10] ran in 0.12 secs.
+  12.4 TEL | Scout info: {'latest_version': '0.105', 'application': 'telepresence', 'notices': []}
+  12.4 TEL | BEGIN SPAN deployment.py:283(supplant_deployment)
+  12.4 >>> | Starting network proxy to cluster by swapping out Deployment authorization-service with a proxy
+  12.4 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+  12.4 TEL | [11] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json authorization-service
+  12.5 TEL | [11] captured in 0.13 secs.
+  12.5 TEL | END SPAN remote.py:75(get_deployment_json)    0.1s
+  12.5 TEL | [12] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment authorization-ser-62618f14114440e08b8fe6bc8b107dbb --ignore-not-found
+  12.7 TEL | [12] ran in 0.13 secs.
+  12.7 TEL | [13] Running: kubectl --context kubernetes-admin@kubernetes --namespace default apply -f -
+  12.9  13 | deployment.apps/authorization-ser-62618f14114440e08b8fe6bc8b107dbb created
+  12.9 TEL | [13] ran in 0.22 secs.
+  12.9 TEL | [14] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment authorization-service --replicas=0
+  13.2  14 | deployment.apps/authorization-service scaled
+  13.2 TEL | [14] ran in 0.32 secs.
+  13.2 TEL | END SPAN deployment.py:283(supplant_deployment)    0.8s
+  13.2 TEL | BEGIN SPAN remote.py:142(get_remote_info)
+  13.2 TEL | BEGIN SPAN remote.py:75(get_deployment_json)
+  13.2 TEL | [15] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get deployment -o json --selector=telepresence=62618f14114440e08b8fe6bc8b107dbb
+  13.4 TEL | [15] captured in 0.16 secs.
+  13.4 TEL | END SPAN remote.py:75(get_deployment_json)    0.2s
+  13.4 TEL | Searching for Telepresence pod:
+  13.4 TEL |   with name authorization-ser-62618f14114440e08b8fe6bc8b107dbb-*
+  13.4 TEL |   with labels {'app': 'authorization-service', 'telepresence': '62618f14114440e08b8fe6bc8b107dbb'}
+  13.4 TEL | [16] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod -o json --selector=telepresence=62618f14114440e08b8fe6bc8b107dbb
+  13.5 TEL | [16] captured in 0.13 secs.
+  13.5 TEL | Checking authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv
+  13.5 TEL | Looks like we've found our pod!
+  13.5 TEL | BEGIN SPAN remote.py:104(wait_for_pod)
+  13.5 TEL | [17] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  13.6 TEL | [17] captured in 0.12 secs.
+  13.9 TEL | [18] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  14.0 TEL | [18] captured in 0.15 secs.
+  14.3 TEL | [19] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  14.4 TEL | [19] captured in 0.14 secs.
+  14.7 TEL | [20] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  14.8 TEL | [20] captured in 0.13 secs.
+  15.0 TEL | [21] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  15.2 TEL | [21] captured in 0.12 secs.
+  15.4 TEL | [22] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  15.5 TEL | [22] captured in 0.12 secs.
+  15.8 TEL | [23] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  15.9 TEL | [23] captured in 0.12 secs.
+  16.2 TEL | [24] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  16.3 TEL | [24] captured in 0.12 secs.
+  16.5 TEL | [25] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  16.7 TEL | [25] captured in 0.14 secs.
+  16.9 TEL | [26] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  17.0 TEL | [26] captured in 0.12 secs.
+  17.3 TEL | [27] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  17.4 TEL | [27] captured in 0.13 secs.
+  17.7 TEL | [28] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  17.8 TEL | [28] captured in 0.13 secs.
+  18.1 TEL | [29] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  18.2 TEL | [29] captured in 0.15 secs.
+  18.5 TEL | [30] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  18.6 TEL | [30] captured in 0.14 secs.
+  18.8 TEL | [31] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get pod authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv -o json
+  19.0 TEL | [31] captured in 0.13 secs.
+  19.0 TEL | END SPAN remote.py:104(wait_for_pod)    5.5s
+  19.0 TEL | END SPAN remote.py:142(get_remote_info)    5.8s
+  19.0 TEL | BEGIN SPAN connect.py:37(connect)
+  19.0 TEL | [32] Launching kubectl logs: kubectl --context kubernetes-admin@kubernetes --namespace default logs -f authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv --container authorization-service --tail=10
+  19.0 TEL | [33] Launching kubectl port-forward: kubectl --context kubernetes-admin@kubernetes --namespace default port-forward authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv 42273:8022
+  19.0 TEL | [34] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42273 telepresence@127.0.0.1 /bin/true
+  19.0 TEL | [34] exit 255 in 0.01 secs.
+  19.1  33 | Forwarding from 127.0.0.1:42273 -> 8022
+  19.1  33 | Forwarding from [::1]:42273 -> 8022
+  19.2 TEL | [35] Running: ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42273 telepresence@127.0.0.1 /bin/true
+  19.2  33 | Handling connection for 42273
+  19.6 TEL | [35] ran in 0.32 secs.
+  19.6 >>> | Forwarding remote port 50551 to local port 50551.
+  19.6 TEL | [36] Launching SSH port forward (exposed ports): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42273 telepresence@127.0.0.1 -R '*:50551:127.0.0.1:50551'
+  19.6 >>> | 
+  19.6 TEL | Launching Web server for proxy poll
+  19.6 TEL | [37] Launching SSH port forward (socks and proxy poll): ssh -N -oServerAliveInterval=1 -oServerAliveCountMax=10 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -q -p 42273 telepresence@127.0.0.1 -L127.0.0.1:34919:127.0.0.1:9050 -R9055:127.0.0.1:36281
+  19.6  33 | Handling connection for 42273
+  19.6 TEL | END SPAN connect.py:37(connect)    0.6s
+  19.6 TEL | BEGIN SPAN remote_env.py:29(get_remote_env)
+  19.6 TEL | [38] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default exec authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv --container authorization-service -- python3 podinfo.py
+  19.6  33 | Handling connection for 42273
+  20.0 TEL | [38] captured in 0.44 secs.
+  20.0 TEL | END SPAN remote_env.py:29(get_remote_env)    0.4s
+  20.0 TEL | BEGIN SPAN mount.py:30(mount_remote_volumes)
+  20.0 TEL | [39] Running: sshfs -p 42273 -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null telepresence@127.0.0.1:/ /tmp/tel-biew7t5i/fs
+  20.0  33 | Handling connection for 42273
+  20.1  32 | Retrieving this pod's namespace from the process environment
+  20.1  32 | Pod's namespace is 'default'
+  20.1  32 | Listening...
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] Loading ./forwarder.py...
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] /etc/resolv.conf changed, reparsing
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] Resolver added ('10.96.0.10', 53) to server list
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] SOCKSv5Factory starting on 9050
+  20.1  32 | 2020-06-18T11:52:10+0000 [socks.SOCKSv5Factory#info] Starting factory <socks.SOCKSv5Factory object at 0x7ff6da83a358>
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] DNSDatagramProtocol starting on 9053
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] Starting protocol <twisted.names.dns.DNSDatagramProtocol object at 0x7ff6da83a630>
+  20.1  32 | 2020-06-18T11:52:10+0000 [-] Loaded.
+  20.1  32 | 2020-06-18T11:52:10+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] twistd 20.3.0 (/usr/bin/python3.6 3.6.8) starting up.
+  20.1  32 | 2020-06-18T11:52:10+0000 [twisted.scripts._twistd_unix.UnixAppLogger#info] reactor class: twisted.internet.epollreactor.EPollReactor.
+  20.2 TEL | [39] ran in 0.23 secs.
+  20.2 TEL | END SPAN mount.py:30(mount_remote_volumes)    0.2s
+  20.2 TEL | BEGIN SPAN vpn.py:280(connect_sshuttle)
+  20.2 TEL | BEGIN SPAN vpn.py:77(get_proxy_cidrs)
+  20.2 TEL | [40] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get nodes -o json
+  20.4 TEL | [40] captured in 0.18 secs.
+  20.4 TEL | [41] Capturing: kubectl --context kubernetes-admin@kubernetes --namespace default get services -o json
+  20.5 TEL | [41] captured in 0.14 secs.
+  20.6 >>> | Guessing that Services IP range is 10.96.0.0/12. Services started after this point will be inaccessible if are outside this range; restart telepresence if you can't access a new Service.
+  20.6 TEL | END SPAN vpn.py:77(get_proxy_cidrs)    0.3s
+  20.6 TEL | [42] Launching sshuttle: sshuttle-telepresence -v --dns --method nat -e 'ssh -F /dev/null -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null' -r telepresence@127.0.0.1:42273 --to-ns 127.0.0.1:9053 10.244.1.0/24 10.96.0.0/12 10.244.2.0/24 10.244.0.0/24
+  20.6 TEL | BEGIN SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)
+  20.6 TEL | Wait for vpn-tcp connection: hellotelepresence-0
+  20.6 TEL | [43] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0")'
+  20.7 TEL | [43] exit 1 in 0.12 secs.
+  20.7 TEL | [44] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-0.a.sanity.check.telepresence.io")'
+  21.1  42 | Starting sshuttle proxy.
+  21.7 TEL | [44] timed out after 1.00 secs.
+  21.8 TEL | Wait for vpn-tcp connection: hellotelepresence-1
+  21.8 TEL | [45] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1")'
+  21.9 TEL | [45] exit 1 in 0.12 secs.
+  21.9 TEL | [46] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-1.a.sanity.check.telepresence.io")'
+  22.1  42 | firewall manager: Starting firewall with Python version 3.8.2
+  22.1  42 | firewall manager: ready method name nat.
+  22.1  42 | IPv6 enabled: False
+  22.1  42 | UDP enabled: False
+  22.1  42 | DNS enabled: True
+  22.1  42 | TCP redirector listening on ('127.0.0.1', 12300).
+  22.1  42 | DNS listening on ('127.0.0.1', 12300).
+  22.1  42 | Starting client with Python version 3.8.2
+  22.1  42 | c : connecting to server...
+  22.1  33 | Handling connection for 42273
+  22.2  42 | Warning: Permanently added '[127.0.0.1]:42273' (ECDSA) to the list of known hosts.
+  22.4  42 | Starting server with Python version 3.6.8
+  22.4  42 |  s: latency control setting = True
+  22.4  42 |  s: available routes:
+  22.4  42 |  s:   2/10.244.0.0/16
+  22.4  42 |  s:   2/10.244.1.0/24
+  22.4  42 | c : Connected.
+  22.4  42 | firewall manager: setting up.
+  22.4  42 | >> iptables -t nat -N sshuttle-12300
+  22.4  42 | >> iptables -t nat -F sshuttle-12300
+  22.4  42 | >> iptables -t nat -I OUTPUT 1 -j sshuttle-12300
+  22.4  42 | >> iptables -t nat -I PREROUTING 1 -j sshuttle-12300
+  22.4  42 | >> iptables -t nat -A sshuttle-12300 -j RETURN --dest 127.0.0.1/32 -p tcp
+  22.4  42 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.1.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  22.4  42 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.2.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  22.4  42 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.244.0.0/24 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  22.5  42 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 10.96.0.0/12 -p tcp --to-ports 12300 -m ttl ! --ttl 42
+  22.5  42 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 127.0.0.53/32 -p udp --dport 53 --to-ports 12300 -m ttl ! --ttl 42
+  22.5  42 | >> iptables -t nat -A sshuttle-12300 -j REDIRECT --dest 224.0.0.252/32 -p udp --dport 5355 --to-ports 12300 -m ttl ! --ttl 42
+  22.5  42 | conntrack v1.4.5 (conntrack-tools): 0 flow entries have been deleted.
+  22.9 TEL | [46] timed out after 1.00 secs.
+  23.0 TEL | Wait for vpn-tcp connection: hellotelepresence-2
+  23.0 TEL | [47] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2")'
+  23.0  42 | c : DNS request from ('127.0.0.1', 46161) to None: 48 bytes
+  23.0  32 | 2020-06-18T11:52:13+0000 [stdout#info] Set DNS suffix we filter out to: [()]
+  23.0  32 | 2020-06-18T11:52:13+0000 [stdout#info] Result for b'hellotelepresence-2' is ['127.0.0.1']
+  23.1 TEL | [47] captured in 0.07 secs.
+  23.1 TEL | Resolved hellotelepresence-2. 2 more...
+  23.1 TEL | [48] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-2.a.sanity.check.telepresence.io")'
+  23.1  42 | c : DNS request from ('127.0.0.1', 44194) to None: 79 bytes
+  23.1  32 | 2020-06-18T11:52:13+0000 [stdout#info] Sanity check: b'hellotelepresence-2.a.sanity.check.telepresence.io'
+  23.2 TEL | [48] exit 1 in 0.12 secs.
+  23.3 TEL | Wait for vpn-tcp connection: hellotelepresence-3
+  23.3 TEL | [49] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3")'
+  23.3  42 | c : DNS request from ('127.0.0.1', 56202) to None: 48 bytes
+  23.3  32 | 2020-06-18T11:52:14+0000 [stdout#info] Result for b'hellotelepresence-3' is ['127.0.0.1']
+  23.3 TEL | [49] captured in 0.07 secs.
+  23.4 TEL | Resolved hellotelepresence-3. 1 more...
+  23.4 TEL | [50] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-3.a.sanity.check.telepresence.io")'
+  23.4  42 | c : DNS request from ('127.0.0.1', 36385) to None: 79 bytes
+  23.4  32 | 2020-06-18T11:52:14+0000 [stdout#info] Sanity check: b'hellotelepresence-3.a.sanity.check.telepresence.io'
+  23.5 TEL | [50] exit 1 in 0.12 secs.
+  23.6 TEL | Wait for vpn-tcp connection: hellotelepresence-4
+  23.6 TEL | [51] Capturing: python3 -c 'import socket; socket.gethostbyname("hellotelepresence-4")'
+  23.6  42 | c : DNS request from ('127.0.0.1', 35328) to None: 48 bytes
+  23.6  32 | 2020-06-18T11:52:14+0000 [stdout#info] Result for b'hellotelepresence-4' is ['127.0.0.1']
+  23.6 TEL | [51] captured in 0.07 secs.
+  23.6 TEL | Resolved hellotelepresence-4. 0 more...
+  23.6 TEL | END SPAN vpn.py:303(connect_sshuttle,sshuttle-wait)    3.1s
+  23.6 TEL | END SPAN vpn.py:280(connect_sshuttle)    3.4s
+  23.6 >>> | Setup complete. Launching your command.
+  23.6 TEL | Everything launched. Waiting to exit...
+  23.6 TEL | BEGIN SPAN runner.py:726(wait_for_exit)
+  23.7  42 | c : DNS request from ('127.0.0.1', 58897) to None: 57 bytes
+  23.7  42 | c : DNS request from ('127.0.0.1', 58897) to None: 57 bytes
+  23.7  32 | 2020-06-18T11:52:14+0000 [stdout#info] A query: b'opentp-postgresql.postgresql'
+  23.7  32 | 2020-06-18T11:52:14+0000 [stdout#info] Result for b'opentp-postgresql.postgresql' is ['10.101.218.165']
+  23.7  32 | 2020-06-18T11:52:14+0000 [stdout#info] AAAA query, sending back A instead: b'opentp-postgresql.postgresql'
+  23.7  32 | 2020-06-18T11:52:14+0000 [stdout#info] A query: b'opentp-postgresql.postgresql'
+  23.7  32 | 2020-06-18T11:52:14+0000 [stdout#info] Result for b'opentp-postgresql.postgresql' is ['10.101.218.165']
+  23.7  42 | c : Accept TCP: 192.168.1.103:47906 -> 10.101.218.165:5432.
+  26.6  42 | c : DNS request from ('127.0.0.1', 36810) to None: 54 bytes
+  26.6  32 | 2020-06-18T11:52:17+0000 [stdout#info] A query: b'ft.coral.coralproject.net'
+  26.7  32 | 2020-06-18T11:52:17+0000 [stdout#info] Result for b'ft.coral.coralproject.net' is ['34.98.71.145']
+  41.8 TEL | [52] Running: sudo -n echo -n
+  41.8 TEL | [52] ran in 0.01 secs.
+  50.2 TEL | (proxy checking local liveness)
+  50.2  32 | 2020-06-18T11:52:41+0000 [Poll#info] Checkpoint
+  71.8 TEL | [53] Running: sudo -n echo -n
+  71.8 TEL | [53] ran in 0.01 secs.
+  79.7  42 | c : DNS request from ('127.0.0.1', 40438) to None: 44 bytes
+  79.7  32 | 2020-06-18T11:53:10+0000 [stdout#info] A query: b'play.google.com'
+  79.7  32 | 2020-06-18T11:53:10+0000 [stdout#info] Result for b'play.google.com' is ['172.217.20.142']
+  80.1 TEL | (proxy checking local liveness)
+  80.1  32 | 2020-06-18T11:53:10+0000 [Poll#info] Checkpoint
+  91.6  42 | c : DNS request from ('127.0.0.1', 32881) to None: 54 bytes
+  91.6  32 | 2020-06-18T11:53:22+0000 [stdout#info] A query: b'ft.coral.coralproject.net'
+  91.7  32 | 2020-06-18T11:53:22+0000 [stdout#info] Result for b'ft.coral.coralproject.net' is ['34.98.71.145']
+  95.2  42 | c : DNS request from ('127.0.0.1', 42427) to None: 51 bytes
+  95.2  32 | 2020-06-18T11:53:26+0000 [stdout#info] A query: b'az764295.vo.msecnd.net'
+  95.2  32 | 2020-06-18T11:53:26+0000 [stdout#info] Result for b'az764295.vo.msecnd.net' is ['152.199.19.160']
+  99.6  42 | c : DNS request from ('127.0.0.1', 60555) to None: 60 bytes
+  99.6  32 | 2020-06-18T11:53:30+0000 [stdout#info] A query: b'signaler-pa.clients6.google.com'
+  99.7  32 | 2020-06-18T11:53:30+0000 [stdout#info] Result for b'signaler-pa.clients6.google.com' is ['216.58.204.10']
+ 101.8 TEL | [54] Running: sudo -n echo -n
+ 101.9 TEL | [54] ran in 0.01 secs.
+ 103.6  42 | c : DNS request from ('127.0.0.1', 47558) to None: 49 bytes
+ 103.6  32 | 2020-06-18T11:53:34+0000 [stdout#info] A query: b'classroom.google.com'
+ 103.7  32 | 2020-06-18T11:53:34+0000 [stdout#info] Result for b'classroom.google.com' is ['216.58.210.46']
+ 105.4  42 | c : DNS request from ('127.0.0.1', 53953) to None: 58 bytes
+ 105.4  32 | 2020-06-18T11:53:36+0000 [stdout#info] AAAA query, sending back A instead: b'connectivity-check.ubuntu.com'
+ 105.4  32 | 2020-06-18T11:53:36+0000 [stdout#info] A query: b'connectivity-check.ubuntu.com'
+ 105.5  32 | 2020-06-18T11:53:36+0000 [stdout#info] Result for b'connectivity-check.ubuntu.com' is ['35.224.99.156', '35.222.85.5']
+ 110.1 TEL | (proxy checking local liveness)
+ 110.1  32 | 2020-06-18T11:53:40+0000 [Poll#info] Checkpoint
+ 131.9 TEL | [55] Running: sudo -n echo -n
+ 131.9 TEL | [55] ran in 0.01 secs.
+ 140.2 TEL | (proxy checking local liveness)
+ 140.2  32 | 2020-06-18T11:54:11+0000 [Poll#info] Checkpoint
+ 153.6  42 | c : DNS request from ('127.0.0.1', 44744) to None: 54 bytes
+ 153.6  32 | 2020-06-18T11:54:24+0000 [stdout#info] A query: b'ft.coral.coralproject.net'
+ 153.7  32 | 2020-06-18T11:54:24+0000 [stdout#info] Result for b'ft.coral.coralproject.net' is ['34.98.71.145']
+ 161.9 TEL | [56] Running: sudo -n echo -n
+ 161.9 TEL | [56] ran in 0.01 secs.
+ 170.1 TEL | (proxy checking local liveness)
+ 170.3  32 | 2020-06-18T11:54:40+0000 [Poll#info] Checkpoint
+ 173.6  42 | c : DNS request from ('127.0.0.1', 53759) to None: 60 bytes
+ 173.6  32 | 2020-06-18T11:54:44+0000 [stdout#info] A query: b'signaler-pa.clients6.google.com'
+ 173.7  32 | 2020-06-18T11:54:44+0000 [stdout#info] Result for b'signaler-pa.clients6.google.com' is ['216.58.210.42']
+ 177.6  42 | c : DNS request from ('127.0.0.1', 45554) to None: 49 bytes
+ 177.6  32 | 2020-06-18T11:54:48+0000 [stdout#info] A query: b'classroom.google.com'
+ 177.7  32 | 2020-06-18T11:54:48+0000 [stdout#info] Result for b'classroom.google.com' is ['216.58.210.46']
+ 192.0 TEL | [57] Running: sudo -n echo -n
+ 192.0 TEL | [57] ran in 0.04 secs.
+ 200.1 TEL | (proxy checking local liveness)
+ 200.2  32 | 2020-06-18T11:55:10+0000 [Poll#info] Checkpoint
+ 209.6  42 | c : DNS request from ('127.0.0.1', 38690) to None: 47 bytes
+ 209.6  32 | 2020-06-18T11:55:20+0000 [stdout#info] A query: b'cdn.optimizely.com'
+ 209.7  32 | 2020-06-18T11:55:20+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['172.224.90.189']
+ 215.6  42 | c : DNS request from ('127.0.0.1', 53126) to None: 54 bytes
+ 215.6  32 | 2020-06-18T11:55:26+0000 [stdout#info] A query: b'ft.coral.coralproject.net'
+ 215.7  32 | 2020-06-18T11:55:26+0000 [stdout#info] Result for b'ft.coral.coralproject.net' is ['34.98.71.145']
+ 222.0 TEL | [58] Running: sudo -n echo -n
+ 222.0 TEL | [58] ran in 0.01 secs.
+ 226.0 >>> | Keyboard interrupt (Ctrl-C/Ctrl-Break) pressed
+ 226.0 >>> | Exit cleanup in progress
+ 226.0 TEL | (Cleanup) Terminate local process
+ 226.0 TEL | Killing local process...
+ 226.0  42 | >> iptables -t nat -D OUTPUT -j sshuttle-12300
+ 226.0  42 | >> iptables -t nat -D PREROUTING -j sshuttle-12300
+ 226.0  42 | >> iptables -t nat -F sshuttle-12300
+ 226.0  42 | >> iptables -t nat -X sshuttle-12300
+ 226.0 TEL | Main process (./authorization-service)
+ 226.0 TEL |  exited with code -2.
+ 226.0 TEL | (Cleanup) Kill BG process [42] sshuttle
+ 226.0 TEL | (Cleanup) Unmount remote filesystem
+ 226.0 TEL | [59] Running: fusermount -z -u /tmp/tel-biew7t5i/fs
+ 226.0  59 | fusermount: entry for /tmp/tel-biew7t5i/fs not found in /etc/mtab
+ 226.0 TEL | [59] exit 1 in 0.01 secs.
+ 226.0 TEL | (Cleanup) Unmount remote filesystem failed:
+ 226.0 TEL | (Cleanup)   Command '['fusermount', '-z', '-u', '/tmp/tel-biew7t5i/fs']' returned non-zero exit status 1.
+ 226.0 TEL | (Cleanup) Kill BG process [37] SSH port forward (socks and proxy poll)
+ 226.0 TEL | [37] SSH port forward (socks and proxy poll): exit 0
+ 226.0 TEL | (Cleanup) Kill Web server for proxy poll
+ 226.0 TEL | [42] sshuttle: exit -15
+ 226.2 TEL | (Cleanup) Kill BG process [36] SSH port forward (exposed ports)
+ 226.2 TEL | [36] SSH port forward (exposed ports): exit 0
+ 226.2 TEL | (Cleanup) Kill BG process [33] kubectl port-forward
+ 226.2 TEL | [33] kubectl port-forward: exit -15
+ 226.2 TEL | (Cleanup) Kill BG process [32] kubectl logs
+ 226.2 TEL | [32] kubectl logs: exit -15
+ 226.2 TEL | Background process (kubectl logs) exited with return code -15. Command was:
+ 226.2 TEL |   kubectl --context kubernetes-admin@kubernetes --namespace default logs -f authorization-ser-62618f14114440e08b8fe6bc8b107dbb-54f8f9dsvflv --container authorization-service --tail=10
+ 226.2 TEL | 
+ 226.2 TEL | Recent output was:
+ 226.2 TEL |   2020-06-18T11:54:40+0000 [Poll#info] Checkpoint
+ 226.2 TEL |   2020-06-18T11:54:44+0000 [stdout#info] A query: b'signaler-pa.clients6.google.com'
+ 226.2 TEL |   2020-06-18T11:54:44+0000 [stdout#info] Result for b'signaler-pa.clients6.google.com' is ['216.58.210.42']
+ 226.2 TEL |   2020-06-18T11:54:48+0000 [stdout#info] A query: b'classroom.google.com'
+ 226.2 TEL |   2020-06-18T11:54:48+0000 [stdout#info] Result for b'classroom.google.com' is ['216.58.210.46']
+ 226.2 TEL |   2020-06-18T11:55:10+0000 [Poll#info] Checkpoint
+ 226.2 TEL |   2020-06-18T11:55:20+0000 [stdout#info] A query: b'cdn.optimizely.com'
+ 226.2 TEL |   2020-06-18T11:55:20+0000 [stdout#info] Result for b'cdn.optimizely.com' is ['172.224.90.189']
+ 226.2 TEL |   2020-06-18T11:55:26+0000 [stdout#info] A query: b'ft.coral.coralproject.net'
+ 226.2 TEL |   2020-06-18T11:55:26+0000 [stdout#info] Result for b'ft.coral.coralproject.net' is ['34.98.71.145']
+ 226.2 TEL | (Cleanup) Re-scale original deployment
+ 226.2 TEL | [60] Running: kubectl --context kubernetes-admin@kubernetes --namespace default scale deployment authorization-service --replicas=1
+ 226.3  60 | deployment.apps/authorization-service scaled
+ 226.3 TEL | [60] ran in 0.11 secs.
+ 226.3 TEL | (Cleanup) Delete new deployment
+ 226.3 >>> | Swapping Deployment authorization-service back to its original state
+ 226.3 TEL | [61] Running: kubectl --context kubernetes-admin@kubernetes --namespace default delete deployment authorization-ser-62618f14114440e08b8fe6bc8b107dbb
+ 226.5  61 | deployment.apps "authorization-ser-62618f14114440e08b8fe6bc8b107dbb" deleted
+ 226.6 TEL | [61] ran in 0.27 secs.
+ 226.6 TEL | (Cleanup) Kill sudo privileges holder
+ 226.6 TEL | (Cleanup) Stop time tracking
+ 226.6 TEL | END SPAN main.py:40(main)  226.6s
+ 226.6 TEL | (Cleanup) Remove temporary directory
+ 226.6 TEL | (Cleanup) Save caches
+ 227.0 TEL | (sudo privileges holder thread exiting)

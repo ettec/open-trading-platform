@@ -21,9 +21,9 @@ files:
               stat_prefix: ingress_http
               stream_idle_timeout: 0s
               route_config:
-                name: local_route
+                name: grpc_routes
                 virtual_hosts:
-                - name: local_service
+                - name: grpc_local_service
                   domains: ["*"]
                   routes:
                   - match: { prefix: "/loginservice.LoginService" }
@@ -54,6 +54,14 @@ files:
                     route:
                       cluster: client-config-service-cluster
                       max_grpc_timeout: 0s
+                  - match: { prefix: "/" }
+                    route:
+                      cluster: opentp-client-cluster         
+                    per_filter_config:
+                      envoy.ext_authz:
+                        disabled: true
+                      envoy.grpc_web:
+                        disabled: true      
                   cors:
                     allow_origin:
                     - "*"
@@ -71,7 +79,12 @@ files:
                     timeout: 0.5s              
               - name: envoy.grpc_web
               - name: envoy.router
-      clusters:
+      clusters:      
+      - name: opentp-client-cluster
+        connect_timeout: 0.25s
+        type: logical_dns
+        lb_policy: round_robin
+        hosts: [{ socket_address: { address: opentp-client, port_value: 80 }}]  
       - name: authorization-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
