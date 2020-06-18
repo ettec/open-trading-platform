@@ -19,6 +19,7 @@ import '../TableView/TableCommon.css';
 import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewState, TableViewProperties } from '../TableView/TableView';
 import OrderBlotter from './OrderBlotter';
 import { OrderView } from './OrderView';
+import { SSL_OP_NO_TLSv1_1 } from 'constants';
 
 
 interface ParentOrderBlotterState extends TableViewState {
@@ -131,6 +132,13 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
         orderView = new OrderView(order)
         newOrders[idx] = orderView
       }
+
+      newOrders.sort((o1,o2)=>{
+        if( o1.created && o2.created) {
+          return o1.created.getTime() - o2.created.getTime()
+        }
+        return 0
+      })
 
       let blotterState: TableViewState = {
         ...this.state, ...{
