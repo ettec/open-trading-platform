@@ -26,10 +26,6 @@ export interface GrcpContextData {
     grpcMetaData: Metadata
 }
 
-
-const serverUrl = 'http://192.168.1.100:32365'
-
-
 export default class Login extends React.Component<Props, State> {
 
     static grpcContext : GrcpContextData
@@ -41,14 +37,23 @@ export default class Login extends React.Component<Props, State> {
 
     username: string
     password: string
+    serverUrl : string
 
-
-    
-
-    loginServiceClient = new LoginServiceClient(serverUrl, null, null)
+    loginServiceClient : LoginServiceClient
 
     constructor(props: Props) {
         super(props)
+
+
+        this.serverUrl = window.location.href
+
+        if (this.serverUrl.endsWith("/")) {
+            this.serverUrl = this.serverUrl.substr(0, this.serverUrl.length-1)
+        }
+
+        console.log("Connecting to services at:" + this.serverUrl)
+
+        this.loginServiceClient = new LoginServiceClient(this.serverUrl, null, null)
 
         this.appInstanceId = v4();
 
@@ -99,7 +104,7 @@ export default class Login extends React.Component<Props, State> {
                 Login.desk = response.getDesk()
                 Login.username = this.username
                 Login.grpcContext = {
-                    serviceUrl : serverUrl, 
+                    serviceUrl : this.serverUrl, 
                     grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId, "auth-token" : response.getToken()},
                     appInstanceId : this.username + "@" + this.appInstanceId
                 }
@@ -129,7 +134,7 @@ export default class Login extends React.Component<Props, State> {
         if( this.state.loggedIn ) {
             
             return (
-                <GrpcContextProvider serviceUrl={serverUrl} username={Login.username} appInstanceId={this.appInstanceId} >
+                <GrpcContextProvider serviceUrl={this.serverUrl} username={Login.username} appInstanceId={this.appInstanceId} >
                     <Container ></Container>
                 </GrpcContextProvider>
             )
