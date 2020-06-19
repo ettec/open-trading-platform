@@ -65,7 +65,7 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 		}
 
 	} else {
-		return fmt.Errorf("subscription to orders already exists for app instance id %v", appInstanceId)
+		return fmt.Errorf("subscription to orders already exists for application instance id %v", appInstanceId)
 	}
 
 	return nil

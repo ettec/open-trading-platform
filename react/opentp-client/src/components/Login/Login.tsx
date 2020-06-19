@@ -51,6 +51,10 @@ export default class Login extends React.Component<Props, State> {
             this.serverUrl = this.serverUrl.substr(0, this.serverUrl.length-1)
         }
 
+        if (this.serverUrl.endsWith("localhost:3000")) {
+               this.serverUrl = "http://192.168.1.100:32365" // for local dev, change this to point at your otp services cluster
+        }
+
         console.log("Connecting to services at:" + this.serverUrl)
 
         this.loginServiceClient = new LoginServiceClient(this.serverUrl, null, null)
@@ -101,11 +105,16 @@ export default class Login extends React.Component<Props, State> {
             if( err )     {
                 window.alert("Failed to login: "+ err.message)
             } else {
+                var deadline = new Date();
+                deadline.setSeconds(deadline.getSeconds() + 86400);
+
+
                 Login.desk = response.getDesk()
                 Login.username = this.username
                 Login.grpcContext = {
                     serviceUrl : this.serverUrl, 
-                    grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId, "auth-token" : response.getToken()},
+                    grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId, "auth-token" : response.getToken(),
+                "deadline" : deadline.getTime().toString()},
                     appInstanceId : this.username + "@" + this.appInstanceId
                 }
                 this.setState({loggedIn:true})

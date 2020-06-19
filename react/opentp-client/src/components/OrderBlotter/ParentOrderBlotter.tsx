@@ -150,6 +150,7 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
 
       this.setState(blotterState);
+      this.setState(blotterState);
 
       if (!orderView.listing) {
         this.listingService.GetListing(order.getListingid(), (listing: Listing) => {
