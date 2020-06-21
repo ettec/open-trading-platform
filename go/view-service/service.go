@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/common"
 	"github.com/ettec/open-trading-platform/go/model"
@@ -89,8 +90,7 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 		select {
 		case oat, ok := <-out:
 			if !ok {
-				close(out)
-				return nil
+				return errors.New("inbound channel closed")
 			}
 
 			if conflatingInitialOrderState {
@@ -108,7 +108,7 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 				conflatingInitialOrderState = conflatingOrders(startTime, lastReceivedOrder, lastReceivedTime)
 
 				if !conflatingInitialOrderState {
-					err := sendConflatedOrders(out, send, conflatedOrders)
+					err := sendConflatedOrders(send, conflatedOrders)
 					if err != nil {
 						return err
 					}
@@ -119,14 +119,13 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 
 			err := send(oat.order)
 			if err != nil {
-				close(out)
 				return fmt.Errorf("failed to send order, closing connection, error:%v", err)
 			}
 		case <-tickerChan:
 			conflatingInitialOrderState = conflatingOrders(startTime, lastReceivedOrder, lastReceivedTime)
 			if !conflatingInitialOrderState {
 				ticker.Stop()
-				err := sendConflatedOrders(out, send, conflatedOrders)
+				err := sendConflatedOrders(send, conflatedOrders)
 				if err != nil {
 					return err
 				}
@@ -136,11 +135,10 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 
 }
 
-func sendConflatedOrders(out chan orderAndWriteTime, send func(*model.Order) error, conflatedOrders map[string]*model.Order) error {
+func sendConflatedOrders(send func(*model.Order) error, conflatedOrders map[string]*model.Order) error {
 	for id, order := range conflatedOrders {
 		err := send(order)
 		if err != nil {
-			close(out)
 			return fmt.Errorf("failed to send order, closing connection, error:%v", err)
 		}
 		delete(conflatedOrders, id)
@@ -247,6 +245,7 @@ func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId s
 		err = proto.Unmarshal(value, order)
 		if err != nil {
 			logTopicReadError(appInstanceId, topic, err)
+			close(out)
 			return
 		}
 
