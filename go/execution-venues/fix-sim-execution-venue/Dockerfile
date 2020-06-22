@@ -1,4 +1,13 @@
-FROM ubuntu:19.10
-ADD fix-sim-execution-venue /
-COPY resources /resources
-CMD /fix-sim-execution-venue
+FROM golang:1.13
+
+RUN mkdir /app
+
+ADD . /app
+
+WORKDIR /app
+
+RUN go build
+RUN go test ./...
+
+
+CMD /app/fix-sim-execution-venue
