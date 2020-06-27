@@ -2,11 +2,11 @@ package fixgateway
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordergateway"
+	"github.com/ettec/otp-evcommon/ordergateway"
 	"github.com/quickfixgo/quickfix/fix40/ordercancelreject"
 	"github.com/quickfixgo/quickfix/fix50sp1/ordercancelreplacerequest"
 
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-model"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"

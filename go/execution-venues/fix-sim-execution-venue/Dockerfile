@@ -1,10 +1,14 @@
 FROM golang:1.13
 
-RUN mkdir /app
+RUN mkdir /common
 
-ADD . /app
+ADD ../../common/. common
 
-WORKDIR /app
+RUN mkdir /execution-venues/fix-sim-execution-venue
+
+ADD . /execution-venues/fix-sim-execution-venue
+
+WORKDIR /execution-venues/fix-sim-execution-venue
 
 RUN go build
 RUN go test ./...

@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-	"github.com/ettec/open-trading-platform/go/common/orderstore"
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/executionvenue"
+	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/orderstore"
+	"github.com/ettec/otp-evcommon/executionvenue"
 
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/otp-common/bootstrap"
 
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
-	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordermanager"
+	"github.com/ettec/otp-evcommon/ordercache"
+	"github.com/ettec/otp-evcommon/ordermanager"
 
 	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/fixgateway"
 
