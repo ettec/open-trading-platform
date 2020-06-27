@@ -30,6 +30,8 @@ func Test_toFixDecimal(t *testing.T) {
 		{name: "basic", args: args{d: model.Decimal64{Mantissa: -1936, Exponent: 2}}, want: "-193600"},
 		{name: "basic", args: args{d: model.Decimal64{Mantissa: 193600, Exponent: -1}}, want: "19360.0"},
 	}
+	t.FailNow()
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := toFixString(tt.args.d)
