@@ -4,7 +4,7 @@ ADD . /app
 
 WORKDIR /app
 
-RUN go build
+RUN go build -o service
 RUN go test ./...
 
-CMD /app/fix-sim-execution-venue
+CMD /app/service
