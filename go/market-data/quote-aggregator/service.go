@@ -7,7 +7,6 @@ import (
 	marketdata "github.com/ettec/otp-mdcommon"
 	"github.com/ettec/otp-mdcommon/quotestream"
 
-
 	"github.com/ettec/open-trading-platform/go/market-data/quote-aggregator/quoteaggregator"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
