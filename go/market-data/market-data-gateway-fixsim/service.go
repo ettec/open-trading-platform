@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/otp-common/api/marketdatasource"
+	"github.com/ettec/otp-common/bootstrap"
 
-	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
-	md "github.com/ettech/open-trading-platform/go/market-data/market-data-common"
-	"github.com/ettech/open-trading-platform/go/market-data/market-data-common/source"
+	"github.com/ettec/otp-common/staticdata"
+	md "github.com/ettec/otp-mdcommon"
+	"github.com/ettec/otp-mdcommon/source"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

@@ -2,7 +2,7 @@ package marketdata
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-model"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"log"

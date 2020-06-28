@@ -2,8 +2,8 @@ package internal
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-model"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"

@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/bootstrap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"k8s.io/apimachinery/pkg/types"

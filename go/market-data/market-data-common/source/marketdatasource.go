@@ -3,9 +3,9 @@ package source
 import (
 	"fmt"
 	"github.com/emicklei/go-restful/log"
-	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/model"
-	marketdata "github.com/ettech/open-trading-platform/go/market-data/market-data-common"
+	"github.com/ettec/otp-common/api/marketdatasource"
+	marketdata "github.com/ettec/otp-mdcommon"
+	"github.com/ettec/otp-model"
 	"github.com/google/uuid"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"

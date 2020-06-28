@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
-	"github.com/ettec/open-trading-platform/go/common/k8s"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-common/bootstrap"
+	"github.com/ettec/otp-common/k8s"
+	"github.com/ettec/otp-model"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/marketdatasource"
 	"github.com/prometheus/client_golang/prometheus"

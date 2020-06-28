@@ -3,10 +3,10 @@ package quoteaggregator
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettech/open-trading-platform/go/market-data/market-data-common/quotestream"
+	"github.com/ettec/otp-common/api/marketdatasource"
+	"github.com/ettec/otp-mdcommon/quotestream"
 
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/metadata"

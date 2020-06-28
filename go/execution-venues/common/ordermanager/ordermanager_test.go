@@ -1,9 +1,9 @@
 package ordermanager
 
 import (
-	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordercache"
-	"github.com/ettec/open-trading-platform/go/model"
+	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-model"
 	"github.com/golang/protobuf/proto"
 	"os"
 	"testing"

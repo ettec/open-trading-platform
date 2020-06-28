@@ -3,9 +3,9 @@ package executionvenue
 import (
 	"context"
 	"fmt"
-	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
 	"github.com/ettec/open-trading-platform/go/execution-venues/common/ordermanager"
-	"github.com/ettec/open-trading-platform/go/model"
+	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-model"
 	"log"
 )
 

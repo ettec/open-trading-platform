@@ -7,7 +7,7 @@ import (
 	"github.com/envoyproxy/go-control-plane/envoy/api/v2/core"
 	auth "github.com/envoyproxy/go-control-plane/envoy/service/auth/v2"
 	envoytype "github.com/envoyproxy/go-control-plane/envoy/type"
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettech/open-trading-platform/go/authorization-service/api/loginservice"
 	rpc "github.com/gogo/googleapis/google/rpc"
 	"github.com/google/uuid"

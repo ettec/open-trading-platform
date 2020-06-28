@@ -2,8 +2,8 @@ package quotestream
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-common/api/marketdatasource"
+	"github.com/ettec/otp-model"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"time"

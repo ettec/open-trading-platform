@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/common"
-	api "github.com/ettec/open-trading-platform/go/common/api/executionvenue"
-	"github.com/ettec/open-trading-platform/go/common/k8s"
-	"github.com/ettec/open-trading-platform/go/common/orderstore"
-	"github.com/ettec/open-trading-platform/go/common/staticdata"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-common"
+	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/k8s"
+	"github.com/ettec/otp-common/orderstore"
+	"github.com/ettec/otp-common/staticdata"
+	"github.com/ettec/otp-model"
 	"github.com/ettech/open-trading-platform/go/order-monitor/api/ordermonitor"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -20,7 +20,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
+	"github.com/ettec/otp-common/bootstrap"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

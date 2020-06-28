@@ -6,7 +6,7 @@ package model
 import (
 	context "context"
 	fmt "fmt"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

@@ -1,7 +1,7 @@
 package ordergateway
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-model"
 )
 
 type OrderGateway interface {

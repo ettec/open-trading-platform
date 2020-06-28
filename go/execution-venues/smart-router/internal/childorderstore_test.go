@@ -2,7 +2,7 @@ package internal
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-model"
 	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
 	"testing"

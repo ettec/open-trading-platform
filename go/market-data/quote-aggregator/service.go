@@ -1,15 +1,15 @@
 package main
 
 import (
-	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/common/bootstrap"
-	"github.com/ettec/open-trading-platform/go/common/k8s"
-	marketdata "github.com/ettech/open-trading-platform/go/market-data/market-data-common"
-	"github.com/ettech/open-trading-platform/go/market-data/market-data-common/quotestream"
-	"github.com/ettech/open-trading-platform/go/market-data/market-data-common/source"
+	"github.com/ettec/otp-common/api/marketdatasource"
+	"github.com/ettec/otp-common/bootstrap"
+	"github.com/ettec/otp-common/k8s"
+	marketdata "github.com/ettec/otp-mdcommon"
+	"github.com/ettec/otp-mdcommon/quotestream"
+	"github.com/ettec/otp-mdcommon/source"
 
-	"github.com/ettec/open-trading-platform/go/common/staticdata"
 	"github.com/ettec/open-trading-platform/go/market-data/quote-aggregator/quoteaggregator"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

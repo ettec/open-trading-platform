@@ -3,8 +3,8 @@ package quotestream
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/common/api/marketdatasource"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-common/api/marketdatasource"
+	"github.com/ettec/otp-model"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"

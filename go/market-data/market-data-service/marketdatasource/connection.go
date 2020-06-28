@@ -1,9 +1,9 @@
 package marketdatasource
 
 import (
-	"github.com/ettec/open-trading-platform/go/model"
-	marketdata "github.com/ettech/open-trading-platform/go/market-data/market-data-common"
-	"github.com/ettech/open-trading-platform/go/market-data/market-data-common/quotestream"
+	marketdata "github.com/ettec/otp-mdcommon"
+	"github.com/ettec/otp-mdcommon/quotestream"
+	"github.com/ettec/otp-model"
 	"log"
 	"sync"
 	"time"

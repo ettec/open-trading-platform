@@ -1,8 +1,8 @@
 package ordercache
 
 import (
-	"github.com/ettec/open-trading-platform/go/common/orderstore"
-	"github.com/ettec/open-trading-platform/go/model"
+	"github.com/ettec/otp-common/orderstore"
+	"github.com/ettec/otp-model"
 )
 
 type OrderCache struct {

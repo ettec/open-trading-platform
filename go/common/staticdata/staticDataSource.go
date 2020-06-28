@@ -3,8 +3,8 @@ package staticdata
 import (
 	"context"
 	"fmt"
-	services "github.com/ettec/open-trading-platform/go/common/api/staticdataservice"
-	"github.com/ettec/open-trading-platform/go/model"
+	services "github.com/ettec/otp-common/api/staticdataservice"
+	"github.com/ettec/otp-model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/connectivity"
