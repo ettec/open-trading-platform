@@ -9,7 +9,6 @@ import (
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
 	"github.com/ettec/otp-common/staticdata"
 	md "github.com/ettec/otp-mdcommon"
-	"github.com/ettec/otp-mdcommon/source"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -45,7 +44,7 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 
 	qd := md.NewQuoteDistributor(fixSimConn, 100)
 
-	s := source.NewMarketDataSource(qd)
+	s := md.NewMarketDataSource(qd)
 
 	return s, nil
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/ettec/otp-common/k8s"
 	marketdata "github.com/ettec/otp-mdcommon"
 	"github.com/ettec/otp-mdcommon/quotestream"
-	"github.com/ettec/otp-mdcommon/source"
+
 
 	"github.com/ettec/open-trading-platform/go/market-data/quote-aggregator/quoteaggregator"
 	"github.com/ettec/otp-common/staticdata"
@@ -106,7 +106,7 @@ func main() {
 	quoteAggregator := quoteaggregator.New(id, sds.GetListingsWithSameInstrument,
 		micToMdsAddress, 1000, mdcFn)
 
-	mdSource := source.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, 1000))
+	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, 1000))
 
 	port := "50551"
 	log.Println("Starting Market Data Service on port:" + port)
