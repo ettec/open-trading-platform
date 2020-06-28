@@ -70,6 +70,7 @@ func main() {
 
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
+	fmt.Println("V1")
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
