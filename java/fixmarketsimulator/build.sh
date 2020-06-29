@@ -1,6 +1,5 @@
 #!/bin/bash
 
-mvn assembly::assembly
 COMPNAME=$(basename "$PWD")
 LATESTVERSION=$(docker image ls | grep $COMPNAME | head -1 | awk '{print $2}')
 LATESTVERSIONIMAGE=$(docker image ls | grep $COMPNAME | head -1 | awk '{print $3}')

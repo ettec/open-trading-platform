@@ -1,7 +1,16 @@
+FROM maven:3.6.3-openjdk-11 AS MAVEN_BUILD
 
-FROM openjdk:latest
+COPY ./ ./
 
-ADD target/fixmarketsimulator-1.0-SNAPSHOT-bin.tar.gz /usr/src
+RUN mvn clean
+RUN mvn assembly::assembly
+
+FROM openjdk:14-jdk
+
+
 ADD swagger /swagger
 
-CMD java -cp "/usr/src/fixmarketsimulator-1.0-SNAPSHOT/lib/*" com.ettech.fixmarketsimulator.App
+COPY --from=MAVEN_BUILD target/fixmarketsimulator-1.0-bin.tar.gz /usr/src
+RUN cd /usr/src && tar -xzf fixmarketsimulator-1.0-bin.tar.gz && rm fixmarketsimulator-1.0-bin.tar.gz
+
+CMD java -cp "/usr/src/fixmarketsimulator-1.0/lib/*" com.ettech.fixmarketsimulator.App
