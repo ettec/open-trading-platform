@@ -23,12 +23,12 @@ import (
 )
 
 var connections = promauto.NewGauge(prometheus.GaugeOpts{
-	Name: "active_connections",
-	Help: "The number of active connections",
+	Name: "mds_active_connections",
+	Help: "The number of active connections to the mds",
 })
 
 var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
-	Name: "quotes_sent",
+	Name: "mds_quotes_sent",
 	Help: "The number of quotes sent across all clients",
 })
 
