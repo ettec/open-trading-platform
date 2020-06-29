@@ -252,13 +252,13 @@ func TestOrderManagerCancel(t *testing.T) {
 
 	cp1 := <-testExecVenue.cancelParamsChan
 
-	if cp1.OrderId != child1Id &&  cp1.OrderId != child2Id{
+	if cp1.OrderId != child1Id && cp1.OrderId != child2Id {
 		t.FailNow()
 	}
 
 	cp2 := <-testExecVenue.cancelParamsChan
 
-	if cp2.OrderId != child2Id && cp1.OrderId != child2Id{
+	if cp2.OrderId != child2Id && cp1.OrderId != child2Id {
 		t.FailNow()
 	}
 

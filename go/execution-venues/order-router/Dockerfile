@@ -1,4 +1,10 @@
-FROM ubuntu:19.10
-ADD order-router /
-COPY resources /resources
-CMD /order-router
+FROM golang:1.13
+
+ADD . /app
+
+WORKDIR /app
+
+RUN go build -o service
+RUN go test ./...
+
+CMD /app/service

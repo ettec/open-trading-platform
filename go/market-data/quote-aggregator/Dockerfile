@@ -1,4 +1,10 @@
-FROM ubuntu:19.10
-ADD quote-aggregator /
-COPY resources /resources
-CMD /quote-aggregator
+FROM golang:1.13
+
+ADD . /app
+
+WORKDIR /app
+
+RUN go build -o service
+RUN go test ./...
+
+CMD /app/service
