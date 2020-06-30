@@ -4,6 +4,7 @@ WORKDIR /app
 COPY . ./
 RUN yarn
 RUN yarn test
+ARG CI=false
 RUN yarn build
 
 FROM nginx:1.17
