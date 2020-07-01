@@ -1,0 +1,49 @@
+
+
+microk8s.enable dns storage 
+microk8s.enable  helm3
+
+
+microk8s.kubectl create ns kafka
+
+helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+
+microk8s.helm3 install otp-kafka --namespace kafka incubator/kafka
+
+isntall test client:
+
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    name: testclient
+    namespace: kafka
+  spec:
+    containers:
+    - name: kafka
+      image: confluentinc/cp-kafka:5.0.1
+      command:
+        - sh
+        - -c
+        - "exec tail -f /dev/null"
+
+
+
+kafka-topics --zookeeper otp-kafka-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
+
+
+
+Postgres:
+
+microk8s.helm3 install opentp --namespace postgresql bitnami/postgresql
+
+export POSTGRES_PASSWORD=$(microk8s.kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+
+microk8s.kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image ettec/opentp-dbclient:latest --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
+
+
+
+
+
+
+
+
