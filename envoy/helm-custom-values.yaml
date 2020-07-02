@@ -84,54 +84,54 @@ files:
         connect_timeout: 0.25s
         type: logical_dns
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: opentp-client, port_value: 80 }}]  
+        hosts: [{ socket_address: { address: opentp-client.default, port_value: 80 }}]  
       - name: authorization-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: authorization-service, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: authorization-service.default, port_value: 50551 }}]
       - name: market-data-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: market-data-service, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: market-data-service.default, port_value: 50551 }}]
       - name: view-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: view-service, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: view-service.default, port_value: 50551 }}]
       - name: order-router-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: order-router, port_value: 50581 }}]
+        hosts: [{ socket_address: { address: order-router.default, port_value: 50581 }}]
       - name: static-data-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: static-data-service, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: static-data-service.default, port_value: 50551 }}]
       - name: order-monitor-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: order-monitor, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: order-monitor.default, port_value: 50551 }}]
       - name: client-config-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: client-config-service, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: client-config-service.default, port_value: 50551 }}]
       - name: ext-authz
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: authorization-service, port_value: 4000 }}]
+        hosts: [{ socket_address: { address: authorization-service.default, port_value: 4000 }}]
 service:
   type: NodePort
