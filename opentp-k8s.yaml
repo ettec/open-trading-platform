@@ -3,6 +3,30 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
+    creationTimestamp: "2019-12-11T13:45:53Z"
+    labels:
+      app: market-data-service
+    name: market-data-service
+    namespace: default
+    resourceVersion: "472253"
+    selfLink: /api/v1/namespaces/default/services/market-data-service
+    uid: 0c6d5617-9658-452f-b864-ca24b17376f0
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 31514
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: market-data-service
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
     creationTimestamp: "2020-06-05T12:26:18Z"
     labels:
       app: authorization-service

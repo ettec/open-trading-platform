@@ -8,7 +8,7 @@ microk8s.kubectl create ns kafka
 
 helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 
-microk8s.helm3 install otp-kafka --namespace kafka incubator/kafka
+microk8s.helm3 install kafka-opentp --namespace kafka incubator/kafka
 
 isntall test client:
 
@@ -28,7 +28,8 @@ isntall test client:
 
 
 
-kafka-topics --zookeeper otp-kafka-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
+microk8s.kubectl exec -it --namespace=kafka testclient -- /bin/bash
+kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
 
 
 
@@ -47,6 +48,10 @@ Envoy:
 microk8s.kubectl create ns envoy
 
 microk8s.helm3 install opentp-envoy --namespace=envoy stable/envoy -f helm-custom-values.yaml
+
+Opentp app:
+
+microk8s.kubectl apply -f opentp-k8s.yaml
 
 
 
