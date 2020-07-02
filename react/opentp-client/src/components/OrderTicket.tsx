@@ -291,17 +291,18 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
 
 
-    let state: OrderTicketState = {
-      ...this.state, ...{
+    let state: OrderTicketState = 
+      {
         side: order.getSide(),
         isOpen: true,
         listing: newListing,
         price: price,
         quantity: quantity,
         quote: existingQuote,
-        orderToModify: order
+        orderToModify: order,
+        usePortal: true
       }
-    }
+    
 
     this.setState(state)
 
@@ -335,14 +336,15 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
     let state: OrderTicketState = {
-      ...this.state, ...{
         side: newSide,
         isOpen: true,
         listing: newListing,
         price: defaultPrice,
         quantity: defaultQuantity,
-        quote: existingQuote
-      }
+        quote: existingQuote,
+        usePortal: true,
+        orderToModify: null
+      
     }
 
     this.setState(state)
@@ -357,12 +359,6 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     this.setState({
       ...this.state, ...{
         isOpen: false,
-        defaultPrice: undefined,
-        defaultQuantity: undefined,
-        price: 0,
-        quantity: 0,
-        listing: undefined,
-        quote: undefined
       }
     })
 
