@@ -1,14 +1,10 @@
 
 
-microk8s.enable dns storage 
-microk8s.enable  helm3
-
-
-microk8s.kubectl create ns kafka
+kubectl create ns kafka
 
 helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 
-microk8s.helm3 install kafka-opentp --namespace kafka incubator/kafka
+helm install kafka-opentp --namespace kafka incubator/kafka
 
 isntall test client:
 
@@ -28,30 +24,31 @@ isntall test client:
 
 
 
-microk8s.kubectl exec -it --namespace=kafka testclient -- /bin/bash
+kubectl exec -it --namespace=kafka testclient -- /bin/bash
 kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
 
 
 
 Postgres:
 
-microk8s.kubectl create ns postgresql
+kubectl create ns postgresql
 
-microk8s.helm3 install opentp --namespace postgresql bitnami/postgresql
+helm install opentp --namespace postgresql bitnami/postgresql --set-file pgHbaConfiguration=./projects/pb_hba_no_sec.conf
 
-export POSTGRES_PASSWORD=$(microk8s.kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
-microk8s.kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image ettec/opentp-dbclient:latest --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+
+kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image ettec/opentp-dbclient:latest --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
 
 Envoy:
 
-microk8s.kubectl create ns envoy
+kubectl create ns envoy
 
-microk8s.helm3 install opentp-envoy --namespace=envoy stable/envoy -f helm-custom-values.yaml
+helm install opentp-envoy --namespace=envoy stable/envoy -f helm-custom-values.yaml
 
 Opentp app:
 
-microk8s.kubectl apply -f opentp-k8s.yaml
+kubectl apply -f opentp-k8s.yaml
 
 
 
