@@ -8,19 +8,7 @@ helm install kafka-opentp --namespace kafka incubator/kafka
 
 isntall test client:
 
-  apiVersion: v1
-  kind: Pod
-  metadata:
-    name: testclient
-    namespace: kafka
-  spec:
-    containers:
-    - name: kafka
-      image: confluentinc/cp-kafka:5.0.1
-      command:
-        - sh
-        - -c
-        - "exec tail -f /dev/null"
+kubectl apply -f kafka_test_client.yaml
 
 
 
