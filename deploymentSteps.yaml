@@ -1,5 +1,17 @@
 
 
+# Specific to microk8s
+snap install microk8s --classic
+
+microk8s enable dns storage helm3
+
+microk8s start
+
+alias kubectl=microk8s.kubectl
+alias helm=microk8s.helm3
+
+# K8s generic cmds  (works with kubeadm cluster/minikube)
+
 kubectl create ns kafka
 
 helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
@@ -11,8 +23,7 @@ isntall test client:
 kubectl apply -f kafka_test_client.yaml
 
 
-
-kubectl exec -it --namespace=kafka testclient -- /bin/bash
+kubectl exec -it --namespace=kafka testclient -- /bin/bash 
 kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
 
 
