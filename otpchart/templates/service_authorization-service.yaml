@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: authorization-service
+  name: authorization-service
+spec:
+  ports:
+  - name: auth
+    port: 4000
+    protocol: TCP
+    targetPort: 4000
+  - name: login
+    port: 50551
+    protocol: TCP
+    targetPort: 50551
+  selector:
+    app: authorization-service
+  sessionAffinity: None
+  type: ClusterIP
+

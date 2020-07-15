@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: static-data-service
+  name: static-data-service
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 50551
+    protocol: TCP
+    targetPort: 50551
+  selector:
+    app: static-data-service
+  sessionAffinity: None
+  type: NodePort
+

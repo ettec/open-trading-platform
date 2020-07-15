@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: order-router
+  name: order-router
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-router
+  template:
+    metadata:
+      labels:
+        app: order-router
+    spec:
+      containers:
+      - image: ettec/opentp:order-router-1.0.3
+        imagePullPolicy: Always
+        name: order-router
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: otpservice
+      serviceAccountName: otpservice
+

@@ -63,7 +63,7 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	subscriberId := request.GetSubscriberId()
 
-	log.Println("connect request received for subscriber ", subscriberId)
+	log.Println("connect request received for subscriber: ", subscriberId)
 
 	out := make(chan *model.ClobQuote, 100)
 
@@ -162,7 +162,7 @@ func main() {
 	}
 
 	port := "50551"
-	fmt.Println("starting Market Data Service on port:" + port)
+	fmt.Println("starting Market data service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xnassimulator
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: fixorderentry
+    port: 9876
+    protocol: TCP
+    targetPort: 9876
+  - name: swagger
+    port: 8501
+    protocol: TCP
+    targetPort: 8501
+  - name: marketdata
+    port: 50051
+    protocol: TCP
+    targetPort: 50051
+  - name: orderentry
+    port: 50061
+    protocol: TCP
+    targetPort: 50061
+  selector:
+    app: xnassimulator
+  sessionAffinity: None
+  type: NodePort
+

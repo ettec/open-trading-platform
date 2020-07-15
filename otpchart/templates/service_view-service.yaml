@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: view-service
+  name: view-service
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 50551
+    protocol: TCP
+    targetPort: 50551
+  selector:
+    app: view-service
+  sessionAffinity: None
+  type: NodePort
+

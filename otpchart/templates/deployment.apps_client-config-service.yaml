@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: client-config-service
+  name: client-config-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-config-service
+  template:
+    metadata:
+      labels:
+        app: client-config-service
+    spec:
+      containers:
+      - env:
+        - name: DB_CONN_STRING
+          value: host=opentp-postgresql.postgresql dbname=opentp sslmode=disable user=opentp
+            password=password
+        - name: DB_DRIVER_NAME
+          value: postgres
+        image: ettec/opentp:client-config-service-1.0.3
+        imagePullPolicy: Always
+        name: client-config-service
+

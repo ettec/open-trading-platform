@@ -1,0 +1,1829 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"ServiceAccount","metadata":{"annotations":{},"name":"otpservice","namespace":"default"}}
+    creationTimestamp: "2020-03-26T14:31:48Z"
+    name: otpservice
+    namespace: default
+    resourceVersion: "1193762"
+    selfLink: /api/v1/namespaces/default/serviceaccounts/otpservice
+    uid: ae0d5255-b07e-4e41-b150-cca47609ce9c
+  secrets:
+  - name: otpservice-token-nx6j8
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{},"name":"otpservice-view-clusterrolebinding"},"roleRef":{"apiGroup":"rbac.authorization.k8s.io","kind":"ClusterRole","name":"system:aggregate-to-view"},"subjects":    [{"apiGroup":"rbac.authorization.k8s.io","kind":"User","name":"otpservice"}]}
+    creationTimestamp: "2020-03-26T15:37:25Z"
+    name: otpservice-view-clusterrolebinding
+    resourceVersion: "1205980"
+    selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/otpservice-view-clusterrolebinding
+    uid: 98df94bf-deda-46d8-9417-b0c55d6cd26f
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:aggregate-to-view
+  subjects:
+  - kind: ServiceAccount
+    name: otpservice
+    namespace: default
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-12-11T13:45:53Z"
+    labels:
+      app: market-data-service
+    name: market-data-service
+    namespace: default
+    resourceVersion: "472253"
+    selfLink: /api/v1/namespaces/default/services/market-data-service
+    uid: 0c6d5617-9658-452f-b864-ca24b17376f0
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 31514
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: market-data-service
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-05T12:26:18Z"
+    labels:
+      app: authorization-service
+    name: authorization-service
+    namespace: default
+    resourceVersion: "2548683"
+    selfLink: /api/v1/namespaces/default/services/authorization-service
+    uid: a1783baf-fafb-4922-9052-cd953c4992bc
+  spec:
+    ports:
+    - name: auth
+      port: 4000
+      protocol: TCP
+      targetPort: 4000
+    - name: login
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: authorization-service
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-04T17:59:25Z"
+    labels:
+      app: client-config-service
+    name: client-config-service
+    namespace: default
+    resourceVersion: "2439331"
+    selfLink: /api/v1/namespaces/default/services/client-config-service
+    uid: ffe2cbf5-8434-43c8-8647-060711c9cd96
+  spec:
+    ports:
+    - port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: client-config-service
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2020-02-26T14:05:42Z","labels":{"app":"market-data-source","mic":"IEXG"},"name":"iexg-market-data-gateway","namespace":"default","resourceVersion":"1371037","selfLink":"/api/v1/namespaces/default/services/market-data-gateway","uid":"03db2746-43d4-4b67-a17b-1486e4267504"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"api","port":50551,"protocol":"TCP","targetPort":50551}],"selector":{"app":"iexg-market-data-gateway"},"sessionAffinity":"None","type":"NodePort"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-04-01T12:12:34Z"
+    labels:
+      app: market-data-source
+      mic: IEXG
+    name: iexg-market-data-gateway
+    namespace: default
+    resourceVersion: "1378683"
+    selfLink: /api/v1/namespaces/default/services/iexg-market-data-gateway
+    uid: e5ac9f27-1918-408a-be8c-396e1c511320
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: api
+      nodePort: 30603
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: iexg-market-data-gateway
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-03-31T13:23:30Z"
+    labels:
+      app: execution-venue
+      mic: IEXG
+    name: iexg-order-gateway
+    namespace: default
+    resourceVersion: "1346725"
+    selfLink: /api/v1/namespaces/default/services/iexg-order-gateway
+    uid: 01629999-e055-4ab6-875c-c1fc80d00b89
+  spec:
+    ports:
+    - name: api
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: execution-venue
+      mic: IEXG
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2019-11-04T18:26:41Z","name":"iexgsimulator","namespace":"default","resourceVersion":"982517","selfLink":"/api/v1/namespaces/default/services/fixmarketsimulator-deployment","uid":"13f7f4ed-6312-44f9-b4c6-a0df85d7e985"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"fixorderentry","port":9876,"protocol":"TCP","targetPort":9876},{"name":"swagger","port":8501,"protocol":"TCP","targetPort":8501},{"name":"marketdata","port":50051,"protocol":"TCP","targetPort":50051},{"name":"orderentry","port":50061,"protocol":"TCP","targetPort":50061}],"selector":{"app":"iexgsimulator"},"sessionAffinity":"None","type":"NodePort"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-03-28T13:03:03Z"
+    name: iexgsimulator
+    namespace: default
+    resourceVersion: "1284925"
+    selfLink: /api/v1/namespaces/default/services/iexgsimulator
+    uid: a2e9d76a-6930-4e11-9b75-0e9904ae73ff
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: fixorderentry
+      nodePort: 31705
+      port: 9876
+      protocol: TCP
+      targetPort: 9876
+    - name: swagger
+      nodePort: 31700
+      port: 8501
+      protocol: TCP
+      targetPort: 8501
+    - name: marketdata
+      nodePort: 30333
+      port: 50051
+      protocol: TCP
+      targetPort: 50051
+    - name: orderentry
+      nodePort: 31052
+      port: 50061
+      protocol: TCP
+      targetPort: 50061
+    selector:
+      app: iexgsimulator
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-18T11:20:39Z"
+    labels:
+      app: opentp-client
+    name: opentp-client
+    namespace: default
+    resourceVersion: "2935180"
+    selfLink: /api/v1/namespaces/default/services/opentp-client
+    uid: f4288664-d1e4-499e-88c2-6151ffc632c2
+  spec:
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: opentp-client
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-05-23T16:00:00Z"
+    labels:
+      app: order-monitor
+    name: order-monitor
+    namespace: default
+    resourceVersion: "2242197"
+    selfLink: /api/v1/namespaces/default/services/order-monitor
+    uid: 23660013-5081-4013-a825-f97da46f343b
+  spec:
+    ports:
+    - port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: order-monitor
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-03-26T16:27:24Z"
+    labels:
+      app: order-router
+    name: order-router
+    namespace: default
+    resourceVersion: "1584258"
+    selfLink: /api/v1/namespaces/default/services/order-router
+    uid: 59145c74-fb6b-46a2-9272-43ecfe1a9048
+  spec:
+    ports:
+    - name: api
+      port: 50581
+      protocol: TCP
+      targetPort: 50581
+    selector:
+      app: order-router
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-12-10T12:52:20Z"
+    labels:
+      app: static-data-service
+    name: static-data-service
+    namespace: default
+    resourceVersion: "430055"
+    selfLink: /api/v1/namespaces/default/services/static-data-service
+    uid: 5f3ab7b8-e7c2-40fe-9595-6ba64706f61b
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 31956
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: static-data-service
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-12-03T13:52:01Z"
+    labels:
+      app: view-service
+    name: view-service
+    namespace: default
+    resourceVersion: "342328"
+    selfLink: /api/v1/namespaces/default/services/view-service
+    uid: 6ccc66a2-9c75-4cc4-813e-2ec12bad97e5
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30871
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: view-service
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2020-02-26T14:05:42Z","labels":{"app":"market-data-source","mic":"XNAS"},"name":"xnas-market-data-gateway","namespace":"default","resourceVersion":"1371037","selfLink":"/api/v1/namespaces/default/services/market-data-gateway","uid":"03db2746-43d4-4b67-a17b-1486e4267504"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"api","port":50551,"protocol":"TCP","targetPort":50551}],"selector":{"app":"xnas-market-data-gateway"},"sessionAffinity":"None","type":"NodePort"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-04-01T12:51:17Z"
+    labels:
+      app: market-data-source
+      mic: XNAS
+    name: xnas-market-data-gateway
+    namespace: default
+    resourceVersion: "1384369"
+    selfLink: /api/v1/namespaces/default/services/xnas-market-data-gateway
+    uid: 9c642898-7e3f-47f8-9a72-fec878aba800
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: api
+      nodePort: 31961
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: xnas-market-data-gateway
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2020-03-31T13:23:30Z","labels":{"app":"execution-venue","mic":"XNAS"},"name":"xnas-order-gateway","namespace":"default","resourceVersion":"1346725","selfLink":"/api/v1/namespaces/default/services/xnas-order-gateway","uid":"01629999-e055-4ab6-875c-c1fc80d00b89"},"spec":{"ports":[{"name":"api","port":50551,"protocol":"TCP","targetPort":50551}],"selector":{"app":"execution-venue","mic":"XNAS"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-04-01T12:50:56Z"
+    labels:
+      app: execution-venue
+      mic: XNAS
+    name: xnas-order-gateway
+    namespace: default
+    resourceVersion: "1384296"
+    selfLink: /api/v1/namespaces/default/services/xnas-order-gateway
+    uid: 9d1d1c18-49c9-40ab-abaf-bc782ae0f9a2
+  spec:
+    ports:
+    - name: api
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: execution-venue
+      mic: XNAS
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2019-11-04T18:26:41Z","name":"xnassimulator","namespace":"default","resourceVersion":"982517","selfLink":"/api/v1/namespaces/default/services/fixmarketsimulator-deployment","uid":"13f7f4ed-6312-44f9-b4c6-a0df85d7e985"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"fixorderentry","port":9876,"protocol":"TCP","targetPort":9876},{"name":"swagger","port":8501,"protocol":"TCP","targetPort":8501},{"name":"marketdata","port":50051,"protocol":"TCP","targetPort":50051},{"name":"orderentry","port":50061,"protocol":"TCP","targetPort":50061}],"selector":{"app":"xnassimulator"},"sessionAffinity":"None","type":"NodePort"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-04-01T12:50:06Z"
+    name: xnassimulator
+    namespace: default
+    resourceVersion: "1384155"
+    selfLink: /api/v1/namespaces/default/services/xnassimulator
+    uid: 5ca7c561-48e1-49d1-a93b-12e3d63bf0c4
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: fixorderentry
+      nodePort: 32389
+      port: 9876
+      protocol: TCP
+      targetPort: 9876
+    - name: swagger
+      nodePort: 32076
+      port: 8501
+      protocol: TCP
+      targetPort: 8501
+    - name: marketdata
+      nodePort: 30468
+      port: 50051
+      protocol: TCP
+      targetPort: 50051
+    - name: orderentry
+      nodePort: 30413
+      port: 50061
+      protocol: TCP
+      targetPort: 50061
+    selector:
+      app: xnassimulator
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2020-02-26T14:05:42Z","labels":{"app":"market-data-source","mic":"XOSR"},"name":"xosr-market-data-gateway","namespace":"default","resourceVersion":"1371037","selfLink":"/api/v1/namespaces/default/services/market-data-gateway","uid":"03db2746-43d4-4b67-a17b-1486e4267504"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"api","port":50551,"protocol":"TCP","targetPort":50551}],"selector":{"app":"xosr-market-data-gateway"},"sessionAffinity":"None","type":"NodePort"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-04-06T16:37:34Z"
+    labels:
+      app: market-data-source
+      mic: XOSR
+    name: xosr-market-data-gateway
+    namespace: default
+    resourceVersion: "1424128"
+    selfLink: /api/v1/namespaces/default/services/xosr-market-data-gateway
+    uid: 254c7b03-d69c-4890-8cc0-3d991b4cf35d
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: api
+      nodePort: 30550
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: xosr-market-data-gateway
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2020-03-31T13:23:30Z","labels":{"app":"execution-venue","mic":"XOSR"},"name":"xosr-order-gateway","namespace":"default","resourceVersion":"1346725","selfLink":"/api/v1/namespaces/default/services/xosr-order-gateway","uid":"01629999-e055-4ab6-875c-c1fc80d00b89"},"spec":{"ports":[{"name":"api","port":50551,"protocol":"TCP","targetPort":50551}],"selector":{"app":"execution-venue","mic":"XOSR"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2020-05-01T12:56:07Z"
+    labels:
+      app: execution-venue
+      mic: XOSR
+    name: xosr-order-gateway
+    namespace: default
+    resourceVersion: "1584838"
+    selfLink: /api/v1/namespaces/default/services/xosr-order-gateway
+    uid: 187dbf60-0a51-4386-b241-1d5505f7e886
+  spec:
+    ports:
+    - name: api
+      port: 50551
+      protocol: TCP
+      targetPort: 50551
+    selector:
+      app: execution-venue
+      mic: XOSR
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  data:
+    KAFKA_BROKERS: kafka-opentp.kafka:9092
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: null
+    name: opentp
+    selfLink: /api/v1/namespaces/default/configmaps/opentp
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "28"
+    creationTimestamp: "2020-06-05T12:24:37Z"
+    generation: 34
+    labels:
+      app: authorization-service
+    name: authorization-service
+    namespace: default
+    resourceVersion: "3276825"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/authorization-service
+    uid: 2736f663-bc25-4bfd-8522-f94a741b35bb
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: authorization-service
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: authorization-service
+      spec:
+        containers:
+        - env:
+          - name: DB_CONN_STRING
+            value: host=opentp-postgresql.postgresql dbname=opentp sslmode=disable
+              user=opentp password=password
+          - name: DB_DRIVER_NAME
+            value: postgres
+          image: ettec/opentp:authorization-service-1.0.3
+          imagePullPolicy: Always
+          name: authorization-service
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-08T13:05:06Z"
+      lastUpdateTime: "2020-07-01T11:50:30Z"
+      message: ReplicaSet "authorization-service-74fbbbbbd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:35:08Z"
+      lastUpdateTime: "2020-07-02T09:35:08Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 34
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "8"
+    creationTimestamp: "2020-06-04T17:58:53Z"
+    generation: 14
+    labels:
+      app: client-config-service
+    name: client-config-service
+    namespace: default
+    resourceVersion: "3276708"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/client-config-service
+    uid: fb9dafda-8617-4d7f-82d2-6ad86f42d942
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: client-config-service
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: client-config-service
+      spec:
+        containers:
+        - env:
+          - name: DB_CONN_STRING
+            value: host=opentp-postgresql.postgresql dbname=opentp sslmode=disable
+              user=opentp password=password
+          - name: DB_DRIVER_NAME
+            value: postgres
+          image: ettec/opentp:client-config-service-1.0.3
+          imagePullPolicy: Always
+          name: client-config-service
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-04T17:58:53Z"
+      lastUpdateTime: "2020-07-01T11:52:46Z"
+      message: ReplicaSet "client-config-service-64d8d897df" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:42Z"
+      lastUpdateTime: "2020-07-02T09:34:42Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 14
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"11"},"creationTimestamp":"2020-03-16T17:14:54Z","generation":11,"labels":{"app":"book-builder"},"name":"iexg-book-builder","namespace":"default","resourceVersion":"1391695","selfLink":"/apis/apps/v1/namespaces/default/deployments/book-builder","uid":"e4b94905-1af8-4f3c-a5b8-5e2c9e050a96"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"book-builder"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"book-builder"}},"spec":{"containers":[{"env":[{"name":"TARGET_MIC","value":"IEXG"},{"name":"BOOK_SCAN_INTERVAL_MILLIS","value":"1000"},{"name":"SYMBOLS_TO_RUN","value":"MSFT,SPY"},{"name":"STATIC_DATA_SERVICE_ADDRESS","value":"static-data-service:50551"},{"name":"ORDER_ENTRY_SERVICE_ADDRESS","value":"iexgsimulator:50061"},{"name":"MARKET_DATA_GATEWAY_ADDRESS","value":"iexg-market-data-gateway:50551"}],"image":"192.168.1.200:5000/book-builder-strategy:16","imagePullPolicy":"IfNotPresent","name":"iexg-book-builder","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2020-03-16T17:14:54Z","lastUpdateTime":"2020-03-28T13:05:57Z","message":"ReplicaSet \"book-builder-7657ccfd5\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-04-01T13:41:35Z","lastUpdateTime":"2020-04-01T13:41:35Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":11,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T14:19:59Z"
+    generation: 10
+    labels:
+      app: book-builder
+    name: iexg-book-builder
+    namespace: default
+    resourceVersion: "3195139"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/iexg-book-builder
+    uid: d15cc50f-8f8c-4af0-a2c1-0cc50b5d0e85
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: book-builder
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: book-builder
+      spec:
+        containers:
+        - env:
+          - name: TARGET_MIC
+            value: IEXG
+          - name: BOOK_SCAN_INTERVAL_MILLIS
+            value: "1000"
+          - name: SYMBOLS_TO_RUN
+            value: MSFT,SPY
+          - name: STATIC_DATA_SERVICE_ADDRESS
+            value: static-data-service:50551
+          - name: ORDER_ENTRY_SERVICE_ADDRESS
+            value: iexgsimulator:50061
+          - name: MARKET_DATA_GATEWAY_ADDRESS
+            value: iexg-market-data-gateway:50551
+          image: ettec/opentp:book-builder-strategy-1.0.3
+          imagePullPolicy: Always
+          name: iexg-book-builder
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-07-01T11:35:08Z"
+      lastUpdateTime: "2020-07-01T11:35:08Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-04-01T14:19:59Z"
+      lastUpdateTime: "2020-07-01T11:50:57Z"
+      message: ReplicaSet "iexg-book-builder-6ccb84fcd7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 10
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "14"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"9"},"creationTimestamp":"2020-02-26T12:22:47Z","generation":9,"labels":{"app":"iexg-market-data-gateway"},"name":"iexg-market-data-gateway","namespace":"default","resourceVersion":"1374060","selfLink":"/apis/apps/v1/namespaces/default/deployments/market-data-gateway","uid":"e6317972-f4d9-483c-9f50-2c4c2089153b"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"iexg-market-data-gateway"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"iexg-market-data-gateway"}},"spec":{"containers":[{"env":[{"name":"FIX_SIM_ADDRESS","value":"iexgsimulator:50051"},{"name":"GATEWAY_ID","value":"fixsimgateway"},{"name":"STATIC_DATA_SERVICE_ADDRESS","value":"static-data-service:50551"}],"image":"192.168.1.200:5000/market-data-gateway:6","imagePullPolicy":"IfNotPresent","name":"iexg-market-data-gateway","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2020-02-26T12:59:08Z","lastUpdateTime":"2020-03-28T13:06:48Z","message":"ReplicaSet \"market-data-gateway-57c75f76b\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-04-01T11:41:52Z","lastUpdateTime":"2020-04-01T11:41:52Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":9,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T12:07:06Z"
+    generation: 14
+    labels:
+      app: iexg-market-data-gateway
+    name: iexg-market-data-gateway
+    namespace: default
+    resourceVersion: "3276495"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/iexg-market-data-gateway
+    uid: a00517ac-1ed6-4938-9372-655a5f04f09f
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: iexg-market-data-gateway
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/port: "8080"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: iexg-market-data-gateway
+      spec:
+        containers:
+        - env:
+          - name: FIX_SIM_ADDRESS
+            value: iexgsimulator:50051
+          - name: GATEWAY_ID
+            value: fixsimgateway
+          - name: STATIC_DATA_SERVICE_ADDRESS
+            value: static-data-service:50551
+          image: ettec/opentp:market-data-gateway-fixsim-1.0.3
+          imagePullPolicy: Always
+          name: iexg-market-data-gateway
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-05-19T11:57:02Z"
+      lastUpdateTime: "2020-07-01T11:51:11Z"
+      message: ReplicaSet "iexg-market-data-gateway-6d665cfc48" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:10Z"
+      lastUpdateTime: "2020-07-02T09:34:10Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 14
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "23"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"27"},"creationTimestamp":"2019-11-27T16:14:53Z","generation":27,"labels":{"app":"execution-venue"},"name":"iexg-order-gateway","namespace":"default","resourceVersion":"1290552","selfLink":"/apis/apps/v1/namespaces/default/deployments/execution-venue","uid":"0186f70b-f29d-4f32-b7ed-97ab5bc66be9"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"execution-venue"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"execution-venue","execution-venue-id":"IEXGsim","mic":"IEXG"}},"spec":{"containers":[{"env":[{"name":"FIX_SOCKET_CONNECT_HOST","value":"iexgsimulator"},{"name":"FIX_SOCKET_CONNECT_PORT","value":"9876"},{"name":"FIX_LOG_FILE_PATH","value":"/open-trading-platform/iexg-order-gateway"},{"name":"FIX_FILE_STORE_PATH","value":"/open-trading-platform/iexg-order-gateway"},{"name":"KAFKA_ORDERS_TOPIC","value":"orders"},{"name":"KAFKA_BROKERS","value":"kafka-opentp.kafka:9092"},{"name":"EXEC_VENUE_ID","value":"IEXGsim"}],"image":"192.168.1.200:5000/execution-venue:23","imagePullPolicy":"IfNotPresent","name":"execution-venue","ports":[{"containerPort":50551,"name":"api","protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/open-trading-platform","name":"execution-venue-storage"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"execution-venue-storage","persistentVolumeClaim":{"claimName":"opentp-nfs"}}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2019-11-27T16:28:16Z","lastUpdateTime":"2020-03-28T13:05:17Z","message":"ReplicaSet \"execution-venue-78d7576699\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-03-30T11:35:08Z","lastUpdateTime":"2020-03-30T11:35:08Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":27,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T14:08:11Z"
+    generation: 23
+    labels:
+      app: execution-venue
+    name: iexg-order-gateway
+    namespace: default
+    resourceVersion: "3195314"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/iexg-order-gateway
+    uid: 2bb7192b-75ab-4338-bd9e-23310ed36c62
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: execution-venue
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: execution-venue
+          execution-venue-id: IEXGsim
+          mic: IEXG
+      spec:
+        containers:
+        - env:
+          - name: FIX_SOCKET_CONNECT_HOST
+            value: iexgsimulator
+          - name: FIX_SOCKET_CONNECT_PORT
+            value: "9876"
+          - name: FIX_LOG_FILE_PATH
+            value: /open-trading-platform/iexg-order-gateway
+          - name: FIX_FILE_STORE_PATH
+            value: /open-trading-platform/iexg-order-gateway
+          - name: KAFKA_ORDERS_TOPIC
+            value: orders
+          - name: KAFKA_BROKERS
+            value: kafka-opentp.kafka:9092
+          - name: MIC
+            value: IEXG
+          image: ettec/opentp:fix-sim-execution-venue-1.0.3
+          imagePullPolicy: Always
+          name: execution-venue
+          ports:
+          - containerPort: 50551
+            name: api
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /open-trading-platform
+            name: execution-venue-storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: execution-venue-storage
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-30T10:03:16Z"
+      lastUpdateTime: "2020-06-30T10:03:16Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-04-01T14:08:11Z"
+      lastUpdateTime: "2020-07-01T11:51:33Z"
+      message: ReplicaSet "iexg-order-gateway-8545745fc5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 23
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "6"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"17"},"creationTimestamp":"2019-11-26T16:40:30Z","generation":17,"labels":{"app":"iexgsimulator"},"name":"iexgsimulator-deployment","namespace":"default","resourceVersion":"1275215","selfLink":"/apis/apps/v1/namespaces/default/deployments/fixmarketsimulator-deployment","uid":"189ea255-beec-4dc2-91d2-73da6523b325"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"iexgsimulator"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"iexgsimulator"}},"spec":{"containers":[{"env":[{"name":"FIX_FILE_STORE_PATH","value":"/usr/share/cnoms/iexgsimulator"}],"image":"192.168.1.200:5000/fixmarketsimulator:22","imagePullPolicy":"IfNotPresent","name":"iexgsimulator","ports":[{"containerPort":9876,"name":"fix-server","protocol":"TCP"},{"containerPort":8500,"name":"open-api","protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/usr/share/cnoms","name":"fixsim-storage"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"fixsim-storage","persistentVolume":{"claimName":"opentp-nfs"}}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2019-11-26T16:40:30Z","lastUpdateTime":"2020-03-27T17:26:45Z","message":"ReplicaSet \"fixmarketsimulator-deployment-7cbb95b65f\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-03-28T11:56:50Z","lastUpdateTime":"2020-03-28T11:56:50Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":17,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-03-28T12:57:39Z"
+    generation: 6
+    labels:
+      app: iexgsimulator
+    name: iexgsimulator-deployment
+    namespace: default
+    resourceVersion: "3195937"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/iexgsimulator-deployment
+    uid: 307310e1-ca69-4b0b-b2e6-ec2f3d3ed99e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: iexgsimulator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: iexgsimulator
+      spec:
+        containers:
+        - env:
+          - name: FIX_FILE_STORE_PATH
+            value: /usr/share/cnoms/iexgsimulator
+          image: ettec/opentp:fixmarketsimulator-1.0.3
+          imagePullPolicy: Always
+          name: iexgsimulator
+          ports:
+          - containerPort: 9876
+            name: fix-server
+            protocol: TCP
+          - containerPort: 8500
+            name: open-api
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/share/cnoms
+            name: fixsim-storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: fixsim-storage
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-30T10:02:46Z"
+      lastUpdateTime: "2020-06-30T10:02:46Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-06-29T13:40:43Z"
+      lastUpdateTime: "2020-07-01T11:54:19Z"
+      message: ReplicaSet "iexgsimulator-deployment-68f4598477" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 6
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "42"
+    creationTimestamp: "2019-12-11T13:45:11Z"
+    generation: 71
+    labels:
+      app: market-data-service
+    name: market-data-service
+    namespace: default
+    resourceVersion: "3276543"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/market-data-service
+    uid: d32d9d4b-730c-4e1a-8f7a-96be4a61a90b
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: market-data-service
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/port: "8080"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: market-data-service
+      spec:
+        containers:
+        - env:
+          - name: SERVICE_ID
+            value: mds
+          - name: GATEWAY_ADDRESS
+            value: market-data-gateway:50551
+          image: ettec/opentp:market-data-service-1.0.4
+          imagePullPolicy: Always
+          name: market-data-service
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        serviceAccount: otpservice
+        serviceAccountName: otpservice
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-07-01T16:52:55Z"
+      lastUpdateTime: "2020-07-01T16:53:41Z"
+      message: ReplicaSet "market-data-service-86db6b956c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:17Z"
+      lastUpdateTime: "2020-07-02T09:34:17Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 71
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+    creationTimestamp: "2020-06-18T11:15:40Z"
+    generation: 9
+    labels:
+      app: opentp-client
+    name: opentp-client
+    namespace: default
+    resourceVersion: "3276429"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/opentp-client
+    uid: 2e6c9db5-b1f2-4a5b-a94e-04f7a02193b5
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: opentp-client
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: opentp-client
+      spec:
+        containers:
+        - image: ettec/opentp:opentp-client-1.0.3
+          imagePullPolicy: Always
+          name: opentp-client
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-29T17:40:13Z"
+      lastUpdateTime: "2020-07-01T11:51:17Z"
+      message: ReplicaSet "opentp-client-6848d76747" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:02Z"
+      lastUpdateTime: "2020-07-02T09:34:02Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "14"
+    creationTimestamp: "2020-05-23T15:58:45Z"
+    generation: 34
+    labels:
+      app: order-monitor
+    name: order-monitor
+    namespace: default
+    resourceVersion: "3195642"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/order-monitor
+    uid: 586e52d6-9998-4b80-a19f-8ce12bcfd825
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: order-monitor
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/port: "8080"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: order-monitor
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: opentp
+          image: ettec/opentp:order-monitor-1.0.3
+          imagePullPolicy: Always
+          name: order-monitor
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: otpservice
+        serviceAccountName: otpservice
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-07-01T11:36:13Z"
+      lastUpdateTime: "2020-07-01T11:36:13Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-05-23T15:58:45Z"
+      lastUpdateTime: "2020-07-01T11:52:53Z"
+      message: ReplicaSet "order-monitor-77bf554cfb" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 34
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "21"
+    creationTimestamp: "2020-03-26T12:38:32Z"
+    generation: 27
+    labels:
+      app: order-router
+    name: order-router
+    namespace: default
+    resourceVersion: "3276539"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/order-router
+    uid: b37a7535-45e3-4921-a6ee-ba1dd652e62f
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: order-router
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: order-router
+      spec:
+        containers:
+        - image: ettec/opentp:order-router-1.0.3
+          imagePullPolicy: Always
+          name: order-router
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: otpservice
+        serviceAccountName: otpservice
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-03-26T15:50:21Z"
+      lastUpdateTime: "2020-07-01T11:52:17Z"
+      message: ReplicaSet "order-router-68b555f8d6" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:17Z"
+      lastUpdateTime: "2020-07-02T09:34:17Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 27
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "19"
+    creationTimestamp: "2019-12-10T12:29:39Z"
+    generation: 25
+    labels:
+      app: static-data-service
+    name: static-data-service
+    namespace: default
+    resourceVersion: "3276801"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/static-data-service
+    uid: a8d5e139-57cf-475f-92d6-4a765122dd50
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: static-data-service
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: static-data-service
+      spec:
+        containers:
+        - env:
+          - name: DB_CONN_STRING
+            value: host=opentp-postgresql.postgresql dbname=opentp sslmode=disable
+              user=opentp password=password
+          - name: DB_DRIVER_NAME
+            value: postgres
+          image: ettec/opentp:static-data-service-1.0.3
+          imagePullPolicy: Always
+          name: static-data-service
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2019-12-10T12:29:39Z"
+      lastUpdateTime: "2020-07-01T11:52:04Z"
+      message: ReplicaSet "static-data-service-79d5fd89bd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:35:04Z"
+      lastUpdateTime: "2020-07-02T09:35:04Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 25
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "22"
+    creationTimestamp: "2019-12-03T13:43:30Z"
+    generation: 31
+    labels:
+      app: view-service
+    name: view-service
+    namespace: default
+    resourceVersion: "3276576"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/view-service
+    uid: b7a038a9-6f76-4119-8120-6dab78339086
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: view-service
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: view-service
+      spec:
+        containers:
+        - env:
+          - name: KAFKA_ORDERS_TOPIC
+            value: orders
+          - name: KAFKA_BROKERS
+            value: kafka-opentp.kafka:9092
+          image: ettec/opentp:view-service-1.0.3
+          imagePullPolicy: Always
+          name: view-service
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2019-12-03T14:21:15Z"
+      lastUpdateTime: "2020-07-01T11:53:12Z"
+      message: ReplicaSet "view-service-7f64f8d6c5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:19Z"
+      lastUpdateTime: "2020-07-02T09:34:19Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 31
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "10"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"11"},"creationTimestamp":"2020-03-16T17:14:54Z","generation":11,"labels":{"app":"book-builder"},"name":"xnas-book-builder","namespace":"default","resourceVersion":"1391695","selfLink":"/apis/apps/v1/namespaces/default/deployments/book-builder","uid":"e4b94905-1af8-4f3c-a5b8-5e2c9e050a96"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"book-builder"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"book-builder"}},"spec":{"containers":[{"env":[{"name":"TARGET_MIC","value":"XNAS"},{"name":"BOOK_SCAN_INTERVAL_MILLIS","value":"1000"},{"name":"SYMBOLS_TO_RUN","value":"MSFT,SPY"},{"name":"STATIC_DATA_SERVICE_ADDRESS","value":"static-data-service:50551"},{"name":"ORDER_ENTRY_SERVICE_ADDRESS","value":"xnassimulator:50061"},{"name":"MARKET_DATA_GATEWAY_ADDRESS","value":"xnas-market-data-gateway:50551"}],"image":"192.168.1.200:5000/book-builder-strategy:16","imagePullPolicy":"IfNotPresent","name":"xnas-book-builder","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2020-03-16T17:14:54Z","lastUpdateTime":"2020-03-28T13:05:57Z","message":"ReplicaSet \"book-builder-7657ccfd5\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-04-01T13:41:35Z","lastUpdateTime":"2020-04-01T13:41:35Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":11,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T14:22:02Z"
+    generation: 11
+    labels:
+      app: book-builder
+    name: xnas-book-builder
+    namespace: default
+    resourceVersion: "3195954"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/xnas-book-builder
+    uid: 40e98c28-2779-4461-b700-8ff3932d660e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: book-builder
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: book-builder
+      spec:
+        containers:
+        - env:
+          - name: TARGET_MIC
+            value: XNAS
+          - name: BOOK_SCAN_INTERVAL_MILLIS
+            value: "1000"
+          - name: SYMBOLS_TO_RUN
+            value: MSFT,SPY
+          - name: STATIC_DATA_SERVICE_ADDRESS
+            value: static-data-service:50551
+          - name: ORDER_ENTRY_SERVICE_ADDRESS
+            value: xnassimulator:50061
+          - name: MARKET_DATA_GATEWAY_ADDRESS
+            value: xnas-market-data-gateway:50551
+          image: ettec/opentp:book-builder-strategy-1.0.3
+          imagePullPolicy: Always
+          name: xnas-book-builder
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-07-01T11:35:03Z"
+      lastUpdateTime: "2020-07-01T11:35:03Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-04-01T14:22:02Z"
+      lastUpdateTime: "2020-07-01T11:54:20Z"
+      message: ReplicaSet "xnas-book-builder-6584ddd575" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 11
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "11"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"9"},"creationTimestamp":"2020-02-26T12:22:47Z","generation":9,"labels":{"app":"xnas-market-data-gateway"},"name":"xnas-market-data-gateway","namespace":"default","resourceVersion":"1374060","selfLink":"/apis/apps/v1/namespaces/default/deployments/market-data-gateway","uid":"e6317972-f4d9-483c-9f50-2c4c2089153b"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"xnas-market-data-gateway"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"xnas-market-data-gateway"}},"spec":{"containers":[{"env":[{"name":"FIX_SIM_ADDRESS","value":"xnassimulator:50051"},{"name":"GATEWAY_ID","value":"fixsimgateway"},{"name":"STATIC_DATA_SERVICE_ADDRESS","value":"static-data-service:50551"}],"image":"192.168.1.200:5000/market-data-gateway:6","imagePullPolicy":"IfNotPresent","name":"xnas-market-data-gateway","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2020-02-26T12:59:08Z","lastUpdateTime":"2020-03-28T13:06:48Z","message":"ReplicaSet \"market-data-gateway-57c75f76b\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-04-01T11:41:52Z","lastUpdateTime":"2020-04-01T11:41:52Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":9,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T12:51:09Z"
+    generation: 11
+    labels:
+      app: xnas-market-data-gateway
+    name: xnas-market-data-gateway
+    namespace: default
+    resourceVersion: "3276459"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/xnas-market-data-gateway
+    uid: f859c6e9-edbe-47c6-bac8-d3169a24069b
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: xnas-market-data-gateway
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/port: "8080"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: xnas-market-data-gateway
+      spec:
+        containers:
+        - env:
+          - name: FIX_SIM_ADDRESS
+            value: xnassimulator:50051
+          - name: GATEWAY_ID
+            value: fixsimgateway
+          - name: STATIC_DATA_SERVICE_ADDRESS
+            value: static-data-service:50551
+          image: ettec/opentp:market-data-gateway-fixsim-1.0.3
+          imagePullPolicy: Always
+          name: xnas-market-data-gateway
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-05-19T11:57:38Z"
+      lastUpdateTime: "2020-07-01T11:52:46Z"
+      message: ReplicaSet "xnas-market-data-gateway-856f89c49f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:06Z"
+      lastUpdateTime: "2020-07-02T09:34:06Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 11
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "16"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"27"},"creationTimestamp":"2019-11-27T16:14:53Z","generation":27,"labels":{"app":"execution-venue"},"name":"xnas-order-gateway","namespace":"default","resourceVersion":"1290552","selfLink":"/apis/apps/v1/namespaces/default/deployments/execution-venue","uid":"0186f70b-f29d-4f32-b7ed-97ab5bc66be9"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"execution-venue"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"execution-venue","execution-venue-id":"XNASsim","mic":"XNAS"}},"spec":{"containers":[{"env":[{"name":"FIX_SOCKET_CONNECT_HOST","value":"xnassimulator"},{"name":"FIX_SOCKET_CONNECT_PORT","value":"9876"},{"name":"FIX_LOG_FILE_PATH","value":"/open-trading-platform/xnas-order-gateway"},{"name":"FIX_FILE_STORE_PATH","value":"/open-trading-platform/xnas-order-gateway"},{"name":"KAFKA_ORDERS_TOPIC","value":"orders"},{"name":"KAFKA_BROKERS","value":"kafka-opentp.kafka:9092"},{"name":"EXEC_VENUE_ID","value":"XNASsim"}],"image":"192.168.1.200:5000/execution-venue:23","imagePullPolicy":"IfNotPresent","name":"execution-venue","ports":[{"containerPort":50551,"name":"api","protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/open-trading-platform","name":"execution-venue-storage"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"execution-venue-storage","persistentVolumeClaim":{"claimName":"opentp-nfs"}}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2019-11-27T16:28:16Z","lastUpdateTime":"2020-03-28T13:05:17Z","message":"ReplicaSet \"execution-venue-78d7576699\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-03-30T11:35:08Z","lastUpdateTime":"2020-03-30T11:35:08Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":27,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T14:09:18Z"
+    generation: 22
+    labels:
+      app: execution-venue
+    name: xnas-order-gateway
+    namespace: default
+    resourceVersion: "3195995"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/xnas-order-gateway
+    uid: 466799bd-14e0-4971-b08d-b33219da5e88
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: execution-venue
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: execution-venue
+          execution-venue-id: XNASsim
+          mic: XNAS
+      spec:
+        containers:
+        - env:
+          - name: FIX_SOCKET_CONNECT_HOST
+            value: xnassimulator
+          - name: FIX_SOCKET_CONNECT_PORT
+            value: "9876"
+          - name: FIX_LOG_FILE_PATH
+            value: /open-trading-platform/xnas-order-gateway
+          - name: FIX_FILE_STORE_PATH
+            value: /open-trading-platform/xnas-order-gateway
+          - name: KAFKA_ORDERS_TOPIC
+            value: orders
+          - name: KAFKA_BROKERS
+            value: kafka-opentp.kafka:9092
+          - name: MIC
+            value: XNAS
+          image: ettec/opentp:fix-sim-execution-venue-1.0.3
+          imagePullPolicy: Always
+          name: execution-venue
+          ports:
+          - containerPort: 50551
+            name: api
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /open-trading-platform
+            name: execution-venue-storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: execution-venue-storage
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-07-01T11:36:04Z"
+      lastUpdateTime: "2020-07-01T11:36:04Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-05-07T08:57:57Z"
+      lastUpdateTime: "2020-07-01T11:54:23Z"
+      message: ReplicaSet "xnas-order-gateway-7c4bdf6c67" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 22
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "4"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"1"},"creationTimestamp":"2020-03-28T12:57:39Z","generation":1,"labels":{"app":"xnassimulator"},"name":"xnassimulator-deployment","namespace":"default","resourceVersion":"1374157","selfLink":"/apis/apps/v1/namespaces/default/deployments/xnassimulator-deployment","uid":"307310e1-ca69-4b0b-b2e6-ec2f3d3ed99e"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"xnassimulator"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"xnassimulator"}},"spec":{"containers":[{"env":[{"name":"FIX_FILE_STORE_PATH","value":"/usr/share/opentp/xnassimulator"}],"image":"192.168.1.200:5000/fixmarketsimulator:22","imagePullPolicy":"IfNotPresent","name":"xnassimulator","ports":[{"containerPort":9876,"name":"fix-server","protocol":"TCP"},{"containerPort":8500,"name":"open-api","protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/usr/share/opentp","name":"fixsim-storage"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"fixsim-storage","persistentVolumeClaim":{"claimName":"opentp-nfs"}}]}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2020-03-28T12:57:39Z","lastUpdateTime":"2020-03-28T12:57:44Z","message":"ReplicaSet \"xnassimulator-deployment-68b7f84f8c\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-04-01T11:42:07Z","lastUpdateTime":"2020-04-01T11:42:07Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":1,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-01T12:50:00Z"
+    generation: 4
+    labels:
+      app: xnassimulator
+    name: xnassimulator-deployment
+    namespace: default
+    resourceVersion: "3195981"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/xnassimulator-deployment
+    uid: 97b293e5-81e6-40d3-b961-e0abe47dc053
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: xnassimulator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: xnassimulator
+      spec:
+        containers:
+        - env:
+          - name: FIX_FILE_STORE_PATH
+            value: /usr/share/opentp/xnassimulator
+          image: ettec/opentp:fixmarketsimulator-1.0.3
+          imagePullPolicy: Always
+          name: xnassimulator
+          ports:
+          - containerPort: 9876
+            name: fix-server
+            protocol: TCP
+          - containerPort: 8500
+            name: open-api
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/share/opentp
+            name: fixsim-storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: fixsim-storage
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-30T10:02:54Z"
+      lastUpdateTime: "2020-06-30T10:02:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-04-01T12:50:00Z"
+      lastUpdateTime: "2020-07-01T11:54:22Z"
+      message: ReplicaSet "xnassimulator-deployment-5c645fc7f6" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 4
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"9"},"creationTimestamp":"2020-02-26T12:22:47Z","generation":9,"labels":{"app":"xosr-market-data-gateway"},"name":"xosr-market-data-gateway","namespace":"default","resourceVersion":"1374060","selfLink":"/apis/apps/v1/namespaces/default/deployments/market-data-gateway","uid":"e6317972-f4d9-483c-9f50-2c4c2089153b"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"xosr-market-data-gateway"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"xosr-market-data-gateway"}},"spec":{"containers":[{"env":[{"name":"STATIC_DATA_SERVICE_ADDRESS","value":"static-data-service:50551"}],"image":"192.168.1.200:5000/quote-aggregator:2","imagePullPolicy":"IfNotPresent","name":"xosr-market-data-gateway","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2020-02-26T12:59:08Z","lastUpdateTime":"2020-03-28T13:06:48Z","message":"ReplicaSet \"market-data-gateway-57c75f76b\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-04-01T11:41:52Z","lastUpdateTime":"2020-04-01T11:41:52Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":9,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-04-06T16:37:29Z"
+    generation: 9
+    labels:
+      app: xosr-market-data-gateway
+    name: xosr-market-data-gateway
+    namespace: default
+    resourceVersion: "3276586"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/xosr-market-data-gateway
+    uid: b90e6571-d138-4b30-8113-5773d8584128
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: xosr-market-data-gateway
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/port: "8080"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          app: xosr-market-data-gateway
+      spec:
+        containers:
+        - env:
+          - name: STATIC_DATA_SERVICE_ADDRESS
+            value: static-data-service:50551
+          image: ettec/opentp:quote-aggregator-1.0.3
+          imagePullPolicy: Always
+          name: xosr-market-data-gateway
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: otpservice
+        serviceAccountName: otpservice
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-04-06T16:37:29Z"
+      lastUpdateTime: "2020-07-01T11:54:36Z"
+      message: ReplicaSet "xosr-market-data-gateway-6db6855cd9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-07-02T09:34:20Z"
+      lastUpdateTime: "2020-07-02T09:34:20Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 9
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "16"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"27"},"creationTimestamp":"2019-11-27T16:14:53Z","generation":27,"labels":{"app":"execution-venue"},"name":"xosr-order-gateway","namespace":"default","resourceVersion":"1290552","selfLink":"/apis/apps/v1/namespaces/default/deployments/execution-venue","uid":"0186f70b-f29d-4f32-b7ed-97ab5bc66be9"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"execution-venue"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"execution-venue","execution-venue-id":"XOSR","mic":"XOSR"}},"spec":{"containers":[{"env":[{"name":"KAFKA_BROKERS","value":"kafka-opentp.kafka:9092"}],"image":"192.168.1.200:5000/smart-router:4","imagePullPolicy":"IfNotPresent","name":"execution-venue","ports":[{"containerPort":50551,"name":"api","protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2019-11-27T16:28:16Z","lastUpdateTime":"2020-03-28T13:05:17Z","message":"ReplicaSet \"execution-venue-78d7576699\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2020-03-30T11:35:08Z","lastUpdateTime":"2020-03-30T11:35:08Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":27,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+    creationTimestamp: "2020-05-01T12:46:13Z"
+    generation: 44
+    labels:
+      app: execution-venue
+    name: xosr-order-gateway
+    namespace: default
+    resourceVersion: "3196154"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/xosr-order-gateway
+    uid: e4cb4d56-f447-4734-a02d-2b8ed4f0274a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: execution-venue
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: execution-venue
+          execution-venue-id: XOSR
+          mic: XOSR
+      spec:
+        containers:
+        - env:
+          - name: KAFKA_BROKERS
+            value: kafka-opentp.kafka:9092
+          image: ettec/opentp:smart-router-1.0.3
+          imagePullPolicy: Always
+          name: execution-venue
+          ports:
+          - containerPort: 50551
+            name: api
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: otpservice
+        serviceAccountName: otpservice
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-07-01T11:35:07Z"
+      lastUpdateTime: "2020-07-01T11:35:07Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-05-01T12:46:13Z"
+      lastUpdateTime: "2020-07-01T11:55:00Z"
+      message: ReplicaSet "xosr-order-gateway-67f45c578f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 44
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

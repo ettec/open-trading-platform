@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: market-data-source
+    mic: IEXG
+  name: iexg-market-data-gateway
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: api
+    port: 50551
+    protocol: TCP
+    targetPort: 50551
+  selector:
+    app: iexg-market-data-gateway
+  sessionAffinity: None
+  type: NodePort
+

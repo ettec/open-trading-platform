@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: client-config-service
+  name: client-config-service
+spec:
+  ports:
+  - port: 50551
+    protocol: TCP
+    targetPort: 50551
+  selector:
+    app: client-config-service
+  sessionAffinity: None
+  type: ClusterIP
+

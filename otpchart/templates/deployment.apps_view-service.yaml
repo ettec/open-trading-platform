@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: view-service
+  name: view-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: view-service
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: view-service
+    spec:
+      containers:
+      - env:
+        - name: KAFKA_ORDERS_TOPIC
+          value: orders
+        - name: KAFKA_BROKERS
+          value: kafka-opentp.kafka:9092
+        image: ettec/opentp:view-service-1.0.3
+        imagePullPolicy: Always
+        name: view-service

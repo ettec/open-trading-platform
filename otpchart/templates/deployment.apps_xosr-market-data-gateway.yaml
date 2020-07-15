@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: xosr-market-data-gateway
+  name: xosr-market-data-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xosr-market-data-gateway
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        app: xosr-market-data-gateway
+    spec:
+      containers:
+      - env:
+        - name: STATIC_DATA_SERVICE_ADDRESS
+          value: static-data-service:50551
+        image: ettec/opentp:quote-aggregator-1.0.3
+        imagePullPolicy: Always
+        name: xosr-market-data-gateway
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: otpservice
+      serviceAccountName: otpservice
+      terminationGracePeriodSeconds: 30
+

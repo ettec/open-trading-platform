@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: xnassimulator
+  name: xnassimulator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xnassimulator
+  template:
+    metadata:
+      labels:
+        app: xnassimulator
+    spec:
+      containers:
+      - env:
+        - name: FIX_FILE_STORE_PATH
+          value: /usr/share/opentp/xnassimulator
+        image: ettec/opentp:fixmarketsimulator-1.0.3
+        imagePullPolicy: Always
+        name: xnassimulator
+        ports:
+        - containerPort: 9876
+          name: fix-server
+          protocol: TCP
+        - containerPort: 8500
+          name: open-api
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/share/opentp
+          name: fixsim-storage
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: fixsim-storage
+

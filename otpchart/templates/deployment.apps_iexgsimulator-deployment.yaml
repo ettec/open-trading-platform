@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: iexgsimulator
+  name: iexgsimulator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iexgsimulator
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: iexgsimulator
+    spec:
+      containers:
+      - env:
+        - name: FIX_FILE_STORE_PATH
+          value: /usr/share/cnoms/iexgsimulator
+        image: ettec/opentp:fixmarketsimulator-1.0.3
+        imagePullPolicy: Always
+        name: iexgsimulator
+        ports:
+        - containerPort: 9876
+          name: fix-server
+          protocol: TCP
+        - containerPort: 8500
+          name: open-api
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/share/cnoms
+          name: fixsim-storage
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: fixsim-storage
+

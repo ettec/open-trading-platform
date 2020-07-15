@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: order-router
+  name: order-router
+spec:
+  ports:
+  - name: api
+    port: 50581
+    protocol: TCP
+    targetPort: 50581
+  selector:
+    app: order-router
+  sessionAffinity: None
+  type: ClusterIP
+
