@@ -18,7 +18,10 @@ spec:
         mic: IEXG
     spec:
       containers:
-      - env:
+      - envFrom:
+        - configMapRef:
+            name: opentp
+        env:
         - name: FIX_SOCKET_CONNECT_HOST
           value: iexgsimulator
         - name: FIX_SOCKET_CONNECT_PORT
@@ -27,13 +30,9 @@ spec:
           value: /open-trading-platform/iexg-order-gateway
         - name: FIX_FILE_STORE_PATH
           value: /open-trading-platform/iexg-order-gateway
-        - name: KAFKA_ORDERS_TOPIC
-          value: orders
-        - name: KAFKA_BROKERS
-          value: kafka-opentp.kafka:9092
         - name: MIC
           value: IEXG
-        image: ettec/opentp:fix-sim-execution-venue-1.0.3
+        image: ettec/opentp:fix-sim-execution-venue-1.0.4
         imagePullPolicy: Always
         name: execution-venue
         ports:

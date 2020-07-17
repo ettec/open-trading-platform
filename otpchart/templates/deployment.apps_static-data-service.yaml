@@ -16,13 +16,10 @@ spec:
         app: static-data-service
     spec:
       containers:
-      - env:
-        - name: DB_CONN_STRING
-          value: host=opentp-postgresql.postgresql dbname=opentp sslmode=disable user=opentp
-            password=password
-        - name: DB_DRIVER_NAME
-          value: postgres
-        image: ettec/opentp:static-data-service-1.0.3
+      - envFrom:
+        - configMapRef:
+            name: opentp
+        image: ettec/opentp:static-data-service-1.0.4
         imagePullPolicy: Always
         name: static-data-service
 

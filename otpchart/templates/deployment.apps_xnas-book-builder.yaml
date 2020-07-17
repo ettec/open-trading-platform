@@ -28,7 +28,7 @@ spec:
           value: xnassimulator:50061
         - name: MARKET_DATA_GATEWAY_ADDRESS
           value: xnas-market-data-gateway:50551
-        image: ettec/opentp:book-builder-strategy-1.0.3
+        image: ettec/opentp:book-builder-strategy-1.0.4
         imagePullPolicy: Always
         name: xnas-book-builder
  

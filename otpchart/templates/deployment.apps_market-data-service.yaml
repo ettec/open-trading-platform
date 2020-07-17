@@ -29,7 +29,7 @@ spec:
           value: mds
         - name: GATEWAY_ADDRESS
           value: market-data-gateway:50551
-        image: ettec/opentp:market-data-service-1.0.3
+        image: ettec/opentp:market-data-service-1.0.4
         imagePullPolicy: Always
         name: market-data-service
         resources: {}

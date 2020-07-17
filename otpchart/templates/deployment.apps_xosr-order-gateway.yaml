@@ -18,10 +18,10 @@ spec:
         mic: XOSR
     spec:
       containers:
-      - env:
-        - name: KAFKA_BROKERS
-          value: kafka-opentp.kafka:9092
-        image: ettec/opentp:smart-router-1.0.3
+      - envFrom:
+        - configMapRef:
+            name: opentp
+        image: ettec/opentp:smart-router-1.0.4
         imagePullPolicy: Always
         name: execution-venue
         ports:

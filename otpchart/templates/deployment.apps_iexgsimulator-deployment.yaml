@@ -24,7 +24,7 @@ spec:
       - env:
         - name: FIX_FILE_STORE_PATH
           value: /usr/share/cnoms/iexgsimulator
-        image: ettec/opentp:fixmarketsimulator-1.0.3
+        image: ettec/opentp:fixmarketsimulator-1.0.4
         imagePullPolicy: Always
         name: iexgsimulator
         ports:

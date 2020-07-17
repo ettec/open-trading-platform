@@ -162,7 +162,7 @@ func main() {
 	}
 
 	port := "50551"
-	fmt.Println("starting Market data service on port:" + port)
+	fmt.Println("starting market data service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)

@@ -26,7 +26,7 @@ spec:
           value: fixsimgateway
         - name: STATIC_DATA_SERVICE_ADDRESS
           value: static-data-service:50551
-        image: ettec/opentp:market-data-gateway-fixsim-1.0.3
+        image: ettec/opentp:market-data-gateway-fixsim-1.0.4
         imagePullPolicy: Always
         name: xnas-market-data-gateway
 

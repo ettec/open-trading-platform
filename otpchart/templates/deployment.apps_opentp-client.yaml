@@ -23,6 +23,6 @@ spec:
         app: opentp-client
     spec:
       containers:
-      - image: ettec/opentp:opentp-client-1.0.3
+      - image: ettec/opentp:opentp-client-1.0.4
         imagePullPolicy: Always
         name: opentp-client
