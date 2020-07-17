@@ -1,1 +1,1 @@
-helm upgrade opentp-envoy stable/envoy -f helm-custom-values.yaml
+helm upgrade opentp-envoy stable/envoy -f ../install/envoy-config-helm-values.yaml 

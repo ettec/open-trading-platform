@@ -20,10 +20,10 @@ helm install kafka-opentp --namespace kafka incubator/kafka
 
 isntall test client:
 
-kubectl apply -f kafka_test_client.yaml
+kubectl apply -f kafka_cmdline_client.yaml
 
 
-kubectl exec -it --namespace=kafka testclient -- /bin/bash 
+kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash 
 kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
 
 
@@ -43,12 +43,11 @@ Envoy:
 
 kubectl create ns envoy
 
-helm install opentp-envoy --namespace=envoy stable/envoy -f helm-custom-values.yaml
+helm install opentp-envoy --namespace=envoy stable/envoy -f envoy-config-helm-values.yaml 
 
 Opentp app:
 
-kubectl apply -f opentp-k8s.yaml
-
+helm install otp-v1 ../otpchart
 
 
 
