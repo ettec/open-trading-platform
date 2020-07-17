@@ -23,6 +23,6 @@ spec:
         app: opentp-client
     spec:
       containers:
-      - image: ettec/opentp:opentp-client-1.0.4
+      - image: ettec/opentp:opentp-client-{{ .Chart.AppVersion }}
         imagePullPolicy: Always
         name: opentp-client

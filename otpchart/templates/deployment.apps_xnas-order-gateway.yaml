@@ -31,7 +31,7 @@ spec:
           value: /open-trading-platform/xnas-order-gateway
         - name: MIC
           value: XNAS
-        image: ettec/opentp:fix-sim-execution-venue-1.0.4
+        image: ettec/opentp:fix-sim-execution-venue-{{ .Chart.AppVersion }}
         imagePullPolicy: Always
         name: execution-venue
         ports:

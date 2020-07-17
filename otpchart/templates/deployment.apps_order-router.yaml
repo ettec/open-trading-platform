@@ -15,7 +15,7 @@ spec:
         app: order-router
     spec:
       containers:
-      - image: ettec/opentp:order-router-1.0.4
+      - image: ettec/opentp:order-router-{{ .Chart.AppVersion }}
         imagePullPolicy: Always
         name: order-router
         resources: {}

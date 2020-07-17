@@ -18,7 +18,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: ettec/opentp:client-config-service-1.0.4
+        image: ettec/opentp:client-config-service-{{ .Chart.AppVersion }}
         imagePullPolicy: Always
         name: client-config-service
 
