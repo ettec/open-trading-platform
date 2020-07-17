@@ -18,7 +18,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: ettec/opentp:authorization-service-{{ .Chart.AppVersion }}
+        image: {{ .Values.dockerRepo }}authorization-service-{{ .Values.appVersion }}
         imagePullPolicy: Always
         name: authorization-service
   

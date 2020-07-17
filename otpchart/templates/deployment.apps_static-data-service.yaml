@@ -19,7 +19,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: ettec/opentp:static-data-service-{{ .Chart.AppVersion }}
+        image: {{ .Values.dockerRepo }}static-data-service-{{ .Values.appVersion }}
         imagePullPolicy: Always
         name: static-data-service
 

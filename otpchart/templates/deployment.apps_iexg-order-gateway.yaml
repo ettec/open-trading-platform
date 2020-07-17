@@ -32,7 +32,7 @@ spec:
           value: /open-trading-platform/iexg-order-gateway
         - name: MIC
           value: IEXG
-        image: ettec/opentp:fix-sim-execution-venue-{{ .Chart.AppVersion }}
+        image: {{ .Values.dockerRepo }}fix-sim-execution-venue-{{ .Values.appVersion }}
         imagePullPolicy: Always
         name: execution-venue
         ports:

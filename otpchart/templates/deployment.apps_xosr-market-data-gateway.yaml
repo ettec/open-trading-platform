@@ -21,7 +21,7 @@ spec:
       - env:
         - name: STATIC_DATA_SERVICE_ADDRESS
           value: static-data-service:50551
-        image: ettec/opentp:quote-aggregator-{{ .Chart.AppVersion }}
+        image: {{ .Values.dockerRepo }}quote-aggregator-{{ .Values.appVersion }}
         imagePullPolicy: Always
         name: xosr-market-data-gateway
         resources: {}
