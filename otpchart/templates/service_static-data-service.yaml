@@ -10,6 +10,7 @@ spec:
   - port: 50551
     protocol: TCP
     targetPort: 50551
+    name: api
   selector:
     app: static-data-service
   sessionAffinity: None

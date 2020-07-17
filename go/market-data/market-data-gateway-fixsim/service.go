@@ -18,9 +18,9 @@ import (
 	"time"
 )
 
-func newService(id string, fixSimAddress string, staticDataServiceAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer, error) {
+func newService(id string, fixSimAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer, error) {
 
-	listingSrc, err := staticdata.NewStaticDataSource(staticDataServiceAddress)
+	listingSrc, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		return nil, err
 	}
@@ -50,10 +50,9 @@ func newService(id string, fixSimAddress string, staticDataServiceAddress string
 }
 
 const (
-	GatewayIdKey             = "GATEWAY_ID"
-	FixSimAddress            = "FIX_SIM_ADDRESS"
-	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
-	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
+	GatewayIdKey        = "GATEWAY_ID"
+	FixSimAddress       = "FIX_SIM_ADDRESS"
+	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
 )
 
 var maxSubscriptions = 10000
@@ -66,7 +65,6 @@ func main() {
 
 	id := bootstrap.GetEnvVar(GatewayIdKey)
 	fixSimAddress := bootstrap.GetEnvVar(FixSimAddress)
-	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
 	http.Handle("/metrics", promhttp.Handler())
@@ -78,7 +76,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	service, err := newService(id, fixSimAddress, staticDataServiceAddress, time.Duration(connectRetrySecs)*time.Second)
+	service, err := newService(id, fixSimAddress, time.Duration(connectRetrySecs)*time.Second)
 	if err != nil {
 		log.Fatalf("error creating service: %v", err)
 	}

@@ -22,10 +22,9 @@ import (
 )
 
 const (
-	ServiceIdKey             = "SERVICE_ID"
-	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
-	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
-	External                 = "EXTERNAL"
+	ServiceIdKey        = "SERVICE_ID"
+	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
+	External            = "EXTERNAL"
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
@@ -38,8 +37,6 @@ func main() {
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
 	external := bootstrap.GetOptionalBoolEnvVar(External, false)
-
-	staticDataServiceAddress := bootstrap.GetEnvVar(StaticDataServiceAddress)
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
@@ -97,7 +94,7 @@ func main() {
 		return client, conn, nil
 	}
 
-	sds, err := staticdata.NewStaticDataSource(staticDataServiceAddress)
+	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		panic(err)
 	}

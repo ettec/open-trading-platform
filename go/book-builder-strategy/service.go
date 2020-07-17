@@ -28,7 +28,6 @@ const (
 	ServiceId                = "SERVICE_ID"
 	MarketDataGatewayAddress = "MARKET_DATA_GATEWAY_ADDRESS"
 	OrderEntryServiceAddress = "ORDER_ENTRY_SERVICE_ADDRESS"
-	StaticDataServiceAddress = "STATIC_DATA_SERVICE_ADDRESS"
 	ConnectRetrySeconds      = "CONNECT_RETRY_SECONDS"
 	BookScanIntervalMillis   = "BOOK_SCAN_INTERVAL_MILLIS"
 	TradeProbability         = "TRADE_PROBABILITY"
@@ -51,7 +50,6 @@ func main() {
 	serviceId := bootstrap.GetOptionalEnvVar(ServiceId, "bookBuilder")
 	mdGatewayAddr := bootstrap.GetEnvVar(MarketDataGatewayAddress)
 	orderEntryAddr := bootstrap.GetEnvVar(OrderEntryServiceAddress)
-	staticDataServiceAddr := bootstrap.GetEnvVar(StaticDataServiceAddress)
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 	bookScanInterval := time.Duration(bootstrap.GetOptionalIntEnvVar(BookScanIntervalMillis, 1000)) * time.Millisecond
 	tradeProbability := bootstrap.GetOptionalFloatEnvVar(TradeProbability, 0.1)
@@ -60,7 +58,7 @@ func main() {
 	symbolsToRunArg := bootstrap.GetOptionalEnvVar(SymbolsToRun, "")
 	targetMic := bootstrap.GetEnvVar(TargetMic)
 
-	ls, err := staticdata.NewStaticDataSource(staticDataServiceAddr)
+	ls, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		log.Panicf("failed to create listing source service:%v", err)
 	}
