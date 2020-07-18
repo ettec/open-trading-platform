@@ -1,0 +1,4 @@
+FROM ubuntu:20.04
+ADD resources /resources
+ADD client-config-service /
+CMD /client-config-service

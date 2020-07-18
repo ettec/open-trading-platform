@@ -1,0 +1,4 @@
+FROM ubuntu:20.04
+ADD resources /resources
+ADD static-data-service /
+CMD /static-data-service

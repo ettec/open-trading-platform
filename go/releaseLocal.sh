@@ -23,9 +23,9 @@ echo Built $COMPNAME
 
 
 cat > DockerfileLocal << EOF
-FROM golang:1.13
+FROM ubuntu:20.04
+ADD resources /resources
 ADD $COMPNAME /
-COPY resources /resources
 CMD /$COMPNAME
 EOF
 
@@ -35,6 +35,6 @@ docker push $TAG
 
 
 rm $COMPNAME
-rm DockerfileLocal
+#rm DockerfileLocal
 
 
