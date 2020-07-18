@@ -15,7 +15,7 @@ spec:
         app: order-router
     spec:
       containers:
-      - image: {{ .Values.dockerRepo }}order-router-{{ .Values.appVersion }}
+      - image: {{ .Values.dockerRepo }}order-router{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: order-router
         resources: {}

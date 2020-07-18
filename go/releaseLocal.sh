@@ -29,7 +29,7 @@ ADD $COMPNAME /
 CMD /$COMPNAME
 EOF
 
-TAG=localhost:32000/$COMPNAME-latest
+TAG=localhost:32000/$COMPNAME
 docker build -f DockerfileLocal -t $TAG .
 docker push $TAG
 

@@ -28,7 +28,7 @@ spec:
           value: iexgsimulator:50061
         - name: MARKET_DATA_GATEWAY_ADDRESS
           value: iexg-market-data-gateway:50551
-        image: {{ .Values.dockerRepo }}book-builder-strategy-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}book-builder-strategy{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: iexg-book-builder
 

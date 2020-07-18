@@ -27,7 +27,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}order-monitor-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}order-monitor{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: order-monitor
         resources: {}

@@ -19,6 +19,6 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}view-service-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}view-service{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: view-service

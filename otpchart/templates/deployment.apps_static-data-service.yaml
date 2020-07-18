@@ -19,7 +19,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}static-data-service-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}static-data-service{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: static-data-service
 

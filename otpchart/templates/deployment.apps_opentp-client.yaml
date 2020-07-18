@@ -23,6 +23,6 @@ spec:
         app: opentp-client
     spec:
       containers:
-      - image: {{ .Values.dockerRepo }}opentp-client-{{ .Values.appVersion }}
+      - image: {{ .Values.dockerRepo }}opentp-client{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: opentp-client

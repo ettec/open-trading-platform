@@ -31,7 +31,7 @@ spec:
           value: /open-trading-platform/xnas-order-gateway
         - name: MIC
           value: XNAS
-        image: {{ .Values.dockerRepo }}fix-sim-execution-venue-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}fix-sim-execution-venue{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: execution-venue
         ports:

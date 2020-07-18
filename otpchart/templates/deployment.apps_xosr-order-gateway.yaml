@@ -21,7 +21,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}smart-router-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}smart-router{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: execution-venue
         ports:

@@ -26,7 +26,7 @@ spec:
           value: fixsimgateway
         - name: STATIC_DATA_SERVICE_ADDRESS
           value: static-data-service:50551
-        image: {{ .Values.dockerRepo }}market-data-gateway-fixsim-{{ .Values.appVersion }}
+        image: {{ .Values.dockerRepo }}market-data-gateway-fixsim{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: iexg-market-data-gateway
 
