@@ -28,7 +28,7 @@ spec:
           value: xnassimulator:50061
         - name: MARKET_DATA_GATEWAY_ADDRESS
           value: xnas-market-data-gateway:50551
-        image: {{ .Values.dockerRepo }}book-builder-strategy{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}book-builder{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xnas-book-builder
  

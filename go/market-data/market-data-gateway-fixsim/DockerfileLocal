@@ -1,4 +1,0 @@
-FROM ubuntu:20.04
-ADD resources /resources
-ADD market-data-gateway-fixsim /
-CMD /market-data-gateway-fixsim

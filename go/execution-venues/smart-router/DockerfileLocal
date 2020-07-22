@@ -1,4 +1,0 @@
-FROM ubuntu:20.04
-ADD resources /resources
-ADD smart-router /
-CMD /smart-router

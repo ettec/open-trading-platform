@@ -35,6 +35,6 @@ docker push $TAG
 
 
 rm $COMPNAME
-#rm DockerfileLocal
+rm DockerfileLocal
 
 

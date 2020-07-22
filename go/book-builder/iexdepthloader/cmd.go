@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
+	"github.com/ettec/open-trading-platform/go/book-builder/depth"
 	"io/ioutil"
 	"log"
 	"net/http"

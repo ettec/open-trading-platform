@@ -1,4 +1,4 @@
-module github.com/ettec/open-trading-platform/go/book-builder-strategy
+module github.com/ettec/open-trading-platform/go/book-builder
 
 go 1.13
 

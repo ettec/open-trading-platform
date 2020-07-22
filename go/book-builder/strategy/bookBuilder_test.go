@@ -3,8 +3,8 @@ package strategy
 import (
 	"context"
 	"encoding/json"
-	"github.com/ettec/open-trading-platform/go/book-builder-strategy/depth"
-	"github.com/ettec/open-trading-platform/go/book-builder-strategy/orderentryapi"
+	"github.com/ettec/open-trading-platform/go/book-builder/depth"
+	"github.com/ettec/open-trading-platform/go/book-builder/orderentryapi"
 	marketdata "github.com/ettec/otp-mdcommon"
 
 	"github.com/ettec/otp-model"
