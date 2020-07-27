@@ -8,10 +8,9 @@ import (
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/staticdata"
-	"github.com/ettec/otp-evcommon/ordertree"
-	marketdata "github.com/ettec/otp-mdcommon"
-	"github.com/ettec/otp-mdcommon/quotestream"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/executionvenue"
+	"github.com/ettec/otp-common/marketdata"
+	"github.com/ettec/otp-common/model"
 	"github.com/google/uuid"
 	"k8s.io/client-go/kubernetes"
 	"os"
@@ -62,7 +61,7 @@ func (s *smartRouter) GetExecutionParametersMetaData(ctx context.Context, empty 
 }
 
 type ChildOrderUpdatesDistributor interface {
-	NewOrderStream(parentOrderId string, bufferSize int) ordertree.ChildOrderStream
+	NewOrderStream(parentOrderId string, bufferSize int) executionvenue.ChildOrderStream
 	Start()
 }
 
@@ -156,7 +155,7 @@ func main() {
 
 	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
 
-	mdsQuoteStream, err := quotestream.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
 	if err != nil {
 		panic(err)
 	}
@@ -168,12 +167,12 @@ func main() {
 		panic(err)
 	}
 
-	childOrderUpdates, err := ordertree.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
+	childOrderUpdates, err := executionvenue.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}
 
-	childUpdatesDistributor := ordertree.NewChildOrderUpdatesDistributor(childOrderUpdates)
+	childUpdatesDistributor := executionvenue.NewChildOrderUpdatesDistributor(childOrderUpdates)
 
 	sr := &smartRouter{
 		id:                           id,

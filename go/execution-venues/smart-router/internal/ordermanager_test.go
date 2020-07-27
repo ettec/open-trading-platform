@@ -2,9 +2,9 @@ package internal
 
 import (
 	"context"
-	"github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-evcommon/ordertree"
-	"github.com/ettec/otp-model"
+	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/executionvenue"
+	"github.com/ettec/otp-common/model"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
@@ -13,26 +13,26 @@ import (
 )
 
 type testEvClient struct {
-	params []*executionvenue.CreateAndRouteOrderParams
+	params []*api.CreateAndRouteOrderParams
 }
 
-func (t *testEvClient) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty, opts ...grpc.CallOption) (*executionvenue.ExecParamsMetaDataJson, error) {
+func (t *testEvClient) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty, opts ...grpc.CallOption) (*api.ExecParamsMetaDataJson, error) {
 	panic("implement me")
 }
 
-func (t *testEvClient) CreateAndRouteOrder(ctx context.Context, in *executionvenue.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*executionvenue.OrderId, error) {
+func (t *testEvClient) CreateAndRouteOrder(ctx context.Context, in *api.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*api.OrderId, error) {
 	t.params = append(t.params, in)
 	id, _ := uuid.NewUUID()
-	return &executionvenue.OrderId{
+	return &api.OrderId{
 		OrderId: id.String(),
 	}, nil
 }
 
-func (t *testEvClient) CancelOrder(ctx context.Context, in *executionvenue.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
+func (t *testEvClient) CancelOrder(ctx context.Context, in *api.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
 	panic("implement me")
 }
 
-func (t *testEvClient) ModifyOrder(ctx context.Context, in *executionvenue.ModifyOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
+func (t *testEvClient) ModifyOrder(ctx context.Context, in *api.ModifyOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
 	panic("implement me")
 }
 
@@ -52,7 +52,7 @@ func Test_submitSellOrders(t *testing.T) {
 		},
 	}
 
-	mo := ordertree.NewParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
+	mo := executionvenue.NewParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
 		"ri", "rr"))
 
 	listing1 := &model.Listing{Id: 1}
@@ -76,7 +76,7 @@ func Test_submitSellOrders(t *testing.T) {
 		t.FailNow()
 	}
 
-	expectedParams := []*executionvenue.CreateAndRouteOrderParams{{
+	expectedParams := []*api.CreateAndRouteOrderParams{{
 		OrderSide:         model.Side_SELL,
 		Quantity:          model.IasD(10),
 		Price:             model.IasD(150),
@@ -142,7 +142,7 @@ func Test_submitBuyOrders(t *testing.T) {
 		},
 	}
 
-	mo := ordertree.NewParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+	mo := executionvenue.NewParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
 		"oi", "od", "ri", "rr"))
 
 	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
@@ -165,7 +165,7 @@ func Test_submitBuyOrders(t *testing.T) {
 		t.FailNow()
 	}
 
-	expectedParams := []*executionvenue.CreateAndRouteOrderParams{{
+	expectedParams := []*api.CreateAndRouteOrderParams{{
 		OrderSide:         model.Side_BUY,
 		Quantity:          model.IasD(10),
 		Price:             model.IasD(100),
@@ -216,36 +216,36 @@ func Test_submitBuyOrders(t *testing.T) {
 }
 
 type paramsAndId struct {
-	params *executionvenue.CreateAndRouteOrderParams
+	params *api.CreateAndRouteOrderParams
 	id     string
 }
 
 type testOmClient struct {
 	croParamsChan    chan paramsAndId
-	cancelParamsChan chan *executionvenue.CancelOrderParams
+	cancelParamsChan chan *api.CancelOrderParams
 }
 
-func (t *testOmClient) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty, opts ...grpc.CallOption) (*executionvenue.ExecParamsMetaDataJson, error) {
+func (t *testOmClient) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty, opts ...grpc.CallOption) (*api.ExecParamsMetaDataJson, error) {
 	panic("implement me")
 }
 
-func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionvenue.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*executionvenue.OrderId, error) {
+func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *api.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*api.OrderId, error) {
 
 	id, _ := uuid.NewUUID()
 
 	t.croParamsChan <- paramsAndId{in, id.String()}
 
-	return &executionvenue.OrderId{
+	return &api.OrderId{
 		OrderId: id.String(),
 	}, nil
 }
 
-func (t *testOmClient) CancelOrder(ctx context.Context, in *executionvenue.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
+func (t *testOmClient) CancelOrder(ctx context.Context, in *api.CancelOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
 	t.cancelParamsChan <- in
 	return &model.Empty{}, nil
 }
 
-func (t *testOmClient) ModifyOrder(ctx context.Context, in *executionvenue.ModifyOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
+func (t *testOmClient) ModifyOrder(ctx context.Context, in *api.ModifyOrderParams, opts ...grpc.CallOption) (*model.Empty, error) {
 	panic("implement me")
 }
 
@@ -430,7 +430,7 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 
 	quoteChan <- q
 
-	params1 := &executionvenue.CreateAndRouteOrderParams{
+	params1 := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(100),
@@ -518,7 +518,7 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 func Test_marshalAndUnmarshal(t *testing.T) {
 	//o := model.Order{Id: "test"}
 
-	o := ordertree.ParentOrder{
+	o := executionvenue.ParentOrder{
 		Order: model.Order{Id: "testp"},
 	}
 
@@ -544,7 +544,7 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 	quoteChan <- q
 
-	params1 := &executionvenue.CreateAndRouteOrderParams{
+	params1 := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(100),
@@ -577,7 +577,7 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 	quoteChan <- q
 
-	params2 := &executionvenue.CreateAndRouteOrderParams{
+	params2 := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(110),
@@ -617,7 +617,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 
 	quoteChan <- q
 
-	params1 := &executionvenue.CreateAndRouteOrderParams{
+	params1 := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(100),
@@ -633,7 +633,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 		t.FailNow()
 	}
 
-	params2 := &executionvenue.CreateAndRouteOrderParams{
+	params2 := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(110),
@@ -687,7 +687,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 
 func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
 	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *orderManager, model.Order,
-	chan *executionvenue.CancelOrderParams) {
+	chan *api.CancelOrderParams) {
 	evId := "testev"
 
 	srListing := &model.Listing{Id: 3}
@@ -706,11 +706,11 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 	orderUpdates := make(chan model.Order)
 
 	paramsChan := make(chan paramsAndId)
-	cancelParamsChan := make(chan *executionvenue.CancelOrderParams)
+	cancelParamsChan := make(chan *api.CancelOrderParams)
 
 	testExecVenue := &testOmClient{paramsChan, cancelParamsChan}
 
-	params := &executionvenue.CreateAndRouteOrderParams{
+	params := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(20),
 		Price:         model.IasD(130),
@@ -746,7 +746,7 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 	return evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order, cancelParamsChan
 }
 
-func areParamsEqual(p1 *executionvenue.CreateAndRouteOrderParams, p2 *executionvenue.CreateAndRouteOrderParams) bool {
+func areParamsEqual(p1 *api.CreateAndRouteOrderParams, p2 *api.CreateAndRouteOrderParams) bool {
 	return p1.Quantity.Equal(p2.Quantity) && p1.Listing.Id == p2.Listing.Id && p1.Price.Equal(p2.Price) && p1.OrderSide == p2.OrderSide &&
 		p1.OriginatorRef == p2.OriginatorRef && p1.OriginatorId == p2.OriginatorId
 

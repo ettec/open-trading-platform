@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-evcommon/ordertree"
-	marketdata "github.com/ettec/otp-mdcommon"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/executionvenue"
+        "github.com/ettec/otp-common/marketdata"
+	"github.com/ettec/otp-common/model"
 	"github.com/golang/protobuf/proto"
 	logger "log"
 	"os"
@@ -24,7 +24,7 @@ type orderManager struct {
 	lastStoredOrder    []byte
 	cancelChan         chan bool
 	store              func(*model.Order) error
-	managedOrder       *ordertree.ParentOrder
+	managedOrder       *executionvenue.ParentOrder
 	underlyingListings map[int32]*model.Listing
 	Id                 string
 	orderRouter        api.ExecutionVenueClient
@@ -71,7 +71,7 @@ type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<
 
 func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
 	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
-	quoteStream marketdata.MdsQuoteStream, childOrderStream ordertree.ChildOrderStream) (*orderManager, error) {
+	quoteStream marketdata.MdsQuoteStream, childOrderStream executionvenue.ChildOrderStream) (*orderManager, error) {
 
 	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
 		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
@@ -86,9 +86,9 @@ func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
 }
 
 func NewOrderManager(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient,
-	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream ordertree.ChildOrderStream,
+	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream executionvenue.ChildOrderStream,
 	doneChan chan<- string) *orderManager {
-	po := ordertree.NewParentOrder(*initialState)
+	po := executionvenue.NewParentOrder(*initialState)
 
 	om := newOrderManager(store, po, orderManagerId, orderRouter)
 
@@ -189,7 +189,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 	return om
 }
 
-func newOrderManager(store func(*model.Order) error, po *ordertree.ParentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
+func newOrderManager(store func(*model.Order) error, po *executionvenue.ParentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
 	om := &orderManager{
 		lastStoredOrder: nil,
 		cancelChan:      make(chan bool, 1),
