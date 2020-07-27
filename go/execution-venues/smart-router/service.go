@@ -8,6 +8,7 @@ import (
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/staticdata"
+	"github.com/ettec/otp-evcommon/ordertree"
 	marketdata "github.com/ettec/otp-mdcommon"
 	"github.com/ettec/otp-mdcommon/quotestream"
 	"github.com/ettec/otp-model"
@@ -56,8 +57,12 @@ type smartRouter struct {
 	childOrderUpdatesDistributor ChildOrderUpdatesDistributor
 }
 
+func (s *smartRouter) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty) (*api.ExecParamsMetaDataJson, error) {
+	panic("implement me")
+}
+
 type ChildOrderUpdatesDistributor interface {
-	NewOrderStream(parentOrderId string, bufferSize int) internal.ChildOrderStream
+	NewOrderStream(parentOrderId string, bufferSize int) ordertree.ChildOrderStream
 	Start()
 }
 
@@ -115,7 +120,7 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	sds, err := staticdata.NewStaticDataSource(common.STATIC_DATA_SERVICE_ADDRESS)
+	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		log.Fatalf("failed to create static data source:%v", err)
 	}
@@ -163,12 +168,12 @@ func main() {
 		panic(err)
 	}
 
-	childOrderUpdates, err := internal.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
+	childOrderUpdates, err := ordertree.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}
 
-	childUpdatesDistributor := internal.NewChildOrderUpdatesDistributor(childOrderUpdates)
+	childUpdatesDistributor := ordertree.NewChildOrderUpdatesDistributor(childOrderUpdates)
 
 	sr := &smartRouter{
 		id:                           id,

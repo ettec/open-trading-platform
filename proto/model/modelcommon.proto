@@ -1,0 +1,19 @@
+syntax = "proto3";
+package model;
+option go_package="model";
+
+
+message Empty {
+}
+
+message Decimal64 {
+    sfixed64 mantissa = 1;
+    sfixed32 exponent = 2;
+}
+
+
+message Timestamp {
+  int64 seconds = 1;
+  int32 nanoseconds =2; 
+}
+

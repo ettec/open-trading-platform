@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 #dockerRepo: "ettec/opentp:"
-dockerRepo: "localhost:32000/"
+dockerRepo: "localhost:5000/"
 dockerTag:
 
 replicaCount: 1

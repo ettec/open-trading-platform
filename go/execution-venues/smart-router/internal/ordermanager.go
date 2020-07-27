@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-evcommon/ordertree"
 	marketdata "github.com/ettec/otp-mdcommon"
 	"github.com/ettec/otp-model"
 	"github.com/golang/protobuf/proto"
@@ -23,7 +24,7 @@ type orderManager struct {
 	lastStoredOrder    []byte
 	cancelChan         chan bool
 	store              func(*model.Order) error
-	managedOrder       *parentOrder
+	managedOrder       *ordertree.ParentOrder
 	underlyingListings map[int32]*model.Listing
 	Id                 string
 	orderRouter        api.ExecutionVenueClient
@@ -70,7 +71,7 @@ type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<
 
 func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
 	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
-	quoteStream marketdata.MdsQuoteStream, childOrderStream ChildOrderStream) (*orderManager, error) {
+	quoteStream marketdata.MdsQuoteStream, childOrderStream ordertree.ChildOrderStream) (*orderManager, error) {
 
 	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
 		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
@@ -85,9 +86,9 @@ func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
 }
 
 func NewOrderManager(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient,
-	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream ChildOrderStream,
+	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream ordertree.ChildOrderStream,
 	doneChan chan<- string) *orderManager {
-	po := newParentOrder(*initialState)
+	po := ordertree.NewParentOrder(*initialState)
 
 	om := newOrderManager(store, po, orderManagerId, orderRouter)
 
@@ -132,7 +133,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 					po.SetTargetStatus(model.OrderStatus_CANCELLED)
 
 					pendingChildOrderCancels := false
-					for _, co := range po.childOrders {
+					for _, co := range po.ChildOrders {
 						if !co.IsTerminalState() {
 							pendingChildOrderCancels = true
 							orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
@@ -150,7 +151,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 				}
 			case co, ok := <-childOrderStream.GetStream():
 				if ok {
-					po.onChildOrderUpdate(co)
+					po.OnChildOrderUpdate(co)
 				} else {
 					om.errLog.Printf("child order update chan unexpectedly closed, cancelling order")
 					om.Cancel()
@@ -188,7 +189,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 	return om
 }
 
-func newOrderManager(store func(*model.Order) error, po *parentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
+func newOrderManager(store func(*model.Order) error, po *ordertree.ParentOrder, execVenueId string, orderRouter api.ExecutionVenueClient) *orderManager {
 	om := &orderManager{
 		lastStoredOrder: nil,
 		cancelChan:      make(chan bool, 1),
@@ -266,7 +267,7 @@ func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal6
 	// First persisted orders start at version 0, this is a placeholder until the first child order update is received
 	pendingOrder.Version = -1
 
-	om.managedOrder.onChildOrderUpdate(pendingOrder)
+	om.managedOrder.OnChildOrderUpdate(pendingOrder)
 
 }
 

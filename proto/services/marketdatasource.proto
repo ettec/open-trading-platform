@@ -1,0 +1,15 @@
+syntax = "proto3";
+package marketdatasource;
+import "clobquote.proto";
+import "modelcommon.proto";
+
+
+message SubscribeRequest{
+    int32 listingId = 1;
+}
+
+
+
+service MarketDataSource {
+    rpc Connect(stream SubscribeRequest) returns (stream model.ClobQuote) {};
+}

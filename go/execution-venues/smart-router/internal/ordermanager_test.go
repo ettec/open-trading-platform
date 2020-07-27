@@ -3,6 +3,7 @@ package internal
 import (
 	"context"
 	"github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-evcommon/ordertree"
 	"github.com/ettec/otp-model"
 	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
@@ -13,6 +14,10 @@ import (
 
 type testEvClient struct {
 	params []*executionvenue.CreateAndRouteOrderParams
+}
+
+func (t *testEvClient) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty, opts ...grpc.CallOption) (*executionvenue.ExecParamsMetaDataJson, error) {
+	panic("implement me")
 }
 
 func (t *testEvClient) CreateAndRouteOrder(ctx context.Context, in *executionvenue.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*executionvenue.OrderId, error) {
@@ -47,7 +52,7 @@ func Test_submitSellOrders(t *testing.T) {
 		},
 	}
 
-	mo := newParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
+	mo := ordertree.NewParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
 		"ri", "rr"))
 
 	listing1 := &model.Listing{Id: 1}
@@ -137,7 +142,7 @@ func Test_submitBuyOrders(t *testing.T) {
 		},
 	}
 
-	mo := newParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+	mo := ordertree.NewParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
 		"oi", "od", "ri", "rr"))
 
 	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
@@ -218,6 +223,10 @@ type paramsAndId struct {
 type testOmClient struct {
 	croParamsChan    chan paramsAndId
 	cancelParamsChan chan *executionvenue.CancelOrderParams
+}
+
+func (t *testOmClient) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty, opts ...grpc.CallOption) (*executionvenue.ExecParamsMetaDataJson, error) {
+	panic("implement me")
 }
 
 func (t *testOmClient) CreateAndRouteOrder(ctx context.Context, in *executionvenue.CreateAndRouteOrderParams, opts ...grpc.CallOption) (*executionvenue.OrderId, error) {
@@ -509,7 +518,7 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 func Test_marshalAndUnmarshal(t *testing.T) {
 	//o := model.Order{Id: "test"}
 
-	o := parentOrder{
+	o := ordertree.ParentOrder{
 		Order: model.Order{Id: "testp"},
 	}
 

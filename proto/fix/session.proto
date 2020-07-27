@@ -1,0 +1,498 @@
+//
+//	FIX Unified Repository mapping to Google Protocol Buffers
+//
+//	Copyright (c) FIX Trading Community. All Rights Reserved.
+//
+//	Category: Session
+//
+//	File: session.proto
+//
+syntax = "proto3";
+import "meta.proto";
+import "fix.proto";
+import "common.proto";
+
+option java_package = "org.fixprotocol.components";
+option java_outer_classname = "Session";
+option go_package="session";
+
+package Session;
+
+enum MsgTypeEnum {
+    MSG_TYPE_ADJUSTED_POSITION_REPORT = 0                   [(fix.enum_value)="BL"];
+    MSG_TYPE_ADVERTISEMENT = 1          [(fix.enum_value)="7"];
+    MSG_TYPE_ALLOCATION_INSTRUCTION = 2 [(fix.enum_value)="J"];
+    MSG_TYPE_ALLOCATION_INSTRUCTION_ACK = 3                 [(fix.enum_value)="P"];
+    MSG_TYPE_ALLOCATION_INSTRUCTION_ALERT = 4               [(fix.enum_value)="BM"];
+    MSG_TYPE_ALLOCATION_REPORT = 5      [(fix.enum_value)="AS"];
+    MSG_TYPE_ALLOCATION_REPORT_ACK = 6  [(fix.enum_value)="AT"];
+    MSG_TYPE_APPLICATION_MESSAGE_REPORT = 7                 [(fix.enum_value)="BY"];
+    MSG_TYPE_APPLICATION_MESSAGE_REQUEST = 8                [(fix.enum_value)="BW"];
+    MSG_TYPE_APPLICATION_MESSAGE_REQUEST_ACK = 9            [(fix.enum_value)="BX"];
+    MSG_TYPE_ASSIGNMENT_REPORT = 10     [(fix.enum_value)="AW"];
+    MSG_TYPE_BID_REQUEST = 11           [(fix.enum_value)="k"];
+    MSG_TYPE_BID_RESPONSE = 12          [(fix.enum_value)="l"];
+    MSG_TYPE_BUSINESS_MESSAGE_REJECT = 13                   [(fix.enum_value)="j"];
+    MSG_TYPE_COLLATERAL_ASSIGNMENT = 14 [(fix.enum_value)="AY"];
+    MSG_TYPE_COLLATERAL_INQUIRY = 15    [(fix.enum_value)="BB"];
+    MSG_TYPE_COLLATERAL_INQUIRY_ACK = 16                    [(fix.enum_value)="BG"];
+    MSG_TYPE_COLLATERAL_REPORT = 17     [(fix.enum_value)="BA"];
+    MSG_TYPE_COLLATERAL_REQUEST = 18    [(fix.enum_value)="AX"];
+    MSG_TYPE_COLLATERAL_RESPONSE = 19   [(fix.enum_value)="AZ"];
+    MSG_TYPE_CONFIRMATION = 20          [(fix.enum_value)="AK"];
+    MSG_TYPE_CONFIRMATION_ACK = 21      [(fix.enum_value)="AU"];
+    MSG_TYPE_CONFIRMATION_REQUEST = 22  [(fix.enum_value)="BH"];
+    MSG_TYPE_CONTRARY_INTENTION_REPORT = 23                 [(fix.enum_value)="BO"];
+    MSG_TYPE_CROSS_ORDER_CANCEL_REPLACE_REQUEST = 24        [(fix.enum_value)="t"];
+    MSG_TYPE_CROSS_ORDER_CANCEL_REQUEST = 25                [(fix.enum_value)="u"];
+    MSG_TYPE_DERIVATIVE_SECURITY_LIST = 26                  [(fix.enum_value)="AA"];
+    MSG_TYPE_DERIVATIVE_SECURITY_LIST_REQUEST = 27          [(fix.enum_value)="z"];
+    MSG_TYPE_DERIVATIVE_SECURITY_LIST_UPDATE_REPORT = 28    [(fix.enum_value)="BR"];
+    MSG_TYPE_DONT_KNOW_TRADE = 29       [(fix.enum_value)="Q"];
+    MSG_TYPE_EMAIL = 30                 [(fix.enum_value)="C"];
+    MSG_TYPE_EXECUTION_ACKNOWLEDGEMENT = 31                 [(fix.enum_value)="BN"];
+    MSG_TYPE_EXECUTION_REPORT = 32      [(fix.enum_value)="8"];
+    MSG_TYPE_HEARTBEAT = 33             [(fix.enum_value)="0"];
+    MSG_TYPE_IOI = 34                   [(fix.enum_value)="6"];
+    MSG_TYPE_LIST_CANCEL_REQUEST = 35   [(fix.enum_value)="K"];
+    MSG_TYPE_LIST_EXECUTE = 36          [(fix.enum_value)="L"];
+    MSG_TYPE_LIST_STATUS = 37           [(fix.enum_value)="N"];
+    MSG_TYPE_LIST_STATUS_REQUEST = 38   [(fix.enum_value)="M"];
+    MSG_TYPE_LIST_STRIKE_PRICE = 39     [(fix.enum_value)="m"];
+    MSG_TYPE_LOGON = 40                 [(fix.enum_value)="A"];
+    MSG_TYPE_LOGOUT = 41                [(fix.enum_value)="5"];
+    MSG_TYPE_MARKET_DATA_INCREMENTAL_REFRESH = 42           [(fix.enum_value)="X"];
+    MSG_TYPE_MARKET_DATA_REQUEST = 43   [(fix.enum_value)="V"];
+    MSG_TYPE_MARKET_DATA_REQUEST_REJECT = 44                [(fix.enum_value)="Y"];
+    MSG_TYPE_MARKET_DATA_SNAPSHOT_FULL_REFRESH = 45         [(fix.enum_value)="W"];
+    MSG_TYPE_MARKET_DEFINITION = 46     [(fix.enum_value)="BU"];
+    MSG_TYPE_MARKET_DEFINITION_REQUEST = 47                 [(fix.enum_value)="BT"];
+    MSG_TYPE_MARKET_DEFINITION_UPDATE_REPORT = 48           [(fix.enum_value)="BV"];
+    MSG_TYPE_MASS_QUOTE = 49            [(fix.enum_value)="i"];
+    MSG_TYPE_MASS_QUOTE_ACKNOWLEDGEMENT = 50                [(fix.enum_value)="b"];
+    MSG_TYPE_MULTILEG_ORDER_CANCEL_REPLACE = 51             [(fix.enum_value)="AC"];
+    MSG_TYPE_NETWORK_COUNTERPARTY_SYSTEM_STATUS_REQUEST = 52                    [(fix.enum_value)="BC"];
+    MSG_TYPE_NETWORK_COUNTERPARTY_SYSTEM_STATUS_RESPONSE = 53                   [(fix.enum_value)="BD"];
+    MSG_TYPE_NEWS = 54                  [(fix.enum_value)="B"];
+    MSG_TYPE_NEW_ORDER_CROSS = 55       [(fix.enum_value)="s"];
+    MSG_TYPE_NEW_ORDER_LIST = 56        [(fix.enum_value)="E"];
+    MSG_TYPE_NEW_ORDER_MULTILEG = 57    [(fix.enum_value)="AB"];
+    MSG_TYPE_NEW_ORDER_SINGLE = 58      [(fix.enum_value)="D"];
+    MSG_TYPE_ORDER_CANCEL_REJECT = 59   [(fix.enum_value)="9"];
+    MSG_TYPE_ORDER_CANCEL_REPLACE_REQUEST = 60              [(fix.enum_value)="G"];
+    MSG_TYPE_ORDER_CANCEL_REQUEST = 61  [(fix.enum_value)="F"];
+    MSG_TYPE_ORDER_MASS_ACTION_REPORT = 62                  [(fix.enum_value)="BZ"];
+    MSG_TYPE_ORDER_MASS_ACTION_REQUEST = 63                 [(fix.enum_value)="CA"];
+    MSG_TYPE_ORDER_MASS_CANCEL_REPORT = 64                  [(fix.enum_value)="r"];
+    MSG_TYPE_ORDER_MASS_CANCEL_REQUEST = 65                 [(fix.enum_value)="q"];
+    MSG_TYPE_ORDER_MASS_STATUS_REQUEST = 66                 [(fix.enum_value)="AF"];
+    MSG_TYPE_ORDER_STATUS_REQUEST = 67  [(fix.enum_value)="H"];
+    MSG_TYPE_POSITION_MAINTENANCE_REPORT = 68               [(fix.enum_value)="AM"];
+    MSG_TYPE_POSITION_MAINTENANCE_REQUEST = 69              [(fix.enum_value)="AL"];
+    MSG_TYPE_POSITION_REPORT = 70       [(fix.enum_value)="AP"];
+    MSG_TYPE_QUOTE = 71                 [(fix.enum_value)="S"];
+    MSG_TYPE_QUOTE_CANCEL = 72          [(fix.enum_value)="Z"];
+    MSG_TYPE_QUOTE_REQUEST = 73         [(fix.enum_value)="R"];
+    MSG_TYPE_QUOTE_REQUEST_REJECT = 74  [(fix.enum_value)="AG"];
+    MSG_TYPE_QUOTE_RESPONSE = 75        [(fix.enum_value)="AJ"];
+    MSG_TYPE_QUOTE_STATUS_REPORT = 76   [(fix.enum_value)="AI"];
+    MSG_TYPE_QUOTE_STATUS_REQUEST = 77  [(fix.enum_value)="a"];
+    MSG_TYPE_REGISTRATION_INSTRUCTIONS = 78                 [(fix.enum_value)="o"];
+    MSG_TYPE_REGISTRATION_INSTRUCTIONS_RESPONSE = 79        [(fix.enum_value)="p"];
+    MSG_TYPE_REJECT = 80                [(fix.enum_value)="3"];
+    MSG_TYPE_REQUEST_FOR_POSITIONS = 81 [(fix.enum_value)="AN"];
+    MSG_TYPE_REQUEST_FOR_POSITIONS_ACK = 82                 [(fix.enum_value)="AO"];
+    MSG_TYPE_RESEND_REQUEST = 83        [(fix.enum_value)="2"];
+    MSG_TYPE_RFQ_REQUEST = 84           [(fix.enum_value)="AH"];
+    MSG_TYPE_SECURITY_DEFINITION = 85   [(fix.enum_value)="d"];
+    MSG_TYPE_SECURITY_DEFINITION_REQUEST = 86               [(fix.enum_value)="c"];
+    MSG_TYPE_SECURITY_DEFINITION_UPDATE_REPORT = 87         [(fix.enum_value)="BP"];
+    MSG_TYPE_SECURITY_LIST = 88         [(fix.enum_value)="y"];
+    MSG_TYPE_SECURITY_LIST_REQUEST = 89 [(fix.enum_value)="x"];
+    MSG_TYPE_SECURITY_LIST_UPDATE_REPORT = 90               [(fix.enum_value)="BK"];
+    MSG_TYPE_SECURITY_STATUS = 91       [(fix.enum_value)="f"];
+    MSG_TYPE_SECURITY_STATUS_REQUEST = 92                   [(fix.enum_value)="e"];
+    MSG_TYPE_SECURITY_TYPES = 93        [(fix.enum_value)="w"];
+    MSG_TYPE_SECURITY_TYPE_REQUEST = 94 [(fix.enum_value)="v"];
+    MSG_TYPE_SEQUENCE_RESET = 95        [(fix.enum_value)="4"];
+    MSG_TYPE_SETTLEMENT_INSTRUCTIONS = 96                   [(fix.enum_value)="T"];
+    MSG_TYPE_SETTLEMENT_INSTRUCTION_REQUEST = 97            [(fix.enum_value)="AV"];
+    MSG_TYPE_SETTLEMENT_OBLIGATION_REPORT = 98              [(fix.enum_value)="BQ"];
+    MSG_TYPE_STREAM_ASSIGNMENT_REPORT = 99                  [(fix.enum_value)="CD"];
+    MSG_TYPE_STREAM_ASSIGNMENT_REPORT_ACK = 100             [(fix.enum_value)="CE"];
+    MSG_TYPE_STREAM_ASSIGNMENT_REQUEST = 101                [(fix.enum_value)="CC"];
+    MSG_TYPE_TEST_REQUEST = 102         [(fix.enum_value)="1"];
+    MSG_TYPE_TRADE_CAPTURE_REPORT = 103 [(fix.enum_value)="AE"];
+    MSG_TYPE_TRADE_CAPTURE_REPORT_ACK = 104                 [(fix.enum_value)="AR"];
+    MSG_TYPE_TRADE_CAPTURE_REPORT_REQUEST = 105             [(fix.enum_value)="AD"];
+    MSG_TYPE_TRADE_CAPTURE_REPORT_REQUEST_ACK = 106         [(fix.enum_value)="AQ"];
+    MSG_TYPE_TRADING_SESSION_LIST = 107 [(fix.enum_value)="BJ"];
+    MSG_TYPE_TRADING_SESSION_LIST_REQUEST = 108             [(fix.enum_value)="BI"];
+    MSG_TYPE_TRADING_SESSION_LIST_UPDATE_REPORT = 109       [(fix.enum_value)="BS"];
+    MSG_TYPE_TRADING_SESSION_STATUS = 110                   [(fix.enum_value)="h"];
+    MSG_TYPE_TRADING_SESSION_STATUS_REQUEST = 111           [(fix.enum_value)="g"];
+    MSG_TYPE_UNSPECIFIED = 112;
+    MSG_TYPE_USER_NOTIFICATION = 113    [(fix.enum_value)="CB"];
+    MSG_TYPE_USER_REQUEST = 114         [(fix.enum_value)="BE"];
+    MSG_TYPE_USER_RESPONSE = 115        [(fix.enum_value)="BF"];
+    MSG_TYPE_XMLNON_FIX = 116           [(fix.enum_value)="n"];
+}
+
+enum ApplVerIDEnum {
+    APPL_VER_ID_UNSPECIFIED = 0;
+    APPL_VER_ID_FIX27 = 1               [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX30 = 2               [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX40 = 3               [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX41 = 4               [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX42 = 5               [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX43 = 6               [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX44 = 7               [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX50 = 8               [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_4];
+    APPL_VER_ID_FIX50SP1 = 9            [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_5_0];
+    APPL_VER_ID_FIX50SP2 = 10           [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=97];
+}
+
+enum RefMsgTypeEnum {
+    REF_MSG_TYPE_ADJUSTED_POSITION_REPORT = 0               [(fix.enum_value)="BL"];
+    REF_MSG_TYPE_ADVERTISEMENT = 1      [(fix.enum_value)="7"];
+    REF_MSG_TYPE_ALLOCATION_INSTRUCTION = 2                 [(fix.enum_value)="J"];
+    REF_MSG_TYPE_ALLOCATION_INSTRUCTION_ACK = 3             [(fix.enum_value)="P"];
+    REF_MSG_TYPE_ALLOCATION_INSTRUCTION_ALERT = 4           [(fix.enum_value)="BM"];
+    REF_MSG_TYPE_ALLOCATION_REPORT = 5  [(fix.enum_value)="AS"];
+    REF_MSG_TYPE_ALLOCATION_REPORT_ACK = 6                  [(fix.enum_value)="AT"];
+    REF_MSG_TYPE_APPLICATION_MESSAGE_REPORT = 7             [(fix.enum_value)="BY"];
+    REF_MSG_TYPE_APPLICATION_MESSAGE_REQUEST = 8            [(fix.enum_value)="BW"];
+    REF_MSG_TYPE_APPLICATION_MESSAGE_REQUEST_ACK = 9        [(fix.enum_value)="BX"];
+    REF_MSG_TYPE_ASSIGNMENT_REPORT = 10 [(fix.enum_value)="AW"];
+    REF_MSG_TYPE_BID_REQUEST = 11       [(fix.enum_value)="k"];
+    REF_MSG_TYPE_BID_RESPONSE = 12      [(fix.enum_value)="l"];
+    REF_MSG_TYPE_BUSINESS_MESSAGE_REJECT = 13               [(fix.enum_value)="j"];
+    REF_MSG_TYPE_COLLATERAL_ASSIGNMENT = 14                 [(fix.enum_value)="AY"];
+    REF_MSG_TYPE_COLLATERAL_INQUIRY = 15                    [(fix.enum_value)="BB"];
+    REF_MSG_TYPE_COLLATERAL_INQUIRY_ACK = 16                [(fix.enum_value)="BG"];
+    REF_MSG_TYPE_COLLATERAL_REPORT = 17 [(fix.enum_value)="BA"];
+    REF_MSG_TYPE_COLLATERAL_REQUEST = 18                    [(fix.enum_value)="AX"];
+    REF_MSG_TYPE_COLLATERAL_RESPONSE = 19                   [(fix.enum_value)="AZ"];
+    REF_MSG_TYPE_CONFIRMATION = 20      [(fix.enum_value)="AK"];
+    REF_MSG_TYPE_CONFIRMATION_ACK = 21  [(fix.enum_value)="AU"];
+    REF_MSG_TYPE_CONFIRMATION_REQUEST = 22                  [(fix.enum_value)="BH"];
+    REF_MSG_TYPE_CONTRARY_INTENTION_REPORT = 23             [(fix.enum_value)="BO"];
+    REF_MSG_TYPE_CROSS_ORDER_CANCEL_REPLACE_REQUEST = 24    [(fix.enum_value)="t"];
+    REF_MSG_TYPE_CROSS_ORDER_CANCEL_REQUEST = 25            [(fix.enum_value)="u"];
+    REF_MSG_TYPE_DERIVATIVE_SECURITY_LIST = 26              [(fix.enum_value)="AA"];
+    REF_MSG_TYPE_DERIVATIVE_SECURITY_LIST_REQUEST = 27      [(fix.enum_value)="z"];
+    REF_MSG_TYPE_DERIVATIVE_SECURITY_LIST_UPDATE_REPORT = 28                    [(fix.enum_value)="BR"];
+    REF_MSG_TYPE_DONT_KNOW_TRADE = 29   [(fix.enum_value)="Q"];
+    REF_MSG_TYPE_EMAIL = 30             [(fix.enum_value)="C"];
+    REF_MSG_TYPE_EXECUTION_ACKNOWLEDGEMENT = 31             [(fix.enum_value)="BN"];
+    REF_MSG_TYPE_EXECUTION_REPORT = 32  [(fix.enum_value)="8"];
+    REF_MSG_TYPE_HEARTBEAT = 33         [(fix.enum_value)="0"];
+    REF_MSG_TYPE_IOI = 34               [(fix.enum_value)="6"];
+    REF_MSG_TYPE_LIST_CANCEL_REQUEST = 35                   [(fix.enum_value)="K"];
+    REF_MSG_TYPE_LIST_EXECUTE = 36      [(fix.enum_value)="L"];
+    REF_MSG_TYPE_LIST_STATUS = 37       [(fix.enum_value)="N"];
+    REF_MSG_TYPE_LIST_STATUS_REQUEST = 38                   [(fix.enum_value)="M"];
+    REF_MSG_TYPE_LIST_STRIKE_PRICE = 39 [(fix.enum_value)="m"];
+    REF_MSG_TYPE_LOGON = 40             [(fix.enum_value)="A"];
+    REF_MSG_TYPE_LOGOUT = 41            [(fix.enum_value)="5"];
+    REF_MSG_TYPE_MARKET_DATA_INCREMENTAL_REFRESH = 42       [(fix.enum_value)="X"];
+    REF_MSG_TYPE_MARKET_DATA_REQUEST = 43                   [(fix.enum_value)="V"];
+    REF_MSG_TYPE_MARKET_DATA_REQUEST_REJECT = 44            [(fix.enum_value)="Y"];
+    REF_MSG_TYPE_MARKET_DATA_SNAPSHOT_FULL_REFRESH = 45     [(fix.enum_value)="W"];
+    REF_MSG_TYPE_MARKET_DEFINITION = 46 [(fix.enum_value)="BU"];
+    REF_MSG_TYPE_MARKET_DEFINITION_REQUEST = 47             [(fix.enum_value)="BT"];
+    REF_MSG_TYPE_MARKET_DEFINITION_UPDATE_REPORT = 48       [(fix.enum_value)="BV"];
+    REF_MSG_TYPE_MASS_QUOTE = 49        [(fix.enum_value)="i"];
+    REF_MSG_TYPE_MASS_QUOTE_ACKNOWLEDGEMENT = 50            [(fix.enum_value)="b"];
+    REF_MSG_TYPE_MULTILEG_ORDER_CANCEL_REPLACE = 51         [(fix.enum_value)="AC"];
+    REF_MSG_TYPE_NETWORK_COUNTERPARTY_SYSTEM_STATUS_REQUEST = 52                [(fix.enum_value)="BC"];
+    REF_MSG_TYPE_NETWORK_COUNTERPARTY_SYSTEM_STATUS_RESPONSE = 53               [(fix.enum_value)="BD"];
+    REF_MSG_TYPE_NEWS = 54              [(fix.enum_value)="B"];
+    REF_MSG_TYPE_NEW_ORDER_CROSS = 55   [(fix.enum_value)="s"];
+    REF_MSG_TYPE_NEW_ORDER_LIST = 56    [(fix.enum_value)="E"];
+    REF_MSG_TYPE_NEW_ORDER_MULTILEG = 57                    [(fix.enum_value)="AB"];
+    REF_MSG_TYPE_NEW_ORDER_SINGLE = 58  [(fix.enum_value)="D"];
+    REF_MSG_TYPE_ORDER_CANCEL_REJECT = 59                   [(fix.enum_value)="9"];
+    REF_MSG_TYPE_ORDER_CANCEL_REPLACE_REQUEST = 60          [(fix.enum_value)="G"];
+    REF_MSG_TYPE_ORDER_CANCEL_REQUEST = 61                  [(fix.enum_value)="F"];
+    REF_MSG_TYPE_ORDER_MASS_ACTION_REPORT = 62              [(fix.enum_value)="BZ"];
+    REF_MSG_TYPE_ORDER_MASS_ACTION_REQUEST = 63             [(fix.enum_value)="CA"];
+    REF_MSG_TYPE_ORDER_MASS_CANCEL_REPORT = 64              [(fix.enum_value)="r"];
+    REF_MSG_TYPE_ORDER_MASS_CANCEL_REQUEST = 65             [(fix.enum_value)="q"];
+    REF_MSG_TYPE_ORDER_MASS_STATUS_REQUEST = 66             [(fix.enum_value)="AF"];
+    REF_MSG_TYPE_ORDER_STATUS_REQUEST = 67                  [(fix.enum_value)="H"];
+    REF_MSG_TYPE_POSITION_MAINTENANCE_REPORT = 68           [(fix.enum_value)="AM"];
+    REF_MSG_TYPE_POSITION_MAINTENANCE_REQUEST = 69          [(fix.enum_value)="AL"];
+    REF_MSG_TYPE_POSITION_REPORT = 70   [(fix.enum_value)="AP"];
+    REF_MSG_TYPE_QUOTE = 71             [(fix.enum_value)="S"];
+    REF_MSG_TYPE_QUOTE_CANCEL = 72      [(fix.enum_value)="Z"];
+    REF_MSG_TYPE_QUOTE_REQUEST = 73     [(fix.enum_value)="R"];
+    REF_MSG_TYPE_QUOTE_REQUEST_REJECT = 74                  [(fix.enum_value)="AG"];
+    REF_MSG_TYPE_QUOTE_RESPONSE = 75    [(fix.enum_value)="AJ"];
+    REF_MSG_TYPE_QUOTE_STATUS_REPORT = 76                   [(fix.enum_value)="AI"];
+    REF_MSG_TYPE_QUOTE_STATUS_REQUEST = 77                  [(fix.enum_value)="a"];
+    REF_MSG_TYPE_REGISTRATION_INSTRUCTIONS = 78             [(fix.enum_value)="o"];
+    REF_MSG_TYPE_REGISTRATION_INSTRUCTIONS_RESPONSE = 79    [(fix.enum_value)="p"];
+    REF_MSG_TYPE_REJECT = 80            [(fix.enum_value)="3"];
+    REF_MSG_TYPE_REQUEST_FOR_POSITIONS = 81                 [(fix.enum_value)="AN"];
+    REF_MSG_TYPE_REQUEST_FOR_POSITIONS_ACK = 82             [(fix.enum_value)="AO"];
+    REF_MSG_TYPE_RESEND_REQUEST = 83    [(fix.enum_value)="2"];
+    REF_MSG_TYPE_RFQ_REQUEST = 84       [(fix.enum_value)="AH"];
+    REF_MSG_TYPE_SECURITY_DEFINITION = 85                   [(fix.enum_value)="d"];
+    REF_MSG_TYPE_SECURITY_DEFINITION_REQUEST = 86           [(fix.enum_value)="c"];
+    REF_MSG_TYPE_SECURITY_DEFINITION_UPDATE_REPORT = 87     [(fix.enum_value)="BP"];
+    REF_MSG_TYPE_SECURITY_LIST = 88     [(fix.enum_value)="y"];
+    REF_MSG_TYPE_SECURITY_LIST_REQUEST = 89                 [(fix.enum_value)="x"];
+    REF_MSG_TYPE_SECURITY_LIST_UPDATE_REPORT = 90           [(fix.enum_value)="BK"];
+    REF_MSG_TYPE_SECURITY_STATUS = 91   [(fix.enum_value)="f"];
+    REF_MSG_TYPE_SECURITY_STATUS_REQUEST = 92               [(fix.enum_value)="e"];
+    REF_MSG_TYPE_SECURITY_TYPES = 93    [(fix.enum_value)="w"];
+    REF_MSG_TYPE_SECURITY_TYPE_REQUEST = 94                 [(fix.enum_value)="v"];
+    REF_MSG_TYPE_SEQUENCE_RESET = 95    [(fix.enum_value)="4"];
+    REF_MSG_TYPE_SETTLEMENT_INSTRUCTIONS = 96               [(fix.enum_value)="T"];
+    REF_MSG_TYPE_SETTLEMENT_INSTRUCTION_REQUEST = 97        [(fix.enum_value)="AV"];
+    REF_MSG_TYPE_SETTLEMENT_OBLIGATION_REPORT = 98          [(fix.enum_value)="BQ"];
+    REF_MSG_TYPE_STREAM_ASSIGNMENT_REPORT = 99              [(fix.enum_value)="CD"];
+    REF_MSG_TYPE_STREAM_ASSIGNMENT_REPORT_ACK = 100         [(fix.enum_value)="CE"];
+    REF_MSG_TYPE_STREAM_ASSIGNMENT_REQUEST = 101            [(fix.enum_value)="CC"];
+    REF_MSG_TYPE_TEST_REQUEST = 102     [(fix.enum_value)="1"];
+    REF_MSG_TYPE_TRADE_CAPTURE_REPORT = 103                 [(fix.enum_value)="AE"];
+    REF_MSG_TYPE_TRADE_CAPTURE_REPORT_ACK = 104             [(fix.enum_value)="AR"];
+    REF_MSG_TYPE_TRADE_CAPTURE_REPORT_REQUEST = 105         [(fix.enum_value)="AD"];
+    REF_MSG_TYPE_TRADE_CAPTURE_REPORT_REQUEST_ACK = 106     [(fix.enum_value)="AQ"];
+    REF_MSG_TYPE_TRADING_SESSION_LIST = 107                 [(fix.enum_value)="BJ"];
+    REF_MSG_TYPE_TRADING_SESSION_LIST_REQUEST = 108         [(fix.enum_value)="BI"];
+    REF_MSG_TYPE_TRADING_SESSION_LIST_UPDATE_REPORT = 109   [(fix.enum_value)="BS"];
+    REF_MSG_TYPE_TRADING_SESSION_STATUS = 110               [(fix.enum_value)="h"];
+    REF_MSG_TYPE_TRADING_SESSION_STATUS_REQUEST = 111       [(fix.enum_value)="g"];
+    REF_MSG_TYPE_UNSPECIFIED = 112;
+    REF_MSG_TYPE_USER_NOTIFICATION = 113                    [(fix.enum_value)="CB"];
+    REF_MSG_TYPE_USER_REQUEST = 114     [(fix.enum_value)="BE"];
+    REF_MSG_TYPE_USER_RESPONSE = 115    [(fix.enum_value)="BF"];
+    REF_MSG_TYPE_XMLNON_FIX = 116       [(fix.enum_value)="n"];
+}
+
+enum RefApplVerIDEnum {
+    REF_APPL_VER_ID_UNSPECIFIED = 0;
+    REF_APPL_VER_ID_FIX27 = 1           [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX30 = 2           [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX40 = 3           [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX41 = 4           [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX42 = 5           [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX43 = 6           [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX44 = 7           [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX50 = 8           [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_4];
+    REF_APPL_VER_ID_FIX50SP1 = 9        [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_5_0];
+    REF_APPL_VER_ID_FIX50SP2 = 10       [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=97];
+}
+
+enum SessionRejectReasonEnum {
+    SESSION_REJECT_REASON_UNSPECIFIED = 0;
+    SESSION_REJECT_REASON_COMP_ID_PROBLEM = 1               [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_DECRYPTION_PROBLEM = 2            [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_INCORRECT_DATA_FORMAT_FOR_VALUE = 3                   [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_INVALID_MSG_TYPE = 4              [(fix.enum_value)="11", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_INVALID_TAG_NUMBER = 5            [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_REQUIRED_TAG_MISSING = 6          [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_SENDING_TIME_ACCURACY_PROBLEM = 7 [(fix.enum_value)="10", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_SIGNATURE_PROBLEM = 8             [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_TAG_NOT_DEFINED_FOR_THIS_MESSAGE_TYPE = 9             [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_TAG_SPECIFIED_WITHOUT_AVALUE = 10 [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_UNDEFINED_TAG = 11                [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_VALUE_IS_INCORRECT = 12           [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_2];
+    SESSION_REJECT_REASON_INCORRECT_NUM_IN_GROUP_COUNT_FOR_REPEATING_GROUP = 13 [(fix.enum_value)="16", (fix.enum_added)=VERSION_FIX_4_3];
+    SESSION_REJECT_REASON_NON = 14      [(fix.enum_value)="17", (fix.enum_added)=VERSION_FIX_4_3];
+    SESSION_REJECT_REASON_REPEATING_GROUP_FIELDS_OUT_OF_ORDER = 15              [(fix.enum_value)="15", (fix.enum_added)=VERSION_FIX_4_3];
+    SESSION_REJECT_REASON_TAG_APPEARS_MORE_THAN_ONCE = 16   [(fix.enum_value)="13", (fix.enum_added)=VERSION_FIX_4_3];
+    SESSION_REJECT_REASON_TAG_SPECIFIED_OUT_OF_REQUIRED_ORDER = 17              [(fix.enum_value)="14", (fix.enum_added)=VERSION_FIX_4_3];
+    SESSION_REJECT_REASON_XML_VALIDATION_ERROR = 18         [(fix.enum_value)="12", (fix.enum_added)=VERSION_FIX_4_3];
+    SESSION_REJECT_REASON_OTHER = 19    [(fix.enum_value)="99", (fix.enum_added)=VERSION_FIX_4_4];
+    SESSION_REJECT_REASON_INVALID = 20  [(fix.enum_value)="18", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+}
+
+enum SessionStatusEnum {
+    SESSION_STATUS_UNSPECIFIED = 0;
+    SESSION_STATUS_ACCOUNT_LOCKED = 1   [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_INVALID_USERNAME_OR_PASSWORD = 2         [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_LOGONS_ARE_NOT_ALLOWED_AT_THIS_TIME = 3  [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_NEW_SESSION_PASSWORD_DOES_NOT_COMPLY_WITH_POLICY = 4         [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_PASSWORD_EXPIRED = 5 [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_SESSION_ACTIVE = 6   [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_SESSION_LOGOUT_COMPLETE = 7              [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_SESSION_PASSWORD_CHANGED = 8             [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+    SESSION_STATUS_SESSION_PASSWORD_DUE_TO_EXPIRE = 9       [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_5_0, (fix.enum_added_ep)=56];
+}
+
+enum EncryptMethodEnum {
+    ENCRYPT_METHOD_UNSPECIFIED = 0;
+    ENCRYPT_METHOD_DES = 1              [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_2_7];
+    ENCRYPT_METHOD_NONE = 2             [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_2_7];
+    ENCRYPT_METHOD_PKCS = 3             [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_2_7];
+    ENCRYPT_METHOD_PKCSDES = 4          [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_2_7];
+    ENCRYPT_METHOD_PGPDES = 5           [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_3_0];
+    ENCRYPT_METHOD_PEM = 6              [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_0];
+    ENCRYPT_METHOD_PGPDESMD5 = 7        [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_0];
+}
+
+enum DefaultApplVerIDEnum {
+    DEFAULT_APPL_VER_ID_UNSPECIFIED = 0;
+    DEFAULT_APPL_VER_ID_FIX27 = 1       [(fix.enum_value)="0", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX30 = 2       [(fix.enum_value)="1", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX40 = 3       [(fix.enum_value)="2", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX41 = 4       [(fix.enum_value)="3", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX42 = 5       [(fix.enum_value)="4", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX43 = 6       [(fix.enum_value)="5", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX44 = 7       [(fix.enum_value)="6", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX50 = 8       [(fix.enum_value)="7", (fix.enum_added)=VERSION_FIX_4_4];
+    DEFAULT_APPL_VER_ID_FIX50SP1 = 9    [(fix.enum_value)="8", (fix.enum_added)=VERSION_FIX_5_0];
+    DEFAULT_APPL_VER_ID_FIX50SP2 = 10   [(fix.enum_value)="9", (fix.enum_added)=VERSION_FIX_5_0SP1, (fix.enum_added_ep)=97];
+}
+
+message StandardHeader {
+    string begin_string = 1             [(fix.tag)=8, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    sfixed64 body_length = 2            [(fix.tag)=9, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_0];
+    string deliver_to_comp_id = 3       [(fix.tag)=128, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string deliver_to_sub_id = 4        [(fix.tag)=129, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    sfixed64 msg_seq_num = 5            [(fix.tag)=34, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_4_0];
+    MsgTypeEnum msg_type = 6            [(fix.tag)=35, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string on_behalf_of_comp_id = 7     [(fix.tag)=115, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string on_behalf_of_sub_id = 8      [(fix.tag)=116, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    fix.Timestamp orig_sending_time = 9 [(fix.tag)=122, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_4_0];
+    bool poss_dup_flag = 10             [(fix.tag)=43, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_0];
+    bool poss_resend = 11               [(fix.tag)=97, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_0];
+    string secure_data = 12             [(fix.tag)=91, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_0];
+    sfixed64 secure_data_len = 13       [(fix.tag)=90, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_0];
+    string sender_comp_id = 14          [(fix.tag)=49, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string sender_sub_id = 15           [(fix.tag)=50, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    fix.Timestamp sending_time = 16     [(fix.tag)=52, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_4_0];
+    string target_comp_id = 17          [(fix.tag)=56, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string target_sub_id = 18           [(fix.tag)=57, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string deliver_to_location_id = 19  [(fix.tag)=145, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_1];
+    string on_behalf_of_location_id = 20                    [(fix.tag)=144, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_1];
+    string sender_location_id = 21      [(fix.tag)=142, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_1];
+    string target_location_id = 22      [(fix.tag)=143, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_1];
+    sfixed64 last_msg_seq_num_processed = 23                [(fix.tag)=369, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_4_2];
+    string message_encoding = 24        [(fix.tag)=347, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    string xml_data = 25                [(fix.tag)=213, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 xml_data_len = 26          [(fix.tag)=212, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_2];
+    ApplVerIDEnum appl_ver_id = 27      [(fix.tag)=1128, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    string cstm_appl_ver_id = 28        [(fix.tag)=1129, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    repeated HopGrp hop_grp = 29        [(fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 appl_ext_id = 30           [(fix.tag)=1156, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+}
+
+message StandardTrailer {
+    string check_sum = 1                [(fix.tag)=10, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+    string signature = 2                [(fix.tag)=89, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_0];
+    sfixed64 signature_length = 3       [(fix.tag)=93, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_0];
+}
+
+message HopGrp {
+    string hop_comp_id = 1              [(fix.tag)=628, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 hop_ref_id = 2             [(fix.tag)=630, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_4_4];
+    fix.Timestamp hop_sending_time = 3  [(fix.tag)=629, (fix.type)=DATATYPE_UTC_TIMESTAMP, (fix.field_added)=VERSION_FIX_4_4];
+}
+
+message Heartbeat {
+    option (fix.msg_type_value)="0";
+    StandardHeader standard_header = 1  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 2                    [(fix.field_added)=VERSION_FIX_2_7];
+    string test_req_id = 3              [(fix.tag)=112, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+}
+
+message TestRequest {
+    option (fix.msg_type_value)="1";
+    StandardHeader standard_header = 1  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 2                    [(fix.field_added)=VERSION_FIX_2_7];
+    string test_req_id = 3              [(fix.tag)=112, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_0];
+}
+
+message ResendRequest {
+    option (fix.msg_type_value)="2";
+    sfixed64 begin_seq_no = 1           [(fix.tag)=7, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_2_7];
+    sfixed64 end_seq_no = 2             [(fix.tag)=16, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_2_7];
+    StandardHeader standard_header = 3  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 4                    [(fix.field_added)=VERSION_FIX_2_7];
+}
+
+message Reject {
+    option (fix.msg_type_value)="3";
+    sfixed64 ref_seq_num = 1            [(fix.tag)=45, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_2_7];
+    StandardHeader standard_header = 2  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 3                    [(fix.field_added)=VERSION_FIX_2_7];
+    string text = 4                     [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_2_7];
+    string encoded_text = 5             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 encoded_text_len = 6       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_2];
+    RefMsgTypeEnum ref_msg_type = 7     [(fix.tag)=372, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 ref_tag_id = 8             [(fix.tag)=371, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_2];
+    oneof session_reject_reason_union {
+        SessionRejectReasonEnum session_reject_reason = 9       [(fix.tag)=373, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_4_2];
+        fixed32 session_reject_reason_reserved100plus = 10      [(fix.tag)=373, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_4_2];
+    }
+    sfixed64 ref_appl_ext_id = 11       [(fix.tag)=1406, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    RefApplVerIDEnum ref_appl_ver_id = 12                   [(fix.tag)=1130, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+    string ref_cstm_appl_ver_id = 13    [(fix.tag)=1131, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+}
+
+message SequenceReset {
+    option (fix.msg_type_value)="4";
+    sfixed64 new_seq_no = 1             [(fix.tag)=36, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_2_7];
+    StandardHeader standard_header = 2  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 3                    [(fix.field_added)=VERSION_FIX_2_7];
+    bool gap_fill_flag = 4              [(fix.tag)=123, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_0];
+}
+
+message Logout {
+    option (fix.msg_type_value)="5";
+    StandardHeader standard_header = 1  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 2                    [(fix.field_added)=VERSION_FIX_2_7];
+    string text = 3                     [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_2_7];
+    string encoded_text = 4             [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_4_2];
+    sfixed64 encoded_text_len = 5       [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_2];
+    oneof session_status_union {
+        SessionStatusEnum session_status = 6                    [(fix.tag)=1409, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 session_status_reserved100plus = 7              [(fix.tag)=1409, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+}
+
+message Logon {
+    option (fix.msg_type_value)="A";
+    EncryptMethodEnum encrypt_method = 1                    [(fix.tag)=98, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_2_7];
+    string raw_data = 2                 [(fix.tag)=96, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_2_7];
+    sfixed64 raw_data_length = 3        [(fix.tag)=95, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_2_7];
+    StandardHeader standard_header = 4  [(fix.field_added)=VERSION_FIX_2_7];
+    StandardTrailer standard_trailer = 5                    [(fix.field_added)=VERSION_FIX_2_7];
+    sfixed64 heart_bt_int = 6           [(fix.tag)=108, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_3_0];
+    bool reset_seq_num_flag = 7         [(fix.tag)=141, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_1];
+    sfixed64 max_message_size = 8       [(fix.tag)=383, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_4_2];
+    string password = 9                 [(fix.tag)=554, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_3];
+    bool test_message_indicator = 10    [(fix.tag)=464, (fix.type)=DATATYPE_BOOLEAN, (fix.field_added)=VERSION_FIX_4_3];
+    string username = 11                [(fix.tag)=553, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_3];
+    DefaultApplVerIDEnum default_appl_ver_id = 12           [(fix.tag)=1137, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_4_4];
+    repeated Common.MsgTypeGrp msg_type_grp = 13            [(fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 next_expected_msg_seq_num = 14                 [(fix.tag)=789, (fix.type)=DATATYPE_SEQ_NUM, (fix.field_added)=VERSION_FIX_4_4];
+    sfixed64 default_appl_ext_id = 15   [(fix.tag)=1407, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+    string default_cstm_appl_ver_id = 16                    [(fix.tag)=1408, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+    string encoded_text = 17            [(fix.tag)=355, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 encoded_text_len = 18      [(fix.tag)=354, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_5_0];
+    string encrypted_new_password = 19  [(fix.tag)=1404, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 encrypted_new_password_len = 20                [(fix.tag)=1403, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_5_0];
+    string encrypted_password = 21      [(fix.tag)=1402, (fix.type)=DATATYPE_DATA, (fix.field_added)=VERSION_FIX_5_0];
+    sfixed64 encrypted_password_len = 22                    [(fix.tag)=1401, (fix.type)=DATATYPE_LENGTH, (fix.field_added)=VERSION_FIX_5_0];
+    oneof encrypted_password_method_union {
+        sfixed64 encrypted_password_method = 23                 [(fix.tag)=1400, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 encrypted_password_method_reserved100plus = 24  [(fix.tag)=1400, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    string new_password = 25            [(fix.tag)=925, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+    oneof session_status_union {
+        SessionStatusEnum session_status = 26                   [(fix.tag)=1409, (fix.type)=DATATYPE_INT, (fix.field_added)=VERSION_FIX_5_0];
+        fixed32 session_status_reserved100plus = 27             [(fix.tag)=1409, (fix.type)=DATATYPE_RESERVED100PLUS, (fix.field_added)=VERSION_FIX_5_0];
+    }
+    string text = 28                    [(fix.tag)=58, (fix.type)=DATATYPE_STRING, (fix.field_added)=VERSION_FIX_5_0];
+}
+
+message XMLnonFIX {
+    option (fix.msg_type_value)="n";
+    StandardHeader standard_header = 1  [(fix.field_added)=VERSION_FIX_4_3];
+    StandardTrailer standard_trailer = 2                    [(fix.field_added)=VERSION_FIX_4_3];
+}

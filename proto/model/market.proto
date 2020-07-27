@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package model;
+option go_package="model";
+
+message Market {
+   int32 version = 1;
+   int32 id = 2;
+   string name = 3;
+   string mic = 4;
+   string countryCode = 5;
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+import "listing.proto";
+package staticdataservice;
+
+
+message ListingId {
+    int32 listingId = 1;
+}
+
+
+message ListingIds {
+    repeated int32 listingIds = 1;
+}
+
+message Listings {
+   repeated model.Listing listings = 1;
+
+}
+
+message MatchParameters {
+	string symbolMatch = 1;
+	string nameMatch = 2;
+}
+
+message ExactMatchParameters {
+    string symbol = 1;
+    string mic = 2;
+
+}
+
+
+service StaticDataService{
+    rpc GetListingsWithSameInstrument(ListingId) returns (Listings) {};
+    rpc GetListingMatching(ExactMatchParameters) returns (model.Listing) {};
+    rpc GetListingsMatching(MatchParameters) returns (Listings) {};
+    rpc GetListing(ListingId) returns (model.Listing) {};
+    rpc GetListings(ListingIds) returns (Listings) {};
+}
