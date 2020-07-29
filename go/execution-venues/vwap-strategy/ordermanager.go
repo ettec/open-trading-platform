@@ -1,17 +1,16 @@
-package internal
+package main
 
 import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
-	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
 	"github.com/golang/protobuf/proto"
 	logger "log"
 	"os"
+	"time"
 )
 
 var zero *model.Decimal64
@@ -21,12 +20,11 @@ func init() {
 }
 
 type orderManager struct {
+	Id                 string
 	lastStoredOrder    []byte
 	cancelChan         chan bool
 	store              func(*model.Order) error
 	managedOrder       *executionvenue.ParentOrder
-	underlyingListings map[int32]*model.Listing
-	Id                 string
 	orderRouter        api.ExecutionVenueClient
 	log                *logger.Logger
 	errLog             *logger.Logger
@@ -51,42 +49,46 @@ func (om *orderManager) persistManagedOrderChanges() error {
 		}
 
 		toStore, err := proto.Marshal(&om.managedOrder.Order)
-
-		om.lastStoredOrder = toStore
-
-		orderCopy := &model.Order{}
-		proto.Unmarshal(toStore, orderCopy)
-		om.store(orderCopy)
-
 		if err != nil {
 			return err
 		}
 
+		om.lastStoredOrder = toStore
+
+		orderCopy := &model.Order{}
+		err = proto.Unmarshal(toStore, orderCopy)
+		if err != nil {
+			return err
+		}
+
+		err = om.store(orderCopy)
+		if err != nil {
+			return err
+		}
 	}
 
 	return err
 }
 
-type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
-
 func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
-	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
-	quoteStream marketdata.MdsQuoteStream, childOrderStream executionvenue.ChildOrderStream) (*orderManager, error) {
+	orderManagerId string, buckets []bucket, doneChan chan<- string, store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
+	childOrderStream executionvenue.ChildOrderStream) (*orderManager, error) {
 
 	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
 		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
 	err := initialState.SetTargetStatus(model.OrderStatus_LIVE)
+	initialState.ExecParametersJson = params.ExecParametersJson
 	if err != nil {
 		return nil, err
 	}
 
-	om := NewOrderManager(initialState, store, orderManagerId, orderRouter, getListingsWithSameInstrument, quoteStream, childOrderStream, doneChan)
+	om := NewOrderManager(initialState, store, orderManagerId, orderRouter,  buckets, params.Listing, childOrderStream, doneChan)
 
 	return om, nil
 }
 
 func NewOrderManager(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient,
-	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream executionvenue.ChildOrderStream,
+	buckets []bucket, listing *model.Listing, childOrderStream executionvenue.ChildOrderStream,
 	doneChan chan<- string) *orderManager {
 	po := executionvenue.NewParentOrder(*initialState)
 
@@ -94,58 +96,73 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 	go func() {
 
-		om.log.Println("initialising order")
-
-		listingsIn := make(chan []*model.Listing)
-
-		getListingsWithSameInstrument(po.ListingId, listingsIn)
-
-		underlyingListings := map[int32]*model.Listing{}
-		select {
-		case ls := <-listingsIn:
-			for _, listing := range ls {
-				if listing.Market.Mic != common.SR_MIC {
-					underlyingListings[listing.Id] = listing
-				}
-			}
-		}
-
-		om.underlyingListings = underlyingListings
-
-		quoteStream.Subscribe(po.ListingId)
-
 		om.log.Println("order initialised")
 
+		ticker := time.NewTicker(1 * time.Second)
+
 		for {
-			om.persistManagedOrderChanges()
+			err := om.persistManagedOrderChanges()
+			if err != nil {
+				errLog.Printf("failed to persist order changes: %v", err )
+				om.cancelOrderWithErrorMsg("failed to persist order changes")
+			}
+
 			if po.IsTerminalState() {
-				quoteStream.Close()
 				childOrderStream.Close()
 				doneChan <- po.GetId()
 				break
 			}
 
 			select {
+			case <-ticker.C:
+				nowUtc := time.Now().Unix()
+				shouldHaveSentQty := &model.Decimal64{}
+				for  i :=0; i< len(buckets); i++ {
+					if buckets[i].utcStartTimeSecs <= nowUtc {
+						shouldHaveSentQty.Add(&buckets[i].quantity)
+					}
+				}
+
+				sentQty  := &model.Decimal64{}
+				sentQty.Add(om.managedOrder.GetTradedQuantity())
+				sentQty.Add(om.managedOrder.GetExposedQuantity())
+
+				if sentQty.LessThan(shouldHaveSentQty) {
+					shouldHaveSentQty.Sub(sentQty)
+					om.sendChildOrder(om.managedOrder.Side,  shouldHaveSentQty, om.managedOrder.Price, listing)
+				}
+
 			case <-om.cancelChan:
 
 				if !po.IsTerminalState() {
 					om.log.Print("cancelling order")
-					po.SetTargetStatus(model.OrderStatus_CANCELLED)
+					err := po.SetTargetStatus(model.OrderStatus_CANCELLED)
+					if err != nil {
+						errLog.Printf("failed to set target status:%v", err)
+					}
 
 					pendingChildOrderCancels := false
 					for _, co := range po.ChildOrders {
 						if !co.IsTerminalState() {
 							pendingChildOrderCancels = true
-							orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
+							_, err := orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
 								OrderId: co.Id,
-								Listing: underlyingListings[co.ListingId],
+								Listing: listing,
 							})
+							if err != nil {
+								errLog.Printf("failed to cancel order:%v", err)
+							}
+
 						}
 
 					}
 
 					if !pendingChildOrderCancels {
-						po.SetStatus(model.OrderStatus_CANCELLED)
+						err := po.SetStatus(model.OrderStatus_CANCELLED)
+						if err != nil {
+							errLog.Printf("failed to set status: %v", err)
+						}
+
 					}
 
 				}
@@ -157,35 +174,14 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 					om.Cancel()
 				}
 
-			case q, ok := <-quoteStream.GetStream():
-
-				if ok {
-
-					if !q.StreamInterrupted {
-
-						if po.GetAvailableQty().GreaterThan(zero) {
-							if po.GetSide() == model.Side_BUY {
-								om.submitBuyOrders(q)
-							} else {
-								om.submitSellOrders(q)
-							}
-
-						}
-
-						if po.GetTargetStatus() == model.OrderStatus_LIVE {
-							po.SetStatus(model.OrderStatus_LIVE)
-						}
-					}
-
-				} else {
-					om.errLog.Printf("quote chan unexpectedly closed, cancelling order")
-					om.Cancel()
-				}
 			}
 
 		}
 
+		ticker.Stop()
 	}()
+
+
 	return om
 }
 
@@ -203,50 +199,13 @@ func newOrderManager(store func(*model.Order) error, po *executionvenue.ParentOr
 	return om
 }
 
-func (om *orderManager) submitBuyOrders(q *model.ClobQuote) {
-	om.submitOrders(q.Offers, func(line *model.ClobLine) bool {
-		return line.Price.LessThanOrEqual(om.managedOrder.GetPrice())
-	}, model.Side_BUY)
-}
 
-func (om *orderManager) submitSellOrders(q *model.ClobQuote) {
-	om.submitOrders(q.Bids, func(line *model.ClobLine) bool {
-		return line.Price.GreaterThanOrEqual(om.managedOrder.GetPrice())
-	}, model.Side_SELL)
-}
-
-func (om *orderManager) submitOrders(oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,
-	side model.Side) {
-	listingIdToQnt := map[int32]*model.Decimal64{}
-	for _, line := range oppositeClobLines {
-		if om.managedOrder.GetAvailableQty().GreaterThan(zero) && willTrade(line) {
-			quantity := line.Size
-
-			if line.Size.GreaterThanOrEqual(om.managedOrder.GetAvailableQty()) {
-				quantity = om.managedOrder.GetAvailableQty()
-			}
-
-			om.sendChildOrder(side, quantity, line.Price, line.ListingId)
-
-		} else {
-			if qnt, ok := listingIdToQnt[line.ListingId]; ok {
-				qnt.Add(line.Size)
-			} else {
-				qntCopy := *line.Size
-				listingIdToQnt[line.ListingId] = &qntCopy
-			}
-		}
-
-	}
-
-}
-
-func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listingId int32) {
+func (om *orderManager) sendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listing *model.Listing) {
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide:         side,
 		Quantity:          quantity,
 		Price:             price,
-		Listing:           om.underlyingListings[listingId],
+		Listing:           listing,
 		OriginatorId:      om.Id,
 		OriginatorRef:     om.GetManagedOrderId(),
 		RootOriginatorId:  om.managedOrder.RootOriginatorId,

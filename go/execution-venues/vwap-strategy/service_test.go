@@ -24,7 +24,7 @@ func Test_getBuckets(t *testing.T) {
 	}{
 		{
 			"first",
-			args {
+			args{
 				testListing,
 				0,
 				15,
@@ -32,35 +32,75 @@ func Test_getBuckets(t *testing.T) {
 				&model.Decimal64{
 					Mantissa: 10,
 				},
+			},
 
-			},
 			[]bucket{bucket{
-				quantity:         model.Decimal64{Mantissa: 2},
-				utcStartTimeSecs: 0,
-				utcEndTimeSecs:   3,
+				quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 0, utcEndTimeSecs: 3,
 			},
 				{
-					quantity:         model.Decimal64{Mantissa: 2},
-					utcStartTimeSecs: 3,
-					utcEndTimeSecs:   6,
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 3, utcEndTimeSecs: 6,
 				},
 				{
-					quantity:         model.Decimal64{Mantissa: 2},
-					utcStartTimeSecs: 6,
-					utcEndTimeSecs:   9,
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 6, utcEndTimeSecs: 9,
 				},
 				{
-					quantity:         model.Decimal64{Mantissa: 2},
-					utcStartTimeSecs: 9,
-					utcEndTimeSecs:   12,
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 9, utcEndTimeSecs: 12,
 				},
 				{
-					quantity:         model.Decimal64{Mantissa: 2},
-					utcStartTimeSecs: 12,
-					utcEndTimeSecs:   15,
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 12, utcEndTimeSecs: 15,
 				}},
 		},
+		{
+			"oddQnt",
+			args{
+				testListing,
+				0,
+				15,
+				5,
+				&model.Decimal64{
+					Mantissa: 11,
+				},
+			},
 
+			[]bucket{bucket{
+				quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 0, utcEndTimeSecs: 3,
+			},
+				{
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 3, utcEndTimeSecs: 6,
+				},
+				{
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 6, utcEndTimeSecs: 9,
+				},
+				{
+					quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 9, utcEndTimeSecs: 12,
+				},
+				{
+					quantity: model.Decimal64{Mantissa: 3}, utcStartTimeSecs: 12, utcEndTimeSecs: 15,
+				}},
+		},
+		{
+			"notDivisableTime",
+			args{
+				testListing,
+				0,
+				8,
+				3,
+				&model.Decimal64{
+					Mantissa: 11,
+				},
+			},
+
+			[]bucket{bucket{
+				quantity: model.Decimal64{Mantissa: 4}, utcStartTimeSecs: 0, utcEndTimeSecs: 2,
+			},
+				{
+					quantity: model.Decimal64{Mantissa: 4}, utcStartTimeSecs: 2, utcEndTimeSecs: 4,
+				},
+				{
+					quantity: model.Decimal64{Mantissa: 3}, utcStartTimeSecs: 4, utcEndTimeSecs: 6,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

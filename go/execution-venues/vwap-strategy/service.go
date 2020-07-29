@@ -4,12 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venues/vwap-strategy/internal"
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/k8s"
-	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/google/uuid"
@@ -50,8 +48,6 @@ type smartRouter struct {
 	id                           string
 	store                        orderstore.OrderStore
 	orderRouter                  api.ExecutionVenueClient
-	quoteDistributor             marketdata.QuoteDistributor
-	getListingsFn                internal.GetListingsWithSameInstrument
 	doneChan                     chan string
 	orders                       sync.Map
 	childOrderUpdatesDistributor ChildOrderUpdatesDistributor
@@ -67,29 +63,29 @@ type ChildOrderUpdatesDistributor interface {
 }
 
 type vwapParameters struct {
-	utcStartTimeSecs int
-	utcEndTimeSecs   int
+	utcStartTimeSecs int64
+	utcEndTimeSecs   int64
 	buckets          int
 }
 
 type bucket struct {
 	quantity         model.Decimal64
-	utcStartTimeSecs int
-	utcEndTimeSecs   int
+	utcStartTimeSecs int64
+	utcEndTimeSecs   int64
 }
 
-func getBuckets(listing *model.Listing, utcStartTimeSecs int, utcEndTimeSecs int, buckets int, quantity *model.Decimal64) (result []bucket) {
+func getBuckets(listing *model.Listing, utcStartTimeSecs int64, utcEndTimeSecs int64, buckets int, quantity *model.Decimal64) (result []bucket) {
 	// need historical traded volume data, for now use a TWAP profile
-	bucketInterval := (utcEndTimeSecs - utcStartTimeSecs) / buckets
+	bucketInterval := (utcEndTimeSecs - utcStartTimeSecs) / int64(buckets)
 
 	fBuckets := float64(buckets)
 	fQuantity := quantity.ToFloat()
-	bucketQnt := fQuantity/fBuckets
+	bucketQnt := fQuantity / fBuckets
 
 	startTime := utcStartTimeSecs
 	endTime := startTime + bucketInterval
 
-	for i:=0;i<buckets;i++ {
+	for i := 0; i < buckets; i++ {
 		bucket := bucket{
 			quantity:         *listing.RoundToLotSize(bucketQnt),
 			utcStartTimeSecs: startTime,
@@ -112,16 +108,18 @@ func getBuckets(listing *model.Listing, utcStartTimeSecs int, utcEndTimeSecs int
 	return result
 }
 
-
-
 func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 	id, err := uuid.NewUUID()
 	if err != nil {
 		return nil, err
 	}
 
+	vwapParamsJson := params.GetExecParametersJson()
+	listing := params.Listing
+	quantity := params.Quantity
+
 	vwapParams := &vwapParameters{}
-	json.Unmarshal([]byte(params.GetExecParametersJson()), vwapParams)
+	json.Unmarshal([]byte(vwapParamsJson), vwapParams)
 
 	if vwapParams.utcStartTimeSecs <= 0 || vwapParams.utcEndTimeSecs <= 0 {
 		return nil, fmt.Errorf("invalid start or end time specified")
@@ -132,20 +130,13 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 	}
 
 	if model.IasD(vwapParams.buckets).GreaterThan(params.Quantity) {
-		return nil, fmt.Errorf("buckets must be less than or equal to the quantity")
+		return nil, fmt.Errorf("numBuckets must be less than or equal to the quantity")
 	}
 
-	buckets := vwapParams.buckets
-	if buckets == 0 {
-		if params.Quantity.ToFloat() > 100 {
-			buckets = 100
-		} else {
-			buckets = int(params.Quantity.ToFloat())
-		}
-	}
+	buckets := getBucketsFromParamsString(vwapParamsJson, quantity, listing)
 
-	om, err := internal.NewOrderManagerFromParams(id.String(), params, s.id, s.getListingsFn, s.doneChan, s.store.Write, s.orderRouter,
-		s.quoteDistributor.GetNewQuoteStream(), s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize))
+	om, err := NewOrderManagerFromParams(id.String(), params, s.id, buckets, s.doneChan, s.store.Write, s.orderRouter,
+		s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize))
 
 	if err != nil {
 		return nil, err
@@ -156,6 +147,23 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 	return &api.OrderId{
 		OrderId: om.Id,
 	}, nil
+}
+
+func getBucketsFromParamsString(vwapParamsJson string,  quantity *model.Decimal64, listing *model.Listing) []bucket {
+	vwapParameters := &vwapParameters{}
+	json.Unmarshal([]byte(vwapParamsJson), vwapParameters)
+
+	numBuckets := vwapParameters.buckets
+	if numBuckets == 0 {
+		if quantity.ToFloat() > 100 {
+			numBuckets = 100
+		} else {
+			numBuckets = int(quantity.ToFloat())
+		}
+	}
+
+	buckets := getBuckets(listing, vwapParameters.utcStartTimeSecs, vwapParameters.utcEndTimeSecs, numBuckets, quantity)
+	return buckets
 }
 
 func (s *smartRouter) ModifyOrder(ctx context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
@@ -191,48 +199,7 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	sds, err := staticdata.NewStaticDataSource(false)
-	if err != nil {
-		log.Fatalf("failed to create static data source:%v", err)
-	}
-
 	clientSet := k8s.GetK8sClientSet(external)
-
-	namespace := "default"
-	xosrServiceLabelSelector := "app=market-data-source,mic=" + common.SR_MIC
-	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
-		LabelSelector: xosrServiceLabelSelector,
-	})
-
-	if err != nil {
-		panic(err)
-	}
-
-	if len(list.Items) != 1 {
-		log.Panicf("no service found for selector: %v", xosrServiceLabelSelector)
-	}
-
-	service := list.Items[0]
-
-	var podPort int32
-	for _, port := range service.Spec.Ports {
-		if port.Name == "api" {
-			podPort = port.Port
-		}
-	}
-
-	if podPort == 0 {
-		log.Panic("aggregate quote source does not have an 'api' port")
-	}
-
-	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
-	if err != nil {
-		panic(err)
-	}
-
-	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
 
 	orderRouter, err := getOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
@@ -247,11 +214,10 @@ func main() {
 	childUpdatesDistributor := executionvenue.NewChildOrderUpdatesDistributor(childOrderUpdates)
 
 	sr := &smartRouter{
-		id:                           id,
-		store:                        store,
-		orderRouter:                  orderRouter,
-		quoteDistributor:             qd,
-		getListingsFn:                sds.GetListingsWithSameInstrument,
+		id:          id,
+		store:       store,
+		orderRouter: orderRouter,
+
 		doneChan:                     make(chan string, 100),
 		orders:                       sync.Map{},
 		childOrderUpdatesDistributor: childUpdatesDistributor,
@@ -263,15 +229,28 @@ func main() {
 		log.Printf("order %v is done, remove from orders cache", id)
 	}()
 
+	sds, err := staticdata.NewStaticDataSource(false)
+	if err != nil {
+		log.Fatalf("failed to create static data source:%v", err)
+	}
+
 	parentOrders, err := store.RecoverInitialCache()
 	if err != nil {
 		panic(err)
 	}
 
+
+
 	for _, order := range parentOrders {
+
+		listingChan := make(chan *model.Listing)
+		sds.GetListing(order.ListingId, listingChan)
+		listing := <- listingChan
+
 		if !order.IsTerminalState() {
-			om := internal.NewOrderManager(order, sr.store.Write, sr.id, sr.orderRouter, sr.getListingsFn,
-				sr.quoteDistributor.GetNewQuoteStream(), sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
+			buckets := getBucketsFromParamsString(order.ExecParametersJson, order.Quantity, listing)
+			om := NewOrderManager(order, sr.store.Write, sr.id, sr.orderRouter, buckets, listing,
+				sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
 				sr.doneChan)
 			sr.orders.Store(om.GetManagedOrderId(), om)
 		}
