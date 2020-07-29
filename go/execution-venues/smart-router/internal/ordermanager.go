@@ -7,7 +7,7 @@ import (
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
-        "github.com/ettec/otp-common/marketdata"
+	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
 	"github.com/golang/protobuf/proto"
 	logger "log"

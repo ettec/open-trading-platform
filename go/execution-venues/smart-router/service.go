@@ -6,11 +6,11 @@ import (
 	"github.com/ettec/open-trading-platform/go/smart-router/internal"
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/k8s"
-	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettec/otp-common/executionvenue"
+	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/google/uuid"
 	"k8s.io/client-go/kubernetes"
 	"os"
@@ -213,7 +213,6 @@ func main() {
 
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
-	fmt.Println("deploy test 2")
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {

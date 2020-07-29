@@ -47,7 +47,7 @@ message Order{
     repeated Ref childOrdersRefs = 21;
     string rootOriginatorId=22;
     string rootOriginatorRef=23;
-
+    string execParametersJson=24; 
 }
 
 
