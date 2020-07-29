@@ -64,13 +64,11 @@ func Test_submitSellOrders(t *testing.T) {
 
 	client := &testEvClient{}
 
-	om := newOrderManager(func(order *model.Order) error {
+	om := newCommonOrderManager(func(order *model.Order) error {
 		return nil
-	}, mo, evId, client)
+	}, mo, evId, client, testChildOrderStream{}, make(chan string))
 
-	om.underlyingListings = underlyingListings
-
-	om.submitSellOrders(q)
+	om.submitSellOrders(q, underlyingListings)
 
 	if len(client.params) != 4 {
 		t.FailNow()
@@ -153,13 +151,12 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	om := newOrderManager(func(order *model.Order) error {
+	om := newCommonOrderManager(func(order *model.Order) error {
 		return nil
-	}, mo, evId, client)
+	}, mo, evId, client, testChildOrderStream{}, make(chan string))
 
-	om.underlyingListings = underlyingListings
 
-	om.submitBuyOrders(q)
+	om.submitBuyOrders(q, underlyingListings)
 
 	if len(client.params) != 4 {
 		t.FailNow()
@@ -600,7 +597,7 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 }
 
-func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *orderManager, model.Order, string, string,
+func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *commonOrderManager, model.Order, string, string,
 	*testOmClient) {
 	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order, _ := setupOrderManager(t)
 
@@ -686,7 +683,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 }
 
 func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
-	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *orderManager, model.Order,
+	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *commonOrderManager, model.Order,
 	chan *api.CancelOrderParams) {
 	evId := "testev"
 
