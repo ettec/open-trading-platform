@@ -753,6 +753,4 @@ func IasD(i int) *model.Decimal64 {
 	return model.IasD(i)
 }
 
-func Test_orderManager_Cancel(t *testing.T) {
 
-}

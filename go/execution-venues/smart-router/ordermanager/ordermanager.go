@@ -31,12 +31,15 @@ type OrderManager struct {
 
 }
 
-func NewOrderManagerFromCreateParams(id string, params *api.CreateAndRouteOrderParams, execVenueId string,
+func NewOrderManagerFromCreateParams(parentOrderId string, params *api.CreateAndRouteOrderParams, execVenueId string,
 	store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
 	childOrderStream executionvenue.ChildOrderStream, doneChan chan<- string) (*OrderManager, error) {
-	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
+
+	initialState := model.NewOrder(parentOrderId, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
 		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
+
 	err := initialState.SetTargetStatus(model.OrderStatus_LIVE)
+
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +114,14 @@ func (om *OrderManager) CancelManagedOrder(listingSource func(int32) *model.List
 
 
 
-func (om *OrderManager) SendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listing *model.Listing) {
+func (om *OrderManager) SendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listing *model.Listing) error {
+
+	if quantity.GreaterThan(om.ManagedOrder.GetAvailableQty()) {
+		return fmt.Errorf("cannot send child order for %v as it exceeds the available quantity on the parent order: %v", quantity,
+			om.ManagedOrder.GetAvailableQty())
+	}
+
+
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide:         side,
 		Quantity:          quantity,
@@ -126,9 +136,7 @@ func (om *OrderManager) SendChildOrder(side model.Side, quantity *model.Decimal6
 	id, err := om.orderRouter.CreateAndRouteOrder(context.Background(), params)
 
 	if err != nil {
-		msg := fmt.Sprintf("failed to submit child order:%v", err)
-		om.cancelOrderWithErrorMsg(msg)
-		return
+		return fmt.Errorf("failed to submit child order:%w", err)
 	}
 
 	pendingOrder := model.NewOrder(id.OrderId, params.OrderSide, params.Quantity, params.Price, params.Listing.GetId(),
@@ -139,6 +147,7 @@ func (om *OrderManager) SendChildOrder(side model.Side, quantity *model.Decimal6
 
 	om.ManagedOrder.OnChildOrderUpdate(pendingOrder)
 
+	return nil
 }
 
 func (om *OrderManager) CheckIfDone() (done bool, err error) {
