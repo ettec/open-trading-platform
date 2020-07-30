@@ -13,17 +13,17 @@ import (
 )
 
 type OrderManager struct {
-	lastStoredOrder  []byte
-	CancelChan       chan bool
-	store            func(*model.Order) error
-	ManagedOrder     *executionvenue.ParentOrder
-	Id               string
-	orderRouter      api.ExecutionVenueClient
-	childOrderStream executionvenue.ChildOrderStream
-	ChildOrderUpdateChan  <-chan *model.Order
-	doneChan         chan<- string
-	Log              *logger.Logger
-	ErrLog           *logger.Logger
+	lastStoredOrder      []byte
+	CancelChan           chan bool
+	store                func(*model.Order) error
+	ManagedOrder         *executionvenue.ParentOrder
+	Id                   string
+	orderRouter          api.ExecutionVenueClient
+	childOrderStream     executionvenue.ChildOrderStream
+	ChildOrderUpdateChan <-chan *model.Order
+	doneChan             chan<- string
+	Log                  *logger.Logger
+	ErrLog               *logger.Logger
 }
 
 func NewOrderManagerFromCreateParams(id string, params *api.CreateAndRouteOrderParams, orderManagerId string,
@@ -43,20 +43,19 @@ func NewOrderManagerFromCreateParams(id string, params *api.CreateAndRouteOrderP
 func NewCommonOrderManagerFromState(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient, childOrderStream executionvenue.ChildOrderStream, doneChan chan<- string) *OrderManager {
 	po := executionvenue.NewParentOrder(*initialState)
 	return &OrderManager{
-		lastStoredOrder:  nil,
-		CancelChan:       make(chan bool, 1),
-		store:            store,
-		ManagedOrder:     po,
-		Id:               orderManagerId,
-		orderRouter:      orderRouter,
-		childOrderStream: childOrderStream,
+		lastStoredOrder:      nil,
+		CancelChan:           make(chan bool, 1),
+		store:                store,
+		ManagedOrder:         po,
+		Id:                   orderManagerId,
+		orderRouter:          orderRouter,
+		childOrderStream:     childOrderStream,
 		ChildOrderUpdateChan: childOrderStream.GetStream(),
-		doneChan:         doneChan,
-		Log:              logger.New(os.Stdout, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
-		ErrLog:           logger.New(os.Stderr, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
+		doneChan:             doneChan,
+		Log:                  logger.New(os.Stdout, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
+		ErrLog:               logger.New(os.Stderr, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
 	}
 }
-
 
 func (om *OrderManager) Cancel() {
 	om.CancelChan <- true
@@ -71,28 +70,43 @@ func (om *OrderManager) cancelOrderWithErrorMsg(msg string) {
 	om.CancelChan <- true
 }
 
-func (om *OrderManager) CancelOrder(listingSource func(int32) *model.Listing) {
+func (om *OrderManager) CancelOrder(listingSource func(int32) *model.Listing) error {
 	if !om.ManagedOrder.IsTerminalState() {
 		om.Log.Print("cancelling order")
-		om.ManagedOrder.SetTargetStatus(model.OrderStatus_CANCELLED)
+		err := om.ManagedOrder.SetTargetStatus(model.OrderStatus_CANCELLED)
+
+		if err != nil {
+			return fmt.Errorf("failed to cancel order:%w", err)
+		}
 
 		pendingChildOrderCancels := false
 		for _, co := range om.ManagedOrder.ChildOrders {
 			if !co.IsTerminalState() {
 				pendingChildOrderCancels = true
-				om.orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
+				_, err := om.orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
 					OrderId: co.Id,
 					Listing: listingSource(co.ListingId),
 				})
+
+				if err != nil {
+					return fmt.Errorf("failed to cancel child order:%w", err)
+				}
+
 			}
 
 		}
 
 		if !pendingChildOrderCancels {
-			om.ManagedOrder.SetStatus(model.OrderStatus_CANCELLED)
+			err := om.ManagedOrder.SetStatus(model.OrderStatus_CANCELLED)
+			if err != nil {
+				return fmt.Errorf("failed to set status of managed order: %w", err)
+			}
+
 		}
 
 	}
+
+	return nil
 }
 
 func (om *OrderManager) SendChildOrder(side model.Side, quantity *model.Decimal64, price *model.Decimal64, listing *model.Listing) {
@@ -125,15 +139,19 @@ func (om *OrderManager) SendChildOrder(side model.Side, quantity *model.Decimal6
 
 }
 
-func (om *OrderManager) PersistChanges() bool {
-	close := false
-	om.persistManagedOrderChanges()
+func (om *OrderManager) PersistChanges() (finished bool, err error) {
+	finished = false
+	err = om.persistManagedOrderChanges()
+	if err != nil {
+		return false, fmt.Errorf("failed to persist managed order changes:%w",err)
+	}
+
 	if om.ManagedOrder.IsTerminalState() {
-		close = true
+		finished = true
 		om.childOrderStream.Close()
 		om.doneChan <- om.ManagedOrder.GetId()
 	}
-	return close
+	return finished, nil
 }
 
 func (om *OrderManager) persistManagedOrderChanges() error {
@@ -147,16 +165,23 @@ func (om *OrderManager) persistManagedOrderChanges() error {
 		}
 
 		toStore, err := proto.Marshal(&om.ManagedOrder.Order)
+		if err != nil {
+			return err
+		}
 
 		om.lastStoredOrder = toStore
 
 		orderCopy := &model.Order{}
-		proto.Unmarshal(toStore, orderCopy)
-		om.store(orderCopy)
-
+		err = proto.Unmarshal(toStore, orderCopy)
 		if err != nil {
 			return err
 		}
+
+		err = om.store(orderCopy)
+		if err != nil {
+			return err
+		}
+
 
 	}
 

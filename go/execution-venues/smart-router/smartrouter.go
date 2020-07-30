@@ -41,7 +41,11 @@ func ExecuteAsSmartRouterStrategy(om *ordermanager.OrderManager,
 		om.Log.Println("order initialised")
 
 		for {
-			close := om.PersistChanges()
+			close, err := om.PersistChanges()
+			if err != nil {
+				om.ErrLog.Printf("failed to persist order manager changes, cancelling order:%v", err)
+				om.Cancel()
+			}
 
 			if close {
 				quoteStream.Close()
