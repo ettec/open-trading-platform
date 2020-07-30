@@ -2,8 +2,6 @@ package internal
 
 import (
 	"github.com/ettec/otp-common"
-	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
 )
@@ -14,35 +12,10 @@ func init() {
 	zero = &model.Decimal64{}
 }
 
-type orderManager struct {
-	commonOrderManager
-	underlyingListings map[int32]*model.Listing
-}
-
 type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
-func NewOrderManagerFromParams(id string, params *api.CreateAndRouteOrderParams,
-	orderManagerId string, getListingsWithSameInstrument GetListingsWithSameInstrument, doneChan chan<- string, store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
-	quoteStream marketdata.MdsQuoteStream, childOrderStream executionvenue.ChildOrderStream) (*commonOrderManager, error) {
-
-	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
-		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
-	err := initialState.SetTargetStatus(model.OrderStatus_LIVE)
-	if err != nil {
-		return nil, err
-	}
-
-	om := NewOrderManager(initialState, store, orderManagerId, orderRouter, getListingsWithSameInstrument, quoteStream, childOrderStream, doneChan)
-
-	return om, nil
-}
-
-func NewOrderManager(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient,
-	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream, childOrderStream executionvenue.ChildOrderStream,
-	doneChan chan<- string) *commonOrderManager {
-	po := executionvenue.NewParentOrder(*initialState)
-
-	om := newCommonOrderManager(store, po, orderManagerId, orderRouter, childOrderStream, doneChan)
+func ExecuteAsSmartRouterStrategy(om *commonOrderManager,
+	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream) {
 
 	go func() {
 
@@ -50,7 +23,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 		listingsIn := make(chan []*model.Listing)
 
-		getListingsWithSameInstrument(po.ListingId, listingsIn)
+		getListingsWithSameInstrument(om.managedOrder.ListingId, listingsIn)
 
 		underlyingListings := map[int32]*model.Listing{}
 		select {
@@ -62,7 +35,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 			}
 		}
 
-		quoteStream.Subscribe(po.ListingId)
+		quoteStream.Subscribe(om.managedOrder.ListingId)
 
 		om.log.Println("order initialised")
 
@@ -76,7 +49,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 			select {
 			case <-om.cancelChan:
-				om.cancelOrder( orderRouter, func(listingId int32) *model.Listing {
+				om.cancelOrder(func(listingId int32) *model.Listing {
 					return underlyingListings[listingId]
 				})
 			case co, ok := <-om.childOrderStream.GetStream():
@@ -87,8 +60,8 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 					if !q.StreamInterrupted {
 
-						if po.GetAvailableQty().GreaterThan(zero) {
-							if po.GetSide() == model.Side_BUY {
+						if om.managedOrder.GetAvailableQty().GreaterThan(zero) {
+							if om.managedOrder.GetSide() == model.Side_BUY {
 								om.submitBuyOrders(q, underlyingListings)
 							} else {
 								om.submitSellOrders(q, underlyingListings)
@@ -96,8 +69,8 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 
 						}
 
-						if po.GetTargetStatus() == model.OrderStatus_LIVE {
-							po.SetStatus(model.OrderStatus_LIVE)
+						if om.managedOrder.GetTargetStatus() == model.OrderStatus_LIVE {
+							om.managedOrder.SetStatus(model.OrderStatus_LIVE)
 						}
 					}
 
@@ -110,10 +83,7 @@ func NewOrderManager(initialState *model.Order, store func(*model.Order) error, 
 		}
 
 	}()
-	return om
 }
-
-
 
 func (om *commonOrderManager) submitBuyOrders(q *model.ClobQuote, underlyingListings map[int32]*model.Listing) {
 	om.submitOrders(q.Offers, func(line *model.ClobLine) bool {
@@ -152,4 +122,3 @@ func (om *commonOrderManager) submitOrders(oppositeClobLines []*model.ClobLine, 
 	}
 
 }
-

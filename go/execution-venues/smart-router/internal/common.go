@@ -25,14 +25,28 @@ type commonOrderManager struct {
 	errLog           *logger.Logger
 }
 
-func newCommonOrderManager(store func(*model.Order) error, po *executionvenue.ParentOrder, execVenueId string, orderRouter api.ExecutionVenueClient,
-	childOrderStream executionvenue.ChildOrderStream, doneChan chan<- string) *commonOrderManager {
+func NewCommonOrderManagerFromCreateParams(id string, params *api.CreateAndRouteOrderParams, orderManagerId string,
+	store func(*model.Order) error, orderRouter api.ExecutionVenueClient,
+	childOrderStream executionvenue.ChildOrderStream, doneChan chan<- string) (*commonOrderManager, error) {
+	initialState := model.NewOrder(id, params.OrderSide, params.Quantity, params.Price, params.Listing.Id,
+		params.OriginatorId, params.OriginatorRef, params.RootOriginatorId, params.RootOriginatorRef)
+	err := initialState.SetTargetStatus(model.OrderStatus_LIVE)
+	if err != nil {
+		return nil, err
+	}
+
+	om := NewCommonOrderManagerFromState(initialState, store, orderManagerId, orderRouter, childOrderStream, doneChan)
+	return om, nil
+}
+
+func NewCommonOrderManagerFromState(initialState *model.Order, store func(*model.Order) error, orderManagerId string, orderRouter api.ExecutionVenueClient, childOrderStream executionvenue.ChildOrderStream, doneChan chan<- string) *commonOrderManager {
+	po := executionvenue.NewParentOrder(*initialState)
 	return &commonOrderManager{
 		lastStoredOrder:  nil,
 		cancelChan:       make(chan bool, 1),
 		store:            store,
 		managedOrder:     po,
-		Id:               execVenueId,
+		Id:               orderManagerId,
 		orderRouter:      orderRouter,
 		childOrderStream: childOrderStream,
 		doneChan:         doneChan,
@@ -40,7 +54,6 @@ func newCommonOrderManager(store func(*model.Order) error, po *executionvenue.Pa
 		errLog:           logger.New(os.Stderr, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
 	}
 }
-
 
 func (om *commonOrderManager) Cancel() {
 	om.cancelChan <- true
@@ -50,13 +63,12 @@ func (om *commonOrderManager) GetManagedOrderId() string {
 	return om.managedOrder.GetId()
 }
 
-
 func (om *commonOrderManager) cancelOrderWithErrorMsg(msg string) {
 	om.managedOrder.ErrorMessage = msg
 	om.cancelChan <- true
 }
 
-func (om *commonOrderManager) cancelOrder( orderRouter api.ExecutionVenueClient, listingSource func( int32) *model.Listing) {
+func (om *commonOrderManager) cancelOrder(listingSource func(int32) *model.Listing) {
 	if !om.managedOrder.IsTerminalState() {
 		om.log.Print("cancelling order")
 		om.managedOrder.SetTargetStatus(model.OrderStatus_CANCELLED)
@@ -65,7 +77,7 @@ func (om *commonOrderManager) cancelOrder( orderRouter api.ExecutionVenueClient,
 		for _, co := range om.managedOrder.ChildOrders {
 			if !co.IsTerminalState() {
 				pendingChildOrderCancels = true
-				orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
+				om.orderRouter.CancelOrder(context.Background(), &api.CancelOrderParams{
 					OrderId: co.Id,
 					Listing: listingSource(co.ListingId),
 				})
@@ -110,7 +122,6 @@ func (om *commonOrderManager) sendChildOrder(side model.Side, quantity *model.De
 
 }
 
-
 func (om *commonOrderManager) persistChanges() bool {
 	close := false
 	om.persistManagedOrderChanges()
@@ -149,7 +160,7 @@ func (om *commonOrderManager) persistManagedOrderChanges() error {
 	return err
 }
 
-func (om *commonOrderManager) onChildOrderUpdate(ok bool,  co *model.Order) {
+func (om *commonOrderManager) onChildOrderUpdate(ok bool, co *model.Order) {
 	if ok {
 		om.managedOrder.OnChildOrderUpdate(co)
 	} else {

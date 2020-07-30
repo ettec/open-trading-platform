@@ -52,8 +52,8 @@ func Test_submitSellOrders(t *testing.T) {
 		},
 	}
 
-	mo := executionvenue.NewParentOrder(*model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
-		"ri", "rr"))
+	mo := model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
+		"ri", "rr")
 
 	listing1 := &model.Listing{Id: 1}
 	listing2 := &model.Listing{Id: 2}
@@ -64,9 +64,9 @@ func Test_submitSellOrders(t *testing.T) {
 
 	client := &testEvClient{}
 
-	om := newCommonOrderManager(func(order *model.Order) error {
+	om := NewCommonOrderManagerFromState(mo, func(order *model.Order) error {
 		return nil
-	}, mo, evId, client, testChildOrderStream{}, make(chan string))
+	}, evId, client, testChildOrderStream{}, make(chan string))
 
 	om.submitSellOrders(q, underlyingListings)
 
@@ -140,9 +140,6 @@ func Test_submitBuyOrders(t *testing.T) {
 		},
 	}
 
-	mo := executionvenue.NewParentOrder(*model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
-		"oi", "od", "ri", "rr"))
-
 	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
 	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
 	underlyingListings := map[int32]*model.Listing{
@@ -151,10 +148,10 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	om := newCommonOrderManager(func(order *model.Order) error {
+	om := NewCommonOrderManagerFromState(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+		"oi", "od", "ri", "rr"), func(order *model.Order) error {
 		return nil
-	}, mo, evId, client, testChildOrderStream{}, make(chan string))
-
+	}, evId, client, testChildOrderStream{}, make(chan string))
 
 	om.submitBuyOrders(q, underlyingListings)
 
@@ -722,18 +719,20 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		t.FailNow()
 	}
 
-	om, err := NewOrderManagerFromParams(uniqueId.String(), params, evId, func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
-		go func() {
-			listingGroupsIn <- underlyingListings
-		}()
-	}, done, func(o *model.Order) error {
+	om, err := NewCommonOrderManagerFromCreateParams(uniqueId.String(), params, evId, func(o *model.Order) error {
 		orderUpdates <- *o
 		return nil
-	}, testExecVenue, testQuoteStream{stream: quoteChan}, &testChildOrderStream{childOrderUpdates})
+	}, testExecVenue, &testChildOrderStream{childOrderUpdates}, done)
 
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	ExecuteAsSmartRouterStrategy(om, func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+		go func() {
+			listingGroupsIn <- underlyingListings
+		}()
+	}, testQuoteStream{stream: quoteChan})
 
 	order := <-orderUpdates
 

@@ -72,14 +72,16 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 		return nil, err
 	}
 
-	om, err := internal.NewOrderManagerFromParams(id.String(), params, s.id, s.getListingsFn, s.doneChan, s.store.Write, s.orderRouter,
-		s.quoteDistributor.GetNewQuoteStream(), s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize))
+	om, err := internal.NewCommonOrderManagerFromCreateParams(id.String(), params, s.id, s.store.Write, s.orderRouter,
+		 s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize), s.doneChan)
 
 	if err != nil {
 		return nil, err
 	}
 
 	s.orders.Store(om.GetManagedOrderId(), om)
+
+	internal.ExecuteAsSmartRouterStrategy(om, s.getListingsFn, s.quoteDistributor.GetNewQuoteStream())
 
 	return &api.OrderId{
 		OrderId: om.Id,
@@ -198,10 +200,14 @@ func main() {
 
 	for _, order := range parentOrders {
 		if !order.IsTerminalState() {
-			om := internal.NewOrderManager(order, sr.store.Write, sr.id, sr.orderRouter, sr.getListingsFn,
-				sr.quoteDistributor.GetNewQuoteStream(), sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
+
+			om := internal.NewCommonOrderManagerFromState(order, sr.store.Write, sr.id, sr.orderRouter,
+				sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
 				sr.doneChan)
 			sr.orders.Store(om.GetManagedOrderId(), om)
+
+			internal.ExecuteAsSmartRouterStrategy(om, sr.getListingsFn,
+				sr.quoteDistributor.GetNewQuoteStream())
 		}
 	}
 
