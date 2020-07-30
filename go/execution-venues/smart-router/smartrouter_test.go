@@ -65,7 +65,7 @@ func Test_submitSellOrders(t *testing.T) {
 
 	client := &testEvClient{}
 
-	om := ordermanager.NewCommonOrderManagerFromState(mo, func(order *model.Order) error {
+	om := ordermanager.NewOrderManagerFromState(mo, func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 
@@ -149,7 +149,7 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	om := ordermanager.NewCommonOrderManagerFromState(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+	om := ordermanager.NewOrderManagerFromState(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
 		"oi", "od", "ri", "rr"), func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
@@ -511,7 +511,7 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 }
 
 func Test_marshalAndUnmarshal(t *testing.T) {
-	//o := model.Order{Id: "test"}
+	//o := model.Order{ExecVenueId: "test"}
 
 	o := executionvenue.ParentOrder{
 		Order: model.Order{Id: "testp"},

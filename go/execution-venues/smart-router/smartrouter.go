@@ -41,22 +41,25 @@ func ExecuteAsSmartRouterStrategy(om *ordermanager.OrderManager,
 		om.Log.Println("order initialised")
 
 		for {
-			close, err := om.PersistChanges()
+			done, err := om.CheckIfDone()
 			if err != nil {
-				om.ErrLog.Printf("failed to persist order manager changes, cancelling order:%v", err)
+				om.ErrLog.Printf("failed to check if done, cancelling order:%v", err)
 				om.Cancel()
 			}
 
-			if close {
+			if done {
 				quoteStream.Close()
 				break
 			}
 
 			select {
 			case <-om.CancelChan:
-				om.CancelOrder(func(listingId int32) *model.Listing {
+				err := om.CancelOrder(func(listingId int32) *model.Listing {
 					return underlyingListings[listingId]
 				})
+				if err != nil {
+					om.ErrLog.Printf("failed to cancel order:%v", err)
+				}
 			case co, ok := <-om.ChildOrderUpdateChan:
 				om.OnChildOrderUpdate(ok, co)
 			case q, ok := <-quoteStream.GetStream():
@@ -75,7 +78,12 @@ func ExecuteAsSmartRouterStrategy(om *ordermanager.OrderManager,
 						}
 
 						if om.ManagedOrder.GetTargetStatus() == model.OrderStatus_LIVE {
-							om.ManagedOrder.SetStatus(model.OrderStatus_LIVE)
+							err := om.ManagedOrder.SetStatus(model.OrderStatus_LIVE)
+							if err != nil {
+								om.ErrLog.Printf("failed to set managed order status, cancelling order:%v", err)
+								om.Cancel()
+							}
+
 						}
 					}
 

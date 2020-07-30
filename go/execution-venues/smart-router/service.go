@@ -84,7 +84,7 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 	ExecuteAsSmartRouterStrategy(om, s.getListingsFn, s.quoteDistributor.GetNewQuoteStream())
 
 	return &api.OrderId{
-		OrderId: om.Id,
+		OrderId: om.ExecVenueId,
 	}, nil
 }
 
@@ -201,7 +201,7 @@ func main() {
 	for _, order := range parentOrders {
 		if !order.IsTerminalState() {
 
-			om := ordermanager.NewCommonOrderManagerFromState(order, sr.store.Write, sr.id, sr.orderRouter,
+			om := ordermanager.NewOrderManagerFromState(order, sr.store.Write, sr.id, sr.orderRouter,
 				sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
 				sr.doneChan)
 			sr.orders.Store(om.GetManagedOrderId(), om)
