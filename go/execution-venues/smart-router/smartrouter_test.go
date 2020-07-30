@@ -1,7 +1,8 @@
-package internal
+package main
 
 import (
 	"context"
+	"github.com/ettec/open-trading-platform/go/smart-router/ordermanager"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/model"
@@ -64,11 +65,11 @@ func Test_submitSellOrders(t *testing.T) {
 
 	client := &testEvClient{}
 
-	om := NewCommonOrderManagerFromState(mo, func(order *model.Order) error {
+	om := ordermanager.NewCommonOrderManagerFromState(mo, func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 
-	om.submitSellOrders(q, underlyingListings)
+	submitSellOrders(om, q, underlyingListings)
 
 	if len(client.params) != 4 {
 		t.FailNow()
@@ -148,12 +149,12 @@ func Test_submitBuyOrders(t *testing.T) {
 	}
 
 	client := &testEvClient{}
-	om := NewCommonOrderManagerFromState(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+	om := ordermanager.NewCommonOrderManagerFromState(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
 		"oi", "od", "ri", "rr"), func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 
-	om.submitBuyOrders(q, underlyingListings)
+	submitBuyOrders(om, q, underlyingListings)
 
 	if len(client.params) != 4 {
 		t.FailNow()
@@ -594,7 +595,7 @@ func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 }
 
-func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *commonOrderManager, model.Order, string, string,
+func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *ordermanager.OrderManager, model.Order, string, string,
 	*testOmClient) {
 	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order, _ := setupOrderManager(t)
 
@@ -680,7 +681,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *mo
 }
 
 func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
-	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *commonOrderManager, model.Order,
+	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *ordermanager.OrderManager, model.Order,
 	chan *api.CancelOrderParams) {
 	evId := "testev"
 
@@ -719,7 +720,7 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		t.FailNow()
 	}
 
-	om, err := NewCommonOrderManagerFromCreateParams(uniqueId.String(), params, evId, func(o *model.Order) error {
+	om, err := ordermanager.NewOrderManagerFromCreateParams(uniqueId.String(), params, evId, func(o *model.Order) error {
 		orderUpdates <- *o
 		return nil
 	}, testExecVenue, &testChildOrderStream{childOrderUpdates}, done)

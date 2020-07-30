@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/smart-router/internal"
+	"github.com/ettec/open-trading-platform/go/smart-router/ordermanager"
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
@@ -50,7 +50,7 @@ type smartRouter struct {
 	store                        orderstore.OrderStore
 	orderRouter                  api.ExecutionVenueClient
 	quoteDistributor             marketdata.QuoteDistributor
-	getListingsFn                internal.GetListingsWithSameInstrument
+	getListingsFn                GetListingsWithSameInstrument
 	doneChan                     chan string
 	orders                       sync.Map
 	childOrderUpdatesDistributor ChildOrderUpdatesDistributor
@@ -72,7 +72,7 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 		return nil, err
 	}
 
-	om, err := internal.NewCommonOrderManagerFromCreateParams(id.String(), params, s.id, s.store.Write, s.orderRouter,
+	om, err := ordermanager.NewOrderManagerFromCreateParams(id.String(), params, s.id, s.store.Write, s.orderRouter,
 		 s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize), s.doneChan)
 
 	if err != nil {
@@ -81,7 +81,7 @@ func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.Creat
 
 	s.orders.Store(om.GetManagedOrderId(), om)
 
-	internal.ExecuteAsSmartRouterStrategy(om, s.getListingsFn, s.quoteDistributor.GetNewQuoteStream())
+	ExecuteAsSmartRouterStrategy(om, s.getListingsFn, s.quoteDistributor.GetNewQuoteStream())
 
 	return &api.OrderId{
 		OrderId: om.Id,
@@ -201,12 +201,12 @@ func main() {
 	for _, order := range parentOrders {
 		if !order.IsTerminalState() {
 
-			om := internal.NewCommonOrderManagerFromState(order, sr.store.Write, sr.id, sr.orderRouter,
+			om := ordermanager.NewCommonOrderManagerFromState(order, sr.store.Write, sr.id, sr.orderRouter,
 				sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
 				sr.doneChan)
 			sr.orders.Store(om.GetManagedOrderId(), om)
 
-			internal.ExecuteAsSmartRouterStrategy(om, sr.getListingsFn,
+			ExecuteAsSmartRouterStrategy(om, sr.getListingsFn,
 				sr.quoteDistributor.GetNewQuoteStream())
 		}
 	}
