@@ -54,7 +54,7 @@ func ExecuteAsSmartRouterStrategy(om *ordermanager.OrderManager,
 
 			select {
 			case <-om.CancelChan:
-				err := om.CancelOrder(func(listingId int32) *model.Listing {
+				err := om.CancelManagedOrder(func(listingId int32) *model.Listing {
 					return underlyingListings[listingId]
 				})
 				if err != nil {

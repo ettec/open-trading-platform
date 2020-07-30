@@ -70,7 +70,7 @@ func (om *OrderManager) GetManagedOrderId() string {
 	return om.ManagedOrder.GetId()
 }
 
-func (om *OrderManager) CancelOrder(listingSource func(int32) *model.Listing) error {
+func (om *OrderManager) CancelManagedOrder(listingSource func(int32) *model.Listing) error {
 	if !om.ManagedOrder.IsTerminalState() {
 		om.Log.Print("cancelling order")
 		err := om.ManagedOrder.SetTargetStatus(model.OrderStatus_CANCELLED)
