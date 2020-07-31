@@ -10,8 +10,73 @@ import (
 	"testing"
 )
 
+func Test_SendingChildOrders(t *testing.T) {
+	setupOrderManagerAndSendTwoChildOrders(t)
+}
+
+func Test_OrderManagerCancel(t *testing.T) {
+
+	parentOrderUpdatesChan, _, cancelOrderOutboundParams, childOrdersIn, _,
+	listing, om, doneChan, child1Id, child2Id := setupOrderManagerAndSendTwoChildOrders(t)
+
+	om.Cancel()
+
+	cp1 := <-cancelOrderOutboundParams
+
+	if cp1.OrderId != child1Id && cp1.OrderId != child2Id {
+		t.FailNow()
+	}
+
+	cp2 := <-cancelOrderOutboundParams
+
+	if cp2.OrderId != child2Id && cp1.OrderId != child2Id {
+		t.FailNow()
+	}
+
+	update := <-parentOrderUpdatesChan
+	if update.GetTargetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+
+	childOrdersIn <- &model.Order{
+		Id:                child1Id,
+		Version:           2,
+		ListingId:         listing.Id,
+		Status:            model.OrderStatus_CANCELLED,
+		RemainingQuantity: model.IasD(60),
+	}
+
+	update = <-parentOrderUpdatesChan
+	if !update.GetExposedQuantity().Equal(model.IasD(40)) {
+		t.FailNow()
+	}
+
+	childOrdersIn <- &model.Order{
+		Id:                child2Id,
+		Version:           2,
+		ListingId:         listing.Id,
+		Status:            model.OrderStatus_CANCELLED,
+		RemainingQuantity: model.IasD(40),
+	}
+
+	update = <-parentOrderUpdatesChan
+	if !update.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.FailNow()
+	}
+
+	if update.GetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+
+	id := <-doneChan
+	if id != om.ManagedOrder.Id {
+		t.FailNow()
+	}
+
+}
+
 func Test_cancelOfUnexposedOrder(t *testing.T) {
-	parentOrderUpdatesChan, _, _, _, _, _, om,_ := setupOrderManager()
+	parentOrderUpdatesChan, _, _, _, _, _, om, _ := setupOrderManager()
 
 	order := <-parentOrderUpdatesChan
 
@@ -122,21 +187,17 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 		t.Fatalf("parent order should be not be exposed")
 	}
 
-	id := <- doneChan
+	id := <-doneChan
 	if id != om.ManagedOrder.Id {
 		t.FailNow()
 	}
 
 }
 
-
 func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
-
-	log.Printf("here")
 	parentOrderUpdatesChan, _, _, childOrdersIn, _,
 	listing, om, doneChan, child1Id, child2Id := setupOrderManagerAndSendTwoChildOrders(t)
-
 
 	childOrdersIn <- &model.Order{
 		Id:                child1Id,
@@ -146,7 +207,7 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 		LastExecPrice:     model.IasD(100),
 		LastExecId:        "c1e1",
 		RemainingQuantity: model.IasD(0),
-		ListingId: listing.GetId(),
+		ListingId:         listing.GetId(),
 	}
 
 	order := <-parentOrderUpdatesChan
@@ -162,7 +223,7 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 		LastExecQuantity:  model.IasD(40),
 		LastExecPrice:     model.IasD(110),
 		LastExecId:        "c2e1",
-		ListingId: listing.GetId(),
+		ListingId:         listing.GetId(),
 		RemainingQuantity: model.IasD(0),
 	}
 
@@ -184,14 +245,13 @@ func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
 
 }
 
-
 func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (parentOrderUpdatesChan chan model.Order, childOrderOutboundParams chan paramsAndId,
 	childOrderCancelParams chan *api.CancelOrderParams, childOrdersIn chan *model.Order,
 	sendChildQty chan *model.Decimal64, listing *model.Listing,
-	om *OrderManager,  doneChan chan string, child1Id string, child2Id string)  {
+	om *OrderManager, doneChan chan string, child1Id string, child2Id string) {
 
 	parentOrderUpdatesChan, childOrderOutboundParams, childOrderCancelParams, childOrdersIn, sendChildQty, listing,
-	om, doneChan = setupOrderManager()
+		om, doneChan = setupOrderManager()
 
 	<-parentOrderUpdatesChan
 
@@ -259,7 +319,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (parentOrderUpdatesCha
 		Id:                child2Id,
 		Version:           0,
 		Status:            model.OrderStatus_LIVE,
-		ListingId: listing.Id,
+		ListingId:         listing.Id,
 		RemainingQuantity: model.IasD(40),
 	}
 
@@ -275,7 +335,7 @@ func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (parentOrderUpdatesCha
 func setupOrderManager() (parentOrderUpdatesChan chan model.Order, childOrderOutboundParams chan paramsAndId,
 	childOrderCancelParams chan *api.CancelOrderParams, childOrdersIn chan *model.Order,
 	sendChildQty chan *model.Decimal64, listing *model.Listing,
-	om *OrderManager,  doneChan chan string) {
+	om *OrderManager, doneChan chan string) {
 
 	listing = &model.Listing{
 		Version: 0,

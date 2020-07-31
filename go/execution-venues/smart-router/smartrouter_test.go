@@ -35,7 +35,7 @@ func (t *testEvClient) ModifyOrder(ctx context.Context, in *api.ModifyOrderParam
 	panic("implement me")
 }
 
-func Test_submitSellOrders(t *testing.T) {
+func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) {
 
 	orderId := "a"
 	evId := "testev"
@@ -123,7 +123,7 @@ func Test_submitSellOrders(t *testing.T) {
 
 }
 
-func Test_submitBuyOrders(t *testing.T) {
+func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) {
 
 	orderId := "a"
 	evId := "testev"
@@ -242,69 +242,6 @@ func (t *testOmClient) ModifyOrder(ctx context.Context, in *api.ModifyOrderParam
 	panic("implement me")
 }
 
-func TestOrderManagerSendsChildOrders(t *testing.T) {
-	setupOrderManagerAndSendTwoChildOrders(t)
-}
-
-func TestOrderManagerCancel(t *testing.T) {
-
-	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue := setupOrderManagerAndSendTwoChildOrders(t)
-
-	om.Cancel()
-
-	cp1 := <-testExecVenue.cancelParamsChan
-
-	if cp1.OrderId != child1Id && cp1.OrderId != child2Id {
-		t.FailNow()
-	}
-
-	cp2 := <-testExecVenue.cancelParamsChan
-
-	if cp2.OrderId != child2Id && cp1.OrderId != child2Id {
-		t.FailNow()
-	}
-
-	update := <-orderUpdates
-	if update.GetTargetStatus() != model.OrderStatus_CANCELLED {
-		t.FailNow()
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                child1Id,
-		Version:           2,
-		Status:            model.OrderStatus_CANCELLED,
-		RemainingQuantity: IasD(10),
-	}
-
-	update = <-orderUpdates
-	if !update.GetExposedQuantity().Equal(model.IasD(10)) {
-		t.FailNow()
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                child2Id,
-		Version:           2,
-		Status:            model.OrderStatus_CANCELLED,
-		RemainingQuantity: IasD(10),
-	}
-
-	update = <-orderUpdates
-	if !update.GetExposedQuantity().Equal(model.IasD(0)) {
-		t.FailNow()
-	}
-
-	if update.GetStatus() != model.OrderStatus_CANCELLED {
-		t.FailNow()
-	}
-
-	id := <-done
-	if id != order.Id {
-		t.FailNow()
-	}
-
-}
-
-
 type testQuoteStream struct {
 	stream chan *model.ClobQuote
 }
@@ -331,9 +268,6 @@ func (t testChildOrderStream) GetStream() <-chan *model.Order {
 
 func (t testChildOrderStream) Close() {
 }
-
-
-
 
 func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(t)
@@ -400,91 +334,6 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 		t.Fatalf("parent order should be only partly exposed")
 	}
 
-}
-
-func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (chan string, chan *model.Order, chan model.Order, *ordermanager.OrderManager, model.Order, string, string,
-	*testOmClient) {
-	evId, listing1, listing2, done, quoteChan, childOrderUpdates, orderUpdates, paramsChan, testExecVenue, om, order, _ := setupOrderManager(t)
-
-	q := &model.ClobQuote{
-		Offers: []*model.ClobLine{
-			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
-			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
-			{Size: model.IasD(10), Price: model.IasD(120), ListingId: 1},
-			{Size: model.IasD(10), Price: model.IasD(130), ListingId: 2},
-			{Size: model.IasD(10), Price: model.IasD(140), ListingId: 1},
-			{Size: model.IasD(10), Price: model.IasD(150), ListingId: 1},
-		},
-	}
-
-	quoteChan <- q
-
-	params1 := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity:      model.IasD(10),
-		Price:         model.IasD(100),
-		Listing:       listing1,
-		OriginatorId:  evId,
-		OriginatorRef: order.Id,
-	}
-
-	pd := <-paramsChan
-	child1Id := pd.id
-
-	if !areParamsEqual(params1, pd.params) {
-		t.FailNow()
-	}
-
-	params2 := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity:      model.IasD(10),
-		Price:         model.IasD(110),
-		Listing:       listing2,
-		OriginatorId:  evId,
-		OriginatorRef: order.Id,
-	}
-
-	pd = <-paramsChan
-	child2Id := pd.id
-
-	if !areParamsEqual(params2, pd.params) {
-		t.FailNow()
-	}
-
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
-		t.FailNow()
-	}
-
-	if order.GetAvailableQty().GreaterThan(model.IasD(0)) {
-		t.Fatalf("no quantity should be left to trade")
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                child1Id,
-		Version:           0,
-		Status:            model.OrderStatus_LIVE,
-		RemainingQuantity: IasD(10),
-	}
-
-	order = <-orderUpdates
-	if !order.GetExposedQuantity().Equal(model.IasD(20)) {
-		t.FailNow()
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                child2Id,
-		Version:           0,
-		Status:            model.OrderStatus_LIVE,
-		RemainingQuantity: IasD(10),
-	}
-
-	order = <-orderUpdates
-	if !order.GetExposedQuantity().Equal(model.IasD(20)) {
-		t.FailNow()
-	}
-	return done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, testExecVenue
 }
 
 func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
@@ -555,9 +404,3 @@ func areParamsEqual(p1 *api.CreateAndRouteOrderParams, p2 *api.CreateAndRouteOrd
 		p1.OriginatorRef == p2.OriginatorRef && p1.OriginatorId == p2.OriginatorId
 
 }
-
-func IasD(i int) *model.Decimal64 {
-	return model.IasD(i)
-}
-
-

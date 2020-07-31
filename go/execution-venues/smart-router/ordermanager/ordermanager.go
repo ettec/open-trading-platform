@@ -60,8 +60,8 @@ func NewOrderManagerFromState(initialState *model.Order, store func(*model.Order
 		childOrderStream:     childOrderStream,
 		ChildOrderUpdateChan: childOrderStream.GetStream(),
 		doneChan:             doneChan,
-		Log:                  logger.New(os.Stdout, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
-		ErrLog:               logger.New(os.Stderr, "order:"+po.Id, logger.Lshortfile|logger.Ltime),
+		Log:                  logger.New(os.Stdout, "order:"+po.Id+" ", logger.Lshortfile|logger.Ltime),
+		ErrLog:               logger.New(os.Stderr, "order:"+po.Id+" ", logger.Lshortfile|logger.Ltime),
 	}
 }
 
