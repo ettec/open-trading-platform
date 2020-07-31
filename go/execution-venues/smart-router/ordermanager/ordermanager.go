@@ -14,7 +14,7 @@ import (
 
 type OrderManager struct {
 	// These two channels must be checked and handled as part of the event loop
-	CancelChan   chan bool
+	CancelChan   chan string
 	ChildOrderUpdateChan <-chan *model.Order
 
 	ExecVenueId  string
@@ -52,7 +52,7 @@ func NewOrderManagerFromState(initialState *model.Order, store func(*model.Order
 	po := executionvenue.NewParentOrder(*initialState)
 	return &OrderManager{
 		lastStoredOrder:      nil,
-		CancelChan:           make(chan bool, 1),
+		CancelChan:           make(chan string, 1),
 		store:                store,
 		ManagedOrder:         po,
 		ExecVenueId:          execVenueId,
@@ -66,7 +66,7 @@ func NewOrderManagerFromState(initialState *model.Order, store func(*model.Order
 }
 
 func (om *OrderManager) Cancel() {
-	om.CancelChan <- true
+	om.CancelChan <- ""
 }
 
 func (om *OrderManager) GetManagedOrderId() string {
@@ -209,8 +209,7 @@ func (om *OrderManager) persistManagedOrderChanges() error {
 	return err
 }
 
-func (om *OrderManager) cancelOrderWithErrorMsg(msg string) {
-	om.ManagedOrder.ErrorMessage = msg
-	om.CancelChan <- true
+func (om *OrderManager) CancelOrderWithErrorMsg(msg string) {
+	om.CancelChan <- msg
 }
 

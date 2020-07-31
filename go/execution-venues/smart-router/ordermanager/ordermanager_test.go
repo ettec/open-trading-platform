@@ -397,7 +397,11 @@ func ExecuteAsDmaOrderManager(om *OrderManager, sendChildQty chan *model.Decimal
 			}
 
 			select {
-			case <-om.CancelChan:
+			case errMsg := <-om.CancelChan:
+				if errMsg != "" {
+					om.ManagedOrder.ErrorMessage = errMsg
+				}
+
 				err := om.CancelManagedOrder(func(listingId int32) *model.Listing {
 					if listingId != listing.Id {
 						panic("unexpected listing id")

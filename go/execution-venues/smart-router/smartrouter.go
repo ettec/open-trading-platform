@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/ettec/open-trading-platform/go/smart-router/ordermanager"
 	"github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/marketdata"
@@ -53,7 +54,10 @@ func ExecuteAsSmartRouterStrategy(om *ordermanager.OrderManager,
 			}
 
 			select {
-			case <-om.CancelChan:
+			case errMsg := <-om.CancelChan:
+				if errMsg != "" {
+					om.ManagedOrder.ErrorMessage = errMsg
+				}
 				err := om.CancelManagedOrder(func(listingId int32) *model.Listing {
 					return underlyingListings[listingId]
 				})
@@ -121,7 +125,10 @@ func  submitOrders(om *ordermanager.OrderManager, oppositeClobLines []*model.Clo
 				quantity = om.ManagedOrder.GetAvailableQty()
 			}
 
-			om.SendChildOrder(side, quantity, line.Price, underlyingListings[line.ListingId])
+			err := om.SendChildOrder(side, quantity, line.Price, underlyingListings[line.ListingId])
+			if err != nil {
+				om.CancelOrderWithErrorMsg( fmt.Sprintf("failed to send child order:%v", err))
+			}
 
 		} else {
 			if qnt, ok := listingIdToQnt[line.ListingId]; ok {
