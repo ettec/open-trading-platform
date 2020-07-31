@@ -11,7 +11,7 @@ import (
 )
 
 func Test_cancelOfUnexposedOrder(t *testing.T) {
-	parentOrderUpdatesChan, _, _, _, _, _, om := setupOrderManager()
+	parentOrderUpdatesChan, _, _, _, _, _, om,_ := setupOrderManager()
 
 	order := <-parentOrderUpdatesChan
 
@@ -38,7 +38,7 @@ func Test_cancelOfUnexposedOrder(t *testing.T) {
 }
 
 func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
-	parentOrderUpdatesChan, childOrderOutboundParams, cancelOrderOutboundParams, childOrdersIn, sendChildQty, listing, om := setupOrderManager()
+	parentOrderUpdatesChan, childOrderOutboundParams, cancelOrderOutboundParams, childOrdersIn, sendChildQty, listing, om, doneChan := setupOrderManager()
 
 	params1 := &api.CreateAndRouteOrderParams{
 		OrderSide:     model.Side_BUY,
@@ -122,28 +122,179 @@ func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 		t.Fatalf("parent order should be not be exposed")
 	}
 
+	id := <- doneChan
+	if id != om.ManagedOrder.Id {
+		t.FailNow()
+	}
+
 }
 
-func setupOrderManager() (chan model.Order, chan paramsAndId, chan *api.CancelOrderParams, chan *model.Order, chan *model.Decimal64, *model.Listing,
-	*OrderManager) {
-	listing := &model.Listing{
+
+func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
+
+
+	log.Printf("here")
+	parentOrderUpdatesChan, _, _, childOrdersIn, _,
+	listing, om, doneChan, child1Id, child2Id := setupOrderManagerAndSendTwoChildOrders(t)
+
+
+	childOrdersIn <- &model.Order{
+		Id:                child1Id,
+		Version:           2,
+		Status:            model.OrderStatus_LIVE,
+		LastExecQuantity:  model.IasD(60),
+		LastExecPrice:     model.IasD(100),
+		LastExecId:        "c1e1",
+		RemainingQuantity: model.IasD(0),
+		ListingId: listing.GetId(),
+	}
+
+	order := <-parentOrderUpdatesChan
+
+	if !order.GetTradedQuantity().Equal(model.IasD(60)) {
+		t.FailNow()
+	}
+
+	childOrdersIn <- &model.Order{
+		Id:                child2Id,
+		Version:           2,
+		Status:            model.OrderStatus_LIVE,
+		LastExecQuantity:  model.IasD(40),
+		LastExecPrice:     model.IasD(110),
+		LastExecId:        "c2e1",
+		ListingId: listing.GetId(),
+		RemainingQuantity: model.IasD(0),
+	}
+
+	order = <-parentOrderUpdatesChan
+
+	if !order.GetTradedQuantity().Equal(model.IasD(100)) {
+		t.FailNow()
+	}
+
+	if order.GetStatus() != model.OrderStatus_FILLED {
+		t.FailNow()
+	}
+
+	doneId := <-doneChan
+
+	if doneId != om.GetManagedOrderId() {
+		t.FailNow()
+	}
+
+}
+
+
+func setupOrderManagerAndSendTwoChildOrders(t *testing.T) (parentOrderUpdatesChan chan model.Order, childOrderOutboundParams chan paramsAndId,
+	childOrderCancelParams chan *api.CancelOrderParams, childOrdersIn chan *model.Order,
+	sendChildQty chan *model.Decimal64, listing *model.Listing,
+	om *OrderManager,  doneChan chan string, child1Id string, child2Id string)  {
+
+	parentOrderUpdatesChan, childOrderOutboundParams, childOrderCancelParams, childOrdersIn, sendChildQty, listing,
+	om, doneChan = setupOrderManager()
+
+	<-parentOrderUpdatesChan
+
+	sendChildQty <- &model.Decimal64{Mantissa: 60}
+
+	params1 := &api.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(60),
+		Price:         model.IasD(200),
+		Listing:       listing,
+		OriginatorId:  om.ExecVenueId,
+		OriginatorRef: om.ManagedOrder.Id,
+	}
+
+	pd := <-childOrderOutboundParams
+	child1Id = pd.id
+
+	if !areParamsEqual(params1, pd.params) {
+		t.FailNow()
+	}
+
+	<-parentOrderUpdatesChan
+
+	sendChildQty <- &model.Decimal64{Mantissa: 40}
+	params2 := &api.CreateAndRouteOrderParams{
+		OrderSide:     model.Side_BUY,
+		Quantity:      model.IasD(40),
+		Price:         model.IasD(200),
+		Listing:       listing,
+		OriginatorId:  om.ExecVenueId,
+		OriginatorRef: om.ManagedOrder.Id,
+	}
+
+	pd = <-childOrderOutboundParams
+	child2Id = pd.id
+
+	if !areParamsEqual(params2, pd.params) {
+		t.FailNow()
+	}
+
+	order := <-parentOrderUpdatesChan
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if order.GetAvailableQty().GreaterThan(model.IasD(0)) {
+		t.Fatalf("no quantity should be left to trade")
+	}
+
+	childOrdersIn <- &model.Order{
+		Id:                child1Id,
+		Version:           0,
+		Status:            model.OrderStatus_LIVE,
+		ListingId:         listing.GetId(),
+		RemainingQuantity: model.IasD(60),
+	}
+
+	order = <-parentOrderUpdatesChan
+	if !order.GetExposedQuantity().Equal(model.IasD(100)) {
+		t.FailNow()
+	}
+
+	childOrdersIn <- &model.Order{
+		Id:                child2Id,
+		Version:           0,
+		Status:            model.OrderStatus_LIVE,
+		ListingId: listing.Id,
+		RemainingQuantity: model.IasD(40),
+	}
+
+	order = <-parentOrderUpdatesChan
+	if !order.GetExposedQuantity().Equal(model.IasD(100)) {
+		t.FailNow()
+	}
+
+	return parentOrderUpdatesChan, childOrderOutboundParams, childOrderCancelParams, childOrdersIn, sendChildQty,
+		listing, om, doneChan, child1Id, child2Id
+}
+
+func setupOrderManager() (parentOrderUpdatesChan chan model.Order, childOrderOutboundParams chan paramsAndId,
+	childOrderCancelParams chan *api.CancelOrderParams, childOrdersIn chan *model.Order,
+	sendChildQty chan *model.Decimal64, listing *model.Listing,
+	om *OrderManager,  doneChan chan string) {
+
+	listing = &model.Listing{
 		Version: 0,
 		Id:      1,
 	}
 
-	parentOrderUpdatesChan := make(chan model.Order)
+	parentOrderUpdatesChan = make(chan model.Order)
 
-	childOrderOutboundParams := make(chan paramsAndId)
-	childOrderCancelParams := make(chan *api.CancelOrderParams)
+	childOrderOutboundParams = make(chan paramsAndId)
+	childOrderCancelParams = make(chan *api.CancelOrderParams)
 	orderRouter := &testOmClient{
 		croParamsChan:    childOrderOutboundParams,
 		cancelParamsChan: childOrderCancelParams,
 	}
 
-	childOrdersIn := make(chan *model.Order)
+	childOrdersIn = make(chan *model.Order)
 	childOrderStream := testChildOrderStream{stream: childOrdersIn}
 
-	doneChan := make(chan string)
+	doneChan = make(chan string)
 
 	om, err := NewOrderManagerFromCreateParams("p1", &api.CreateAndRouteOrderParams{
 		OrderSide:          model.Side_BUY,
@@ -163,9 +314,9 @@ func setupOrderManager() (chan model.Order, chan paramsAndId, chan *api.CancelOr
 		panic(err)
 	}
 
-	sendChildQty := make(chan *model.Decimal64)
+	sendChildQty = make(chan *model.Decimal64)
 	ExecuteAsDmaOrderManager(om, sendChildQty, listing)
-	return parentOrderUpdatesChan, childOrderOutboundParams, childOrderCancelParams, childOrdersIn, sendChildQty, listing, om
+	return parentOrderUpdatesChan, childOrderOutboundParams, childOrderCancelParams, childOrdersIn, sendChildQty, listing, om, doneChan
 }
 
 func ExecuteAsDmaOrderManager(om *OrderManager, sendChildQty chan *model.Decimal64, listing *model.Listing) {

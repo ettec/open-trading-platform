@@ -304,53 +304,6 @@ func TestOrderManagerCancel(t *testing.T) {
 
 }
 
-func TestOrderManagerCompletesWhenChildOrdersFilled(t *testing.T) {
-
-	done, childOrderUpdates, orderUpdates, om, order, child1Id, child2Id, _ := setupOrderManagerAndSendTwoChildOrders(t)
-
-	childOrderUpdates <- &model.Order{
-		Id:                child1Id,
-		Version:           2,
-		Status:            model.OrderStatus_LIVE,
-		LastExecQuantity:  model.IasD(10),
-		LastExecPrice:     model.IasD(100),
-		LastExecId:        "c1e1",
-		RemainingQuantity: IasD(0),
-	}
-
-	order = <-orderUpdates
-
-	if !order.GetTradedQuantity().Equal(model.IasD(10)) {
-		t.FailNow()
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                child2Id,
-		Version:           2,
-		Status:            model.OrderStatus_LIVE,
-		LastExecQuantity:  model.IasD(10),
-		LastExecPrice:     model.IasD(110),
-		LastExecId:        "c2e1",
-		RemainingQuantity: IasD(0),
-	}
-
-	order = <-orderUpdates
-
-	if !order.GetTradedQuantity().Equal(model.IasD(20)) {
-		t.FailNow()
-	}
-
-	if order.GetStatus() != model.OrderStatus_FILLED {
-		t.FailNow()
-	}
-
-	doneId := <-done
-
-	if doneId != om.GetManagedOrderId() {
-		t.FailNow()
-	}
-
-}
 
 type testQuoteStream struct {
 	stream chan *model.ClobQuote
