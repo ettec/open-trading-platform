@@ -4,9 +4,7 @@ import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/smart-router/ordermanager"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/model"
-	"github.com/golang/protobuf/proto"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"reflect"
@@ -381,154 +379,10 @@ func (t testChildOrderStream) GetStream() <-chan *model.Order {
 func (t testChildOrderStream) Close() {
 }
 
-func Test_cancelOfUnexposedOrder(t *testing.T) {
-	_, _, _, _, quoteChan, _, orderUpdates, _, _, om, order, _ := setupOrderManager(t)
 
-	q := &model.ClobQuote{
-		Offers: []*model.ClobLine{},
-	}
 
-	quoteChan <- q
 
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
-		t.FailNow()
-	}
-
-	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
-		t.Fatalf("parent order should be only partly exposed")
-	}
-
-	om.Cancel()
-
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_CANCELLED {
-		t.FailNow()
-	}
-
-	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
-		t.Fatalf("parent order should be only partly exposed")
-	}
-
-}
-
-func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
-	evId, listing1, _, _, quoteChan, childOrderUpdates, orderUpdates, paramsChan, _, om, order, cancelParams := setupOrderManager(t)
-
-	q := &model.ClobQuote{
-		Offers: []*model.ClobLine{
-			{Size: model.IasD(10), Price: model.IasD(100), ListingId: 1},
-		},
-	}
-
-	quoteChan <- q
-
-	params1 := &api.CreateAndRouteOrderParams{
-		OrderSide:     model.Side_BUY,
-		Quantity:      model.IasD(10),
-		Price:         model.IasD(100),
-		Listing:       listing1,
-		OriginatorId:  evId,
-		OriginatorRef: order.Id,
-	}
-
-	pd := <-paramsChan
-
-	if !areParamsEqual(params1, pd.params) {
-		t.FailNow()
-	}
-
-	q = &model.ClobQuote{
-		Offers: []*model.ClobLine{
-			{Size: model.IasD(10), Price: model.IasD(110), ListingId: 2},
-		},
-	}
-
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
-		t.FailNow()
-	}
-
-	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
-		t.Fatalf("parent order should be only partly exposed")
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                pd.id,
-		Version:           1,
-		Status:            model.OrderStatus_LIVE,
-		RemainingQuantity: IasD(10),
-	}
-
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
-		t.FailNow()
-	}
-
-	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
-		t.Fatalf("parent order should be only partly exposed")
-	}
-
-	om.Cancel()
-
-	cp := <-cancelParams
-
-	if cp.OrderId != pd.id {
-		t.FailNow()
-	}
-
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_CANCELLED || order.GetStatus() != model.OrderStatus_LIVE {
-		t.FailNow()
-	}
-
-	if !order.GetExposedQuantity().Equal(model.IasD(10)) {
-		t.Fatalf("parent order should be only partly exposed")
-	}
-
-	childOrderUpdates <- &model.Order{
-		Id:                pd.id,
-		Version:           2,
-		Status:            model.OrderStatus_CANCELLED,
-		RemainingQuantity: IasD(10),
-	}
-
-	order = <-orderUpdates
-
-	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_CANCELLED {
-		t.FailNow()
-	}
-
-	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
-		t.Fatalf("parent order should be not be exposed")
-	}
-
-}
-
-func Test_marshalAndUnmarshal(t *testing.T) {
-	//o := model.Order{ExecVenueId: "test"}
-
-	o := executionvenue.ParentOrder{
-		Order: model.Order{Id: "testp"},
-	}
-
-	bytes, err := proto.Marshal(&o.Order)
-	if err != nil {
-		t.FailNow()
-	}
-
-	if len(bytes) == 0 {
-		t.FailNow()
-	}
-
-}
-
-func Test_orderManagerSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
+func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(t)
 
 	q := &model.ClobQuote{

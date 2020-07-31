@@ -10,6 +10,33 @@ import (
 	"testing"
 )
 
+func Test_cancelOfUnexposedOrder(t *testing.T) {
+	parentOrderUpdatesChan, _, _, _, _, _, om := setupOrderManager()
+
+	order := <-parentOrderUpdatesChan
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_LIVE {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.Fatalf("parent order should not be exposed")
+	}
+
+	om.Cancel()
+
+	order = <-parentOrderUpdatesChan
+
+	if order.GetTargetStatus() != model.OrderStatus_NONE || order.GetStatus() != model.OrderStatus_CANCELLED {
+		t.FailNow()
+	}
+
+	if !order.GetExposedQuantity().Equal(model.IasD(0)) {
+		t.Fatalf("parent order should be only partly exposed")
+	}
+
+}
+
 func Test_cancelOfPartiallyExposedOrder(t *testing.T) {
 	parentOrderUpdatesChan, childOrderOutboundParams, cancelOrderOutboundParams, childOrdersIn, sendChildQty, listing, om := setupOrderManager()
 
