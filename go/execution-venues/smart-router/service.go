@@ -9,7 +9,6 @@ import (
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/staticdata"
-	"k8s.io/client-go/kubernetes"
 	"os"
 	"strconv"
 	"time"
@@ -32,7 +31,6 @@ const (
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-
 
 func main() {
 
@@ -87,7 +85,7 @@ func main() {
 
 	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
 
-	orderRouter, err := getOrderRouter(clientSet, maxConnectRetry)
+	orderRouter, err := strategy.GetOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
@@ -126,52 +124,4 @@ func main() {
 		log.Fatalf("error   while serving : %v", err)
 	}
 
-}
-
-
-func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (api.ExecutionVenueClient, error) {
-	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
-		LabelSelector: "app=order-router",
-	})
-
-	if err != nil {
-		panic(err)
-	}
-
-	var client api.ExecutionVenueClient
-
-	for _, service := range list.Items {
-
-		var podPort int32
-		for _, port := range service.Spec.Ports {
-			if port.Name == "api" {
-				podPort = port.Port
-			}
-		}
-
-		if podPort == 0 {
-			log.Printf("ignoring order router service as it does not have a port named api, service: %v", service)
-			continue
-		}
-
-		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-		log.Printf("connecting to order router service %v at: %v", service.Name, targetAddress)
-
-		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxConnectRetrySecs))
-
-		if err != nil {
-			panic(err)
-		}
-
-		client = api.NewExecutionVenueClient(conn)
-		break
-	}
-
-	if client == nil {
-		return nil, fmt.Errorf("failed to find order router")
-	}
-
-	return client, nil
 }

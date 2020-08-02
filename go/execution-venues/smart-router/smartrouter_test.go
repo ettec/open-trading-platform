@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/go/smart-router/strategy"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/strategy"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"reflect"

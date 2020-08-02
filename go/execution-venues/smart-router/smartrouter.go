@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/smart-router/strategy"
 	"github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/strategy"
 )
 
 var zero *model.Decimal64
