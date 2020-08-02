@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/smart-router/strategy"
+
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/staticdata"
+	"github.com/ettec/otp-common/strategy"
 	"os"
 	"strconv"
 	"time"
