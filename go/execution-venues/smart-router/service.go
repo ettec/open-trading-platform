@@ -1,21 +1,17 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/smart-router/ordermanager"
+	"github.com/ettec/open-trading-platform/go/smart-router/strategy"
 	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
-	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
-	"github.com/google/uuid"
 	"k8s.io/client-go/kubernetes"
 	"os"
 	"strconv"
-	"sync"
 	"time"
 
 	"github.com/ettec/otp-common/bootstrap"
@@ -30,105 +26,30 @@ import (
 	"strings"
 )
 
-
-
 const (
-	Id                     = "ID"
 	KafkaBrokersKey        = "KAFKA_BROKERS"
-	External               = "EXTERNAL"
 	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
-type OrderManager interface {
-	GetManagedOrderId() string
-	Cancel()
-}
-
-type smartRouter struct {
-	id                           string
-	store                        orderstore.OrderStore
-	orderRouter                  api.ExecutionVenueClient
-	quoteDistributor             marketdata.QuoteDistributor
-	getListingsFn                GetListingsWithSameInstrument
-	doneChan                     chan string
-	orders                       sync.Map
-	childOrderUpdatesDistributor ChildOrderUpdatesDistributor
-}
-
-func (s *smartRouter) GetExecutionParametersMetaData(ctx context.Context, empty *model.Empty) (*api.ExecParamsMetaDataJson, error) {
-	panic("implement me")
-}
-
-type ChildOrderUpdatesDistributor interface {
-	NewOrderStream(parentOrderId string, bufferSize int) executionvenue.ChildOrderStream
-	Start()
-}
-
-func (s *smartRouter) CreateAndRouteOrder(ctx context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
-
-	id, err := uuid.NewUUID()
-	if err != nil {
-		return nil, err
-	}
-
-	om, err := ordermanager.NewOrderManagerFromCreateParams(id.String(), params, s.id, s.store.Write, s.orderRouter,
-		 s.childOrderUpdatesDistributor.NewOrderStream(id.String(), ChildUpdatesBufferSize), s.doneChan)
-
-	if err != nil {
-		return nil, err
-	}
-
-	s.orders.Store(om.GetManagedOrderId(), om)
-
-	ExecuteAsSmartRouterStrategy(om, s.getListingsFn, s.quoteDistributor.GetNewQuoteStream())
-
-	return &api.OrderId{
-		OrderId: om.ExecVenueId,
-	}, nil
-}
-
-func (s *smartRouter) ModifyOrder(ctx context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
-	return nil, fmt.Errorf("order modification not supported")
-}
-
-func (s *smartRouter) CancelOrder(ctx context.Context, params *api.CancelOrderParams) (*model.Empty, error) {
-
-	if val, exists := s.orders.Load(params.OrderId); exists {
-		om := val.(OrderManager)
-		om.Cancel()
-		return &model.Empty{}, nil
-	} else {
-		return nil, fmt.Errorf("no order found for id:%v", params.OrderId)
-	}
-}
-
-const ChildUpdatesBufferSize = 1000
 
 func main() {
 
-	id := bootstrap.GetOptionalEnvVar(Id, "smart-router")
+	id := common.SR_MIC
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
-	external := bootstrap.GetOptionalBoolEnvVar(External, false)
 	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
 
 	s := grpc.NewServer()
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
-	store, err := orderstore.NewKafkaStore(kafkaBrokers, common.SR_MIC)
-	if err != nil {
-		panic(fmt.Errorf("failed to create order store: %v", err))
-	}
-
 	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		log.Fatalf("failed to create static data source:%v", err)
 	}
 
-	clientSet := k8s.GetK8sClientSet(external)
+	clientSet := k8s.GetK8sClientSet(false)
 
 	namespace := "default"
 	xosrServiceLabelSelector := "app=market-data-source,mic=" + common.SR_MIC
@@ -171,51 +92,25 @@ func main() {
 		panic(err)
 	}
 
-	childOrderUpdates, err := executionvenue.GetChildOrders(id, kafkaBrokers, ChildUpdatesBufferSize)
+	executeFn := func(om *strategy.Strategy) {
+		ExecuteAsSmartRouterStrategy(om, sds.GetListingsWithSameInstrument, qd.GetNewQuoteStream())
+	}
+
+	store, err := orderstore.NewKafkaStore(kafkaBrokers, id)
+	if err != nil {
+		panic(fmt.Errorf("failed to create order store: %v", err))
+	}
+
+	childOrderUpdates, err := executionvenue.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}
 
-	childUpdatesDistributor := executionvenue.NewChildOrderUpdatesDistributor(childOrderUpdates)
+	distributor := executionvenue.NewChildOrderUpdatesDistributor(childOrderUpdates)
 
-	sr := &smartRouter{
-		id:                           id,
-		store:                        store,
-		orderRouter:                  orderRouter,
-		quoteDistributor:             qd,
-		getListingsFn:                sds.GetListingsWithSameInstrument,
-		doneChan:                     make(chan string, 100),
-		orders:                       sync.Map{},
-		childOrderUpdatesDistributor: childUpdatesDistributor,
-	}
+	sm := strategy.NewStrategyManager(id, store, distributor, orderRouter, executeFn)
 
-	go func() {
-		id := <-sr.doneChan
-		sr.orders.Delete(id)
-		log.Printf("order %v is done, remove from orders cache", id)
-	}()
-
-	parentOrders, err := store.RecoverInitialCache()
-	if err != nil {
-		panic(err)
-	}
-
-	for _, order := range parentOrders {
-		if !order.IsTerminalState() {
-
-			om := ordermanager.NewOrderManagerFromState(order, sr.store.Write, sr.id, sr.orderRouter,
-				sr.childOrderUpdatesDistributor.NewOrderStream(order.Id, 1000),
-				sr.doneChan)
-			sr.orders.Store(om.GetManagedOrderId(), om)
-
-			ExecuteAsSmartRouterStrategy(om, sr.getListingsFn,
-				sr.quoteDistributor.GetNewQuoteStream())
-		}
-	}
-
-	childUpdatesDistributor.Start()
-
-	api.RegisterExecutionVenueServer(s, sr)
+	api.RegisterExecutionVenueServer(s, sm)
 
 	reflection.Register(s)
 
@@ -232,6 +127,7 @@ func main() {
 	}
 
 }
+
 
 func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (api.ExecutionVenueClient, error) {
 	namespace := "default"

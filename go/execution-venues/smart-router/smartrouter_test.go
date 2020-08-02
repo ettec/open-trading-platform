@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/ettec/open-trading-platform/go/smart-router/ordermanager"
+	"github.com/ettec/open-trading-platform/go/smart-router/strategy"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/model"
 	"github.com/google/uuid"
@@ -63,7 +63,7 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 
 	client := &testEvClient{}
 
-	om := ordermanager.NewOrderManagerFromState(mo, func(order *model.Order) error {
+	om := strategy.NewStrategyFromParentOrder(mo, func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 
@@ -147,7 +147,7 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 	}
 
 	client := &testEvClient{}
-	om := ordermanager.NewOrderManagerFromState(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
+	om := strategy.NewStrategyFromParentOrder(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
 		"oi", "od", "ri", "rr"), func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
@@ -337,7 +337,7 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 }
 
 func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
-	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *ordermanager.OrderManager, model.Order,
+	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *strategy.Strategy, model.Order,
 	chan *api.CancelOrderParams) {
 	evId := "testev"
 
@@ -376,7 +376,7 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		t.FailNow()
 	}
 
-	om, err := ordermanager.NewOrderManagerFromCreateParams(uniqueId.String(), params, evId, func(o *model.Order) error {
+	om, err := strategy.NewStrategyFromCreateParams(uniqueId.String(), params, evId, func(o *model.Order) error {
 		orderUpdates <- *o
 		return nil
 	}, testExecVenue, &testChildOrderStream{childOrderUpdates}, done)
