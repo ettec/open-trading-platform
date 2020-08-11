@@ -12,8 +12,8 @@ func Test_getBuckets(t *testing.T) {
 
 	type args struct {
 		listing          *model.Listing
-		utcStartTimeSecs int
-		utcEndTimeSecs   int
+		utcStartTimeSecs int64
+		utcEndTimeSecs   int64
 		buckets          int
 		quantity         *model.Decimal64
 	}
@@ -110,3 +110,4 @@ func Test_getBuckets(t *testing.T) {
 		})
 	}
 }
+
