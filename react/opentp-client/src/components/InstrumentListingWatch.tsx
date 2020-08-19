@@ -14,6 +14,7 @@ import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
 import  TableView, { getColIdsInOrder, getConfiguredColumns, reorderColumnData, TableViewConfig, TableViewProperties } from './TableView/TableView';
+import ReactCountryFlag from "react-country-flag"
 
 
 interface InstrumentListingWatchState {
@@ -230,11 +231,23 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
   private renderSymbol = (row: number) => <Cell>{this.state.watches[row]?.Symbol()}</Cell>;
   private renderName = (row: number) => <Cell>{this.state.watches[row]?.Name()}</Cell>;
   private renderMic = (row: number) => <Cell>{this.state.watches[row]?.Mic()}</Cell>;
-  private renderCountry = (row: number) => <Cell>{this.state.watches[row]?.Country()}</Cell>;
   private renderBidSize = (row: number) => <Cell>{this.state.watches[row]?.BidSize()}</Cell>;
   private renderBidPrice = (row: number) => <Cell>{this.state.watches[row]?.BidPrice()}</Cell>;
   private renderAskPrice = (row: number) => <Cell>{this.state.watches[row]?.AskPrice()}</Cell>;
   private renderAskSize = (row: number) => <Cell>{this.state.watches[row]?.AskSize()}</Cell>;
+
+  private renderCountry = (row: number) => {
+
+      let country = this.state.watches[row]?.Country()
+      if( country ) {
+        return <Cell><ReactCountryFlag countryCode={country} /></Cell>
+      } else {
+        return <Cell></Cell>
+      }
+  
+  }
+
+
 
   renderContextMenu = () => {
     return (

@@ -2,10 +2,12 @@ import { Colors } from '@blueprintjs/core';
 import { Cell, Column, IRegion } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
-import { Order, OrderStatus } from '../../serverapi/order_pb';
+import { Order, OrderStatus, Side } from '../../serverapi/order_pb';
 import '../TableView/TableCommon.css';
 import TableView, { TableViewProperties } from '../TableView/TableView';
 import { OrderView } from './OrderView';
+import { GlobalColours } from '../Colours';
+import ReactCountryFlag from "react-country-flag"
 
 
 export interface OrderBlotterState  {
@@ -39,11 +41,9 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
   }
 
   private renderId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.id}</Cell>;
-  private renderSide = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.side}</Cell>;
   private renderQuantity = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.quantity}</Cell>;
   private renderSymbol = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getSymbol()}</Cell>;
   private renderMic = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getMic()}</Cell>;
-  private renderCountry = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getCountryCode()}</Cell>;
   private renderPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.price}</Cell>;
   private renderListingId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.listingId}</Cell>;
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
@@ -51,6 +51,17 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
   private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
   private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
+
+  private renderCountry = (row: number) => {
+    let country = Array.from(this.state.orders)[row]?.getCountryCode()
+
+    if( country ) {
+      return <Cell><ReactCountryFlag countryCode={country} /></Cell>
+    } else {
+      return <Cell></Cell>
+    }
+
+}
 
   private renderCreated = (row: number) => {
     let created = Array.from(this.state.orders)[row]?.created
@@ -60,6 +71,24 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
     } else {
       return <Cell></Cell>
     }
+  }
+
+
+  private renderSide = (row: number) => {
+    let orderView = Array.from(this.state.orders)[row]
+    let statusStyle = {}
+    if (orderView) {
+      switch (orderView.getOrder().getSide()) {
+        case Side.BUY:
+          statusStyle = { background: GlobalColours.BUYBKG }
+          break
+        case Side.SELL:
+          statusStyle = { background: GlobalColours.SELLBKG }
+          break
+      }
+    }
+
+    return <Cell style={statusStyle}>{orderView?.side}</Cell>
   }
 
   private renderStatus = (row: number) => {

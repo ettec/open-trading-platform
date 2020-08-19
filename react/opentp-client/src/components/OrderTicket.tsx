@@ -12,6 +12,7 @@ import { QuoteListener, QuoteService } from '../services/QuoteService';
 import { toDecimal64, toNumber } from '../util/decimal64Conversion';
 import { TicketController } from "./Container";
 import Login from './Login';
+import { GlobalColours } from './Colours';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -241,10 +242,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     let color = Colors.DARK_GRAY1
     switch (side) {
       case Side.BUY:
-        color = Colors.BLUE5
+        color = GlobalColours.BUYBKG
         break
       case Side.SELL:
-        color = Colors.ROSE4
+        color = GlobalColours.SELLBKG
         break
 
     }
