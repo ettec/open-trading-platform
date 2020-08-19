@@ -24,4 +24,4 @@ sed -i 's/*Order)/*model.Order)/g' $GOFILE
 sed -i 's/Decimal64/model.Decimal64/g' $GOFILE
 sed -i 's/ Side/ model.Side/g' $GOFILE
 sed -i 's/*Timestamp/*model.Timestamp/g' $GOFILE
-sed -i 's/import (/import (\n\t"github.com\/ettec\/otp-model"/g' $GOFILE
+sed -i 's/import (/import (\n\t"github.com\/ettec\/otp-common\/model"/g' $GOFILE

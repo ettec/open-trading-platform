@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "listing.proto";
 import "order.proto";
 import "modelcommon.proto";
 package executionvenue;
@@ -9,12 +8,14 @@ message CreateAndRouteOrderParams{
     model.Side orderSide = 1;
     model.Decimal64 quantity = 2;
     model.Decimal64 price = 3;
-    model.Listing listing = 4;
-    string originatorId = 5;
-    string originatorRef =6;
-    string rootOriginatorId = 7;
-    string rootOriginatorRef =8;
-    string execParametersJson =9;    
+    int32 listingId = 4;
+    string destination = 5;
+    string originatorId = 6;
+    string originatorRef =7;
+    string rootOriginatorId = 8;
+    string rootOriginatorRef =9;
+    string execParametersJson =10;    
+
 }
 
 message OrderId {
@@ -27,14 +28,16 @@ message ExecParamsMetaDataJson {
 
 message CancelOrderParams {
     string orderId = 1;
-    model.Listing listing = 2;
+    int32 listingId = 2;
+    string ownerId = 3;
 }
 
 message ModifyOrderParams {
     string orderId = 1;
-    model.Listing listing = 2;
-    model.Decimal64 quantity = 3;
-    model.Decimal64 price = 4;
+    int32 listingId = 2;
+    string ownerId = 3;
+    model.Decimal64 quantity = 4;
+    model.Decimal64 price = 5;
 
 }
 

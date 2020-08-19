@@ -2,9 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-#dockerRepo: "ettec/opentp:"
-dockerRepo: "localhost:5000/"
-dockerTag:
+dockerRepo: "ettec/opentp:"
+dockerTag: "-latest"
 
 replicaCount: 1
 

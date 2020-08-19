@@ -2,15 +2,14 @@ package fixgateway
 
 import (
 	"fmt"
-	"github.com/ettec/otp-evcommon/ordergateway"
-	"github.com/quickfixgo/quickfix/fix40/ordercancelreject"
-	"github.com/quickfixgo/quickfix/fix50sp1/ordercancelreplacerequest"
-
-	"github.com/ettec/otp-model"
+	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
+	"github.com/ettec/otp-common/model"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
+	"github.com/quickfixgo/quickfix/fix40/ordercancelreject"
 	"github.com/quickfixgo/quickfix/fix42/businessmessagereject"
+	"github.com/quickfixgo/quickfix/fix50sp1/ordercancelreplacerequest"
 	"github.com/quickfixgo/quickfix/fix50sp1/ordercancelrequest"
 	"github.com/quickfixgo/quickfix/fix50sp2/executionreport"
 	"github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
@@ -25,7 +24,7 @@ type FixOrderGateway struct {
 	orderHandler OrderHandler
 }
 
-func NewFixOrderGateway(sessionID quickfix.SessionID) ordergateway.OrderGateway {
+func NewFixOrderGateway(sessionID quickfix.SessionID) executionvenue.OrderGateway {
 	return &FixOrderGateway{
 		sessionID: sessionID,
 	}

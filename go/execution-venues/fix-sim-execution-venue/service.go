@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
+	executionvenue2 "github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/orderstore"
-	"github.com/ettec/otp-evcommon/executionvenue"
+	"github.com/ettec/otp-common/staticdata"
 
 	"github.com/ettec/otp-common/bootstrap"
 
-	"github.com/ettec/otp-evcommon/ordercache"
-	"github.com/ettec/otp-evcommon/ordermanager"
+	"github.com/ettec/otp-common/executionvenue"
 
 	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/fixgateway"
 
@@ -39,7 +39,12 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	orderCache, err := ordercache.NewOrderCache(store)
+	sds, err := staticdata.NewStaticDataSource(false)
+	if err != nil {
+		log.Fatalf("failed to create static data source:%v", err)
+	}
+
+	orderCache, err := executionvenue.NewOrderCache(store)
 	if err != nil {
 		log.Fatalf("failed to create order cache:%v", err)
 	}
@@ -51,7 +56,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := ordermanager.NewOrderManager(orderCache, gateway, execVenueMic)
+	om := executionvenue2.NewOrderManager(orderCache, gateway, execVenueMic, sds.GetListing)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)
@@ -61,7 +66,7 @@ func main() {
 
 	defer func() { fixServerCloseChan <- struct{}{} }()
 
-	service := executionvenue.New(om)
+	service := executionvenue2.New(om)
 	defer service.Close()
 
 	api.RegisterExecutionVenueServer(s, service)

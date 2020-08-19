@@ -6,7 +6,7 @@
   spec:
     containers:
     - name: kafka
-      image: localhost:5000/cp-kafka:5.0.1 
+      image: confluentinc/cp-kafka:5.0.1 
       command:
         - sh
         - -c
