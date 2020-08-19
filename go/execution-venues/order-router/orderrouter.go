@@ -4,7 +4,7 @@ import (
 	"context"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/model"
 	"google.golang.org/grpc"
 	v1 "k8s.io/api/core/v1"
 	"strconv"
@@ -71,8 +71,12 @@ func New(external bool, maxConnectRetrySecs int) *orderRouter {
 	return &orderRouter
 }
 
+func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*api.ExecParamsMetaDataJson, error) {
+ 	return &api.ExecParamsMetaDataJson{}, nil
+}
+
 func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
-	mic := p.Listing.Market.Mic
+	mic := p.Destination
 	if ev, ok := o.micToExecVenue[mic]; ok {
 		id, err := ev.client.CreateAndRouteOrder(c, p)
 
@@ -91,7 +95,7 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRou
 
 func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (*model.Empty, error) {
 
-	mic := p.Listing.Market.Mic
+	mic := p.OwnerId
 	if ev, ok := o.micToExecVenue[mic]; ok {
 		_, err := ev.client.ModifyOrder(c, p)
 
@@ -108,7 +112,7 @@ func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (
 }
 
 func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
-	mic := p.Listing.Market.Mic
+	mic := p.OwnerId
 	if ev, ok := o.micToExecVenue[mic]; ok {
 		_, err := ev.client.CancelOrder(c, p)
 
