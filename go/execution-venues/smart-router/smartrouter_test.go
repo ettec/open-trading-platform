@@ -54,8 +54,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 	mo := model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
 		"ri", "rr")
 
-	listing1 := &model.Listing{Id: 1}
-	listing2 := &model.Listing{Id: 2}
+	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
+	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
 	underlyingListings := map[int32]*model.Listing{
 		1: listing1,
 		2: listing2,
@@ -73,11 +73,13 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 		t.FailNow()
 	}
 
+
 	expectedParams := []*api.CreateAndRouteOrderParams{{
 		OrderSide:         model.Side_SELL,
 		Quantity:          model.IasD(10),
 		Price:             model.IasD(150),
-		Listing:           listing1,
+		ListingId:         listing1.Id,
+		Destination: "XNAS",
 		OriginatorId:      evId,
 		OriginatorRef:     orderId,
 		RootOriginatorId:  "ri",
@@ -87,7 +89,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 			OrderSide:         model.Side_SELL,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(140),
-			Listing:           listing2,
+			ListingId:           listing2.Id,
+			Destination: "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -97,7 +100,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 			OrderSide:         model.Side_SELL,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(130),
-			Listing:           listing1,
+			ListingId:           listing1.Id,
+			Destination: "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -107,7 +111,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 			OrderSide:         model.Side_SELL,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(120),
-			Listing:           listing2,
+			ListingId:           listing2.Id,
+			Destination: "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -162,7 +167,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 		OrderSide:         model.Side_BUY,
 		Quantity:          model.IasD(10),
 		Price:             model.IasD(100),
-		Listing:           listing1,
+		ListingId:           listing1.Id,
+		Destination: "XNAS",
 		OriginatorId:      evId,
 		OriginatorRef:     orderId,
 		RootOriginatorId:  "ri",
@@ -172,7 +178,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 			OrderSide:         model.Side_BUY,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(110),
-			Listing:           listing2,
+			ListingId:           listing2.Id,
+			Destination: "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -182,7 +189,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 			OrderSide:         model.Side_BUY,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(120),
-			Listing:           listing1,
+			ListingId:           listing1.Id,
+			Destination: "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -192,7 +200,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 			OrderSide:         model.Side_BUY,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(130),
-			Listing:           listing2,
+			ListingId:           listing2.Id,
+			Destination: "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -284,7 +293,8 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(100),
-		Listing:       listing1,
+		ListingId:       listing1.Id,
+		Destination: "XNAS",
 		OriginatorId:  evId,
 		OriginatorRef: order.Id,
 	}
@@ -317,7 +327,7 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(110),
-		Listing:       listing2,
+		ListingId:       listing2.Id,
 		OriginatorId:  evId,
 		OriginatorRef: order.Id,
 	}
@@ -365,7 +375,8 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(20),
 		Price:         model.IasD(130),
-		Listing:       srListing,
+		ListingId:       srListing.Id,
+		Destination: "XOSR",
 		OriginatorId:  "oi",
 		OriginatorRef: "or",
 	}
@@ -400,7 +411,7 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 }
 
 func areParamsEqual(p1 *api.CreateAndRouteOrderParams, p2 *api.CreateAndRouteOrderParams) bool {
-	return p1.Quantity.Equal(p2.Quantity) && p1.Listing.Id == p2.Listing.Id && p1.Price.Equal(p2.Price) && p1.OrderSide == p2.OrderSide &&
+	return p1.Quantity.Equal(p2.Quantity) && p1.ListingId == p2.ListingId && p1.Price.Equal(p2.Price) && p1.OrderSide == p2.OrderSide &&
 		p1.OriginatorRef == p2.OriginatorRef && p1.OriginatorId == p2.OriginatorId
 
 }
