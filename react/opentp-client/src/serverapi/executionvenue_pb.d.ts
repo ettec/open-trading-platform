@@ -1,6 +1,5 @@
 import * as jspb from "google-protobuf"
 
-import * as listing_pb from './listing_pb';
 import * as order_pb from './order_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 
@@ -18,10 +17,11 @@ export class CreateAndRouteOrderParams extends jspb.Message {
   hasPrice(): boolean;
   clearPrice(): void;
 
-  getListing(): listing_pb.Listing | undefined;
-  setListing(value?: listing_pb.Listing): void;
-  hasListing(): boolean;
-  clearListing(): void;
+  getListingid(): number;
+  setListingid(value: number): void;
+
+  getDestination(): string;
+  setDestination(value: string): void;
 
   getOriginatorid(): string;
   setOriginatorid(value: string): void;
@@ -34,6 +34,9 @@ export class CreateAndRouteOrderParams extends jspb.Message {
 
   getRootoriginatorref(): string;
   setRootoriginatorref(value: string): void;
+
+  getExecparametersjson(): string;
+  setExecparametersjson(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateAndRouteOrderParams.AsObject;
@@ -48,11 +51,13 @@ export namespace CreateAndRouteOrderParams {
     orderside: order_pb.Side,
     quantity?: modelcommon_pb.Decimal64.AsObject,
     price?: modelcommon_pb.Decimal64.AsObject,
-    listing?: listing_pb.Listing.AsObject,
+    listingid: number,
+    destination: string,
     originatorid: string,
     originatorref: string,
     rootoriginatorid: string,
     rootoriginatorref: string,
+    execparametersjson: string,
   }
 }
 
@@ -74,14 +79,33 @@ export namespace OrderId {
   }
 }
 
+export class ExecParamsMetaDataJson extends jspb.Message {
+  getJson(): string;
+  setJson(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ExecParamsMetaDataJson.AsObject;
+  static toObject(includeInstance: boolean, msg: ExecParamsMetaDataJson): ExecParamsMetaDataJson.AsObject;
+  static serializeBinaryToWriter(message: ExecParamsMetaDataJson, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ExecParamsMetaDataJson;
+  static deserializeBinaryFromReader(message: ExecParamsMetaDataJson, reader: jspb.BinaryReader): ExecParamsMetaDataJson;
+}
+
+export namespace ExecParamsMetaDataJson {
+  export type AsObject = {
+    json: string,
+  }
+}
+
 export class CancelOrderParams extends jspb.Message {
   getOrderid(): string;
   setOrderid(value: string): void;
 
-  getListing(): listing_pb.Listing | undefined;
-  setListing(value?: listing_pb.Listing): void;
-  hasListing(): boolean;
-  clearListing(): void;
+  getListingid(): number;
+  setListingid(value: number): void;
+
+  getOwnerid(): string;
+  setOwnerid(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CancelOrderParams.AsObject;
@@ -94,7 +118,8 @@ export class CancelOrderParams extends jspb.Message {
 export namespace CancelOrderParams {
   export type AsObject = {
     orderid: string,
-    listing?: listing_pb.Listing.AsObject,
+    listingid: number,
+    ownerid: string,
   }
 }
 
@@ -102,10 +127,11 @@ export class ModifyOrderParams extends jspb.Message {
   getOrderid(): string;
   setOrderid(value: string): void;
 
-  getListing(): listing_pb.Listing | undefined;
-  setListing(value?: listing_pb.Listing): void;
-  hasListing(): boolean;
-  clearListing(): void;
+  getListingid(): number;
+  setListingid(value: number): void;
+
+  getOwnerid(): string;
+  setOwnerid(value: string): void;
 
   getQuantity(): modelcommon_pb.Decimal64 | undefined;
   setQuantity(value?: modelcommon_pb.Decimal64): void;
@@ -128,7 +154,8 @@ export class ModifyOrderParams extends jspb.Message {
 export namespace ModifyOrderParams {
   export type AsObject = {
     orderid: string,
-    listing?: listing_pb.Listing.AsObject,
+    listingid: number,
+    ownerid: string,
     quantity?: modelcommon_pb.Decimal64.AsObject,
     price?: modelcommon_pb.Decimal64.AsObject,
   }

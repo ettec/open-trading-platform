@@ -9,13 +9,13 @@
 
 import * as grpcWeb from 'grpc-web';
 
-import * as listing_pb from './listing_pb';
 import * as order_pb from './order_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 
 import {
   CancelOrderParams,
   CreateAndRouteOrderParams,
+  ExecParamsMetaDataJson,
   ModifyOrderParams,
   OrderId} from './executionvenue_pb';
 
@@ -101,6 +101,28 @@ export class ExecutionVenueClient {
       request,
       metadata || {},
       this.methodInfoModifyOrder,
+      callback);
+  }
+
+  methodInfoGetExecutionParametersMetaData = new grpcWeb.AbstractClientBase.MethodInfo(
+    ExecParamsMetaDataJson,
+    (request: modelcommon_pb.Empty) => {
+      return request.serializeBinary();
+    },
+    ExecParamsMetaDataJson.deserializeBinary
+  );
+
+  getExecutionParametersMetaData(
+    request: modelcommon_pb.Empty,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ExecParamsMetaDataJson) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/executionvenue.ExecutionVenue/GetExecutionParametersMetaData',
+      request,
+      metadata || {},
+      this.methodInfoGetExecutionParametersMetaData,
       callback);
   }
 

@@ -371,7 +371,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     if (this.state.orderToModify) {
 
       let modifyParams = new ModifyOrderParams()
-      modifyParams.setListing(this.state.listing)
+      modifyParams.setListingid(this.state.orderToModify.getListingid())
+      modifyParams.setOwnerid(this.state.orderToModify.getOwnerid())
       modifyParams.setQuantity(toDecimal64(this.state.quantity))
       modifyParams.setPrice(toDecimal64(this.state.price))
       modifyParams.setOrderid(this.state.orderToModify.getId())
@@ -389,17 +390,18 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     } else {
       let listing = this.state.listing
       let side = this.state.side
-      if (listing) {
+      let market = listing?.getMarket()
+      if (listing && market) {
 
         let croParams = new CreateAndRouteOrderParams()
-        croParams.setListing(listing)
-
+        croParams.setListingid(listing.getId())
+        croParams.setDestination(market.getMic())
         croParams.setOrderside(side)
         croParams.setQuantity(toDecimal64(this.state.quantity))
         croParams.setPrice(toDecimal64(this.state.price))
 
         logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " +
-          croParams.getListing()?.getMarketsymbol())
+          croParams.getListingid())
         croParams.setOriginatorid(Login.desk)
         croParams.setOriginatorref(Login.username)
         croParams.setRootoriginatorid(Login.desk)

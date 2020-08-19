@@ -232,7 +232,8 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
       this.listingService.GetListing(order.getListingid(), (listing) => {
         let params = new CancelOrderParams()
         params.setOrderid(order.getId())
-        params.setListing(listing)
+        params.setListingid(listing.getId())
+        params.setOwnerid(order.getOwnerid())
 
         this.executionVenueService.cancelOrder(params, Login.grpcContext.grpcMetaData, (err: grpcWeb.Error, response: Empty) => {
           if (err) {
