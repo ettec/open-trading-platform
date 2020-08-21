@@ -1,4 +1,4 @@
-import {  Label, Menu } from "@blueprintjs/core";
+import { Menu, Button } from "@blueprintjs/core";
 import { Cell, Column, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
@@ -11,15 +11,15 @@ import Login from "./Login";
 import './TableView/TableCommon.css';
 import { getListingShortName } from "../common/modelutilities";
 import { ClobQuote } from "../serverapi/clobquote_pb";
-import  TableView, { getConfiguredColumns, getColIdsInOrder, reorderColumnData, TableViewConfig, TableViewProperties } from "./TableView/TableView";
+import TableView, { getConfiguredColumns, getColIdsInOrder, reorderColumnData, TableViewConfig, TableViewProperties } from "./TableView/TableView";
 import { TabNode, Actions, Model } from "flexlayout-react";
 import { ListingService } from "../services/ListingService";
 
 interface MarketDepthProps extends TableViewProperties {
   node: TabNode,
   model: Model,
-  quoteService : QuoteService,
-  listingContext : ListingContext
+  quoteService: QuoteService,
+  listingContext: ListingContext
   listingService: ListingService
 }
 
@@ -28,6 +28,13 @@ interface MarketDepthState {
   quote?: ClobQuote,
   columns: Array<JSX.Element>
   columnWidths: Array<number>
+  locked: boolean
+  lockedListingId: number
+}
+
+interface MarketDepthConfig extends TableViewConfig {
+  lockedListingId: number
+  locked: boolean
 }
 
 export default class MarketDepth extends TableView<MarketDepthProps, MarketDepthState> implements QuoteListener {
@@ -42,22 +49,31 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
   constructor(props: MarketDepthProps) {
     super(props);
 
+    this.toggleLock = this.toggleLock.bind(this)
+
     this.quoteService = props.quoteService
     this.listingService = props.listingService
 
-    let columns = this.getColumns() 
+    let columns = this.getColumns()
 
-    let config = this.props.node.getConfig()
+    let config = this.props.node.getConfig() as MarketDepthConfig
 
-    let [ defaultCols, defaultColWidths ] = getConfiguredColumns(columns, config);
+    let [defaultCols, defaultColWidths] = getConfiguredColumns(columns, config);
 
     this.props.node.setEventListener("save", (p) => {
       let cols = this.state.columns
       let colOrderIds = getColIdsInOrder(cols);
 
-      let persistentConfig: TableViewConfig = {
+      let lockedListingId = -1
+      if (this.state.listing) {
+        lockedListingId = this.state.listing.getId()
+      }
+
+      let persistentConfig: MarketDepthConfig = {
         columnWidths: this.state.columnWidths,
         columnOrder: colOrderIds,
+        locked: this.state.locked,
+        lockedListingId: lockedListingId
       }
 
 
@@ -66,55 +82,70 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
 
     this.state = {
+      locked: config.locked,
+      lockedListingId: config.lockedListingId,
       columns: defaultCols,
       columnWidths: defaultColWidths
-    };      
+    };
   }
 
   public componentDidMount(): void {
-    this.props.listingContext.addListener((listing:Listing)=> {
+    this.props.listingContext.addListener((listing: Listing) => {
 
-      if( this.state && this.state.listing ){
-        if( this.state.listing === listing) {
-          return
-        }
+      if (!this.state.locked) {
 
-        this.quoteService.UnsubscribeFromQuote(this.state.listing.getId(), this)  
+          this.setListing(listing)
       }
-
-   
-      let quote = this.quoteService.SubscribeToQuote(listing, this)
-
-      let state: MarketDepthState = {
-        ...this.state,...{
-          listing: listing,
-          quote: quote
-        }
-      }
-
-       this.setState(state)       
     })
 
+    if (this.state.locked) {
+        this.listingService.GetListing(this.state.lockedListingId, (response:Listing)=> {
+          this.setListing(response)
+      }) 
+      
+    }
   }
 
-  protected  getColumns() : JSX.Element[] {
+  private setListing(listing: Listing): void {
+    if (this.state && this.state.listing) {
+      if (this.state.listing === listing) {
+        return
+      }
+
+      this.quoteService.UnsubscribeFromQuote(this.state.listing.getId(), this)
+    }
+
+
+    let quote = this.quoteService.SubscribeToQuote(listing, this)
+
+    let state: MarketDepthState = {
+      ...this.state, ...{
+        listing: listing,
+        quote: quote
+      }
+    }
+
+    this.setState(state)
+  }
+
+  protected getColumns(): JSX.Element[] {
     return [
       <Column key="bidMic" id="bidMic" name="Bid Mic" cellRenderer={this.renderBidMic} />,
       <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
-      <Column  key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
+      <Column key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
       <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
       <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />,
-      <Column key="askMic" id="askMic" name="Ask Mic" cellRenderer={this.renderAskMic} />] 
+      <Column key="askMic" id="askMic" name="Ask Mic" cellRenderer={this.renderAskMic} />]
   }
 
 
-  protected getTableName() : string {
+  protected getTableName(): string {
     return "Market Depth"
   }
 
   onQuote(receivedQuote: ClobQuote): void {
     let state: MarketDepthState = {
-      ...this.state,...{
+      ...this.state, ...{
         quote: receivedQuote,
       }
     }
@@ -124,14 +155,22 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     this.setState(state);
   }
 
+  toggleLock() : void {
+    let state: MarketDepthState = {
+      ...this.state, ...{
+        locked: !this.state.locked,
+      }
+    }
+    this.setState(state);
+  }
 
   public render() {
-      return (
-        <div className="bp3-dark">
-          <Label>{this.getListingLabel()}</Label>
-          <Table enableRowResizing={false} numRows={10} className="bp3-dark"enableColumnReordering={true}
-          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} 
-          columnWidths={this.state.columnWidths}  bodyContextMenuRenderer={this.renderContextMenu} >
+    return (
+      <div className="bp3-dark">
+        <Button icon={this.state.locked?"lock":"unlock"} onClick={this.toggleLock}>{this.getListingLabel()}</Button>
+        <Table enableRowResizing={false} numRows={10} className="bp3-dark" enableColumnReordering={true}
+          onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized}
+          columnWidths={this.state.columnWidths} bodyContextMenuRenderer={this.renderContextMenu} >
           {this.state.columns}
         </Table>
       </div>
@@ -142,7 +181,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     return (
 
       <Menu >
-     
+
         <Menu.Item text="Edit Visible Columns" onClick={() => this.editVisibleColumns()}  >
         </Menu.Item>
       </Menu>
@@ -179,8 +218,8 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     this.setState(blotterState)
   }
 
-  private getListingLabel(): string  {
-    if( this.state && this.state.listing) {
+  private getListingLabel(): string {
+    if (this.state && this.state.listing) {
       return getListingShortName(this.state.listing)
     }
 
@@ -189,7 +228,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
   private renderBidMic = (row: number) => {
 
-    if( !this.state || !this.state.quote) {
+    if (!this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -197,7 +236,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
     if (row < depth.length) {
       let listing = this.listingService.GetListingImmediate(depth[row].getListingid())
-      if( listing ) {
+      if (listing) {
         return (<Cell>{listing.getMarket()?.getMic()}</Cell>)
       } else {
         return (<Cell></Cell>)
@@ -209,7 +248,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
   private renderAskMic = (row: number) => {
 
-    if( !this.state || !this.state.quote) {
+    if (!this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -217,7 +256,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
     if (row < depth.length) {
       let listing = this.listingService.GetListingImmediate(depth[row].getListingid())
-      if( listing ) {
+      if (listing) {
         return (<Cell>{listing.getMarket()?.getMic()}</Cell>)
       } else {
         return (<Cell></Cell>)
@@ -230,7 +269,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
   private renderBidSize = (row: number) => {
 
-    if( !this.state || !this.state.quote) {
+    if (!this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -246,7 +285,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
   }
 
   private renderAskSize = (row: number) => {
-    if( !this.state || !this.state.quote) {
+    if (!this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -260,7 +299,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
   }
 
   private renderBidPrice = (row: number) => {
-    if( !this.state || !this.state.quote) {
+    if (!this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
@@ -275,7 +314,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
   }
 
   private renderAskPrice = (row: number) => {
-    if( !this.state || !this.state.quote) {
+    if (!this.state || !this.state.quote) {
       return (<Cell></Cell>)
     }
 
