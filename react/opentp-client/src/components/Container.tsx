@@ -1,5 +1,5 @@
-import { Alignment, Button, Navbar } from "@blueprintjs/core";
-import FlexLayout, { Model, TabNode } from "flexlayout-react";
+import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, MenuDivider } from "@blueprintjs/core";
+import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React from 'react';
 import { Listing } from "../serverapi/listing_pb";
@@ -16,6 +16,7 @@ import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
 import OrderTicket from './OrderTicket';
 import { TableViewConfig } from "./TableView/TableView";
 import QuestionDialog from "./QuestionDialog";
+import ViewNameDialog from "./ViewNameDialog";
 import { OrderMonitorClient } from "../serverapi/OrdermonitorServiceClientPb";
 import Login from "./Login";
 import { CancelAllOrdersForOriginatorIdParams } from "../serverapi/ordermonitor_pb";
@@ -32,81 +33,14 @@ interface ContainerState {
     model: Model | undefined
 }
 
+enum Views {
+    OrderBlotter = "order-blotter",
+    InstrumentListingWatch = "instrument-watch",
+    MarketDepth = "market-depth",
+    NavigationBar = "nav-bar",
+}
+
 export default class Container extends React.Component<any, ContainerState> {
-
-    defaultJson = {
-        global: {},
-        borders: [],
-        layout: {
-            "type": "row",
-            "weight": 100,
-            "children": [
-
-                {
-                    "type": "row",
-                    "weight": 50,
-                    "children": [
-                        {
-
-
-                            "type": "tabset",
-                            "weight": 50,
-                            "children": [
-
-                                {
-                                    "type": "tab",
-                                    "weight": 50,
-                                    "name": "Instrument Watch",
-                                    "component": "instrument-watch",
-
-                                }
-
-                            ]
-                        },
-                        {
-                            "type": "tabset",
-                            "weight": 50,
-                            "children": [
-
-                                {
-                                    "type": "tab",
-                                    "weight": 50,
-                                    "name": "Order Blotter",
-                                    "component": "order-blotter",
-                                }
-
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "row",
-                    "weight": 50,
-                    "children": [
-                        {
-
-
-                            "type": "tabset",
-                            "weight": 50,
-                            "children": [
-
-                                {
-                                    "type": "tab",
-                                    "weight": 50,
-                                    "name": "Market Depth",
-                                    "component": "market-depth",
-                                }
-
-                            ]
-                        },
-                 
-
-
-                    ]
-                }
-            ]
-        }
-    };
 
 
     orderMonitorClient = new OrderMonitorClient(Login.grpcContext.serviceUrl, null, null)
@@ -125,8 +59,11 @@ export default class Container extends React.Component<any, ContainerState> {
     orderHistoryBlotterController: OrderHistoryBlotterController
     executionsController: ExecutionsController
     questionDialogController: QuestionDialogController
+    viewNameDialogController: ViewNameDialogController
     colChooserController: ColumnChooserController
 
+
+    
 
 
     constructor() {
@@ -142,6 +79,7 @@ export default class Container extends React.Component<any, ContainerState> {
         this.orderHistoryBlotterController = new OrderHistoryBlotterController()
         this.executionsController = new ExecutionsController()
         this.questionDialogController = new QuestionDialogController()
+        this.viewNameDialogController = new ViewNameDialogController()
         this.colChooserController = new ColumnChooserController()
 
 
@@ -150,16 +88,16 @@ export default class Container extends React.Component<any, ContainerState> {
 
             if (this.state && this.state.model) {
 
-                if (component === "order-blotter") {
+                if (component === Views.OrderBlotter) {
                     return <OrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
-                if (component === "market-depth") {
+                if (component === Views.MarketDepth) {
                     return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model} />;
                 }
-                if (component === "instrument-watch") {
+                if (component === Views.InstrumentListingWatch) {
                     return <InstrumentListingWatch colsChooser={this.colChooserController} listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state.model} />;
                 }
-                if (component === "nav-bar") {
+                if (component === Views.NavigationBar) {
                     return <Navbar />;
                 }
             } else {
@@ -176,15 +114,25 @@ export default class Container extends React.Component<any, ContainerState> {
             response: Config) => {
             let layoutJson: {}
             if (err) {
-                layoutJson = this.defaultJson;
+                layoutJson = {
+                    global: {},
+                    borders: [],
+                    layout: {}
+                }
             } else {
                 layoutJson = JSON.parse(response.getConfig());
 
             }
 
+
+
+            let md = FlexLayout.Model.fromJson(layoutJson)
+
             this.setState({
-                model: FlexLayout.Model.fromJson(layoutJson)
+                model: md
             })
+
+            
 
         })
 
@@ -192,6 +140,7 @@ export default class Container extends React.Component<any, ContainerState> {
         this.onSave = this.onSave.bind(this);
         this.onCancelAllOrders = this.onCancelAllOrders.bind(this);
     }
+
 
     onSave() {
 
@@ -234,9 +183,20 @@ export default class Container extends React.Component<any, ContainerState> {
     }
 
 
+
+
     public render() {
 
-
+        const exampleMenu = (
+            <Menu>
+                <MenuItem icon="graph" text="Market Depth" onClick={()=>this.viewNameDialogController.open(Views.MarketDepth, "Market Depth",
+                (this.refs.layout as Layout))}  />
+                <MenuItem icon="map" text="Instrument Watch" onClick={()=>this.viewNameDialogController.open(Views.InstrumentListingWatch, "Instrument Watch",
+                (this.refs.layout as Layout))}  />
+                <MenuItem icon="th" text="Order Blotter" onClick={()=>this.viewNameDialogController.open(Views.OrderBlotter, "Order Blotter",
+                (this.refs.layout as Layout))}  />
+            </Menu>
+        );
 
         let contents: React.ReactNode = "loading ...";
         if (this.state && this.state.model) {
@@ -255,6 +215,9 @@ export default class Container extends React.Component<any, ContainerState> {
                     <Navbar.Group align={Alignment.LEFT}>
                         <Navbar.Heading>Open Trading Platform</Navbar.Heading>
                         <Navbar.Divider />
+                        <Popover content={exampleMenu} position={Position.RIGHT_TOP}>
+                    <Button icon="add-to-artifact" text="Add View..." />
+                </Popover>
                         <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave} />
                     </Navbar.Group>
                 </Navbar>
@@ -265,6 +228,7 @@ export default class Container extends React.Component<any, ContainerState> {
                 <OrderHistoryBlotter colsChooser={this.colChooserController} orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
                 <Executions colsChooser={this.colChooserController} executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
+                <ViewNameDialog controller={this.viewNameDialogController}></ViewNameDialog>
                 <ColumnChooser controller={this.colChooserController}></ColumnChooser>
             </div>
 
@@ -327,6 +291,23 @@ export class QuestionDialogController {
     }
 
 }
+
+export class ViewNameDialogController {
+
+    private dialog?: ViewNameDialog
+
+    setDialog(dialog: ViewNameDialog) {
+        this.dialog = dialog
+    }
+
+    open(component: string, componentDislayName: string, layout: Layout) {
+        if (this.dialog) {
+            this.dialog.open(component, componentDislayName, layout)
+        }
+    }
+
+}
+
 
 
 export class ExecutionsController {
