@@ -124,7 +124,13 @@ export default class Container extends React.Component<any, ContainerState> {
 
             }
 
-
+/*
+            layoutJson = {
+                global: {},
+                borders: [],
+                layout: {}
+            }
+*/
 
             let md = FlexLayout.Model.fromJson(layoutJson)
 

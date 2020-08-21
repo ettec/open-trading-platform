@@ -68,8 +68,10 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     this.state = {
       columns: defaultCols,
       columnWidths: defaultColWidths
-    };  
+    };      
+  }
 
+  public componentDidMount(): void {
     this.props.listingContext.addListener((listing:Listing)=> {
 
       if( this.state && this.state.listing ){
@@ -90,10 +92,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
         }
       }
 
-       // A bug in the table implementation means state has to be set twice to update the table
-       this.setState(state)
-       this.setState(state)
-
+       this.setState(state)       
     })
 
   }

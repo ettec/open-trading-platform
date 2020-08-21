@@ -109,75 +109,77 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     this.orderMap = new Map<string, number>();
 
 
-    this.orderService.SubscribeToAllParentOrders((order: Order) => {
-
-      let idx = this.orderMap.get(order.getId())
-      let orderView: OrderView
-      let newOrders = [...this.state.orders]
-      if (idx === undefined) {
-        idx = this.orderMap.size
-        let orderLength = this.state.orders.length
-        if (idx >= orderLength) {
-          newOrders = new Array<OrderView>(orderLength * 2)
-          for (let i = 0; i < orderLength; i++) {
-            newOrders[i] = this.state.orders[i]
-          }
-        }
-
-        this.orderMap.set(order.getId(), idx);
-        orderView = new OrderView(order)
-
-        newOrders[idx] = orderView
-      } else {
-        orderView = new OrderView(order)
-        newOrders[idx] = orderView
-      }
-
-      newOrders.sort((o1,o2)=>{
-        if( o1.created && o2.created) {
-          return o1.created.getTime() - o2.created.getTime()
-        }
-        return 0
-      })
-
-      let blotterState: TableViewState = {
-        ...this.state, ...{
-          orders: newOrders
-        }
-      }
-
-      orderView.listing = this.listingService.GetListingImmediate(order.getListingid())
-
-
-      this.setState(blotterState);
-      this.setState(blotterState);
-
-      if (!orderView.listing) {
-        this.listingService.GetListing(order.getListingid(), (listing: Listing) => {
-          let newOrders = [...this.state.orders]
-          let idx = this.orderMap.get(order.getId())
-          orderView.listing = listing
-          if (idx) {
-            newOrders[idx] = orderView
-            let blotterState: ParentOrderBlotterState = {
-              ...this.state, ...{
-                orders: newOrders
-              }
-            }
-
-            this.setState(blotterState);
-          }
-
-        })
-      }
-
-
-    })
+    
 
   }
 
   protected  getTableName() : string {
     return "Order Blotter"
+}
+
+public componentDidMount(): void {
+  this.orderService.SubscribeToAllParentOrders((order: Order) => {
+
+    let idx = this.orderMap.get(order.getId())
+    let orderView: OrderView
+    let newOrders = [...this.state.orders]
+    if (idx === undefined) {
+      idx = this.orderMap.size
+      let orderLength = this.state.orders.length
+      if (idx >= orderLength) {
+        newOrders = new Array<OrderView>(orderLength * 2)
+        for (let i = 0; i < orderLength; i++) {
+          newOrders[i] = this.state.orders[i]
+        }
+      }
+
+      this.orderMap.set(order.getId(), idx);
+      orderView = new OrderView(order)
+
+      newOrders[idx] = orderView
+    } else {
+      orderView = new OrderView(order)
+      newOrders[idx] = orderView
+    }
+
+    newOrders.sort((o1,o2)=>{
+      if( o1.created && o2.created) {
+        return o1.created.getTime() - o2.created.getTime()
+      }
+      return 0
+    })
+
+    let blotterState: TableViewState = {
+      ...this.state, ...{
+        orders: newOrders
+      }
+    }
+
+    orderView.listing = this.listingService.GetListingImmediate(order.getListingid())
+
+    this.setState(blotterState);
+
+    if (!orderView.listing) {
+      this.listingService.GetListing(order.getListingid(), (listing: Listing) => {
+        let newOrders = [...this.state.orders]
+        let idx = this.orderMap.get(order.getId())
+        orderView.listing = listing
+        if (idx) {
+          newOrders[idx] = orderView
+          let blotterState: ParentOrderBlotterState = {
+            ...this.state, ...{
+              orders: newOrders
+            }
+          }
+
+          this.setState(blotterState);
+        }
+
+      })
+    }
+
+
+  })
 }
 
 
