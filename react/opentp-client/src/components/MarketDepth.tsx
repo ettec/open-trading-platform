@@ -137,6 +137,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     }
 
     this.setState(state)
+    this.setState(state)
   }
 
   protected getColumns(): JSX.Element[] {
