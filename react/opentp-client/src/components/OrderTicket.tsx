@@ -328,27 +328,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       }
     }
 
-    if (!defaultPrice) {
-      defaultPrice = 0
-    }
-
-    if (!defaultQuantity) {
-      defaultQuantity = 0
-    }
-
-    let state: OrderTicketState = {
-        side: newSide,
-        isOpen: true,
-        listing: newListing,
-        price: defaultPrice,
-        quantity: defaultQuantity,
-        quote: existingQuote,
-        usePortal: true,
-        orderToModify: null
-      
-    }
-
-    this.setState(state)
+    this.openOrderTicketWithDefaultPriceAndQty( newSide, newListing, defaultPrice, defaultQuantity,);
   }
 
   private handleClose = () => {
@@ -364,7 +344,35 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     })
 
   };
+   
+  
 
+  public openOrderTicketWithDefaultPriceAndQty( newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
+
+    if (!defaultPrice) {
+      defaultPrice = 0;
+    }
+
+    if (!defaultQuantity) {
+      defaultQuantity = 0;
+    }
+
+    let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
+
+    let state: OrderTicketState = {
+      side: newSide,
+      isOpen: true,
+      listing: newListing,
+      price: defaultPrice,
+      quantity: defaultQuantity,
+      quote: existingQuote,
+      usePortal: true,
+      orderToModify: null
+    };
+
+    this.setState(state);
+    return { defaultPrice, defaultQuantity };
+  }
 
   private onSubmit(event: React.MouseEvent<HTMLElement>) {
 

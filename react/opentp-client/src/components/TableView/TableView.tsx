@@ -94,7 +94,7 @@ export default abstract class TableView<P extends TableViewProperties, S extends
 
 
     getSelectedItems<T>(selectedRegions: IRegion[], items: T[]) {
-        let selectedOrderArray: Array<T> = new Array<T>();
+        let selectedItems: Array<T> = new Array<T>();
         for (let region of selectedRegions) {
             let firstRowIdx: number;
             let lastRowIdx: number;
@@ -109,11 +109,11 @@ export default abstract class TableView<P extends TableViewProperties, S extends
             for (let i = firstRowIdx; i <= lastRowIdx; i++) {
                 let item = items[i];
                 if (item) {
-                    selectedOrderArray.push(item);
+                    selectedItems.push(item);
                 }
             }
         }
-        return selectedOrderArray;
+        return selectedItems;
     }
 
     

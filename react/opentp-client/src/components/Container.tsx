@@ -92,7 +92,8 @@ export default class Container extends React.Component<any, ContainerState> {
                     return <OrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === Views.MarketDepth) {
-                    return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model} />;
+                    return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model} 
+                    ticketController={this.ticketController}/>;
                 }
                 if (component === Views.InstrumentListingWatch) {
                     return <InstrumentListingWatch colsChooser={this.colChooserController} listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state.model} />;
@@ -124,13 +125,6 @@ export default class Container extends React.Component<any, ContainerState> {
 
             }
 
-/*
-            layoutJson = {
-                global: {},
-                borders: [],
-                layout: {}
-            }
-*/
 
             let md = FlexLayout.Model.fromJson(layoutJson)
 
@@ -244,14 +238,9 @@ export default class Container extends React.Component<any, ContainerState> {
             <div className="toolbar" >
                 <Navbar className="bp3-dark">
                     <Navbar.Group align={Alignment.LEFT}>
-
                         <Navbar.Heading>{Login.username + "@" + Login.desk}</Navbar.Heading>
                         <Navbar.Divider />
-                        <Navbar.Heading>Status</Navbar.Heading>
-                        <Navbar.Divider />
-
                     </Navbar.Group>
-
                     <Navbar.Group align={Alignment.RIGHT}>
                         <Button className="bp3-minimal" icon="delete" text="Cancel All Orders" onClick={this.onCancelAllOrders} />
                     </Navbar.Group>
@@ -379,6 +368,12 @@ export class TicketController {
     openNewOrderTicket(side: Side, listing: Listing) {
         if (this.orderTicket) {
             this.orderTicket.openNewOrderTicket(side, listing)
+        }
+    }
+
+    openOrderTicketWithDefaultPriceAndQty( newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
+        if( this.orderTicket) {
+            this.orderTicket.openOrderTicketWithDefaultPriceAndQty( newSide, newListing, defaultPrice, defaultQuantity) 
         }
     }
 
