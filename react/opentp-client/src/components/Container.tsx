@@ -1,4 +1,4 @@
-import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, MenuDivider } from "@blueprintjs/core";
+import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, MenuDivider, HotkeysTarget, Hotkeys, Hotkey } from "@blueprintjs/core";
 import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React from 'react';
@@ -40,6 +40,8 @@ enum Views {
     NavigationBar = "nav-bar",
 }
 
+
+//@HotkeysTarget
 export default class Container extends React.Component<any, ContainerState> {
 
 
@@ -61,10 +63,6 @@ export default class Container extends React.Component<any, ContainerState> {
     questionDialogController: QuestionDialogController
     viewNameDialogController: ViewNameDialogController
     colChooserController: ColumnChooserController
-
-
-    
-
 
     constructor() {
         super({}, {});
@@ -183,6 +181,24 @@ export default class Container extends React.Component<any, ContainerState> {
     }
 
 
+    public renderHotkeys() {
+        return (
+            <Hotkeys>
+                <Hotkey
+                    global={true}
+                    combo="shift + a"
+                    label="Be awesome all the time"
+                    onKeyDown={() => console.log("Awesome!")}
+                />
+                <Hotkey
+                    group="Fancy shortcuts"
+                    combo="shift + f"
+                    label="Be fancy only when focused"
+                    onKeyDown={() => console.log("So fancy!")}
+                />
+            </Hotkeys>
+        );
+    }
 
 
     public render() {

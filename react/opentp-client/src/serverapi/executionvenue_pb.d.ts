@@ -1,42 +1,43 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as order_pb from './order_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class CreateAndRouteOrderParams extends jspb.Message {
   getOrderside(): order_pb.Side;
-  setOrderside(value: order_pb.Side): void;
+  setOrderside(value: order_pb.Side): CreateAndRouteOrderParams;
 
   getQuantity(): modelcommon_pb.Decimal64 | undefined;
-  setQuantity(value?: modelcommon_pb.Decimal64): void;
+  setQuantity(value?: modelcommon_pb.Decimal64): CreateAndRouteOrderParams;
   hasQuantity(): boolean;
-  clearQuantity(): void;
+  clearQuantity(): CreateAndRouteOrderParams;
 
   getPrice(): modelcommon_pb.Decimal64 | undefined;
-  setPrice(value?: modelcommon_pb.Decimal64): void;
+  setPrice(value?: modelcommon_pb.Decimal64): CreateAndRouteOrderParams;
   hasPrice(): boolean;
-  clearPrice(): void;
+  clearPrice(): CreateAndRouteOrderParams;
 
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): CreateAndRouteOrderParams;
 
   getDestination(): string;
-  setDestination(value: string): void;
+  setDestination(value: string): CreateAndRouteOrderParams;
 
   getOriginatorid(): string;
-  setOriginatorid(value: string): void;
+  setOriginatorid(value: string): CreateAndRouteOrderParams;
 
   getOriginatorref(): string;
-  setOriginatorref(value: string): void;
+  setOriginatorref(value: string): CreateAndRouteOrderParams;
 
   getRootoriginatorid(): string;
-  setRootoriginatorid(value: string): void;
+  setRootoriginatorid(value: string): CreateAndRouteOrderParams;
 
   getRootoriginatorref(): string;
-  setRootoriginatorref(value: string): void;
+  setRootoriginatorref(value: string): CreateAndRouteOrderParams;
 
   getExecparametersjson(): string;
-  setExecparametersjson(value: string): void;
+  setExecparametersjson(value: string): CreateAndRouteOrderParams;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateAndRouteOrderParams.AsObject;
@@ -63,7 +64,7 @@ export namespace CreateAndRouteOrderParams {
 
 export class OrderId extends jspb.Message {
   getOrderid(): string;
-  setOrderid(value: string): void;
+  setOrderid(value: string): OrderId;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OrderId.AsObject;
@@ -81,7 +82,7 @@ export namespace OrderId {
 
 export class ExecParamsMetaDataJson extends jspb.Message {
   getJson(): string;
-  setJson(value: string): void;
+  setJson(value: string): ExecParamsMetaDataJson;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ExecParamsMetaDataJson.AsObject;
@@ -99,13 +100,13 @@ export namespace ExecParamsMetaDataJson {
 
 export class CancelOrderParams extends jspb.Message {
   getOrderid(): string;
-  setOrderid(value: string): void;
+  setOrderid(value: string): CancelOrderParams;
 
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): CancelOrderParams;
 
   getOwnerid(): string;
-  setOwnerid(value: string): void;
+  setOwnerid(value: string): CancelOrderParams;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CancelOrderParams.AsObject;
@@ -125,23 +126,23 @@ export namespace CancelOrderParams {
 
 export class ModifyOrderParams extends jspb.Message {
   getOrderid(): string;
-  setOrderid(value: string): void;
+  setOrderid(value: string): ModifyOrderParams;
 
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): ModifyOrderParams;
 
   getOwnerid(): string;
-  setOwnerid(value: string): void;
+  setOwnerid(value: string): ModifyOrderParams;
 
   getQuantity(): modelcommon_pb.Decimal64 | undefined;
-  setQuantity(value?: modelcommon_pb.Decimal64): void;
+  setQuantity(value?: modelcommon_pb.Decimal64): ModifyOrderParams;
   hasQuantity(): boolean;
-  clearQuantity(): void;
+  clearQuantity(): ModifyOrderParams;
 
   getPrice(): modelcommon_pb.Decimal64 | undefined;
-  setPrice(value?: modelcommon_pb.Decimal64): void;
+  setPrice(value?: modelcommon_pb.Decimal64): ModifyOrderParams;
   hasPrice(): boolean;
-  clearPrice(): void;
+  clearPrice(): ModifyOrderParams;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ModifyOrderParams.AsObject;

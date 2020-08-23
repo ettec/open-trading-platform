@@ -1,10 +1,11 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class GetConfigParameters extends jspb.Message {
   getUserid(): string;
-  setUserid(value: string): void;
+  setUserid(value: string): GetConfigParameters;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetConfigParameters.AsObject;
@@ -22,7 +23,7 @@ export namespace GetConfigParameters {
 
 export class Config extends jspb.Message {
   getConfig(): string;
-  setConfig(value: string): void;
+  setConfig(value: string): Config;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Config.AsObject;
@@ -40,10 +41,10 @@ export namespace Config {
 
 export class StoreConfigParams extends jspb.Message {
   getUserid(): string;
-  setUserid(value: string): void;
+  setUserid(value: string): StoreConfigParams;
 
   getConfig(): string;
-  setConfig(value: string): void;
+  setConfig(value: string): StoreConfigParams;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): StoreConfigParams.AsObject;

@@ -56,7 +56,7 @@ export default class ViewNameDialog extends React.Component<ViewNameDialogProps,
             <Dialog
                 icon="help"
                 onClose={this.handleCancel}
-                title={this.state.title}
+             //   title={this.state.title}
                 {...this.state}
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >

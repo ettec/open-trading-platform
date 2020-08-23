@@ -1,4 +1,4 @@
-import { Error } from 'grpc-web';
+import { Error, ClientReadableStream } from 'grpc-web';
 import Login from "../components/Login";
 import { logError } from "../logging/Logging";
 import { ClobQuote } from "../serverapi/clobquote_pb";
@@ -40,7 +40,7 @@ export default class QuoteServiceImpl implements QuoteService {
   constructor(listingService: ListingService) {
     this.listingService = listingService
 
-    this.stream = new Stream(() => {
+    this.stream = new Stream(() : ClientReadableStream<any>  =>  {
       var subscription = new MdsConnectRequest()
       subscription.setSubscriberid(Login.grpcContext.appInstanceId)
 

@@ -5,7 +5,6 @@ import React from 'react';
 import { logDebug } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
 import { Side } from "../serverapi/order_pb";
-import { ListingId } from "../serverapi/static-data-service_pb";
 import { ListingService } from "../services/ListingService";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
@@ -15,6 +14,7 @@ import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
 import TableView, { getColIdsInOrder, getConfiguredColumns, reorderColumnData, TableViewConfig, TableViewProperties } from './TableView/TableView';
 import ReactCountryFlag from "react-country-flag"
+import { ListingId } from '../serverapi/staticdataservice_pb';
 
 
 interface InstrumentListingWatchState {

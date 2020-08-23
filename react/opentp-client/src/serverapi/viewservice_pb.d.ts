@@ -1,11 +1,12 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as modelcommon_pb from './modelcommon_pb';
 import * as order_pb from './order_pb';
 
+
 export class SubscribeToOrdersWithRootOriginatorIdArgs extends jspb.Message {
   getRootoriginatorid(): string;
-  setRootoriginatorid(value: string): void;
+  setRootoriginatorid(value: string): SubscribeToOrdersWithRootOriginatorIdArgs;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SubscribeToOrdersWithRootOriginatorIdArgs.AsObject;
@@ -23,10 +24,10 @@ export namespace SubscribeToOrdersWithRootOriginatorIdArgs {
 
 export class GetOrderHistoryArgs extends jspb.Message {
   getOrderid(): string;
-  setOrderid(value: string): void;
+  setOrderid(value: string): GetOrderHistoryArgs;
 
   getToversion(): number;
-  setToversion(value: number): void;
+  setToversion(value: number): GetOrderHistoryArgs;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetOrderHistoryArgs.AsObject;
@@ -45,14 +46,14 @@ export namespace GetOrderHistoryArgs {
 
 export class OrderUpdate extends jspb.Message {
   getOrder(): order_pb.Order | undefined;
-  setOrder(value?: order_pb.Order): void;
+  setOrder(value?: order_pb.Order): OrderUpdate;
   hasOrder(): boolean;
-  clearOrder(): void;
+  clearOrder(): OrderUpdate;
 
   getTime(): modelcommon_pb.Timestamp | undefined;
-  setTime(value?: modelcommon_pb.Timestamp): void;
+  setTime(value?: modelcommon_pb.Timestamp): OrderUpdate;
   hasTime(): boolean;
-  clearTime(): void;
+  clearTime(): OrderUpdate;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OrderUpdate.AsObject;
@@ -71,8 +72,8 @@ export namespace OrderUpdate {
 
 export class OrderHistory extends jspb.Message {
   getUpdatesList(): Array<OrderUpdate>;
-  setUpdatesList(value: Array<OrderUpdate>): void;
-  clearUpdatesList(): void;
+  setUpdatesList(value: Array<OrderUpdate>): OrderHistory;
+  clearUpdatesList(): OrderHistory;
   addUpdates(value?: OrderUpdate, index?: number): OrderUpdate;
 
   serializeBinary(): Uint8Array;

@@ -1,11 +1,12 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as clobquote_pb from './clobquote_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class SubscribeRequest extends jspb.Message {
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): SubscribeRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SubscribeRequest.AsObject;

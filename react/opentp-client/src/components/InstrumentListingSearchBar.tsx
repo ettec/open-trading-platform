@@ -4,11 +4,11 @@ import React from 'react';
 import v4 from 'uuid';
 import './TableView/TableCommon.css';
 import { Button } from "@blueprintjs/core";
-import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 import Login from "./Login";
-import { MatchParameters, Listings } from "../serverapi/static-data-service_pb";
 import { Listing } from "../serverapi/listing_pb";
 import { logError, logGrpcError } from "../logging/Logging";
+import { StaticDataServiceClient } from "../serverapi/StaticdataserviceServiceClientPb";
+import { MatchParameters, Listings } from "../serverapi/staticdataservice_pb";
 
 const ListingSelect = Select.ofType<Listing>();
 

@@ -7,27 +7,25 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
+/* eslint-disable */
+// @ts-nocheck
+
+
 import * as grpcWeb from 'grpc-web';
 
-import * as order_pb from './order_pb';
 import * as modelcommon_pb from './modelcommon_pb';
+import * as executionvenue_pb from './executionvenue_pb';
 
-import {
-  CancelOrderParams,
-  CreateAndRouteOrderParams,
-  ExecParamsMetaDataJson,
-  ModifyOrderParams,
-  OrderId} from './executionvenue_pb';
 
 export class ExecutionVenueClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
   credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: string; };
+  options_: null | { [index: string]: any; };
 
   constructor (hostname: string,
                credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: string; }) {
+               options?: null | { [index: string]: any; }) {
     if (!options) options = {};
     if (!credentials) credentials = {};
     options['format'] = 'text';
@@ -39,91 +37,163 @@ export class ExecutionVenueClient {
   }
 
   methodInfoCreateAndRouteOrder = new grpcWeb.AbstractClientBase.MethodInfo(
-    OrderId,
-    (request: CreateAndRouteOrderParams) => {
+    executionvenue_pb.OrderId,
+    (request: executionvenue_pb.CreateAndRouteOrderParams) => {
       return request.serializeBinary();
     },
-    OrderId.deserializeBinary
+    executionvenue_pb.OrderId.deserializeBinary
   );
 
   createAndRouteOrder(
-    request: CreateAndRouteOrderParams,
+    request: executionvenue_pb.CreateAndRouteOrderParams,
+    metadata: grpcWeb.Metadata | null): Promise<executionvenue_pb.OrderId>;
+
+  createAndRouteOrder(
+    request: executionvenue_pb.CreateAndRouteOrderParams,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: OrderId) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/executionvenue.ExecutionVenue/CreateAndRouteOrder',
-      request,
-      metadata || {},
-      this.methodInfoCreateAndRouteOrder,
-      callback);
+               response: executionvenue_pb.OrderId) => void): grpcWeb.ClientReadableStream<executionvenue_pb.OrderId>;
+
+  createAndRouteOrder(
+    request: executionvenue_pb.CreateAndRouteOrderParams,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: executionvenue_pb.OrderId) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/executionvenue.ExecutionVenue/CreateAndRouteOrder',
+        request,
+        metadata || {},
+        this.methodInfoCreateAndRouteOrder,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/executionvenue.ExecutionVenue/CreateAndRouteOrder',
+    request,
+    metadata || {},
+    this.methodInfoCreateAndRouteOrder);
   }
 
   methodInfoCancelOrder = new grpcWeb.AbstractClientBase.MethodInfo(
     modelcommon_pb.Empty,
-    (request: CancelOrderParams) => {
+    (request: executionvenue_pb.CancelOrderParams) => {
       return request.serializeBinary();
     },
     modelcommon_pb.Empty.deserializeBinary
   );
 
   cancelOrder(
-    request: CancelOrderParams,
+    request: executionvenue_pb.CancelOrderParams,
+    metadata: grpcWeb.Metadata | null): Promise<modelcommon_pb.Empty>;
+
+  cancelOrder(
+    request: executionvenue_pb.CancelOrderParams,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
+               response: modelcommon_pb.Empty) => void): grpcWeb.ClientReadableStream<modelcommon_pb.Empty>;
+
+  cancelOrder(
+    request: executionvenue_pb.CancelOrderParams,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
                response: modelcommon_pb.Empty) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/executionvenue.ExecutionVenue/CancelOrder',
-      request,
-      metadata || {},
-      this.methodInfoCancelOrder,
-      callback);
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/executionvenue.ExecutionVenue/CancelOrder',
+        request,
+        metadata || {},
+        this.methodInfoCancelOrder,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/executionvenue.ExecutionVenue/CancelOrder',
+    request,
+    metadata || {},
+    this.methodInfoCancelOrder);
   }
 
   methodInfoModifyOrder = new grpcWeb.AbstractClientBase.MethodInfo(
     modelcommon_pb.Empty,
-    (request: ModifyOrderParams) => {
+    (request: executionvenue_pb.ModifyOrderParams) => {
       return request.serializeBinary();
     },
     modelcommon_pb.Empty.deserializeBinary
   );
 
   modifyOrder(
-    request: ModifyOrderParams,
+    request: executionvenue_pb.ModifyOrderParams,
+    metadata: grpcWeb.Metadata | null): Promise<modelcommon_pb.Empty>;
+
+  modifyOrder(
+    request: executionvenue_pb.ModifyOrderParams,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
+               response: modelcommon_pb.Empty) => void): grpcWeb.ClientReadableStream<modelcommon_pb.Empty>;
+
+  modifyOrder(
+    request: executionvenue_pb.ModifyOrderParams,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
                response: modelcommon_pb.Empty) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/executionvenue.ExecutionVenue/ModifyOrder',
-      request,
-      metadata || {},
-      this.methodInfoModifyOrder,
-      callback);
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/executionvenue.ExecutionVenue/ModifyOrder',
+        request,
+        metadata || {},
+        this.methodInfoModifyOrder,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/executionvenue.ExecutionVenue/ModifyOrder',
+    request,
+    metadata || {},
+    this.methodInfoModifyOrder);
   }
 
   methodInfoGetExecutionParametersMetaData = new grpcWeb.AbstractClientBase.MethodInfo(
-    ExecParamsMetaDataJson,
+    executionvenue_pb.ExecParamsMetaDataJson,
     (request: modelcommon_pb.Empty) => {
       return request.serializeBinary();
     },
-    ExecParamsMetaDataJson.deserializeBinary
+    executionvenue_pb.ExecParamsMetaDataJson.deserializeBinary
   );
+
+  getExecutionParametersMetaData(
+    request: modelcommon_pb.Empty,
+    metadata: grpcWeb.Metadata | null): Promise<executionvenue_pb.ExecParamsMetaDataJson>;
 
   getExecutionParametersMetaData(
     request: modelcommon_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: ExecParamsMetaDataJson) => void) {
-    return this.client_.rpcCall(
-      this.hostname_ +
-        '/executionvenue.ExecutionVenue/GetExecutionParametersMetaData',
-      request,
-      metadata || {},
-      this.methodInfoGetExecutionParametersMetaData,
-      callback);
+               response: executionvenue_pb.ExecParamsMetaDataJson) => void): grpcWeb.ClientReadableStream<executionvenue_pb.ExecParamsMetaDataJson>;
+
+  getExecutionParametersMetaData(
+    request: modelcommon_pb.Empty,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: executionvenue_pb.ExecParamsMetaDataJson) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/executionvenue.ExecutionVenue/GetExecutionParametersMetaData',
+        request,
+        metadata || {},
+        this.methodInfoGetExecutionParametersMetaData,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/executionvenue.ExecutionVenue/GetExecutionParametersMetaData',
+    request,
+    metadata || {},
+    this.methodInfoGetExecutionParametersMetaData);
   }
 
 }

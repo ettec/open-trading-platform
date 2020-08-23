@@ -1,15 +1,16 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as listing_pb from './listing_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 import * as clobquote_pb from './clobquote_pb';
 
+
 export class MdsConnectRequest extends jspb.Message {
   getSubscriberid(): string;
-  setSubscriberid(value: string): void;
+  setSubscriberid(value: string): MdsConnectRequest;
 
   getMaxquotepersecond(): number;
-  setMaxquotepersecond(value: number): void;
+  setMaxquotepersecond(value: number): MdsConnectRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MdsConnectRequest.AsObject;
@@ -28,12 +29,12 @@ export namespace MdsConnectRequest {
 
 export class MdsSubscribeRequest extends jspb.Message {
   getSubscriberid(): string;
-  setSubscriberid(value: string): void;
+  setSubscriberid(value: string): MdsSubscribeRequest;
 
   getListing(): listing_pb.Listing | undefined;
-  setListing(value?: listing_pb.Listing): void;
+  setListing(value?: listing_pb.Listing): MdsSubscribeRequest;
   hasListing(): boolean;
-  clearListing(): void;
+  clearListing(): MdsSubscribeRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MdsSubscribeRequest.AsObject;

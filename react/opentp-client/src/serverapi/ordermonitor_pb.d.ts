@@ -1,10 +1,11 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class CancelAllOrdersForOriginatorIdParams extends jspb.Message {
   getOriginatorid(): string;
-  setOriginatorid(value: string): void;
+  setOriginatorid(value: string): CancelAllOrdersForOriginatorIdParams;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CancelAllOrdersForOriginatorIdParams.AsObject;

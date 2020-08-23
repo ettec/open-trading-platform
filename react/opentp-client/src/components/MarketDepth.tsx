@@ -3,7 +3,6 @@ import { Cell, Column, Table, IRegion } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
 import { Listing } from "../serverapi/listing_pb";
-import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
 import { ListingContext, TicketController } from "./Container";
@@ -16,6 +15,7 @@ import TableView, { getConfiguredColumns, getColIdsInOrder, reorderColumnData, T
 import { TabNode, Actions, Model } from "flexlayout-react";
 import { ListingService } from "../services/ListingService";
 import { Side } from "../serverapi/order_pb";
+import { StaticDataServiceClient } from "../serverapi/StaticdataserviceServiceClientPb";
 
 interface MarketDepthProps extends TableViewProperties {
   node: TabNode,

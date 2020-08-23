@@ -2,8 +2,9 @@ import { Error } from "grpc-web";
 import Login from "../components/Login";
 import { logError } from "../logging/Logging";
 import { Listing } from "../serverapi/listing_pb";
-import { StaticDataServiceClient } from "../serverapi/Static-data-serviceServiceClientPb";
-import { ListingId } from "../serverapi/static-data-service_pb";
+import { StaticDataServiceClient } from "../serverapi/StaticdataserviceServiceClientPb";
+import { ListingId } from "../serverapi/staticdataservice_pb";
+
 
 
 

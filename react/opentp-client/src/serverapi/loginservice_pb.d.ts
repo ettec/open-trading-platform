@@ -1,11 +1,13 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
+
+
 
 export class LoginParams extends jspb.Message {
   getUser(): string;
-  setUser(value: string): void;
+  setUser(value: string): LoginParams;
 
   getPassword(): string;
-  setPassword(value: string): void;
+  setPassword(value: string): LoginParams;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): LoginParams.AsObject;
@@ -24,10 +26,10 @@ export namespace LoginParams {
 
 export class Token extends jspb.Message {
   getToken(): string;
-  setToken(value: string): void;
+  setToken(value: string): Token;
 
   getDesk(): string;
-  setDesk(value: string): void;
+  setDesk(value: string): Token;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Token.AsObject;

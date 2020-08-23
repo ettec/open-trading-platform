@@ -1,10 +1,11 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as listing_pb from './listing_pb';
 
+
 export class ListingId extends jspb.Message {
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): ListingId;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListingId.AsObject;
@@ -22,9 +23,9 @@ export namespace ListingId {
 
 export class ListingIds extends jspb.Message {
   getListingidsList(): Array<number>;
-  setListingidsList(value: Array<number>): void;
-  clearListingidsList(): void;
-  addListingids(value: number, index?: number): void;
+  setListingidsList(value: Array<number>): ListingIds;
+  clearListingidsList(): ListingIds;
+  addListingids(value: number, index?: number): ListingIds;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListingIds.AsObject;
@@ -42,8 +43,8 @@ export namespace ListingIds {
 
 export class Listings extends jspb.Message {
   getListingsList(): Array<listing_pb.Listing>;
-  setListingsList(value: Array<listing_pb.Listing>): void;
-  clearListingsList(): void;
+  setListingsList(value: Array<listing_pb.Listing>): Listings;
+  clearListingsList(): Listings;
   addListings(value?: listing_pb.Listing, index?: number): listing_pb.Listing;
 
   serializeBinary(): Uint8Array;
@@ -62,10 +63,10 @@ export namespace Listings {
 
 export class MatchParameters extends jspb.Message {
   getSymbolmatch(): string;
-  setSymbolmatch(value: string): void;
+  setSymbolmatch(value: string): MatchParameters;
 
   getNamematch(): string;
-  setNamematch(value: string): void;
+  setNamematch(value: string): MatchParameters;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MatchParameters.AsObject;
@@ -84,10 +85,10 @@ export namespace MatchParameters {
 
 export class ExactMatchParameters extends jspb.Message {
   getSymbol(): string;
-  setSymbol(value: string): void;
+  setSymbol(value: string): ExactMatchParameters;
 
   getMic(): string;
-  setMic(value: string): void;
+  setMic(value: string): ExactMatchParameters;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ExactMatchParameters.AsObject;
