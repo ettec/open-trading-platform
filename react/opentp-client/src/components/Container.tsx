@@ -1,4 +1,4 @@
-import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, Hotkeys, Hotkey, HotkeysTarget } from "@blueprintjs/core";
+import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
 import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React from 'react';
@@ -41,7 +41,7 @@ enum Views {
 }
 
 
-@HotkeysTarget
+
 export default class Container extends React.Component<any, ContainerState> {
 
 
@@ -180,30 +180,9 @@ export default class Container extends React.Component<any, ContainerState> {
 
     }
 
-
-    public renderHotkeys() {
-        return (
-            <Hotkeys>
-                <Hotkey
-                    global={true}
-                    combo="shift + a"
-                    label="Be awesome all the time"
-                    onKeyDown={() => console.log("Awesome!")}
-                />
-                <Hotkey
-                    group="Fancy shortcuts"
-                    combo="shift + f"
-                    label="Be fancy only when focused"
-                    onKeyDown={() => console.log("So fancy!")}
-                />
-            </Hotkeys>
-        );
-    }
-
-
     public render() {
 
-        const exampleMenu = (
+        const viewsMenu = (
             <Menu>
                 <MenuItem icon="graph" text="Market Depth" onClick={()=>this.viewNameDialogController.open(Views.MarketDepth, "Market Depth",
                 (this.refs.layout as Layout))}  />
@@ -231,7 +210,7 @@ export default class Container extends React.Component<any, ContainerState> {
                     <Navbar.Group align={Alignment.LEFT}>
                         <Navbar.Heading>Open Trading Platform</Navbar.Heading>
                         <Navbar.Divider />
-                        <Popover content={exampleMenu} position={Position.RIGHT_TOP}>
+                        <Popover content={viewsMenu} position={Position.RIGHT_TOP}>
                     <Button icon="add-to-artifact" text="Add View..." />
                 </Popover>
                         <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave} />

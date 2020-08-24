@@ -16,30 +16,30 @@ export interface Props {
 export interface State {
     isOpen: boolean
     usePortal: boolean
-    loggedIn : boolean
-    showPassword : boolean
+    loggedIn: boolean
+    showPassword: boolean
 }
 
 export interface GrcpContextData {
-    appInstanceId : string
-    serviceUrl : string,
+    appInstanceId: string
+    serviceUrl: string,
     grpcMetaData: Metadata
 }
 
 export default class Login extends React.Component<Props, State> {
 
-    static grpcContext : GrcpContextData
+    static grpcContext: GrcpContextData
     static username: string
     static desk: string
 
-  
+
     appInstanceId: string
 
     username: string
     password: string
-    serverUrl : string
+    serverUrl: string
 
-    loginServiceClient : LoginServiceClient
+    loginServiceClient: LoginServiceClient
 
     constructor(props: Props) {
         super(props)
@@ -48,11 +48,11 @@ export default class Login extends React.Component<Props, State> {
         this.serverUrl = window.location.href
 
         if (this.serverUrl.endsWith("/")) {
-            this.serverUrl = this.serverUrl.substr(0, this.serverUrl.length-1)
+            this.serverUrl = this.serverUrl.substr(0, this.serverUrl.length - 1)
         }
 
         if (this.serverUrl.endsWith("localhost:3000")) {
-               this.serverUrl = "http://127.0.0.1:32655" // for local dev, change this to point at your otp services cluster
+            this.serverUrl = "http://127.0.0.1:32655" // for local dev, change this to point at your otp services cluster
         }
 
         console.log("Connecting to services at:" + this.serverUrl)
@@ -67,11 +67,11 @@ export default class Login extends React.Component<Props, State> {
         Login.username = "bert"
         Login.desk = "Delta1"
 
-        
+
         this.state = {
             isOpen: true,
             usePortal: false,
-            loggedIn : false,
+            loggedIn: false,
             showPassword: false
         }
 
@@ -80,30 +80,39 @@ export default class Login extends React.Component<Props, State> {
         this.onLogin = this.onLogin.bind(this);
     }
 
-      onUserNameChange(e:any) {
-        if( e.target && e.target.value) {
+    public componentDidMount(): void {
+
+        // here, uncommment to disable dev autologin
+        this.username = "trader1"
+        this.onLogin()
+
+    }
+
+
+    onUserNameChange(e: any) {
+        if (e.target && e.target.value) {
             this.username = e.target.value;
-          }
-      }
+        }
+    }
 
 
-      onPasswordChange(e:any) {
-        if( e.target && e.target.value) {
+    onPasswordChange(e: any) {
+        if (e.target && e.target.value) {
             this.password = e.target.value;
-          }
-      }
-    
-      onLogin() {
+        }
+    }
+
+    onLogin() {
 
 
         let params = new LoginParams()
         params.setUser(this.username)
         params.setPassword(this.password)
         this.loginServiceClient.login(params, {}, (err: Error,
-            response: Token) =>{
+            response: Token) => {
 
-            if( err )     {
-                window.alert("Failed to login: "+ err.message)
+            if (err) {
+                window.alert("Failed to login: " + err.message)
             } else {
                 var deadline = new Date();
                 deadline.setSeconds(deadline.getSeconds() + 86400);
@@ -112,17 +121,19 @@ export default class Login extends React.Component<Props, State> {
                 Login.desk = response.getDesk()
                 Login.username = this.username
                 Login.grpcContext = {
-                    serviceUrl : this.serverUrl, 
-                    grpcMetaData : {"user-name": this.username, "app-instance-id": this.appInstanceId, "auth-token" : response.getToken(),
-                "deadline" : deadline.getTime().toString()},
-                    appInstanceId : this.username + "@" + this.appInstanceId
+                    serviceUrl: this.serverUrl,
+                    grpcMetaData: {
+                        "user-name": this.username, "app-instance-id": this.appInstanceId, "auth-token": response.getToken(),
+                        "deadline": deadline.getTime().toString()
+                    },
+                    appInstanceId: this.username + "@" + this.appInstanceId
                 }
-                this.setState({loggedIn:true})
+                this.setState({ loggedIn: true })
             }
 
         })
 
-      }
+    }
 
 
     render() {
@@ -130,7 +141,7 @@ export default class Login extends React.Component<Props, State> {
         const lockButton = (
             <Tooltip content={`${this.state.showPassword ? "Hide" : "Show"} Password`} >
                 <Button
-                    
+
                     icon={this.state.showPassword ? "unlock" : "lock"}
                     intent={Intent.WARNING}
                     minimal={true}
@@ -140,8 +151,8 @@ export default class Login extends React.Component<Props, State> {
         );
 
 
-        if( this.state.loggedIn ) {
-            
+        if (this.state.loggedIn) {
+
             return (
                 <GrpcContextProvider serviceUrl={this.serverUrl} username={Login.username} appInstanceId={this.appInstanceId} >
                     <Container ></Container>
@@ -150,47 +161,47 @@ export default class Login extends React.Component<Props, State> {
         } else {
             return (
 
-               
-                
 
-                     <Dialog isCloseButtonShown={false}
-                title="Open Trading Platform" 
-                {...this.state}
-                className="bp3-dark">
-                <div className={Classes.DIALOG_BODY} >
-                <ReactLogo  />
-                    <div>
-                  <InputGroup style={{marginBottom: 30}}  placeholder="Username..." onChange={this.onUserNameChange} />
-                  </div>
-                  <div>
-              
-                  <InputGroup 
-                    placeholder="Password..."
-                    rightElement={lockButton}
-                    type={this.state.showPassword ? "text" : "password"}
-                    onChange={this.onPasswordChange}
-                />
-                </div>
 
-                </div>
-                <div className={Classes.DIALOG_FOOTER}>
-                    <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-                    <AnchorButton onClick={this.onLogin}
-                            intent={Intent.PRIMARY}>Login
-                        </AnchorButton>
-                        
+
+                <Dialog isCloseButtonShown={false}
+                    title="Open Trading Platform"
+                    {...this.state}
+                    className="bp3-dark">
+                    <div className={Classes.DIALOG_BODY} >
+                        <ReactLogo />
+                        <div>
+                            <InputGroup style={{ marginBottom: 30 }} placeholder="Username..." onChange={this.onUserNameChange} />
+                        </div>
+                        <div>
+
+                            <InputGroup
+                                placeholder="Password..."
+                                rightElement={lockButton}
+                                type={this.state.showPassword ? "text" : "password"}
+                                onChange={this.onPasswordChange}
+                            />
+                        </div>
+
                     </div>
-                </div>
+                    <div className={Classes.DIALOG_FOOTER}>
+                        <div className={Classes.DIALOG_FOOTER_ACTIONS}>
+                            <AnchorButton onClick={this.onLogin}
+                                intent={Intent.PRIMARY}>Login
+                        </AnchorButton>
+
+                        </div>
+                    </div>
 
 
-            </Dialog>
+                </Dialog>
 
-                    
-                
+
+
             )
         }
 
-        
+
     }
 
     private handleLockClick = () => this.setState({ showPassword: !this.state.showPassword });

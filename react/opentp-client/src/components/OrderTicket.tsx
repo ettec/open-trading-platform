@@ -1,4 +1,4 @@
-import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput } from '@blueprintjs/core';
+import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput, MenuItem, Button } from '@blueprintjs/core';
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName } from '../common/modelutilities';
@@ -13,6 +13,7 @@ import { toDecimal64, toNumber } from '../util/decimal64Conversion';
 import { TicketController } from "./Container";
 import Login from './Login';
 import { GlobalColours } from './Colours';
+import { Select, ItemRenderer } from '@blueprintjs/select';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -22,13 +23,31 @@ interface OrderTicketState {
   side: Side,
   isOpen: boolean,
   usePortal: boolean
-  orderToModify: Order | null
+  orderToModify: Order | null,
+  destination?: string,
+  destinations: Array<string>,
 }
 
 interface OrderTicketProps {
   tickerController: TicketController,
   quoteService: QuoteService
 }
+
+const DestinationSelect = Select.ofType<string>();
+const renderDestination: ItemRenderer<string> = (destination, { handleClick, modifiers, query }) => {
+
+  const text = `${destination}`;
+  return (
+    <MenuItem
+      active={modifiers.active}
+      disabled={modifiers.disabled}
+
+      key={destination}
+      onClick={handleClick}
+      text={text}
+    />
+  );
+};
 
 export default class OrderTicket extends React.Component<OrderTicketProps, OrderTicketState> implements QuoteListener {
 
@@ -47,10 +66,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       side: Side.BUY,
       isOpen: false,
       usePortal: true,
-      orderToModify: null
+      orderToModify: null,
+      destinations: new Array<string>()
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this);
   }
 
   onQuote(recQuote: ClobQuote): void {
@@ -162,6 +183,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   }
 
+
+
   public render() {
 
     let listing = this.state.listing
@@ -169,6 +192,9 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
       let sizeIncrement = toNumber(listing.getSizeincrement())
       let tickSize = this.getTickSize(this.state.price, listing)
+
+
+      const destination = this.state.destination;
 
       return (
 
@@ -217,6 +243,18 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
               />
             </FormGroup>
 
+            <Label htmlFor="input-b">Destination</Label>
+            <DestinationSelect items={this.state.destinations}
+              resetOnClose={true}
+              onItemSelect={this.handleValueChange}
+              onQueryChange={this.handleQueryChange}
+              itemRenderer={renderDestination}
+              noResults={<MenuItem disabled={true} text="No results." />}>
+              <Button
+                rightIcon="caret-down"
+                text={destination ? destination : "Select Destination..."} />
+            </DestinationSelect>
+
           </div>
           <div className={Classes.DIALOG_FOOTER}>
             <div className={Classes.DIALOG_FOOTER_ACTIONS}>
@@ -235,6 +273,48 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
   }
+
+  private handleValueChange = (destination: string) => {
+    this.setState({
+      ...this.state, ...{
+        destination: destination,
+      }
+    })
+  };
+
+
+  handleQueryChange(query: string) {
+
+    let allDestinations = ["DMA", "VWAP"]
+    let filteredDestinations = new Array<string>()
+
+    if( query.length > 0) {
+      query = query.toUpperCase()
+   
+      for (let dest of allDestinations) {
+        if (dest.startsWith(query)) {
+          filteredDestinations.push(dest)
+        }
+      }
+  
+    } else {
+      filteredDestinations = allDestinations
+    }
+  
+    let newState = {
+      ...this.state, ...{
+      }
+    }
+
+    newState.destinations = filteredDestinations
+
+    this.setState(newState)
+
+  }
+
+
+
+
 
 
   private getBuySellButtonStyle(side: Side): CSSProperties {
@@ -292,18 +372,19 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
 
 
-    let state: OrderTicketState = 
-      {
-        side: order.getSide(),
-        isOpen: true,
-        listing: newListing,
-        price: price,
-        quantity: quantity,
-        quote: existingQuote,
-        orderToModify: order,
-        usePortal: true
-      }
-    
+    let state: OrderTicketState =
+    {
+      side: order.getSide(),
+      isOpen: true,
+      listing: newListing,
+      price: price,
+      quantity: quantity,
+      quote: existingQuote,
+      orderToModify: order,
+      usePortal: true,
+      destinations: [order.getOwnerid()]
+    }
+
 
     this.setState(state)
 
@@ -328,7 +409,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       }
     }
 
-    this.openOrderTicketWithDefaultPriceAndQty( newSide, newListing, defaultPrice, defaultQuantity,);
+    this.openOrderTicketWithDefaultPriceAndQty(newSide, newListing, defaultPrice, defaultQuantity,);
   }
 
   private handleClose = () => {
@@ -344,10 +425,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     })
 
   };
-   
-  
 
-  public openOrderTicketWithDefaultPriceAndQty( newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
+
+
+  public openOrderTicketWithDefaultPriceAndQty(newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
 
     if (!defaultPrice) {
       defaultPrice = 0;
@@ -367,7 +448,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       quantity: defaultQuantity,
       quote: existingQuote,
       usePortal: true,
-      orderToModify: null
+      orderToModify: null,
+      destinations: ["DMA", "VWAP"]
     };
 
     this.setState(state);
@@ -386,15 +468,15 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       modifyParams.setPrice(toDecimal64(this.state.price))
       modifyParams.setOrderid(this.state.orderToModify.getId())
 
-      logDebug("modify order " + this.state.orderToModify.getId() + " to " + toNumber(modifyParams.getQuantity()) + 
-      "@" + toNumber(modifyParams.getPrice()) )
+      logDebug("modify order " + this.state.orderToModify.getId() + " to " + toNumber(modifyParams.getQuantity()) +
+        "@" + toNumber(modifyParams.getPrice()))
 
       this.executionVenueService.modifyOrder(modifyParams, Login.grpcContext.grpcMetaData, (err: Error) => {
         if (err) {
           let msg = "error whilst modifying order:" + err.message
           logError(msg)
           alert(msg)
-        } 
+        }
       })
     } else {
       let listing = this.state.listing
