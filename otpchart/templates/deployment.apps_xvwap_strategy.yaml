@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: execution-venue
-  name: xwap-strategy
+  name: xvwap-strategy
 spec:
   replicas: 1
   selector:

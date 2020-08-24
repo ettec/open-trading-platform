@@ -300,7 +300,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
     let watchesCopy = new Array<ListingWatch>();
     watches.forEach(val => watchesCopy.push(val));
 
-    for (let selWatch of this.selectedWatches.values()) {
+    for (let selWatch of this.selectedWatches) {
       let idx = 0
       for (let watch of watchesCopy) {
         if (selWatch.listingId === watch.listingId) {
@@ -341,7 +341,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
     this.selectedWatches.forEach(val => reversedSelectedWatches.push(val));
     reversedSelectedWatches.reverse()
 
-    for (let selWatch of reversedSelectedWatches.values()) {
+    for (let selWatch of reversedSelectedWatches) {
       let idx = 0
       for (let watch of watchesCopy) {
         if (selWatch.listingId === watch.listingId) {
@@ -371,7 +371,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
 
   private removeListings() {
 
-    for (let watch of this.selectedWatches.values()) {
+    for (let watch of this.selectedWatches) {
       this.watchMap.delete(watch.listingId)
       this.quoteService.UnsubscribeFromQuote(watch.listingId, this)
     }

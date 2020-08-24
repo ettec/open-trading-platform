@@ -1,4 +1,4 @@
-import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, MenuDivider, HotkeysTarget, Hotkeys, Hotkey } from "@blueprintjs/core";
+import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, Hotkeys, Hotkey, HotkeysTarget } from "@blueprintjs/core";
 import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React from 'react';
@@ -41,7 +41,7 @@ enum Views {
 }
 
 
-//@HotkeysTarget
+@HotkeysTarget
 export default class Container extends React.Component<any, ContainerState> {
 
 

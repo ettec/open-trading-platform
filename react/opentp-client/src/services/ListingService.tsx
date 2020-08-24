@@ -35,7 +35,7 @@ export default class ListingServiceImpl implements ListingService {
       if( this.pendingListing.size > 0 ) {
         let pendingListingIds = new Set<number>(this.pendingListing )
         this.pendingListing.clear()
-        for(let  listingId of pendingListingIds) {
+        for(let  listingId of pendingListingIds.values()) {
           this.fetchListing(listingId)
         }
       }
