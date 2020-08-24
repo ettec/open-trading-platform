@@ -288,19 +288,19 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     let allDestinations = ["DMA", "VWAP"]
     let filteredDestinations = new Array<string>()
 
-    if( query.length > 0) {
+    if (query.length > 0) {
       query = query.toUpperCase()
-   
+
       for (let dest of allDestinations) {
         if (dest.startsWith(query)) {
           filteredDestinations.push(dest)
         }
       }
-  
+
     } else {
       filteredDestinations = allDestinations
     }
-  
+
     let newState = {
       ...this.state, ...{
       }
@@ -371,6 +371,15 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     }
 
 
+    let destinations = new Array<string>()
+    let destination = "DMA"
+    if (order.getOwnerid() !== newListing.getMarket()?.getMic()) {
+      destination = order.getOwnerid()
+      destinations.push(order.getOwnerid())
+    } else {
+      destinations.push("DMA")
+    }
+
 
     let state: OrderTicketState =
     {
@@ -382,7 +391,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       quote: existingQuote,
       orderToModify: order,
       usePortal: true,
-      destinations: [order.getOwnerid()]
+      destinations: destinations,
+      destination: destination
     }
 
 
@@ -449,7 +459,9 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       quote: existingQuote,
       usePortal: true,
       orderToModify: null,
-      destinations: ["DMA", "VWAP"]
+      destinations: ["DMA", "VWAP"],
+      destination: "DMA"
+
     };
 
     this.setState(state);
