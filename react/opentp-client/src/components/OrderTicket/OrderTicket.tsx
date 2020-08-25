@@ -1,19 +1,20 @@
 import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput, MenuItem, Button } from '@blueprintjs/core';
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
-import { getListingLongName, getListingShortName } from '../common/modelutilities';
-import { logDebug, logError } from '../logging/Logging';
-import { ClobQuote } from '../serverapi/clobquote_pb';
-import { ExecutionVenueClient } from '../serverapi/ExecutionvenueServiceClientPb';
-import { CreateAndRouteOrderParams, OrderId, ModifyOrderParams } from '../serverapi/executionvenue_pb';
-import { Listing, TickSizeEntry } from '../serverapi/listing_pb';
-import { Side, Order } from '../serverapi/order_pb';
-import { QuoteListener, QuoteService } from '../services/QuoteService';
-import { toDecimal64, toNumber } from '../util/decimal64Conversion';
-import { TicketController } from "./Container";
-import Login from './Login';
-import { GlobalColours } from './Colours';
+import { getListingLongName, getListingShortName } from '../../common/modelutilities';
+import { logDebug, logError } from '../../logging/Logging';
+import { ClobQuote } from '../../serverapi/clobquote_pb';
+import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
+import { CreateAndRouteOrderParams, OrderId, ModifyOrderParams } from '../../serverapi/executionvenue_pb';
+import { Listing, TickSizeEntry } from '../../serverapi/listing_pb';
+import { Side, Order } from '../../serverapi/order_pb';
+import { QuoteListener, QuoteService } from '../../services/QuoteService';
+import { toDecimal64, toNumber } from '../../util/decimal64Conversion';
+import { TicketController } from "../Container";
+import Login from '../Login';
+import { GlobalColours } from '../Colours';
 import { Select, ItemRenderer } from '@blueprintjs/select';
+import VwapParams from './Strategies/VwapParams/VwapParams';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -255,6 +256,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
                 text={destination ? destination : "Select Destination..."} />
             </DestinationSelect>
 
+            <VwapParams></VwapParams>
           </div>
           <div className={Classes.DIALOG_FOOTER}>
             <div className={Classes.DIALOG_FOOTER_ACTIONS}>

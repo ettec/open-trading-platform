@@ -13,7 +13,7 @@ import MarketDepth from './MarketDepth';
 import ChildOrderBlotter from "./OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "./OrderBlotter/OrderHistoryBlotter";
 import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
-import OrderTicket from './OrderTicket';
+import OrderTicket from './OrderTicket/OrderTicket';
 import { TableViewConfig } from "./TableView/TableView";
 import QuestionDialog from "./QuestionDialog";
 import ViewNameDialog from "./ViewNameDialog";
