@@ -14,7 +14,7 @@ import { TicketController } from "../Container";
 import Login from '../Login';
 import { GlobalColours } from '../Colours';
 import { Select, ItemRenderer } from '@blueprintjs/select';
-import VwapParams from './Strategies/VwapParams/VwapParams';
+import VwapParamsPanel from './Strategies/VwapParams/VwapParamsPanel';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -50,16 +50,23 @@ const renderDestination: ItemRenderer<string> = (destination, { handleClick, mod
   );
 };
 
+const DMA = "DMA";
+
 export default class OrderTicket extends React.Component<OrderTicketProps, OrderTicketState> implements QuoteListener {
 
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
+  strategyParams:  StrategyPanel | null
+  
+  
 
   constructor(props: OrderTicketProps) {
     super(props);
 
     this.quoteService = props.quoteService
     props.tickerController.setOrderTicket(this)
+
+    this.strategyParams = null
 
     this.state = {
       quantity: 0,
@@ -68,7 +75,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       isOpen: false,
       usePortal: true,
       orderToModify: null,
-      destinations: new Array<string>()
+      destinations: new Array<string>(),
+      destination: DMA
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -197,7 +205,19 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
       const destination = this.state.destination;
 
+
+
+
+      let strategyParamsPanel
+      if( this.state.destination ==="VWAP" ) {
+        strategyParamsPanel = <VwapParamsPanel ref={(c) => this.strategyParams = c}/>
+      } else {
+        this.strategyParams = null
+        strategyParamsPanel = <div></div>;
+      }
+
       return (
+        
 
         <Dialog
           icon="exchange"
@@ -247,7 +267,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
             <Label htmlFor="input-b">Destination</Label>
             <DestinationSelect items={this.state.destinations}
               resetOnClose={true}
-              onItemSelect={this.handleValueChange}
+              onItemSelect={this.handleStrategyChange}
               onQueryChange={this.handleQueryChange}
               itemRenderer={renderDestination}
               noResults={<MenuItem disabled={true} text="No results." />}>
@@ -255,8 +275,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
                 rightIcon="caret-down"
                 text={destination ? destination : "Select Destination..."} />
             </DestinationSelect>
-
-            <VwapParams></VwapParams>
+            {strategyParamsPanel}
           </div>
           <div className={Classes.DIALOG_FOOTER}>
             <div className={Classes.DIALOG_FOOTER_ACTIONS}>
@@ -276,7 +295,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   }
 
-  private handleValueChange = (destination: string) => {
+  private handleStrategyChange = (destination: string) => {
+
     this.setState({
       ...this.state, ...{
         destination: destination,
@@ -287,7 +307,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   handleQueryChange(query: string) {
 
-    let allDestinations = ["DMA", "VWAP"]
+    let allDestinations = [DMA, "VWAP"]
     let filteredDestinations = new Array<string>()
 
     if (query.length > 0) {
@@ -374,12 +394,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
 
     let destinations = new Array<string>()
-    let destination = "DMA"
+    let destination = DMA
     if (order.getOwnerid() !== newListing.getMarket()?.getMic()) {
       destination = order.getOwnerid()
       destinations.push(order.getOwnerid())
     } else {
-      destinations.push("DMA")
+      destinations.push(DMA)
     }
 
 
@@ -461,8 +481,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       quote: existingQuote,
       usePortal: true,
       orderToModify: null,
-      destinations: ["DMA", "VWAP"],
-      destination: "DMA"
+      destinations: [DMA, "VWAP"],
+      destination: DMA
 
     };
 
@@ -471,6 +491,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
   private onSubmit(event: React.MouseEvent<HTMLElement>) {
+
+    if(this.strategyParams != null) {
+      console.log("Strat Params:" + this.strategyParams.getParamsString())
+    }
 
 
     if (this.state.orderToModify) {
@@ -500,17 +524,32 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
         let croParams = new CreateAndRouteOrderParams()
         croParams.setListingid(listing.getId())
-        croParams.setDestination(market.getMic())
+
+        if( this.strategyParams == null)  {
+          croParams.setDestination(market.getMic())
+        } else {
+          croParams.setDestination(this.strategyParams.getDestination())
+        }
+
+        
         croParams.setOrderside(side)
         croParams.setQuantity(toDecimal64(this.state.quantity))
         croParams.setPrice(toDecimal64(this.state.price))
 
-        logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " +
-          croParams.getListingid())
         croParams.setOriginatorid(Login.desk)
         croParams.setOriginatorref(Login.username)
         croParams.setRootoriginatorid(Login.desk)
         croParams.setRootoriginatorref(Login.username)
+
+
+        if( this.strategyParams != null) {
+          croParams.setExecparametersjson(this.strategyParams.getParamsString())
+        }
+
+
+        logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " +
+          croParams.getListingid() + " to " + croParams.getDestination() + " with execution parameters: " + croParams.getExecparametersjson())
+
 
         this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
           response: OrderId) => {
@@ -537,4 +576,9 @@ class BestBidAndAsk {
   bestBidQuantity?: number
   bestAskPrice?: number
   bestAskQuantity?: number
+}
+
+export interface StrategyPanel {
+  getParamsString() : string
+  getDestination() : string
 }
