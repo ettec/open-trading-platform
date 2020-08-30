@@ -19,7 +19,7 @@ import '../TableView/TableCommon.css';
 import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewState, TableViewProperties } from '../TableView/TableView';
 import OrderBlotter from './OrderBlotter';
 import { OrderView } from './OrderView';
-import { SSL_OP_NO_TLSv1_1 } from 'constants';
+
 
 
 interface ParentOrderBlotterState extends TableViewState {

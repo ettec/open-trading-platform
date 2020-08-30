@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	common "github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/executionvenue"
@@ -30,7 +29,9 @@ var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
-	id := common.SR_MIC
+	log.Print("Starting vwap strategy")
+
+	id := "XVWAP"
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
 
@@ -52,11 +53,16 @@ func main() {
 
 	executeFn := func(om *strategy.Strategy) {
 
+		om.Log.Printf("execute strategy for params: %v", om.ParentOrder.GetExecParametersJson())
+
 		vwapParamsJson := om.ParentOrder.GetExecParametersJson()
 
 		listingIn := make(chan *model.Listing)
-		listing := <-listingIn
+		om.Log.Printf("fetching listing %v.....",om.ParentOrder.ListingId)
+
 		sds.GetListing(om.ParentOrder.ListingId, listingIn )
+		listing := <-listingIn
+		om.Log.Printf("got listing %v",listing)
 
 		quantity := om.ParentOrder.Quantity
 
@@ -66,23 +72,22 @@ func main() {
 			om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to parse parameters:%v", err))
 		}
 
-		if vwapParams.utcStartTimeSecs <= 0 || vwapParams.utcEndTimeSecs <= 0 {
+		if vwapParams.UtcStartTimeSecs <= 0 || vwapParams.UtcEndTimeSecs <= 0 {
 			om.CancelOrderWithErrorMsg("invalid start or end time specified")
 		}
 
-		if vwapParams.utcStartTimeSecs >= vwapParams.utcEndTimeSecs {
+		if vwapParams.UtcStartTimeSecs >= vwapParams.UtcEndTimeSecs {
 			om.CancelOrderWithErrorMsg("start time must be before end time")
 		}
 
-		if model.IasD(vwapParams.buckets).GreaterThan(quantity) {
+		if model.IasD(vwapParams.Buckets).GreaterThan(quantity) {
 			om.CancelOrderWithErrorMsg("num Buckets must be less than or equal to the quantity")
 		}
 
-		buckets, err := getBucketsFromParamsString(vwapParamsJson, quantity, listing)
+		buckets, err := getBucketsFromParamsString(vwapParamsJson, *quantity, listing)
 		if err != nil {
-			om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to get buckets from params:%v", err))
+			om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to get Buckets from params:%v", err))
 		}
-
 
 		executeAsVwapStrategy(om, buckets, listing)
 	}
@@ -114,7 +119,7 @@ func main() {
 	}
 
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("error   while serving : %v", err)
+			log.Fatalf("error   while serving : %v", err)
 	}
 
 }

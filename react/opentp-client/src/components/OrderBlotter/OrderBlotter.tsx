@@ -36,7 +36,8 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
     <Column key="avgPrice" id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
     <Column key="listingId" id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
     <Column key="created" id="created" name="Created" cellRenderer={this.renderCreated} />,
-    <Column key="placedWith" id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />
+    <Column key="placedWith" id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />,
+    <Column key="errorMsg" id="errorMsg" name="Error" cellRenderer={this.renderErrorMsg} />
     ];
   }
 
@@ -51,6 +52,19 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
   private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
   private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
+  
+  private renderErrorMsg = (row: number) => {
+    let orderView = Array.from(this.state.orders)[row]
+    let statusStyle = {}
+    if (orderView) {
+      if (orderView.errorMsg.length >0 ) {
+          statusStyle = { background: Colors.RED3 }  
+      }
+    }
+
+    return <Cell style={statusStyle}>{orderView?.errorMsg}</Cell>
+  }
+
 
   private renderCountry = (row: number) => {
     let country = Array.from(this.state.orders)[row]?.getCountryCode()

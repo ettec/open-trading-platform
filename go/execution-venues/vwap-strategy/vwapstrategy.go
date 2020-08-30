@@ -9,16 +9,26 @@ import (
 )
 
 
+
+
 type vwapParameters struct {
-	utcStartTimeSecs int64
-	utcEndTimeSecs   int64
-	buckets          int
+	UtcStartTimeSecs int64 `json:"utcStartTimeSecs"`
+	UtcEndTimeSecs   int64 `json:"utcEndTimeSecs"`
+	Buckets          int   `json:"buckets"`
 }
 
 
 func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket,  listing *model.Listing) {
 
 	go func() {
+
+		if om.ParentOrder.GetTargetStatus() == model.OrderStatus_LIVE {
+			err := om.ParentOrder.SetStatus(model.OrderStatus_LIVE)
+			if err != nil {
+				om.ErrLog.Printf("failed to set managed order status, cancelling order:%v", err)
+				om.Cancel()
+			}
+		}
 
 		om.Log.Println("order initialised")
 
@@ -77,14 +87,14 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket,  listing *mo
 	}()
 }
 
-func getBucketsFromParamsString(vwapParamsJson string,  quantity *model.Decimal64, listing *model.Listing) ([]bucket, error) {
+func getBucketsFromParamsString(vwapParamsJson string,  quantity model.Decimal64, listing *model.Listing) ([]bucket, error) {
 	vwapParameters := &vwapParameters{}
 	err := json.Unmarshal([]byte(vwapParamsJson), vwapParameters)
 	if err != nil {
 		return nil, err
 	}
 
-	numBuckets := vwapParameters.buckets
+	numBuckets := vwapParameters.Buckets
 	if numBuckets == 0 {
 		if quantity.ToFloat() > 100 {
 			numBuckets = 100
@@ -93,7 +103,7 @@ func getBucketsFromParamsString(vwapParamsJson string,  quantity *model.Decimal6
 		}
 	}
 
-	buckets := getBuckets(listing, vwapParameters.utcStartTimeSecs, vwapParameters.utcEndTimeSecs, numBuckets, quantity)
+	buckets := getBuckets(listing, vwapParameters.UtcStartTimeSecs, vwapParameters.UtcEndTimeSecs, numBuckets, quantity)
 	return buckets, nil
 }
 
@@ -103,7 +113,7 @@ type bucket struct {
 	utcEndTimeSecs   int64
 }
 
-func getBuckets(listing *model.Listing, utcStartTimeSecs int64, utcEndTimeSecs int64, buckets int, quantity *model.Decimal64) (result []bucket) {
+func getBuckets(listing *model.Listing, utcStartTimeSecs int64, utcEndTimeSecs int64, buckets int, quantity model.Decimal64) (result []bucket) {
 	// need historical traded volume data, for now use a TWAP profile
 	bucketInterval := (utcEndTimeSecs - utcStartTimeSecs) / int64(buckets)
 
@@ -133,7 +143,7 @@ func getBuckets(listing *model.Listing, utcStartTimeSecs int64, utcEndTimeSecs i
 
 	quantity.Sub(&totalQnt)
 	if result != nil {
-		result[len(result)-1].quantity.Add(quantity)
+		result[len(result)-1].quantity.Add(&quantity)
 	}
 
 	return result

@@ -1,10 +1,39 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/ettec/otp-common/model"
 	"reflect"
 	"testing"
 )
+
+
+
+type response2 struct {
+	Page   int      `json:"page"`
+	Fruits []string `json:"fruits"`
+}
+
+func Test_paramsUnmarshal(t *testing.T) {
+
+	jsonStr := `{"UtcStartTimeSecs":1598718201,"UtcEndTimeSecs":1598718261,"Buckets":10}`
+
+	vwapParameters := &vwapParameters{}
+	json.Unmarshal([]byte(jsonStr), vwapParameters)
+
+	if vwapParameters.UtcStartTimeSecs != 1598718201 {
+		t.FailNow()
+	}
+
+	if vwapParameters.UtcEndTimeSecs != 1598718261 {
+		t.FailNow()
+	}
+
+	if vwapParameters.Buckets != 10 {
+		t.FailNow()
+	}
+
+}
 
 func Test_getBuckets(t *testing.T) {
 
@@ -15,7 +44,7 @@ func Test_getBuckets(t *testing.T) {
 		utcStartTimeSecs int64
 		utcEndTimeSecs   int64
 		buckets          int
-		quantity         *model.Decimal64
+		quantity         model.Decimal64
 	}
 	tests := []struct {
 		name       string
@@ -29,7 +58,7 @@ func Test_getBuckets(t *testing.T) {
 				0,
 				15,
 				5,
-				&model.Decimal64{
+				model.Decimal64{
 					Mantissa: 10,
 				},
 			},
@@ -57,7 +86,7 @@ func Test_getBuckets(t *testing.T) {
 				0,
 				15,
 				5,
-				&model.Decimal64{
+				model.Decimal64{
 					Mantissa: 11,
 				},
 			},
@@ -85,7 +114,7 @@ func Test_getBuckets(t *testing.T) {
 				0,
 				8,
 				3,
-				&model.Decimal64{
+				model.Decimal64{
 					Mantissa: 11,
 				},
 			},

@@ -20,6 +20,7 @@ export class OrderView {
     listing?: Listing;
     created?: Date;
     placedWith: string;
+    errorMsg: string;
   
     constructor(order: Order) {
       this.id = ""
@@ -31,6 +32,7 @@ export class OrderView {
       this.order = order
       this.created = undefined
       this.placedWith = "";
+      this.errorMsg = "";
       this.setOrder(order)
     }
   
@@ -67,6 +69,7 @@ export class OrderView {
       }
 
       this.placedWith = order.getOwnerid()
+      this.errorMsg = order.getErrormessage()
       
     }
   
