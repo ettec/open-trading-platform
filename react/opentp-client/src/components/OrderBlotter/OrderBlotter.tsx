@@ -8,6 +8,7 @@ import TableView, { TableViewProperties } from '../TableView/TableView';
 import { OrderView } from './OrderView';
 import { GlobalColours } from '../Colours';
 import ReactCountryFlag from "react-country-flag"
+import { roundToTick } from '../../common/modelutilities';
 
 
 export interface OrderBlotterState  {
@@ -50,9 +51,22 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
   private renderExpQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.exposedQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
-  private renderAvgPrice = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.avgTradePrice}</Cell>;
   private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
   
+  
+  private renderAvgPrice = (row: number) => {
+    let orderView = Array.from(this.state.orders)[row]
+    if( orderView && orderView.avgTradePrice) {
+        if( orderView.listing ) {
+          return <Cell>{roundToTick(orderView.avgTradePrice, orderView.listing )}</Cell>
+        } else {
+          return <Cell>{orderView.avgTradePrice}</Cell>
+        }
+    } else {
+      return <Cell></Cell>
+    }
+  }
+
   private renderErrorMsg = (row: number) => {
     let orderView = Array.from(this.state.orders)[row]
     let statusStyle = {}

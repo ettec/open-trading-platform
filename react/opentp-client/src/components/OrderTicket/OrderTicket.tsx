@@ -1,12 +1,12 @@
 import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput, MenuItem, Button } from '@blueprintjs/core';
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
-import { getListingLongName, getListingShortName } from '../../common/modelutilities';
+import { getListingLongName, getListingShortName, getTickSize } from '../../common/modelutilities';
 import { logDebug, logError } from '../../logging/Logging';
 import { ClobQuote } from '../../serverapi/clobquote_pb';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
 import { CreateAndRouteOrderParams, OrderId, ModifyOrderParams } from '../../serverapi/executionvenue_pb';
-import { Listing, TickSizeEntry } from '../../serverapi/listing_pb';
+import { Listing } from '../../serverapi/listing_pb';
 import { Side, Order } from '../../serverapi/order_pb';
 import { QuoteListener, QuoteService } from '../../services/QuoteService';
 import { toDecimal64, toNumber } from '../../util/decimal64Conversion';
@@ -140,33 +140,6 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
 
-  private getTickSize(price: number, listing: Listing): number {
-    let tt = listing.getTicksize()
-    if (tt) {
-      let el = tt.getEntriesList()
-      for (var entry of el) {
-        let tickSize = this.tickSizeFromEntry(entry, price)
-        if (tickSize) {
-          return tickSize
-        }
-      }
-    }
-
-    return 1
-  }
-
-  private tickSizeFromEntry(entry: TickSizeEntry, price: number): number | undefined {
-    let lowerBound = toNumber(entry.getLowerpricebound())
-    let upperBound = toNumber(entry.getUpperpricebound())
-
-    if (lowerBound !== undefined && upperBound !== undefined) {
-      if (price >= lowerBound && price <= upperBound) {
-        return toNumber(entry.getTicksize())
-      }
-    }
-
-    return undefined
-  }
 
 
   private getAskText(quote?: ClobQuote): string {
@@ -200,8 +173,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
     if (listing) {
 
       let sizeIncrement = toNumber(listing.getSizeincrement())
-      let tickSize = this.getTickSize(this.state.price, listing)
-
+      let tickSize = getTickSize(this.state.price, listing)
 
       const destination = this.state.destination;
 
