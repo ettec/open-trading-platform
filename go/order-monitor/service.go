@@ -3,12 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
+	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/orderstore"
-	"github.com/ettec/otp-common/staticdata"
-	"github.com/ettec/otp-model"
 	"github.com/ettech/open-trading-platform/go/order-monitor/api/ordermonitor"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -104,11 +102,6 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	sds, err := staticdata.NewStaticDataSource(common.STATIC_DATA_SERVICE_ADDRESS)
-	if err != nil {
-		log.Fatalf("failed to create static data source:%v", err)
-	}
-
 	clientSet := k8s.GetK8sClientSet(external)
 
 	orderRouter, err := getOrderRouter(clientSet, maxConnectRetry)
@@ -121,13 +114,11 @@ func main() {
 		cancelOrdersForOriginatorChan: cancelChan,
 	}
 
-	listings := map[int32]*model.Listing{}
 	updates := make(chan *model.Order, 1000)
-	listingsChan := make(chan *model.Listing, 1000)
 
 	orders, err := store.SubscribeToAllOrders(updates, ordersAfter)
 	if err != nil {
-		log.Panic("failed to subscribe to orders:", err)
+		log.Panic("failed to subscribe to orders: ", err)
 	}
 
 	listingsToFetch := map[int32]bool{}
@@ -143,9 +134,6 @@ func main() {
 	}
 
 	go func() {
-		for listingId, _ := range listingsToFetch {
-			sds.GetListing(listingId, listingsChan)
-		}
 
 		for {
 			select {
@@ -156,12 +144,13 @@ func main() {
 				for _, order := range orders {
 					if order.GetOriginatorId() == cr.OriginatorId &&
 						order.Status == model.OrderStatus_LIVE {
-						if listing, exists := listings[order.GetListingId()]; exists {
-							cancelParams = append(cancelParams, &api.CancelOrderParams{
-								OrderId: order.GetId(),
-								Listing: listing,
-							})
-						}
+
+						cancelParams = append(cancelParams, &api.CancelOrderParams{
+							OrderId:   order.GetId(),
+							ListingId: order.GetListingId(),
+							OwnerId:   order.GetOwnerId(),
+						})
+
 					}
 				}
 
@@ -175,7 +164,7 @@ func main() {
 						cancel()
 						if err != nil {
 							if err != context.DeadlineExceeded {
-								log.Printf("Failed to cancel order %v of %v, id: %v", idx+1, numOrdersToCancel, params.GetOrderId())
+								log.Printf("Failed to cancel order %v of %v, id: %v, error:%v", idx+1, numOrdersToCancel, params.GetOrderId(), err)
 							} else {
 								log.Printf("Deadline exceed, failed to cancel order %v of %v, id: %v", idx+1, numOrdersToCancel, params.GetOrderId())
 							}
@@ -186,9 +175,6 @@ func main() {
 				}()
 
 			case u := <-updates:
-				if _, exists := listings[u.ListingId]; !exists {
-					sds.GetListing(u.ListingId, listingsChan)
-				}
 
 				if order, exists := orders[u.Id]; exists {
 					orders[u.Id] = u
@@ -216,9 +202,6 @@ func main() {
 					}
 					g.Inc()
 				}
-
-			case l := <-listingsChan:
-				listings[l.Id] = l
 
 			}
 		}
