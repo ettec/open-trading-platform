@@ -336,7 +336,13 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     let depth = this.state.quote.getBidsList()
 
     if (row < depth.length) {
-      let listing = this.listingService.GetListingImmediate(depth[row].getListingid())
+      let listingId = depth[row].getListingid()
+
+      if( listingId <=0) {
+        listingId = this.state.quote?.getListingid()
+      }
+
+      let listing = this.listingService.GetListingImmediate(listingId)
       if (listing) {
         return (<Cell>{listing.getMarket()?.getMic()}</Cell>)
       } else {
@@ -356,7 +362,13 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     let depth = this.state.quote.getOffersList()
 
     if (row < depth.length) {
-      let listing = this.listingService.GetListingImmediate(depth[row].getListingid())
+      let listingId = depth[row].getListingid()
+
+      if( listingId <=0) {
+        listingId = this.state.quote?.getListingid()
+      }
+
+      let listing = this.listingService.GetListingImmediate(listingId)
       if (listing) {
         return (<Cell>{listing.getMarket()?.getMic()}</Cell>)
       } else {
