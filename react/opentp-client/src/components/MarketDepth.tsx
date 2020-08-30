@@ -162,9 +162,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
       }
     }
 
-    // A bug in the table implementation means state has to be set twice to update the table
-    this.setState(state);
-    
+    this.setState(state);    
   }
 
   toggleLock(): void {

@@ -51,17 +51,16 @@ export default class ListingServiceImpl implements ListingService {
     let listing = this.listingIdToListing.get(listingId)
     if (listing) {
       return listing
+    } else {
+      // Cache it for next call
+      this.GetListing(listingId,()=>{})
     }
 
     return 
   }
 
-
-
   GetListing(listingId: number, listener: (
     response: Listing) => void) {
-
-      
 
     if (listingId <= 0) {
       return
