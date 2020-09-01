@@ -125,6 +125,7 @@ export default class Container extends React.Component<any, ContainerState> {
 
 
             let md = FlexLayout.Model.fromJson(layoutJson)
+            
 
             this.setState({
                 model: md
