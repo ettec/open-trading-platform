@@ -93,8 +93,8 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
 
     this.state = {
-      locked: config.locked,
-      lockedListingId: config.lockedListingId,
+      locked: config?.locked,
+      lockedListingId: config?.lockedListingId,
       columns: defaultCols,
       columnWidths: defaultColWidths
     };

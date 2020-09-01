@@ -1,7 +1,7 @@
-import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
+import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, Icon } from "@blueprintjs/core";
 import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Listing } from "../serverapi/listing_pb";
 import { Order, Side } from "../serverapi/order_pb";
 import ListingServiceImpl, { ListingService } from "../services/ListingService";
@@ -90,8 +90,8 @@ export default class Container extends React.Component<any, ContainerState> {
                     return <OrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === Views.MarketDepth) {
-                    return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model} 
-                    ticketController={this.ticketController}/>;
+                    return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model}
+                        ticketController={this.ticketController} />;
                 }
                 if (component === Views.InstrumentListingWatch) {
                     return <InstrumentListingWatch colsChooser={this.colChooserController} listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state.model} />;
@@ -125,13 +125,15 @@ export default class Container extends React.Component<any, ContainerState> {
 
 
             let md = FlexLayout.Model.fromJson(layoutJson)
-            
+
+
+
 
             this.setState({
                 model: md
             })
 
-            
+
 
         })
 
@@ -185,18 +187,32 @@ export default class Container extends React.Component<any, ContainerState> {
 
         const viewsMenu = (
             <Menu>
-                <MenuItem icon="graph" text="Market Depth" onClick={()=>this.viewNameDialogController.open(Views.MarketDepth, "Market Depth",
-                (this.refs.layout as Layout))}  />
-                <MenuItem icon="map" text="Instrument Watch" onClick={()=>this.viewNameDialogController.open(Views.InstrumentListingWatch, "Instrument Watch",
-                (this.refs.layout as Layout))}  />
-                <MenuItem icon="th" text="Order Blotter" onClick={()=>this.viewNameDialogController.open(Views.OrderBlotter, "Order Blotter",
-                (this.refs.layout as Layout))}  />
+                <MenuItem icon="graph" text="Market Depth" onClick={() => this.viewNameDialogController.open(Views.MarketDepth, "Market Depth",
+                    (this.refs.layout as Layout))} />
+                <MenuItem icon="map" text="Instrument Watch" onClick={() => this.viewNameDialogController.open(Views.InstrumentListingWatch, "Instrument Watch",
+                    (this.refs.layout as Layout))} />
+                <MenuItem icon="th" text="Order Blotter" onClick={() => this.viewNameDialogController.open(Views.OrderBlotter, "Order Blotter",
+                    (this.refs.layout as Layout))} />
             </Menu>
         );
 
         let contents: React.ReactNode = "loading ...";
         if (this.state && this.state.model) {
             contents = <FlexLayout.Layout
+                iconFactory={(node: TabNode): ReactNode | undefined => {
+                    switch (node.getComponent()) {
+                        case Views.MarketDepth:
+                            return <Icon icon="graph" style={{paddingRight: 5}}></Icon>
+                        case Views.InstrumentListingWatch:
+                            return <Icon icon="map" style={{paddingRight: 5}}></Icon>
+                        case Views.OrderBlotter:
+                            return <Icon icon="th" style={{paddingRight: 5}}></Icon>
+
+                    }
+
+
+                    return <div></div>
+                }}
                 ref="layout"
                 model={this.state.model}
                 factory={this.factory}
@@ -212,8 +228,8 @@ export default class Container extends React.Component<any, ContainerState> {
                         <Navbar.Heading>Open Trading Platform</Navbar.Heading>
                         <Navbar.Divider />
                         <Popover content={viewsMenu} position={Position.RIGHT_TOP}>
-                    <Button icon="add-to-artifact" text="Add View..." />
-                </Popover>
+                            <Button icon="add-to-artifact" text="Add View..." />
+                        </Popover>
                         <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave} />
                     </Navbar.Group>
                 </Navbar>
@@ -367,9 +383,9 @@ export class TicketController {
         }
     }
 
-    openOrderTicketWithDefaultPriceAndQty( newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
-        if( this.orderTicket) {
-            this.orderTicket.openOrderTicketWithDefaultPriceAndQty( newSide, newListing, defaultPrice, defaultQuantity) 
+    openOrderTicketWithDefaultPriceAndQty(newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
+        if (this.orderTicket) {
+            this.orderTicket.openOrderTicketWithDefaultPriceAndQty(newSide, newListing, defaultPrice, defaultQuantity)
         }
     }
 
