@@ -228,7 +228,7 @@ export default class Container extends React.Component<any, ContainerState> {
                         <Navbar.Heading>Open Trading Platform</Navbar.Heading>
                         <Navbar.Divider />
                         <Popover content={viewsMenu} position={Position.RIGHT_TOP}>
-                            <Button icon="add-to-artifact" text="Add View..." />
+                            <Button minimal={true}  icon="add-to-artifact" text="Add View..." />
                         </Popover>
                         <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave} />
                     </Navbar.Group>
