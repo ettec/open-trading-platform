@@ -1,25 +1,59 @@
-import { Colors } from '@blueprintjs/core';
-import { Cell, Column, IRegion } from "@blueprintjs/table";
+import { Colors, Menu, MenuItem, Button, Icon, Checkbox } from '@blueprintjs/core';
+import { Cell, Column, IRegion, ColumnHeaderCell } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
 import { Order, OrderStatus, Side } from '../../serverapi/order_pb';
 import '../TableView/TableCommon.css';
 import TableView, { TableViewProperties } from '../TableView/TableView';
-import { OrderView } from './OrderView';
+import { OrderView, OrdersView } from './OrderView';
 import { GlobalColours } from '../Colours';
 import ReactCountryFlag from "react-country-flag"
 import { roundToTick } from '../../common/modelutilities';
+import  { ListingService } from '../../services/ListingService';
 
+
+export interface OrderBlotterProps extends TableViewProperties {
+  listingService: ListingService
+}
 
 export interface OrderBlotterState  {
-
   orders: OrderView[];
   columns: Array<JSX.Element>
   columnWidths: Array<number>
+  visibleStates: Set<OrderStatus>
 }
 
 
-export default abstract class OrderBlotter<P extends TableViewProperties , S extends OrderBlotterState> extends TableView<P , S>{
+
+export default abstract class OrderBlotter<P extends OrderBlotterProps , S extends OrderBlotterState> extends TableView<P , S>{
+
+  private view : OrdersView
+  
+  constructor(props: P) {
+    super(props)
+    this.view = new OrdersView( props.listingService, ()=>{this.setState({ ...this.state, orders: this.view.getOrders() })})
+    this.view.setSort((a:Order, b:Order) : number => {
+       
+      let aCreated = a.getCreated()
+      let bCreated = b.getCreated() 
+      if( aCreated  && bCreated) {
+          return aCreated.getSeconds() - bCreated.getSeconds()
+      } else {
+          return 0
+      }
+  })
+
+  }
+
+ protected clearOrders() {
+  this.view.clear()
+  this.setState({ ...this.state, orders: this.view.getOrders() })
+ }
+
+  protected addOrUpdateOrder(order: Order) {
+    this.view.addOrUpdateOrder(order)
+    this.setState({ ...this.state, orders: this.view.getOrders() })
+  }
 
   getColumns() {
     return [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
@@ -29,7 +63,7 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
     <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
     <Column key="quantity" id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
     <Column key="price" id="price" name="Price" cellRenderer={this.renderPrice} />,
-    <Column key="status" id="status" name="Status" cellRenderer={this.renderStatus} />,
+    <Column key="status" id="status" name="Status" cellRenderer={this.renderStatus} columnHeaderCellRenderer={this.renderStatusHeader}/>,
     <Column key="targetStatus" id="targetStatus" name="Target Status" cellRenderer={this.renderTargetStatus} />,
     <Column key="remQty" id="remQty" name="Rem. Qty" cellRenderer={this.renderRemQty} />,
     <Column key="exposedQty" id="exposedQty" name="Exp. Qty" cellRenderer={this.renderExpQty} />,
@@ -52,7 +86,21 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
   private renderExpQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.exposedQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
   private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
-  
+ 
+  private renderStatusHeader = (row: number) => {
+    
+      return <ColumnHeaderCell style={{display: 'flex',  flexDirection: 'row',  alignItems: "left", minWidth:40}} 
+      name="Status" 
+      menuRenderer={(index?: number): JSX.Element => {return <Menu><Checkbox checked={this.state.visibleStates.has(OrderStatus.LIVE)}>Live</Checkbox>
+      <Checkbox checked={this.state.visibleStates.has(OrderStatus.FILLED)}>Filled</Checkbox>
+      <Checkbox checked={this.state.visibleStates.has(OrderStatus.CANCELLED)}>Cancelled</Checkbox>
+      <Checkbox checked={this.state.visibleStates.has(OrderStatus.CANCELLED)}>None</Checkbox>
+      </Menu>}} >
+        <Icon icon="filter" ></Icon>
+        </ColumnHeaderCell>    
+  }
+
+
   
   private renderAvgPrice = (row: number) => {
     let orderView = Array.from(this.state.orders)[row]
@@ -135,8 +183,6 @@ export default abstract class OrderBlotter<P extends TableViewProperties , S ext
           break
       }
     }
-
-
 
     return <Cell style={statusStyle}>{orderView?.status}</Cell>
   }

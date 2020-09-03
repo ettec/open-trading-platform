@@ -3,13 +3,13 @@ import { Cell, Column, SelectionModes, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import * as React from "react";
 import { Timestamp } from '../../serverapi/modelcommon_pb';
-import { Order } from '../../serverapi/order_pb';
+import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { OrderHistory } from '../../serverapi/viewservice_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from '../Container';
 import  { getConfiguredColumns, TableViewConfig, TableViewProperties } from "../TableView/TableView";
-import OrderBlotter from "./OrderBlotter";
+import OrderBlotter, { OrderBlotterState } from "./OrderBlotter";
 import { OrderView } from "./OrderView";
 
 export interface OrderHistoryBlotterProps extends TableViewProperties {
@@ -18,13 +18,10 @@ export interface OrderHistoryBlotterProps extends TableViewProperties {
     orderHistoryBlotterController: OrderHistoryBlotterController
 }
 
-interface OrderHistoryBlotterState {
-    orders: OrderView[];
+interface OrderHistoryBlotterState extends OrderBlotterState {
     isOpen: boolean,
     usePortal: boolean
     order?: Order
-    columns: Array<JSX.Element>
-    columnWidths: Array<number>
     updates: OrderUpdateView[];
     width: number
 }
@@ -46,6 +43,12 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
 
         this.orderHistoryBlotterController.setBlotter(this)
 
+        let visibleStates = new Set<OrderStatus>()
+        visibleStates.add(OrderStatus.LIVE)
+        visibleStates.add(OrderStatus.CANCELLED)
+        visibleStates.add(OrderStatus.FILLED)
+        visibleStates.add(OrderStatus.NONE)
+
         this.state = {
             isOpen: false,
             usePortal: false,
@@ -53,7 +56,8 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
             columnWidths: new Array<number>(),
             updates: new Array<OrderUpdateView>(0),
             orders: new Array<OrderView>(),
-            width: 0
+            width: 0,
+            visibleStates: visibleStates
         }
 
     }

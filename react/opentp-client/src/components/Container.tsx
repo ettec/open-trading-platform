@@ -1,4 +1,4 @@
-import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, Icon } from "@blueprintjs/core";
+import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, Icon, Checkbox } from "@blueprintjs/core";
 import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
 import React, { ReactNode } from 'react';
@@ -26,6 +26,7 @@ import { logError, logDebug } from "../logging/Logging";
 import ColumnChooser from "./TableView/ColumnChooser";
 import { ClientConfigServiceClient } from "../serverapi/ClientconfigserviceServiceClientPb";
 import { GetConfigParameters, Config, StoreConfigParams } from "../serverapi/clientconfigservice_pb";
+import ParentOrderBlotter from "./OrderBlotter/ParentOrderBlotter";
 
 
 
@@ -64,8 +65,8 @@ export default class Container extends React.Component<any, ContainerState> {
     viewNameDialogController: ViewNameDialogController
     colChooserController: ColumnChooserController
 
-    constructor() {
-        super({}, {});
+    constructor(p:any,s:ContainerState) {
+        super(p, s);
 
         this.listingService = new ListingServiceImpl()
         this.quoteService = new QuoteServiceImpl(this.listingService)
@@ -87,7 +88,7 @@ export default class Container extends React.Component<any, ContainerState> {
             if (this.state && this.state.model) {
 
                 if (component === Views.OrderBlotter) {
-                    return <OrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
+                    return <ParentOrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === Views.MarketDepth) {
                     return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model}
@@ -123,17 +124,11 @@ export default class Container extends React.Component<any, ContainerState> {
 
             }
 
-
             let md = FlexLayout.Model.fromJson(layoutJson)
-
-
-
 
             this.setState({
                 model: md
             })
-
-
 
         })
 
@@ -154,7 +149,7 @@ export default class Container extends React.Component<any, ContainerState> {
             this.clientConfigServiceClient.storeClientConfig(params, Login.grpcContext.grpcMetaData, (err: Error,
                 response: Empty) => {
                 if (err) {
-                    logError("failed to store configuration:" + err)
+                    logError("failed to store configuration:" + err.message)
                 }
             })
         }
@@ -213,6 +208,7 @@ export default class Container extends React.Component<any, ContainerState> {
 
                     return <div></div>
                 }}
+
                 ref="layout"
                 model={this.state.model}
                 factory={this.factory}

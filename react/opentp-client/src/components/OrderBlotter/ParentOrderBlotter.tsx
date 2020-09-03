@@ -9,51 +9,47 @@ import { logGrpcError } from '../../logging/Logging';
 import { Empty } from '../../serverapi/common_pb';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
 import { CancelOrderParams } from '../../serverapi/executionvenue_pb';
-import { Listing } from '../../serverapi/listing_pb';
-import { Order } from '../../serverapi/order_pb';
+import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
-import { ChildOrderBlotterController, OrderContext, OrderHistoryBlotterController, ExecutionsController, ColumnChooserController, TicketController } from '../Container';
+import { ChildOrderBlotterController, ExecutionsController, OrderContext, OrderHistoryBlotterController, TicketController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
-import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewState, TableViewProperties } from '../TableView/TableView';
-import OrderBlotter from './OrderBlotter';
+import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewProperties, TableViewState } from '../TableView/TableView';
+import OrderBlotter, { OrderBlotterState } from './OrderBlotter';
 import { OrderView } from './OrderView';
 
 
 
-interface ParentOrderBlotterState extends TableViewState {
-
-  orders: OrderView[];
-  selectedOrders: Array< Order>
-  
-
+interface ParentOrderBlotterState extends OrderBlotterState {
+  selectedOrders: Array<Order>
 }
 
-interface ParentOrderBlotterProps extends TableViewProperties{
+interface ParentOrderBlotterProps extends TableViewProperties {
   node: TabNode,
   model: Model,
   orderContext: OrderContext
-  listingService: ListingService
   orderService: OrderService
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
   executionsController: ExecutionsController
   ticketController: TicketController
+  listingService: ListingService
 }
 
 
 
-export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterProps, ParentOrderBlotterState> {
+export default class ParentOrderBlotter
+  extends OrderBlotter<ParentOrderBlotterProps, ParentOrderBlotterState> {
 
 
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   listingService: ListingService
   childOrderBlotterController: ChildOrderBlotterController
   orderHistoryBlotterController: OrderHistoryBlotterController
-  executionsController: ExecutionsController 
+  executionsController: ExecutionsController
   ticketController: TicketController
-  
+
   orderMap: Map<string, number>;
 
   orderService: OrderService
@@ -68,23 +64,29 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
 
     let columns = this.getColumns()
 
-    let view = new Array<OrderView>(50)
+    let view = new Array<OrderView>()
 
-    let config = this.props.node.getConfig()
+    let config = props.node.getConfig()
 
     let [defaultCols, defaultColWidths] = getConfiguredColumns(columns, config);
 
-  
+    let visibleStates = new Set<OrderStatus>()
+    visibleStates.add(OrderStatus.LIVE)
+    visibleStates.add(OrderStatus.CANCELLED)
+    visibleStates.add(OrderStatus.FILLED)
+    visibleStates.add(OrderStatus.NONE)
+
     let blotterState: ParentOrderBlotterState = {
       orders: view,
       selectedOrders: new Array<Order>(),
       columns: defaultCols,
       columnWidths: defaultColWidths,
+      visibleStates: visibleStates
     }
 
     this.state = blotterState;
 
-    this.props.node.setEventListener("save", (p) => {
+    props.node.setEventListener("save", (p) => {
 
       let cols = this.state.columns
       let colOrderIds = getColIdsInOrder(cols);
@@ -94,14 +96,14 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
         columnOrder: colOrderIds
       }
 
-      this.props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
+      props.model.doAction(Actions.updateNodeAttributes(props.node.getId(), { config: persistentConfig }))
     }
 
     );
 
     this.listingService = props.listingService
     this.childOrderBlotterController = props.childOrderBlotterController
-    this.orderHistoryBlotterController = props.orderHistoryBlotterController 
+    this.orderHistoryBlotterController = props.orderHistoryBlotterController
     this.executionsController = props.executionsController
     this.ticketController = props.ticketController
     this.orderService = props.orderService
@@ -109,100 +111,41 @@ export default class ParentOrderBlotter extends OrderBlotter<ParentOrderBlotterP
     this.orderMap = new Map<string, number>();
 
 
-    
+
 
   }
 
-  protected  getTableName() : string {
+  protected getTableName(): string {
     return "Order Blotter"
-}
+  }
 
-public componentDidMount(): void {
-  this.orderService.SubscribeToAllParentOrders((order: Order) => {
-
-    let idx = this.orderMap.get(order.getId())
-    let orderView: OrderView
-    let newOrders = [...this.state.orders]
-    if (idx === undefined) {
-      idx = this.orderMap.size
-      let orderLength = this.state.orders.length
-      if (idx >= orderLength) {
-        newOrders = new Array<OrderView>(orderLength * 2)
-        for (let i = 0; i < orderLength; i++) {
-          newOrders[i] = this.state.orders[i]
-        }
-      }
-
-      this.orderMap.set(order.getId(), idx);
-      orderView = new OrderView(order)
-
-      newOrders[idx] = orderView
-    } else {
-      orderView = new OrderView(order)
-      newOrders[idx] = orderView
-    }
-
-    newOrders.sort((o1,o2)=>{
-      if( o1.created && o2.created) {
-        return o1.created.getTime() - o2.created.getTime()
-      }
-      return 0
+  public componentDidMount(): void {
+    this.orderService.SubscribeToAllParentOrders((order: Order) => {
+      this.addOrUpdateOrder(order)
     })
-
-    let blotterState: TableViewState = {
-      ...this.state, ...{
-        orders: newOrders
-      }
-    }
-
-    orderView.listing = this.listingService.GetListingImmediate(order.getListingid())
-
-    this.setState(blotterState);
-
-    if (!orderView.listing) {
-      this.listingService.GetListing(order.getListingid(), (listing: Listing) => {
-        let newOrders = [...this.state.orders]
-        let idx = this.orderMap.get(order.getId())
-        orderView.listing = listing
-        if (idx) {
-          newOrders[idx] = orderView
-          let blotterState: ParentOrderBlotterState = {
-            ...this.state, ...{
-              orders: newOrders
-            }
-          }
-
-          this.setState(blotterState);
-        }
-
-      })
-    }
-
-
-  })
-}
+  }
 
 
   showOrderHistory = (orders: IterableIterator<Order>) => {
     let order = orders.next()
 
     let cols = this.state.columns
-      let colOrderIds = getColIdsInOrder(cols);
+    let colOrderIds = getColIdsInOrder(cols);
 
-      let config: TableViewConfig = {
-        columnWidths: this.state.columnWidths,
-        columnOrder: colOrderIds
-      }
+    let config: TableViewConfig = {
+      columnWidths: this.state.columnWidths,
+      columnOrder: colOrderIds
+    }
 
     this.orderHistoryBlotterController.openBlotter(order.value, config,
       window.innerWidth)
   }
 
-  
+
 
   showExecutions = (orders: IterableIterator<Order>) => {
-    let order = orders.next()      
-    this.executionsController.open(order.value, 
+    let order = orders.next()
+    this.executionsController.open(order.value,
       window.innerWidth)
   }
 
@@ -214,14 +157,14 @@ public componentDidMount(): void {
     let childOrders = this.orderService.GetChildOrders(order.value)
 
     let cols = this.state.columns
-      let colOrderIds = getColIdsInOrder(cols);
+    let colOrderIds = getColIdsInOrder(cols);
 
-      let config: TableViewConfig = {
-        columnWidths: this.state.columnWidths,
-        columnOrder: colOrderIds
-      }
+    let config: TableViewConfig = {
+      columnWidths: this.state.columnWidths,
+      columnOrder: colOrderIds
+    }
 
-    this.childOrderBlotterController.openBlotter(order.value, childOrders,  config,
+    this.childOrderBlotterController.openBlotter(order.value, childOrders, config,
       window.innerWidth)
 
   }
@@ -262,7 +205,7 @@ public componentDidMount(): void {
   public render() {
 
     return (
-      <div  style={{width:"100%", height:"100%"} } >
+      <div style={{ width: "100%", height: "100%" }} >
         <Table enableRowResizing={false} numRows={this.state.orders.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
           bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} enableColumnReordering={true}
           onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
@@ -275,7 +218,7 @@ public componentDidMount(): void {
 
 
   private onSelection = (selectedRegions: IRegion[]) => {
-    let newSelectedOrders: Array< Order> = this.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
+    let newSelectedOrders: Array<Order> = this.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
 
     let blotterState: ParentOrderBlotterState = {
       ...this.state, ...{
@@ -295,7 +238,7 @@ public componentDidMount(): void {
     return (
 
       <Menu  >
-        <Menu.Item icon="delete"  text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
+        <Menu.Item icon="delete" text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item icon="edit" text="Modify Order" onClick={() => this.modifyOrder(cancelleableOrders[0])} disabled={cancelleableOrders.length === 0}>

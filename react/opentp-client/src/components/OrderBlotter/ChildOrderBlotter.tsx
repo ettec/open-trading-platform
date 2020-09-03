@@ -1,13 +1,13 @@
-import { AnchorButton, Classes, Dialog, Intent, Menu } from '@blueprintjs/core';
-import { IMenuContext, IRegion, SelectionModes, Table } from "@blueprintjs/table";
+import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
+import { IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import * as React from "react";
-import { Order } from '../../serverapi/order_pb';
+import { Order, OrderStatus } from '../../serverapi/order_pb';
+import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { ChildOrderBlotterController } from '../Container';
-import OrderBlotter from "./OrderBlotter";
+import { getConfiguredColumns, TableViewConfig, TableViewProperties } from '../TableView/TableView';
+import OrderBlotter, { OrderBlotterState } from "./OrderBlotter";
 import { OrderView } from "./OrderView";
-import { ListingService } from '../../services/ListingService';
-import { TableViewConfig, getConfiguredColumns, TableViewProperties } from '../TableView/TableView';
 
 export interface ChildOrderProps extends TableViewProperties   {
     orderService: OrderService
@@ -16,19 +16,16 @@ export interface ChildOrderProps extends TableViewProperties   {
 }
 
   
-interface ChildOrderBlotterState {
+interface ChildOrderBlotterState extends OrderBlotterState {
     isOpen: boolean,
     usePortal: boolean
     parentOrder?: Order
-    columns: Array<JSX.Element>
-    columnWidths: Array<number>
-    orders: Array<OrderView>;
     selectedOrders: Array<Order>,
-    width: number
+    width: number,
 }
 
 
-export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, ChildOrderBlotterState> {
+export default class ChildOrderBlotter  extends OrderBlotter<ChildOrderProps, ChildOrderBlotterState> {
 
     orderService: OrderService
     listingService: ListingService
@@ -42,6 +39,11 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
         this.childOrderBlotterController = props.childOrderBlotterController
 
         this.childOrderBlotterController.setBlotter(this)
+        let visibleStates = new Set<OrderStatus>() 
+        visibleStates.add(OrderStatus.LIVE)
+        visibleStates.add(OrderStatus.CANCELLED)
+        visibleStates.add(OrderStatus.FILLED)
+        visibleStates.add(OrderStatus.NONE)
 
         this.state = {
             isOpen: false,
@@ -50,7 +52,8 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
             columnWidths: new Array<number>(),
             orders: new Array<OrderView>(10),
             selectedOrders: new Array<Order>(),
-            width: 0
+            width: 0,
+            visibleStates: visibleStates
         }
 
     }
@@ -79,7 +82,7 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >
                     <Table enableRowResizing={false} numRows={this.state.orders.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-                        bodyContextMenuRenderer={this.renderBodyContextMenu} onSelection={this.onSelection} enableColumnReordering={true}
+                        onSelection={this.onSelection} enableColumnReordering={true}
                         onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
                         {this.state.columns}
                     </Table>
@@ -102,21 +105,6 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
         )
     }
 
-    private renderBodyContextMenu = (context: IMenuContext) => {
-
-        // let selectedOrders = Blotter.getSelectedOrdersFromRegions(context.getRegions(), this.state.orders)
-
-        return (
-
-
-
-            <Menu  >
-                <Menu.Item text="Show History">
-                </Menu.Item>
-
-            </Menu>
-        );
-    };
 
 
     private onSelection = (selectedRegions: IRegion[]) => {
@@ -138,16 +126,10 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
 
         let [cols, widths] = getConfiguredColumns(this.getColumns(), config);
 
-        let ordersView = new Array<OrderView>()
+        this.clearOrders()
 
         for (let order of orders) {
-            let view = new OrderView(order)
-            let listing = this.listingService.GetListingImmediate(order.getListingid())
-            if(listing) {
-                view.listing = listing
-            }
-
-            ordersView.push(view)
+            this.addOrUpdateOrder(order)
         }
 
         let state =
@@ -157,7 +139,6 @@ export default class ChildOrderBlotter extends OrderBlotter<ChildOrderProps, Chi
             usePortal: false,
             columns: cols,
             columnWidths: widths,
-            orders: ordersView,
             selectedOrders: new Array<Order>(),
             width: width
         }
