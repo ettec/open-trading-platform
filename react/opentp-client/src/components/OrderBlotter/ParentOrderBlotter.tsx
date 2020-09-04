@@ -18,6 +18,8 @@ import '../TableView/TableCommon.css';
 import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewProperties, TableViewState } from '../TableView/TableView';
 import OrderBlotter, { OrderBlotterState } from './OrderBlotter';
 import { OrderView } from './OrderView';
+import OrderTicket from '../OrderTicket/OrderTicket';
+import { Destinations } from '../../common/destinations';
 
 
 
@@ -241,7 +243,8 @@ export default class ParentOrderBlotter
         <Menu.Item icon="delete" text="Cancel Order" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} >
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item icon="edit" text="Modify Order" onClick={() => this.modifyOrder(cancelleableOrders[0])} disabled={cancelleableOrders.length === 0}>
+        <Menu.Item icon="edit" text="Modify Order" onClick={() => this.modifyOrder(cancelleableOrders[0])} disabled={cancelleableOrders.length !== 1 ||
+        cancelleableOrders[0].getOwnerid() === Destinations.VWAP || cancelleableOrders[0].getOwnerid() === Destinations.SMARTROUTER}>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item icon="fork" text="Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length === 0} >

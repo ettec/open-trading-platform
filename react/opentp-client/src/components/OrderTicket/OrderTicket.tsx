@@ -15,6 +15,7 @@ import Login from '../Login';
 import { GlobalColours } from '../Colours';
 import { Select, ItemRenderer } from '@blueprintjs/select';
 import VwapParamsPanel from './Strategies/VwapParams/VwapParamsPanel';
+import { Destinations } from '../../common/destinations';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -50,7 +51,7 @@ const renderDestination: ItemRenderer<string> = (destination, { handleClick, mod
   );
 };
 
-const DMA = "DMA";
+
 
 export default class OrderTicket extends React.Component<OrderTicketProps, OrderTicketState> implements QuoteListener {
 
@@ -76,7 +77,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       usePortal: true,
       orderToModify: null,
       destinations: new Array<string>(),
-      destination: DMA
+      destination: Destinations.DMA
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -181,7 +182,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
 
       let strategyParamsPanel
-      if( this.state.destination ==="VWAP" ) {
+      if( this.state.destination === Destinations.VWAP ) {
         strategyParamsPanel = <VwapParamsPanel ref={(c) => this.strategyParams = c}/>
       } else {
         this.strategyParams = null
@@ -233,11 +234,11 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
                   }
 
                 }
-              />
+              />  
             </FormGroup>
 
             <Label htmlFor="input-b">Destination</Label>
-            <DestinationSelect items={this.state.destinations}
+            <DestinationSelect items={this.state.destinations} disabled={this.state.orderToModify != null}
               resetOnClose={true}
               onItemSelect={this.handleStrategyChange}
               onQueryChange={this.handleQueryChange}
@@ -279,7 +280,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   handleQueryChange(query: string) {
 
-    let allDestinations = [DMA, "VWAP"]
+    let allDestinations = [Destinations.DMA, Destinations.VWAP]
     let filteredDestinations = new Array<string>()
 
     if (query.length > 0) {
@@ -366,12 +367,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
 
     let destinations = new Array<string>()
-    let destination = DMA
+    let destination = Destinations.DMA
     if (order.getOwnerid() !== newListing.getMarket()?.getMic()) {
       destination = order.getOwnerid()
       destinations.push(order.getOwnerid())
     } else {
-      destinations.push(DMA)
+      destinations.push(Destinations.DMA)
     }
 
 
@@ -453,8 +454,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       quote: existingQuote,
       usePortal: true,
       orderToModify: null,
-      destinations: [DMA, "VWAP"],
-      destination: DMA
+      destinations: [Destinations.DMA, Destinations.VWAP],
+      destination: Destinations.DMA
 
     };
 
