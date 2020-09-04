@@ -28,7 +28,7 @@ export interface OrderBlotterState  {
 export default abstract class OrderBlotter<P extends OrderBlotterProps , S extends OrderBlotterState> extends TableView<P , S>{
 
   private view : OrdersView
-  
+
   constructor(props: P) {
     super(props)
     this.view = new OrdersView( props.listingService, ()=>{this.setState({ ...this.state, orders: this.view.getOrders() })})
@@ -54,6 +54,8 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
     this.view.addOrUpdateOrder(order)
     this.setState({ ...this.state, orders: this.view.getOrders() })
   }
+
+
 
   getColumns() {
     return [<Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
@@ -88,19 +90,46 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
   private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
  
   private renderStatusHeader = (row: number) => {
+
+      let icon = <Icon icon="filter" ></Icon>
+      if( this.state.visibleStates.size !== 4) {
+        icon = <Icon icon="filter-keep" ></Icon>
+      }
+
     
       return <ColumnHeaderCell style={{display: 'flex',  flexDirection: 'row',  alignItems: "left", minWidth:40}} 
       name="Status" 
-      menuRenderer={(index?: number): JSX.Element => {return <Menu><Checkbox checked={this.state.visibleStates.has(OrderStatus.LIVE)}>Live</Checkbox>
-      <Checkbox checked={this.state.visibleStates.has(OrderStatus.FILLED)}>Filled</Checkbox>
-      <Checkbox checked={this.state.visibleStates.has(OrderStatus.CANCELLED)}>Cancelled</Checkbox>
-      <Checkbox checked={this.state.visibleStates.has(OrderStatus.CANCELLED)}>None</Checkbox>
+      menuRenderer={(index?: number): JSX.Element => {
+        return <Menu><Checkbox checked={this.state.visibleStates.has(OrderStatus.LIVE)} onChange={()=>{this.onStatusFilterChange(OrderStatus.LIVE)}}>Live</Checkbox>
+      <Checkbox checked={this.state.visibleStates.has(OrderStatus.FILLED) } onChange={()=>{this.onStatusFilterChange(OrderStatus.FILLED)}}>Filled</Checkbox>
+      <Checkbox checked={this.state.visibleStates.has(OrderStatus.CANCELLED)} onChange={()=>{this.onStatusFilterChange(OrderStatus.CANCELLED)}}>Cancelled</Checkbox>
+      <Checkbox checked={this.state.visibleStates.has(OrderStatus.NONE)} onChange={()=>{this.onStatusFilterChange(OrderStatus.NONE)}}>None</Checkbox>
       </Menu>}} >
-        <Icon icon="filter" ></Icon>
+        {icon}
         </ColumnHeaderCell>    
   }
 
+  handleLiveChange() {
+    let status = OrderStatus.LIVE
+    this.onStatusFilterChange(status);
+  }
 
+ private onStatusFilterChange(status: OrderStatus) {
+  let visibleStates = new Set<OrderStatus>();
+  this.state.visibleStates.forEach((s) => { visibleStates.add(s); });
+
+
+  if (visibleStates.has(status)) {
+    visibleStates.delete(status);
+  }
+  else {
+    visibleStates.add(status);
+  }
+
+  this.view.setFilter((order: Order)=>{return visibleStates.has(order.getStatus())})
+
+  this.setState({ ...this.state, visibleStates: visibleStates, orders: this.view.getOrders() });
+}
   
   private renderAvgPrice = (row: number) => {
     let orderView = Array.from(this.state.orders)[row]
@@ -200,10 +229,6 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
 
     return <Cell style={statusStyle}>{orderView?.targetStatus}</Cell>
   }
-
-
-
-
 
 
   getSelectedOrdersFromRegions(selectedRegions: IRegion[], orders: OrderView[]): Array<Order> {

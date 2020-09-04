@@ -29,10 +29,12 @@ export class OrdersView {
 
   setFilter(f?: (order: Order, index: number, array: Order[]) => boolean) {
     this.filter = f
+    this.view = undefined
   }
 
   setSort(s?: (a: Order, b: Order) => number) {
     this.sort = s
+    this.view = undefined
   }
 
   clear(): void {
