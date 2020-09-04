@@ -3,7 +3,7 @@ module github.com/ettec/open-trading-platform/go/smart-router
 go 1.13
 
 require (
-	github.com/ettec/otp-common v0.0.0-20200819124148-c2e42a9f82d7
+	github.com/ettec/otp-common v0.0.0-20200904145857-868b0ee995e7
 	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1
 	github.com/segmentio/kafka-go v0.3.4

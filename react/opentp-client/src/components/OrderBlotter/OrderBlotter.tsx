@@ -1,15 +1,15 @@
-import { Colors, Menu, MenuItem, Button, Icon, Checkbox } from '@blueprintjs/core';
-import { Cell, Column, IRegion, ColumnHeaderCell } from "@blueprintjs/table";
+import { Checkbox, Colors, Icon, Menu } from '@blueprintjs/core';
+import { Cell, Column, ColumnHeaderCell, IRegion } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
+import ReactCountryFlag from "react-country-flag";
+import { roundToTick } from '../../common/modelutilities';
 import { Order, OrderStatus, Side } from '../../serverapi/order_pb';
+import { ListingService } from '../../services/ListingService';
+import { GlobalColours } from '../Colours';
 import '../TableView/TableCommon.css';
 import TableView, { TableViewProperties } from '../TableView/TableView';
-import { OrderView, OrdersView } from './OrderView';
-import { GlobalColours } from '../Colours';
-import ReactCountryFlag from "react-country-flag"
-import { roundToTick } from '../../common/modelutilities';
-import  { ListingService } from '../../services/ListingService';
+import { OrdersView, OrderView } from './OrderView';
 
 
 export interface OrderBlotterProps extends TableViewProperties {
@@ -52,6 +52,8 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
 
   protected addOrUpdateOrder(order: Order) {
     this.view.addOrUpdateOrder(order)
+    // Set state called twice, the table does not always update immediately unless this is done.
+    this.setState({ ...this.state, orders: this.view.getOrders() })
     this.setState({ ...this.state, orders: this.view.getOrders() })
   }
 
