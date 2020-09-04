@@ -17,7 +17,7 @@ func TestMain(m *testing.M) {
 }
 
 var orderCache *executionvenue.OrderCache
-var orderManager OrderManager
+var om orderManager
 
 func setup() {
 	var err error
@@ -26,13 +26,13 @@ func setup() {
 		panic(err)
 	}
 
-	orderManager = NewOrderManager(orderCache, &TestOrderManager{}, "", func(listingId int32, result chan<- *model.Listing) {
+	om = NewOrderManager(orderCache, &TestOrderManager{}, "", func(listingId int32, result chan<- *model.Listing) {
 		result <- &model.Listing{Id:1}
 	})
 }
 
 func teardown() {
-	defer orderManager.Close()
+	defer om.Close()
 }
 
 func IntToDecimal64(i int) *model.Decimal64 {
@@ -51,7 +51,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		ListingId:   1,
 	}
 
-	id, err := orderManager.CreateAndRouteOrder(params)
+	id, err := om.CreateAndRouteOrder(params)
 	if err != nil {
 		t.Fatalf("Create order call failed %v", err)
 	}
@@ -62,7 +62,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		t.Fatalf("created order not found in store")
 	}
 
-	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
+	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 	testOrder := &model.Order{
 		Version:           1,
@@ -97,11 +97,11 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 		Destination: "XNAS",
 	}
 
-	id, _ := orderManager.CreateAndRouteOrder(params)
+	id, _ := om.CreateAndRouteOrder(params)
 
-	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
+	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
-	err := orderManager.CancelOrder(&api.CancelOrderParams{
+	err := om.CancelOrder(&api.CancelOrderParams{
 		OrderId: id.OrderId,
 		ListingId: listing.Id,
 		OwnerId: "XNAS",
@@ -110,7 +110,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 		t.Fatalf("cancel order call failed: %v", err)
 	}
 
-	orderManager.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
+	om.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
 
 	testOrder := &model.Order{
 		Version:           3,

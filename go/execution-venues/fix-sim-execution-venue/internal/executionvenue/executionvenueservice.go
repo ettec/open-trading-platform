@@ -8,11 +8,21 @@ import (
 	"log"
 )
 
-type ExecVenueService struct {
-	orderManager OrderManager
+type orderManager interface {
+	CancelOrder(id *api.CancelOrderParams) error
+	CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error)
+	ModifyOrder(params *api.ModifyOrderParams) error
+	SetOrderStatus(orderId string, status model.OrderStatus) error
+	SetErrorMsg(orderId string, msg string) error
+	AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64, execId string) error
+	Close()
 }
 
-func New(om OrderManager) *ExecVenueService {
+type ExecVenueService struct {
+	orderManager orderManager
+}
+
+func New(om orderManager) *ExecVenueService {
 	service := ExecVenueService{orderManager: om}
 	return &service
 }

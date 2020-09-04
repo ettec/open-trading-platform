@@ -2,7 +2,6 @@ package fixgateway
 
 import (
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	"github.com/ettec/otp-common/model"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -15,22 +14,23 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
 	"github.com/shopspring/decimal"
 	"log"
+	"os"
 	"strings"
 	"time"
 )
 
-type FixOrderGateway struct {
+type fixOrderGateway struct {
 	sessionID    quickfix.SessionID
 	orderHandler OrderHandler
 }
 
-func NewFixOrderGateway(sessionID quickfix.SessionID) executionvenue.OrderGateway {
-	return &FixOrderGateway{
+func NewFixOrderGateway(sessionID quickfix.SessionID) *fixOrderGateway{
+	return &fixOrderGateway{
 		sessionID: sessionID,
 	}
 }
 
-func (f *FixOrderGateway) Send(order *model.Order, listing *model.Listing) error {
+func (f *fixOrderGateway) Send(order *model.Order, listing *model.Listing) error {
 
 	side, err := getFixSide(order.Side)
 	if err != nil {
@@ -49,7 +49,7 @@ func (f *FixOrderGateway) Send(order *model.Order, listing *model.Listing) error
 	return quickfix.SendToTarget(msg, f.sessionID)
 }
 
-func (f *FixOrderGateway) Modify(order *model.Order, listing *model.Listing, quantity *model.Decimal64, price *model.Decimal64) error {
+func (f *fixOrderGateway) Modify(order *model.Order, listing *model.Listing, quantity *model.Decimal64, price *model.Decimal64) error {
 	side, err := getFixSide(order.Side)
 	if err != nil {
 		return err
@@ -80,7 +80,7 @@ func toReadableString(msg *quickfix.Message) string {
 	return strings.ReplaceAll(msg.String(), "\001", "|")
 }
 
-func (f *FixOrderGateway) Cancel(order *model.Order) error {
+func (f *fixOrderGateway) Cancel(order *model.Order) error {
 
 	side, err := getFixSide(order.Side)
 	if err != nil {
@@ -116,10 +116,13 @@ type fixHandler struct {
 	sessionToHandler map[quickfix.SessionID]OrderHandler
 	inboundRouter    *quickfix.MessageRouter
 	outboundRouter   *quickfix.MessageRouter
+	errLog			 *log.Logger
 }
 
 func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.Application {
-	f := fixHandler{sessionToHandler: make(map[quickfix.SessionID]OrderHandler)}
+	f := fixHandler{sessionToHandler: make(map[quickfix.SessionID]OrderHandler),
+		errLog: log.New(os.Stderr, "error", log.Ltime | log.Lshortfile),
+		}
 
 	f.sessionToHandler[sessionID] = handler
 	f.inboundRouter = quickfix.NewMessageRouter()
@@ -149,7 +152,10 @@ func (f *fixHandler) onOrderCancelReject(msg ordercancelreject.OrderCancelReject
 		return err
 	}
 
-	handler.SetErrorMsg(orderId, errMsg)
+	er := handler.SetErrorMsg(orderId, errMsg)
+	if er != nil {
+		f.errLog.Printf("Failed to set error msg on order %v, message: %v,  error:%v", orderId, errMsg, er)
+	}
 
 	return nil
 }
@@ -225,7 +231,10 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 			return err
 		}
 
-		handler.AddExecution(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty), execId)
+		er := handler.AddExecution(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty), execId)
+		if er != nil {
+			f.errLog.Printf("failed to add execution to order %v, error: %v", orderId, er)
+		}
 	}
 
 	return nil

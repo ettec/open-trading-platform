@@ -158,7 +158,6 @@ func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgate
 
 		<-done
 
-		//for condition == true { do something }
 		defer initiator.Stop()
 	}()
 

@@ -4,20 +4,18 @@ import (
 	"fmt"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
-"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/model"
 	"github.com/google/uuid"
 	"log"
 	"os"
 )
 
-type OrderManager interface {
-	CancelOrder(id *api.CancelOrderParams) error
-	CreateAndRouteOrder(params *api.CreateAndRouteOrderParams) (*api.OrderId, error)
-	ModifyOrder(params *api.ModifyOrderParams) error
-	SetOrderStatus(orderId string, status model.OrderStatus) error
-	SetErrorMsg(orderId string, msg string) error
-	AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64, execId string) error
-	Close()
+
+
+type orderGateway interface {
+	Send(order *model.Order, listing *model.Listing) error
+	Cancel(order *model.Order) error
+	Modify(order *model.Order, listing *model.Listing, Quantity *model.Decimal64, Price *model.Decimal64) error
 }
 
 type orderManagerImpl struct {
@@ -32,20 +30,20 @@ type orderManagerImpl struct {
 
 	execVenueId string
 	orderStore  *executionvenue.OrderCache
-	gateway     OrderGateway
-	getListing func(listingId int32, result chan<- *model.Listing)
+	gateway     orderGateway
+	getListing  func(listingId int32, result chan<- *model.Listing)
 	log         *log.Logger
 	errLog      *log.Logger
 }
 
-func NewOrderManager(cache *executionvenue.OrderCache, gateway OrderGateway,
-	execVenueId string, getListing func(listingId int32, result chan<- *model.Listing)) OrderManager {
+func NewOrderManager(cache *executionvenue.OrderCache, gateway orderGateway,
+	execVenueId string, getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
 
-	om := orderManagerImpl{
+	om := &orderManagerImpl{
 		log:         log.New(os.Stdout, "", log.Lshortfile|log.Ltime),
 		errLog:      log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
 		execVenueId: execVenueId,
-		getListing: getListing,
+		getListing:  getListing,
 	}
 
 	om.createOrderChan = make(chan createAndRouteOrderCmd, 100)
@@ -62,7 +60,7 @@ func NewOrderManager(cache *executionvenue.OrderCache, gateway OrderGateway,
 
 	go om.executeOrderCommands()
 
-	return &om
+	return om
 }
 
 func (om *orderManagerImpl) executeOrderCommands() {
@@ -285,7 +283,7 @@ func (om *orderManagerImpl) executeModifyOrderCmd(params *api.ModifyOrderParams,
 		return
 	}
 
-	listingChan := make(chan *model.Listing,1)
+	listingChan := make(chan *model.Listing, 1)
 	om.getListing(params.ListingId, listingChan)
 	listing := <-listingChan
 
@@ -336,7 +334,10 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 		params.Price, params.ListingId, params.OriginatorId, params.OriginatorRef,
 		params.RootOriginatorId, params.RootOriginatorRef)
 
-	order.SetTargetStatus(model.OrderStatus_LIVE)
+	err = order.SetTargetStatus(model.OrderStatus_LIVE)
+	if err != nil {
+		om.errLog.Printf("failed to set target status;%v", err)
+	}
 
 	err = om.orderStore.Store(order)
 	if err != nil {
@@ -348,7 +349,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 		return
 	}
 
-	listingChan := make(chan *model.Listing,1)
+	listingChan := make(chan *model.Listing, 1)
 	om.getListing(params.ListingId, listingChan)
 
 	listing := <-listingChan
