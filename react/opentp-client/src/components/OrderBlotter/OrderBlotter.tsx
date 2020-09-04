@@ -91,12 +91,14 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
  
   private renderStatusHeader = (row: number) => {
 
-      let icon = <Icon icon="filter" ></Icon>
+      let icon = <Icon icon="filter" iconSize={12}></Icon>
       if( this.state.visibleStates.size !== 4) {
-        icon = <Icon icon="filter-keep" ></Icon>
+        icon = <Icon icon="filter-keep" iconSize={12}></Icon>
       }
 
     
+
+
       return <ColumnHeaderCell style={{display: 'flex',  flexDirection: 'row',  alignItems: "left", minWidth:40}} 
       name="Status" 
       menuRenderer={(index?: number): JSX.Element => {
@@ -106,7 +108,7 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
       <Checkbox checked={this.state.visibleStates.has(OrderStatus.NONE)} onChange={()=>{this.onStatusFilterChange(OrderStatus.NONE)}}>None</Checkbox>
       </Menu>}} >
         {icon}
-        </ColumnHeaderCell>    
+      </ColumnHeaderCell>    
   }
 
   handleLiveChange() {
