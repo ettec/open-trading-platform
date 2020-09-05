@@ -1,6 +1,10 @@
 package com.ettech.fixmarketsimulator;
 
+import com.ettech.fixmarketsimulator.bookbuilder.BooksBuilder;
+import com.ettech.fixmarketsimulator.exchange.Exchange;
 import com.ettech.fixmarketsimulator.exchange.ExchangeSimulatorGuiceModule;
+import com.ettech.fixmarketsimulator.exchange.OrderBook;
+import com.ettech.fixmarketsimulator.exchange.impl.ExchangeImpl;
 import com.ettech.fixmarketsimulator.fix.ApplicationImpl;
 import com.ettech.fixmarketsimulator.marketdataserver.MarketDataService;
 import com.ettech.fixmarketsimulator.orderentryserver.OrderEntryService;
@@ -37,6 +41,8 @@ public class App {
 
     static MarketDataService marketDataServer;
     static OrderEntryService orderEntryServer;
+    static BooksBuilder booksBuilder;
+    static Exchange exchange;
 
 
     private static int fixServerPort = 9876;
@@ -63,13 +69,12 @@ public class App {
     public static void main(String[] args) {
         int port = 8501;
 
-
-
         log.info("Starting api server on port:" + port);
         log.info("Starting fix server on port:" + fixServerPort);
 
-        exchangeSimulatorInjector = Guice.createInjector(new ExchangeSimulatorGuiceModule());
+        exchange = new ExchangeImpl();
 
+        exchangeSimulatorInjector = Guice.createInjector(new ExchangeSimulatorGuiceModule(exchange));
 
         Server server = new Server(port);
 
@@ -130,6 +135,12 @@ public class App {
             log.error("Failed to start orderEntryServer", e);
         }
 
+        try {
+            booksBuilder = new BooksBuilder(exchange, "./resource/depth.json", "MSFT,SPY",
+                    5, 1000, 0.9, 0.005, 2, 0.1, 10);
+        } catch (Exception e) {
+            throw new RuntimeException("failed to create book builder", e);
+        }
 
         Acceptor acceptor = null;
         try {

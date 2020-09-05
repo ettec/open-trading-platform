@@ -5,10 +5,13 @@ import com.google.inject.AbstractModule;
 
 public class ExchangeSimulatorGuiceModule extends AbstractModule {
 
+    Exchange exchange;
+    public ExchangeSimulatorGuiceModule(Exchange exchange) {
+        this.exchange = exchange;
+    }
+
     @Override
     protected void configure() {
-
-        bind(Exchange.class).to( ExchangeImpl.class).asEagerSingleton();
-
+        bind(Exchange.class).toInstance( this.exchange );
     }
 }
