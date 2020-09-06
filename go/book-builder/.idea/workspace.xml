@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6373d2bb-32db-4d0c-9ef4-e317a81b79b2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/book-builder-strategy.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/go_build_service_go.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../execution-venues/fix-sim-execution-venue/fix-sim-execution-venue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/fixmarketsimulator/fixlog/FIXT.1.1-EXEC-BANZAI.event.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/fixmarketsimulator/fixlog/FIXT.1.1-EXEC-BANZAI.event.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/fixmarketsimulator/src/main/java/com/ettech/fixmarketsimulator/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/fixmarketsimulator/src/main/java/com/ettech/fixmarketsimulator/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/fixmarketsimulator/src/main/java/com/ettech/fixmarketsimulator/api/ExchangeSimulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/fixmarketsimulator/src/main/java/com/ettech/fixmarketsimulator/api/ExchangeSimulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/fixmarketsimulator/src/main/java/com/ettech/fixmarketsimulator/bookbuilder/BooksBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/fixmarketsimulator/src/main/java/com/ettech/fixmarketsimulator/bookbuilder/BooksBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../react/opentp-client/src/components/MarketDepth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../react/opentp-client/src/components/MarketDepth.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

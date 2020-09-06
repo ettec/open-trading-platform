@@ -44,15 +44,15 @@ public class App {
     static BooksBuilder booksBuilder;
     static Exchange exchange;
 
+    private static int fixServerPort;
 
-    private static int fixServerPort = 9876;
-
+    static {
+        fixServerPort = Integer.parseInt(getSysEnvVal("FIX_SERVER_PORT", "9876"));
+    }
 
     private static String fixConfig =
             "[default]\n" +
-                    // "FileStorePath=/usr/share/cnoms/fixmarketsimulator\n" +
                     "FileStorePath=" + System.getenv("FIX_FILE_STORE_PATH") + "\n" +
-                    //"FileStorePath=./fixlog\n" +
                     "SocketAcceptPort=" + fixServerPort + "\n" +
                     "BeginString= FIXT.1.1\n" +
                     "DefaultApplVerID= FIX.5.0SP2\n" +
@@ -66,17 +66,18 @@ public class App {
                     "EndTime=00:00:00";
 
 
-    public static void main(String[] args) {
-        int port = 8501;
 
-        log.info("Starting api server on port:" + port);
-        log.info("Starting fix server on port:" + fixServerPort);
+    public static void main(String[] args) {
+        int restApiPort  = Integer.parseInt(getSysEnvVal("REST_API_PORT", "8501"));;
+
+        log.info("Starting rest server on restApiPort:" + restApiPort);
+        log.info("Starting fix server on restApiPort:" + fixServerPort);
 
         exchange = new ExchangeImpl();
 
         exchangeSimulatorInjector = Guice.createInjector(new ExchangeSimulatorGuiceModule(exchange));
 
-        Server server = new Server(port);
+        Server server = new Server(restApiPort);
 
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
@@ -136,8 +137,17 @@ public class App {
         }
 
         try {
-            booksBuilder = new BooksBuilder(exchange, "./resource/depth.json", "MSFT,SPY",
-                    5, 1000, 0.9, 0.005, 2, 0.1, 10);
+
+            booksBuilder = new BooksBuilder(exchange, getSysEnvVal("BB_DEPTH_PATH","./resource/depth.json"),
+                    getSysEnvVal("BB_SYMS_TO_RUN","MSFT,SPY"),
+                    Integer.parseInt(getSysEnvVal( "BB_NUM_EXEC_THREADS","5")),
+                    Integer.parseInt(getSysEnvVal( "BB_UPDATE_INTERVAL_MS","1000")),
+                    Double.parseDouble(getSysEnvVal("BB_MIN_QTY","0.9")),
+                    Double.parseDouble(getSysEnvVal( "BB_VARIATION", "0.005")),
+                    Integer.parseInt(getSysEnvVal("BB_TICK_SCALE","2")),
+                    Double.parseDouble(getSysEnvVal( "BB_TRADE_PROBABILITY" ,"0.2")),
+                    Integer.parseInt(getSysEnvVal( "BB_MAX_DEPTH","10")),
+                    Double.parseDouble(getSysEnvVal( "BB_CANCEL_PROBABILITY","0.2")));
         } catch (Exception e) {
             throw new RuntimeException("failed to create book builder", e);
         }
@@ -175,5 +185,14 @@ public class App {
 
             server.destroy();
         }
+    }
+
+    public static String getSysEnvVal(String key, String defaultVal) {
+        var val = System.getenv(key);
+        if( val == null) {
+            return defaultVal;
+        }
+
+        return val;
     }
 }

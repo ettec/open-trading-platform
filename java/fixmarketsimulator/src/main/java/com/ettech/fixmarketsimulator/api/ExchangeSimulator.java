@@ -33,12 +33,12 @@ public class ExchangeSimulator {
 
         var result = "Bids\n";
         for(var bid : buys) {
-            result+=bid.getRemainingQty() + "@" + bid.getPrice() +"\n";
+            result+=bid.getRemainingQty() + "@" + bid.getPrice() + "\t" + bid.getClOrdId() +"\n";
         }
         result += "\nAsks\n";
 
         for(var sell : sells) {
-            result += sell.getRemainingQty() + "@" + sell.getPrice() + "\n";
+            result += sell.getRemainingQty() + "@" + sell.getPrice() + "\t" + sell.getClOrdId() + "\n";
         }
 
         return result;

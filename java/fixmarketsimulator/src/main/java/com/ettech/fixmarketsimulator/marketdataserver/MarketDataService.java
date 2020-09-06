@@ -1,5 +1,6 @@
 package com.ettech.fixmarketsimulator.marketdataserver;
 
+import com.ettech.fixmarketsimulator.App;
 import com.ettech.fixmarketsimulator.exchange.Exchange;
 import com.ettech.fixmarketsimulator.marketdataserver.api.FixSimMarketDataServiceGrpc;
 import com.google.inject.Inject;
@@ -20,17 +21,18 @@ public class MarketDataService {
 
     private Exchange exchange;
 
+    private int port;
+
     @Inject
     public MarketDataService(Exchange exchange) throws Exception {
         this.exchange = exchange;
-
+        this.port = Integer.parseInt(App.getSysEnvVal("MARKET_DATA_SERVER_PORT", "50051"));;
     }
 
     private Server server;
 
     public void start() throws IOException {
         /* The port on which the server should run */
-        int port = 50051;
         server = ServerBuilder.forPort(port)
 
                 .addService(ServerInterceptors.intercept(new MarketDataServiceImpl(this.exchange),

@@ -2,6 +2,7 @@ package com.ettech.fixmarketsimulator.bookbuilder;
 
 import com.ettech.fixmarketsimulator.exchange.Exchange;
 import com.ettech.fixmarketsimulator.exchange.OrderBook;
+import com.ettech.fixmarketsimulator.exchange.OrderDeletionException;
 import com.ettech.fixmarketsimulator.exchange.Side;
 import com.google.gson.Gson;
 
@@ -21,9 +22,11 @@ public class BooksBuilder {
     private ScheduledThreadPoolExecutor executor;
 
     private List<BookBuilder> builders = new ArrayList<>();
+
     public BooksBuilder(Exchange exchange, String depthDataPath, String symbolsToRunStr, int numExecutorThreads,
                         long updateInterval,
-                        double minQty, double variation, int tickScale, double tradeProbability, int maxDepth) throws Exception {
+                        double minQty, double variation, int tickScale, double tradeProbability, int maxDepth,
+                        double cancelProbability) throws Exception {
         this.exchange = exchange;
 
         FileReader fr = new FileReader(depthDataPath);
@@ -44,55 +47,100 @@ public class BooksBuilder {
 
         symsToRun.forEach(s->{
             builders.add(new BookBuilder(exchange.getOrderBook(s), symToDepth.get(s), executor,
-                    updateInterval, minQty, variation, tickScale, tradeProbability, maxDepth));
+                    updateInterval, minQty, variation, tickScale, tradeProbability, maxDepth,
+                    cancelProbability));
         });
 
     }
 
-    static class BookBuilder {
-        BookBuilder(OrderBook book, Depth initialDepth, ScheduledThreadPoolExecutor se, long updateInterval,
-                    double minQty, double variation, int tickScale, double tradeProbability, int maxDepth) {
 
+    static class BookBuilder {
+
+        private static final String BOOK_BUILDER_ORDERID_PREPEND = "BOOKBUILDER:";
+
+        BookBuilder(OrderBook book, Depth initialDepth, ScheduledThreadPoolExecutor se, long updateInterval,
+                    double minQty, double variation, int tickScale, double tradeProbability, int maxDepth,
+                    double cancelProbability) {
 
             initialDepth.bids.forEach(b->{
                 var price = new BigDecimal( b.price).setScale(tickScale,RoundingMode.HALF_EVEN);
-                book.addOrder(Side.Buy, b.size, price, UUID.randomUUID().toString());
+                book.addOrder(Side.Buy, b.size, price, newOrderId());
             });
             initialDepth.asks.forEach(b->{
                 var price = new BigDecimal( b.price).setScale(tickScale,RoundingMode.HALF_EVEN);
-                book.addOrder(Side.Sell, b.size,  price, UUID.randomUUID().toString());
+                book.addOrder(Side.Sell, b.size,  price, newOrderId());
             });
 
             int totalBidQty = initialDepth.bids.stream().mapToInt(b->b.size).sum();
             int totalAskQty = initialDepth.asks.stream().mapToInt(b->b.size).sum();
 
             se.scheduleAtFixedRate(()->{
+                try {
 
-                // Update based on qty
-                updateBookQty(book, minQty, variation, tickScale, totalBidQty, book.getBuyOrders(), initialDepth.bids,
-                        Side.Buy, maxDepth);
-                updateBookQty(book, minQty, variation, tickScale, totalAskQty, book.getSellOrders(), initialDepth.asks,
-                        Side.Sell, maxDepth);
+                    // Update based on qty
+                    updateBookQty(book, minQty, variation, tickScale, totalBidQty, book.getBuyOrders(), initialDepth.bids,
+                            Side.Buy, maxDepth);
+                    updateBookQty(book, minQty, variation, tickScale, totalAskQty, book.getSellOrders(), initialDepth.asks,
+                            Side.Sell, maxDepth);
 
-                // Update based on trade probability
-                if (Math.random() < tradeProbability) {
-                    hitTopOfBook(book, book.getSellOrders(), Side.Buy, tickScale);
+                    // Update based on trade probability
+                    if (Math.random() < tradeProbability) {
+                        hitTopOfBook(book, book.getSellOrders(), Side.Buy);
+                    }
+
+                    if (Math.random() < tradeProbability) {
+                        hitTopOfBook(book, book.getBuyOrders(), Side.Sell);
+                    }
+
+                    if (Math.random() < cancelProbability) {
+                        cancelOrder(book, book.getSellOrders());
+                    }
+
+                    if (Math.random() < cancelProbability) {
+                        cancelOrder(book, book.getBuyOrders());
+                    }
+                } catch( Exception e) {
+                    logger.severe("Exception in book builder" + e);
                 }
 
-                if (Math.random() < tradeProbability) {
-                    hitTopOfBook(book, book.getBuyOrders(), Side.Sell, tickScale);
-                }
 
             }, updateInterval, updateInterval, TimeUnit.MILLISECONDS);
         }
 
-        private void hitTopOfBook(OrderBook book, com.ettech.fixmarketsimulator.exchange.Order[] orders, Side side,
-                                  int tickScale) {
-            if (orders.length > 0) {
-                var bestOpp = orders[0];
 
-                var price = bestOpp.getPrice().setScale(tickScale);
-                book.addOrder(side, (int) bestOpp.getRemainingQty(), price, UUID.randomUUID().toString());
+        private String newOrderId() {
+            return BOOK_BUILDER_ORDERID_PREPEND  + UUID.randomUUID().toString();
+        }
+
+        private void cancelOrder(OrderBook book, com.ettech.fixmarketsimulator.exchange.Order[] orders) {
+            if(orders.length > 0) {
+                int idx = (int) Math.round((orders.length - 1) * Math.random());
+                var order = orders[idx];
+                if (order.getClOrdId().startsWith(BOOK_BUILDER_ORDERID_PREPEND)) {
+                    try {
+                        book.deleteOrder(order.getOrderId());
+                    } catch (OrderDeletionException e) {
+                        logger.info("failed to delete order: " + e);
+                    }
+                }
+            }
+        }
+
+        private void hitTopOfBook(OrderBook book, com.ettech.fixmarketsimulator.exchange.Order[] orders, Side side) {
+            if (orders.length > 0) {
+                int numOrders = (int) (orders.length * 0.5 * Math.random());
+
+                long qty=0;
+                BigDecimal price = new BigDecimal(0);
+                for( int i=0; i < numOrders; i++) {
+                     qty += Math.round(orders[i].getRemainingQty());
+                    price = orders[i].getPrice();
+                }
+
+                if( qty > 0 ) {
+                    book.addOrder(side, (int) qty, price, newOrderId());
+                }
+
             }
         }
 
@@ -110,7 +158,7 @@ public class BooksBuilder {
                 var bdPrice = new BigDecimal(price);
                 bdPrice = bdPrice.setScale(tickScale, RoundingMode.HALF_EVEN);
 
-                book.addOrder(side, qty, bdPrice, UUID.randomUUID().toString() );
+                book.addOrder(side, qty, bdPrice, newOrderId() );
             }
         }
     }

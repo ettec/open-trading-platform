@@ -136,6 +136,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
       }
     }
 
+    // Blueprint Table component requires state setting twice to ensure update is applied
     this.setState(state)
     this.setState(state)
   }
@@ -162,7 +163,9 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
       }
     }
 
-    this.setState(state);    
+    // Blueprint Table component requires state setting twice to ensure update is applied
+    this.setState(state);
+    this.setState(state);        
   }
 
   toggleLock(): void {
