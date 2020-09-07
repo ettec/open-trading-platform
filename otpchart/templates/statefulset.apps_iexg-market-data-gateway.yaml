@@ -43,7 +43,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: localhost:32000/market-data-gateway-fixsim
+        image: {{ .Values.dockerRepo }}market-data-gateway-fixsim{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: iexg-market-data-gateway
         ports:
