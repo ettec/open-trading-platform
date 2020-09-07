@@ -21,22 +21,15 @@ import (
 	"time"
 )
 
-const (
-	ServiceIdKey        = "SERVICE_ID"
-	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
-	External            = "EXTERNAL"
-)
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
-	id := bootstrap.GetOptionalEnvVar(ServiceIdKey, "quoteaggregator")
-
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
-
-	external := bootstrap.GetOptionalBoolEnvVar(External, false)
+	id := bootstrap.GetEnvVar("GATEWAY_ID")
+	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
+	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)

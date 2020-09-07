@@ -1,11 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xnas-market-data-gateway
+  labels:
+    app: xnas-market-data-gateway
+spec:
+  ports:
+  - port: 50551
+    name: api
+  clusterIP: None
+  selector:
+    app: xnas-market-data-gateway
+---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: xnas-market-data-gateway
   name: xnas-market-data-gateway
 spec:
-  replicas: 1
+  serviceName: "xnas-market-data-gateway"
+  replicas: 2
   selector:
     matchLabels:
       app: xnas-market-data-gateway
@@ -17,16 +32,21 @@ spec:
       creationTimestamp: null
       labels:
         app: xnas-market-data-gateway
+        servicetype: market-data-gateway
+        mic: XNAS
     spec:
       containers:
       - env:
         - name: FIX_SIM_ADDRESS
           value: xnassimulator:50051
         - name: GATEWAY_ID
-          value: fixsimgateway
-        - name: STATIC_DATA_SERVICE_ADDRESS
-          value: static-data-service:50551
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         image: {{ .Values.dockerRepo }}market-data-gateway-fixsim{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xnas-market-data-gateway
+        ports:
+        - containerPort: 50551 
+          name: api 
 
