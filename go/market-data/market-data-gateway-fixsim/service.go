@@ -49,12 +49,6 @@ func newService(id string, fixSimAddress string, maxReconnectInterval time.Durat
 	return s, nil
 }
 
-const (
-	GatewayIdKey        = "GATEWAY_ID"
-	FixSimAddress       = "FIX_SIM_ADDRESS"
-	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
-)
-
 var maxSubscriptions = 10000
 
 func main() {
@@ -63,9 +57,9 @@ func main() {
 	fmt.Println("Starting Market Data Gateway on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
-	id := bootstrap.GetEnvVar(GatewayIdKey)
-	fixSimAddress := bootstrap.GetEnvVar(FixSimAddress)
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
+	id := bootstrap.GetEnvVar("GATEWAY_ID")
+	fixSimAddress := bootstrap.GetEnvVar("FIX_SIM_ADDRESS")
+	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)

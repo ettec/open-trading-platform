@@ -19,6 +19,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -33,7 +34,7 @@ var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
 })
 
 type service struct {
-	micToSource map[string]*marketdatasource.MdsConnection
+	micToSources map[string][]*marketdatasource.MdsConnection
 }
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
@@ -41,8 +42,12 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 	log.Printf("Subscribe request, subscribed id: %v, listing id:%v", r.SubscriberId, r.Listing.Id)
 
 	mic := r.Listing.Market.Mic
-	if source, ok := s.micToSource[mic]; ok {
-		if conn, ok := source.GetConnection(r.SubscriberId); ok {
+	if sources, ok := s.micToSources[mic]; ok {
+
+		numGateways := int32(len(sources))
+		idx := r.Listing.Id - (r.Listing.Id/numGateways)*numGateways
+
+		if conn, ok := sources[idx].GetConnection(r.SubscriberId); ok {
 
 			if err := conn.Subscribe(r.Listing.Id); err != nil {
 				return nil, err
@@ -67,9 +72,12 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	out := make(chan *model.ClobQuote, 100)
 
-	for mic, gateway := range s.micToSource {
-		gateway.AddConnection(subscriberId, out)
-		log.Printf("connected subscriber %v to market data source for mic %v", subscriberId, mic)
+	for mic, gateways := range s.micToSources {
+
+		for _, gateway := range gateways {
+			gateway.AddConnection(subscriberId, out)
+		}
+		log.Printf("connected subscriber %v to %v market data sources for mic %v", subscriberId, len(gateways), mic)
 	}
 
 	connections.Inc()
@@ -111,13 +119,13 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
 
-	mdService := service{micToSource: map[string]*marketdatasource.MdsConnection{}}
+	mdService := service{micToSources: map[string][]*marketdatasource.MdsConnection{}}
 
 	clientSet := k8s.GetK8sClientSet(external)
 
 	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
-		LabelSelector: "app=market-data-source",
+	list, err := clientSet.CoreV1().Pods(namespace).List(v1.ListOptions{
+		LabelSelector: "servicetype=market-data-gateway",
 	})
 
 	if err != nil {
@@ -126,28 +134,34 @@ func main() {
 
 	log.Printf("found %v market data sources", len(list.Items))
 
-	for _, service := range list.Items {
+	for _, pod := range list.Items {
 		const micLabel = "mic"
-		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring market data source as it does not have a mic label, service: %v", service)
+		if _, ok := pod.Labels[micLabel]; !ok {
+			errLog.Printf("ignoring market data source as it does not have a mic label, pod: %v", pod)
 			continue
 		}
 
-		mic := service.Labels[micLabel]
+		mic := pod.Labels[micLabel]
 
 		var podPort int32
-		for _, port := range service.Spec.Ports {
+		for _, port := range pod.Spec.Containers[0].Ports {
 			if port.Name == "api" {
-				podPort = port.Port
+				podPort = port.ContainerPort
 			}
 		}
 
 		if podPort == 0 {
-			log.Printf("ignoring market data service as it does not have a port named api, service: %v", service)
+			log.Printf("ignoring market data pod as it does not have a port named api, pod: %v", pod)
 			continue
 		}
 
-		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
+
+		idx := strings.LastIndex(pod.Name, "-")
+		r := []rune(pod.Name)
+		serviceName := string( r[0:idx])
+		//podId := string(r[idx+1:len(p)])
+
+		targetAddress := pod.Name + "." + serviceName + ":" + strconv.Itoa(int(podPort))
 
 		client, err := marketdatasource.NewMdsConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
 			maxSubscriptions)
@@ -156,9 +170,9 @@ func main() {
 			continue
 		}
 
-		mdService.micToSource[mic] = client
+		mdService.micToSources[mic] = append(mdService.micToSources[mic], client)
 
-		log.Printf("added market data source for mic: %v, service name: %v, target address: %v", mic, service.Name, targetAddress)
+		log.Printf("added market data source for mic: %v, pod name: %v, target address: %v", mic, pod.Name, targetAddress)
 	}
 
 	port := "50551"
@@ -169,9 +183,6 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	if err != nil {
-		log.Panicf("failed to create market data service:%v", err)
-	}
 
 	api.RegisterMarketDataServiceServer(s, &mdService)
 
