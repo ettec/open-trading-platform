@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/model"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/marketdatasource"
 	"github.com/prometheus/client_golang/prometheus"

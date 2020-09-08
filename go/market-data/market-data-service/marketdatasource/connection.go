@@ -1,9 +1,8 @@
 package marketdatasource
 
 import (
-	marketdata "github.com/ettec/otp-mdcommon"
-	"github.com/ettec/otp-mdcommon/quotestream"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/marketdata"
+	"github.com/ettec/otp-common/model"
 	"log"
 	"sync"
 	"time"
@@ -20,7 +19,7 @@ type MdsConnection struct {
 func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
 	maxSubscriptions int) (*MdsConnection, error) {
 
-	stream, err := quotestream.NewMdsQuoteStream(id, marketGatewayAddress, maxReconnectInterval, 1000)
+	stream, err := marketdata.NewMdsQuoteStream(id, marketGatewayAddress, maxReconnectInterval, 1000)
 
 	if err != nil {
 		return nil, err
