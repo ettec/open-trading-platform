@@ -2,8 +2,8 @@ package fixsim
 
 import (
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
+	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
-	"github.com/ettec/otp-model"
 	"log"
 	"os"
 )
@@ -96,7 +96,7 @@ func NewFixSimAdapter(
 						}
 					}
 				} else {
-					for id, _ := range n.idToQuote {
+					for id := range n.idToQuote {
 						emptyQuote := newClobQuote(id)
 						emptyQuote.StreamInterrupted = true
 						emptyQuote.StreamStatusMsg = "fix sim adapter stream interrupted"
