@@ -1,13 +1,11 @@
 package main
 
 import (
+	"github.com/ettec/open-trading-platform/go/market-data/quote-aggregator/quoteaggregator"
 	"github.com/ettec/otp-common/api/marketdatasource"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
-	marketdata "github.com/ettec/otp-mdcommon"
-	"github.com/ettec/otp-mdcommon/quotestream"
-
-	"github.com/ettec/open-trading-platform/go/market-data/quote-aggregator/quoteaggregator"
+	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
@@ -20,7 +18,6 @@ import (
 	"strconv"
 	"time"
 )
-
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
@@ -77,7 +74,7 @@ func main() {
 		log.Printf("found market data source for mic: %v, marketDataSource name: %v, target address: %v", mic, service.Name, targetAddress)
 	}
 
-	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, quotestream.GrpcConnection, error) {
+	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
 		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(time.Duration(connectRetrySecs)*time.Second))
 		if err != nil {
 			return nil, nil, err
@@ -105,9 +102,6 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	if err != nil {
-		log.Panicf("failed to create market data marketDataSource:%v", err)
-	}
 
 	marketdatasource.RegisterMarketDataSourceServer(s, mdSource)
 

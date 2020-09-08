@@ -1,13 +1,12 @@
 package quoteaggregator
 
 import (
-	marketdata "github.com/ettec/otp-mdcommon"
-	"github.com/ettec/otp-mdcommon/quotestream"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/marketdata"
+	"github.com/ettec/otp-common/model"
 	"log"
 )
 
-const QuoteAggregatorMic = "XOSR"
+const Mic = "XOSR"
 
 type quoteAggregator struct {
 	getListings     getListingsWithSameInstrument
@@ -27,7 +26,7 @@ func (q quoteAggregator) Close() {
 type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
 func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument, micToMdsAddress map[string]string,
-	bufferSize int, mdsClientFn quotestream.GetMdsClientFn) *quoteAggregator {
+	bufferSize int, mdsClientFn marketdata.GetMdsClientFn) *quoteAggregator {
 
 	qa := &quoteAggregator{
 		getListings:     getListingsWithSameInstrument,
@@ -41,7 +40,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 	quoteStreamsOut := make(chan *model.ClobQuote, bufferSize)
 
 	for mic, targetAddress := range micToMdsAddress {
-		stream, err := quotestream.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)
+		stream, err := marketdata.NewMdsQuoteStreamFromFn(id, targetAddress, quoteStreamsOut, mdsClientFn)
 		if err != nil {
 			log.Panicf("failed to created quote stream for mic %v, targetAddress %v. Error:%v", mic, targetAddress, err)
 		}
@@ -60,7 +59,7 @@ func New(id string, getListingsWithSameInstrument getListingsWithSameInstrument,
 				numStreams := 0
 				var quoteAggListingId int32 = -1
 				for _, listing := range listings {
-					if listing.Market.Mic != QuoteAggregatorMic {
+					if listing.Market.Mic != Mic {
 						listingIdToQuoteChan[listing.Id] = quoteChan
 						if stream, ok := micToStream[listing.Market.Mic]; ok {
 							stream.Subscribe(listing.Id)
