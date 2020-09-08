@@ -7,12 +7,12 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - name: apI 
+  - name: api 
     port: 50551
     protocol: TCP
     targetPort: 50551
   selector:
     app: market-data-service
-  sessionAffinity: None
+  sessionAffinity: ClientIP
   type: NodePort
 
