@@ -7,7 +7,8 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 50551
+  - name: apI 
+    port: 50551
     protocol: TCP
     targetPort: 50551
   selector:

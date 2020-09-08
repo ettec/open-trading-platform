@@ -34,6 +34,8 @@ github.com/emicklei/go-restful v0.0.0-20170410110728-ff4f55a20633/go.mod h1:otzb
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/ettec/otp-common v0.0.0-20200819124148-c2e42a9f82d7/go.mod h1:4kOtxeWP64eB7q8lO/IWnXwf3o3LMOryAhzIqsJlh9Y=
+github.com/ettec/otp-common v0.0.0-20200908150820-4a7789f5b157 h1:6aPx/OuA7Sv2ZkRIbzC+FeQM+7oFVyGSj0UXOtYtIHw=
+github.com/ettec/otp-common v0.0.0-20200908150820-4a7789f5b157/go.mod h1:r0yxpfd7LMhLAA5ZgT9j0ZsliD8vecYFNgThDxuenxk=
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=

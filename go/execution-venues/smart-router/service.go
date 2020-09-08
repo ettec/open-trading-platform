@@ -11,7 +11,6 @@ import (
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettec/otp-common/strategy"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/ettec/otp-common/bootstrap"
@@ -20,7 +19,6 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
 	"strings"
@@ -48,45 +46,19 @@ func main() {
 		log.Fatalf("failed to create static data source:%v", err)
 	}
 
-	clientSet := k8s.GetK8sClientSet(false)
-
-	namespace := "default"
-	xosrServiceLabelSelector := "app=market-data-source,mic=" + common.SR_MIC
-	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
-		LabelSelector: xosrServiceLabelSelector,
-	})
-
+	mdsAddress, err := k8s.GetServiceAddress("market-data-service")
 	if err != nil {
 		panic(err)
 	}
 
-	if len(list.Items) != 1 {
-		log.Panicf("no service found for selector: %v", xosrServiceLabelSelector)
-	}
-
-	service := list.Items[0]
-
-	var podPort int32
-	for _, port := range service.Spec.Ports {
-		if port.Name == "api" {
-			podPort = port.Port
-		}
-	}
-
-	if podPort == 0 {
-		log.Panic("aggregate quote source does not have an 'api' port")
-	}
-
-	targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, targetAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, mdsAddress, maxConnectRetry, 1000)
 	if err != nil {
 		panic(err)
 	}
 
 	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
 
-	orderRouter, err := strategy.GetOrderRouter(clientSet, maxConnectRetry)
+	orderRouter, err := strategy.GetOrderRouter(k8s.GetK8sClientSet(false), maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
