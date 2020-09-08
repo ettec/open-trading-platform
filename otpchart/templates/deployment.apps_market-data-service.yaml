@@ -5,7 +5,7 @@ metadata:
     app: market-data-service
   name: market-data-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: market-data-service
@@ -25,10 +25,11 @@ spec:
     spec:
       containers:
       - env:
-        - name: SERVICE_ID
-          value: mds
-        - name: GATEWAY_ADDRESS
-          value: market-data-gateway:50551
+        - name: GATEWAY_ID
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
         image: {{ .Values.dockerRepo }}market-data-service{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: market-data-service

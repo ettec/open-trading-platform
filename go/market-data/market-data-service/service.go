@@ -110,7 +110,7 @@ var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
-	id := bootstrap.GetOptionalEnvVar(ServiceIdKey, "MarketDataService")
+	id := bootstrap.GetEnvVar("MDS_ID")
 
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
 
