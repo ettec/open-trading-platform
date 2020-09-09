@@ -2,11 +2,8 @@ package quoteaggregator
 
 import (
 	"context"
-	"fmt"
 	"github.com/ettec/otp-common/api/marketdatasource"
-	"github.com/ettec/otp-mdcommon/quotestream"
-
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/metadata"
@@ -14,12 +11,36 @@ import (
 	"testing"
 )
 
+
+type testMdsQuoteStream struct {
+	subscribeChan  chan int32
+	refreshChan chan *model.ClobQuote
+}
+
+func newTestQuoteStream() *testMdsQuoteStream {
+	s := &testMdsQuoteStream{}
+	s.subscribeChan=  make(chan int32, 10)
+	s.refreshChan= make(chan *model.ClobQuote)
+	return s
+}
+
+func(s *testMdsQuoteStream) Subscribe(listingId int32) {
+	s.subscribeChan <- listingId
+}
+
+func(s *testMdsQuoteStream) GetStream() <-chan *model.ClobQuote {
+	return s.refreshChan
+}
+
+func(s *testMdsQuoteStream)Close() {}
+
+
+
 func Test_quoteAggregator(t *testing.T) {
 
-	iexgClient, iexgStream, iexgConnection := setup(t)
-	xnasClient, xnasStream, xnasConnection := setup(t)
+	mdsqs := newTestQuoteStream()
 
-	qa := New("test", func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+	qa := New( func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
 		if listingId == 1 {
 			listingGroupsIn <- []*model.Listing{{
 				Version: 0,
@@ -39,38 +60,24 @@ func Test_quoteAggregator(t *testing.T) {
 			}
 		}
 
-	}, map[string]string{"IEXG": "IEXG", "XNAS": "XNAS"}, 0, func(targetAddress string) (marketdatasource.MarketDataSourceClient, quotestream.GrpcConnection, error) {
+	}, mdsqs)
 
-		if targetAddress == "IEXG" {
-			return iexgClient, iexgConnection, nil
-		}
-
-		if targetAddress == "XNAS" {
-			return xnasClient, xnasConnection, nil
-		}
-		return nil, nil, fmt.Errorf("target address not supported:%v", targetAddress)
-	})
-
-	iexgConnection.getStateChan <- connectivity.Ready
-	xnasConnection.getStateChan <- connectivity.Ready
-	iexgClient.streamOutChan <- iexgStream
-	xnasClient.streamOutChan <- xnasStream
 
 	qa.Subscribe(1)
 
-	sr := <-iexgStream.subscribeChan
+	listingId := <-mdsqs.subscribeChan
 
-	if sr.ListingId != 2 {
+	if listingId != 2 {
 		t.FailNow()
 	}
 
-	sr = <-xnasStream.subscribeChan
+	listingId = <-mdsqs.subscribeChan
 
-	if sr.ListingId != 3 {
+	if listingId != 3 {
 		t.FailNow()
 	}
 
-	iexgStream.refreshChan <- &model.ClobQuote{
+	mdsqs.refreshChan <- &model.ClobQuote{
 
 		ListingId: 2,
 		Bids: []*model.ClobLine{
@@ -110,7 +117,7 @@ func Test_quoteAggregator(t *testing.T) {
 		t.FailNow()
 	}
 
-	xnasStream.refreshChan <- &model.ClobQuote{
+	mdsqs.refreshChan <- &model.ClobQuote{
 		ListingId: 3,
 		Bids: []*model.ClobLine{
 			{Size: d64(13), Price: d64(104)},
@@ -154,7 +161,7 @@ func Test_quoteAggregator(t *testing.T) {
 		t.FailNow()
 	}
 
-	iexgStream.refreshChan <- &model.ClobQuote{
+	mdsqs.refreshChan <- &model.ClobQuote{
 
 		ListingId: 2,
 		Bids: []*model.ClobLine{
@@ -276,22 +283,7 @@ func (t testClientStream) RecvMsg(m interface{}) error {
 	panic("implement me")
 }
 
-func setup(t *testing.T) (testClient, testClientStream, testConnection) {
 
-	client := testClient{
-		streamOutChan: make(chan marketdatasource.MarketDataSource_ConnectClient),
-	}
-
-	stream := testClientStream{refreshChan: make(chan *model.ClobQuote),
-		refreshErrChan: make(chan error),
-		subscribeChan:  make(chan *marketdatasource.SubscribeRequest, 10)}
-
-	conn := testConnection{
-		getStateChan: make(chan connectivity.State),
-	}
-
-	return client, stream, conn
-}
 
 func Test_combineQuotes(t *testing.T) {
 	type args struct {

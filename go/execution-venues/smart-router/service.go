@@ -24,18 +24,13 @@ import (
 	"strings"
 )
 
-const (
-	KafkaBrokersKey        = "KAFKA_BROKERS"
-	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
-)
-
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
 	id := common.SR_MIC
-	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
-	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
+	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
+	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 
 	s := grpc.NewServer()
 
@@ -51,7 +46,7 @@ func main() {
 		panic(err)
 	}
 
-	mdsQuoteStream, err := marketdata.NewMdsQuoteStream(id, mdsAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry, 1000)
 	if err != nil {
 		panic(err)
 	}

@@ -10,92 +10,44 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
 	"net/http"
 	"os"
-	"strconv"
 	"time"
 )
 
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
 	id := bootstrap.GetEnvVar("GATEWAY_ID")
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
-	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
+	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
-
-	micToMdsAddress := map[string]string{}
-
-	clientSet := k8s.GetK8sClientSet(external)
-
-	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
-		LabelSelector: "app=market-data-source",
-	})
-
-	if err != nil {
-		panic(err)
-	}
-
-	log.Printf("found %v market data sources", len(list.Items))
-
-	for _, service := range list.Items {
-		const micLabel = "mic"
-		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring market data source as it does not have a mic label, marketDataSource: %v", service)
-			continue
-		}
-
-		mic := service.Labels[micLabel]
-
-		var podPort int32
-		for _, port := range service.Spec.Ports {
-			if port.Name == "api" {
-				podPort = port.Port
-			}
-		}
-
-		if podPort == 0 {
-			log.Printf("ignoring market data marketDataSource as it does not have a port named api, marketDataSource: %v", service)
-			continue
-		}
-
-		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-		micToMdsAddress[mic] = targetAddress
-
-		log.Printf("found market data source for mic: %v, marketDataSource name: %v, target address: %v", mic, service.Name, targetAddress)
-	}
-
-	mdcFn := func(targetAddress string) (marketdatasource.MarketDataSourceClient, marketdata.GrpcConnection, error) {
-		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(time.Duration(connectRetrySecs)*time.Second))
-		if err != nil {
-			return nil, nil, err
-		}
-
-		client := marketdatasource.NewMarketDataSourceClient(conn)
-		return client, conn, nil
-	}
 
 	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		panic(err)
 	}
 
-	quoteAggregator := quoteaggregator.New(id, sds.GetListingsWithSameInstrument,
-		micToMdsAddress, 1000, mdcFn)
+	mdsAddress, err := k8s.GetServiceAddress("market-data-service")
+	if err != nil {
+		panic(err)
+	}
+
+	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry, 1000)
+	if err != nil {
+		panic(err)
+	}
+
+	quoteAggregator := quoteaggregator.New(sds.GetListingsWithSameInstrument, mdsQuoteStream)
 
 	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, 1000))
 
 	port := "50551"
-	log.Println("Starting Market Data Service on port:" + port)
+	log.Println("Starting Quote Aggregator on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
 		log.Fatalf("Error while listening : %v", err)

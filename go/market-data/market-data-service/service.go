@@ -3,17 +3,18 @@ package main
 import (
 	"context"
 	"fmt"
+	api "github.com/ettec/otp-common/api/marketdataservice"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
-	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/marketdatasource"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	v12 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
@@ -143,25 +144,10 @@ func main() {
 
 		mic := pod.Labels[micLabel]
 
-		var podPort int32
-		for _, port := range pod.Spec.Containers[0].Ports {
-			if port.Name == "api" {
-				podPort = port.ContainerPort
-			}
+		targetAddress,err := getStatefulSetMemberAddress(pod)
+		if err != nil {
+			log.Panicf("failed to get market data source pod address:%v", err)
 		}
-
-		if podPort == 0 {
-			log.Printf("ignoring market data pod as it does not have a port named api, pod: %v", pod)
-			continue
-		}
-
-
-		idx := strings.LastIndex(pod.Name, "-")
-		r := []rune(pod.Name)
-		serviceName := string( r[0:idx])
-		//podId := string(r[idx+1:len(p)])
-
-		targetAddress := pod.Name + "." + serviceName + ":" + strconv.Itoa(int(podPort))
 
 		client, err := marketdatasource.NewMdsConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
 			maxSubscriptions)
@@ -192,4 +178,34 @@ func main() {
 		log.Fatalf("Error while serving : %v", err)
 	}
 
+}
+
+func getPodOrdinal(pod v12.Pod) (int, error) {
+
+	idx := strings.LastIndex(pod.Name, "-")
+	r := []rune(pod.Name)
+	podOrd := string(r[idx+1:len(pod.Name)])
+	return strconv.Atoi(podOrd)
+}
+
+func getStatefulSetMemberAddress(pod v12.Pod) (string, error) {
+
+	var podPort int32
+	for _, port := range pod.Spec.Containers[0].Ports {
+		if port.Name == "api" {
+			podPort = port.ContainerPort
+		}
+	}
+
+	if podPort == 0 {
+		return "", fmt.Errorf("stateful set pod has no api port defined, pod: %v", pod)
+	}
+
+	idx := strings.LastIndex(pod.Name, "-")
+	r := []rune(pod.Name)
+	serviceName := string(r[0:idx])
+	//podId := string(r[idx+1:len(p)])
+
+	targetAddress := pod.Name + "." + serviceName + ":" + strconv.Itoa(int(podPort))
+	return targetAddress, nil
 }
