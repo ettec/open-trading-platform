@@ -127,7 +127,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     }
 
 
-    let quote = this.quoteService.SubscribeToQuote(listing, this)
+    let quote = this.quoteService.SubscribeToQuote(listing.getId(), this)
 
     let state: MarketDepthState = {
       ...this.state, ...{

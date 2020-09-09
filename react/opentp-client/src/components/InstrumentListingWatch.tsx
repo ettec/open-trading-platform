@@ -164,7 +164,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
     this.listingService.GetListing(listingId, (listing: Listing) => {
       line.listing = listing
 
-      this.quoteService.SubscribeToQuote(listing, this)
+      this.quoteService.SubscribeToQuote(listing.getId(), this)
 
       this.setState({
         watches: Object.assign([], this.state.watches)

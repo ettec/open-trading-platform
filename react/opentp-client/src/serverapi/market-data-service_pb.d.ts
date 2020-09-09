@@ -1,6 +1,5 @@
 import * as jspb from 'google-protobuf'
 
-import * as listing_pb from './listing_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 import * as clobquote_pb from './clobquote_pb';
 
@@ -31,10 +30,8 @@ export class MdsSubscribeRequest extends jspb.Message {
   getSubscriberid(): string;
   setSubscriberid(value: string): MdsSubscribeRequest;
 
-  getListing(): listing_pb.Listing | undefined;
-  setListing(value?: listing_pb.Listing): MdsSubscribeRequest;
-  hasListing(): boolean;
-  clearListing(): MdsSubscribeRequest;
+  getListingid(): number;
+  setListingid(value: number): MdsSubscribeRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MdsSubscribeRequest.AsObject;
@@ -47,7 +44,7 @@ export class MdsSubscribeRequest extends jspb.Message {
 export namespace MdsSubscribeRequest {
   export type AsObject = {
     subscriberid: string,
-    listing?: listing_pb.Listing.AsObject,
+    listingid: number,
   }
 }
 

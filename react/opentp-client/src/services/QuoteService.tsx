@@ -2,7 +2,6 @@ import { Error, ClientReadableStream } from 'grpc-web';
 import Login from "../components/Login";
 import { logError } from "../logging/Logging";
 import { ClobQuote } from "../serverapi/clobquote_pb";
-import { Listing } from "../serverapi/listing_pb";
 import { MarketDataServiceClient } from "../serverapi/Market-data-serviceServiceClientPb";
 import { MdsConnectRequest, MdsSubscribeRequest } from "../serverapi/market-data-service_pb";
 import { Empty } from "../serverapi/modelcommon_pb";
@@ -10,9 +9,8 @@ import { ListingService } from "./ListingService";
 import Stream from "./impl/Stream";
 
 
-
 export interface QuoteService {
-  SubscribeToQuote(listing: Listing, listener: QuoteListener): ClobQuote | undefined
+  SubscribeToQuote(listingId: number, listener: QuoteListener): ClobQuote | undefined
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener): void
 }
 
@@ -40,7 +38,7 @@ export default class QuoteServiceImpl implements QuoteService {
   constructor(listingService: ListingService) {
     this.listingService = listingService
 
-    this.stream = new Stream(() : ClientReadableStream<any>  =>  {
+    this.stream = new Stream((): ClientReadableStream<any> => {
       var subscription = new MdsConnectRequest()
       subscription.setSubscriberid(Login.grpcContext.appInstanceId)
 
@@ -48,18 +46,15 @@ export default class QuoteServiceImpl implements QuoteService {
 
       let keys = this.listingIdToQuote.keys()
       for (var listingId of keys) {
-        this.listingService.GetListing(listingId, (listing: Listing)=> {
-          let subscription = new MdsSubscribeRequest()
-          subscription.setListing(listing)
-          subscription.setSubscriberid(Login.grpcContext.appInstanceId)
-          this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData, (err: Error,
-            response: Empty) => {
-            if (err) {
-              logError("market data subscription failed:" + err)
-            }
-          })
+        let subscription = new MdsSubscribeRequest()
+        subscription.setListingid(listingId)
+        subscription.setSubscriberid(Login.grpcContext.appInstanceId)
+        this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData, (err: Error,
+          response: Empty) => {
+          if (err) {
+            logError("market data subscription failed:" + err)
+          }
         })
-
 
       }
 
@@ -78,14 +73,14 @@ export default class QuoteServiceImpl implements QuoteService {
   }
 
 
-  SubscribeToQuote(listing: Listing, listener: QuoteListener): ClobQuote | undefined {
-    let listeners = this.idToListeners.get(listing.getId())
+  SubscribeToQuote(listingId: number, listener: QuoteListener): ClobQuote | undefined {
+    let listeners = this.idToListeners.get(listingId)
     if (!listeners) {
       listeners = new Array<QuoteListener>();
-      this.idToListeners.set(listing.getId(), listeners)
+      this.idToListeners.set(listingId, listeners)
 
       let subscription = new MdsSubscribeRequest()
-      subscription.setListing(listing)
+      subscription.setListingid(listingId)
       subscription.setSubscriberid(Login.grpcContext.appInstanceId)
       this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData, (err: Error,
         response: Empty) => {
@@ -98,7 +93,7 @@ export default class QuoteServiceImpl implements QuoteService {
 
     listeners.push(listener)
 
-    return this.listingIdToQuote.get(listing.getId())
+    return this.listingIdToQuote.get(listingId)
   }
 
   UnsubscribeFromQuote(listingId: number, listener: QuoteListener) {

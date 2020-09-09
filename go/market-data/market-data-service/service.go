@@ -6,6 +6,7 @@ import (
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/api"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/marketdatasource"
 	"github.com/prometheus/client_golang/prometheus"
@@ -35,21 +36,25 @@ var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
 
 type service struct {
 	micToSources map[string][]*marketdatasource.MdsConnection
+	getListingFn func(listingId int32, result chan<- *model.Listing)
 }
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
 
-	log.Printf("Subscribe request, subscribed id: %v, listing id:%v", r.SubscriberId, r.Listing.Id)
+	log.Printf("Subscribe request received for subscriber id: %v, listing id:%v, retrieving listing....", r.SubscriberId, r.ListingId)
+	listingChan := make(chan *model.Listing)
+	s.getListingFn(r.ListingId, listingChan)
+	listing := <-listingChan
+	log.Printf("listing %v received", listing.Id)
 
-	mic := r.Listing.Market.Mic
+	mic := listing.Market.Mic
 	if sources, ok := s.micToSources[mic]; ok {
-
 		numGateways := int32(len(sources))
-		idx := r.Listing.Id - (r.Listing.Id/numGateways)*numGateways
+		idx := listing.Id - (listing.Id/numGateways)*numGateways
 
 		if conn, ok := sources[idx].GetConnection(r.SubscriberId); ok {
 
-			if err := conn.Subscribe(r.Listing.Id); err != nil {
+			if err := conn.Subscribe(listing.Id); err != nil {
 				return nil, err
 			}
 
@@ -57,7 +62,6 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 		} else {
 			return nil, fmt.Errorf("failed  to subscribe, no connection exists for subscriber " + r.SubscriberId)
 		}
-
 	} else {
 		return nil, fmt.Errorf("no market data source exists for mic %v", mic)
 	}
@@ -97,29 +101,25 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 	return nil
 }
 
-const (
-	ServiceIdKey        = "SERVICE_ID"
-	ConnectRetrySeconds = "CONNECT_RETRY_SECONDS"
-	External            = "EXTERNAL"
-)
-
 var maxSubscriptions = 10000
-
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
 	id := bootstrap.GetEnvVar("MDS_ID")
-
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar(ConnectRetrySeconds, 60)
-
-	external := bootstrap.GetOptionalBoolEnvVar(External, false)
+	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
+	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
 
-	mdService := service{micToSources: map[string][]*marketdatasource.MdsConnection{}}
+	sds, err := staticdata.NewStaticDataSource(false)
+	if err != nil {
+		log.Fatalf("failed to get static data source:%v", err)
+	}
+
+	mdService := service{micToSources: map[string][]*marketdatasource.MdsConnection{}, getListingFn: sds.GetListing}
 
 	clientSet := k8s.GetK8sClientSet(external)
 

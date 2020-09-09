@@ -352,7 +352,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   openModifyOrderTicket(order: Order, newListing: Listing) {
 
-    let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
+    let existingQuote = this.quoteService.SubscribeToQuote(newListing.getId(), this)
 
 
     let price = toNumber(order.getPrice())
@@ -399,7 +399,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   openNewOrderTicket(newSide: Side, newListing: Listing) {
 
-    let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
+    let existingQuote = this.quoteService.SubscribeToQuote(newListing.getId(), this)
 
     let defaultPrice;
     let defaultQuantity;
@@ -443,7 +443,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       defaultQuantity = 0;
     }
 
-    let existingQuote = this.quoteService.SubscribeToQuote(newListing, this)
+    let existingQuote = this.quoteService.SubscribeToQuote(newListing.getId(), this)
 
     let state: OrderTicketState = {
       side: newSide,
