@@ -30,6 +30,8 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-post
 kubectl create ns envoy
 
 helm install opentp-envoy --namespace=envoy stable/envoy -f envoy-config-helm-values.yaml 
+kubectl patch service envoy --namespace envoy --type='json' -p='[{"op": "replace", "path": "/spec/sessionAffinity", "value": "ClientIP"}]'
+
 
 #Opentp app:
 
