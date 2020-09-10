@@ -7,8 +7,8 @@ import (
 
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
+	md "github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/staticdata"
-	md "github.com/ettec/otp-mdcommon"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -48,8 +48,6 @@ func newService(id string, fixSimAddress string, maxReconnectInterval time.Durat
 
 	return s, nil
 }
-
-var maxSubscriptions = 10000
 
 func main() {
 
