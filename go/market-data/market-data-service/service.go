@@ -5,7 +5,7 @@ import (
 	"fmt"
 	api "github.com/ettec/otp-common/api/marketdataservice"
 	"github.com/ettec/otp-common/bootstrap"
-	"github.com/ettec/otp-common/k8s"
+	"github.com/ettec/otp-common/loadbalancing"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettech/open-trading-platform/go/market-data/market-data-service/marketdatasource"
@@ -14,14 +14,10 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	v12 "k8s.io/api/core/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	logger "log"
 	"net"
 	"net/http"
 	"os"
-	"strconv"
-	"strings"
 	"time"
 )
 
@@ -36,7 +32,7 @@ var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
 })
 
 type service struct {
-	micToSources map[string][]*marketdatasource.MdsConnection
+	micToSources map[string]map[int]*marketdatasource.MdsConnection
 	getListingFn func(listingId int32, result chan<- *model.Listing)
 }
 
@@ -51,18 +47,23 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 	mic := listing.Market.Mic
 	if sources, ok := s.micToSources[mic]; ok {
 		numGateways := int32(len(sources))
-		idx := listing.Id - (listing.Id/numGateways)*numGateways
+		ordinal := loadbalancing.GetBalancingOrdinal(listing, numGateways)
 
-		if conn, ok := sources[idx].GetConnection(r.SubscriberId); ok {
+		if source, ok := sources[ordinal]; ok {
+			if conn, ok := source.GetConnection(r.SubscriberId); ok {
 
-			if err := conn.Subscribe(listing.Id); err != nil {
-				return nil, err
+				if err := conn.Subscribe(listing.Id); err != nil {
+					return nil, err
+				}
+
+				return &model.Empty{}, nil
+			} else {
+				return nil, fmt.Errorf("failed  to subscribe, no connection exists for subscriber " + r.SubscriberId)
 			}
-
-			return &model.Empty{}, nil
 		} else {
-			return nil, fmt.Errorf("failed  to subscribe, no connection exists for subscriber " + r.SubscriberId)
+			return nil, fmt.Errorf("no market source exists for stateful set ordinal %v and mic %v", ordinal, mic)
 		}
+
 	} else {
 		return nil, fmt.Errorf("no market data source exists for mic %v", mic)
 	}
@@ -110,55 +111,45 @@ func main() {
 
 	id := bootstrap.GetEnvVar("MDS_ID")
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
-	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
 
 	http.Handle("/metrics", promhttp.Handler())
-	go http.ListenAndServe(":8080", nil)
+	go func() {
+		err := http.ListenAndServe(":8080", nil)
+		if err != nil {
+			errLog.Printf("failed to listen on metrics server port:%v", err)
+		}
+	}()
 
 	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		log.Fatalf("failed to get static data source:%v", err)
 	}
 
-	mdService := service{micToSources: map[string][]*marketdatasource.MdsConnection{}, getListingFn: sds.GetListing}
+	mdService := service{micToSources: map[string]map[int]*marketdatasource.MdsConnection{}, getListingFn: sds.GetListing}
 
-	clientSet := k8s.GetK8sClientSet(external)
-
-	namespace := "default"
-	list, err := clientSet.CoreV1().Pods(namespace).List(v1.ListOptions{
-		LabelSelector: "servicetype=market-data-gateway",
-	})
+	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("market-data-gateway")
 
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to get market data gateway pod balancingPods: %v", err)
 	}
 
-	log.Printf("found %v market data sources", len(list.Items))
+	for mic, balancingPods := range micToBalancingPods {
+		for _, balancingPod := range balancingPods {
 
-	for _, pod := range list.Items {
-		const micLabel = "mic"
-		if _, ok := pod.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring market data source as it does not have a mic label, pod: %v", pod)
-			continue
+			client, err := marketdatasource.NewMdsConnection(id, balancingPod.TargetAddress, time.Duration(connectRetrySecs)*time.Second,
+				maxSubscriptions)
+			if err != nil {
+				errLog.Printf("failed to create connection to market data source at %v, error: %v", balancingPod, err)
+				continue
+			}
+
+			if _, ok := mdService.micToSources[mic]; !ok {
+				mdService.micToSources[mic] = map[int]*marketdatasource.MdsConnection{}
+			}
+
+			mdService.micToSources[mic][balancingPod.Ordinal] = client
+			log.Printf("added market data source for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
 		}
-
-		mic := pod.Labels[micLabel]
-
-		targetAddress,err := getStatefulSetMemberAddress(pod)
-		if err != nil {
-			log.Panicf("failed to get market data source pod address:%v", err)
-		}
-
-		client, err := marketdatasource.NewMdsConnection(id, targetAddress, time.Duration(connectRetrySecs)*time.Second,
-			maxSubscriptions)
-		if err != nil {
-			errLog.Printf("failed to create connection to market data source at %v, error: %v", targetAddress, err)
-			continue
-		}
-
-		mdService.micToSources[mic] = append(mdService.micToSources[mic], client)
-
-		log.Printf("added market data source for mic: %v, pod name: %v, target address: %v", mic, pod.Name, targetAddress)
 	}
 
 	port := "50551"
@@ -177,35 +168,4 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Error while serving : %v", err)
 	}
-
-}
-
-func getPodOrdinal(pod v12.Pod) (int, error) {
-
-	idx := strings.LastIndex(pod.Name, "-")
-	r := []rune(pod.Name)
-	podOrd := string(r[idx+1:len(pod.Name)])
-	return strconv.Atoi(podOrd)
-}
-
-func getStatefulSetMemberAddress(pod v12.Pod) (string, error) {
-
-	var podPort int32
-	for _, port := range pod.Spec.Containers[0].Ports {
-		if port.Name == "api" {
-			podPort = port.ContainerPort
-		}
-	}
-
-	if podPort == 0 {
-		return "", fmt.Errorf("stateful set pod has no api port defined, pod: %v", pod)
-	}
-
-	idx := strings.LastIndex(pod.Name, "-")
-	r := []rune(pod.Name)
-	serviceName := string(r[0:idx])
-	//podId := string(r[idx+1:len(p)])
-
-	targetAddress := pod.Name + "." + serviceName + ":" + strconv.Itoa(int(podPort))
-	return targetAddress, nil
 }

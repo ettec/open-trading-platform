@@ -19,7 +19,7 @@ type MdsConnection struct {
 func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
 	maxSubscriptions int) (*MdsConnection, error) {
 
-	stream, err := marketdata.NewMdsQuoteStream(id, marketGatewayAddress, maxReconnectInterval, 1000)
+	stream, err := marketdata.NewQuoteStreamFromMdSource(id, marketGatewayAddress, maxReconnectInterval, 1000)
 
 	if err != nil {
 		return nil, err
