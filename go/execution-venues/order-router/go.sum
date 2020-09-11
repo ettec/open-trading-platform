@@ -36,6 +36,10 @@ github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymF
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/ettec/otp-common v0.0.0-20200909150956-e7e68768ed05 h1:EjIQYoHFF0KirpBBSqZ2QArRtPBQwlVLKznUaF+WICU=
 github.com/ettec/otp-common v0.0.0-20200909150956-e7e68768ed05/go.mod h1:r0yxpfd7LMhLAA5ZgT9j0ZsliD8vecYFNgThDxuenxk=
+github.com/ettec/otp-common v0.0.0-20200910124507-ca24d3118e00 h1:XeHPcDdU/LFZzpFlYmNtcbZO80Ib8kaRfWJ9lefbFgg=
+github.com/ettec/otp-common v0.0.0-20200910124507-ca24d3118e00/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200911192554-69bce9de2867 h1:XZwN/+OVXr6LrNSyl9V7l2v05rhi8yTBh9JVznr6IIM=
+github.com/ettec/otp-common v0.0.0-20200911192554-69bce9de2867/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=

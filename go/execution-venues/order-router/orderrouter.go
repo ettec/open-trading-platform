@@ -3,135 +3,127 @@ package main
 import (
 	"context"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/k8s"
+	"github.com/ettec/otp-common/loadbalancing"
 	"github.com/ettec/otp-common/model"
 	"google.golang.org/grpc"
-	v1 "k8s.io/api/core/v1"
-	"strconv"
 	"time"
 
 	"fmt"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 type orderRouter struct {
-	micToExecVenue map[string]*execVenue
+	micToExecVenue map[string]map[int]*execVenue
 }
 
-func New(external bool, maxConnectRetrySecs int) *orderRouter {
+func New(connectRetrySecs int) *orderRouter {
 
 	orderRouter := orderRouter{
-		micToExecVenue: map[string]*execVenue{},
+		micToExecVenue: map[string]map[int]*execVenue{},
 	}
 
-	clientSet := k8s.GetK8sClientSet(external)
-
-	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
-		LabelSelector: "app=execution-venue",
-	})
+	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("execution-venue")
 
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to get market data gateway pod balancingPods: %v", err)
 	}
 
-	for _, service := range list.Items {
-		const micLabel = "mic"
-		if _, ok := service.Labels[micLabel]; !ok {
-			errLog.Printf("ignoring execution venue service as it does not have a mic label, service: %v", service)
-			continue
-		}
+	for mic, balancingPods := range micToBalancingPods {
+		for _, balancingPod := range balancingPods {
 
-		mic := service.Labels[micLabel]
-
-		var podPort int32
-		for _, port := range service.Spec.Ports {
-			if port.Name == "api" {
-				podPort = port.Port
+			client, err := createExecVenueConnection(time.Duration(connectRetrySecs)*time.Second, balancingPod.TargetAddress)
+			if err != nil {
+				errLog.Printf("failed to create connection to execution venue service at %v, error: %v", balancingPod.TargetAddress, err)
+				continue
 			}
+
+
+			if _, ok := orderRouter.micToExecVenue[mic]; !ok {
+				orderRouter.micToExecVenue[mic] = map[int]*execVenue{}
+			}
+
+			orderRouter.micToExecVenue[mic][balancingPod.Ordinal] = client
+			log.Printf("added market data source for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
 		}
-
-		if podPort == 0 {
-			log.Printf("ignoring execution venue service as it does not have a port named api, service: %v", service)
-			continue
-		}
-
-		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-		client, err := createExecVenueConnection(&service, time.Duration(maxConnectRetrySecs)*time.Second, targetAddress)
-		if err != nil {
-			errLog.Printf("failed to create connection to execution venue service at %v, error: %v", targetAddress, err)
-			continue
-		}
-
-		orderRouter.micToExecVenue[mic] = client
-		log.Printf("added execution venue for mic: %v, venue service name: %v, target address: %v", mic, service.Name, targetAddress)
 	}
 
 	return &orderRouter
 }
 
 func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*api.ExecParamsMetaDataJson, error) {
- 	return &api.ExecParamsMetaDataJson{}, nil
+	return &api.ExecParamsMetaDataJson{}, nil
 }
 
 func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
-	mic := p.Destination
-	if ev, ok := o.micToExecVenue[mic]; ok {
-		id, err := ev.client.CreateAndRouteOrder(c, p)
 
-		if err != nil {
-			return nil, fmt.Errorf("failed to route order:%v", err)
-		}
+	ev, err := o.getExecutionVenueForListing( p.ListingId,  p.Destination)
 
-		return &api.OrderId{
-			OrderId: id.OrderId,
-		}, nil
+	if err != nil {
+		return nil, err
+	}
 
+	id, err := ev.client.CreateAndRouteOrder(c, p)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to route order:%v", err)
+	}
+
+	return &api.OrderId{
+		OrderId: id.OrderId,
+	}, nil
+
+}
+
+func (o *orderRouter) getExecutionVenueForListing(listingId int32, destination string) (*execVenue, error) {
+	if evs, ok := o.micToExecVenue[destination]; ok {
+		numVenues := int32(len(evs))
+		ordinal := loadbalancing.GetBalancingOrdinal(listingId, numVenues)
+		return evs[ordinal], nil
 	} else {
-		return nil, fmt.Errorf("no execution venue found for mic:%v", mic)
+		return nil, fmt.Errorf("no execution venue found for destination %v", destination)
 	}
 }
 
 func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (*model.Empty, error) {
 
-	mic := p.OwnerId
-	if ev, ok := o.micToExecVenue[mic]; ok {
-		_, err := ev.client.ModifyOrder(c, p)
+	ev, err := o.getExecutionVenueForListing( p.ListingId, p.OwnerId)
 
-		if err != nil {
-			return nil, fmt.Errorf("failed to modify order on market: %v, error: %v", mic, err)
-		}
-
-		return &model.Empty{}, nil
-
-	} else {
-		return nil, fmt.Errorf("no execution venue found for mic:%v", mic)
+	if err != nil {
+		return nil, err
 	}
+
+	_, err = ev.client.ModifyOrder(c, p)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to modify order: %v, error: %v", p.OrderId, err)
+	}
+
+	return &model.Empty{}, nil
+
 
 }
 
 func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
-	mic := p.OwnerId
-	if ev, ok := o.micToExecVenue[mic]; ok {
-		_, err := ev.client.CancelOrder(c, p)
 
-		if err != nil {
-			return nil, fmt.Errorf("failed to cancel order on market: %v, error: %v", mic, err)
-		}
+	ev, err := o.getExecutionVenueForListing( p.ListingId, p.OwnerId)
 
-		return &model.Empty{}, nil
-
-	} else {
-		return nil, fmt.Errorf("no execution venue found for mic:%v", mic)
+	if err != nil {
+		return nil, err
 	}
+
+	_, err = ev.client.CancelOrder(c, p)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to cancel order %v: , error: %v", p.OrderId, err)
+	}
+
+	return &model.Empty{}, nil
 
 }
 
-func createExecVenueConnection(service *v1.Service, maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
+func createExecVenueConnection(maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
 	err error) {
 
-	log.Printf("connecting to execution venue service %v at: %v", service.Name, targetAddress)
+	log.Printf("connecting to execution venue service at: %v", targetAddress)
 
 	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 

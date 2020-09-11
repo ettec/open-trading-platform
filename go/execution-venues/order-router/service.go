@@ -21,17 +21,12 @@ type execVenue struct {
 	conn   *grpc.ClientConn
 }
 
-const (
-	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
-	External               = "EXTERNAL"
-)
 
 func main() {
 
-	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)
-	external := bootstrap.GetOptionalBoolEnvVar(External, false)
+	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)
 
-	orderRouter := New(external, maxConnectRetrySecs)
+	orderRouter := New( maxConnectRetrySecs)
 
 	port := "50581"
 	fmt.Println("Starting Order Router on port:" + port)
