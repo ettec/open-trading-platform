@@ -3,7 +3,6 @@ package com.ettech.fixmarketsimulator;
 import com.ettech.fixmarketsimulator.bookbuilder.BooksBuilder;
 import com.ettech.fixmarketsimulator.exchange.Exchange;
 import com.ettech.fixmarketsimulator.exchange.ExchangeSimulatorGuiceModule;
-import com.ettech.fixmarketsimulator.exchange.OrderBook;
 import com.ettech.fixmarketsimulator.exchange.impl.ExchangeImpl;
 import com.ettech.fixmarketsimulator.fix.ApplicationImpl;
 import com.ettech.fixmarketsimulator.marketdataserver.MarketDataService;
@@ -50,6 +49,34 @@ public class App {
         fixServerPort = Integer.parseInt(getSysEnvVal("FIX_SERVER_PORT", "9876"));
     }
 
+
+    private static String getFixConfig() {
+        var config = "[default]\n" +
+                "FileStorePath=" + System.getenv("FIX_FILE_STORE_PATH") + "\n" +
+                "SocketAcceptPort=" + fixServerPort + "\n" +
+                "BeginString= FIXT.1.1\n" +
+                "DefaultApplVerID= FIX.5.0SP2\n" +
+                "\n";
+
+        var targetCompIds = System.getenv("TARGET_COMP_IDS").split(",");
+
+
+        for (String targetCompId : targetCompIds) {
+            config +=
+                    "[session]\n" +
+                            "SenderCompID=EXEC\n" +
+                            "TargetCompID=" + targetCompId + "\n" +
+                            "ConnectionType=acceptor\n" +
+                            "StartTime=00:00:00\n" +
+                            "FileLogPath=fixlog\n" +
+                            "EndTime=00:00:00\n";
+
+        }
+
+        return config;
+    }
+
+    /*
     private static String fixConfig =
             "[default]\n" +
                     "FileStorePath=" + System.getenv("FIX_FILE_STORE_PATH") + "\n" +
@@ -64,11 +91,11 @@ public class App {
                     "StartTime=00:00:00\n" +
                     "FileLogPath=fixlog\n" +
                     "EndTime=00:00:00";
-
-
+*/
 
     public static void main(String[] args) {
-        int restApiPort  = Integer.parseInt(getSysEnvVal("REST_API_PORT", "8501"));;
+        int restApiPort = Integer.parseInt(getSysEnvVal("REST_API_PORT", "8501"));
+        ;
 
         log.info("Starting rest server on restApiPort:" + restApiPort);
         log.info("Starting fix server on restApiPort:" + fixServerPort);
@@ -138,16 +165,16 @@ public class App {
 
         try {
 
-            booksBuilder = new BooksBuilder(exchange, getSysEnvVal("BB_DEPTH_PATH","./resource/depth.json"),
-                    getSysEnvVal("BB_SYMS_TO_RUN","MSFT,SPY"),
-                    Integer.parseInt(getSysEnvVal( "BB_NUM_EXEC_THREADS","5")),
-                    Integer.parseInt(getSysEnvVal( "BB_UPDATE_INTERVAL_MS","1000")),
-                    Double.parseDouble(getSysEnvVal("BB_MIN_QTY","0.9")),
-                    Double.parseDouble(getSysEnvVal( "BB_VARIATION", "0.005")),
-                    Integer.parseInt(getSysEnvVal("BB_TICK_SCALE","2")),
-                    Double.parseDouble(getSysEnvVal( "BB_TRADE_PROBABILITY" ,"0.2")),
-                    Integer.parseInt(getSysEnvVal( "BB_MAX_DEPTH","10")),
-                    Double.parseDouble(getSysEnvVal( "BB_CANCEL_PROBABILITY","0.2")));
+            booksBuilder = new BooksBuilder(exchange, getSysEnvVal("BB_DEPTH_PATH", "./resource/depth.json"),
+                    getSysEnvVal("BB_SYMS_TO_RUN", "MSFT,SPY"),
+                    Integer.parseInt(getSysEnvVal("BB_NUM_EXEC_THREADS", "5")),
+                    Integer.parseInt(getSysEnvVal("BB_UPDATE_INTERVAL_MS", "1000")),
+                    Double.parseDouble(getSysEnvVal("BB_MIN_QTY", "0.9")),
+                    Double.parseDouble(getSysEnvVal("BB_VARIATION", "0.005")),
+                    Integer.parseInt(getSysEnvVal("BB_TICK_SCALE", "2")),
+                    Double.parseDouble(getSysEnvVal("BB_TRADE_PROBABILITY", "0.2")),
+                    Integer.parseInt(getSysEnvVal("BB_MAX_DEPTH", "10")),
+                    Double.parseDouble(getSysEnvVal("BB_CANCEL_PROBABILITY", "0.2")));
         } catch (Exception e) {
             throw new RuntimeException("failed to create book builder", e);
         }
@@ -157,7 +184,7 @@ public class App {
 
             Application application = exchangeSimulatorInjector.getInstance(ApplicationImpl.class);
 
-            InputStream stream = new ByteArrayInputStream(fixConfig.getBytes(StandardCharsets.UTF_8));
+            InputStream stream = new ByteArrayInputStream(getFixConfig().getBytes(StandardCharsets.UTF_8));
 
             SessionSettings settings = new SessionSettings(stream);
             MessageStoreFactory storeFactory = new FileStoreFactory(settings);
@@ -189,7 +216,7 @@ public class App {
 
     public static String getSysEnvVal(String key, String defaultVal) {
         var val = System.getenv(key);
-        if( val == null) {
+        if (val == null) {
             return defaultVal;
         }
 

@@ -21,7 +21,9 @@ var om orderManager
 
 func setup() {
 	var err error
-	orderCache, err = executionvenue.NewOrderCache(NewTestOrderStore())
+	orderCache, err = executionvenue.NewOrderCache(NewTestOrderStore(), func(order *model.Order) bool {
+		return true
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -150,6 +152,8 @@ func (f *TestOrderManager) Modify(order *model.Order, listing *model.Listing, Qu
 	return nil
 }
 
+
+
 func NewTestOrderStore() *TestOrderStore {
 	t := TestOrderStore{
 		orders:    make([]*model.Order, 0, 10),
@@ -170,7 +174,7 @@ func (t *TestOrderStore) Write(order *model.Order) error {
 	return nil
 }
 
-func (t *TestOrderStore) RecoverInitialCache() (map[string]*model.Order, error) {
+func (t *TestOrderStore) RecoverInitialCache(loadOrder func(order *model.Order) bool) (map[string]*model.Order, error) {
 	return map[string]*model.Order{}, nil
 }
 

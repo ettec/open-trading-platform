@@ -17,14 +17,11 @@ type orderRouter struct {
 
 func New(connectRetrySecs int) *orderRouter {
 
-	orderRouter := orderRouter{
-		micToExecVenue: map[string]map[int]*execVenue{},
-	}
-
+	micToExecVenue := map[string]map[int]*execVenue{}
 	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("execution-venue")
 
 	if err != nil {
-		log.Panicf("failed to get market data gateway pod balancingPods: %v", err)
+		log.Panicf("failed to get execution venue balancing pods: %v", err)
 	}
 
 	for mic, balancingPods := range micToBalancingPods {
@@ -37,16 +34,18 @@ func New(connectRetrySecs int) *orderRouter {
 			}
 
 
-			if _, ok := orderRouter.micToExecVenue[mic]; !ok {
-				orderRouter.micToExecVenue[mic] = map[int]*execVenue{}
+			if _, ok := micToExecVenue[mic]; !ok {
+				micToExecVenue[mic] = map[int]*execVenue{}
 			}
 
-			orderRouter.micToExecVenue[mic][balancingPod.Ordinal] = client
-			log.Printf("added market data source for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
+			micToExecVenue[mic][balancingPod.Ordinal] = client
+			log.Printf("added execution venue for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
 		}
 	}
 
-	return &orderRouter
+	return &orderRouter{
+		micToExecVenue: micToExecVenue,
+	}
 }
 
 func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*api.ExecParamsMetaDataJson, error) {

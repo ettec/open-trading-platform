@@ -11,8 +11,6 @@ import (
 	"os"
 )
 
-
-
 type fixSimMarketDataClient struct {
 	conn              *grpc.ClientConn
 	subscriptionsChan chan string

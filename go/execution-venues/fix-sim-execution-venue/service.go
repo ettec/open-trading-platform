@@ -4,6 +4,8 @@ import (
 	"fmt"
 	executionvenue2 "github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/loadbalancing"
+	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
 
@@ -22,15 +24,12 @@ import (
 	"strings"
 )
 
-const (
-	KafkaBrokersKey = "KAFKA_BROKERS"
-	ExecVenueMic    = "MIC"
-)
 
 func main() {
 
-	kafkaBrokers := bootstrap.GetEnvVar(KafkaBrokersKey)
-	execVenueMic := bootstrap.GetEnvVar(ExecVenueMic)
+	kafkaBrokers := bootstrap.GetEnvVar("KAFKA_BROKERS")
+	execVenueMic := bootstrap.GetEnvVar("MIC")
+	id := bootstrap.GetEnvVar("ID")
 
 	s := grpc.NewServer()
 
@@ -41,17 +40,46 @@ func main() {
 
 	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
-		log.Fatalf("failed to create static data source:%v", err)
+		log.Panicf("failed to create static data source:%v", err)
 	}
 
-	orderCache, err := executionvenue.NewOrderCache(store)
+	podOrdinal, err := loadbalancing.GetStatefulSetPodOrdinalFromName(id)
+	if err != nil {
+		log.Panicf("failed to get pod ordnial from pod name: %v", err )
+	}
+
+	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("execution-venue")
+
+	if err != nil {
+		log.Panicf("failed to get execution venue balancing pods: %v", err)
+	}
+
+	var numVenuesForMic int32
+	if pods, ok := micToBalancingPods[execVenueMic]; ok {
+		numVenuesForMic = int32(len(pods))
+	} else {
+		log.Panicf("no execution venue balancing pods found for Mic:%v",execVenueMic)
+	}
+
+	loadOrder := func(order *model.Order) bool {
+
+		if execVenueMic == order.GetOwnerId() {
+			ordinal := loadbalancing.GetBalancingOrdinal(order.ListingId, numVenuesForMic)
+			if ordinal == podOrdinal {
+				return true
+			}
+		}
+		return false
+	}
+
+	orderCache, err := executionvenue.NewOrderCache(store, loadOrder)
 	if err != nil {
 		log.Fatalf("failed to create order cache:%v", err)
 	}
 
 	beginString := "FIXT.1.1"
 	targetCompID := "EXEC"
-	sendCompID := "BANZAI"
+	sendCompID := id
 	sessionID := quickfix.SessionID{BeginString: beginString, TargetCompID: targetCompID, SenderCompID: sendCompID}
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
