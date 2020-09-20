@@ -5,13 +5,10 @@ import (
 	executionvenue2 "github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/loadbalancing"
-	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
 
 	"github.com/ettec/otp-common/bootstrap"
-
-	"github.com/ettec/otp-common/executionvenue"
 
 	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/fixgateway"
 
@@ -33,48 +30,21 @@ func main() {
 
 	s := grpc.NewServer()
 
-	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), execVenueMic)
-	if err != nil {
-		panic(fmt.Errorf("failed to create order store: %v", err))
-	}
 
 	sds, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
 		log.Panicf("failed to create static data source:%v", err)
 	}
 
-	podOrdinal, err := loadbalancing.GetStatefulSetPodOrdinalFromName(id)
+	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), execVenueMic)
 	if err != nil {
-		log.Panicf("failed to get pod ordnial from pod name: %v", err )
+		log.Panicf("failed to create order store: %v", err)
 	}
 
-	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("execution-venue")
+	orderCache,err := loadbalancing.NewLoadBalancedOrderCache( store, execVenueMic, id)
 
 	if err != nil {
-		log.Panicf("failed to get execution venue balancing pods: %v", err)
-	}
-
-	var numVenuesForMic int32
-	if pods, ok := micToBalancingPods[execVenueMic]; ok {
-		numVenuesForMic = int32(len(pods))
-	} else {
-		log.Panicf("no execution venue balancing pods found for Mic:%v",execVenueMic)
-	}
-
-	loadOrder := func(order *model.Order) bool {
-
-		if execVenueMic == order.GetOwnerId() {
-			ordinal := loadbalancing.GetBalancingOrdinal(order.ListingId, numVenuesForMic)
-			if ordinal == podOrdinal {
-				return true
-			}
-		}
-		return false
-	}
-
-	orderCache, err := executionvenue.NewOrderCache(store, loadOrder)
-	if err != nil {
-		log.Fatalf("failed to create order cache:%v", err)
+		log.Panicf("failed to create order cache:%v", err)
 	}
 
 	beginString := "FIXT.1.1"
