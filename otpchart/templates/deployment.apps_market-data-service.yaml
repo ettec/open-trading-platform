@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - env:
-        - name: GATEWAY_ID
+        - name: MDS_ID
           valueFrom:
             fieldRef:
               apiVersion: v1

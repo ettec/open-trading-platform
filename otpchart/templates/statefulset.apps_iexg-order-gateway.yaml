@@ -50,7 +50,7 @@ spec:
           value: /open-trading-platform/iexg-order-gateway
         - name: MIC
           value: IEXG
-        - name: GATEWAY_ID
+        - name: ID
           valueFrom:
             fieldRef:
               fieldPath: metadata.name

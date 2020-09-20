@@ -9,15 +9,23 @@ spec:
   selector:
     matchLabels:
       app: xnassimulator
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: xnassimulator
     spec:
       containers:
       - env:
         - name: FIX_FILE_STORE_PATH
-          value: /usr/share/opentp/xnassimulator
+          value: /usr/share/cnoms/xnassimulator
+        - name: TARGET_COMP_IDS
+          value: xnas-order-gateway-0,xnas-order-gateway-1,xnas-order-gateway-2
         image: {{ .Values.dockerRepo }}fixmarketsimulator{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xnassimulator
@@ -32,7 +40,7 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /usr/share/opentp
+        - mountPath: /usr/share/cnoms
           name: fixsim-storage
       dnsPolicy: ClusterFirst
       restartPolicy: Always
