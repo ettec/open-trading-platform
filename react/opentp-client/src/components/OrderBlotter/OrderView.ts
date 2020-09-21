@@ -105,7 +105,9 @@ export class OrderView {
   private order: Order;
   listing?: Listing;
   created?: Date;
-  placedWith: string;
+  destination: string;
+  owner: string;
+
   errorMsg: string;
 
   constructor(order: Order) {
@@ -117,7 +119,8 @@ export class OrderView {
     this.targetStatus = "";
     this.order = order
     this.created = undefined
-    this.placedWith = "";
+    this.destination = "";
+    this.owner = "";
     this.errorMsg = "";
     this.setOrder(order)
   }
@@ -154,7 +157,8 @@ export class OrderView {
       this.created = new Date(created.getSeconds() * 1000)
     }
 
-    this.placedWith = order.getOwnerid()
+    this.destination = order.getDestination()
+    this.owner = order.getOwnerid()
     this.errorMsg = order.getErrormessage()
 
   }

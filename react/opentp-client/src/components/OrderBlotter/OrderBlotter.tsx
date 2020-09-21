@@ -75,7 +75,8 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
     <Column key="avgPrice" id="avgPrice" name="Avg Price" cellRenderer={this.renderAvgPrice} />,
     <Column key="listingId" id="listingId" name="Listing Id" cellRenderer={this.renderListingId} />,
     <Column key="created" id="created" name="Created" cellRenderer={this.renderCreated} />,
-    <Column key="placedWith" id="placedWith" name="Placed With" cellRenderer={this.renderPlacedWith} />,
+    <Column key="destination" id="destination" name="Destination" cellRenderer={this.renderDestination} />,
+    <Column key="owner" id="owner" name="Owner" cellRenderer={this.renderOwner} />,
     <Column key="errorMsg" id="errorMsg" name="Error" cellRenderer={this.renderErrorMsg} />
     ];
   }
@@ -89,7 +90,8 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
   private renderExpQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.exposedQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
-  private renderPlacedWith = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.placedWith}</Cell>;
+  private renderDestination = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.destination}</Cell>;
+  private renderOwner = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.owner}</Cell>;
  
   private renderStatusHeader = (row: number) => {
 

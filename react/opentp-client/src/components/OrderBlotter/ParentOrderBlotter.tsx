@@ -6,7 +6,7 @@ import * as grpcWeb from 'grpc-web';
 import React from 'react';
 import v4 from 'uuid';
 import { logGrpcError } from '../../logging/Logging';
-import { Empty } from '../../serverapi/common_pb';
+import { Empty } from '../../serverapi/modelcommon_pb';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
 import { CancelOrderParams } from '../../serverapi/executionvenue_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';

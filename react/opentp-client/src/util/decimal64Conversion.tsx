@@ -1,4 +1,4 @@
-import { Decimal64 } from "../serverapi/common_pb"
+import { Decimal64 } from "../serverapi/modelcommon_pb"
 
 
 export function toNumber(dec?: Decimal64): number | undefined {

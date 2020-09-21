@@ -126,6 +126,8 @@ func Test_fixSimMarketDataClient_testReconnectAfterError(t *testing.T) {
 
 	toTest.subscribe("A")
 
+	<-stream.subsInChan
+
 	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
 	<-out
 
@@ -139,8 +141,7 @@ func Test_fixSimMarketDataClient_testReconnectAfterError(t *testing.T) {
 	conn.getStateChan <- connectivity.Ready
 	client.streamOutChan <- stream
 
-	// Original subscribe and resubscribe
-	<-stream.subsInChan
+	// resubscribe
 	<-stream.subsInChan
 
 }
