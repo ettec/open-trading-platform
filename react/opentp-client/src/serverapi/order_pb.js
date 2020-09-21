@@ -283,7 +283,9 @@ proto.model.Order.toObject = function(includeInstance, msg) {
     childordersrefsList: jspb.Message.toObjectList(msg.getChildordersrefsList(),
     proto.model.Ref.toObject, includeInstance),
     rootoriginatorid: jspb.Message.getFieldWithDefault(msg, 22, ""),
-    rootoriginatorref: jspb.Message.getFieldWithDefault(msg, 23, "")
+    rootoriginatorref: jspb.Message.getFieldWithDefault(msg, 23, ""),
+    execparametersjson: jspb.Message.getFieldWithDefault(msg, 24, ""),
+    destination: jspb.Message.getFieldWithDefault(msg, 25, "")
   };
 
   if (includeInstance) {
@@ -421,6 +423,14 @@ proto.model.Order.deserializeBinaryFromReader = function(msg, reader) {
     case 23:
       var value = /** @type {string} */ (reader.readString());
       msg.setRootoriginatorref(value);
+      break;
+    case 24:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setExecparametersjson(value);
+      break;
+    case 25:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDestination(value);
       break;
     default:
       reader.skipField();
@@ -619,6 +629,20 @@ proto.model.Order.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       23,
+      f
+    );
+  }
+  f = message.getExecparametersjson();
+  if (f.length > 0) {
+    writer.writeString(
+      24,
+      f
+    );
+  }
+  f = message.getDestination();
+  if (f.length > 0) {
+    writer.writeString(
+      25,
       f
     );
   }
@@ -1227,6 +1251,42 @@ proto.model.Order.prototype.getRootoriginatorref = function() {
  */
 proto.model.Order.prototype.setRootoriginatorref = function(value) {
   return jspb.Message.setProto3StringField(this, 23, value);
+};
+
+
+/**
+ * optional string execParametersJson = 24;
+ * @return {string}
+ */
+proto.model.Order.prototype.getExecparametersjson = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 24, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setExecparametersjson = function(value) {
+  return jspb.Message.setProto3StringField(this, 24, value);
+};
+
+
+/**
+ * optional string destination = 25;
+ * @return {string}
+ */
+proto.model.Order.prototype.getDestination = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 25, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.model.Order} returns this
+ */
+proto.model.Order.prototype.setDestination = function(value) {
+  return jspb.Message.setProto3StringField(this, 25, value);
 };
 
 

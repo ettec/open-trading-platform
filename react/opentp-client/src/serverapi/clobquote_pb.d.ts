@@ -1,23 +1,24 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class ClobLine extends jspb.Message {
   getSize(): modelcommon_pb.Decimal64 | undefined;
-  setSize(value?: modelcommon_pb.Decimal64): void;
+  setSize(value?: modelcommon_pb.Decimal64): ClobLine;
   hasSize(): boolean;
-  clearSize(): void;
+  clearSize(): ClobLine;
 
   getPrice(): modelcommon_pb.Decimal64 | undefined;
-  setPrice(value?: modelcommon_pb.Decimal64): void;
+  setPrice(value?: modelcommon_pb.Decimal64): ClobLine;
   hasPrice(): boolean;
-  clearPrice(): void;
+  clearPrice(): ClobLine;
 
   getEntryid(): string;
-  setEntryid(value: string): void;
+  setEntryid(value: string): ClobLine;
 
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): ClobLine;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClobLine.AsObject;
@@ -38,23 +39,23 @@ export namespace ClobLine {
 
 export class ClobQuote extends jspb.Message {
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): ClobQuote;
 
   getBidsList(): Array<ClobLine>;
-  setBidsList(value: Array<ClobLine>): void;
-  clearBidsList(): void;
+  setBidsList(value: Array<ClobLine>): ClobQuote;
+  clearBidsList(): ClobQuote;
   addBids(value?: ClobLine, index?: number): ClobLine;
 
   getOffersList(): Array<ClobLine>;
-  setOffersList(value: Array<ClobLine>): void;
-  clearOffersList(): void;
+  setOffersList(value: Array<ClobLine>): ClobQuote;
+  clearOffersList(): ClobQuote;
   addOffers(value?: ClobLine, index?: number): ClobLine;
 
   getStreaminterrupted(): boolean;
-  setStreaminterrupted(value: boolean): void;
+  setStreaminterrupted(value: boolean): ClobQuote;
 
   getStreamstatusmsg(): string;
-  setStreamstatusmsg(value: string): void;
+  setStreamstatusmsg(value: string): ClobQuote;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClobQuote.AsObject;

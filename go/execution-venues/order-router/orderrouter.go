@@ -12,11 +12,13 @@ import (
 )
 
 type orderRouter struct {
-	micToExecVenue map[string]map[int]*execVenue
+	micToExecVenue     map[string]map[int]*execVenue
+	ownerIdToExecVenue map[string]*execVenue
 }
 
 func New(connectRetrySecs int) *orderRouter {
 
+	ownerIdToExecVenue := map[string]*execVenue{}
 	micToExecVenue := map[string]map[int]*execVenue{}
 	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("execution-venue")
 
@@ -33,7 +35,6 @@ func New(connectRetrySecs int) *orderRouter {
 				continue
 			}
 
-
 			if _, ok := micToExecVenue[mic]; !ok {
 				micToExecVenue[mic] = map[int]*execVenue{}
 			}
@@ -44,7 +45,8 @@ func New(connectRetrySecs int) *orderRouter {
 	}
 
 	return &orderRouter{
-		micToExecVenue: micToExecVenue,
+		micToExecVenue:     micToExecVenue,
+		ownerIdToExecVenue: ownerIdToExecVenue,
 	}
 }
 
@@ -54,7 +56,7 @@ func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Emp
 
 func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 
-	ev, err := o.getExecutionVenueForListing( p.ListingId,  p.Destination)
+	ev, err := o.getExecutionVenueForListing(p.ListingId, p.Destination)
 
 	if err != nil {
 		return nil, err
@@ -84,39 +86,35 @@ func (o *orderRouter) getExecutionVenueForListing(listingId int32, destination s
 
 func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (*model.Empty, error) {
 
-	ev, err := o.getExecutionVenueForListing( p.ListingId, p.OwnerId)
+	if ev, ok := o.ownerIdToExecVenue[p.OwnerId]; ok {
+		_, err := ev.client.ModifyOrder(c, p)
 
-	if err != nil {
-		return nil, err
+		if err != nil {
+			return nil, fmt.Errorf("failed to modify order: %v, error: %v", p.OrderId, err)
+		}
+
+		return &model.Empty{}, nil
+
+	} else {
+		return nil, fmt.Errorf("failed to find execution venue for owner id:%v", p.OwnerId)
 	}
-
-	_, err = ev.client.ModifyOrder(c, p)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to modify order: %v, error: %v", p.OrderId, err)
-	}
-
-	return &model.Empty{}, nil
-
-
 }
 
 func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
 
-	ev, err := o.getExecutionVenueForListing( p.ListingId, p.OwnerId)
+	if ev, ok := o.ownerIdToExecVenue[p.OwnerId]; ok {
+		_, err := ev.client.CancelOrder(c, p)
 
-	if err != nil {
-		return nil, err
+		if err != nil {
+			return nil, fmt.Errorf("failed to cancel order %v: , error: %v", p.OrderId, err)
+		}
+
+		return &model.Empty{}, nil
+
+	} else {
+		return nil, fmt.Errorf("failed to find execution venue for owner id:%v", p.OwnerId)
 	}
-
-	_, err = ev.client.CancelOrder(c, p)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to cancel order %v: , error: %v", p.OrderId, err)
-	}
-
-	return &model.Empty{}, nil
-
+	
 }
 
 func createExecVenueConnection(maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,

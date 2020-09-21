@@ -1,38 +1,39 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as instrument_pb from './instrument_pb';
 import * as market_pb from './market_pb';
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class Listing extends jspb.Message {
   getVersion(): number;
-  setVersion(value: number): void;
+  setVersion(value: number): Listing;
 
   getId(): number;
-  setId(value: number): void;
+  setId(value: number): Listing;
 
   getMarket(): market_pb.Market | undefined;
-  setMarket(value?: market_pb.Market): void;
+  setMarket(value?: market_pb.Market): Listing;
   hasMarket(): boolean;
-  clearMarket(): void;
+  clearMarket(): Listing;
 
   getInstrument(): instrument_pb.Instrument | undefined;
-  setInstrument(value?: instrument_pb.Instrument): void;
+  setInstrument(value?: instrument_pb.Instrument): Listing;
   hasInstrument(): boolean;
-  clearInstrument(): void;
+  clearInstrument(): Listing;
 
   getMarketsymbol(): string;
-  setMarketsymbol(value: string): void;
+  setMarketsymbol(value: string): Listing;
 
   getTicksize(): TickSizeTable | undefined;
-  setTicksize(value?: TickSizeTable): void;
+  setTicksize(value?: TickSizeTable): Listing;
   hasTicksize(): boolean;
-  clearTicksize(): void;
+  clearTicksize(): Listing;
 
   getSizeincrement(): modelcommon_pb.Decimal64 | undefined;
-  setSizeincrement(value?: modelcommon_pb.Decimal64): void;
+  setSizeincrement(value?: modelcommon_pb.Decimal64): Listing;
   hasSizeincrement(): boolean;
-  clearSizeincrement(): void;
+  clearSizeincrement(): Listing;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Listing.AsObject;
@@ -56,8 +57,8 @@ export namespace Listing {
 
 export class TickSizeTable extends jspb.Message {
   getEntriesList(): Array<TickSizeEntry>;
-  setEntriesList(value: Array<TickSizeEntry>): void;
-  clearEntriesList(): void;
+  setEntriesList(value: Array<TickSizeEntry>): TickSizeTable;
+  clearEntriesList(): TickSizeTable;
   addEntries(value?: TickSizeEntry, index?: number): TickSizeEntry;
 
   serializeBinary(): Uint8Array;
@@ -76,19 +77,19 @@ export namespace TickSizeTable {
 
 export class TickSizeEntry extends jspb.Message {
   getLowerpricebound(): modelcommon_pb.Decimal64 | undefined;
-  setLowerpricebound(value?: modelcommon_pb.Decimal64): void;
+  setLowerpricebound(value?: modelcommon_pb.Decimal64): TickSizeEntry;
   hasLowerpricebound(): boolean;
-  clearLowerpricebound(): void;
+  clearLowerpricebound(): TickSizeEntry;
 
   getUpperpricebound(): modelcommon_pb.Decimal64 | undefined;
-  setUpperpricebound(value?: modelcommon_pb.Decimal64): void;
+  setUpperpricebound(value?: modelcommon_pb.Decimal64): TickSizeEntry;
   hasUpperpricebound(): boolean;
-  clearUpperpricebound(): void;
+  clearUpperpricebound(): TickSizeEntry;
 
   getTicksize(): modelcommon_pb.Decimal64 | undefined;
-  setTicksize(value?: modelcommon_pb.Decimal64): void;
+  setTicksize(value?: modelcommon_pb.Decimal64): TickSizeEntry;
   hasTicksize(): boolean;
-  clearTicksize(): void;
+  clearTicksize(): TickSizeEntry;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TickSizeEntry.AsObject;

@@ -1,20 +1,22 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
+
+
 
 export class Instrument extends jspb.Message {
   getVersion(): number;
-  setVersion(value: number): void;
+  setVersion(value: number): Instrument;
 
   getId(): number;
-  setId(value: number): void;
+  setId(value: number): Instrument;
 
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Instrument;
 
   getDisplaysymbol(): string;
-  setDisplaysymbol(value: string): void;
+  setDisplaysymbol(value: string): Instrument;
 
   getEnabled(): boolean;
-  setEnabled(value: boolean): void;
+  setEnabled(value: boolean): Instrument;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Instrument.AsObject;

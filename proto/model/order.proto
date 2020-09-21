@@ -48,6 +48,7 @@ message Order{
     string rootOriginatorId=22;
     string rootOriginatorRef=23;
     string execParametersJson=24; 
+    string destination=25;
 }
 
 

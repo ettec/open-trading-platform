@@ -4,7 +4,7 @@ import (
 	"fmt"
 	executionvenue2 "github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/loadbalancing"
+	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
 
@@ -25,7 +25,6 @@ import (
 func main() {
 
 	kafkaBrokers := bootstrap.GetEnvVar("KAFKA_BROKERS")
-	execVenueMic := bootstrap.GetEnvVar("MIC")
 	id := bootstrap.GetEnvVar("ID")
 
 	s := grpc.NewServer()
@@ -36,12 +35,12 @@ func main() {
 		log.Panicf("failed to create static data source:%v", err)
 	}
 
-	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), execVenueMic)
+	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), id)
 	if err != nil {
 		log.Panicf("failed to create order store: %v", err)
 	}
 
-	orderCache,err := loadbalancing.NewLoadBalancedOrderCache( store, execVenueMic, id)
+	orderCache,err := executionvenue.NewOrderCache(store, id)
 
 	if err != nil {
 		log.Panicf("failed to create order cache:%v", err)
@@ -54,7 +53,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := executionvenue2.NewOrderManager(orderCache, gateway, execVenueMic, sds.GetListing)
+	om := executionvenue2.NewOrderManager(orderCache, gateway, sds.GetListing)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)

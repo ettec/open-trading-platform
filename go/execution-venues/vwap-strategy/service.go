@@ -29,9 +29,10 @@ var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
+	id := bootstrap.GetEnvVar("ID")
+
 	log.Print("Starting vwap strategy")
 
-	id := "XVWAP"
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
 

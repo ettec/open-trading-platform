@@ -3,7 +3,7 @@ module github.com/ettec/open-trading-platform/go/market-data/quote-aggregator
 go 1.13
 
 require (
-	github.com/ettec/otp-common v0.0.0-20200909150956-e7e68768ed05
+	github.com/ettec/otp-common v0.0.0-20200921150132-07c999d1ede9
 	github.com/prometheus/client_golang v1.7.1
 	google.golang.org/grpc v1.25.1
 	k8s.io/apimachinery v0.17.4

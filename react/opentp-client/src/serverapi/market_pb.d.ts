@@ -1,20 +1,22 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
+
+
 
 export class Market extends jspb.Message {
   getVersion(): number;
-  setVersion(value: number): void;
+  setVersion(value: number): Market;
 
   getId(): number;
-  setId(value: number): void;
+  setId(value: number): Market;
 
   getName(): string;
-  setName(value: string): void;
+  setName(value: string): Market;
 
   getMic(): string;
-  setMic(value: string): void;
+  setMic(value: string): Market;
 
   getCountrycode(): string;
-  setCountrycode(value: string): void;
+  setCountrycode(value: string): Market;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Market.AsObject;

@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/ettec/otp-common"
+	common "github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/k8s"
@@ -28,7 +27,8 @@ var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
 
 func main() {
 
-	id := common.SR_MIC
+	id := bootstrap.GetEnvVar("ID")
+
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 
@@ -46,7 +46,7 @@ func main() {
 		panic(err)
 	}
 
-	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(common.SR_MIC, mdsAddress, maxConnectRetry, 1000)
 	if err != nil {
 		panic(err)
 	}
@@ -67,7 +67,7 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	childOrderUpdates, err := executionvenue.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
+	childOrderUpdates, err := executionvenue.GetChildOrders(common.SR_MIC, kafkaBrokers, strategy.ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}

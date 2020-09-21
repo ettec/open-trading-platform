@@ -1,4 +1,6 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
+
+
 
 export class Empty extends jspb.Message {
   serializeBinary(): Uint8Array;
@@ -16,10 +18,10 @@ export namespace Empty {
 
 export class Decimal64 extends jspb.Message {
   getMantissa(): number;
-  setMantissa(value: number): void;
+  setMantissa(value: number): Decimal64;
 
   getExponent(): number;
-  setExponent(value: number): void;
+  setExponent(value: number): Decimal64;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Decimal64.AsObject;
@@ -38,10 +40,10 @@ export namespace Decimal64 {
 
 export class Timestamp extends jspb.Message {
   getSeconds(): number;
-  setSeconds(value: number): void;
+  setSeconds(value: number): Timestamp;
 
   getNanoseconds(): number;
-  setNanoseconds(value: number): void;
+  setNanoseconds(value: number): Timestamp;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Timestamp.AsObject;

@@ -28,7 +28,6 @@ type orderManagerImpl struct {
 
 	closeChan chan struct{}
 
-	execVenueId string
 	orderStore  *executionvenue.OrderCache
 	gateway     orderGateway
 	getListing  func(listingId int32, result chan<- *model.Listing)
@@ -37,12 +36,11 @@ type orderManagerImpl struct {
 }
 
 func NewOrderManager(cache *executionvenue.OrderCache, gateway orderGateway,
-	execVenueId string, getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
+	getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
 
 	om := &orderManagerImpl{
 		log:         log.New(os.Stdout, "", log.Lshortfile|log.Ltime),
 		errLog:      log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
-		execVenueId: execVenueId,
 		getListing:  getListing,
 	}
 
@@ -332,7 +330,8 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 
 	order := model.NewOrder(id, params.OrderSide, params.Quantity,
 		params.Price, params.ListingId, params.OriginatorId, params.OriginatorRef,
-		params.RootOriginatorId, params.RootOriginatorRef)
+		params.RootOriginatorId, params.RootOriginatorRef, params.Destination)
+
 
 	err = order.SetTargetStatus(model.OrderStatus_LIVE)
 	if err != nil {

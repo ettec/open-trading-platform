@@ -21,14 +21,12 @@ var om orderManager
 
 func setup() {
 	var err error
-	orderCache, err = executionvenue.NewOrderCache(NewTestOrderStore(), func(order *model.Order) bool {
-		return true
-	})
+	orderCache, err = executionvenue.NewOrderCache(NewTestOrderStore(), "")
 	if err != nil {
 		panic(err)
 	}
 
-	om = NewOrderManager(orderCache, &TestOrderManager{}, "", func(listingId int32, result chan<- *model.Listing) {
+	om = NewOrderManager(orderCache, &TestOrderManager{}, func(listingId int32, result chan<- *model.Listing) {
 		result <- &model.Listing{Id:1}
 	})
 }
@@ -124,6 +122,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 		RemainingQuantity: IntToDecimal64(10),
 		Status:            model.OrderStatus_CANCELLED,
 		TargetStatus:      model.OrderStatus_NONE,
+		Destination: "XNAS",
 	}
 
 	order, _ := orderCache.GetOrder(id.OrderId)

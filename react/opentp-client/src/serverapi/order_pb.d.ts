@@ -1,13 +1,14 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as modelcommon_pb from './modelcommon_pb';
 
+
 export class Ref extends jspb.Message {
   getVersion(): number;
-  setVersion(value: number): void;
+  setVersion(value: number): Ref;
 
   getId(): string;
-  setId(value: string): void;
+  setId(value: string): Ref;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Ref.AsObject;
@@ -26,93 +27,99 @@ export namespace Ref {
 
 export class Order extends jspb.Message {
   getVersion(): number;
-  setVersion(value: number): void;
+  setVersion(value: number): Order;
 
   getId(): string;
-  setId(value: string): void;
+  setId(value: string): Order;
 
   getSide(): Side;
-  setSide(value: Side): void;
+  setSide(value: Side): Order;
 
   getQuantity(): modelcommon_pb.Decimal64 | undefined;
-  setQuantity(value?: modelcommon_pb.Decimal64): void;
+  setQuantity(value?: modelcommon_pb.Decimal64): Order;
   hasQuantity(): boolean;
-  clearQuantity(): void;
+  clearQuantity(): Order;
 
   getPrice(): modelcommon_pb.Decimal64 | undefined;
-  setPrice(value?: modelcommon_pb.Decimal64): void;
+  setPrice(value?: modelcommon_pb.Decimal64): Order;
   hasPrice(): boolean;
-  clearPrice(): void;
+  clearPrice(): Order;
 
   getListingid(): number;
-  setListingid(value: number): void;
+  setListingid(value: number): Order;
 
   getRemainingquantity(): modelcommon_pb.Decimal64 | undefined;
-  setRemainingquantity(value?: modelcommon_pb.Decimal64): void;
+  setRemainingquantity(value?: modelcommon_pb.Decimal64): Order;
   hasRemainingquantity(): boolean;
-  clearRemainingquantity(): void;
+  clearRemainingquantity(): Order;
 
   getTradedquantity(): modelcommon_pb.Decimal64 | undefined;
-  setTradedquantity(value?: modelcommon_pb.Decimal64): void;
+  setTradedquantity(value?: modelcommon_pb.Decimal64): Order;
   hasTradedquantity(): boolean;
-  clearTradedquantity(): void;
+  clearTradedquantity(): Order;
 
   getAvgtradeprice(): modelcommon_pb.Decimal64 | undefined;
-  setAvgtradeprice(value?: modelcommon_pb.Decimal64): void;
+  setAvgtradeprice(value?: modelcommon_pb.Decimal64): Order;
   hasAvgtradeprice(): boolean;
-  clearAvgtradeprice(): void;
+  clearAvgtradeprice(): Order;
 
   getStatus(): OrderStatus;
-  setStatus(value: OrderStatus): void;
+  setStatus(value: OrderStatus): Order;
 
   getTargetstatus(): OrderStatus;
-  setTargetstatus(value: OrderStatus): void;
+  setTargetstatus(value: OrderStatus): Order;
 
   getCreated(): modelcommon_pb.Timestamp | undefined;
-  setCreated(value?: modelcommon_pb.Timestamp): void;
+  setCreated(value?: modelcommon_pb.Timestamp): Order;
   hasCreated(): boolean;
-  clearCreated(): void;
+  clearCreated(): Order;
 
   getOwnerid(): string;
-  setOwnerid(value: string): void;
+  setOwnerid(value: string): Order;
 
   getOriginatorid(): string;
-  setOriginatorid(value: string): void;
+  setOriginatorid(value: string): Order;
 
   getOriginatorref(): string;
-  setOriginatorref(value: string): void;
+  setOriginatorref(value: string): Order;
 
   getLastexecquantity(): modelcommon_pb.Decimal64 | undefined;
-  setLastexecquantity(value?: modelcommon_pb.Decimal64): void;
+  setLastexecquantity(value?: modelcommon_pb.Decimal64): Order;
   hasLastexecquantity(): boolean;
-  clearLastexecquantity(): void;
+  clearLastexecquantity(): Order;
 
   getLastexecprice(): modelcommon_pb.Decimal64 | undefined;
-  setLastexecprice(value?: modelcommon_pb.Decimal64): void;
+  setLastexecprice(value?: modelcommon_pb.Decimal64): Order;
   hasLastexecprice(): boolean;
-  clearLastexecprice(): void;
+  clearLastexecprice(): Order;
 
   getLastexecid(): string;
-  setLastexecid(value: string): void;
+  setLastexecid(value: string): Order;
 
   getExposedquantity(): modelcommon_pb.Decimal64 | undefined;
-  setExposedquantity(value?: modelcommon_pb.Decimal64): void;
+  setExposedquantity(value?: modelcommon_pb.Decimal64): Order;
   hasExposedquantity(): boolean;
-  clearExposedquantity(): void;
+  clearExposedquantity(): Order;
 
   getErrormessage(): string;
-  setErrormessage(value: string): void;
+  setErrormessage(value: string): Order;
 
   getChildordersrefsList(): Array<Ref>;
-  setChildordersrefsList(value: Array<Ref>): void;
-  clearChildordersrefsList(): void;
+  setChildordersrefsList(value: Array<Ref>): Order;
+  clearChildordersrefsList(): Order;
   addChildordersrefs(value?: Ref, index?: number): Ref;
 
   getRootoriginatorid(): string;
-  setRootoriginatorid(value: string): void;
+  setRootoriginatorid(value: string): Order;
 
   getRootoriginatorref(): string;
-  setRootoriginatorref(value: string): void;
+  setRootoriginatorref(value: string): Order;
+
+  getExecparametersjson(): string;
+  setExecparametersjson(value: string): Order;
+
+  getDestination(): string;
+  setDestination(value: string): Order;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Order.AsObject;
@@ -147,6 +154,8 @@ export namespace Order {
     childordersrefsList: Array<Ref.AsObject>,
     rootoriginatorid: string,
     rootoriginatorref: string,
+    execparametersjson: string,
+    destination: string,
   }
 }
 

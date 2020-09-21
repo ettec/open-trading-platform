@@ -52,7 +52,7 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 	}
 
 	mo := model.NewOrder(orderId, model.Side_SELL, model.IasD(50), model.IasD(120), 0, "oi", "od",
-		"ri", "rr")
+		"ri", "rr", "XNAS")
 
 	listing1 := &model.Listing{Id: 1, Market: &model.Market{Mic: "XNAS"}}
 	listing2 := &model.Listing{Id: 2, Market: &model.Market{Mic: "XNAS"}}
@@ -153,7 +153,7 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 
 	client := &testEvClient{}
 	om := strategy.NewStrategyFromParentOrder(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
-		"oi", "od", "ri", "rr"), func(order *model.Order) error {
+		"oi", "od", "ri", "rr", "XNAS"), func(order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 

@@ -41,6 +41,10 @@ github.com/ettec/otp-common v0.0.0-20200910122836-eff8f5805df1 h1:b0zZX8WDOo3a7P
 github.com/ettec/otp-common v0.0.0-20200910122836-eff8f5805df1/go.mod h1:r0yxpfd7LMhLAA5ZgT9j0ZsliD8vecYFNgThDxuenxk=
 github.com/ettec/otp-common v0.0.0-20200910124507-ca24d3118e00 h1:XeHPcDdU/LFZzpFlYmNtcbZO80Ib8kaRfWJ9lefbFgg=
 github.com/ettec/otp-common v0.0.0-20200910124507-ca24d3118e00/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200921104722-0b06743daa85 h1:Fdu9MreI+Tbl/5LxIMd+gJB5cOFJtoXxWr9OsYqDNhI=
+github.com/ettec/otp-common v0.0.0-20200921104722-0b06743daa85/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200921150132-07c999d1ede9 h1:t7bwa3uw3BFllohn1xkYAb/qCYSPxvdQigLs5gUk1IM=
+github.com/ettec/otp-common v0.0.0-20200921150132-07c999d1ede9/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
 github.com/ettec/otp-mdcommon v0.0.0-20200727145052-03b9c1caeb96 h1:9PZjaAQHl3cHVEKNzQ8GhbVwQw111VPyaikQMfeRLCg=
 github.com/ettec/otp-model v0.0.1 h1:WC0ghBK4yv7o1oprtueUlW432umG/XeXKQe4UZjMAxM=
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
