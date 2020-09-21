@@ -47,7 +47,7 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 	mic := listing.Market.Mic
 	if sources, ok := s.micToSources[mic]; ok {
 		numGateways := int32(len(sources))
-		ordinal := loadbalancing.GetBalancingOrdinal(listing, numGateways)
+		ordinal := loadbalancing.GetBalancingOrdinal(r.ListingId, numGateways)
 
 		if source, ok := sources[ordinal]; ok {
 			if conn, ok := source.GetConnection(r.SubscriberId); ok {

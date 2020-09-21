@@ -114,7 +114,7 @@ func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (
 	} else {
 		return nil, fmt.Errorf("failed to find execution venue for owner id:%v", p.OwnerId)
 	}
-	
+
 }
 
 func createExecVenueConnection(maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
