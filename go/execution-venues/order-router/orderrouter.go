@@ -40,6 +40,8 @@ func New(connectRetrySecs int) *orderRouter {
 			}
 
 			micToExecVenue[mic][balancingPod.Ordinal] = client
+
+			ownerIdToExecVenue[balancingPod.Name] = client
 			log.Printf("added execution venue for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
 		}
 	}
