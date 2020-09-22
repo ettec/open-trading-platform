@@ -44,7 +44,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: ettec/opentp:smart-router-latest
+        image: ettec/opentp:vwap-strategy-latest
         imagePullPolicy: Always
         name: xvwap-order-gateway
         ports:
