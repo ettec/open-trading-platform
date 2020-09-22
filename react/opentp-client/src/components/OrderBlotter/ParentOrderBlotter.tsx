@@ -15,10 +15,9 @@ import { OrderService } from '../../services/OrderService';
 import { ChildOrderBlotterController, ExecutionsController, OrderContext, OrderHistoryBlotterController, TicketController } from '../Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
-import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewProperties, TableViewState } from '../TableView/TableView';
+import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewProperties } from '../TableView/TableView';
 import OrderBlotter, { OrderBlotterState } from './OrderBlotter';
 import { OrderView } from './OrderView';
-import OrderTicket from '../OrderTicket/OrderTicket';
 import { Destinations } from '../../common/destinations';
 
 

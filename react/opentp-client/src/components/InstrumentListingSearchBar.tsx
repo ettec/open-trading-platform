@@ -110,6 +110,8 @@ export default class InstrumentListingSearchBar extends React.Component<ListingS
 
     handleQueryChange(query : string) {
 
+        query = query.toUpperCase()
+
         if( query !== this.lastSearchString) {
             this.lastSearchString = query;
         } else {

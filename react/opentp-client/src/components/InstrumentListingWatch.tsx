@@ -1,4 +1,4 @@
-import { Menu } from '@blueprintjs/core';
+import { Icon, Menu } from '@blueprintjs/core';
 import { Cell, Column, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import { Actions, Model, TabNode } from "flexlayout-react";
 import React from 'react';
@@ -15,6 +15,7 @@ import { ClobQuote } from '../serverapi/clobquote_pb';
 import TableView, { getColIdsInOrder, getConfiguredColumns, reorderColumnData, TableViewConfig, TableViewProperties } from './TableView/TableView';
 import ReactCountryFlag from "react-country-flag"
 import { ListingId } from '../serverapi/staticdataservice_pb';
+import { GlobalColours } from './Colours';
 
 
 interface InstrumentListingWatchState {
@@ -31,6 +32,9 @@ interface InstrumentListingWatchProps extends TableViewProperties {
   ticketController: TicketController,
   listingService: ListingService
 }
+
+
+
 
 interface PersistentConfig extends TableViewConfig {
   listingIds: number[]
@@ -249,8 +253,38 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
   private renderName = (row: number) => <Cell>{this.state.watches[row]?.Name()}</Cell>;
   private renderMic = (row: number) => <Cell>{this.state.watches[row]?.Mic()}</Cell>;
   private renderBidSize = (row: number) => <Cell>{this.state.watches[row]?.BidSize()}</Cell>;
-  private renderBidPrice = (row: number) => <Cell>{this.state.watches[row]?.BidPrice()}</Cell>;
-  private renderAskPrice = (row: number) => <Cell>{this.state.watches[row]?.AskPrice()}</Cell>;
+  private renderBidPrice = (row: number) => {
+    let direction = this.state.watches[row]?.BidPriceDirection()
+    if (direction) {
+      if (direction > 0) {
+        return <Cell><Icon icon="arrow-up" style={{ color: GlobalColours.UPTICK }} />{this.state.watches[row]?.BidPrice()}</Cell>;
+      }
+
+      if (direction < 0) {
+        return <Cell><Icon icon="arrow-down" style={{ color: GlobalColours.DOWNTICK }} />{this.state.watches[row]?.BidPrice()}</Cell>;
+
+      }
+    }
+
+    return <Cell>{this.state.watches[row]?.BidPrice()}</Cell>;
+  }
+
+  private renderAskPrice = (row: number) => {
+    let direction = this.state.watches[row]?.AskPriceDirection()
+    if (direction) {
+      if (direction > 0) {
+        return <Cell><Icon icon="arrow-up" style={{ color: GlobalColours.UPTICK }} />{this.state.watches[row]?.AskPrice()}</Cell>;
+      }
+
+      if (direction < 0) {
+        return <Cell><Icon icon="arrow-down" style={{ color: GlobalColours.DOWNTICK }} />{this.state.watches[row]?.AskPrice()}</Cell>;
+
+      }
+    }
+
+    return <Cell>{this.state.watches[row]?.AskPrice()}</Cell>;
+  }
+
   private renderAskSize = (row: number) => <Cell>{this.state.watches[row]?.AskSize()}</Cell>;
 
   private renderCountry = (row: number) => {
@@ -445,11 +479,16 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
 
 }
 
+
 class ListingWatch {
 
   listingId: number;
   listing?: Listing;
   quote?: ClobQuote;
+  lastBidPrice?: number;
+  lastAskPrice?: number;
+  currentBidPrice?: number;
+  currentAskPrice?: number;
 
   constructor(listingId: number) {
     this.listingId = listingId
@@ -520,14 +559,44 @@ class ListingWatch {
     if (this.quote) {
       if (this.quote.getBidsList().length >= 1) {
         let depth = this.quote.getBidsList()[0]
-        let sz = toNumber(depth.getPrice())
-        if (sz) {
-          return sz.toString()
+
+
+        let price = toNumber(depth.getPrice())
+        if (price !== this.currentBidPrice) {
+          this.lastBidPrice = this.currentBidPrice
+          this.currentBidPrice = price
+        }
+
+        if (price) {
+          return price.toString()
         }
       }
     }
 
     return ""
+  }
+
+  BidPriceDirection(): number {
+    if (this.quote) {
+      if (this.quote.getBidsList().length >= 1) {
+        let depth = this.quote.getBidsList()[0]
+
+
+        let price = toNumber(depth.getPrice())
+        if (price !== this.currentBidPrice) {
+          this.lastBidPrice = this.currentBidPrice
+          this.currentBidPrice = price
+        }
+
+        if (this.currentBidPrice && this.lastBidPrice) {
+
+          return this.currentBidPrice - this.lastBidPrice
+        }
+
+      }
+    }
+
+    return 0
   }
 
   AskSize(): string {
@@ -535,6 +604,7 @@ class ListingWatch {
       if (this.quote.getOffersList().length >= 1) {
         let depth = this.quote.getOffersList()[0]
         let sz = toNumber(depth.getSize())
+
         if (sz) {
           return sz.toString()
         }
@@ -544,18 +614,49 @@ class ListingWatch {
     return ""
   }
 
+
+
   AskPrice(): string {
     if (this.quote) {
       if (this.quote.getOffersList().length >= 1) {
         let depth = this.quote.getOffersList()[0]
-        let sz = toNumber(depth.getPrice())
-        if (sz) {
-          return sz.toString()
+
+        let price = toNumber(depth.getPrice())
+        if (price !== this.currentAskPrice) {
+          this.lastAskPrice = this.currentAskPrice
+          this.currentAskPrice = price
+        }
+
+        if (price) {
+          return price.toString()
         }
       }
     }
 
     return ""
+  }
+
+  AskPriceDirection(): number {
+    if (this.quote) {
+      if (this.quote.getBidsList().length >= 1) {
+        let depth = this.quote.getBidsList()[0]
+
+
+        let price = toNumber(depth.getPrice())
+        if (price !== this.currentBidPrice) {
+          this.lastBidPrice = this.currentBidPrice
+          this.currentBidPrice = price
+        }
+
+        if (this.currentBidPrice && this.lastBidPrice) {
+
+          return this.currentBidPrice - this.lastBidPrice
+        }
+
+      }
+    }
+
+    return 0
   }
 
 }
