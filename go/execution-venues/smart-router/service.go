@@ -67,7 +67,7 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	childOrderUpdates, err := executionvenue.GetChildOrders(common.SR_MIC, kafkaBrokers, strategy.ChildUpdatesBufferSize)
+	childOrderUpdates, err := executionvenue.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}

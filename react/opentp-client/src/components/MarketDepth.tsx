@@ -165,7 +165,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
     // Blueprint Table component requires state setting twice to ensure update is applied
     this.setState(state);
-    this.setState(state);        
+    this.setState(state);
   }
 
   toggleLock(): void {
@@ -220,8 +220,11 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
 
     if (this.selectedRegions) {
       let result = this.getSelectedDepthFromRegions(this.selectedRegions, Side.SELL)
-      price = result.price
-      quantity = result.quantity
+      if (result) {
+        price = result.price
+        quantity = result.quantity
+      }
+
     }
 
     if (this.state.listing) {
@@ -274,10 +277,11 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
         }
       }
 
-      if (highestSelectedRow >= 0) {
+      if (highestSelectedRow >= 0 && clobLines.length > 0) {
         if (highestSelectedRow >= clobLines.length) {
           highestSelectedRow = clobLines.length - 1
         }
+
 
         price = toNumber(clobLines[highestSelectedRow].getPrice())
         quantity = 0;
@@ -341,7 +345,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     if (row < depth.length) {
       let listingId = depth[row].getListingid()
 
-      if( listingId <=0) {
+      if (listingId <= 0) {
         listingId = this.state.quote?.getListingid()
       }
 
@@ -367,7 +371,7 @@ export default class MarketDepth extends TableView<MarketDepthProps, MarketDepth
     if (row < depth.length) {
       let listingId = depth[row].getListingid()
 
-      if( listingId <=0) {
+      if (listingId <= 0) {
         listingId = this.state.quote?.getListingid()
       }
 

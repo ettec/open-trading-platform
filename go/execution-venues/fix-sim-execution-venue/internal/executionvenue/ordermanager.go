@@ -247,13 +247,18 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.Ord
 		return
 	}
 
+
+	oldStatus := order.GetStatus()
 	err := order.SetStatus(status)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
 	}
 
-	err = om.orderStore.Store(order)
+	if order.Status != oldStatus {
+		err = om.orderStore.Store(order)
+	}
+
 	resultChan <- errorCmdResult{Error: err}
 
 }

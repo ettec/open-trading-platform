@@ -66,13 +66,6 @@ var pendingCancelOrders = promauto.NewGauge(prometheus.GaugeOpts{
 	Help: "The number of pending cancel orders",
 })
 
-const (
-	KafkaBrokersKey        = "KAFKA_BROKERS"
-	External               = "EXTERNAL"
-	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
-	CancelTimeoutSecs      = "CANCEL_TIMEOUT_SECS"
-)
-
 type orderMonitor struct {
 	cancelOrdersForOriginatorChan chan *ordermonitor.CancelAllOrdersForOriginatorIdParams
 }
@@ -84,10 +77,12 @@ func (s *orderMonitor) CancelAllOrdersForOriginatorId(ctx context.Context, param
 
 func main() {
 
-	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
-	external := bootstrap.GetOptionalBoolEnvVar(External, false)
-	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
-	cancelTimeoutDuration := time.Duration(bootstrap.GetOptionalIntEnvVar(CancelTimeoutSecs, 5)) * time.Second
+	logAllOrderUpdates := bootstrap.GetOptionalBoolEnvVar("LOG_ORDER_UPDATES", false)
+	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
+	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
+	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
+	cancelTimeoutDuration := time.Duration(bootstrap.GetOptionalIntEnvVar("CANCEL_TIMEOUT_SECS", 5)) * time.Second
+
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
@@ -131,6 +126,10 @@ func main() {
 			errLog.Print("failed to update status gauge:", err)
 		}
 		gauge.Inc()
+
+		if logAllOrderUpdates {
+			log.Printf("Order Update:%v\n\n", order)
+		}
 	}
 
 	go func() {
@@ -175,6 +174,10 @@ func main() {
 				}()
 
 			case u := <-updates:
+
+				if logAllOrderUpdates {
+					log.Printf("Order Update:%v\n\n", u)
+				}
 
 				if order, exists := orders[u.Id]; exists {
 					orders[u.Id] = u

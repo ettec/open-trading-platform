@@ -42,6 +42,95 @@ func IntToDecimal64(i int) *model.Decimal64 {
 	}
 }
 
+func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) {
+
+	params := &api.CreateAndRouteOrderParams{
+		OrderSide: model.Side_BUY,
+		Quantity:  IntToDecimal64(10),
+		Price:     IntToDecimal64(20),
+		ListingId:   1,
+	}
+
+	id, err := om.CreateAndRouteOrder(params)
+	if err != nil {
+		t.Fatalf("Create order call failed %v", err)
+	}
+
+	order, ok := orderCache.GetOrder(id.OrderId)
+
+	if !ok {
+		t.Fatalf("created order not found in store")
+	}
+
+	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(5), "testexecid" )
+
+
+	testOrder := &model.Order{
+		Version:           1,
+		Id:                id.OrderId,
+		Side:              model.Side_BUY,
+		Quantity:          IntToDecimal64(10),
+		Price:             IntToDecimal64(20),
+		ListingId:         1,
+		RemainingQuantity: IntToDecimal64(0),
+		Status:            model.OrderStatus_FILLED,
+		TargetStatus:      model.OrderStatus_NONE,
+	}
+
+	order.Created = nil
+	testOrder.Created = nil
+
+	if order.Status != model.OrderStatus_LIVE {
+		t.Fatalf("Expected order to be live")
+	}
+
+}
+
+
+func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) {
+
+	params := &api.CreateAndRouteOrderParams{
+		OrderSide: model.Side_BUY,
+		Quantity:  IntToDecimal64(10),
+		Price:     IntToDecimal64(20),
+		ListingId:   1,
+	}
+
+	id, err := om.CreateAndRouteOrder(params)
+	if err != nil {
+		t.Fatalf("Create order call failed %v", err)
+	}
+
+	order, ok := orderCache.GetOrder(id.OrderId)
+
+	if !ok {
+		t.Fatalf("created order not found in store")
+	}
+
+	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(10), "testexecid" )
+
+
+	testOrder := &model.Order{
+		Version:           1,
+		Id:                id.OrderId,
+		Side:              model.Side_BUY,
+		Quantity:          IntToDecimal64(10),
+		Price:             IntToDecimal64(20),
+		ListingId:         1,
+		RemainingQuantity: IntToDecimal64(0),
+		Status:            model.OrderStatus_FILLED,
+		TargetStatus:      model.OrderStatus_NONE,
+	}
+
+	order.Created = nil
+	testOrder.Created = nil
+
+	if order.Status != model.OrderStatus_FILLED {
+		t.Fatalf("Expected order to be filled")
+	}
+
+}
+
 func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
