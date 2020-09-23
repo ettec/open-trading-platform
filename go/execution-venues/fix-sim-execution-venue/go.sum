@@ -49,6 +49,12 @@ github.com/ettec/otp-common v0.0.0-20200921150132-07c999d1ede9 h1:t7bwa3uw3BFllo
 github.com/ettec/otp-common v0.0.0-20200921150132-07c999d1ede9/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
 github.com/ettec/otp-common v0.0.0-20200921153727-e6dabdfff301 h1:ssOMQukIPb86p0In7VOQYKLudzykWHAOWiuEokmwzGo=
 github.com/ettec/otp-common v0.0.0-20200921153727-e6dabdfff301/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200923125036-a7d5eccfbb96 h1:H1U42F1oNx9lferlgWYsX/SgXGv58ZpoofLxufAxDkA=
+github.com/ettec/otp-common v0.0.0-20200923125036-a7d5eccfbb96/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200923132339-7bcc07492057 h1:9JBm+HVfEwjCYO1tqNB+FymYAgFa8hPLyg2F471yS1Q=
+github.com/ettec/otp-common v0.0.0-20200923132339-7bcc07492057/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200923144919-c41258f0f8e2 h1:2LYm0qDAd7mr+37xkUFrJUVXSBoAaCyW3rCiV8tua5E=
+github.com/ettec/otp-common v0.0.0-20200923144919-c41258f0f8e2/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=

@@ -10,8 +10,6 @@ import (
 	"os"
 )
 
-
-
 type orderGateway interface {
 	Send(order *model.Order, listing *model.Listing) error
 	Cancel(order *model.Order) error
@@ -28,20 +26,20 @@ type orderManagerImpl struct {
 
 	closeChan chan struct{}
 
-	orderStore  *executionvenue.OrderCache
-	gateway     orderGateway
-	getListing  func(listingId int32, result chan<- *model.Listing)
-	log         *log.Logger
-	errLog      *log.Logger
+	orderStore *executionvenue.OrderCache
+	gateway    orderGateway
+	getListing func(listingId int32, result chan<- *model.Listing)
+	log        *log.Logger
+	errLog     *log.Logger
 }
 
 func NewOrderManager(cache *executionvenue.OrderCache, gateway orderGateway,
 	getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
 
 	om := &orderManagerImpl{
-		log:         log.New(os.Stdout, "", log.Lshortfile|log.Ltime),
-		errLog:      log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
-		getListing:  getListing,
+		log:        log.New(os.Stdout, "", log.Lshortfile|log.Ltime),
+		errLog:     log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
+		getListing: getListing,
 	}
 
 	om.createOrderChan = make(chan createAndRouteOrderCmd, 100)
@@ -202,13 +200,18 @@ func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model.Decimal64, lastQty model.Decimal64,
 	execId string, resultChan chan errorCmdResult) {
 
-	order, exists := om.orderStore.GetOrder(id)
+	order, exists, err:= om.orderStore.GetOrder(id)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("update traded quantity failed, no order found for id %v", id)}
 		return
 	}
 
-	err := order.AddExecution(model.Execution{
+	err = order.AddExecution(model.Execution{
 		Id:    execId,
 		Price: lastPrice,
 		Qty:   lastQty,
@@ -226,7 +229,11 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model
 
 func (om *orderManagerImpl) executeSetErrorMsg(id string, msg string, resultChan chan errorCmdResult) {
 
-	order, exists := om.orderStore.GetOrder(id)
+	order, exists, err := om.orderStore.GetOrder(id)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: fmt.Errorf("failed to get order from cache %v", id)}
+	}
+
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("set order error message failed, no order found for id %v", id)}
 		return
@@ -234,30 +241,31 @@ func (om *orderManagerImpl) executeSetErrorMsg(id string, msg string, resultChan
 
 	order.ErrorMessage = msg
 
-	err := om.orderStore.Store(order)
-	resultChan <- errorCmdResult{Error: err}
+	err = om.orderStore.Store(order)
+
 
 }
 
 func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.OrderStatus, resultChan chan errorCmdResult) {
 
-	order, exists := om.orderStore.GetOrder(id)
-	if !exists {
-		resultChan <- errorCmdResult{Error: fmt.Errorf("set order status failed, no order found for id %v", id)}
-		return
-	}
-
-
-	oldStatus := order.GetStatus()
-	err := order.SetStatus(status)
+	order, exists, err := om.orderStore.GetOrder(id)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
 	}
 
-	if order.Status != oldStatus {
-		err = om.orderStore.Store(order)
+	if !exists {
+		resultChan <- errorCmdResult{Error: fmt.Errorf("set order status failed, no order found for id %v", id)}
+		return
 	}
+
+	err = order.SetStatus(status)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
+	err = om.orderStore.Store(order)
 
 	resultChan <- errorCmdResult{Error: err}
 
@@ -265,13 +273,18 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.Ord
 
 func (om *orderManagerImpl) executeModifyOrderCmd(params *api.ModifyOrderParams, resultChan chan errorCmdResult) {
 
-	order, exists := om.orderStore.GetOrder(params.OrderId)
+	order, exists,err := om.orderStore.GetOrder(params.OrderId)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("modify order failed, no order found for id %v", params.OrderId)}
 		return
 	}
 
-	err := order.SetTargetStatus(model.OrderStatus_LIVE)
+	err = order.SetTargetStatus(model.OrderStatus_LIVE)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -297,13 +310,18 @@ func (om *orderManagerImpl) executeModifyOrderCmd(params *api.ModifyOrderParams,
 
 func (om *orderManagerImpl) executeCancelOrderCmd(params *api.CancelOrderParams, resultChan chan errorCmdResult) {
 
-	order, exists := om.orderStore.GetOrder(params.OrderId)
+	order, exists,err := om.orderStore.GetOrder(params.OrderId)
+	if err != nil {
+		resultChan <- errorCmdResult{Error: err}
+		return
+	}
+
 	if !exists {
 		resultChan <- errorCmdResult{Error: fmt.Errorf("cancel order failed, no order found for id %v", params.OrderId)}
 		return
 	}
 
-	err := order.SetTargetStatus(model.OrderStatus_CANCELLED)
+	err = order.SetTargetStatus(model.OrderStatus_CANCELLED)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -336,7 +354,6 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 	order := model.NewOrder(id, params.OrderSide, params.Quantity,
 		params.Price, params.ListingId, params.OriginatorId, params.OriginatorRef,
 		params.RootOriginatorId, params.RootOriginatorRef, params.Destination)
-
 
 	err = order.SetTargetStatus(model.OrderStatus_LIVE)
 	if err != nil {

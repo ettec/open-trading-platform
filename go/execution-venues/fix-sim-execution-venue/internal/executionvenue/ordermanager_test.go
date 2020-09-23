@@ -21,7 +21,7 @@ var om orderManager
 
 func setup() {
 	var err error
-	orderCache, err = executionvenue.NewOrderCache(NewTestOrderStore(), "")
+	orderCache, err = executionvenue.NewOrderCache(newTestOrderStore(), "")
 	if err != nil {
 		panic(err)
 	}
@@ -56,7 +56,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 		t.Fatalf("Create order call failed %v", err)
 	}
 
-	order, ok := orderCache.GetOrder(id.OrderId)
+	order, ok,_ := orderCache.GetOrder(id.OrderId)
 
 	if !ok {
 		t.Fatalf("created order not found in store")
@@ -76,6 +76,8 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 		Status:            model.OrderStatus_FILLED,
 		TargetStatus:      model.OrderStatus_NONE,
 	}
+
+	order, ok,_ = orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -101,7 +103,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 		t.Fatalf("Create order call failed %v", err)
 	}
 
-	order, ok := orderCache.GetOrder(id.OrderId)
+	order, ok, err := orderCache.GetOrder(id.OrderId)
 
 	if !ok {
 		t.Fatalf("created order not found in store")
@@ -111,7 +113,6 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 
 
 	testOrder := &model.Order{
-		Version:           1,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),
@@ -121,6 +122,8 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 		Status:            model.OrderStatus_FILLED,
 		TargetStatus:      model.OrderStatus_NONE,
 	}
+
+	order, ok,_ = orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -145,7 +148,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		t.Fatalf("Create order call failed %v", err)
 	}
 
-	order, ok := orderCache.GetOrder(id.OrderId)
+	order, ok,_ := orderCache.GetOrder(id.OrderId)
 
 	if !ok {
 		t.Fatalf("created order not found in store")
@@ -154,7 +157,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 	testOrder := &model.Order{
-		Version:           1,
+        Version: 			1,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),
@@ -164,6 +167,8 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		Status:            model.OrderStatus_LIVE,
 		TargetStatus:      model.OrderStatus_NONE,
 	}
+
+	order, ok,_ = orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -202,7 +207,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	om.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
 
 	testOrder := &model.Order{
-		Version:           3,
+        Version:           3,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),
@@ -214,7 +219,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 		Destination: "XNAS",
 	}
 
-	order, _ := orderCache.GetOrder(id.OrderId)
+	order, _, _ := orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -242,8 +247,8 @@ func (f *TestOrderManager) Modify(order *model.Order, listing *model.Listing, Qu
 
 
 
-func NewTestOrderStore() *TestOrderStore {
-	t := TestOrderStore{
+func newTestOrderStore() *testOrderStore {
+	t := testOrderStore{
 		orders:    make([]*model.Order, 0, 10),
 		ordersMap: make(map[string]*model.Order),
 	}
@@ -251,26 +256,33 @@ func NewTestOrderStore() *TestOrderStore {
 	return &t
 }
 
-type TestOrderStore struct {
+type testOrderStore struct {
 	orders    []*model.Order
 	ordersMap map[string]*model.Order
 }
 
-func (t *TestOrderStore) Write(order *model.Order) error {
+func (t *testOrderStore) Write(order *model.Order) error {
+
+
 	t.orders = append(t.orders, order)
+
+
 	t.ordersMap[order.Id] = order
+
+
+
 	return nil
 }
 
-func (t *TestOrderStore) RecoverInitialCache(loadOrder func(order *model.Order) bool) (map[string]*model.Order, error) {
+func (t *testOrderStore) RecoverInitialCache(loadOrder func(order *model.Order) bool) (map[string]*model.Order, error) {
 	return map[string]*model.Order{}, nil
 }
 
-func (t *TestOrderStore) GetOrder(orderId string) (model.Order, bool) {
+func (t *testOrderStore) GetOrder(orderId string) (model.Order, bool) {
 	order, ok := t.ordersMap[orderId]
 	return *order, ok
 }
 
-func (t *TestOrderStore) Close() {
+func (t *testOrderStore) Close() {
 
 }
