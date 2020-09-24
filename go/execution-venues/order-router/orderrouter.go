@@ -66,13 +66,13 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRou
 
 	id, err := ev.client.CreateAndRouteOrder(c, p)
 
+	log.Printf("routed create order request %v to execution venue %v, returned order id %v", p, ev, id)
+
 	if err != nil {
 		return nil, fmt.Errorf("failed to route order:%v", err)
 	}
 
-	return &api.OrderId{
-		OrderId: id.OrderId,
-	}, nil
+	return id, nil
 
 }
 

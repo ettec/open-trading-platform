@@ -3,7 +3,7 @@ module github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execut
 go 1.13
 
 require (
-	github.com/ettec/otp-common v0.0.0-20200923144919-c41258f0f8e2
+	github.com/ettec/otp-common v0.0.0-20200924162246-006c3a3a8f41
 	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1
 	github.com/quickfixgo/quickfix v0.6.0

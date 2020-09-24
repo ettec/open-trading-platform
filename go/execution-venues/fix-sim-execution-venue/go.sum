@@ -55,6 +55,8 @@ github.com/ettec/otp-common v0.0.0-20200923132339-7bcc07492057 h1:9JBm+HVfEwjCYO
 github.com/ettec/otp-common v0.0.0-20200923132339-7bcc07492057/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
 github.com/ettec/otp-common v0.0.0-20200923144919-c41258f0f8e2 h1:2LYm0qDAd7mr+37xkUFrJUVXSBoAaCyW3rCiV8tua5E=
 github.com/ettec/otp-common v0.0.0-20200923144919-c41258f0f8e2/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
+github.com/ettec/otp-common v0.0.0-20200924162246-006c3a3a8f41 h1:ACYO9Yo86I/0T6JxZeRxKMkIvjyBmxBPPr6W/pJrGJ4=
+github.com/ettec/otp-common v0.0.0-20200924162246-006c3a3a8f41/go.mod h1:sxCkaZnlbp6aDeozHW+iRI27NqoAWKQtndm5AtjtgwY=
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=

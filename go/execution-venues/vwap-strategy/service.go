@@ -81,6 +81,10 @@ func main() {
 			om.CancelOrderWithErrorMsg("start time must be before end time")
 		}
 
+		if vwapParams.UtcEndTimeSecs < time.Now().Unix() {
+			om.CancelOrderWithErrorMsg("end time has already passed")
+		}
+
 		if model.IasD(vwapParams.Buckets).GreaterThan(quantity) {
 			om.CancelOrderWithErrorMsg("num Buckets must be less than or equal to the quantity")
 		}

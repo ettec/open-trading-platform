@@ -8,17 +8,13 @@ import (
 	"time"
 )
 
-
-
-
 type vwapParameters struct {
 	UtcStartTimeSecs int64 `json:"utcStartTimeSecs"`
 	UtcEndTimeSecs   int64 `json:"utcEndTimeSecs"`
 	Buckets          int   `json:"buckets"`
 }
 
-
-func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket,  listing *model.Listing) {
+func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *model.Listing) {
 
 	go func() {
 
@@ -30,7 +26,7 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket,  listing *mo
 			}
 		}
 
-		om.Log.Println("order initialised")
+		om.Log.Println("order initialised, buckets->", buckets)
 
 		ticker := time.NewTicker(1 * time.Second)
 
@@ -49,21 +45,22 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket,  listing *mo
 			case <-ticker.C:
 				nowUtc := time.Now().Unix()
 				shouldHaveSentQty := &model.Decimal64{}
-				for  i :=0; i< len(buckets); i++ {
+				for i := 0; i < len(buckets); i++ {
 					if buckets[i].utcStartTimeSecs <= nowUtc {
 						shouldHaveSentQty.Add(&buckets[i].quantity)
 					}
 				}
 
-				sentQty  := &model.Decimal64{}
+				sentQty := &model.Decimal64{}
 				sentQty.Add(om.ParentOrder.GetTradedQuantity())
 				sentQty.Add(om.ParentOrder.GetExposedQuantity())
 
 				if sentQty.LessThan(shouldHaveSentQty) {
 					shouldHaveSentQty.Sub(sentQty)
-					err := om.SendChildOrder(om.ParentOrder.Side,  shouldHaveSentQty, om.ParentOrder.Price, listing)
+
+					err := om.SendChildOrder(om.ParentOrder.Side, shouldHaveSentQty, om.ParentOrder.Price, listing)
 					if err != nil {
-						om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to send child order:%v" , err))
+						om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to send child order:%v", err))
 					}
 				}
 
@@ -87,7 +84,7 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket,  listing *mo
 	}()
 }
 
-func getBucketsFromParamsString(vwapParamsJson string,  quantity model.Decimal64, listing *model.Listing) ([]bucket, error) {
+func getBucketsFromParamsString(vwapParamsJson string, quantity model.Decimal64, listing *model.Listing) ([]bucket, error) {
 	vwapParameters := &vwapParameters{}
 	err := json.Unmarshal([]byte(vwapParamsJson), vwapParameters)
 	if err != nil {
