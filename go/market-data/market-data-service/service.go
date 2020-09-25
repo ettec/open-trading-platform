@@ -5,6 +5,7 @@ import (
 	"fmt"
 	api "github.com/ettec/otp-common/api/marketdataservice"
 	"github.com/ettec/otp-common/bootstrap"
+	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/loadbalancing"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
@@ -14,16 +15,20 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	v12 "k8s.io/api/core/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/watch"
 	logger "log"
 	"net"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 )
 
 var connections = promauto.NewGauge(prometheus.GaugeOpts{
 	Name: "mds_active_connections",
-	Help: "The number of active connections to the mds",
+	Help: "The number of active subscribers to the mds",
 })
 
 var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
@@ -31,9 +36,12 @@ var quotesSent = promauto.NewCounter(prometheus.CounterOpts{
 	Help: "The number of quotes sent across all clients",
 })
 
+
 type service struct {
 	micToSources map[string]map[int]*marketdatasource.MdsConnection
 	getListingFn func(listingId int32, result chan<- *model.Listing)
+	sourceMutex  sync.Mutex
+	subscribers  map[string] chan *model.ClobQuote
 }
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
@@ -45,7 +53,8 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 	log.Printf("listing %v received", listing.Id)
 
 	mic := listing.Market.Mic
-	if sources, ok := s.micToSources[mic]; ok {
+	sources := s.getSourcesForMic(mic)
+	if len(sources) > 0 {
 		numGateways := int32(len(sources))
 		ordinal := loadbalancing.GetBalancingOrdinal(r.ListingId, numGateways)
 
@@ -70,6 +79,42 @@ func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*mod
 
 }
 
+func( s *service) getSourcesForMic(mic string) map[int]*marketdatasource.MdsConnection {
+	s.sourceMutex.Lock()
+	defer s.sourceMutex.Unlock()
+
+	result := map[int]*marketdatasource.MdsConnection{}
+	for k,v := range s.micToSources[mic] {
+		result[k] = v
+	}
+
+	return result
+}
+
+func (s *service) addSubscriber( subscriberId string, out chan *model.ClobQuote ) {
+	s.sourceMutex.Lock()
+	s.sourceMutex.Unlock()
+
+	s.subscribers[subscriberId] = out
+	for mic, gateways := range s.micToSources {
+
+		for _, gateway := range gateways {
+			gateway.AddConnection(subscriberId, out)
+		}
+		log.Printf("connected subscriber %v to %v market data sources for mic %v", subscriberId, len(gateways), mic)
+	}
+
+}
+
+
+func (s *service) removeSubscriber( subscriberId string ) {
+	s.sourceMutex.Lock()
+	s.sourceMutex.Unlock()
+
+	delete(s.subscribers, subscriberId)
+}
+
+
 func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataService_ConnectServer) error {
 
 	subscriberId := request.GetSubscriberId()
@@ -78,13 +123,8 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	out := make(chan *model.ClobQuote, 100)
 
-	for mic, gateways := range s.micToSources {
+	s.addSubscriber(subscriberId, out)
 
-		for _, gateway := range gateways {
-			gateway.AddConnection(subscriberId, out)
-		}
-		log.Printf("connected subscriber %v to %v market data sources for mic %v", subscriberId, len(gateways), mic)
-	}
 
 	connections.Inc()
 
@@ -102,6 +142,30 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	return nil
 }
+
+
+func (s *service) addMarketDataConnection(bsp *loadbalancing.BalancingStatefulPod, connection *marketdatasource.MdsConnection) {
+	s.sourceMutex.Lock()
+	defer s.sourceMutex.Unlock()
+
+	if _, ok := s.micToSources[bsp.Mic]; !ok {
+		s.micToSources[bsp.Mic] = map[int]*marketdatasource.MdsConnection{}
+	}
+
+	if _, ok := s.micToSources[bsp.Mic][bsp.Ordinal]; !ok {
+
+		s.micToSources[bsp.Mic][bsp.Ordinal] = connection
+		log.Printf("added market data source for mic: %v,  target address: %v, stateful set ordinal %v", bsp.Mic, bsp, bsp.Ordinal)
+
+		for subscriberId, conn := range s.subscribers {
+			connection.AddConnection(subscriberId, conn)
+			log.Printf("add subscriber %v to market data source", subscriberId)
+		}
+	}
+
+}
+
+
 
 var maxSubscriptions = 10000
 var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
@@ -125,38 +189,48 @@ func main() {
 		log.Fatalf("failed to get static data source:%v", err)
 	}
 
-	mdService := service{micToSources: map[string]map[int]*marketdatasource.MdsConnection{}, getListingFn: sds.GetListing}
+	mdService := service{micToSources: map[string]map[int]*marketdatasource.MdsConnection{}, getListingFn: sds.GetListing,
+		sourceMutex: sync.Mutex{}, subscribers: map[string]chan *model.ClobQuote{}}
 
-	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("market-data-gateway")
+	go func() {
 
-	if err != nil {
-		log.Panicf("failed to get market data gateway pod balancingPods: %v", err)
-	}
+		namespace := "default"
+		clientSet := k8s.GetK8sClientSet(false)
+		serviceType := "market-data-gateway"
+		pods, err := clientSet.CoreV1().Pods(namespace).Watch(v1.ListOptions{
+			LabelSelector: "servicetype=" + serviceType,
+		})
 
-	for mic, balancingPods := range micToBalancingPods {
-		for _, balancingPod := range balancingPods {
-
-			client, err := marketdatasource.NewMdsConnection(id, balancingPod.TargetAddress, time.Duration(connectRetrySecs)*time.Second,
-				maxSubscriptions)
-			if err != nil {
-				errLog.Printf("failed to create connection to market data source at %v, error: %v", balancingPod, err)
-				continue
-			}
-
-			if _, ok := mdService.micToSources[mic]; !ok {
-				mdService.micToSources[mic] = map[int]*marketdatasource.MdsConnection{}
-			}
-
-			mdService.micToSources[mic][balancingPod.Ordinal] = client
-			log.Printf("added market data source for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
+		if err != nil {
+			panic(err)
 		}
-	}
+
+		for e := range pods.ResultChan() {
+			pod := e.Object.(*v12.Pod)
+			bsp, err := loadbalancing.GetBalancingStatefulPod(*pod)
+			if err != nil {
+				panic(err)
+			}
+
+			if e.Type == watch.Added {
+
+				client, err := marketdatasource.NewMdsConnection(id, bsp.TargetAddress, time.Duration(connectRetrySecs)*time.Second,
+					maxSubscriptions)
+				if err != nil {
+					errLog.Printf("failed to create connection to market data source at %v, error: %v", bsp, err)
+					continue
+				}
+
+				mdService.addMarketDataConnection(bsp, client)
+			}
+		}
+	}()
 
 	port := "50551"
 	fmt.Println("starting market data service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
 	s := grpc.NewServer()
@@ -166,6 +240,6 @@ func main() {
 	reflection.Register(s)
 
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
+		log.Panicf("Error while serving : %v", err)
 	}
 }
