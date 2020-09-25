@@ -3,9 +3,14 @@ package main
 import (
 	"context"
 	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/loadbalancing"
 	"github.com/ettec/otp-common/model"
 	"google.golang.org/grpc"
+	v12 "k8s.io/api/core/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/watch"
+	"sync"
 	"time"
 
 	"fmt"
@@ -14,42 +19,82 @@ import (
 type orderRouter struct {
 	micToExecVenue     map[string]map[int]*execVenue
 	ownerIdToExecVenue map[string]*execVenue
+	venueMux           sync.Mutex
 }
 
 func New(connectRetrySecs int) *orderRouter {
 
-	ownerIdToExecVenue := map[string]*execVenue{}
-	micToExecVenue := map[string]map[int]*execVenue{}
-	micToBalancingPods, err := loadbalancing.GetMicToStatefulPodAddresses("execution-venue")
-
-	if err != nil {
-		log.Panicf("failed to get execution venue balancing pods: %v", err)
+	router := &orderRouter{
+		micToExecVenue:     map[string]map[int]*execVenue{},
+		ownerIdToExecVenue: map[string]*execVenue{},
+		venueMux:           sync.Mutex{},
 	}
 
-	for mic, balancingPods := range micToBalancingPods {
-		for _, balancingPod := range balancingPods {
+	go func() {
 
-			client, err := createExecVenueConnection(time.Duration(connectRetrySecs)*time.Second, balancingPod.TargetAddress)
-			if err != nil {
-				errLog.Printf("failed to create connection to execution venue service at %v, error: %v", balancingPod.TargetAddress, err)
-				continue
-			}
+		namespace := "default"
+		clientSet := k8s.GetK8sClientSet(false)
+		serviceType := "execution-venue"
+		pods, err := clientSet.CoreV1().Pods(namespace).Watch(v1.ListOptions{
+			LabelSelector: "servicetype=" + serviceType,
+		})
 
-			if _, ok := micToExecVenue[mic]; !ok {
-				micToExecVenue[mic] = map[int]*execVenue{}
-			}
-
-			micToExecVenue[mic][balancingPod.Ordinal] = client
-
-			ownerIdToExecVenue[balancingPod.Name] = client
-			log.Printf("added execution venue for mic: %v,  target address: %v, stateful set ordinal %v", mic, balancingPod, balancingPod.Ordinal)
+		if err != nil {
+			panic(err)
 		}
+
+		for e := range pods.ResultChan() {
+			pod := e.Object.(*v12.Pod)
+			bsp, err := loadbalancing.GetBalancingStatefulPod(*pod)
+			if err != nil {
+				panic(err)
+			}
+
+			if e.Type == watch.Added {
+
+				client, err := createExecVenueConnection(time.Duration(connectRetrySecs)*time.Second, bsp.TargetAddress)
+				if err != nil {
+					errLog.Printf("failed to create connection to execution venue service at %v, error: %v", bsp.TargetAddress, err)
+					continue
+				}
+
+				router.addExecVenue(bsp, client)
+			} else if e.Type == watch.Deleted {
+				router.removeExecVenue(bsp)
+			}
+		}
+	}()
+
+	return router
+}
+
+func (o *orderRouter) removeExecVenue(bsp *loadbalancing.BalancingStatefulPod) {
+	o.venueMux.Lock()
+	defer o.venueMux.Unlock()
+
+	if ordToEv, ok := o.micToExecVenue[bsp.Mic]; ok {
+		delete(ordToEv, bsp.Ordinal)
 	}
 
-	return &orderRouter{
-		micToExecVenue:     micToExecVenue,
-		ownerIdToExecVenue: ownerIdToExecVenue,
+	delete(o.ownerIdToExecVenue, bsp.Name)
+
+	log.Printf("removed execution venue for mic: %v,  target address: %v, stateful set ordinal %v", bsp.Mic, bsp.TargetAddress, bsp.Ordinal)
+}
+
+func (o *orderRouter) addExecVenue(bsp *loadbalancing.BalancingStatefulPod, ev *execVenue) {
+	o.venueMux.Lock()
+	defer o.venueMux.Unlock()
+
+	if _, ok := o.micToExecVenue[bsp.Mic]; !ok {
+		o.micToExecVenue[bsp.Mic] = map[int]*execVenue{}
 	}
+
+	o.micToExecVenue[bsp.Mic][bsp.Ordinal] = ev
+
+	o.ownerIdToExecVenue[bsp.Name] = ev
+
+	log.Printf("added execution venue for mic: %v,  target address: %v, stateful set ordinal %v", bsp.Mic, bsp.TargetAddress, bsp.Ordinal)
+
 }
 
 func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*api.ExecParamsMetaDataJson, error) {
@@ -76,7 +121,21 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRou
 
 }
 
+func (o *orderRouter) getExecutionVenueForOwnerId(ownerId string) (*execVenue, error) {
+	o.venueMux.Lock()
+	defer o.venueMux.Unlock()
+	if ev, ok := o.ownerIdToExecVenue[ownerId]; ok {
+		return ev, nil
+
+	} else {
+		return nil, fmt.Errorf("failed to find execution venue for owner id:%v", ownerId)
+	}
+
+}
+
 func (o *orderRouter) getExecutionVenueForListing(listingId int32, destination string) (*execVenue, error) {
+	o.venueMux.Lock()
+	defer o.venueMux.Unlock()
 	if evs, ok := o.micToExecVenue[destination]; ok {
 		numVenues := int32(len(evs))
 		ordinal := loadbalancing.GetBalancingOrdinal(listingId, numVenues)
@@ -88,35 +147,36 @@ func (o *orderRouter) getExecutionVenueForListing(listingId int32, destination s
 
 func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (*model.Empty, error) {
 
-	if ev, ok := o.ownerIdToExecVenue[p.OwnerId]; ok {
-		_, err := ev.client.ModifyOrder(c, p)
+	ev, err := o.getExecutionVenueForOwnerId(p.OwnerId)
 
-		if err != nil {
-			return nil, fmt.Errorf("failed to modify order: %v, error: %v", p.OrderId, err)
-		}
-
-		return &model.Empty{}, nil
-
-	} else {
-		return nil, fmt.Errorf("failed to find execution venue for owner id:%v", p.OwnerId)
+	if err != nil {
+		return nil, fmt.Errorf("failed to modify order %v, error: %v", p.OrderId, err)
 	}
+
+	_, err = ev.client.ModifyOrder(c, p)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to modify order: %v, error: %v", p.OrderId, err)
+	}
+
+	return &model.Empty{}, nil
 }
 
 func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
 
-	if ev, ok := o.ownerIdToExecVenue[p.OwnerId]; ok {
-		_, err := ev.client.CancelOrder(c, p)
+	ev, err := o.getExecutionVenueForOwnerId(p.OwnerId)
 
-		if err != nil {
-			return nil, fmt.Errorf("failed to cancel order %v: , error: %v", p.OrderId, err)
-		}
-
-		return &model.Empty{}, nil
-
-	} else {
-		return nil, fmt.Errorf("failed to find execution venue for owner id:%v", p.OwnerId)
+	if err != nil {
+		return nil, fmt.Errorf("failed to cancel order %v, error: %v", p.OrderId, err)
 	}
 
+	_, err = ev.client.CancelOrder(c, p)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to cancel order %v: , error: %v", p.OrderId, err)
+	}
+
+	return &model.Empty{}, nil
 }
 
 func createExecVenueConnection(maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,

@@ -26,7 +26,7 @@ func main() {
 
 	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)
 
-	orderRouter := New( maxConnectRetrySecs)
+	orderRouter := New(maxConnectRetrySecs)
 
 	port := "50581"
 	fmt.Println("Starting Order Router on port:" + port)
