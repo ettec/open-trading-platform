@@ -93,11 +93,7 @@ func getBucketsFromParamsString(vwapParamsJson string, quantity model.Decimal64,
 
 	numBuckets := vwapParameters.Buckets
 	if numBuckets == 0 {
-		if quantity.ToFloat() > 100 {
-			numBuckets = 100
-		} else {
-			numBuckets = int(quantity.ToFloat())
-		}
+		numBuckets = 10
 	}
 
 	buckets := getBuckets(listing, vwapParameters.UtcStartTimeSecs, vwapParameters.UtcEndTimeSecs, numBuckets, quantity)

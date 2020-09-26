@@ -5,9 +5,9 @@ import (
 	"fmt"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
-	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettec/otp-common/strategy"
@@ -102,12 +102,12 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	childOrderUpdates, err := executionvenue.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
+	childOrderUpdates, err := ordermanagement.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
 	if err != nil {
 		panic(err)
 	}
 
-	distributor := executionvenue.NewChildOrderUpdatesDistributor(childOrderUpdates)
+	distributor := ordermanagement.NewChildOrderUpdatesDistributor(childOrderUpdates)
 
 	sm := strategy.NewStrategyManager(id, store, distributor, orderRouter, executeFn)
 
