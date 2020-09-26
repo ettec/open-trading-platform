@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 dockerRepo: "ettec/opentp:"
-dockerTag: "-latest"
+dockerTag: ""
 
 replicaCount: 1
 
