@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	executionvenue2 "github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
+	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/executionvenue"
+	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
 
@@ -40,7 +40,7 @@ func main() {
 		log.Panicf("failed to create order store: %v", err)
 	}
 
-	orderCache,err := executionvenue.NewOrderCache(store, id)
+	orderCache,err := ordermanagement.NewOrderCache(store, id)
 
 	if err != nil {
 		log.Panicf("failed to create order cache:%v", err)
@@ -53,7 +53,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := executionvenue2.NewOrderManager(orderCache, gateway, sds.GetListing)
+	om := executionvenue.NewOrderManager(orderCache, gateway, sds.GetListing)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)
@@ -63,7 +63,7 @@ func main() {
 
 	defer func() { fixServerCloseChan <- struct{}{} }()
 
-	service := executionvenue2.New(om)
+	service := executionvenue.New(om)
 	defer service.Close()
 
 	api.RegisterExecutionVenueServer(s, service)

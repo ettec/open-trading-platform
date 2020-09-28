@@ -2,7 +2,7 @@ package executionvenue
 
 import (
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/executionvenue"
+	"github.com/ettec/otp-common/ordermanagement"
 "github.com/ettec/otp-common/model"
 	"github.com/golang/protobuf/proto"
 	"os"
@@ -16,12 +16,12 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-var orderCache *executionvenue.OrderCache
+var orderCache *ordermanagement.OrderCache
 var om orderManager
 
 func setup() {
 	var err error
-	orderCache, err = executionvenue.NewOrderCache(newTestOrderStore(), "")
+	orderCache, err = ordermanagement.NewOrderCache(newTestOrderStore(), "")
 	if err != nil {
 		panic(err)
 	}

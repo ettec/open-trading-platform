@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/envoyproxy/go-control-plane v0.9.5
-	github.com/ettec/otp-common v0.0.0-20200924162246-006c3a3a8f41
+	github.com/ettec/otp-common v0.0.0-20200925140110-b71248cb56f8
 	github.com/gogo/googleapis v1.4.0
 	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1

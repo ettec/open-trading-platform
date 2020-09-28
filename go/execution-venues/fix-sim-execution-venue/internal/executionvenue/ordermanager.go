@@ -3,8 +3,8 @@ package executionvenue
 import (
 	"fmt"
 	api "github.com/ettec/otp-common/api/executionvenue"
-	"github.com/ettec/otp-common/executionvenue"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/google/uuid"
 	"log"
 	"os"
@@ -26,14 +26,14 @@ type orderManagerImpl struct {
 
 	closeChan chan struct{}
 
-	orderStore *executionvenue.OrderCache
+	orderStore *ordermanagement.OrderCache
 	gateway    orderGateway
 	getListing func(listingId int32, result chan<- *model.Listing)
 	log        *log.Logger
 	errLog     *log.Logger
 }
 
-func NewOrderManager(cache *executionvenue.OrderCache, gateway orderGateway,
+func NewOrderManager(cache *ordermanagement.OrderCache, gateway orderGateway,
 	getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
 
 	om := &orderManagerImpl{
