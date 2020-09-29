@@ -29,7 +29,7 @@ type orderManagerImpl struct {
 	orderStore *ordermanagement.OrderCache
 	gateway    orderGateway
 	getListing func(listingId int32, result chan<- *model.Listing)
-	log        *log.Logger
+
 	errLog     *log.Logger
 }
 
@@ -37,7 +37,6 @@ func NewOrderManager(cache *ordermanagement.OrderCache, gateway orderGateway,
 	getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
 
 	om := &orderManagerImpl{
-		log:        log.New(os.Stdout, "", log.Lshortfile|log.Ltime),
 		errLog:     log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
 		getListing: getListing,
 	}
@@ -93,7 +92,7 @@ func (om *orderManagerImpl) Close() {
 }
 
 func (om *orderManagerImpl) SetErrorMsg(orderId string, msg string) error {
-	om.log.Printf("updating order %v error message to %v", orderId, msg)
+	log.Printf("updating order %v error message to %v", orderId, msg)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -109,7 +108,7 @@ func (om *orderManagerImpl) SetErrorMsg(orderId string, msg string) error {
 }
 
 func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderStatus) error {
-	om.log.Printf("updating order %v status to %v", orderId, status)
+	log.Printf("updating order %v status to %v", orderId, status)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -126,7 +125,7 @@ func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderSta
 
 func (om *orderManagerImpl) AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64,
 	execId string) error {
-	om.log.Printf(orderId+":adding execution for price %v and quantity %v", lastPrice, lastQty)
+	log.Printf(orderId+":adding execution for price %v and quantity %v", lastPrice, lastQty)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -140,7 +139,7 @@ func (om *orderManagerImpl) AddExecution(orderId string, lastPrice model.Decimal
 
 	result := <-resultChan
 
-	om.log.Printf(orderId+":update traded quantity result:%v", result)
+	log.Printf(orderId+":update traded quantity result:%v", result)
 
 	return result.Error
 }
@@ -164,7 +163,7 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *api.CreateAndRouteOrderP
 }
 
 func (om *orderManagerImpl) ModifyOrder(params *api.ModifyOrderParams) error {
-	om.log.Printf("modifying order %v, price %v, quantity %v", params.OrderId, params.Price, params.Quantity)
+	log.Printf("modifying order %v, price %v, quantity %v", params.OrderId, params.Price, params.Quantity)
 	resultChan := make(chan errorCmdResult)
 
 	om.modifyOrderChan <- modifyOrderCmd{
@@ -174,14 +173,14 @@ func (om *orderManagerImpl) ModifyOrder(params *api.ModifyOrderParams) error {
 
 	result := <-resultChan
 
-	om.log.Printf(params.OrderId+":modify order result: %v", result)
+	log.Printf(params.OrderId+":modify order result: %v", result)
 
 	return result.Error
 }
 
 func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 
-	om.log.Print(params.OrderId + ":cancelling order")
+	log.Print(params.OrderId + ":cancelling order")
 
 	resultChan := make(chan errorCmdResult)
 
@@ -192,7 +191,7 @@ func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 
 	result := <-resultChan
 
-	om.log.Printf(params.OrderId+":cancel order result: %v", result)
+	log.Printf(params.OrderId+":cancel order result: %v", result)
 
 	return result.Error
 }

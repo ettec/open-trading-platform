@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/static-data-service/api/staticdataservice"
+	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-model"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
@@ -68,7 +69,7 @@ func (s *service) GetListingsWithSameInstrument(c context.Context, id *api.Listi
 
 }
 
-func (s *service) GetListingMatching(c context.Context, m *api.ExactMatchParameters) (*model.Listing, error) {
+func (s *service) GetListingMatching(_ context.Context, m *api.ExactMatchParameters) (*model.Listing, error) {
 
 	lq := listingsSelect + " where display_symbol = '" + m.Symbol + "' and markets.mic = '" + m.Mic + "'"
 
@@ -93,7 +94,7 @@ func (s *service) GetListingMatching(c context.Context, m *api.ExactMatchParamet
 	return result.Listings[0], nil
 }
 
-func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters) (*api.Listings, error) {
+func (s *service) GetListingsMatching(_ context.Context, m *api.MatchParameters) (*api.Listings, error) {
 
 	lq := listingsSelect + " where display_symbol like '" + m.SymbolMatch + "%'"
 
@@ -110,7 +111,7 @@ func (s *service) GetListingsMatching(c context.Context, m *api.MatchParameters)
 	return result, nil
 }
 
-func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listing, error) {
+func (s *service) GetListing(_ context.Context, id *api.ListingId) (*model.Listing, error) {
 	lq := fmt.Sprintf("%v where listings.id = %v", listingsSelect, id.ListingId)
 
 	r, err := s.db.Query(lq)
@@ -131,7 +132,7 @@ func (s *service) GetListing(c context.Context, id *api.ListingId) (*model.Listi
 
 }
 
-func (s *service) GetListings(c context.Context, ids *api.ListingIds) (*api.Listings, error) {
+func (s *service) GetListings(_ context.Context, ids *api.ListingIds) (*api.Listings, error) {
 
 	lq := listingsSelect + " where listings.id in (" + strings.Trim(strings.Join(strings.Fields(fmt.Sprint(ids.ListingIds)), ","), "[]") + ")"
 
@@ -209,27 +210,24 @@ func hydrateListings(r *sql.Rows) (*api.Listings, error) {
 	return &result, nil
 }
 
-const (
-	Port                     = "PORT"
-	DatabaseConnectionString = "DB_CONN_STRING"
-	DatabaseDriverName       = "DB_DRIVER_NAME"
-)
-
 func main() {
 
-	dbString := getBootstrapEnvVar(DatabaseConnectionString)
-	dbDriverName := getBootstrapEnvVar(DatabaseDriverName)
-	port := getOptionalBootstrapEnvVar(Port, "50551")
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
+
+	dbString := bootstrap.GetEnvVar("DB_CONN_STRING")
+	dbDriverName := bootstrap.GetEnvVar("DB_DRIVER_NAME")
+	port := bootstrap.GetOptionalEnvVar("PORT", "50551")
 
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
 	service, err := NewService(dbDriverName, dbString)
 	if err != nil {
-		log.Fatalf("failed to create service: %v", err)
+		log.Panicf("failed to create service: %v", err)
 	}
 	defer service.Close()
 
@@ -241,31 +239,8 @@ func main() {
 	fmt.Println("Starting static data service on port:" + port)
 
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
+		log.Panicf("Error while serving : %v", err)
 	}
 
 }
 
-// To be used to get environment variables at startup prior to using any resources as it
-// exits the process if the env var is not found
-func getBootstrapEnvVar(key string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		log.Fatalf("missing required env var %v", key)
-	}
-
-	log.Printf("%v set to %v", key, value)
-
-	return value
-}
-
-func getOptionalBootstrapEnvVar(key string, def string) string {
-	value, exists := os.LookupEnv(key)
-	if !exists {
-		value = def
-	}
-
-	log.Printf("%v set to %v", key, value)
-
-	return value
-}

@@ -12,13 +12,14 @@ import (
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
+	"os"
 )
 
 type service struct {
 	db *sql.DB
 }
 
-func (s *service) StoreClientConfig(ctx context.Context, params *api.StoreConfigParams) (*model.Empty, error) {
+func (s *service) StoreClientConfig(_ context.Context, params *api.StoreConfigParams) (*model.Empty, error) {
 
 	lq := fmt.Sprintf("select count(*) from clientconfig.reactclientconfig where userid = '%v'", params.UserId)
 
@@ -30,7 +31,10 @@ func (s *service) StoreClientConfig(ctx context.Context, params *api.StoreConfig
 
 	var count int
 	r.Next()
-	r.Scan(&count)
+	err = r.Scan(&count)
+	if err != nil {
+		return nil, fmt.Errorf("failed to check for existing config in database:%w", err)
+	}
 
 	var q string
 	if count == 0 {
@@ -51,7 +55,7 @@ func (s *service) StoreClientConfig(ctx context.Context, params *api.StoreConfig
 
 const configSelect = "select config from clientconfig.reactclientconfig where userid = '%v'"
 
-func (s *service) GetClientConfig(ctx context.Context, parameters *api.GetConfigParameters) (*api.Config, error) {
+func (s *service) GetClientConfig(_ context.Context, parameters *api.GetConfigParameters) (*api.Config, error) {
 
 	lq := fmt.Sprintf(configSelect, parameters.UserId)
 
@@ -63,7 +67,11 @@ func (s *service) GetClientConfig(ctx context.Context, parameters *api.GetConfig
 
 	if r.Next() {
 		var config string
-		r.Scan(&config)
+		err = r.Scan(&config)
+		if err != nil {
+			return nil, fmt.Errorf("failed to fetch config from database:%w", err)
+		}
+
 
 		return &api.Config{
 			Config: config,
@@ -74,7 +82,7 @@ func (s *service) GetClientConfig(ctx context.Context, parameters *api.GetConfig
 
 }
 
-func NewService(driverName, dbConnString string) (*service, error) {
+func newService(driverName, dbConnString string) (*service, error) {
 
 	s := &service{}
 
@@ -101,27 +109,25 @@ func (s *service) Close() {
 	}
 }
 
-const (
-	Port                     = "PORT"
-	DatabaseConnectionString = "DB_CONN_STRING"
-	DatabaseDriverName       = "DB_DRIVER_NAME"
-)
 
 func main() {
 
-	dbString := bootstrap.GetEnvVar(DatabaseConnectionString)
-	dbDriverName := bootstrap.GetEnvVar(DatabaseDriverName)
-	port := bootstrap.GetOptionalEnvVar(Port, "50551")
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
+
+	dbString := bootstrap.GetEnvVar("DB_CONN_STRING")
+	dbDriverName := bootstrap.GetEnvVar("DB_DRIVER_NAME")
+	port := bootstrap.GetOptionalEnvVar("PORT", "50551")
 
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
-	service, err := NewService(dbDriverName, dbString)
+	service, err := newService(dbDriverName, dbString)
 	if err != nil {
-		log.Fatalf("failed to create service: %v", err)
+		log.Panicf("failed to create service: %v", err)
 	}
 	defer service.Close()
 
@@ -131,7 +137,7 @@ func main() {
 	reflection.Register(s)
 	fmt.Println("Started client config service on port:" + port)
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
+		log.Panicf("Error while serving : %v", err)
 	}
 
 }

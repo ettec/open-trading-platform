@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	api "github.com/ettec/otp-common/api/executionvenue"
+	"fmt"
+	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/loadbalancing"
 	"github.com/ettec/otp-common/model"
@@ -10,10 +11,9 @@ import (
 	v12 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
+	"log"
 	"sync"
 	"time"
-
-	"fmt"
 )
 
 type orderRouter struct {
@@ -97,11 +97,11 @@ func (o *orderRouter) addExecVenue(bsp *loadbalancing.BalancingStatefulPod, ev *
 
 }
 
-func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*api.ExecParamsMetaDataJson, error) {
-	return &api.ExecParamsMetaDataJson{}, nil
+func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*executionvenue.ExecParamsMetaDataJson, error) {
+	return &executionvenue.ExecParamsMetaDataJson{}, nil
 }
 
-func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
+func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *executionvenue.CreateAndRouteOrderParams) (*executionvenue.OrderId, error) {
 
 	ev, err := o.getExecutionVenueForListing(p.ListingId, p.Destination)
 
@@ -145,7 +145,7 @@ func (o *orderRouter) getExecutionVenueForListing(listingId int32, destination s
 	}
 }
 
-func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (*model.Empty, error) {
+func (o *orderRouter) ModifyOrder(c context.Context, p *executionvenue.ModifyOrderParams) (*model.Empty, error) {
 
 	ev, err := o.getExecutionVenueForOwnerId(p.OwnerId)
 
@@ -162,7 +162,7 @@ func (o *orderRouter) ModifyOrder(c context.Context, p *api.ModifyOrderParams) (
 	return &model.Empty{}, nil
 }
 
-func (o *orderRouter) CancelOrder(c context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
+func (o *orderRouter) CancelOrder(c context.Context, p *executionvenue.CancelOrderParams) (*model.Empty, error) {
 
 	ev, err := o.getExecutionVenueForOwnerId(p.OwnerId)
 
@@ -190,7 +190,7 @@ func createExecVenueConnection(maxReconnectInterval time.Duration, targetAddress
 		return nil, err
 	}
 
-	client := api.NewExecutionVenueClient(conn)
+	client := executionvenue.NewExecutionVenueClient(conn)
 
 	return &execVenue{
 		client: client,

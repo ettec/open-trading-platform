@@ -1,11 +1,10 @@
 package quoteaggregator
 
 import (
+	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
 )
-
-const SmartRouterMic = "XOSR"
 
 type quoteAggregator struct {
 	getListings     getListingsWithSameInstrument
@@ -46,7 +45,7 @@ func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream mar
 				numStreams := 0
 				var quoteAggListingId int32 = -1
 				for _, listing := range listings {
-					if listing.Market.Mic != SmartRouterMic {
+					if listing.Market.Mic != common.SR_MIC {
 						listingIdToQuoteChan[listing.Id] = quoteChan
 						stream.Subscribe(listing.Id)
 						numStreams++

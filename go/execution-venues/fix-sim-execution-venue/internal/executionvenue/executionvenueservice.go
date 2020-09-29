@@ -27,7 +27,7 @@ func New(om orderManager) *ExecVenueService {
 	return &service
 }
 
-func (s *ExecVenueService) CreateAndRouteOrder(context context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
+func (s *ExecVenueService) CreateAndRouteOrder(_ context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 
 	log.Printf("Received  order parameters-> %v", params)
 
@@ -64,7 +64,7 @@ func (s *ExecVenueService) CreateAndRouteOrder(context context.Context, params *
 	}, nil
 }
 
-func (s *ExecVenueService) CancelOrder(ctx context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
+func (s *ExecVenueService) CancelOrder(_ context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
 	err := s.orderManager.CancelOrder(p)
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ func (s *ExecVenueService) CancelOrder(ctx context.Context, p *api.CancelOrderPa
 	return &model.Empty{}, nil
 }
 
-func (s *ExecVenueService) ModifyOrder(ctx context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
+func (s *ExecVenueService) ModifyOrder(_ context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
 
 	err := s.orderManager.ModifyOrder(params)
 	if err != nil {

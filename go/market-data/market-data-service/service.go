@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	api "github.com/ettec/otp-common/api/marketdataservice"
+
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/loadbalancing"
@@ -18,7 +19,7 @@ import (
 	v12 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
-	logger "log"
+	"log"
 	"net"
 	"net/http"
 	"os"
@@ -168,10 +169,12 @@ func (s *service) addMarketDataConnection(bsp *loadbalancing.BalancingStatefulPo
 
 
 var maxSubscriptions = 10000
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
+var errLog = log.New(os.Stderr, "", log.Flags())
 
 func main() {
+
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
 
 	id := bootstrap.GetEnvVar("MDS_ID")
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)

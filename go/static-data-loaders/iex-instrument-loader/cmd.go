@@ -20,11 +20,6 @@ type iexInstrument struct {
 	IexID     interface{} `json:"iexId"`
 }
 
-type listing struct {
-	marketId     int32
-	instrumentId int
-	marketSymbol string
-}
 
 func main() {
 
@@ -36,36 +31,36 @@ func main() {
 
 	req, err := http.NewRequest(http.MethodGet, iexUrl, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	res, err := iexClient.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	body, readErr := ioutil.ReadAll(res.Body)
 	if readErr != nil {
-		log.Fatal(readErr)
+		log.Panic(readErr)
 	}
 
 	iexInstruments := make([]iexInstrument, 2000)
 	jsonErr := json.Unmarshal(body, &iexInstruments)
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
+		log.Panic(jsonErr)
 	}
 
 	db, err := sql.Open("postgres", "host=192.168.1.200 dbname=cnoms sslmode=disable user=cnomsk8s password=password")
 
 	if err != nil {
-		log.Fatal("Error: The data source arguments are not valid")
+		log.Panic("Error: The data source arguments are not valid")
 	}
 
 	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("Error: Could not establish a connection with the database")
+		log.Panic("Error: Could not establish a connection with the database")
 	}
 
 	db.Exec(`set search_path="referencedata"`)
@@ -80,13 +75,13 @@ func main() {
 			log.Fatal(err)
 		}
 
-		json := string(bytes)
-		json = strings.Replace(json, "'", "''", -1)
+		jsonStr := string(bytes)
+		jsonStr = strings.Replace(jsonStr, "'", "''", -1)
 
 		sql := "INSERT INTO instruments (name, display_symbol, enabled, raw_sources) VALUES ($1, $2, $3, $4) RETURNING id"
 
 		lastInsertId := 0
-		err = db.QueryRow(sql, iexInst.Name, iexInst.Symbol, iexInst.IsEnabled, json).Scan(&lastInsertId)
+		err = db.QueryRow(sql, iexInst.Name, iexInst.Symbol, iexInst.IsEnabled, jsonStr).Scan(&lastInsertId)
 
 	}
 

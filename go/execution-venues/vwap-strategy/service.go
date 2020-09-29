@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
@@ -13,28 +13,25 @@ import (
 	"github.com/ettec/otp-common/strategy"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	logger "log"
+	"log"
 	"net"
 	"os"
 	"strings"
 	"time"
 )
 
-const (
-	KafkaBrokersKey        = "KAFKA_BROKERS"
-	MaxConnectRetrySeconds = "MAX_CONNECT_RETRY_SECONDS"
-)
-
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-
 func main() {
 
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
+
 	id := bootstrap.GetEnvVar("ID")
+	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
+	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 
 	log.Print("Starting vwap strategy")
 
-	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar(MaxConnectRetrySeconds, 60)) * time.Second
-	kafkaBrokersString := bootstrap.GetEnvVar(KafkaBrokersKey)
+
 
 	s := grpc.NewServer()
 
@@ -111,7 +108,7 @@ func main() {
 
 	sm := strategy.NewStrategyManager(id, store, distributor, orderRouter, executeFn)
 
-	api.RegisterExecutionVenueServer(s, sm)
+	executionvenue.RegisterExecutionVenueServer(s, sm)
 
 	reflection.Register(s)
 

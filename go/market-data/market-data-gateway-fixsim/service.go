@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ettec/otp-common/api/marketdatasource"
 	"github.com/ettec/otp-common/bootstrap"
+	"os"
 
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/connections/fixsim"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
@@ -51,33 +52,38 @@ func newService(id string, fixSimAddress string, maxReconnectInterval time.Durat
 
 func main() {
 
-	port := "50551"
-	fmt.Println("Starting Market Data Gateway on port:" + port)
-	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
+
 
 	id := bootstrap.GetEnvVar("GATEWAY_ID")
 	fixSimAddress := bootstrap.GetEnvVar("FIX_SIM_ADDRESS")
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
 
+
+	port := "50551"
+	fmt.Println("Starting Market Data Gateway on port:" + port)
+	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
+
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
 	s := grpc.NewServer()
 
 	service, err := newService(id, fixSimAddress, time.Duration(connectRetrySecs)*time.Second)
 	if err != nil {
-		log.Fatalf("error creating service: %v", err)
+		log.Panicf("error creating service: %v", err)
 	}
 
 	marketdatasource.RegisterMarketDataSourceServer(s, service)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
+		log.Panicf("Error while serving : %v", err)
 	}
 
 }

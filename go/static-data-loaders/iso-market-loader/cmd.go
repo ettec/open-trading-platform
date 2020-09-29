@@ -32,8 +32,12 @@ func main() {
 		record, err := r.Read()
 		if err == io.EOF {
 			break
+		} else {
+			if err != nil {
+				log.Panicf("error whilst reading file:%v", err)
+			}
 		}
-		log.Fatalf("error whilst reading file:%v", err)
+
 
 		market := market{
 			countryCode: record[1],
@@ -64,11 +68,11 @@ func main() {
 
 	for _, market := range markets {
 
-		sql := "INSERT INTO markets (mic, name, country_code ) VALUES ('" + market.mic + "','" + market.name + "','" + market.countryCode + "')"
+		sqlstmt := "INSERT INTO markets (mic, name, country_code ) VALUES ('" + market.mic + "','" + market.name + "','" + market.countryCode + "')"
 
-		_, err := db.Exec(sql)
+		_, err := db.Exec(sqlstmt)
 		if err != nil {
-			log.Printf("Error: Failed to insert row error:%v  row sql:%v", err, sql)
+			log.Printf("Error: Failed to insert row error:%v  row sql:%v", err, sqlstmt)
 		}
 
 	}

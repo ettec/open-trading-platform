@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	common "github.com/ettec/otp-common"
-	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/ordermanagement"
@@ -18,14 +17,17 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	logger "log"
+	"log"
 	"net"
 	"strings"
 )
 
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
+
 
 func main() {
+
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
 
 	id := bootstrap.GetEnvVar("ID")
 
@@ -46,7 +48,7 @@ func main() {
 		panic(err)
 	}
 
-	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(common.SR_MIC, mdsAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry, 1000)
 	if err != nil {
 		panic(err)
 	}
@@ -76,7 +78,7 @@ func main() {
 
 	sm := strategy.NewStrategyManager(id, store, distributor, orderRouter, executeFn)
 
-	api.RegisterExecutionVenueServer(s, sm)
+	executionvenue.RegisterExecutionVenueServer(s, sm)
 
 	reflection.Register(s)
 
@@ -85,11 +87,11 @@ func main() {
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("error   while serving : %v", err)
+		log.Panicf("error   while serving : %v", err)
 	}
 
 }

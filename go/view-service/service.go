@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
-	logger "log"
+	"log"
 	"net"
 	"os"
 	"strings"
@@ -22,11 +22,7 @@ import (
 
 const (
 	KafkaBrokersKey = "KAFKA_BROKERS"
-	External        = "EXTERNAL"
 )
-
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 type service struct {
 	orderSubscriptions sync.Map
@@ -167,7 +163,7 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 
 	var updates []*api.OrderUpdate
 	for {
-		key, value, time, err := reader.ReadMessage(ctx)
+		key, value, writeTime, err := reader.ReadMessage(ctx)
 		if err != nil {
 			return nil, err
 		}
@@ -181,7 +177,7 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 			}
 			updates = append(updates, &api.OrderUpdate{
 				Order: order,
-				Time:  model.NewTimeStamp(time),
+				Time:  model.NewTimeStamp(writeTime),
 			})
 			if order.Version >= args.ToVersion {
 				return &api.OrderHistory{Updates: updates}, nil
@@ -270,7 +266,7 @@ func main() {
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
 	s := grpc.NewServer()

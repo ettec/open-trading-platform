@@ -16,6 +16,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"os"
 	"strings"
 )
 
@@ -38,7 +39,7 @@ type AuthService struct {
 }
 
 // inject a header that can be used for future rate limiting
-func (a *AuthService) Check(ctx context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
+func (a *AuthService) Check(_ context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
 
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
 
@@ -144,18 +145,27 @@ type user struct {
 
 func main() {
 
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
+
 	dbString := bootstrap.GetEnvVar(DatabaseConnectionString)
 	dbDriverName := bootstrap.GetEnvVar(DatabaseDriverName)
 
 	db, err := sql.Open(dbDriverName, dbString)
-	defer db.Close()
 	if err != nil {
-		log.Panicf("failed to open database connection: %w", err)
+		log.Panicf("failed to open database connection: %v", err)
 	}
+	defer func() {
+		err := db.Close()
+		if err != nil {
+			log.Printf("error when closing database connection: %v", err)
+		}
+	} ()
+
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("could not establish a connection with the database: ", err)
+		log.Panic("could not establish a connection with the database: ", err)
 	}
 
 	r, err := db.Query("SELECT id, desk, permissionflags FROM users.users")
@@ -166,7 +176,10 @@ func main() {
 	users := map[string]user{}
 	for r.Next() {
 		u := user{}
-		r.Scan(&u.id, &u.desk, &u.permissionFlags)
+		err := r.Scan(&u.id, &u.desk, &u.permissionFlags)
+		if err != nil {
+			log.Panicf("failed to scan user row: %v", err)
+		}
 		u.token = uuid.New().String()
 		users[u.id] = u
 	}
@@ -195,7 +208,7 @@ func main() {
 	authPort := "4000"
 	lis, err := net.Listen("tcp", ":"+authPort)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Panicf("failed to listen: %v", err)
 	}
 	log.Printf("listening on %s", lis.Addr())
 
@@ -205,7 +218,7 @@ func main() {
 
 	log.Print("starting authorization server of port:", authPort)
 	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
+		log.Panicf("Failed to start server: %v", err)
 	}
 
 }

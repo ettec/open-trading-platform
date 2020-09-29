@@ -50,8 +50,8 @@ func NewFixSimAdapter(
 		listingInChan:     make(chan *model.Listing, 1000),
 		getListing:        symbolLookup,
 		closeChan:         make(chan bool),
-		log:               log.New(os.Stdout, connectionName+" ", log.Lshortfile|log.Ltime),
-		errLog:            log.New(os.Stderr, connectionName+" ", log.Lshortfile|log.Ltime),
+		log:               log.New(log.Writer(), connectionName+" ", log.Flags()),
+		errLog:            log.New(os.Stderr, connectionName+" ", log.Flags()),
 	}
 
 	var err error

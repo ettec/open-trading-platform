@@ -2,27 +2,30 @@ package main
 
 import (
 	"fmt"
-	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"k8s.io/apimachinery/pkg/types"
-	logger "log"
+	"log"
 	"net"
 	"os"
 )
 
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
+
+var errLog = log.New(os.Stderr, "", log.Ltime|log.Lshortfile)
 
 type execVenue struct {
 	podId  types.UID
-	client api.ExecutionVenueClient
+	client executionvenue.ExecutionVenueClient
 	conn   *grpc.ClientConn
 }
 
 
 func main() {
+
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
 
 	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)
 
@@ -38,7 +41,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	api.RegisterExecutionVenueServer(s, orderRouter)
+	executionvenue.RegisterExecutionVenueServer(s, orderRouter)
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

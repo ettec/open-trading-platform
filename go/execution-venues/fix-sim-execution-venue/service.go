@@ -24,6 +24,9 @@ import (
 
 func main() {
 
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
+
 	kafkaBrokers := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	id := bootstrap.GetEnvVar("ID")
 

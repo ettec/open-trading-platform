@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/orderstore"
@@ -22,14 +22,12 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	logger "log"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	"log"
 	"net"
 	"strings"
 )
 
-var log = logger.New(os.Stdout, "", logger.Ltime|logger.Lshortfile)
-var errLog = logger.New(os.Stderr, "", logger.Ltime|logger.Lshortfile)
 
 var totalOrders = promauto.NewGauge(prometheus.GaugeOpts{
 	Name: "total_orders",
@@ -70,12 +68,15 @@ type orderMonitor struct {
 	cancelOrdersForOriginatorChan chan *ordermonitor.CancelAllOrdersForOriginatorIdParams
 }
 
-func (s *orderMonitor) CancelAllOrdersForOriginatorId(ctx context.Context, params *ordermonitor.CancelAllOrdersForOriginatorIdParams) (*model.Empty, error) {
+func (s *orderMonitor) CancelAllOrdersForOriginatorId(_ context.Context, params *ordermonitor.CancelAllOrdersForOriginatorIdParams) (*model.Empty, error) {
 	s.cancelOrdersForOriginatorChan <- params
 	return &model.Empty{}, nil
 }
 
 func main() {
+
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Ltime|log.Lshortfile)
 
 	logAllOrderUpdates := bootstrap.GetOptionalBoolEnvVar("LOG_ORDER_UPDATES", false)
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
@@ -123,7 +124,7 @@ func main() {
 		totalOrders.Inc()
 		gauge, err := getStatusGauge(order)
 		if err != nil {
-			errLog.Print("failed to update status gauge:", err)
+			log.Print("failed to update status gauge:", err)
 		}
 		gauge.Inc()
 
@@ -139,12 +140,12 @@ func main() {
 
 			case cr := <-cancelChan:
 				log.Print("cancelling all orders for root originator id:", cr.OriginatorId)
-				var cancelParams []*api.CancelOrderParams
+				var cancelParams []*executionvenue.CancelOrderParams
 				for _, order := range orders {
 					if order.GetOriginatorId() == cr.OriginatorId &&
 						order.Status == model.OrderStatus_LIVE {
 
-						cancelParams = append(cancelParams, &api.CancelOrderParams{
+						cancelParams = append(cancelParams, &executionvenue.CancelOrderParams{
 							OrderId:   order.GetId(),
 							ListingId: order.GetListingId(),
 							OwnerId:   order.GetOwnerId(),
@@ -183,14 +184,14 @@ func main() {
 					orders[u.Id] = u
 					g, err := getStatusGauge(order)
 					if err != nil {
-						errLog.Print("failed to update status gauge:", err)
+						log.Print("failed to update status gauge:", err)
 						continue
 					}
 					g.Dec()
 
 					g, err = getStatusGauge(u)
 					if err != nil {
-						errLog.Print("failed to update status gauge:", err)
+						log.Print("failed to update status gauge:", err)
 						continue
 					}
 					g.Inc()
@@ -200,7 +201,7 @@ func main() {
 					orders[u.Id] = u
 					g, err := getStatusGauge(u)
 					if err != nil {
-						errLog.Print("failed to update status gauge:", err)
+						log.Print("failed to update status gauge:", err)
 						continue
 					}
 					g.Inc()
@@ -259,9 +260,9 @@ func getStatusGauge(order *model.Order) (prometheus.Gauge, error) {
 		order.GetStatus(), order.GetTargetStatus(), order.GetId())
 }
 
-func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (api.ExecutionVenueClient, error) {
+func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (executionvenue.ExecutionVenueClient, error) {
 	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(metav1.ListOptions{
+	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
 		LabelSelector: "app=order-router",
 	})
 
@@ -269,19 +270,19 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Du
 		panic(err)
 	}
 
-	var client api.ExecutionVenueClient
+	var client executionvenue.ExecutionVenueClient
 
 	for _, service := range list.Items {
 
 		var podPort int32
 		for _, port := range service.Spec.Ports {
-			if port.Name == "api" {
+			if port.Name == "executionvenue" {
 				podPort = port.Port
 			}
 		}
 
 		if podPort == 0 {
-			log.Printf("ignoring order router service as it does not have a port named api, service: %v", service)
+			log.Printf("ignoring order router service as it does not have a port named executionvenue, service: %v", service)
 			continue
 		}
 
@@ -295,7 +296,7 @@ func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Du
 			panic(err)
 		}
 
-		client = api.NewExecutionVenueClient(conn)
+		client = executionvenue.NewExecutionVenueClient(conn)
 		break
 	}
 
