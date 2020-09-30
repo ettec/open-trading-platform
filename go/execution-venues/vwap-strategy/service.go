@@ -101,7 +101,7 @@ func main() {
 	}
 
 	childOrderUpdates, err := ordermanagement.GetChildOrders(id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
-		bootstrap.GetOptionalIntEnvVar("SMARTROUTER_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
+		bootstrap.GetOptionalIntEnvVar("VWAPSTRATEGY_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
 
 	if err != nil {
 		panic(err)

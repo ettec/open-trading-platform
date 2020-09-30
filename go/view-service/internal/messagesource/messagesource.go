@@ -15,15 +15,9 @@ type KafkaMessageSource struct {
 	reader *kafka.Reader
 }
 
-func NewKafkaMessageSource(topic string, brokerUrls []string) *KafkaMessageSource {
+func NewKafkaMessageSource(readerConfig kafka.ReaderConfig) *KafkaMessageSource {
 	ks := &KafkaMessageSource{}
-	ks.reader = kafka.NewReader(kafka.ReaderConfig{
-		Brokers:        brokerUrls,
-		Topic:          topic,
-		ReadBackoffMin: 10 * time.Millisecond,
-		ReadBackoffMax: 20 * time.Millisecond,
-		MaxWait:        15 * time.Millisecond,
-	})
+	ks.reader = kafka.NewReader(readerConfig)
 
 	return ks
 }

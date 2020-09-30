@@ -23,11 +23,12 @@ func (q quoteAggregator) Close() {
 
 type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
 
-func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream marketdata.MdsQuoteStream) *quoteAggregator {
+func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream marketdata.MdsQuoteStream,
+	inboundListingsBufferSize int) *quoteAggregator {
 
 	qa := &quoteAggregator{
 		getListings:     getListingsWithSameInstrument,
-		listingGroupsIn: make(chan []*model.Listing, 1000),
+		listingGroupsIn: make(chan []*model.Listing, inboundListingsBufferSize),
 		stream:          make(chan *model.ClobQuote),
 		closeChan:       make(chan bool),
 	}

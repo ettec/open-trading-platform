@@ -53,11 +53,11 @@ func (s *service) StoreClientConfig(_ context.Context, params *api.StoreConfigPa
 
 }
 
-const configSelect = "select config from clientconfig.reactclientconfig where userid = '%v'"
+
 
 func (s *service) GetClientConfig(_ context.Context, parameters *api.GetConfigParameters) (*api.Config, error) {
 
-	lq := fmt.Sprintf(configSelect, parameters.UserId)
+	lq := fmt.Sprintf( "select config from clientconfig.reactclientconfig where userid = '%v'", parameters.UserId)
 
 	r, err := s.db.Query(lq)
 

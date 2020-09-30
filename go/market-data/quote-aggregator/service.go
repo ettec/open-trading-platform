@@ -28,6 +28,7 @@ func main() {
 	toClientBufferSize := bootstrap.GetOptionalIntEnvVar("TO_CLIENT_BUFFER_SIZE", 1000)
 	inboundQuoteBufferSize := bootstrap.GetOptionalIntEnvVar("INBOUND_QUOTE_BUFFER_SIZE", 1000)
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
+	inboundListingsBufferSize := bootstrap.GetOptionalIntEnvVar("INBOUND_LISTINGS_BUFFER_SIZE", 1000)
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
@@ -47,7 +48,7 @@ func main() {
 		panic(err)
 	}
 
-	quoteAggregator := quoteaggregator.New(sds.GetListingsWithSameInstrument, mdsQuoteStream)
+	quoteAggregator := quoteaggregator.New(sds.GetListingsWithSameInstrument, mdsQuoteStream, inboundListingsBufferSize)
 
 	mdSource := marketdata.NewMarketDataSource(marketdata.NewQuoteDistributor(quoteAggregator, toClientBufferSize))
 

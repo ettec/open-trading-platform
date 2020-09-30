@@ -60,7 +60,7 @@ func Test_quoteAggregator(t *testing.T) {
 			}
 		}
 
-	}, mdsqs)
+	}, mdsqs, 1000)
 
 
 	qa.Subscribe(1)

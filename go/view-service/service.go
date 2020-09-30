@@ -7,7 +7,9 @@ import (
 	api "github.com/ettec/open-trading-platform/go/view-service/api/viewservice"
 	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
 	"github.com/ettec/otp-common"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/bootstrap"
+	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/orderstore"
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -28,6 +30,7 @@ type service struct {
 	orderSubscriptions sync.Map
 	kafkaBrokers       []string
 	ordersAfter        time.Time
+	toClientBufferSize int
 }
 
 type orderAndWriteTime struct {
@@ -53,7 +56,7 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 
 		out := make(chan orderAndWriteTime, 1000)
 
-		source := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
+		source := messagesource.NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
 		go streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after, request.RootOriginatorId)
 
 		err := sendUpdates(out, stream.Send)
@@ -158,7 +161,7 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 		return nil, err
 	}
 
-	reader := messagesource.NewKafkaMessageSource(common.ORDERS_TOPIC, s.kafkaBrokers)
+	reader := messagesource.NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
 	defer reader.Close()
 
 	var updates []*api.OrderUpdate
@@ -186,12 +189,13 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 	}
 }
 
-func newService() *service {
+func newService(toClientBufferSize int) *service {
 
 	now := time.Now()
 	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Local)
 	s := service{
-		ordersAfter: ordersAfter,
+		ordersAfter:        ordersAfter,
+		toClientBufferSize: toClientBufferSize,
 	}
 
 	kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
@@ -261,6 +265,8 @@ func logTopicReadError(appInstanceId string, topic string, err error) {
 
 func main() {
 
+	toClientBufferSize := bootstrap.GetOptionalIntEnvVar("TO_CLIENT_BUFFER_SIZE", 1000)
+
 	port := "50551"
 	fmt.Println("Starting view service on port:" + port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
@@ -270,7 +276,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	api.RegisterViewServiceServer(s, newService())
+	api.RegisterViewServiceServer(s, newService(toClientBufferSize))
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

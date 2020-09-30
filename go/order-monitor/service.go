@@ -84,6 +84,7 @@ func main() {
 	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	cancelTimeoutDuration := time.Duration(bootstrap.GetOptionalIntEnvVar("CANCEL_TIMEOUT_SECS", 5)) * time.Second
+	orderUpdatesBufSize := bootstrap.GetOptionalIntEnvVar("INBOUND_ORDER_UPDATES_BUFFER_SIZE", 1000)
 
 
 	http.Handle("/metrics", promhttp.Handler())
@@ -113,7 +114,7 @@ func main() {
 		cancelOrdersForOriginatorChan: cancelChan,
 	}
 
-	updates := make(chan *model.Order, 1000)
+	updates := make(chan *model.Order, orderUpdatesBufSize)
 
 	orders, err := store.SubscribeToAllOrders(updates, ordersAfter)
 	if err != nil {

@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	v12 "k8s.io/api/core/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 	"log"
 	"net"
@@ -43,6 +43,7 @@ type service struct {
 	getListingFn func(listingId int32, result chan<- *model.Listing)
 	sourceMutex  sync.Mutex
 	subscribers  map[string] chan *model.ClobQuote
+	toClientBufferSize int
 }
 
 func (s *service) Subscribe(_ context.Context, r *api.MdsSubscribeRequest) (*model.Empty, error) {
@@ -122,7 +123,7 @@ func (s *service) Connect(request *api.MdsConnectRequest, stream api.MarketDataS
 
 	log.Println("connect request received for subscriber: ", subscriberId)
 
-	out := make(chan *model.ClobQuote, 100)
+	out := make(chan *model.ClobQuote, s.toClientBufferSize )
 
 	s.addSubscriber(subscriberId, out)
 
@@ -167,8 +168,6 @@ func (s *service) addMarketDataConnection(bsp *loadbalancing.BalancingStatefulPo
 }
 
 
-
-var maxSubscriptions = 10000
 var errLog = log.New(os.Stderr, "", log.Flags())
 
 func main() {
@@ -178,6 +177,8 @@ func main() {
 
 	id := bootstrap.GetEnvVar("MDS_ID")
 	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
+	maxSubscriptions := bootstrap.GetOptionalIntEnvVar("MAX_SUBSCRIPTIONS", 10000)
+	toClientBufferSize := bootstrap.GetOptionalIntEnvVar("TO_CLIENT_BUFFER_SIZE", 1000)
 
 	http.Handle("/metrics", promhttp.Handler())
 	go func() {
@@ -192,8 +193,10 @@ func main() {
 		log.Fatalf("failed to get static data source:%v", err)
 	}
 
-	mdService := service{micToSources: map[string]map[int]*marketdatasource.MdsConnection{}, getListingFn: sds.GetListing,
-		sourceMutex: sync.Mutex{}, subscribers: map[string]chan *model.ClobQuote{}}
+	mdService := service{map[string]map[int]*marketdatasource.MdsConnection{}, sds.GetListing,
+		 sync.Mutex{},  map[string]chan *model.ClobQuote{},
+		toClientBufferSize,
+	}
 
 	go func() {
 

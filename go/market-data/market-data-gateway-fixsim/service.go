@@ -19,7 +19,8 @@ import (
 	"time"
 )
 
-func newService(id string, fixSimAddress string, maxReconnectInterval time.Duration) (marketdatasource.MarketDataSourceServer, error) {
+func newService(id string, fixSimAddress string, maxReconnectInterval time.Duration,
+	inboundQuoteBufferSize int, clientQuoteBufferSize int) (marketdatasource.MarketDataSourceServer, error) {
 
 	listingSrc, err := staticdata.NewStaticDataSource(false)
 	if err != nil {
@@ -38,12 +39,13 @@ func newService(id string, fixSimAddress string, maxReconnectInterval time.Durat
 		})
 	}
 
-	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing, 1000)
+	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing,
+		inboundQuoteBufferSize)
 	if err != nil {
 		return nil, err
 	}
 
-	qd := md.NewQuoteDistributor(fixSimConn, 100)
+	qd := md.NewQuoteDistributor(fixSimConn, clientQuoteBufferSize)
 
 	s := md.NewMarketDataSource(qd)
 
@@ -53,13 +55,13 @@ func newService(id string, fixSimAddress string, maxReconnectInterval time.Durat
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
-
+	log.SetFlags(log.Ltime | log.Lshortfile)
 
 	id := bootstrap.GetEnvVar("GATEWAY_ID")
 	fixSimAddress := bootstrap.GetEnvVar("FIX_SIM_ADDRESS")
-	connectRetrySecs := bootstrap.GetOptionalIntEnvVar("CONNECT_RETRY_SECONDS", 60)
-
+	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)
+	inboundQuoteBufferSize := bootstrap.GetOptionalIntEnvVar("INBOUND_QUOTE_BUFFER_SIZE", 1000)
+	clientQuoteBufferSize := bootstrap.GetOptionalIntEnvVar("CLIENT_QUOTE_BUFFER_SIZE", 1000)
 
 	port := "50551"
 	fmt.Println("Starting Market Data Gateway on port:" + port)
@@ -74,7 +76,8 @@ func main() {
 
 	s := grpc.NewServer()
 
-	service, err := newService(id, fixSimAddress, time.Duration(connectRetrySecs)*time.Second)
+	service, err := newService(id, fixSimAddress, time.Duration(maxConnectRetrySecs)*time.Second, inboundQuoteBufferSize,
+		clientQuoteBufferSize)
 	if err != nil {
 		log.Panicf("error creating service: %v", err)
 	}

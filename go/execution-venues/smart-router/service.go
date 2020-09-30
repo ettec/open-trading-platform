@@ -49,12 +49,13 @@ func main() {
 		panic(err)
 	}
 
-	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry, 1000)
+	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry,
+		bootstrap.GetOptionalIntEnvVar("SMARTROUTER_INBOUND_QUOTE_BUFFER_SIZE", 1000))
 	if err != nil {
 		panic(err)
 	}
 
-	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, 100)
+	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, bootstrap.GetOptionalIntEnvVar("SMARTROUTER_QUOTE_DISTRIBUTOR_BUFFER_SIZE", 1000))
 
 	orderRouter, err := strategy.GetOrderRouter(k8s.GetK8sClientSet(false), maxConnectRetry)
 	if err != nil {
