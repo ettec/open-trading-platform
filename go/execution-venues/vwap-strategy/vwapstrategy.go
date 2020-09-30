@@ -68,14 +68,15 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 				if errMsg != "" {
 					om.ParentOrder.ErrorMessage = errMsg
 				}
-				err := om.CancelParentOrder(func(listingId int32) *model.Listing {
-					return listing
-				})
+				err := om.CancelParentOrder()
 				if err != nil {
 					om.ErrLog.Printf("failed to cancel order:%v", err)
 				}
 			case co, ok := <-om.ChildOrderUpdateChan:
-				om.OnChildOrderUpdate(ok, co)
+				err = om.OnChildOrderUpdate(ok, co)
+				if err != nil {
+					om.ErrLog.Printf("error whilst applying child order update:%v", err)
+				}
 			}
 
 		}
