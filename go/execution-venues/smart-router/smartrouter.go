@@ -21,7 +21,7 @@ func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
 
 	go func() {
 
-		om.Log.Println("initialising order")
+		om.log.Println("initialising order")
 
 		listingsIn := make(chan []*model.Listing)
 
