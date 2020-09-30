@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
@@ -23,15 +24,13 @@ import (
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	log.SetFlags(log.Ltime | log.Lshortfile)
 
 	id := bootstrap.GetEnvVar("ID")
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 
 	log.Print("Starting vwap strategy")
-
-
 
 	s := grpc.NewServer()
 
@@ -56,11 +55,11 @@ func main() {
 		vwapParamsJson := om.ParentOrder.GetExecParametersJson()
 
 		listingIn := make(chan *model.Listing)
-		om.Log.Printf("fetching listing %v.....",om.ParentOrder.ListingId)
+		om.Log.Printf("fetching listing %v.....", om.ParentOrder.ListingId)
 
-		sds.GetListing(om.ParentOrder.ListingId, listingIn )
+		sds.GetListing(om.ParentOrder.ListingId, listingIn)
 		listing := <-listingIn
-		om.Log.Printf("got listing %v",listing)
+		om.Log.Printf("got listing %v", listing)
 
 		quantity := om.ParentOrder.Quantity
 
@@ -94,12 +93,16 @@ func main() {
 		executeAsVwapStrategy(om, buckets, listing)
 	}
 
-	store, err := orderstore.NewKafkaStore(kafkaBrokers, id)
+	store, err := orderstore.NewKafkaStore(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+		orderstore.DefaultWriterConfig(common.ORDERS_TOPIC, kafkaBrokers), id)
+
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	childOrderUpdates, err := ordermanagement.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
+	childOrderUpdates, err := ordermanagement.GetChildOrders(id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+		bootstrap.GetOptionalIntEnvVar("SMARTROUTER_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
+
 	if err != nil {
 		panic(err)
 	}
@@ -121,7 +124,7 @@ func main() {
 	}
 
 	if err := s.Serve(lis); err != nil {
-			log.Fatalf("error   while serving : %v", err)
+		log.Fatalf("error   while serving : %v", err)
 	}
 
 }

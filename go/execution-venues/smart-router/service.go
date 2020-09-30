@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
@@ -64,12 +65,16 @@ func main() {
 		ExecuteAsSmartRouterStrategy(om, sds.GetListingsWithSameInstrument, qd.GetNewQuoteStream())
 	}
 
-	store, err := orderstore.NewKafkaStore(kafkaBrokers, id)
+
+	store, err := orderstore.NewKafkaStore(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+		orderstore.DefaultWriterConfig(common.ORDERS_TOPIC, kafkaBrokers), id)
+
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	childOrderUpdates, err := ordermanagement.GetChildOrders(id, kafkaBrokers, strategy.ChildUpdatesBufferSize)
+	childOrderUpdates, err := ordermanagement.GetChildOrders(id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+	 bootstrap.GetOptionalIntEnvVar("SMARTROUTER_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
 	if err != nil {
 		panic(err)
 	}

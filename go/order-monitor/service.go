@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
@@ -93,7 +94,9 @@ func main() {
 	now := time.Now()
 	ordersAfter := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Local)
 
-	store, err := orderstore.NewKafkaStore(kafkaBrokers, "")
+	store, err := orderstore.NewKafkaStore(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+		orderstore.DefaultWriterConfig(common.ORDERS_TOPIC, kafkaBrokers), "")
+
 	if err != nil {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
+	common "github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/orderstore"
@@ -38,7 +39,10 @@ func main() {
 		log.Panicf("failed to create static data source:%v", err)
 	}
 
-	store, err := orderstore.NewKafkaStore(strings.Split(kafkaBrokers, ","), id)
+	brokers := strings.Split(kafkaBrokers, ",")
+	store, err := orderstore.NewKafkaStore(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, brokers),
+		orderstore.DefaultWriterConfig(common.ORDERS_TOPIC, brokers), id)
+
 	if err != nil {
 		log.Panicf("failed to create order store: %v", err)
 	}
