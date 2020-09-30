@@ -1,4 +1,4 @@
-DIRECTORY=$(cd `dirname $0` && pwd)
+DIRECTORY=$(cd `dirname $0` && pwd)/..
 cd $DIRECTORY
 echo working dir `pwd`	
 
@@ -8,10 +8,10 @@ cd $line
 if ls *.go 1> /dev/null 2>&1;
 then
 
-   if go mod tidy; then
-    echo mod tidied $line 
+   if go vet; then
+    echo vetted $line 
    else
-    echo failed to mod tidy $line 
+    echo failed to vet $line 
     exit 1
    fi 
 
@@ -19,3 +19,4 @@ fi
 cd $DIRECTORY
    
 done
+

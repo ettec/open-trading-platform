@@ -1,4 +1,4 @@
-DIRECTORY=$(cd `dirname $0` && pwd)
+DIRECTORY=$(cd `dirname $0` && pwd)/..
 cd $DIRECTORY
 echo working dir `pwd`  
 
