@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	common "github.com/ettec/otp-common"
+	"github.com/ettec/otp-common/api"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
@@ -43,7 +44,7 @@ func main() {
 
 	clientSet := k8s.GetK8sClientSet(false)
 
-	orderRouter, err := strategy.GetOrderRouter(clientSet, maxConnectRetry)
+	orderRouter, err := api.GetOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
@@ -66,28 +67,28 @@ func main() {
 		vwapParams := &vwapParameters{}
 		err := json.Unmarshal([]byte(vwapParamsJson), vwapParams)
 		if err != nil {
-			om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to parse parameters:%v", err))
+			om.CancelChan <- fmt.Sprintf("failed to parse parameters:%v", err)
 		}
 
 		if vwapParams.UtcStartTimeSecs <= 0 || vwapParams.UtcEndTimeSecs <= 0 {
-			om.CancelOrderWithErrorMsg("invalid start or end time specified")
+			om.CancelChan <-"invalid start or end time specified"
 		}
 
 		if vwapParams.UtcStartTimeSecs >= vwapParams.UtcEndTimeSecs {
-			om.CancelOrderWithErrorMsg("start time must be before end time")
+			om.CancelChan <- "start time must be before end time"
 		}
 
 		if vwapParams.UtcEndTimeSecs < time.Now().Unix() {
-			om.CancelOrderWithErrorMsg("end time has already passed")
+			om.CancelChan <-"end time has already passed"
 		}
 
 		if model.IasD(vwapParams.Buckets).GreaterThan(quantity) {
-			om.CancelOrderWithErrorMsg("num Buckets must be less than or equal to the quantity")
+			om.CancelChan <-"num Buckets must be less than or equal to the quantity"
 		}
 
 		buckets, err := getBucketsFromParamsString(vwapParamsJson, *quantity, listing)
 		if err != nil {
-			om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to get Buckets from params:%v", err))
+			om.CancelChan <-fmt.Sprintf("failed to get Buckets from params:%v", err)
 		}
 
 		executeAsVwapStrategy(om, buckets, listing)

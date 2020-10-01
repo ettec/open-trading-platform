@@ -41,6 +41,10 @@ github.com/ettec/otp-common v0.0.0-20200930100709-5475e3122573 h1:yDMh6keJ9SDo97
 github.com/ettec/otp-common v0.0.0-20200930100709-5475e3122573/go.mod h1:t1swOMxyvAOAYokykBE1tN8JTGX2FQkRhAmvj/UKdEo=
 github.com/ettec/otp-common v0.0.0-20200930134814-a9749fc5c161 h1:5R2XwY4rrtcsX7jStwZCffBpmi4M/n9wzrkq3ZaaZtA=
 github.com/ettec/otp-common v0.0.0-20200930134814-a9749fc5c161/go.mod h1:t1swOMxyvAOAYokykBE1tN8JTGX2FQkRhAmvj/UKdEo=
+github.com/ettec/otp-common v0.0.0-20201001120433-58401cb97cd4 h1:0disaJd7VLjlnRLmIqlQOymQISzjXvSrhWdvkS1faUU=
+github.com/ettec/otp-common v0.0.0-20201001120433-58401cb97cd4/go.mod h1:t1swOMxyvAOAYokykBE1tN8JTGX2FQkRhAmvj/UKdEo=
+github.com/ettec/otp-common v0.0.0-20201001123419-54816e18d4d2 h1:q8X0B08hFw1ukCFN0hCjF9ILQ56BOYVCR1QlmdtRzBI=
+github.com/ettec/otp-common v0.0.0-20201001123419-54816e18d4d2/go.mod h1:t1swOMxyvAOAYokykBE1tN8JTGX2FQkRhAmvj/UKdEo=
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/ghodss/yaml v0.0.0-20150909031657-73d445a93680/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=

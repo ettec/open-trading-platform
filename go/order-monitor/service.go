@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	common "github.com/ettec/otp-common"
+	"github.com/ettec/otp-common/api"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/model"
@@ -14,16 +15,13 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
 
-	"k8s.io/client-go/kubernetes"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/ettec/otp-common/bootstrap"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"log"
 	"net"
 	"strings"
@@ -81,7 +79,6 @@ func main() {
 
 	logAllOrderUpdates := bootstrap.GetOptionalBoolEnvVar("LOG_ORDER_UPDATES", false)
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
-	external := bootstrap.GetOptionalBoolEnvVar("EXTERNAL", false)
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	cancelTimeoutDuration := time.Duration(bootstrap.GetOptionalIntEnvVar("CANCEL_TIMEOUT_SECS", 5)) * time.Second
 	orderUpdatesBufSize := bootstrap.GetOptionalIntEnvVar("INBOUND_ORDER_UPDATES_BUFFER_SIZE", 1000)
@@ -102,9 +99,9 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	clientSet := k8s.GetK8sClientSet(external)
+	clientSet := k8s.GetK8sClientSet(false)
 
-	orderRouter, err := getOrderRouter(clientSet, maxConnectRetry)
+	orderRouter, err := api.GetOrderRouter(clientSet, maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
@@ -262,51 +259,4 @@ func getStatusGauge(order *model.Order) (prometheus.Gauge, error) {
 
 	return nil, fmt.Errorf("no status gauge for order with status: %v, tartget status: %v, order id:%v",
 		order.GetStatus(), order.GetTargetStatus(), order.GetId())
-}
-
-func getOrderRouter(clientSet *kubernetes.Clientset, maxConnectRetrySecs time.Duration) (executionvenue.ExecutionVenueClient, error) {
-	namespace := "default"
-	list, err := clientSet.CoreV1().Services(namespace).List(v1.ListOptions{
-		LabelSelector: "app=order-router",
-	})
-
-	if err != nil {
-		panic(err)
-	}
-
-	var client executionvenue.ExecutionVenueClient
-
-	for _, service := range list.Items {
-
-		var podPort int32
-		for _, port := range service.Spec.Ports {
-			if port.Name == "executionvenue" {
-				podPort = port.Port
-			}
-		}
-
-		if podPort == 0 {
-			log.Printf("ignoring order router service as it does not have a port named executionvenue, service: %v", service)
-			continue
-		}
-
-		targetAddress := service.Name + ":" + strconv.Itoa(int(podPort))
-
-		log.Printf("connecting to order router service %v at: %v", service.Name, targetAddress)
-
-		conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxConnectRetrySecs))
-
-		if err != nil {
-			panic(err)
-		}
-
-		client = executionvenue.NewExecutionVenueClient(conn)
-		break
-	}
-
-	if client == nil {
-		return nil, fmt.Errorf("failed to find order router")
-	}
-
-	return client, nil
 }

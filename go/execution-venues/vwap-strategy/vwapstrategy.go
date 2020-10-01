@@ -21,8 +21,9 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 		if om.ParentOrder.GetTargetStatus() == model.OrderStatus_LIVE {
 			err := om.ParentOrder.SetStatus(model.OrderStatus_LIVE)
 			if err != nil {
-				om.ErrLog.Printf("failed to set managed order status, cancelling order:%v", err)
-				om.Cancel()
+				msg := fmt.Sprintf("failed to set managed order status, cancelling order:%v", err)
+				om.ErrLog.Print(msg)
+				om.CancelChan<-msg
 			}
 		}
 
@@ -33,8 +34,9 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 		for {
 			done, err := om.CheckIfDone()
 			if err != nil {
-				om.ErrLog.Printf("failed to check if done, cancelling order:%v", err)
-				om.Cancel()
+				msg := fmt.Sprintf("failed to check if done, cancelling order:%v", err)
+				om.ErrLog.Print(msg)
+				om.CancelChan<-msg
 			}
 
 			if done {
@@ -58,9 +60,10 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 				if sentQty.LessThan(shouldHaveSentQty) {
 					shouldHaveSentQty.Sub(sentQty)
 
-					err := om.SendChildOrder(om.ParentOrder.Side, shouldHaveSentQty, om.ParentOrder.Price, listing)
+					err := om.SendChildOrder(om.ParentOrder.Side, shouldHaveSentQty, om.ParentOrder.Price, listing.Id,
+						listing.Market.Mic, "")
 					if err != nil {
-						om.CancelOrderWithErrorMsg(fmt.Sprintf("failed to send child order:%v", err))
+						om.CancelChan <- fmt.Sprintf("failed to send child order:%v", err)
 					}
 				}
 
@@ -68,7 +71,7 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 				if errMsg != "" {
 					om.ParentOrder.ErrorMessage = errMsg
 				}
-				err := om.CancelParentOrder()
+				err := om.CancelChildOrdersAndStrategyOrder()
 				if err != nil {
 					om.ErrLog.Printf("failed to cancel order:%v", err)
 				}
