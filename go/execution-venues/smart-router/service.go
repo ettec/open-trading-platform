@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	common "github.com/ettec/otp-common"
+	"github.com/ettec/otp-common/api"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/marketdata"
@@ -57,7 +58,7 @@ func main() {
 
 	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, bootstrap.GetOptionalIntEnvVar("SMARTROUTER_QUOTE_DISTRIBUTOR_BUFFER_SIZE", 1000))
 
-	orderRouter, err := strategy.GetOrderRouter(k8s.GetK8sClientSet(false), maxConnectRetry)
+	orderRouter, err := api.GetOrderRouter(k8s.GetK8sClientSet(false), maxConnectRetry)
 	if err != nil {
 		panic(err)
 	}
