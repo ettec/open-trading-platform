@@ -1,4 +1,4 @@
-import { toNumber } from '../../util/decimal64Conversion';
+import { toNumber } from '../../common/decimal64Conversion';
 import { Order, Side, OrderStatus } from '../../serverapi/order_pb';
 import { Listing } from '../../serverapi/listing_pb';
 import { ListingService } from '../../services/ListingService';

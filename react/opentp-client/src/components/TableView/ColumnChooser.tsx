@@ -1,7 +1,7 @@
 import { AnchorButton, Classes, Dialog, Intent, Checkbox } from '@blueprintjs/core';
 import * as React from "react";
 import log from 'loglevel';
-import { ColumnChooserController } from '../Container/Container';
+import { ColumnChooserController } from "../Container/Controllers";
 import * as table from "../TableView/TableView";
 
 

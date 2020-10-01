@@ -6,7 +6,7 @@ import ReactCountryFlag from "react-country-flag";
 import { roundToTick } from '../../common/modelutilities';
 import { Order, OrderStatus, Side } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
-import { GlobalColours } from '../Colours';
+import { GlobalColours } from '../Container/Colours';
 import '../TableView/TableCommon.css';
 import TableView, { TableViewProperties } from '../TableView/TableView';
 import { OrdersView, OrderView } from './OrderView';

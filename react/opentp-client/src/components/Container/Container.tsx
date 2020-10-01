@@ -6,11 +6,9 @@ import React, { ReactNode } from 'react';
 import log from 'loglevel';
 import { ClientConfigServiceClient } from "../../serverapi/ClientconfigserviceServiceClientPb";
 import { Config, GetConfigParameters, StoreConfigParams } from "../../serverapi/clientconfigservice_pb";
-import { Listing } from "../../serverapi/listing_pb";
 import { Empty } from "../../serverapi/modelcommon_pb";
 import { OrderMonitorClient } from "../../serverapi/OrdermonitorServiceClientPb";
 import { CancelAllOrdersForOriginatorIdParams } from "../../serverapi/ordermonitor_pb";
-import { Order, Side } from "../../serverapi/order_pb";
 import ListingServiceImpl, { ListingService } from "../../services/ListingService";
 import OrderServiceImpl, { OrderService } from "../../services/OrderService";
 import QuoteServiceImpl, { QuoteService } from "../../services/QuoteService";
@@ -22,10 +20,11 @@ import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
 import ParentOrderBlotter from "../OrderBlotter/ParentOrderBlotter";
 import OrderTicket from '../OrderTicket/OrderTicket';
-import QuestionDialog from "../QuestionDialog";
+import QuestionDialog from "./QuestionDialog";
 import ColumnChooser from "../TableView/ColumnChooser";
-import { TableViewConfig } from "../TableView/TableView";
-import ViewNameDialog from "../ViewNameDialog";
+import ViewNameDialog from "./ViewNameDialog";
+import { TicketController, ChildOrderBlotterController, OrderHistoryBlotterController, ExecutionsController, QuestionDialogController, ViewNameDialogController, ColumnChooserController } from "./Controllers";
+import { ListingContext, OrderContext } from "./Contexts";
 
 
 
@@ -261,182 +260,3 @@ export default class Container extends React.Component<any, ContainerState> {
 
 }
 
-export class ColumnChooserController {
-
-    private dialog?: ColumnChooser
-
-    setDialog(dialog: ColumnChooser) {
-        this.dialog = dialog
-    }
-
-    open(tableName: string, visibleColumns: JSX.Element[], widths: number[], allColumns: JSX.Element[], callback: (newVisibleCols: JSX.Element[] | undefined,
-        widths: number[] | undefined) => void) {
-        if (this.dialog) {
-            this.dialog.open(tableName, visibleColumns, widths, allColumns, callback)
-        }
-    }
-
-}
-
-export class QuestionDialogController {
-
-    private dialog?: QuestionDialog
-
-    setDialog(dialog: QuestionDialog) {
-        this.dialog = dialog
-    }
-
-    open(question: string, title: string, callback: (response: boolean) => void) {
-        if (this.dialog) {
-            this.dialog.open(question, title, callback)
-        }
-    }
-
-}
-
-export class ViewNameDialogController {
-
-    private dialog?: ViewNameDialog
-
-    setDialog(dialog: ViewNameDialog) {
-        this.dialog = dialog
-    }
-
-    open(component: string, componentDislayName: string, layout: Layout) {
-        if (this.dialog) {
-            this.dialog.open(component, componentDislayName, layout)
-        }
-    }
-
-}
-
-
-
-export class ExecutionsController {
-
-    private executions?: Executions;
-
-    setView(executions: Executions) {
-        this.executions = executions
-    }
-
-    open(order: Order, width: number) {
-        if (this.executions) {
-            this.executions.open(order, width)
-        }
-    }
-
-}
-
-export class OrderHistoryBlotterController {
-
-    private orderHistoryBlotter?: OrderHistoryBlotter;
-
-    setBlotter(orderHistoryBlotter: OrderHistoryBlotter) {
-        this.orderHistoryBlotter = orderHistoryBlotter
-    }
-
-    openBlotter(order: Order, config: TableViewConfig, width: number) {
-        if (this.orderHistoryBlotter) {
-            this.orderHistoryBlotter.open(order, config, width)
-        }
-    }
-
-}
-
-
-export class ChildOrderBlotterController {
-
-    private childOrderBlotter?: ChildOrderBlotter;
-
-    setBlotter(childOrderBlotter: ChildOrderBlotter) {
-        this.childOrderBlotter = childOrderBlotter
-    }
-
-    openBlotter(parentOrder: Order, orders: Array<Order>,
-        config: TableViewConfig, width: number) {
-        if (this.childOrderBlotter) {
-            this.childOrderBlotter.open(parentOrder, orders, config, width)
-        }
-    }
-
-}
-
-
-
-export class TicketController {
-
-    private orderTicket?: OrderTicket;
-
-    setOrderTicket(orderTicket: OrderTicket) {
-        this.orderTicket = orderTicket
-    }
-
-    openNewOrderTicket(side: Side, listing: Listing) {
-        if (this.orderTicket) {
-            this.orderTicket.openNewOrderTicket(side, listing)
-        }
-    }
-
-    openOrderTicketWithDefaultPriceAndQty(newSide: Side, newListing: Listing, defaultPrice?: number, defaultQuantity?: number,) {
-        if (this.orderTicket) {
-            this.orderTicket.openOrderTicketWithDefaultPriceAndQty(newSide, newListing, defaultPrice, defaultQuantity)
-        }
-    }
-
-    openModifyOrderTicket(order: Order, listing: Listing) {
-        if (this.orderTicket) {
-            this.orderTicket.openModifyOrderTicket(order, listing)
-        }
-    }
-
-}
-
-export class ListingContext {
-
-    selectedListing?: Listing
-
-    private listeners: Array<(listing: Listing) => void>
-
-    constructor() {
-        this.listeners = new Array<(listing: Listing) => void>()
-
-    }
-
-    setSelectedListing(listing: Listing) {
-        this.selectedListing = listing
-        this.listeners.forEach(l => l(listing))
-    }
-
-    addListener(listener: (listing: Listing) => void) {
-        if (this.selectedListing) {
-            listener(this.selectedListing)
-        }
-
-        this.listeners.push(listener)
-    }
-
-}
-
-export class OrderContext {
-
-    selectedOrder?: Order
-    private listeners: Array<(order: Order) => void>
-
-    constructor() {
-        this.listeners = new Array<(order: Order) => void>()
-    }
-
-    setSelectedOrder(order: Order) {
-        this.selectedOrder = order
-        this.listeners.forEach(l => l(order))
-    }
-
-    addListener(listener: (order: Order) => void) {
-        if (this.selectedOrder) {
-            listener(this.selectedOrder)
-        }
-        this.listeners.push(listener)
-    }
-
-}

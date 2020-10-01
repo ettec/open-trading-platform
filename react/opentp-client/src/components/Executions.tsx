@@ -9,8 +9,8 @@ import { Order } from '../serverapi/order_pb';
 import { OrderHistory } from '../serverapi/viewservice_pb';
 import { ListingService } from '../services/ListingService';
 import { OrderService } from "../services/OrderService";
-import { toNumber } from '../util/decimal64Conversion';
-import { ExecutionsController } from './Container/Container';
+import { toNumber } from '../common/decimal64Conversion';
+import { ExecutionsController } from "./Container/Controllers";
 import TableView, { getConfiguredColumns, TableViewProperties } from './TableView/TableView';
 
 

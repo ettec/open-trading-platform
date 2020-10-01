@@ -1,5 +1,5 @@
 import { Listing, TickSizeEntry} from "../serverapi/listing_pb"
-import { toNumber } from "../util/decimal64Conversion"
+import { toNumber } from "./decimal64Conversion"
 
 
 export function getListingShortName(listing:Listing ): string  {
@@ -29,7 +29,7 @@ export function getListingShortName(listing:Listing ): string  {
 export function roundToTick(price: number, listing: Listing): number {
   if( price > 0 ) {
     let tickSize = getTickSize(price, listing)
-    let numTicks = Math.floor(price/tickSize)
+    let numTicks = Math.round(price/tickSize)
     return numTicks * tickSize
   } else {
     return price

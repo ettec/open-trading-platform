@@ -1,6 +1,6 @@
 import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
 import * as React from "react";
-import { QuestionDialogController } from './Container/Container';
+import { QuestionDialogController } from "./Controllers";
 
 
 

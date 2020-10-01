@@ -3,7 +3,7 @@ import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
 import log from 'loglevel';
 import '../TableView/TableCommon.css';
-import { ColumnChooserController } from "../Container/Container";
+import { ColumnChooserController } from "../Container/Controllers";
 
 
 

@@ -9,10 +9,10 @@ import { CreateAndRouteOrderParams, OrderId, ModifyOrderParams } from '../../ser
 import { Listing } from '../../serverapi/listing_pb';
 import { Side, Order } from '../../serverapi/order_pb';
 import { QuoteListener, QuoteService } from '../../services/QuoteService';
-import { toDecimal64, toNumber } from '../../util/decimal64Conversion';
-import { TicketController } from "../Container/Container";
+import { toDecimal64, toNumber } from '../../common/decimal64Conversion';
+import { TicketController } from "../Container/Controllers";
 import Login from '../Login';
-import { GlobalColours } from '../Colours';
+import { GlobalColours } from '../Container/Colours';
 import { Select, ItemRenderer } from '@blueprintjs/select';
 import VwapParamsPanel from './Strategies/VwapParams/VwapParamsPanel';
 import { Destinations } from '../../common/destinations';

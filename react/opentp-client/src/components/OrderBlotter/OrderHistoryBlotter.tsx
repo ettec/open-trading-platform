@@ -7,7 +7,7 @@ import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { OrderHistory } from '../../serverapi/viewservice_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
-import { OrderHistoryBlotterController } from '../Container/Container';
+import { OrderHistoryBlotterController } from "../Container/Controllers";
 import  { getConfiguredColumns, TableViewConfig, TableViewProperties } from "../TableView/TableView";
 import OrderBlotter, { OrderBlotterState } from "./OrderBlotter";
 import { OrderView } from "./OrderView";
