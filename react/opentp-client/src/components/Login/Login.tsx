@@ -3,9 +3,10 @@ import { Error, Metadata } from "grpc-web";
 import * as React from "react";
 import v4 from 'uuid';
 import { ReactComponent as ReactLogo } from '../../opentp.svg';
+import log from 'loglevel';
 import { LoginServiceClient } from "../../serverapi/LoginserviceServiceClientPb";
 import { LoginParams, Token } from "../../serverapi/loginservice_pb";
-import Container from "../Container";
+import Container from "../Container/Container";
 import GrpcContextProvider from "../GrpcContextProvider";
 
 
@@ -55,7 +56,7 @@ export default class Login extends React.Component<Props, State> {
             this.serverUrl = "http://127.0.0.1:32655" // for local dev, change this to point at your otp services cluster
         }
 
-        console.log("Connecting to services at:" + this.serverUrl)
+        log.info("Connecting to services at:" + this.serverUrl)
 
         this.loginServiceClient = new LoginServiceClient(this.serverUrl, null, null)
 

@@ -1,4 +1,5 @@
 import { ClientReadableStream, Error, Status } from 'grpc-web';
+import log from 'loglevel';
 
 /**
  * Wraps a grpc stream with reconnect behaviour
@@ -23,7 +24,7 @@ export default class Stream<T> {
     }
   
     private subscribe() {
-      console.log("subscribing to stream:" + this.streamName)
+      log.info("subscribing to stream:" + this.streamName)
       let stream = this.connect()
   
       stream.on('data', (data: T) => {
@@ -31,18 +32,18 @@ export default class Stream<T> {
         this.listener(data)
       });
       stream.on('status', (status: Status) => {
-        console.log(this.streamName + " status:" + status.details)
+        log.info(this.streamName + " status:" + status.details)
       });
       stream.on('error', (err: Error) => {
         stream.cancel()
         let nextInterval = this.getNextResubscribeInterval()
-        console.log("error occurred on  " + this.streamName + ", resubscribing in " + this.nextResubscribeInterval + "ms.  Error:", err);
+        log.error("error occurred on  " + this.streamName + ", resubscribing in " + this.nextResubscribeInterval + "ms.  Error:", err);
         setTimeout(this.subscribe, nextInterval)
       });
       stream.on('end', () => {
         stream.cancel()
         let nextInterval = this.getNextResubscribeInterval()
-        console.log(this.streamName + " end signal received, resubscribing in " + this.nextResubscribeInterval + "ms");
+        log.info(this.streamName + " end signal received, resubscribing in " + this.nextResubscribeInterval + "ms");
         setTimeout(this.subscribe, nextInterval)
       });
     }

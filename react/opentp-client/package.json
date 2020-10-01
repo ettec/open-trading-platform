@@ -22,6 +22,7 @@
     "grpc": "^1.24.2",
     "grpc-web": "^1.0.7",
     "local-storage": "^2.0.0",
+    "loglevel": "^1.7.0",
     "node-fetch": "^2.6.0",
     "query-string": "^6.8.1",
     "react": "^16.9.0",

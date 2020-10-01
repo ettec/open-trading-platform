@@ -2,7 +2,7 @@ import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, Numeri
 import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName, getTickSize } from '../../common/modelutilities';
-import { logDebug, logError } from '../../logging/Logging';
+import log from 'loglevel';
 import { ClobQuote } from '../../serverapi/clobquote_pb';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
 import { CreateAndRouteOrderParams, OrderId, ModifyOrderParams } from '../../serverapi/executionvenue_pb';
@@ -10,7 +10,7 @@ import { Listing } from '../../serverapi/listing_pb';
 import { Side, Order } from '../../serverapi/order_pb';
 import { QuoteListener, QuoteService } from '../../services/QuoteService';
 import { toDecimal64, toNumber } from '../../util/decimal64Conversion';
-import { TicketController } from "../Container";
+import { TicketController } from "../Container/Container";
 import Login from '../Login';
 import { GlobalColours } from '../Colours';
 import { Select, ItemRenderer } from '@blueprintjs/select';
@@ -466,7 +466,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   private onSubmit(event: React.MouseEvent<HTMLElement>) {
 
     if(this.strategyParams != null) {
-      console.log("Strat Params:" + this.strategyParams.getParamsString())
+      log.debug("Strat Params:" + this.strategyParams.getParamsString())
     }
 
 
@@ -479,13 +479,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       modifyParams.setPrice(toDecimal64(this.state.price))
       modifyParams.setOrderid(this.state.orderToModify.getId())
 
-      logDebug("modify order " + this.state.orderToModify.getId() + " to " + toNumber(modifyParams.getQuantity()) +
+      log.debug("modify order " + this.state.orderToModify.getId() + " to " + toNumber(modifyParams.getQuantity()) +
         "@" + toNumber(modifyParams.getPrice()))
 
       this.executionVenueService.modifyOrder(modifyParams, Login.grpcContext.grpcMetaData, (err: Error) => {
         if (err) {
           let msg = "error whilst modifying order:" + err.message
-          logError(msg)
+          log.error(msg)
           alert(msg)
         }
       })
@@ -520,7 +520,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
         }
 
 
-        logDebug("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " +
+        log.info("sending order for " + toNumber(croParams.getQuantity()) + "@" + toNumber(croParams.getPrice()) + " of " +
           croParams.getListingid() + " to " + croParams.getDestination() + " with execution parameters: " + croParams.getExecparametersjson())
 
 
@@ -528,10 +528,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
           response: OrderId) => {
           if (err) {
             let msg = "error whilst sending order:" + err.message
-            logError(msg)
+            log.error(msg)
             alert(msg)
           } else {
-            logDebug("create and route order created order with id:" + response.getOrderid())
+            log.debug("create and route order created order with id:" + response.getOrderid())
           }
 
         })

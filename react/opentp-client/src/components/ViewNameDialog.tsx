@@ -1,6 +1,6 @@
 import { AnchorButton, Classes, Dialog, Intent, InputGroup } from '@blueprintjs/core';
 import * as React from "react";
-import { ViewNameDialogController } from './Container';
+import { ViewNameDialogController } from './Container/Container';
 import { Layout } from 'flexlayout-react';
 
 

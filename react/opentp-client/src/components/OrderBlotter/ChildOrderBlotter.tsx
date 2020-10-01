@@ -4,7 +4,7 @@ import * as React from "react";
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
-import { ChildOrderBlotterController } from '../Container';
+import { ChildOrderBlotterController } from '../Container/Container';
 import { getConfiguredColumns, TableViewConfig, TableViewProperties } from '../TableView/TableView';
 import OrderBlotter, { OrderBlotterState } from "./OrderBlotter";
 import { OrderView } from "./OrderView";

@@ -6,10 +6,11 @@ import "normalize.css";
 import React from 'react';
 import './App.css';
 import Login from './components/Login';
-
+import log from 'loglevel';
 
 
 const App: React.FC = () => {
+  log.setLevel("INFO")
   return (
 
     <Login ></Login>

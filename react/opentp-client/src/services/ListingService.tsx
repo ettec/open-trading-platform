@@ -1,6 +1,6 @@
 import { Error } from "grpc-web";
 import Login from "../components/Login";
-import { logError } from "../logging/Logging";
+import log from 'loglevel';
 import { Listing } from "../serverapi/listing_pb";
 import { StaticDataServiceClient } from "../serverapi/StaticdataserviceServiceClientPb";
 import { ListingId } from "../serverapi/staticdataservice_pb";
@@ -87,14 +87,14 @@ export default class ListingServiceImpl implements ListingService {
   }
 
   private fetchListing(listingId: number) {
-    console.log("getting listing:" + listingId)
+    log.debug("getting listing:" + listingId)
     let listingParam = new ListingId();
     listingParam.setListingid(listingId);
     this.staticDataService.getListing(listingParam, Login.grpcContext.grpcMetaData, (err: Error, listing: Listing) => {
-      console.log("got listing:" + listing)
+      log.debug("got listing:" + listing)
 
       if (err) {
-        logError("get listing for id " + listingId + " failed:" + err);
+        log.error("get listing for id " + listingId + " failed:" + err);
         this.pendingListing.add(listingId);
         
       }

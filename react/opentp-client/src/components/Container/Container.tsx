@@ -1,32 +1,31 @@
-import { Alignment, Button, Navbar, Menu, MenuItem, Popover, Position, Icon, Checkbox } from "@blueprintjs/core";
-import FlexLayout, { Model, TabNode, Layout } from "flexlayout-react";
+import { Alignment, Button, Icon, Menu, MenuItem, Navbar, Popover, Position } from "@blueprintjs/core";
+import FlexLayout, { Layout, Model, TabNode } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
-import React, { ReactNode } from 'react';
-import { Listing } from "../serverapi/listing_pb";
-import { Order, Side } from "../serverapi/order_pb";
-import ListingServiceImpl, { ListingService } from "../services/ListingService";
-import OrderServiceImpl, { OrderService } from "../services/OrderService";
-import QuoteServiceImpl, { QuoteService } from "../services/QuoteService";
-import Executions from "./Executions";
-import InstrumentListingWatch from "./InstrumentListingWatch";
-import MarketDepth from './MarketDepth';
-import ChildOrderBlotter from "./OrderBlotter/ChildOrderBlotter";
-import OrderHistoryBlotter from "./OrderBlotter/OrderHistoryBlotter";
-import OrderBlotter from "./OrderBlotter/ParentOrderBlotter";
-import OrderTicket from './OrderTicket/OrderTicket';
-import { TableViewConfig } from "./TableView/TableView";
-import QuestionDialog from "./QuestionDialog";
-import ViewNameDialog from "./ViewNameDialog";
-import { OrderMonitorClient } from "../serverapi/OrdermonitorServiceClientPb";
-import Login from "./Login";
-import { CancelAllOrdersForOriginatorIdParams } from "../serverapi/ordermonitor_pb";
 import { Error } from "grpc-web";
-import { Empty } from "../serverapi/modelcommon_pb";
-import { logError, logDebug } from "../logging/Logging";
-import ColumnChooser from "./TableView/ColumnChooser";
-import { ClientConfigServiceClient } from "../serverapi/ClientconfigserviceServiceClientPb";
-import { GetConfigParameters, Config, StoreConfigParams } from "../serverapi/clientconfigservice_pb";
-import ParentOrderBlotter from "./OrderBlotter/ParentOrderBlotter";
+import React, { ReactNode } from 'react';
+import log from 'loglevel';
+import { ClientConfigServiceClient } from "../../serverapi/ClientconfigserviceServiceClientPb";
+import { Config, GetConfigParameters, StoreConfigParams } from "../../serverapi/clientconfigservice_pb";
+import { Listing } from "../../serverapi/listing_pb";
+import { Empty } from "../../serverapi/modelcommon_pb";
+import { OrderMonitorClient } from "../../serverapi/OrdermonitorServiceClientPb";
+import { CancelAllOrdersForOriginatorIdParams } from "../../serverapi/ordermonitor_pb";
+import { Order, Side } from "../../serverapi/order_pb";
+import ListingServiceImpl, { ListingService } from "../../services/ListingService";
+import OrderServiceImpl, { OrderService } from "../../services/OrderService";
+import QuoteServiceImpl, { QuoteService } from "../../services/QuoteService";
+import Executions from "../Executions";
+import InstrumentListingWatch from "../InstrumentListingWatch";
+import Login from "../Login";
+import MarketDepth from '../MarketDepth';
+import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
+import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
+import ParentOrderBlotter from "../OrderBlotter/ParentOrderBlotter";
+import OrderTicket from '../OrderTicket/OrderTicket';
+import QuestionDialog from "../QuestionDialog";
+import ColumnChooser from "../TableView/ColumnChooser";
+import { TableViewConfig } from "../TableView/TableView";
+import ViewNameDialog from "../ViewNameDialog";
 
 
 
@@ -149,7 +148,7 @@ export default class Container extends React.Component<any, ContainerState> {
             this.clientConfigServiceClient.storeClientConfig(params, Login.grpcContext.grpcMetaData, (err: Error,
                 response: Empty) => {
                 if (err) {
-                    logError("failed to store configuration:" + err.message)
+                    log.error("failed to store configuration:", err)
                 }
             })
         }
@@ -166,10 +165,10 @@ export default class Container extends React.Component<any, ContainerState> {
 
                 if (err) {
                     let msg = "error whilst cancelling all orders:" + err.message
-                    logError(msg)
+                    log.error(msg)
                     alert(msg)
                 } else {
-                    logDebug("cancelled all orders")
+                    log.debug("cancelled all orders")
                 }
 
             })

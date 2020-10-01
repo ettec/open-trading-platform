@@ -2,7 +2,7 @@ import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
 import { Cell, Column, SelectionModes, Table } from "@blueprintjs/table";
 import * as grpcWeb from 'grpc-web';
 import * as React from "react";
-import { logError } from '../logging/Logging';
+import log from 'loglevel';
 import { Listing } from '../serverapi/listing_pb';
 import { Timestamp } from '../serverapi/modelcommon_pb';
 import { Order } from '../serverapi/order_pb';
@@ -10,7 +10,7 @@ import { OrderHistory } from '../serverapi/viewservice_pb';
 import { ListingService } from '../services/ListingService';
 import { OrderService } from "../services/OrderService";
 import { toNumber } from '../util/decimal64Conversion';
-import { ExecutionsController } from './Container';
+import { ExecutionsController } from './Container/Container';
 import TableView, { getConfiguredColumns, TableViewProperties } from './TableView/TableView';
 
 
@@ -180,7 +180,7 @@ export default class Executions extends TableView<ExecutionsProps, ExecutionsSta
         this.orderService.GetOrderHistory(order, (err: grpcWeb.Error, history: OrderHistory) => {
 
             if (err) {
-                logError("failed to get order history:" + err)
+                log.error("failed to get order history:" + err)
                 return
             }
 

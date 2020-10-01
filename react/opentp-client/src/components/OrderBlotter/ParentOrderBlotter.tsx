@@ -5,14 +5,14 @@ import { Actions, Model, TabNode } from 'flexlayout-react';
 import * as grpcWeb from 'grpc-web';
 import React from 'react';
 import v4 from 'uuid';
-import { logGrpcError } from '../../logging/Logging';
+import log from 'loglevel';
 import { Empty } from '../../serverapi/modelcommon_pb';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
 import { CancelOrderParams } from '../../serverapi/executionvenue_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from '../../services/OrderService';
-import { ChildOrderBlotterController, ExecutionsController, OrderContext, OrderHistoryBlotterController, TicketController } from '../Container';
+import { ChildOrderBlotterController, ExecutionsController, OrderContext, OrderHistoryBlotterController, TicketController } from '../Container/Container';
 import Login from '../Login';
 import '../TableView/TableCommon.css';
 import { getColIdsInOrder, getConfiguredColumns, TableViewConfig, TableViewProperties } from '../TableView/TableView';
@@ -183,7 +183,7 @@ export default class ParentOrderBlotter
 
         this.executionVenueService.cancelOrder(params, Login.grpcContext.grpcMetaData, (err: grpcWeb.Error, response: Empty) => {
           if (err) {
-            logGrpcError("error cancelling order", err)
+            log.error("error cancelling order", err)
           }
         })
 

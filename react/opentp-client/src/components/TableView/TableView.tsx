@@ -1,9 +1,9 @@
 import { IRegion } from "@blueprintjs/table";
 import "@blueprintjs/table/lib/css/table.css";
 import React from 'react';
-import { logError } from "../../logging/Logging";
+import log from 'loglevel';
 import '../TableView/TableCommon.css';
-import { ColumnChooserController } from "../Container";
+import { ColumnChooserController } from "../Container/Container";
 
 
 
@@ -148,7 +148,7 @@ export function getColIdsInOrder(cols: JSX.Element[]) {
         if (colId) {
             colOrderIds.push(colId);
         } else {
-            logError("column is missing id field, column:" + col)
+            log.error("column is missing id field, column:" + col)
         }
     }
     return colOrderIds;

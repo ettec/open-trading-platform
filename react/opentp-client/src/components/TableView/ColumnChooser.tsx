@@ -1,7 +1,7 @@
 import { AnchorButton, Classes, Dialog, Intent, Checkbox } from '@blueprintjs/core';
 import * as React from "react";
-import { logError } from '../../logging/Logging';
-import { ColumnChooserController } from '../Container';
+import log from 'loglevel';
+import { ColumnChooserController } from '../Container/Container';
 import * as table from "../TableView/TableView";
 
 
@@ -183,7 +183,7 @@ export default class ColumnChooser extends React.Component<ColumnChooserProps, C
                     result.push(jsxCol)
                     widths.push(col.width)
                 } else {
-                    logError("column nout found for id " + col.id)
+                    log.error("column not found for id " + col.id)
                 }
             }
         }

@@ -1,6 +1,6 @@
 import { Error, ClientReadableStream } from 'grpc-web';
 import Login from "../components/Login";
-import { logError } from "../logging/Logging";
+import log from 'loglevel';
 import { ClobQuote } from "../serverapi/clobquote_pb";
 import { MarketDataServiceClient } from "../serverapi/Market-data-serviceServiceClientPb";
 import { MdsConnectRequest, MdsSubscribeRequest } from "../serverapi/market-data-service_pb";
@@ -52,7 +52,7 @@ export default class QuoteServiceImpl implements QuoteService {
         this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData, (err: Error,
           response: Empty) => {
           if (err) {
-            logError("market data subscription failed:" + err)
+            log.error("market data subscription failed:" + err)
           }
         })
 
@@ -85,7 +85,7 @@ export default class QuoteServiceImpl implements QuoteService {
       this.marketDataService.subscribe(subscription, Login.grpcContext.grpcMetaData, (err: Error,
         response: Empty) => {
         if (err) {
-          logError("market data subscription failed:" + err)
+          log.error("market data subscription failed:" + err)
         }
       })
 

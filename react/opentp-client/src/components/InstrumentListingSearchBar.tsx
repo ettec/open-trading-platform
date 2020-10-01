@@ -6,7 +6,7 @@ import './TableView/TableCommon.css';
 import { Button } from "@blueprintjs/core";
 import Login from "./Login";
 import { Listing } from "../serverapi/listing_pb";
-import { logError, logGrpcError } from "../logging/Logging";
+import log from 'loglevel';
 import { StaticDataServiceClient } from "../serverapi/StaticdataserviceServiceClientPb";
 import { MatchParameters, Listings } from "../serverapi/staticdataservice_pb";
 
@@ -18,13 +18,13 @@ const renderListing: ItemRenderer<Listing> = (listing, { handleClick, modifiers,
     }
     var instrument = listing.getInstrument()
     if( !instrument ) {
-        logError("instrument of listing " + listing + " is not set")
+        log.error("instrument of listing " + listing + " is not set")
         return null;
     }
 
     var market = listing.getMarket()
     if( !market ) {
-        logError("market of listing " + listing + " is not set")
+        log.error("market of listing " + listing + " is not set")
         return null;
     }
 
@@ -136,7 +136,7 @@ export default class InstrumentListingSearchBar extends React.Component<ListingS
         this.staticDataService.getListingsMatching(p, Login.grpcContext.grpcMetaData, (err, listings : Listings) => {
 
             if (err) {
-                logGrpcError("failed to get listings matching:", err)
+                log.error("failed to get listings matching:", err)
               return
             }
     
@@ -190,7 +190,7 @@ export default class InstrumentListingSearchBar extends React.Component<ListingS
             return i.getDisplaysymbol() + " - " + i.getName() + " - " + m.getMic()
         } else {
             let msg = "listing " + listing + " is missing instrument or market"
-            logError(msg)
+            log.error(msg)
             return msg
         }
     }

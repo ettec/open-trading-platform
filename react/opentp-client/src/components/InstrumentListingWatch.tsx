@@ -2,13 +2,13 @@ import { Icon, Menu } from '@blueprintjs/core';
 import { Cell, Column, IRegion, SelectionModes, Table } from "@blueprintjs/table";
 import { Actions, Model, TabNode } from "flexlayout-react";
 import React from 'react';
-import { logDebug } from "../logging/Logging";
+import log from 'loglevel';
 import { Listing } from "../serverapi/listing_pb";
 import { Side } from "../serverapi/order_pb";
 import { ListingService } from "../services/ListingService";
 import { QuoteListener, QuoteService } from "../services/QuoteService";
 import { toNumber } from "../util/decimal64Conversion";
-import { ListingContext, TicketController } from "./Container";
+import { ListingContext, TicketController } from "./Container/Container";
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import './TableView/TableCommon.css';
 import { ClobQuote } from '../serverapi/clobquote_pb';
@@ -194,7 +194,7 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
       });
 
     } else {
-      logDebug("received quote update for non-existent watch, quote id:" + quote.getListingid())
+      log.debug("received quote update for non-existent watch, quote id:" + quote.getListingid())
     }
 
   }
