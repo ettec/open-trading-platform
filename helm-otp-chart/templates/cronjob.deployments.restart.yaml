@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: deployment-restart
+  namespace: default
+spec:
+  concurrencyPolicy: Forbid
+  schedule: '0 23 * * *' 
+  jobTemplate:
+    spec:
+      backoffLimit: 2 
+      activeDeadlineSeconds: 600 
+      template:
+        spec:
+          serviceAccountName: otpservice 
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl 
+              command:
+                - 'kubectl'
+                - 'rollout'
+                - 'restart'
+                - 'deployment'
+                - '-n'
+                - 'default'
