@@ -4,7 +4,7 @@ import * as grpcWeb from 'grpc-web';
 import * as React from "react";
 import { Timestamp } from '../../serverapi/modelcommon_pb';
 import { Order, OrderStatus } from '../../serverapi/order_pb';
-import { OrderHistory } from '../../serverapi/viewservice_pb';
+import { OrderHistory } from '../../serverapi/orderdataservice_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from "../Container/Controllers";

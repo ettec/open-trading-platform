@@ -1,7 +1,7 @@
 import Login from '../components/Login';
 import { Order } from '../serverapi/order_pb';
-import { ViewServiceClient } from '../serverapi/ViewserviceServiceClientPb';
-import { SubscribeToOrdersWithRootOriginatorIdArgs, OrderHistory, GetOrderHistoryArgs } from '../serverapi/viewservice_pb';
+import { OrderDataServiceClient } from '../serverapi/OrderdataserviceServiceClientPb';
+import { SubscribeToOrdersWithRootOriginatorIdArgs, OrderHistory, GetOrderHistoryArgs } from '../serverapi/orderdataservice_pb';
 import Stream from './impl/Stream';
 import * as grpcWeb from 'grpc-web';
 
@@ -16,7 +16,7 @@ export interface OrderService {
 
 export default class OrderServiceImpl implements OrderService {
 
-    viewService = new ViewServiceClient(Login.grpcContext.serviceUrl, null, null)
+    viewService = new OrderDataServiceClient(Login.grpcContext.serviceUrl, null, null)
     orderStream: Stream<Order>
     orders = new Map<string, Order>()
     listeners = new Array<(order: Order) => void>()

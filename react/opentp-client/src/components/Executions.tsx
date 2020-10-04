@@ -6,7 +6,7 @@ import log from 'loglevel';
 import { Listing } from '../serverapi/listing_pb';
 import { Timestamp } from '../serverapi/modelcommon_pb';
 import { Order } from '../serverapi/order_pb';
-import { OrderHistory } from '../serverapi/viewservice_pb';
+import { OrderHistory } from '../serverapi/orderdataservice_pb';
 import { ListingService } from '../services/ListingService';
 import { OrderService } from "../services/OrderService";
 import { toNumber } from '../common/decimal64Conversion';
