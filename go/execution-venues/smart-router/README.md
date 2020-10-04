@@ -1,0 +1,3 @@
+# smart-router
+
+This service implements the [execution venue](https://github.com/ettec/open-trading-platform/blob/master/protobuf/services/executionvenue.proto) service api.  The smart router is a trading strategy that looks at the prices of the instrument being traded across the markets upon which it is listed and selects the best one to trade on.  This service is also intended as an example of how to build a trading strategy on the OTP platform.  The service can be scaled by increasing the statefulsets replica count.

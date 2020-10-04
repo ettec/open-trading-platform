@@ -1,0 +1,3 @@
+# market-data-gateway-fixsim
+
+This service implements the [market data source api](https://github.com/ettec/open-trading-platform/blob/master/protobuf/services/marketdatasource.proto).  It connects to the fix market simulator using the FIX market data protocol over a two way streaming gRpc connection.  Internally it implements a per client conflating queue such that slow clients will always receive the latest quote.  The service can be scaled by increasing the statefulset replica count.  The [market data service](https://github.com/ettec/open-trading-platform/tree/master/go/market-data/market-data-service) will load balance subscription requests by listing id across all the gateways for a given market (fix simulator)
