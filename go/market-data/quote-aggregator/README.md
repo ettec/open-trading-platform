@@ -1,0 +1,3 @@
+# quote-aggregator
+
+This service implements the [market data source api](https://github.com/ettec/open-trading-platform/blob/master/protobuf/services/marketdatasource.proto).  It sources data for multiple listings of the same instrument according to what markets  are available and creates an aggregated quote.  Internally it implements a per client conflating queue such that slow clients will always receive the latest quote.  The service can be scaled by increasing the statefulset replica count.  
