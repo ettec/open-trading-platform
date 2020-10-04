@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	api "github.com/ettec/open-trading-platform/go/view-service/api/viewservice"
-	"github.com/ettec/open-trading-platform/go/view-service/internal/messagesource"
+	api "github.com/ettec/open-trading-platform/go/order-data-service/api/orderdataservice"
+	"github.com/ettec/open-trading-platform/go/order-data-service/internal/messagesource"
 	"github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/model"
@@ -16,15 +16,11 @@ import (
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	"os"
 	"strings"
 	"sync"
 	"time"
 )
 
-const (
-	KafkaBrokersKey = "KAFKA_BROKERS"
-)
 
 type service struct {
 	orderSubscriptions sync.Map
@@ -40,7 +36,7 @@ type orderAndWriteTime struct {
 
 const maxInitialOrderConflationInterval = 500 * time.Millisecond
 
-func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeToOrdersWithRootOriginatorIdArgs, stream api.ViewService_SubscribeToOrdersWithRootOriginatorIdServer) error {
+func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeToOrdersWithRootOriginatorIdArgs, stream api.OrderDataService_SubscribeToOrdersWithRootOriginatorIdServer) error {
 	username, appInstanceId, err := getMetaData(stream.Context())
 	if err != nil {
 		return err
@@ -198,10 +194,7 @@ func newService(toClientBufferSize int) *service {
 		toClientBufferSize: toClientBufferSize,
 	}
 
-	kafkaBrokers, exists := os.LookupEnv(KafkaBrokersKey)
-	if !exists {
-		log.Fatalf("must specify %v for the kafka store", KafkaBrokersKey)
-	}
+	kafkaBrokers := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	s.kafkaBrokers = strings.Split(kafkaBrokers, ",")
 
 	return &s
@@ -276,7 +269,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	api.RegisterViewServiceServer(s, newService(toClientBufferSize))
+	api.RegisterOrderDataServiceServer(s, newService(toClientBufferSize))
 
 	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {

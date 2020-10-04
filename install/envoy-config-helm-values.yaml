@@ -38,9 +38,9 @@ files:
                     route:
                       cluster: market-data-service-cluster
                       max_grpc_timeout: 0s
-                  - match: { prefix: "/viewservice.ViewService" }
+                  - match: { prefix: "/orderdataservice.OrderDataService" }
                     route:
-                      cluster: view-service-cluster
+                      cluster: order-data-service-cluster
                       max_grpc_timeout: 0s
                   - match: { prefix: "/staticdataservice.StaticDataService" }
                     route:
@@ -97,12 +97,12 @@ files:
         http2_protocol_options: {}
         lb_policy: round_robin
         hosts: [{ socket_address: { address: market-data-service.default, port_value: 50551 }}]
-      - name: view-service-cluster
+      - name: order-data-service-cluster
         connect_timeout: 0.25s
         type: logical_dns
         http2_protocol_options: {}
         lb_policy: round_robin
-        hosts: [{ socket_address: { address: view-service.default, port_value: 50551 }}]
+        hosts: [{ socket_address: { address: order-data-service.default, port_value: 50551 }}]
       - name: order-router-cluster
         connect_timeout: 0.25s
         type: logical_dns

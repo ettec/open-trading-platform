@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: view-service
-  name: view-service
+    app: order-data-service
+  name: order-data-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: view-service
+      app: order-data-service
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: view-service
+        app: order-data-service
     spec:
       containers:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}view-service{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}order-data-service{{ .Values.dockerTag }}
         imagePullPolicy: Always
-        name: view-service
+        name: order-data-service
