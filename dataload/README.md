@@ -1,1 +1,1 @@
-# opentp-dbclient
+Postgresql database dump to be loaded for the out the box OTP deployment.

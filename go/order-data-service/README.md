@@ -1,0 +1,3 @@
+# order-data-service
+
+This services implements the [order data service api](https://github.com/ettec/open-trading-platform/blob/master/protobuf/services/orderdataservice.proto).  The order data service provides a stream of order updates filtered by originator id (for example a trading desk or strategy instance).  In addition it provides a way to retrieve the full update history of an order.  Out of the box OTP is configured to store order data for 7 days (this can be changed by altering the order topics retention time), however by default the order-data-service provides streaming updates only on 'todays' orders.  The service can be scaled by increasing the deployments replica count.
