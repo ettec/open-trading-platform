@@ -59,35 +59,35 @@ The client is an SPA web application written in Typescript using React.  I have 
 
 ## services  <a name="services"></a>
 
-Below is a list of links to the README file in the source route of each platform service that further elaborates upon the details of the service.  Note, a basic familiarity with Kubernetes and its' terminology will be beneficial when reading these files.
+Below is a list of links to the  source route and readme file of each platform service that further elaborates upon the details of the service.  Note, a basic familiarity with Kubernetes and its' terminology will be beneficial when reading these files.
 
-[authorization-service](https://github.com/ettec/open-trading-platform/blob/master/go/authorization-service/README.md)
+[authorization-service](https://github.com/ettec/open-trading-platform/blob/master/go/authorization-service)
 
-[client-config-service](https://github.com/ettec/open-trading-platform/blob/master/go/client-config-service/README.md)
+[client-config-service](https://github.com/ettec/open-trading-platform/blob/master/go/client-config-service)
 
-[fix-market-simulator](https://github.com/ettec/open-trading-platform/blob/master/java/fixmarketsimulator/README.md)
+[fix-market-simulator](https://github.com/ettec/open-trading-platform/blob/master/java/fixmarketsimulator)
 
-[fix-sim-execution-venue](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/fix-sim-execution-venue/README.md)
+[fix-sim-execution-venue](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/fix-sim-execution-venue)
 
-[order-router](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/order-router/README.md)
+[order-router](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/order-router)
 
 [smart-router](https://github.com/ettec/open-trading-platform/tree/master/go/execution-venues/smart-router)
 
-[vwap-strategy](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/vwap-strategy/README.md)
+[vwap-strategy](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/vwap-strategy)
 
-[market-data-gateway-fixsim](https://github.com/ettec/open-trading-platform/blob/master/go/market-data/market-data-gateway-fixsim/README.md)
+[market-data-gateway-fixsim](https://github.com/ettec/open-trading-platform/blob/master/go/market-data/market-data-gateway-fixsim)
 
-[market-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/market-data/market-data-service/README.md)
+[market-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/market-data/market-data-service)
 
 [quote-aggregator](https://github.com/ettec/open-trading-platform/tree/master/go/market-data/quote-aggregator)
 
-[opentp-client](https://github.com/ettec/open-trading-platform/blob/master/react/opentp-client/README.md)
+[opentp-client](https://github.com/ettec/open-trading-platform/blob/master/react/opentp-client)
 
-[order-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/order-data-service/README.md)
+[order-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/order-data-service)
 
-[order-monitor](https://github.com/ettec/open-trading-platform/blob/master/go/order-monitor/README.md)
+[order-monitor](https://github.com/ettec/open-trading-platform/blob/master/go/order-monitor)
 
-[static-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/static-data-service/README.md)
+[static-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/static-data-service)
 
 ## so what use is it to you?  <a name="sowhatuseisittoyou"></a>
 
