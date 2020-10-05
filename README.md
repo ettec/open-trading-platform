@@ -29,7 +29,7 @@ Below is the list of key technologies used in OTP and a brief but by no means co
 
 All server side components are written in Golang, apart from the FIX Market Simulator which is written in Java (historical reasons, i.e. it happened to be the language I knew best when I started the project).  Golang is IMO an excellent language that just gets out the way and allows the developer to focus on the problem being solved (it 'minimises cognitive friction') and I will say with confidence that it is a very good match for this sort of application.
 
-The client is an SPA web application written in Typescript using React.  I have to say I have been pleasantly surprised at how productive these technologies have been to use (what little client side development experience I have with which to compare has been primarily in Java RCP and C# wpf) .
+The client is an SPA web application written in Typescript using the React library.  I have to say I have been pleasantly surprised at how productive these technologies have been to use (what little client side development experience I have with which to compare has been primarily in Java RCP and C# wpf) .
 
 #### open source projects
 
