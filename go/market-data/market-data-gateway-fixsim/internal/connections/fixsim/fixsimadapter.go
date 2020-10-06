@@ -1,9 +1,11 @@
 package fixsim
 
 import (
+	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
+	"github.com/golang/protobuf/proto"
 	"log"
 	"os"
 )
@@ -78,22 +80,43 @@ func NewFixSimAdapter(
 				if r != nil {
 					for _, incGrp := range r.MdIncGrp {
 						symbol := incGrp.GetInstrument().GetSymbol()
-						bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
 						if listingId, ok := n.symbolToListingId[symbol]; ok {
-							if quote, ok := n.idToQuote[listingId]; ok {
-								updatedQuote := updateQuote(quote, incGrp, bids)
-								n.idToQuote[listingId] = updatedQuote
-								n.out <- updatedQuote
-							} else {
-								quote := newClobQuote(listingId)
-								updatedQuote := updateQuote(quote, incGrp, bids)
-								n.idToQuote[listingId] = updatedQuote
-								n.out <- updatedQuote
+
+							var originalQuote *model.ClobQuote
+							if originalQuote, ok = n.idToQuote[listingId]; !ok {
+								originalQuote = newClobQuote(listingId)
 							}
+
+							newQuote, err := copyQuote(originalQuote)
+							if err != nil {
+								n.errLog.Print("failed to copy originalQuote:", err)
+							}
+
+							linesUpdate := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID ||
+								incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER
+							if linesUpdate {
+
+								bids := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID
+								updateQuoteDepth(originalQuote, newQuote, incGrp, bids)
+
+							} else if incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE {
+								newQuote.LastPrice = &model.Decimal64{Mantissa:  incGrp.MdEntryPx.Mantissa, Exponent:  incGrp.MdEntryPx.Exponent}
+								newQuote.LastQuantity = &model.Decimal64{Mantissa:  incGrp.MdEntrySize.Mantissa, Exponent:  incGrp.MdEntrySize.Exponent}
+
+							} else if incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE_VOLUME {
+								newQuote.TradedVolume = &model.Decimal64{Mantissa:  incGrp.MdEntrySize.Mantissa, Exponent:  incGrp.MdEntrySize.Exponent}
+							} else {
+								continue
+							}
+
+							n.idToQuote[listingId] = newQuote
+							n.out <- newQuote
 
 						} else {
 							n.errLog.Printf("received refresh for unknown symbol: %v", symbol)
+
 						}
+
 					}
 				} else {
 					for id := range n.idToQuote {
@@ -111,6 +134,22 @@ func NewFixSimAdapter(
 	return n, nil
 }
 
+func copyQuote(quote *model.ClobQuote) (*model.ClobQuote, error) {
+
+	bytes, err := proto.Marshal(quote)
+	if err != nil {
+		return nil, fmt.Errorf("failed to copy quote:%w", err)
+	}
+
+	quoteCopy := &model.ClobQuote{}
+	err = proto.Unmarshal(bytes, quoteCopy)
+	if err != nil {
+		return nil, fmt.Errorf("failed to copy quote:%w", err)
+	}
+
+	return quoteCopy, nil
+}
+
 func (n *fixSimAdapter) Subscribe(listingId int32) {
 	n.getListing(listingId, n.listingInChan)
 }
@@ -126,21 +165,14 @@ func newClobQuote(listingId int32) *model.ClobQuote {
 	}
 }
 
-func updateQuote(quote *model.ClobQuote, update *marketdata.MDIncGrp, bidSide bool) *model.ClobQuote {
-
-	newQuote := model.ClobQuote{
-		ListingId: quote.ListingId,
-	}
+func updateQuoteDepth(originalQuote *model.ClobQuote, newQuote *model.ClobQuote, update *marketdata.MDIncGrp, bidSide bool) {
 
 	if bidSide {
-		newQuote.Offers = quote.Offers
-		newQuote.Bids = updateClobLines(quote.Bids, update, bidSide)
+		newQuote.Bids = updateClobLines(originalQuote.Bids, update, bidSide)
 	} else {
-		newQuote.Bids = quote.Bids
-		newQuote.Offers = updateClobLines(quote.Offers, update, bidSide)
+		newQuote.Offers = updateClobLines(originalQuote.Offers, update, bidSide)
 	}
 
-	return &newQuote
 }
 
 func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids bool) []*model.ClobLine {

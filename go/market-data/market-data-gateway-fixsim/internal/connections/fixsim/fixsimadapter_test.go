@@ -2,6 +2,7 @@ package fixsim
 
 import (
 	"fmt"
+	"github.com/golang/protobuf/proto"
 
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/fix"
@@ -17,6 +18,46 @@ type testMarketDataClient struct {
 
 	subscribeChan   chan string
 	closeSignalChan chan bool
+}
+
+func Test_QuoteClone(t *testing.T) {
+	quote := newClobQuote(2)
+	quote.LastPrice = &model.Decimal64{Mantissa: 5, Exponent: 0}
+	var lines []*model.ClobLine
+	lines = append(lines, &model.ClobLine{Price: &model.Decimal64{Mantissa: 6, Exponent: 0},
+		Size: &model.Decimal64{Mantissa: 30, Exponent: 0}})
+	quote.Bids = lines
+
+	bytes, err := proto.Marshal(quote)
+	if err != nil {
+		t.FailNow()
+	}
+
+	quoteCopy := &model.ClobQuote{}
+	err = proto.Unmarshal(bytes, quoteCopy)
+	if err != nil {
+		t.FailNow()
+	}
+
+	lines = append(lines, &model.ClobLine{Price: &model.Decimal64{Mantissa: 8, Exponent: 0},
+		Size: &model.Decimal64{Mantissa: 35, Exponent: 0}})
+
+	quote.LastPrice = &model.Decimal64{Mantissa: 7, Exponent: 0}
+	var lines2 []*model.ClobLine
+	lines2 = append(lines, &model.ClobLine{Price: &model.Decimal64{Mantissa: 6, Exponent: 0},
+		Size: &model.Decimal64{Mantissa: 30, Exponent: 0}})
+	lines2 = append(lines, &model.ClobLine{Price: &model.Decimal64{Mantissa: 7, Exponent: 0},
+		Size: &model.Decimal64{Mantissa: 40, Exponent: 0}})
+	quote.Bids = lines2
+
+	if !quoteCopy.LastPrice.Equal(&model.Decimal64{Mantissa: 5, Exponent: 0}) {
+		t.FailNow()
+	}
+
+	if len(quoteCopy.Bids) != 1 {
+		t.FailNow()
+	}
+
 }
 
 func newTestMarketDataClient() (*testMarketDataClient, error) {
@@ -104,14 +145,35 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 		MdIncGrp: entries3,
 	}
 
+	entries4 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 15, 10, "A")}
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+		MdIncGrp: entries4,
+	}
+
+	entries5 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE_VOLUME, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 18, 120, "A")}
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+		MdIncGrp: entries5,
+	}
+
 	q := <-out
 	q = <-out
 	q = <-out
+	q = <-out
+	q = <-out
 
-	err := testEqual(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
+	err := testEqualsBook(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
 	if err != nil {
 		t.Errorf("Books not equal %v", err)
 	}
+
+	if q.LastQuantity.Mantissa != 10 || q.LastPrice.Mantissa != 15 {
+		t.FailNow()
+	}
+
+	if q.TradedVolume.Mantissa != 120 {
+		t.FailNow()
+	}
+
 }
 
 func setupTestClient() (*testMarketDataClient, <-chan *model.ClobQuote, *fixSimAdapter) {
@@ -135,7 +197,7 @@ func toLookupFunc(listingIdToSym map[int32]string) func(listingId int32, onSymbo
 	}
 }
 
-func testEqual(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
+func testEqualsBook(quote *model.ClobQuote, book [5][4]int64, listingId int) error {
 
 	if quote.ListingId != int32(listingId) {
 		return fmt.Errorf("quote listing id and listing id are not the same")

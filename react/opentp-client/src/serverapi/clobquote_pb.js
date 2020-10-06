@@ -366,7 +366,10 @@ proto.model.ClobQuote.toObject = function(includeInstance, msg) {
     offersList: jspb.Message.toObjectList(msg.getOffersList(),
     proto.model.ClobLine.toObject, includeInstance),
     streaminterrupted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
-    streamstatusmsg: jspb.Message.getFieldWithDefault(msg, 5, "")
+    streamstatusmsg: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    lastprice: (f = msg.getLastprice()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    lastquantity: (f = msg.getLastquantity()) && modelcommon_pb.Decimal64.toObject(includeInstance, f),
+    tradedvolume: (f = msg.getTradedvolume()) && modelcommon_pb.Decimal64.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -424,6 +427,21 @@ proto.model.ClobQuote.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setStreamstatusmsg(value);
+      break;
+    case 6:
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
+      msg.setLastprice(value);
+      break;
+    case 7:
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
+      msg.setLastquantity(value);
+      break;
+    case 8:
+      var value = new modelcommon_pb.Decimal64;
+      reader.readMessage(value,modelcommon_pb.Decimal64.deserializeBinaryFromReader);
+      msg.setTradedvolume(value);
       break;
     default:
       reader.skipField();
@@ -489,6 +507,30 @@ proto.model.ClobQuote.serializeBinaryToWriter = function(message, writer) {
     writer.writeString(
       5,
       f
+    );
+  }
+  f = message.getLastprice();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
+    );
+  }
+  f = message.getLastquantity();
+  if (f != null) {
+    writer.writeMessage(
+      7,
+      f,
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
+    );
+  }
+  f = message.getTradedvolume();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      modelcommon_pb.Decimal64.serializeBinaryToWriter
     );
   }
 };
@@ -621,6 +663,117 @@ proto.model.ClobQuote.prototype.getStreamstatusmsg = function() {
  */
 proto.model.ClobQuote.prototype.setStreamstatusmsg = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional Decimal64 lastPrice = 6;
+ * @return {?proto.model.Decimal64}
+ */
+proto.model.ClobQuote.prototype.getLastprice = function() {
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 6));
+};
+
+
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.ClobQuote} returns this
+*/
+proto.model.ClobQuote.prototype.setLastprice = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.ClobQuote} returns this
+ */
+proto.model.ClobQuote.prototype.clearLastprice = function() {
+  return this.setLastprice(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.ClobQuote.prototype.hasLastprice = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * optional Decimal64 lastQuantity = 7;
+ * @return {?proto.model.Decimal64}
+ */
+proto.model.ClobQuote.prototype.getLastquantity = function() {
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 7));
+};
+
+
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.ClobQuote} returns this
+*/
+proto.model.ClobQuote.prototype.setLastquantity = function(value) {
+  return jspb.Message.setWrapperField(this, 7, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.ClobQuote} returns this
+ */
+proto.model.ClobQuote.prototype.clearLastquantity = function() {
+  return this.setLastquantity(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.ClobQuote.prototype.hasLastquantity = function() {
+  return jspb.Message.getField(this, 7) != null;
+};
+
+
+/**
+ * optional Decimal64 tradedVolume = 8;
+ * @return {?proto.model.Decimal64}
+ */
+proto.model.ClobQuote.prototype.getTradedvolume = function() {
+  return /** @type{?proto.model.Decimal64} */ (
+    jspb.Message.getWrapperField(this, modelcommon_pb.Decimal64, 8));
+};
+
+
+/**
+ * @param {?proto.model.Decimal64|undefined} value
+ * @return {!proto.model.ClobQuote} returns this
+*/
+proto.model.ClobQuote.prototype.setTradedvolume = function(value) {
+  return jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.model.ClobQuote} returns this
+ */
+proto.model.ClobQuote.prototype.clearTradedvolume = function() {
+  return this.setTradedvolume(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.model.ClobQuote.prototype.hasTradedvolume = function() {
+  return jspb.Message.getField(this, 8) != null;
 };
 
 

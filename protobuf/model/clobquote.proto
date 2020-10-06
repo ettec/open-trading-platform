@@ -19,6 +19,9 @@ message ClobQuote {
     repeated ClobLine offers = 3; 
     bool streamInterrupted = 4;
     string streamStatusMsg = 5;
+    model.Decimal64 lastPrice = 6;
+    model.Decimal64 lastQuantity = 7;
+    model.Decimal64 tradedVolume = 8;
 }
 
 

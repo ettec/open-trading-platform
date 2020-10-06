@@ -57,6 +57,21 @@ export class ClobQuote extends jspb.Message {
   getStreamstatusmsg(): string;
   setStreamstatusmsg(value: string): ClobQuote;
 
+  getLastprice(): modelcommon_pb.Decimal64 | undefined;
+  setLastprice(value?: modelcommon_pb.Decimal64): ClobQuote;
+  hasLastprice(): boolean;
+  clearLastprice(): ClobQuote;
+
+  getLastquantity(): modelcommon_pb.Decimal64 | undefined;
+  setLastquantity(value?: modelcommon_pb.Decimal64): ClobQuote;
+  hasLastquantity(): boolean;
+  clearLastquantity(): ClobQuote;
+
+  getTradedvolume(): modelcommon_pb.Decimal64 | undefined;
+  setTradedvolume(value?: modelcommon_pb.Decimal64): ClobQuote;
+  hasTradedvolume(): boolean;
+  clearTradedvolume(): ClobQuote;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ClobQuote.AsObject;
   static toObject(includeInstance: boolean, msg: ClobQuote): ClobQuote.AsObject;
@@ -72,6 +87,9 @@ export namespace ClobQuote {
     offersList: Array<ClobLine.AsObject>,
     streaminterrupted: boolean,
     streamstatusmsg: string,
+    lastprice?: modelcommon_pb.Decimal64.AsObject,
+    lastquantity?: modelcommon_pb.Decimal64.AsObject,
+    tradedvolume?: modelcommon_pb.Decimal64.AsObject,
   }
 }
 
