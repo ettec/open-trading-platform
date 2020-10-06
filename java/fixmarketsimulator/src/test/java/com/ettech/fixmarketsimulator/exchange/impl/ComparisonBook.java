@@ -1,6 +1,7 @@
 package com.ettech.fixmarketsimulator.exchange.impl;
 
 import com.ettech.fixmarketsimulator.exchange.MDEntry;
+import com.ettech.fixmarketsimulator.exchange.MdEntryType;
 import com.ettech.fixmarketsimulator.exchange.Side;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -46,26 +47,31 @@ public class ComparisonBook {
     List<TestBookOrder> offersFromMdEntries = new ArrayList<>();
 
     entries.forEach(e-> {
-      List<TestBookOrder> orders = e.getSide() == Side.Buy ? bidsFromMdEntries : offersFromMdEntries;
+
+      if (e.getMdEntryType() == MdEntryType.Bid || e.getMdEntryType() == MdEntryType.Offer) {
+
+        var side = e.getMdEntryType() == MdEntryType.Bid? Side.Buy: Side.Sell;
+
+        List<TestBookOrder> orders = e.getMdEntryType() == MdEntryType.Bid ? bidsFromMdEntries : offersFromMdEntries;
 
 
-      switch( e.getMdEntryType()) {
+      switch (e.getMdUpdateAction()) {
         case Add:
-          orders.add(new TestBookOrder( e.getSide(), e.getQuantity(), e.getPrice(), addedCount++,
-              e.getOrderId()));
-        break;
+          orders.add(new TestBookOrder(side, e.getQuantity(), e.getPrice(), addedCount++,
+                  e.getId()));
+          break;
         case Modify:
-          TestBookOrder originalOrder = orders.stream().filter(o->o.orderId.equals(e.getOrderId())).findFirst().get();
+          TestBookOrder originalOrder = orders.stream().filter(o -> o.orderId.equals(e.getId())).findFirst().get();
           originalOrder.price = e.getPrice();
           originalOrder.qty = e.getQuantity();
           break;
         case Remove:
-          orders.remove(new TestBookOrder( e.getSide(), e.getQuantity(), e.getPrice(), addedCount++,
-              e.getOrderId()));
+          orders.remove(new TestBookOrder(side, e.getQuantity(), e.getPrice(), addedCount++,
+                  e.getId()));
           break;
 
       }
-
+    }
     });
 
     sortBids(bidsFromMdEntries);

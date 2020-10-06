@@ -4,11 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.ettech.fixmarketsimulator.exchange.MDEntry;
-import com.ettech.fixmarketsimulator.exchange.MdEntryType;
-import com.ettech.fixmarketsimulator.exchange.OrderDeletionException;
-import com.ettech.fixmarketsimulator.exchange.Side;
-import com.ettech.fixmarketsimulator.exchange.Trade;
+import com.ettech.fixmarketsimulator.exchange.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -217,6 +214,16 @@ class OrderBookImplTest {
     assertEquals( 0, sellTrade.getLeavesQty());
     assertEquals( 8, sellTrade.getCumQty());
 
+    var tradeEntry = mdEntries.stream().filter(md->md.getMdEntryType()== MdEntryType.Trade).findFirst().get();
+
+    assertEquals(8, tradeEntry.getQuantity());
+    assertEquals(new BigDecimal(10), tradeEntry.getPrice());
+    assertEquals( buyTrade.getTradeId(), tradeEntry.getId());
+
+    var totalTraded = mdEntries.stream().filter(md->md.getMdEntryType()== MdEntryType.TradeVolume).findFirst().get();
+
+    assertEquals(8, totalTraded.getQuantity());
+
   }
 
 
@@ -236,7 +243,7 @@ class OrderBookImplTest {
 
     compBook.testEquals(mdEntries);
 
-    MDEntry entry = mdEntries.stream().filter(e->e.getMdEntryType() == MdEntryType.Remove).findFirst().get();
+    MDEntry entry = mdEntries.stream().filter(e->e.getMdUpdateAction() == MdUpdateActionType.Remove).findFirst().get();
 
     assertEquals(8, entry.getQuantity());
   }
@@ -319,6 +326,32 @@ class OrderBookImplTest {
     assertEquals( sellOrder2.clOrderId, sellTrade2.getClOrderId());
     assertEquals( 2, sellTrade2.getLeavesQty());
     assertEquals( 6, sellTrade2.getCumQty());
+
+    var tradeEntries = mdEntries.stream().filter(md->md.getMdEntryType()== MdEntryType.Trade).collect(Collectors.toList());
+    assertEquals(3, tradeEntries.size());
+    var trade = tradeEntries.get(0);
+    var trade1 = tradeEntries.get(1);
+    var trade2 = tradeEntries.get(2);
+
+    assertEquals(8, trade.getQuantity());
+    assertEquals(new BigDecimal(10), trade.getPrice());
+    assertEquals( sellTrade.getTradeId(), trade.getId());
+
+    assertEquals(8, trade1.getQuantity());
+    assertEquals(new BigDecimal(11), trade1.getPrice());
+    assertEquals( sellTrade1.getTradeId(), trade1.getId());
+
+    assertEquals(6, trade2.getQuantity());
+    assertEquals(new BigDecimal(12), trade2.getPrice());
+    assertEquals( sellTrade2.getTradeId(), trade2.getId());
+
+
+    var totalTraded = mdEntries.stream().filter(md->md.getMdEntryType()== MdEntryType.TradeVolume).findFirst().get();
+
+    assertEquals(22, totalTraded.getQuantity());
+
+
+
   }
 
   @Test

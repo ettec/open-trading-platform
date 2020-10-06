@@ -18,7 +18,12 @@ public interface OrderBook {
 
   Order[] getSellOrders();
 
+  Trade getLastTrade();
+
+  double getTotalTradedVolume();
+
   OrderState modifyOrder(String orderId, BigDecimal newPrice, int newQuantity) throws OrderModificationException;
 
   String getInstrument();
 }
+

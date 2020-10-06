@@ -1,21 +1,23 @@
 package com.ettech.fixmarketsimulator.exchange;
 
+import org.fixprotocol.components.MarketData;
+
 import java.math.BigDecimal;
 
 public interface MDEntry {
 
   String getInstrument();
 
+  MdUpdateActionType getMdUpdateAction();
+
   MdEntryType getMdEntryType();
 
-  String getOrderId();
+  String getId();
 
   String getClOrderId();
 
   BigDecimal getPrice();
 
   double getQuantity();
-
-  Side getSide();
 
 }
