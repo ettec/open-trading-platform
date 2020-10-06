@@ -148,7 +148,10 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
     <Column key="bidSize" id="bidSize" name="Bid Qty" cellRenderer={this.renderBidSize} />,
     <Column key="bidPx" id="bidPx" name="Bid Px" cellRenderer={this.renderBidPrice} />,
     <Column key="askPx" id="askPx" name="Ask Px" cellRenderer={this.renderAskPrice} />,
-    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />]
+    <Column key="askSize" id="askSize" name="Ask Qty" cellRenderer={this.renderAskSize} />,
+    <Column key="lastPx" id="lastPx" name="Last Px" cellRenderer={this.renderLastPrice} />,
+    <Column key="lastSize" id="lastSize" name="Last Qty" cellRenderer={this.renderLastSize} />,
+    <Column key="tradedVol" id="tradedVol" name="Traded Vol" cellRenderer={this.renderTradedVol} />]
 
   }
 
@@ -253,6 +256,26 @@ export default class InstrumentListingWatch extends TableView<InstrumentListingW
   private renderSymbol = (row: number) => <Cell>{this.state.watches[row]?.Symbol()}</Cell>;
   private renderName = (row: number) => <Cell>{this.state.watches[row]?.Name()}</Cell>;
   private renderMic = (row: number) => <Cell>{this.state.watches[row]?.Mic()}</Cell>;
+
+  private renderTradedVol = (row: number) => <Cell>{this.state.watches[row]?.TradedVolume()}</Cell>;
+
+  private renderLastSize = (row: number) => <Cell>{this.state.watches[row]?.LastSize()}</Cell>;
+  private renderLastPrice = (row: number) => {
+    let direction = this.state.watches[row]?.LastPriceDirection()
+    if (direction) {
+      if (direction > 0) {
+        return <Cell><Icon icon="arrow-up" style={{ color: GlobalColours.UPTICK }} />{this.state.watches[row]?.LastPrice()}</Cell>;
+      }
+
+      if (direction < 0) {
+        return <Cell><Icon icon="arrow-down" style={{ color: GlobalColours.DOWNTICK }} />{this.state.watches[row]?.LastPrice()}</Cell>;
+
+      }
+    }
+
+    return <Cell>{this.state.watches[row]?.LastPrice()}</Cell>;
+  }
+
   private renderBidSize = (row: number) => <Cell>{this.state.watches[row]?.BidSize()}</Cell>;
   private renderBidPrice = (row: number) => {
     let direction = this.state.watches[row]?.BidPriceDirection()
@@ -490,6 +513,10 @@ class ListingWatch {
   lastAskPrice?: number;
   currentBidPrice?: number;
   currentAskPrice?: number;
+  lastLastPrice?: number;
+  currentLastPrice?: number;
+  lastTradedQty?: number;
+  tradedVolume?: number;
 
   constructor(listingId: number) {
     this.listingId = listingId
@@ -658,6 +685,78 @@ class ListingWatch {
     }
 
     return 0
+  }
+
+  LastSize(): string {
+    if (this.quote) {
+      if (this.quote.getLastprice()) {
+        
+        let sz = toNumber(this.quote.getLastprice())
+
+        if (sz) {
+          return sz.toString()
+        }
+      }
+    }
+
+    return ""
+  }
+
+
+
+  LastPrice(): string {
+    if (this.quote) {
+      if (this.quote.getLastprice()) {
+
+        let price = toNumber(this.quote.getLastprice())
+        if (price !== this.currentLastPrice) {
+          this.lastLastPrice = this.currentLastPrice
+          this.currentLastPrice = price
+        }
+
+        if (price) {
+          return price.toString()
+        }
+      }
+    }
+
+    return ""
+  }
+
+  LastPriceDirection(): number {
+    if (this.quote) {
+      if (this.quote.getLastprice()) {
+        
+        let price = toNumber(this.quote.getLastprice())
+        if (price !== this.currentLastPrice) {
+          this.lastLastPrice = this.currentLastPrice
+          this.currentLastPrice = price
+        }
+
+        if (this.currentLastPrice && this.lastLastPrice) {
+
+          return this.currentLastPrice - this.lastLastPrice
+        }
+
+      }
+    }
+
+    return 0
+  }
+
+  TradedVolume(): string {
+    if (this.quote) {
+      if (this.quote.getTradedvolume()) {
+        
+        let sz = toNumber(this.quote.getTradedvolume())
+
+        if (sz) {
+          return sz.toString()
+        }
+      }
+    }
+
+    return ""
   }
 
 }
