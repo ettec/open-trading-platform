@@ -66,7 +66,7 @@ func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream mar
 							for _, q := range listingIdToLastQuote {
 								quotes = append(quotes, q)
 							}
-							qa.stream <- combineQuotes(quoteAggListingId, quotes)
+							qa.stream <- combineQuotes(quoteAggListingId, quotes,q)
 						}
 					}
 				}()
@@ -80,7 +80,7 @@ func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream mar
 	return qa
 }
 
-func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote) *model.ClobQuote {
+func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote, lastQuote *model.ClobQuote) *model.ClobQuote {
 
 	bids := getCombinedLines(quotes,
 		func(quote *model.ClobQuote) []*model.ClobLine {
@@ -99,7 +99,9 @@ func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote) *model.Cl
 	streamInterrupted := false
 	streamStatusMsg := ""
 
+	tradedVolume := &model.Decimal64{}
 	for _, quote := range quotes {
+		tradedVolume.Add(quote.TradedVolume)
 		if !streamInterrupted {
 			streamInterrupted = quote.StreamInterrupted
 		}
@@ -114,6 +116,9 @@ func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote) *model.Cl
 		Offers:            offers,
 		StreamInterrupted: streamInterrupted,
 		StreamStatusMsg:   streamStatusMsg,
+		LastPrice: lastQuote.LastPrice,
+		LastQuantity: lastQuote.LastQuantity,
+		TradedVolume: tradedVolume,
 	}
 
 	return quote
