@@ -689,9 +689,9 @@ class ListingWatch {
 
   LastSize(): string {
     if (this.quote) {
-      if (this.quote.getLastprice()) {
+      if (this.quote.getLastquantity()) {
         
-        let sz = toNumber(this.quote.getLastprice())
+        let sz = toNumber(this.quote.getLastquantity())
 
         if (sz) {
           return sz.toString()
