@@ -26,6 +26,8 @@ spec:
           value: /usr/share/cnoms/iexgsimulator
         - name: TARGET_COMP_IDS
           value: iexg-order-gateway-0,iexg-order-gateway-1,iexg-order-gateway-2
+        - name: BB_SYMS_TO_RUN
+          value: SPY,MSFT,BAC,OXY,CHNG,GE
         image: {{ .Values.dockerRepo }}fixmarketsimulator{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: iexgsimulator

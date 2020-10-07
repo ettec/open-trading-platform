@@ -77,28 +77,9 @@ public class App {
     }
 
 
-
-
-    /*
-    private static String fixConfig =
-            "[default]\n" +
-                    "FileStorePath=" + System.getenv("FIX_FILE_STORE_PATH") + "\n" +
-                    "SocketAcceptPort=" + fixServerPort + "\n" +
-                    "BeginString= FIXT.1.1\n" +
-                    "DefaultApplVerID= FIX.5.0SP2\n" +
-                    "\n" +
-                    "[session]\n" +
-                    "SenderCompID=EXEC\n" +
-                    "TargetCompID=BANZAI\n" +
-                    "ConnectionType=acceptor\n" +
-                    "StartTime=00:00:00\n" +
-                    "FileLogPath=fixlog\n" +
-                    "EndTime=00:00:00";
-*/
-
     public static void main(String[] args) {
         int restApiPort = Integer.parseInt(getSysEnvVal("REST_API_PORT", "8501"));
-        ;
+
 
         log.info("Starting rest server on restApiPort:" + restApiPort);
         log.info("Starting fix server on restApiPort:" + fixServerPort);
