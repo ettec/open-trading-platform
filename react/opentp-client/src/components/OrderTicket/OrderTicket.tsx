@@ -13,9 +13,10 @@ import { toDecimal64, toNumber } from '../../common/decimal64Conversion';
 import { TicketController } from "../Container/Controllers";
 import Login from '../Login';
 import { GlobalColours } from '../Container/Colours';
-import { Select, ItemRenderer } from '@blueprintjs/select';
+import { Select, ItemRenderer, IItemRendererProps } from '@blueprintjs/select';
 import VwapParamsPanel from './Strategies/VwapParams/VwapParamsPanel';
 import { Destinations } from '../../common/destinations';
+import { getStrategyDisplayName } from '../../common/strategydescriptions';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -38,6 +39,7 @@ interface OrderTicketProps {
 const DestinationSelect = Select.ofType<string>();
 const renderDestination: ItemRenderer<string> = (destination, { handleClick, modifiers, query }) => {
 
+
   const text = `${destination}`;
   return (
     <MenuItem
@@ -57,9 +59,9 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   executionVenueService = new ExecutionVenueClient(Login.grpcContext.serviceUrl, null, null)
   quoteService: QuoteService
-  strategyParams:  StrategyPanel | null
-  
-  
+  strategyParams: StrategyPanel | null
+  destinationRender: ItemRenderer<string>
+
 
   constructor(props: OrderTicketProps) {
     super(props);
@@ -82,6 +84,42 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
+
+    this.destinationRender = (destinationMic, { handleClick, modifiers, query }) => {
+
+      let displayName: string | undefined = this.getDestinationDisplayName(destinationMic);
+
+      const text = `${displayName}`;
+      return (
+        <MenuItem
+          active={modifiers.active}
+          disabled={modifiers.disabled}
+    
+          key={destinationMic}
+          onClick={handleClick}
+          text={text}
+        />
+      );
+    };
+  }
+
+
+  private getDestinationDisplayName(destinationMic: string | undefined) : string | undefined{
+    if( ! destinationMic) {
+      return "UNKNOWN"
+    }
+
+
+    let displayName: string | undefined;
+    if (Destinations.DMA === destinationMic) {
+
+      displayName = this.state?.listing?.getMarket()?.getName();
+    }
+
+    if (!displayName) {
+      displayName = getStrategyDisplayName(destinationMic);
+    }
+    return displayName;
   }
 
   onQuote(recQuote: ClobQuote): void {
@@ -176,21 +214,21 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
       let sizeIncrement = toNumber(listing.getSizeincrement())
       let tickSize = getTickSize(this.state.price, listing)
 
-      const destination = this.state.destination;
+      const destination = this.getDestinationDisplayName(this.state.destination);
 
 
 
 
       let strategyParamsPanel
-      if( this.state.destination === Destinations.VWAP ) {
-        strategyParamsPanel = <VwapParamsPanel ref={(c) => this.strategyParams = c}/>
+      if (this.state.destination === Destinations.VWAP) {
+        strategyParamsPanel = <VwapParamsPanel ref={(c) => this.strategyParams = c} />
       } else {
         this.strategyParams = null
         strategyParamsPanel = <div></div>;
       }
 
       return (
-        
+
 
         <Dialog
           icon="exchange"
@@ -234,7 +272,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
                   }
 
                 }
-              />  
+              />
             </FormGroup>
 
             <Label htmlFor="input-b">Destination</Label>
@@ -242,7 +280,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
               resetOnClose={true}
               onItemSelect={this.handleStrategyChange}
               onQueryChange={this.handleQueryChange}
-              itemRenderer={renderDestination}
+              itemRenderer={this.destinationRender}
               noResults={<MenuItem disabled={true} text="No results." />}>
               <Button
                 rightIcon="caret-down"
@@ -465,7 +503,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
   private onSubmit(event: React.MouseEvent<HTMLElement>) {
 
-    if(this.strategyParams != null) {
+    if (this.strategyParams != null) {
       log.debug("Strat Params:" + this.strategyParams.getParamsString())
     }
 
@@ -498,13 +536,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
         let croParams = new CreateAndRouteOrderParams()
         croParams.setListingid(listing.getId())
 
-        if( this.strategyParams == null)  {
+        if (this.strategyParams == null) {
           croParams.setDestination(market.getMic())
         } else {
           croParams.setDestination(this.strategyParams.getDestination())
         }
 
-        
+
         croParams.setOrderside(side)
         croParams.setQuantity(toDecimal64(this.state.quantity))
         croParams.setPrice(toDecimal64(this.state.price))
@@ -515,7 +553,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
         croParams.setRootoriginatorref(Login.username)
 
 
-        if( this.strategyParams != null) {
+        if (this.strategyParams != null) {
           croParams.setExecparametersjson(this.strategyParams.getParamsString())
         }
 
@@ -552,6 +590,6 @@ class BestBidAndAsk {
 }
 
 export interface StrategyPanel {
-  getParamsString() : string
-  getDestination() : string
+  getParamsString(): string
+  getDestination(): string
 }

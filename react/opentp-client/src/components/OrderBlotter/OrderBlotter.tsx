@@ -91,7 +91,7 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
   private renderRemQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.remainingQuantity}</Cell>;
   private renderExpQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.exposedQuantity}</Cell>;
   private renderTrdQty = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.tradedQuantity}</Cell>;
-  private renderDestination = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.destination}</Cell>;
+  private renderDestination = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getDestination()}</Cell>;
   private renderVersion = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.version}</Cell>;
   private renderOwner = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.owner}</Cell>;
  

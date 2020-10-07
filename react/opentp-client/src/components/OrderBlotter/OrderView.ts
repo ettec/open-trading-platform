@@ -2,6 +2,7 @@ import { toNumber } from '../../common/decimal64Conversion';
 import { Order, Side, OrderStatus } from '../../serverapi/order_pb';
 import { Listing } from '../../serverapi/listing_pb';
 import { ListingService } from '../../services/ListingService';
+import { getStrategyDisplayName } from '../../common/strategydescriptions';
 
 export interface Filter {
   id(): string
@@ -180,6 +181,16 @@ export class OrderView {
         return "None"
     }
 
+  }
+
+  getDestination(): string | undefined {
+    if( this.listing?.getMarket()?.getMic() ) {
+      if( this.destination === this.listing?.getMarket()?.getMic() ) {
+        return this.listing?.getMarket()?.getName()
+      }
+    }
+
+    return getStrategyDisplayName(this.destination)
   }
 
   getSymbol(): string | undefined {
