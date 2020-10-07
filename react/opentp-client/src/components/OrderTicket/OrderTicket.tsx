@@ -225,7 +225,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
               labelFor="price-input">
               <NumericInput
                 id="price-input"
-                value={this.state.price}
+                defaultValue={this.state.price}
                 stepSize={tickSize}
                 minorStepSize={tickSize}
                 onValueChange={
