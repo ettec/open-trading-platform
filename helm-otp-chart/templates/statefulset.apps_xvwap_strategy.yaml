@@ -44,7 +44,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: ettec/opentp:vwap-strategy-latest
+        image: {{ .Values.dockerRepo }}vwap-strategy{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xvwap-order-gateway
         ports:

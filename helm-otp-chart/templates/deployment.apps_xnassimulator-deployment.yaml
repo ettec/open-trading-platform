@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: xnassimulator
-  name: xnassimulator-deployment
+  name: xnassimulator
 spec:
   replicas: 1
   selector:

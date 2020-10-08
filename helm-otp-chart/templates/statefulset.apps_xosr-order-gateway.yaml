@@ -44,7 +44,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: ettec/opentp:smart-router-latest
+        image: {{ .Values.dockerRepo }}smart-router{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xosr-order-gateway
         ports:

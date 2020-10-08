@@ -54,7 +54,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: ettec/opentp:fix-sim-execution-venue-latest
+        image: {{ .Values.dockerRepo }}fix-sim-execution-venue{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: iexg-order-gateway
         ports:

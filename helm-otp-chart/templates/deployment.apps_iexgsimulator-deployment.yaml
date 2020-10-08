@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: iexgsimulator
-  name: iexgsimulator-deployment
+  name: iexgsimulator
 spec:
   replicas: 1
   selector:

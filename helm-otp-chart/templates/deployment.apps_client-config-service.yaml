@@ -5,7 +5,7 @@ metadata:
     app: client-config-service
   name: client-config-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: client-config-service

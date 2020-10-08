@@ -5,7 +5,7 @@ metadata:
     app: order-router
   name: order-router
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: order-router

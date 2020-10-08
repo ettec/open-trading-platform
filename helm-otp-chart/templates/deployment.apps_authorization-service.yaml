@@ -5,7 +5,7 @@ metadata:
     app: authorization-service
   name: authorization-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: authorization-service
