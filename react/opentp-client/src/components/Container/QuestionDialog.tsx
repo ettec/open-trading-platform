@@ -103,7 +103,7 @@ export default class QuestionDialog extends React.Component<QuestionDialogProps,
                 isOpen: false,
             }
         })
-        this.state.callback(true)
+        this.state.callback(false)
     };
 
 }

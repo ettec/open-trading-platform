@@ -63,7 +63,7 @@ export default class Container extends React.Component<any, ContainerState> {
     viewNameDialogController: ViewNameDialogController
     colChooserController: ColumnChooserController
 
-    constructor(p:any,s:ContainerState) {
+    constructor(p: any, s: ContainerState) {
         super(p, s);
 
         this.listingService = new ListingServiceImpl()
@@ -138,39 +138,47 @@ export default class Container extends React.Component<any, ContainerState> {
 
     onSave() {
 
-        if (this.state && this.state.model) {
-            var jsonStr = JSON.stringify(this.state.model.toJson(), null, "\t");
+        this.questionDialogController.open("Save Layout?", "Save Layout", (response) => {
+            if (response) {
 
-            let params = new StoreConfigParams()
-            params.setUserid(Login.username)
-            params.setConfig(jsonStr)
-            this.clientConfigServiceClient.storeClientConfig(params, Login.grpcContext.grpcMetaData, (err: Error,
-                response: Empty) => {
-                if (err) {
-                    log.error("failed to store configuration:", err)
+                if (this.state && this.state.model) {
+                    var jsonStr = JSON.stringify(this.state.model.toJson(), null, "\t");
+
+                    let params = new StoreConfigParams()
+                    params.setUserid(Login.username)
+                    params.setConfig(jsonStr)
+                    this.clientConfigServiceClient.storeClientConfig(params, Login.grpcContext.grpcMetaData, (err: Error,
+                        response: Empty) => {
+                        if (err) {
+                            log.error("failed to store configuration:", err)
+                        }
+                    })
                 }
-            })
-        }
+            }
+
+        })
 
     }
 
     onCancelAllOrders() {
         this.questionDialogController.open("Cancel all orders?", "Cancel All Orders", (response: boolean) => {
-            var params = new CancelAllOrdersForOriginatorIdParams()
-            params.setOriginatorid(Login.desk)
+            if (response) {
+                var params = new CancelAllOrdersForOriginatorIdParams()
+                params.setOriginatorid(Login.desk)
 
-            this.orderMonitorClient.cancelAllOrdersForOriginatorId(params, Login.grpcContext.grpcMetaData, (err: Error,
-                response: Empty) => {
+                this.orderMonitorClient.cancelAllOrdersForOriginatorId(params, Login.grpcContext.grpcMetaData, (err: Error,
+                    response: Empty) => {
 
-                if (err) {
-                    let msg = "error whilst cancelling all orders:" + err.message
-                    log.error(msg)
-                    alert(msg)
-                } else {
-                    log.debug("cancelled all orders")
-                }
+                    if (err) {
+                        let msg = "error whilst cancelling all orders:" + err.message
+                        log.error(msg)
+                        alert(msg)
+                    } else {
+                        log.debug("cancelled all orders")
+                    }
 
-            })
+                })
+            }
         })
 
 
@@ -195,11 +203,11 @@ export default class Container extends React.Component<any, ContainerState> {
                 iconFactory={(node: TabNode): ReactNode | undefined => {
                     switch (node.getComponent()) {
                         case Views.MarketDepth:
-                            return <Icon icon="graph" style={{paddingRight: 5}}></Icon>
+                            return <Icon icon="graph" style={{ paddingRight: 5 }}></Icon>
                         case Views.InstrumentListingWatch:
-                            return <Icon icon="map" style={{paddingRight: 5}}></Icon>
+                            return <Icon icon="map" style={{ paddingRight: 5 }}></Icon>
                         case Views.OrderBlotter:
-                            return <Icon icon="th" style={{paddingRight: 5}}></Icon>
+                            return <Icon icon="th" style={{ paddingRight: 5 }}></Icon>
 
                     }
 
@@ -222,7 +230,7 @@ export default class Container extends React.Component<any, ContainerState> {
                         <Navbar.Heading>Open Trading Platform</Navbar.Heading>
                         <Navbar.Divider />
                         <Popover content={viewsMenu} position={Position.RIGHT_TOP}>
-                            <Button minimal={true}  icon="add-to-artifact" text="Add View..." />
+                            <Button minimal={true} icon="add-to-artifact" text="Add View..." />
                         </Popover>
                         <Button className="bp3-minimal" icon="floppy-disk" text="Save Layout" onClick={this.onSave} />
                     </Navbar.Group>

@@ -108,7 +108,7 @@ export class OrderView {
   created?: Date;
   destination: string;
   owner: string;
-
+  createdBy: string;
   errorMsg: string;
 
   constructor(order: Order) {
@@ -123,6 +123,7 @@ export class OrderView {
     this.destination = "";
     this.owner = "";
     this.errorMsg = "";
+    this.createdBy = "";
     this.setOrder(order)
   }
 
@@ -161,6 +162,7 @@ export class OrderView {
     this.destination = order.getDestination()
     this.owner = order.getOwnerid()
     this.errorMsg = order.getErrormessage()
+    this.createdBy = order.getRootoriginatorref()
 
   }
 

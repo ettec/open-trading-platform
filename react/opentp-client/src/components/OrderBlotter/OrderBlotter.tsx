@@ -78,11 +78,13 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
     <Column key="destination" id="destination" name="Destination" cellRenderer={this.renderDestination} />,
     <Column key="owner" id="owner" name="Owner" cellRenderer={this.renderOwner} />,
     <Column key="errorMsg" id="errorMsg" name="Error" cellRenderer={this.renderErrorMsg} />,
-    <Column key="version" id="version" name="Version" cellRenderer={this.renderVersion} />
+    <Column key="version" id="version" name="Version" cellRenderer={this.renderVersion} />,
+    <Column key="createdby" id="createdby" name="Created By" cellRenderer={this.renderCreatedBy}/>
     ];
   }
 
   private renderId = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.id}</Cell>;
+  private renderCreatedBy = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.createdBy}</Cell>;
   private renderQuantity = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.quantity}</Cell>;
   private renderSymbol = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getSymbol()}</Cell>;
   private renderMic = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getMic()}</Cell>;
