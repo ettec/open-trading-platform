@@ -111,7 +111,7 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *executionvenue.C
 
 	id, err := ev.client.CreateAndRouteOrder(c, p)
 
-	log.Printf("routed create order request %v to execution venue %v, returned order id %v", p, ev, id)
+	log.Printf("routed create order request %v to execution venue %v, returned order id %v", p, ev.podId, id)
 
 	if err != nil {
 		return nil, fmt.Errorf("failed to route order:%v", err)
