@@ -50,7 +50,7 @@ func (a *AuthService) Check(_ context.Context, req *auth.CheckRequest) (*auth.Ch
 
 	authHeader, ok := req.Attributes.Request.Http.Headers["auth-token"]
 	if !ok {
-
+		return newPermissionDeniedResponse("auth-token header is required"), nil
 	}
 
 	username, ok := req.Attributes.Request.Http.Headers["user-name"]

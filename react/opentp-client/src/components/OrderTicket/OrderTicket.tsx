@@ -13,7 +13,7 @@ import { toDecimal64, toNumber } from '../../common/decimal64Conversion';
 import { TicketController } from "../Container/Controllers";
 import Login from '../Login';
 import { GlobalColours } from '../Container/Colours';
-import { Select, ItemRenderer, IItemRendererProps } from '@blueprintjs/select';
+import { Select, ItemRenderer } from '@blueprintjs/select';
 import VwapParamsPanel from './Strategies/VwapParams/VwapParamsPanel';
 import { Destinations } from '../../common/destinations';
 import { getStrategyDisplayName } from '../../common/strategydescriptions';
@@ -37,22 +37,6 @@ interface OrderTicketProps {
 }
 
 const DestinationSelect = Select.ofType<string>();
-const renderDestination: ItemRenderer<string> = (destination, { handleClick, modifiers, query }) => {
-
-
-  const text = `${destination}`;
-  return (
-    <MenuItem
-      active={modifiers.active}
-      disabled={modifiers.disabled}
-
-      key={destination}
-      onClick={handleClick}
-      text={text}
-    />
-  );
-};
-
 
 
 export default class OrderTicket extends React.Component<OrderTicketProps, OrderTicketState> implements QuoteListener {
