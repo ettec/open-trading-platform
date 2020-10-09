@@ -39,7 +39,8 @@ func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
 
 		quoteStream.Subscribe(om.ParentOrder.ListingId)
 
-		om.Log.Println("order initialised")
+		om.Log.Printf("order initialised with status:%v, target status:%v", om.ParentOrder.GetStatus(),
+			om.ParentOrder.GetTargetStatus())
 
 		for {
 			done, err := om.CheckIfDone()
@@ -85,6 +86,7 @@ func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
 
 						if om.ParentOrder.GetTargetStatus() == model.OrderStatus_LIVE {
 							err := om.ParentOrder.SetStatus(model.OrderStatus_LIVE)
+							om.Log.Println("order set status changed to LIVE")
 							if err != nil {
 								msg := fmt.Sprintf("failed to set managed order status, cancelling order:%v", err)
 								om.ErrLog.Print(msg)

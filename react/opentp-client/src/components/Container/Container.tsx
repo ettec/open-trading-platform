@@ -161,7 +161,7 @@ export default class Container extends React.Component<any, ContainerState> {
     }
 
     onCancelAllOrders() {
-        this.questionDialogController.open("Cancel all orders?", "Cancel All Orders", (response: boolean) => {
+        this.questionDialogController.open("Cancel all desk orders?", "Cancel All Desk Orders", (response: boolean) => {
             if (response) {
                 var params = new CancelAllOrdersForOriginatorIdParams()
                 params.setOriginatorid(Login.desk)
@@ -256,7 +256,7 @@ export default class Container extends React.Component<any, ContainerState> {
                         <Navbar.Divider />
                     </Navbar.Group>
                     <Navbar.Group align={Alignment.RIGHT}>
-                        <Button className="bp3-minimal" icon="delete" text="Cancel All Orders" onClick={this.onCancelAllOrders} />
+                        <Button className="bp3-minimal" icon="delete" text="Cancel All Desk Orders" onClick={this.onCancelAllOrders} />
                     </Navbar.Group>
                 </Navbar>
             </div>

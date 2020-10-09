@@ -16,6 +16,6 @@ spec:
     targetPort: 50551
   selector:
     app: authorization-service
-  sessionAffinity: None
+  sessionAffinity: ClientIP
   type: ClusterIP
 
