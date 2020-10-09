@@ -223,8 +223,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
           <div className={Classes.DIALOG_BODY}>
 
             <Label>{this.getListingFullName()}</Label>
-            <Label style={{ color: Colors.LIME3 }}>{this.getBidText(this.state.quote)}</Label>
+            <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, alignItems: "left" }}>
+            <Label style={{ color: Colors.LIME3, width: 150 }}>{this.getBidText(this.state.quote)}</Label>
             <Label style={{ color: Colors.ORANGE3 }}>{this.getAskText(this.state.quote)}</Label>
+            </div>
 
             <FormGroup
               label="Quantity"
