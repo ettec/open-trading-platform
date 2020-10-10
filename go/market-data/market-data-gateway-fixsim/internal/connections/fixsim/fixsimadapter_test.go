@@ -117,6 +117,41 @@ func Test_quoteNormaliser_nilRefreshResetsAllQuote(t *testing.T) {
 
 }
 
+func Test_QuoteStreamInterruptedFlagResetOnUpdate(t *testing.T) {
+
+	tmd, out, n := setupTestClient()
+
+	n.Subscribe(1)
+
+	symbol := <-tmd.subscribeChan
+	if symbol != "A" {
+		t.Errorf("exepcted subscribe call for symbol A")
+	}
+
+	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
+
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+		MdIncGrp: entries,
+	}
+
+	n.refreshInChan <- nil
+
+	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
+
+	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+		MdIncGrp: entries2,
+	}
+
+	q := <-out
+	q = <-out
+	q = <-out
+
+	if q.StreamInterrupted {
+		t.FailNow()
+	}
+
+}
+
 func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 	tmd, out, n := setupTestClient()

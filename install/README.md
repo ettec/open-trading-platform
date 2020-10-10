@@ -23,7 +23,8 @@ helm install kafka-opentp --namespace kafka incubator/kafka
 kubectl apply -f kafka_cmdline_client.yaml
 
 
-kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash --command -- kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
+kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash 
+kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
 
 
 
