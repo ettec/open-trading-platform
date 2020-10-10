@@ -102,11 +102,11 @@ func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote, lastQuote
 	tradedVolume := &model.Decimal64{}
 	for _, quote := range quotes {
 		tradedVolume.Add(quote.TradedVolume)
-		if !streamInterrupted {
-			streamInterrupted = quote.StreamInterrupted
+		if !streamInterrupted && quote.StreamInterrupted {
+			streamInterrupted = true
 		}
 		if quote.StreamStatusMsg != "" {
-			streamStatusMsg = quote.StreamStatusMsg
+			streamStatusMsg += quote.StreamStatusMsg
 		}
 	}
 

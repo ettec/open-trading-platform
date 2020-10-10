@@ -18,13 +18,12 @@ helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubato
 
 helm install kafka-opentp --namespace kafka incubator/kafka
 
-isntall test client:
+#isntall test client:
 
 kubectl apply -f kafka_cmdline_client.yaml
 
 
-kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash 
-kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
+kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash --command -- kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
 
 
 
@@ -37,13 +36,14 @@ helm install opentp --namespace postgresql bitnami/postgresql --set-file pgHbaCo
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
-kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image ettec/opentp-dbclient:latest --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
+kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ettec/opentp-ci-build:data-loader-client --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
 
 Envoy:
 
 kubectl create ns envoy
 
 helm install opentp-envoy --namespace=envoy stable/envoy -f envoy-config-helm-values.yaml 
+kubectl patch service envoy --namespace envoy --type='json' -p='[{"op": "replace", "path": "/spec/sessionAffinity", "value": "ClientIP"}]'
 
 Opentp app:
 

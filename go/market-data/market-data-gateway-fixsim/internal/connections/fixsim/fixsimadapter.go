@@ -88,6 +88,8 @@ func NewFixSimAdapter(
 							}
 
 							newQuote, err := copyQuote(originalQuote)
+							newQuote.StreamInterrupted = false
+							newQuote.StreamStatusMsg = ""
 							if err != nil {
 								n.errLog.Print("failed to copy originalQuote:", err)
 							}

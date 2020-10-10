@@ -16,7 +16,7 @@ export interface OrderService {
 
 export default class OrderServiceImpl implements OrderService {
 
-    viewService = new OrderDataServiceClient(Login.grpcContext.serviceUrl, null, null)
+    orderDataService = new OrderDataServiceClient(Login.grpcContext.serviceUrl, null, null)
     orderStream: Stream<Order>
     orders = new Map<string, Order>()
     listeners = new Array<(order: Order) => void>()
@@ -31,7 +31,7 @@ export default class OrderServiceImpl implements OrderService {
 
 
         this.orderStream = new Stream<Order>((): grpcWeb.ClientReadableStream<any> => {
-            return this.viewService.subscribeToOrdersWithRootOriginatorId(sto, Login.grpcContext.grpcMetaData)
+            return this.orderDataService.subscribeToOrdersWithRootOriginatorId(sto, Login.grpcContext.grpcMetaData)
         }, (order: Order) => {
 
             let updateOrders = false
@@ -107,7 +107,7 @@ export default class OrderServiceImpl implements OrderService {
         args.setOrderid(order.getId())
         args.setToversion(order.getVersion())
 
-        this.viewService.getOrderHistory(args, Login.grpcContext.grpcMetaData, callback)
+        this.orderDataService.getOrderHistory(args, Login.grpcContext.grpcMetaData, callback)
     }
 
 

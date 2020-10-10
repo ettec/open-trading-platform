@@ -502,6 +502,67 @@ func Test_combineQuoteStatus(t *testing.T) {
 			}
 		})
 	}
+
+
+	tests = []struct {
+		name string
+		args args
+		want *model.ClobQuote
+	}{
+		{name: "test combine 2 quotes",
+			args: args{combinedListingId: 1, quotes: []*model.ClobQuote{
+				{
+					ListingId: 2,
+					Bids: []*model.ClobLine{
+						{Size: d64(15), Price: d64(105)},
+					},
+					Offers: []*model.ClobLine{
+						{Size: d64(10), Price: d64(100)},
+					},
+					StreamInterrupted: false,
+					StreamStatusMsg:   "connection lost",
+				},
+				{
+					ListingId: 3,
+					Bids: []*model.ClobLine{
+						{Size: d64(13), Price: d64(103)},
+					},
+					Offers: []*model.ClobLine{
+						{Size: d64(11), Price: d64(101)},
+					},
+					StreamInterrupted: false,
+					StreamStatusMsg:   "",
+				},
+			}},
+
+			want: &model.ClobQuote{
+				ListingId: 1,
+				Bids: []*model.ClobLine{
+					{Size: d64(15), Price: d64(105), ListingId: 2},
+					{Size: d64(13), Price: d64(103), ListingId: 3},
+				},
+				Offers: []*model.ClobLine{
+					{Size: d64(10), Price: d64(100), ListingId: 2},
+					{Size: d64(11), Price: d64(101), ListingId: 3},
+				},
+				StreamInterrupted: false,
+				StreamStatusMsg:   "connection lost",
+				TradedVolume: &model.Decimal64{},
+			}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := combineQuotes(tt.args.combinedListingId, tt.args.quotes, tt.args.quotes[len(tt.args.quotes)-1]); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("combineQuotes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+
+
+
+
+
+
 }
 
 func Test_combineTradeData(t *testing.T) {
