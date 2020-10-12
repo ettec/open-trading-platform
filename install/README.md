@@ -1,6 +1,6 @@
 # installation
 
-The below instructions are for linux only and assume you are using microk8s to run your kubernetes cluster, however the instructions can be used to install the application on any linux Kubernetes cluster which has a default storage class.  If you are installing on a non-microk8s cluster uncomment the first 3 lines of the install.sh script before running it.
+The below instructions are for linux only and assume you are using microk8s to run your kubernetes cluster, however the instructions can be used to install the application on any linux Kubernetes cluster which has a default storage class (you will need to have helm 3 installed).  If you are installing on a non-microk8s cluster uncomment the first 3 lines of the install.sh script before running it.
 
 Install a fresh copy of [microk8s](https://microk8s.io/)
 

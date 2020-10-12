@@ -17,18 +17,17 @@ helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubato
 
 helm install kafka-opentp --wait --namespace kafka incubator/kafka
 
-#install kafka cmd line client and setup orders topic
+#install kafka cmd line client 
 
  
 kubectl apply --wait -f kafka_cmdline_client.yaml
 
 
-kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash -c "kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1"
 
 
 #Postgres
 
-echo installin Postgreql database...
+echo installing Postgreql database...
 
 kubectl create ns postgresql
 
@@ -46,6 +45,10 @@ kubectl create ns envoy
 
 helm install opentp-envoy --wait --namespace=envoy stable/envoy -f envoy-config-helm-values.yaml 
 kubectl patch service envoy --namespace envoy --type='json' -p='[{"op": "replace", "path": "/spec/sessionAffinity", "value": "ClientIP"}]'
+
+#Orders topic
+kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash -c "kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1"
+
 
 #Opentp
 
