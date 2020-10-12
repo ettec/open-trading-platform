@@ -4,6 +4,8 @@ shopt -s expand_aliases
 alias kubectl=microk8s.kubectl
 alias helm=microk8s.helm3
 
+DIRECTORY=$(cd `dirname $0` && pwd)
+cd $DIRECTORY 
 
 #Kafka
 
