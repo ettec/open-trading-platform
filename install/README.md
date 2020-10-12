@@ -1,57 +1,36 @@
+# installation
 
+The below instructions are for linux only and assume you are using microk8s to run your kubernetes cluster, however instructions can used to install the application on any linux Kubernetes cluster which has a default storage class.  If you are installing on a non-microk8s cluster uncomment the first 3 lines of the install.sh script before running it.
 
-# Specific to microk8s
-snap install microk8s --classic
+Install a fresh copy of [microk8s](https://microk8s.io/)
 
-microk8s enable dns storage helm3 registry
+Enable the required microk8s plugins using the following command:
 
-microk8s start
+`microk8s enable dns storage helm3`
 
-alias kubectl=microk8s.kubectl
-alias helm=microk8s.helm3
+Start the cluster:
 
-# K8s generic cmds  (works with kubeadm cluster/minikube)
+`microk8s start`
 
-kubectl create ns kafka
+Checkout the otp source code from https://github.com/ettec/open-trading-platform
 
-helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+Run the installation script, from the root of the checkout:
 
-helm install kafka-opentp --namespace kafka incubator/kafka
+`./install/install.sh `
 
-#isntall test client:
+That's it.  After the install script completes it will inform you of the port to use to run the OTP client.  You can login using any of the following user ids, no password is required out of the box (the authentication-service has a hook for a token/password validation plugin).
 
-kubectl apply -f kafka_cmdline_client.yaml
+**trader1** - has trading permissions and is a member of the Desk1 trading desk (users on the same desk can see and control each others orders)
 
+**trader2** - has trading permissions and is a member of the Desk1 trading desk
 
-kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash 
-kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1
+**support1** - has view only permissions on the Desk1 trading desk
 
+**traderA** - has trading permissions and is a member of the DeskA trading desk
 
+**traderB** - has trading permission and is  a member of the DeskA trading desk
 
-Postgres:
-
-kubectl create ns postgresql
-
-helm install opentp --namespace postgresql bitnami/postgresql --set-file pgHbaConfiguration=./pb_hba_no_sec.conf
-
-
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-
-kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ettec/opentp-ci-build:data-loader-client --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
-
-Envoy:
-
-kubectl create ns envoy
-
-helm install opentp-envoy --namespace=envoy stable/envoy -f envoy-config-helm-values.yaml 
-kubectl patch service envoy --namespace envoy --type='json' -p='[{"op": "replace", "path": "/spec/sessionAffinity", "value": "ClientIP"}]'
-
-Opentp app:
-
-helm install otp-v1 ../otpchart
-
-
-
+**supportA** - has view only permission on the DeskA trading desk 
 
 
 
