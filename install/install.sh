@@ -31,6 +31,7 @@ echo installing Postgreql database...
 
 kubectl create ns postgresql
 
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install opentp --wait --namespace postgresql bitnami/postgresql --set-file pgHbaConfiguration=./pb_hba_no_sec.conf
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
@@ -43,6 +44,7 @@ echo installing Envoy...
 
 kubectl create ns envoy
 
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm install opentp-envoy --wait --namespace=envoy stable/envoy -f envoy-config-helm-values.yaml 
 kubectl patch service envoy --namespace envoy --type='json' -p='[{"op": "replace", "path": "/spec/sessionAffinity", "value": "ClientIP"}]'
 
