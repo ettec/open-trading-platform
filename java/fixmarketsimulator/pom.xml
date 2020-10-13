@@ -116,7 +116,7 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
-      <version>9.4.15.v20190215</version>
+      <version>9.4.17.v20190418</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
@@ -207,7 +207,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
-      <version>4.1.39.Final</version>
+      <version>4.1.42.Final</version>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
