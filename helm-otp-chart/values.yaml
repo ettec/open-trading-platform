@@ -4,7 +4,7 @@
 
 dockerRepo: "ettec/opentp:"
 #dockerRepo: "ettec/opentp-ci-build:"
-dockerTag: "-1.0.7"
+dockerTag: "-1.0.8"
 
 replicaCount: 1
 
