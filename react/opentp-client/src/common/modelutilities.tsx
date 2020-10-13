@@ -1,41 +1,53 @@
-import { Listing, TickSizeEntry} from "../serverapi/listing_pb"
+import { Listing, TickSizeEntry } from "../serverapi/listing_pb"
 import { toNumber } from "./decimal64Conversion"
 
 
-export function getListingShortName(listing:Listing ): string  {
-    
-      let i = listing.getInstrument() 
-      let m = listing.getMarket() 
-      if( i && m ){
-        return i.getDisplaysymbol() + " - " + m.getMic()
-      } else {
-        return "Listing:" + listing.getId() + " missing instrument or market"
-      }
-    
+export function getListingShortName(listing: Listing): string {
+
+  let i = listing.getInstrument()
+  let m = listing.getMarket()
+  if (i && m) {
+    return i.getDisplaysymbol() + " - " + m.getMic()
+  } else {
+    return "Listing:" + listing.getId() + " missing instrument or market"
   }
 
-  export function getListingLongName(listing:Listing ): string  {
-    
-    let i = listing.getInstrument() 
-    let m = listing.getMarket() 
-    if( i && m ){
-      return i.getName() + " - " + m.getMic()
-    } else {
-      return "Listing:" + listing.getId() + " missing instrument or market"
-    }
-  
+}
+
+export function getListingLongName(listing: Listing): string {
+
+  let i = listing.getInstrument()
+  let m = listing.getMarket()
+  if (i && m) {
+    return i.getName() + " - " + m.getMic()
+  } else {
+    return "Listing:" + listing.getId() + " missing instrument or market"
+  }
+
 }
 
 export function roundToTick(price: number, listing: Listing): number {
-  if( price > 0 ) {
+  if (price > 0) {
     let tickSize = getTickSize(price, listing)
-    let numTicks = Math.round(price/tickSize)
-    return numTicks * tickSize
+
+    let numTicks = Math.round(price / tickSize)
+    let roundedPrice = numTicks * tickSize
+    
+    return parseFloat(roundedPrice.toFixed(numDecimalPlaces(tickSize)))
   } else {
     return price
   }
-  
+
 }
+
+function numDecimalPlaces(num: number): number {
+  if (Math.floor(num) === num) return 0;
+
+
+  return num.toString().split(".")[1].length || 0;
+}
+
+
 
 export function getTickSize(price: number, listing: Listing): number {
   let tt = listing.getTicksize()
