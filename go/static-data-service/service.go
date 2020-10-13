@@ -6,7 +6,7 @@ import (
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/static-data-service/api/staticdataservice"
 	"github.com/ettec/otp-common/bootstrap"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/model"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"

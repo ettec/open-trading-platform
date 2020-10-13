@@ -6,7 +6,7 @@ package clientconfigservice
 import (
 	context "context"
 	fmt "fmt"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/model"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

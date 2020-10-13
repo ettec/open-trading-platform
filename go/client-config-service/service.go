@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/ettec/otp-common/bootstrap"
-	"github.com/ettec/otp-model"
+	"github.com/ettec/otp-common/model"
 	api "github.com/ettech/open-trading-platform/go/client-config-service/api/clientconfigservice"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
