@@ -1,8 +1,25 @@
+# Usage: install.sh <TAG>    e.g. install.sh 1.0.8  leave it blank to install latest ci build
+VERSION=$1
+DOCKERREPO="ettec/opentp:"
+TAG=-$VERSION
+if [ -z "$VERSION" ]; then 
+	echo "installing latest Open Trading Platform ci build"; 
+	DOCKERREPO="ettec/opentp-ci-build:"
+	TAG=""
+else 
+
+       echo "installing Open Trading Platform version $VERSION"; 
+fi
 
 # If installing on a non microk8s cluster comment out the three lines below
-#shopt -s expand_aliases
-#alias kubectl=microk8s.kubectl
-#alias helm=microk8s.helm3
+USINGMICROK8S=$2
+if [ "$USINGMICROK8S" = "true" ];  then
+ echo installing into MicroK8s cluster
+ shopt -s expand_aliases
+ alias kubectl=microk8s.kubectl
+ alias helm=microk8s.helm3
+fi
+
 
 DIRECTORY=$(cd `dirname $0` && pwd)
 cd $DIRECTORY 
@@ -37,7 +54,7 @@ helm install opentp --wait --namespace postgresql bitnami/postgresql --set-file 
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
-kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ettec/opentp-ci-build:data-loader-client --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
+kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ${DOCKERREPO}data-loader-client${TAG} --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
 
 #Envoy
 
@@ -55,9 +72,10 @@ kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash -c "kafka-topics -
 
 #Opentp
 
-echo installing Open Trading Platform...
+echo installing Open Trading Platform using tag $TAG...
 
-helm install --wait --timeout 1200s otp-v1 ../helm-otp-chart/
+
+helm install --wait --timeout 1200s otp-v1 ../helm-otp-chart/ --set dockerRepo=${DOCKERREPO} --set dockerTag=${TAG}
 
 #Instructions to start client
 OTPPORT=$(kubectl get svc --namespace=envoy -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}')

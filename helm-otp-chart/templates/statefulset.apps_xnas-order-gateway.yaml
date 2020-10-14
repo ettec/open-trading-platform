@@ -67,4 +67,4 @@ spec:
       - emptyDir: {}
         name: execution-venue-storage
       serviceAccount: otpservice
-      serviceAccountName: otpservicE
+      serviceAccountName: otpservice

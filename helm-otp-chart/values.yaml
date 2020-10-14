@@ -2,9 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-dockerRepo: "ettec/opentp:"
-#dockerRepo: "ettec/opentp-ci-build:"
-dockerTag: "-1.0.8"
 
 replicaCount: 1
 
