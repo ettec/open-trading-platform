@@ -47,4 +47,5 @@ spec:
         ports:
         - containerPort: 50551 
           name: api 
-
+      serviceAccount: otpservice
+      serviceAccountName: otpservice

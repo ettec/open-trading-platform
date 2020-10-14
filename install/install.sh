@@ -1,8 +1,8 @@
 
 # If installing on a non microk8s cluster comment out the three lines below
-shopt -s expand_aliases
-alias kubectl=microk8s.kubectl
-alias helm=microk8s.helm3
+#shopt -s expand_aliases
+#alias kubectl=microk8s.kubectl
+#alias helm=microk8s.helm3
 
 DIRECTORY=$(cd `dirname $0` && pwd)
 cd $DIRECTORY 
@@ -32,7 +32,8 @@ echo installing Postgreql database...
 kubectl create ns postgresql
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install opentp --wait --namespace postgresql bitnami/postgresql --set-file pgHbaConfiguration=./pb_hba_no_sec.conf
+helm install opentp --wait --namespace postgresql bitnami/postgresql --set-file pgHbaConfiguration=./pb_hba_no_sec.conf --set volumePermissions.enabled=true
+
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
