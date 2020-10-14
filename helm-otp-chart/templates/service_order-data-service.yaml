@@ -13,5 +13,5 @@ spec:
   selector:
     app: order-data-service
   sessionAffinity: None
-  type: NodePort
+  type: ClusterIP
 

@@ -14,5 +14,5 @@ spec:
   selector:
     app: static-data-service
   sessionAffinity: None
-  type: NodePort
+  type: ClusterIP
 

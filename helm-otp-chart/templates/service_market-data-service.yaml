@@ -14,5 +14,5 @@ spec:
   selector:
     app: market-data-service
   sessionAffinity: ClientIP
-  type: NodePort
+  type: ClusterIP
 
