@@ -35,7 +35,7 @@ spec:
         - containerPort: 9876
           name: fix-server
           protocol: TCP
-        - containerPort: 8500
+        - containerPort: 8501
           name: open-api
           protocol: TCP
         resources: {}
