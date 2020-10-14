@@ -1,4 +1,4 @@
-# Usage: install.sh <TAG>    e.g. install.sh 1.0.8  leave it blank to install latest ci build
+# Usage: install.sh <TAG> <use own cluster>    e.g. install.sh 1.0.8  leave it blank to install latest ci build
 VERSION=$1
 DOCKERREPO="ettec/opentp:"
 TAG=-$VERSION
@@ -12,8 +12,10 @@ else
 fi
 
 # If installing on a non microk8s cluster comment out the three lines below
-USINGMICROK8S=$2
-if [ "$USINGMICROK8S" = "true" ];  then
+USINGOWNCLUSTER=$2
+if [ "$USINGOWNCLUSTER" = "true" ];  then
+ echo installing into kubernetes cluster using kubectl current context
+else
  echo installing into MicroK8s cluster
  shopt -s expand_aliases
  alias kubectl=microk8s.kubectl
