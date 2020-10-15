@@ -59,7 +59,7 @@ The client is an SPA web application written in Typescript using the React libra
 
 ## services  <a name="services"></a>
 
-Below is a list of links to the  source route and README file of each platform service that further elaborates upon the details of the service.  Note, a basic familiarity with Kubernetes will be beneficial to be able to understand some of the terminology used in README files.
+Below is a list of links to the  source route and README file of each platform service that further elaborates upon the details of the service.  Note, a basic familiarity with Kubernetes will be beneficial to be able to understand some of the terminology used in the README files.
 
 [authorization-service](https://github.com/ettec/open-trading-platform/blob/master/go/authorization-service)
 

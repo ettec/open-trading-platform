@@ -1,0 +1,7 @@
+# Service account the client will use to reset the deployment,
+# by default the pods running inside the cluster can do no such things.
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: deployment-restart
+  namespace: default
