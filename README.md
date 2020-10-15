@@ -33,7 +33,7 @@ The client is an SPA web application written in Typescript using the React libra
 
 #### open source projects
 
-**Kubernetes:** Makes it cinch to scale and deploy the platform components.  Also means it's as easy to deploy OTP in the cloud as it is to deploy it on-prem. 
+**Kubernetes:** Makes it a cinch to scale and deploy the platform components.  Also means it's as easy to deploy OTP in the cloud as it is to deploy it on-prem. 
 
 **Helm:** Automates the install of platform components.
 
