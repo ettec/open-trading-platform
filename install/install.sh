@@ -1,5 +1,28 @@
 # Usage: install.sh <TAG> <use own cluster>    e.g. install.sh 1.0.8  leave it blank to install latest ci build
-VERSION=$1
+
+
+usage() { echo "Usage: $0 [-v <version number>] [-m]" 1>&2; exit 1; }
+
+while getopts ":v:m" o; do
+    case "${o}" in
+        v)
+            VERSION=${OPTARG}
+            ;;
+        m)
+            USEMICROK8S="true"
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${VERSION}" ]; then
+    usage
+fi
+
+
 DOCKERREPO="ettec/opentp:"
 TAG=-$VERSION
 if [ -z "$VERSION" ]; then 
@@ -7,19 +30,16 @@ if [ -z "$VERSION" ]; then
 	DOCKERREPO="ettec/opentp-ci-build:"
 	TAG=""
 else 
-
        echo "installing Open Trading Platform version $VERSION"; 
 fi
 
-# If installing on a non microk8s cluster comment out the three lines below
-USINGOWNCLUSTER=$2
-if [ "$USINGOWNCLUSTER" = "true" ];  then
- echo installing into kubernetes cluster using kubectl current context
-else
+if [ "$USEMICROK8S" = "true" ];  then
  echo installing into MicroK8s cluster
  shopt -s expand_aliases
  alias kubectl=microk8s.kubectl
  alias helm=microk8s.helm3
+else
+ echo installing into kubernetes cluster using kubectl current context
 fi
 
 
