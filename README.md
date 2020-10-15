@@ -51,6 +51,8 @@ The client is an SPA web application written in Typescript using the React libra
 
 **Grafana:**  a number of OTP specific dashboards are provided as part of the platform to assist with monitoring.
 
+**QuickFixGo/QuickFixJ:** fix engines used to communicate between the platform's order gateways and market simulators.
+
 **BlueprintJS:**  a library of GUI components designed for applications built to analyse data; there is a good affinity between this type of application and a trading application, I have found it to be a good match in practice.
 
 **Caplin Flexlayout:** the ideal GUI layout manager for a trading application as it was originally written to be, well, a layout manager for a trading application (thanks to Caplin for open sourcing it).
@@ -69,17 +71,9 @@ Below is a list of links to the  source route and README file of each platform s
 
 [fix-sim-execution-venue](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/fix-sim-execution-venue)
 
-[order-router](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/order-router)
-
-[smart-router](https://github.com/ettec/open-trading-platform/tree/master/go/execution-venues/smart-router)
-
-[vwap-strategy](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/vwap-strategy)
-
 [market-data-gateway-fixsim](https://github.com/ettec/open-trading-platform/blob/master/go/market-data/market-data-gateway-fixsim)
 
 [market-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/market-data/market-data-service)
-
-[quote-aggregator](https://github.com/ettec/open-trading-platform/tree/master/go/market-data/quote-aggregator)
 
 [opentp-client](https://github.com/ettec/open-trading-platform/blob/master/react/opentp-client)
 
@@ -87,7 +81,15 @@ Below is a list of links to the  source route and README file of each platform s
 
 [order-monitor](https://github.com/ettec/open-trading-platform/blob/master/go/order-monitor)
 
+[order-router](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/order-router)
+
+[quote-aggregator](https://github.com/ettec/open-trading-platform/tree/master/go/market-data/quote-aggregator)
+
+[smart-router](https://github.com/ettec/open-trading-platform/tree/master/go/execution-venues/smart-router)
+
 [static-data-service](https://github.com/ettec/open-trading-platform/blob/master/go/static-data-service)
+
+[vwap-strategy](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/vwap-strategy)
 
 ## so what use is it to you?  <a name="sowhatuseisittoyou"></a>
 
