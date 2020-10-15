@@ -53,7 +53,7 @@ The client is an SPA web application written in Typescript using the React libra
 
 **QuickFixGo/QuickFixJ:** fix engines used to communicate between the platform's order gateways and market simulators.
 
-**BlueprintJS:**  a library of GUI components designed for applications built to analyse data; there is a good affinity between this type of application and a trading application, I have found it to be a good match in practice.
+**BlueprintJS:**  a library of GUI components designed for applications built to analyse data; there is a strong affinity between this type of application and a trading application, I have found it to be a good match in practice.
 
 **Caplin Flexlayout:** the ideal GUI layout manager for a trading application as it was originally written to be, well, a layout manager for a trading application (thanks to Caplin for open sourcing it).
 
