@@ -1,7 +1,4 @@
-# Usage: install.sh <TAG> <use own cluster>    e.g. install.sh 1.0.8  leave it blank to install latest ci build
-
-
-usage() { echo "Usage: $0 [-v <version number>] [-m]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-v <version number>] [-m]  where -v is the version number, omit this flag to install latest ci build.  -m flag should be used if installing on microk8s  " 1>&2; exit 1; }
 
 while getopts ":v:m" o; do
     case "${o}" in
@@ -18,9 +15,6 @@ while getopts ":v:m" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${VERSION}" ]; then
-    usage
-fi
 
 
 DOCKERREPO="ettec/opentp:"
