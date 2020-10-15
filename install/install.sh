@@ -88,7 +88,7 @@ kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash -c "kafka-topics -
 
 #Opentp
 
-echo installing Open Trading Platform using tag $TAG...
+echo installing Open Trading Platform...
 
 
 helm install --wait --timeout 1200s otp-v1 ../helm-otp-chart/ --set dockerRepo=${DOCKERREPO} --set dockerTag=${TAG}
