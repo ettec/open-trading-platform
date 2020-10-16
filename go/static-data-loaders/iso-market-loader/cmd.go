@@ -38,7 +38,6 @@ func main() {
 			}
 		}
 
-
 		market := market{
 			countryCode: record[1],
 			name:        record[5],
@@ -57,8 +56,6 @@ func main() {
 	if err != nil {
 		log.Panic("Error: The data source arguments are not valid")
 	}
-
-
 
 	err = db.Ping()
 	if err != nil {

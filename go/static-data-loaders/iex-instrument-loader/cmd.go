@@ -20,7 +20,6 @@ type iexInstrument struct {
 	IexID     interface{} `json:"iexId"`
 }
 
-
 func main() {
 
 	iexUrl := "https://api.iextrading.com/1.0/ref-data/symbols"
@@ -56,8 +55,6 @@ func main() {
 	if err != nil {
 		log.Panic("Error: The data source arguments are not valid")
 	}
-
-
 
 	err = db.Ping()
 	if err != nil {

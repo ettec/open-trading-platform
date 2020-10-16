@@ -20,8 +20,6 @@ func main() {
 		log.Panic("Error: The data source arguments are not valid")
 	}
 
-
-
 	err = db.Ping()
 	if err != nil {
 		log.Panic("Error: Could not establish a connection with the database")
