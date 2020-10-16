@@ -14,12 +14,13 @@ type instrument struct {
 func main() {
 
 	db, err := sql.Open("postgres", "host=192.168.1.200 dbname=cnoms sslmode=disable user=cnomsk8s password=password")
+	defer db.Close()
 
 	if err != nil {
 		log.Panic("Error: The data source arguments are not valid")
 	}
 
-	defer db.Close()
+
 
 	err = db.Ping()
 	if err != nil {

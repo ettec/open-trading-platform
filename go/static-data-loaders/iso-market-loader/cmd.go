@@ -52,16 +52,17 @@ func main() {
 	}
 
 	db, err := sql.Open("postgres", "host=192.168.1.200 dbname=cnoms sslmode=disable user=cnomsk8s password=password")
+	defer db.Close()
 
 	if err != nil {
-		log.Fatal("Error: The data source arguments are not valid")
+		log.Panic("Error: The data source arguments are not valid")
 	}
 
-	defer db.Close()
+
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("Error: Could not establish a connection with the database")
+		log.Panic("Error: Could not establish a connection with the database")
 	}
 
 	db.Exec(`set search_path="referencedata"`)
