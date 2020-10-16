@@ -28,7 +28,7 @@ Start the cluster:
 
 Checkout the otp source code from https://github.com/ettec/open-trading-platform
 
-Run the installation script, from the root of the checkout:
+Run the installation script, from the root of the checkout with the arguments as shown:
 
 `./install/install.sh -v 1.0.11 -m `
 
