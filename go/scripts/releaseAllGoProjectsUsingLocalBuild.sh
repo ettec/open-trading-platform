@@ -12,7 +12,7 @@ cd $line
 
 if ls *.go 1> /dev/null 2>&1;
 then
-       $DIRECTORY/scripts/releaseLocal.sh $RELEASEDFILE 
+       $DIRECTORY/scripts/releaseGoProjectUsingLocalBuild.sh $RELEASEDFILE 
 fi
 cd $DIRECTORY
    
