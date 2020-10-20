@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	api "github.com/ettec/otp-common/api/marketdataservice"
-
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/k8s"
 	"github.com/ettec/otp-common/loadbalancing"
@@ -22,6 +21,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"sync"
 	"time"

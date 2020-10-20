@@ -1,3 +1,6 @@
+# fix logs
+**/fixlog
+
 # Binaries for programs and plugins
 *.exe
 *.exe~

@@ -4,6 +4,7 @@ import (
 	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
+
 )
 
 type quoteAggregator struct {
