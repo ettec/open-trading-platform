@@ -1,5 +1,5 @@
-DIRECTORY=$(cd `dirname $0` && pwd)/..
-cd $DIRECTORY
+DIRECTORY=$(cd `dirname $0` && pwd)
+cd $DIRECTORY/..
 echo working dir `pwd`	
 
 RELEASEDFILE=$DIRECTORY/lastreleased.txt
