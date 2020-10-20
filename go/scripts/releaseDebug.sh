@@ -11,7 +11,7 @@ COMPNAME=$(basename "$PWD")
 
 cat > DockerfileDebug << EOF
 # Compile stage
-FROM golang:1.13.8 AS build-env
+FROM golang:1.15.8 AS build-env
 # Build Delve
 RUN go get github.com/go-delve/delve/cmd/dlv
 ADD . /dockerdev
