@@ -1,5 +1,5 @@
 import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput, MenuItem, Button } from '@blueprintjs/core';
-import { Error } from 'grpc-web';
+import { Error, StatusCode } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName, getTickSize } from '../../common/modelutilities';
 import log from 'loglevel';
@@ -78,7 +78,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
         <MenuItem
           active={modifiers.active}
           disabled={modifiers.disabled}
-    
+
           key={destinationMic}
           onClick={handleClick}
           text={text}
@@ -88,8 +88,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
   }
 
 
-  private getDestinationDisplayName(destinationMic: string | undefined) : string | undefined{
-    if( ! destinationMic) {
+  private getDestinationDisplayName(destinationMic: string | undefined): string | undefined {
+    if (!destinationMic) {
       return "UNKNOWN"
     }
 
@@ -224,8 +224,8 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
             <Label>{this.getListingFullName()}</Label>
             <div style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, alignItems: "left" }}>
-            <Label style={{ color: Colors.LIME3, width: 150 }}>{this.getBidText(this.state.quote)}</Label>
-            <Label style={{ color: Colors.ORANGE3 }}>{this.getAskText(this.state.quote)}</Label>
+              <Label style={{ color: Colors.LIME3, width: 150 }}>{this.getBidText(this.state.quote)}</Label>
+              <Label style={{ color: Colors.ORANGE3 }}>{this.getAskText(this.state.quote)}</Label>
             </div>
 
             <FormGroup
@@ -553,7 +553,13 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
           if (err) {
             let msg = "error whilst sending order:" + err.message
             log.error(msg)
-            alert(msg)
+            if (err.code === StatusCode.PERMISSION_DENIED) {
+              alert("permission denied")
+            } else {
+              alert(msg)
+            }
+
+
           } else {
             log.debug("create and route order created order with id:" + response.getOrderid())
           }

@@ -38,7 +38,6 @@ type AuthService struct {
 	users map[string]user
 }
 
-// inject a header that can be used for future rate limiting
 func (a *AuthService) Check(_ context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
 
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
