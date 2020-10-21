@@ -1,7 +1,7 @@
 import { Alignment, Button, Icon, Menu, MenuItem, Navbar, Popover, Position } from "@blueprintjs/core";
 import FlexLayout, { Layout, Model, TabNode } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
-import { Error } from "grpc-web";
+import { Error, StatusCode } from "grpc-web";
 import React, { ReactNode } from 'react';
 import log from 'loglevel';
 import { ClientConfigServiceClient } from "../../serverapi/ClientconfigserviceServiceClientPb";
@@ -25,6 +25,7 @@ import ColumnChooser from "../TableView/ColumnChooser";
 import ViewNameDialog from "./ViewNameDialog";
 import { TicketController, ChildOrderBlotterController, OrderHistoryBlotterController, ExecutionsController, QuestionDialogController, ViewNameDialogController, ColumnChooserController } from "./Controllers";
 import { ListingContext, OrderContext } from "./Contexts";
+import { getGrpcErrorMessage } from "../../common/grpcUtilities";
 
 
 
@@ -38,6 +39,7 @@ enum Views {
     MarketDepth = "market-depth",
     NavigationBar = "nav-bar",
 }
+
 
 
 
@@ -170,9 +172,11 @@ export default class Container extends React.Component<any, ContainerState> {
                     response: Empty) => {
 
                     if (err) {
-                        let msg = "error whilst cancelling all orders:" + err.message
+
+                        let msg = getGrpcErrorMessage(err, "Failed to cancel all orders")
                         log.error(msg)
                         alert(msg)
+
                     } else {
                         log.debug("cancelled all orders")
                     }

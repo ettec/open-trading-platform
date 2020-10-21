@@ -1,5 +1,5 @@
 import { AnchorButton, Classes, Colors, Dialog, FormGroup, Intent, Label, NumericInput, MenuItem, Button } from '@blueprintjs/core';
-import { Error, StatusCode } from 'grpc-web';
+import { Error } from 'grpc-web';
 import React, { CSSProperties } from 'react';
 import { getListingLongName, getListingShortName, getTickSize } from '../../common/modelutilities';
 import log from 'loglevel';
@@ -17,6 +17,7 @@ import { Select, ItemRenderer } from '@blueprintjs/select';
 import VwapParamsPanel from './Strategies/VwapParams/VwapParamsPanel';
 import { Destinations } from '../../common/destinations';
 import { getStrategyDisplayName } from '../../common/strategydescriptions';
+import { getGrpcErrorMessage } from '../../common/grpcUtilities';
 
 interface OrderTicketState {
   listing?: Listing,
@@ -508,9 +509,12 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
       this.executionVenueService.modifyOrder(modifyParams, Login.grpcContext.grpcMetaData, (err: Error) => {
         if (err) {
-          let msg = "error whilst modifying order:" + err.message
+
+          let msg = getGrpcErrorMessage(err, "Failed to modify order")
+
           log.error(msg)
           alert(msg)
+
         }
       })
     } else {
@@ -551,14 +555,10 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
         this.executionVenueService.createAndRouteOrder(croParams, Login.grpcContext.grpcMetaData, (err: Error,
           response: OrderId) => {
           if (err) {
-            let msg = "error whilst sending order:" + err.message
-            log.error(msg)
-            if (err.code === StatusCode.PERMISSION_DENIED) {
-              alert("permission denied")
-            } else {
-              alert(msg)
-            }
+            let msg = getGrpcErrorMessage(err, "Failed to send order")
 
+            log.error(msg)
+            alert(msg)
 
           } else {
             log.debug("create and route order created order with id:" + response.getOrderid())

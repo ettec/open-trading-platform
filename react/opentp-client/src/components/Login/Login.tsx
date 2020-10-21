@@ -8,6 +8,7 @@ import { LoginServiceClient } from "../../serverapi/LoginserviceServiceClientPb"
 import { LoginParams, Token } from "../../serverapi/loginservice_pb";
 import Container from "../Container/Container";
 import GrpcContextProvider from "../GrpcContextProvider";
+import { getGrpcErrorMessage } from "../../common/grpcUtilities";
 
 
 export interface Props {
@@ -113,7 +114,10 @@ export default class Login extends React.Component<Props, State> {
             response: Token) => {
 
             if (err) {
-                window.alert("Failed to login: " + err.message)
+                let msg = getGrpcErrorMessage(err, "Failed to login")
+
+                log.error(msg)
+                alert(msg)
             } else {
                 var deadline = new Date();
                 deadline.setSeconds(deadline.getSeconds() + 86400);
