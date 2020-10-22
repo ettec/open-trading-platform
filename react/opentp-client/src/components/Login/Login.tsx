@@ -54,7 +54,7 @@ export default class Login extends React.Component<Props, State> {
         }
 
         if (this.serverUrl.endsWith("localhost:3000")) {
-            this.serverUrl = "http://127.0.0.1:32054" // for local dev, change this to point at your otp services cluster
+            this.serverUrl = "http://127.0.0.1:32509" // for local dev, change this to point at your otp services cluster
         }
 
         log.info("Connecting to services at:" + this.serverUrl)

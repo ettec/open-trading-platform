@@ -1,6 +1,8 @@
+import { Destinations } from "./destinations"
+
 export function getStrategyDisplayName(mic: string) : string | undefined {
     switch(mic) {
-        case "XVWAP":
+        case Destinations.VWAP:
             return "VWAP STRATEGY"
     }
 

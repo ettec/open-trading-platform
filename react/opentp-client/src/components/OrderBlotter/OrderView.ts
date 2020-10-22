@@ -3,6 +3,8 @@ import { Order, Side, OrderStatus } from '../../serverapi/order_pb';
 import { Listing } from '../../serverapi/listing_pb';
 import { ListingService } from '../../services/ListingService';
 import { getStrategyDisplayName } from '../../common/strategydescriptions';
+import { Destinations } from '../../common/destinations';
+import { VwapParameters } from '../OrderTicket/Strategies/VwapParams/VwapParamsPanel';
 
 export interface Filter {
   id(): string
@@ -110,6 +112,7 @@ export class OrderView {
   owner: string;
   createdBy: string;
   errorMsg: string;
+  parameters: string;
 
   constructor(order: Order) {
     this.id = ""
@@ -124,6 +127,7 @@ export class OrderView {
     this.owner = "";
     this.errorMsg = "";
     this.createdBy = "";
+    this.parameters = "";
     this.setOrder(order)
   }
 
@@ -163,11 +167,28 @@ export class OrderView {
     this.owner = order.getOwnerid()
     this.errorMsg = order.getErrormessage()
     this.createdBy = order.getRootoriginatorref()
+    this.parameters = this.getParametersDisplayString(order)
 
   }
 
   getOrder(): Order {
     return this.order
+  }
+
+  getParametersDisplayString(order: Order): string {
+    if (order.getDestination() !== "" && order.getExecparametersjson() !== "") {
+      
+     
+      switch (order.getDestination()) {
+        case Destinations.VWAP:
+          // order.getDestination() + ":" + order.getExecparametersjson()
+         let p = VwapParameters.fromJsonString(order.getExecparametersjson()) as VwapParameters
+         return p.toDisplayString()
+      } 
+    }
+
+
+    return ""
   }
 
   getStatusString(status: OrderStatus) {
@@ -186,8 +207,8 @@ export class OrderView {
   }
 
   getDestination(): string | undefined {
-    if( this.listing?.getMarket()?.getMic() ) {
-      if( this.destination === this.listing?.getMarket()?.getMic() ) {
+    if (this.listing?.getMarket()?.getMic()) {
+      if (this.destination === this.listing?.getMarket()?.getMic()) {
         return this.listing?.getMarket()?.getName()
       }
     }

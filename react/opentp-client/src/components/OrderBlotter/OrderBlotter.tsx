@@ -79,7 +79,8 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
     <Column key="owner" id="owner" name="Owner" cellRenderer={this.renderOwner} />,
     <Column key="errorMsg" id="errorMsg" name="Error" cellRenderer={this.renderErrorMsg} />,
     <Column key="version" id="version" name="Version" cellRenderer={this.renderVersion} />,
-    <Column key="createdby" id="createdby" name="Created By" cellRenderer={this.renderCreatedBy}/>
+    <Column key="createdby" id="createdby" name="Created By" cellRenderer={this.renderCreatedBy}/>,
+    <Column key="parameters" id="parameters" name="Parameters" cellRenderer={this.renderParameters}/>
     ];
   }
 
@@ -96,6 +97,7 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
   private renderDestination = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.getDestination()}</Cell>;
   private renderVersion = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.version}</Cell>;
   private renderOwner = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.owner}</Cell>;
+  private renderParameters = (row: number) => <Cell>{Array.from(this.state.orders)[row]?.parameters}</Cell>;
  
   private renderStatusHeader = (row: number) => {
 

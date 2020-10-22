@@ -2,6 +2,8 @@ import * as React from "react";
 import { Checkbox, Label, NumericInput } from "@blueprintjs/core";
 import { TimePicker, TimePrecision } from "@blueprintjs/datetime";
 import { StrategyPanel } from "../../OrderTicket";
+import { Destinations } from "../../../../common/destinations";
+
 
 export interface Props {
     children?: React.ReactNode
@@ -40,17 +42,19 @@ export default class VwapParamsPanel extends React.Component<Props, State> imple
     }
 
     getDestination(): string {
-        return "XVWAP"
+        return Destinations.VWAP
     }
 
 
     getParamsString(): string {
 
+        var params : VwapParameters;
         if (this.state.setBuckets) {
-            return JSON.stringify(new VwapParameters(Math.floor(this.startTime.getTime() / 1000), Math.floor(this.endTime.getTime() / 1000), this.buckets))
+             params = new VwapParameters(Math.floor(this.startTime.getTime() / 1000), Math.floor(this.endTime.getTime() / 1000), this.buckets)
         } else {
-            return JSON.stringify(new VwapParameters(Math.floor(this.startTime.getTime() / 1000), Math.floor(this.endTime.getTime() / 1000)))
+            params = new VwapParameters(Math.floor(this.startTime.getTime() / 1000), Math.floor(this.endTime.getTime() / 1000))
         }
+        return params.toJsonString()
     }
 
     render() {
@@ -88,10 +92,7 @@ export default class VwapParamsPanel extends React.Component<Props, State> imple
 }
 
 
-
-
-
-class VwapParameters {
+export class VwapParameters {
     utcStartTimeSecs: number;
     utcEndTimeSecs: number;
     buckets?: number;
@@ -103,6 +104,38 @@ class VwapParameters {
         this.utcEndTimeSecs = utcEndTimeSecs;
         this.buckets = buckets;
     }
+
+    
+
+    static fromJsonString(jsonString : string) : VwapParameters {
+        let p = JSON.parse(jsonString) as VwapParameters
+
+        return new VwapParameters(p.utcStartTimeSecs, p.utcEndTimeSecs, p.buckets)
+    }
+
+    
+    toJsonString() : string {
+        return JSON.stringify(this)
+    }    
+
+    toDisplayString() : string {
+        
+        var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+        d.setUTCSeconds(this.utcStartTimeSecs);
+
+
+        let result = "Start:" + d.toLocaleTimeString()
+        d = new Date(0);
+        d.setUTCSeconds(this.utcEndTimeSecs);
+        result += " End:" + d.toLocaleTimeString()
+
+        if( this.buckets ) {
+            result += " Buckets:" + this.buckets
+        }
+
+        return result
+    }
+
 }
 
 

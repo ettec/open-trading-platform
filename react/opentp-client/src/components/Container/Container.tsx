@@ -1,7 +1,7 @@
 import { Alignment, Button, Icon, Menu, MenuItem, Navbar, Popover, Position } from "@blueprintjs/core";
 import FlexLayout, { Layout, Model, TabNode } from "flexlayout-react";
 import "flexlayout-react/style/dark.css";
-import { Error, StatusCode } from "grpc-web";
+import { Error } from "grpc-web";
 import React, { ReactNode } from 'react';
 import log from 'loglevel';
 import { ClientConfigServiceClient } from "../../serverapi/ClientconfigserviceServiceClientPb";
