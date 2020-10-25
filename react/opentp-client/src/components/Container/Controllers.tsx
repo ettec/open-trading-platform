@@ -9,6 +9,25 @@ import QuestionDialog from "./QuestionDialog";
 import ColumnChooser from "../TableView/ColumnChooser";
 import { TableViewConfig } from "../TableView/TableView";
 import ViewNameDialog from "./ViewNameDialog";
+import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
+import { Column, ColumnState } from "ag-grid-community";
+
+
+export class AgGridColumnChooserController {
+
+    private dialog?: ColumnChooserAgGrid;
+
+    setDialog(dialog: ColumnChooserAgGrid) {
+        this.dialog = dialog;
+    }
+
+    open(tableName: string, colStates: ColumnState[], cols: Column[], callback: (columns: ColumnState[] | undefined) => void) {
+        if (this.dialog) {
+            this.dialog.open(tableName, colStates, cols, callback);
+        }
+    }
+
+}
 
 
 export class ColumnChooserController {

@@ -5,6 +5,8 @@ import { ListingService } from '../../services/ListingService';
 import { getStrategyDisplayName } from '../../common/strategydescriptions';
 import { Destinations } from '../../common/destinations';
 import { VwapParameters } from '../OrderTicket/Strategies/VwapParams/VwapParamsPanel';
+import { roundToTick } from '../../common/modelutilities';
+
 
 export interface Filter {
   id(): string
@@ -70,17 +72,19 @@ export class OrdersView {
 
       this.view = result.map((o: Order) => {
         let v = new OrderView(o)
-        v.listing = this.listingSvc.GetListingImmediate(v.listingId)
-        if (!v.listing) {
+        let listing = this.listingSvc.GetListingImmediate(v.listingId)
+        if (!listing) {
 
           if (!this.requestedListingIds.has(v.listingId)) {
             this.requestedListingIds.add(v.listingId)
             this.listingSvc.GetListing(v.listingId, (listing: Listing) => {
-              v.listing = listing
+              v.setListing(listing)
               this.view = undefined
               this.updateListener()
             })
           }
+        } else {
+          v.setListing(listing)
         }
 
         return v
@@ -106,13 +110,20 @@ export class OrderView {
   status: string;
   targetStatus: string;
   private order: Order;
-  listing?: Listing;
-  created?: Date;
+  private listing?: Listing;
+  created?: string;
   destination: string;
   owner: string;
   createdBy: string;
   errorMsg: string;
   parameters: string;
+
+  symbol?: string;
+  mic?: string;
+  countryCode?: string;
+
+
+
 
   constructor(order: Order) {
     this.id = ""
@@ -129,6 +140,28 @@ export class OrderView {
     this.createdBy = "";
     this.parameters = "";
     this.setOrder(order)
+  }
+
+  public getListing(): Listing | undefined {
+    return this.listing
+  }
+
+  public setListing(listing: Listing) {
+    this.listing = listing
+    this.symbol = listing?.getInstrument()?.getDisplaysymbol()
+    this.mic = listing?.getMarket()?.getMic()
+    this.countryCode = listing?.getMarket()?.getCountrycode()
+    this.updateAvgPrice() 
+  }
+
+  private updateAvgPrice() {
+    if (this.order && this.listing) {
+      let avgPrice = toNumber(this.order.getAvgtradeprice())
+
+      if (avgPrice) {
+        this.avgTradePrice = roundToTick(avgPrice, this.listing)
+      }
+    }
   }
 
   private setOrder(order: Order) {
@@ -160,7 +193,8 @@ export class OrderView {
     this.targetStatus = this.getStatusString(order.getTargetstatus())
     let created = order.getCreated()
     if (created) {
-      this.created = new Date(created.getSeconds() * 1000)
+      let date = new Date(created.getSeconds() * 1000)
+      this.created = date.toLocaleTimeString()
     }
 
     this.destination = order.getDestination()
@@ -168,7 +202,7 @@ export class OrderView {
     this.errorMsg = order.getErrormessage()
     this.createdBy = order.getRootoriginatorref()
     this.parameters = this.getParametersDisplayString(order)
-
+    this.updateAvgPrice() 
   }
 
   getOrder(): Order {
@@ -177,14 +211,14 @@ export class OrderView {
 
   getParametersDisplayString(order: Order): string {
     if (order.getDestination() !== "" && order.getExecparametersjson() !== "") {
-      
-     
+
+
       switch (order.getDestination()) {
         case Destinations.VWAP:
           // order.getDestination() + ":" + order.getExecparametersjson()
-         let p = VwapParameters.fromJsonString(order.getExecparametersjson()) as VwapParameters
-         return p.toDisplayString()
-      } 
+          let p = VwapParameters.fromJsonString(order.getExecparametersjson()) as VwapParameters
+          return p.toDisplayString()
+      }
     }
 
 

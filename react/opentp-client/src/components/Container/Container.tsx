@@ -1,6 +1,5 @@
 import { Alignment, Button, Icon, Menu, MenuItem, Navbar, Popover, Position } from "@blueprintjs/core";
 import FlexLayout, { Layout, Model, TabNode } from "flexlayout-react";
-import "flexlayout-react/style/dark.css";
 import { Error } from "grpc-web";
 import React, { ReactNode } from 'react';
 import log from 'loglevel';
@@ -23,9 +22,18 @@ import OrderTicket from '../OrderTicket/OrderTicket';
 import QuestionDialog from "./QuestionDialog";
 import ColumnChooser from "../TableView/ColumnChooser";
 import ViewNameDialog from "./ViewNameDialog";
-import { TicketController, ChildOrderBlotterController, OrderHistoryBlotterController, ExecutionsController, QuestionDialogController, ViewNameDialogController, ColumnChooserController } from "./Controllers";
+import { TicketController, ChildOrderBlotterController, OrderHistoryBlotterController, ExecutionsController, QuestionDialogController, ViewNameDialogController, ColumnChooserController, AgGridColumnChooserController } from "./Controllers";
 import { ListingContext, OrderContext } from "./Contexts";
 import { getGrpcErrorMessage } from "../../common/grpcUtilities";
+import ParentOrderBlotterAgGrid from "../OrderBlotter/ParentOrderBlotterAgGrid";
+
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
+import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
+
+
+
+
 
 
 
@@ -64,6 +72,7 @@ export default class Container extends React.Component<any, ContainerState> {
     questionDialogController: QuestionDialogController
     viewNameDialogController: ViewNameDialogController
     colChooserController: ColumnChooserController
+    agGridcolChooserController: AgGridColumnChooserController
 
     constructor(p: any, s: ContainerState) {
         super(p, s);
@@ -80,7 +89,7 @@ export default class Container extends React.Component<any, ContainerState> {
         this.questionDialogController = new QuestionDialogController()
         this.viewNameDialogController = new ViewNameDialogController()
         this.colChooserController = new ColumnChooserController()
-
+        this.agGridcolChooserController = new AgGridColumnChooserController()
 
         this.factory = (node: TabNode) => {
             var component = node.getComponent();
@@ -88,7 +97,7 @@ export default class Container extends React.Component<any, ContainerState> {
             if (this.state && this.state.model) {
 
                 if (component === Views.OrderBlotter) {
-                    return <ParentOrderBlotter ticketController={this.ticketController} colsChooser={this.colChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
+                    return <ParentOrderBlotterAgGrid ticketController={this.ticketController} colController={this.agGridcolChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === Views.MarketDepth) {
                     return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model}
@@ -190,6 +199,7 @@ export default class Container extends React.Component<any, ContainerState> {
 
     public render() {
 
+
         const viewsMenu = (
             <Menu>
                 <MenuItem icon="graph" text="Market Depth" onClick={() => this.viewNameDialogController.open(Views.MarketDepth, "Market Depth",
@@ -226,6 +236,9 @@ export default class Container extends React.Component<any, ContainerState> {
         }
 
 
+
+
+
         return (<div className="app" >
 
             <div className="toolbar" >
@@ -248,6 +261,7 @@ export default class Container extends React.Component<any, ContainerState> {
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
                 <ViewNameDialog controller={this.viewNameDialogController}></ViewNameDialog>
                 <ColumnChooser controller={this.colChooserController}></ColumnChooser>
+                <ColumnChooserAgGrid controller={this.agGridcolChooserController}></ColumnChooserAgGrid>
             </div>
 
             <div className="contents">
@@ -265,10 +279,16 @@ export default class Container extends React.Component<any, ContainerState> {
                 </Navbar>
             </div>
 
+  );
+
         </div>);
 
 
     }
 
 }
+
+
+
+
 

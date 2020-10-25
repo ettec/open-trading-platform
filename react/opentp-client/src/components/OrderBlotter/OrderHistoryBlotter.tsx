@@ -122,7 +122,7 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
                     let view = new OrderUpdateView(order, time)
                     let listing = this.listingService.GetListingImmediate(order.getListingid())
                     if( listing ) {
-                        view.listing = listing
+                        view.setListing(listing)
                     }
 
                     newViews.push(view)

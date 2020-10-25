@@ -52,9 +52,9 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
 
   protected addOrUpdateOrder(order: Order) {
     this.view.addOrUpdateOrder(order)
-    // Set state called twice, the table does not always update immediately unless this is done.
     this.setState({ ...this.state, orders: this.view.getOrders() })
-    this.setState({ ...this.state, orders: this.view.getOrders() })
+    
+    
   }
 
 
@@ -146,8 +146,9 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
   private renderAvgPrice = (row: number) => {
     let orderView = Array.from(this.state.orders)[row]
     if( orderView && orderView.avgTradePrice) {
-        if( orderView.listing ) {
-          return <Cell>{roundToTick(orderView.avgTradePrice, orderView.listing )}</Cell>
+        let listing = orderView.getListing()
+        if( listing ) {
+          return <Cell>{roundToTick(orderView.avgTradePrice, listing )}</Cell>
         } else {
           return <Cell>{orderView.avgTradePrice}</Cell>
         }
@@ -184,7 +185,7 @@ export default abstract class OrderBlotter<P extends OrderBlotterProps , S exten
     let created = Array.from(this.state.orders)[row]?.created
 
     if (created) {
-      return <Cell>{created.toLocaleTimeString()}</Cell>
+      return <Cell></Cell>
     } else {
       return <Cell></Cell>
     }
