@@ -1,5 +1,4 @@
-import { AnchorButton, Button, Classes, Dialog, Intent } from '@blueprintjs/core';
-import { Cell, SelectionModes, Table } from "@blueprintjs/table";
+import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
 import { ColDef, ColumnApi, ColumnState, GridReadyEvent } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
 import * as grpcWeb from 'grpc-web';
@@ -12,7 +11,7 @@ import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from "../Container/Controllers";
 import { TableViewProperties } from "../TableView/TableView";
 import { OrderView } from "./OrderView";
-import { CountryFlagRenderer } from "./ParentOrderBlotterAgGrid"
+import { CountryFlagRenderer } from "./ParentOrderBlotterAgGrid";
 
 export interface OrderHistoryBlotterProps extends TableViewProperties {
     orderService: OrderService
@@ -96,7 +95,7 @@ export default class OrderHistoryBlotter extends React.Component<OrderHistoryBlo
                 <div className={Classes.DIALOG_BODY} >
                     <div className="ag-theme-balham-dark"  >
                         <AgGridReact
-                        domLayout='autoHeight' 
+                            domLayout='autoHeight'
                             frameworkComponents={{
                                 countryFlagRenderer: CountryFlagRenderer,
                             }}
@@ -125,14 +124,7 @@ export default class OrderHistoryBlotter extends React.Component<OrderHistoryBlo
     }
 
 
-
-
-
-
-
     open(order: Order, colStates: ColumnState[], colDefs: ColDef[], width: number) {
-
-
 
         this.orderService.GetOrderHistory(order, (err: grpcWeb.Error, history: OrderHistory) => {
 
@@ -166,7 +158,7 @@ export default class OrderHistoryBlotter extends React.Component<OrderHistoryBlo
 
         let colDefsWithTime = new Array<ColDef>()
 
-        
+
 
         let timeCol: ColDef = {
             headerName: 'Time',
@@ -176,8 +168,8 @@ export default class OrderHistoryBlotter extends React.Component<OrderHistoryBlo
         };
 
         colDefsWithTime.push(timeCol)
-        colDefs.forEach(d=>colDefsWithTime.push(d)) 
-        
+        colDefs.forEach(d => colDefsWithTime.push(d))
+
         let state: OrderHistoryBlotterState =
         {
             order: order,

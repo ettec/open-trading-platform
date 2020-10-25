@@ -1,21 +1,22 @@
 import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
-import { Cell, Column, SelectionModes, Table } from "@blueprintjs/table";
+import { ColDef, ColumnApi } from 'ag-grid-community';
+import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
 import * as grpcWeb from 'grpc-web';
-import * as React from "react";
 import log from 'loglevel';
+import * as React from "react";
+import { toNumber } from '../common/decimal64Conversion';
 import { Listing } from '../serverapi/listing_pb';
 import { Timestamp } from '../serverapi/modelcommon_pb';
-import { Order } from '../serverapi/order_pb';
 import { OrderHistory } from '../serverapi/orderdataservice_pb';
+import { Order } from '../serverapi/order_pb';
 import { ListingService } from '../services/ListingService';
 import { OrderService } from "../services/OrderService";
-import { toNumber } from '../common/decimal64Conversion';
 import { ExecutionsController } from "./Container/Controllers";
-import TableView, { getConfiguredColumns, TableViewProperties } from './TableView/TableView';
+import { CountryFlagRenderer } from './OrderBlotter/ParentOrderBlotterAgGrid';
 
 
 
-export interface ExecutionsProps extends TableViewProperties {
+export interface ExecutionsProps {
     orderService: OrderService
     listingService: ListingService
     executionsController: ExecutionsController
@@ -26,18 +27,20 @@ interface ExecutionsState {
     isOpen: boolean,
     usePortal: boolean
     parentOrder?: Order
-    columns: Array<JSX.Element>
-    columnWidths: Array<number>
+
     executions: Array<ExecutionView>;
     width: number
 }
 
 class ExecutionView {
-    time?: Date;
+    time?: string;
     id: string;
     quantity?: number;
     price?: number;
     listing?: Listing;
+    symbol: string | undefined;
+    mic: string | undefined;
+    countryCode: string | undefined;
 
     constructor(order: Order, updateTime: Timestamp, listing?: Listing) {
 
@@ -47,28 +50,63 @@ class ExecutionView {
         this.listing = listing
 
         if (updateTime) {
-            this.time = new Date(updateTime.getSeconds() * 1000)
+            let date = new Date(updateTime.getSeconds() * 1000)
+            this.time = date.toLocaleTimeString()
         }
-    }
 
-    getSymbol(): string | undefined {
-        return this.listing?.getInstrument()?.getDisplaysymbol()
+        this.symbol = this.listing?.getInstrument()?.getDisplaysymbol()
+        this.mic = this.listing?.getMarket()?.getMic()
+        this.countryCode = this.listing?.getMarket()?.getCountrycode()
     }
-
-    getMic(): string | undefined {
-        return this.listing?.getMarket()?.getMic()
-    }
-
-    getCountryCode(): string | undefined {
-        return this.listing?.getMarket()?.getCountrycode()
-    }
-
 
 }
 
+const fieldName = (name: keyof ExecutionView) => name;
 
-export default class Executions extends TableView<ExecutionsProps, ExecutionsState> {
+const columnDefs: ColDef[] = [
+    {
+        headerName: 'Time',
+        field: fieldName('time'),
+        width: 80,
 
+    },
+    {
+        headerName: 'Id',
+        field: fieldName('id'),
+        width: 80
+    },
+    {
+        headerName: 'Symbol',
+        field: fieldName('symbol'),
+        width: 80
+    },
+    {
+        headerName: 'Mic',
+        field: fieldName('mic'),
+        width: 80
+    },
+    {
+        headerName: 'Country',
+        field: fieldName('countryCode'),
+        width: 80
+    },
+    {
+        headerName: 'Quantity',
+        field: fieldName('quantity'),
+        width: 80
+    },
+    {
+        headerName: 'Price',
+        field: fieldName('price'),
+        width: 80
+    }
+
+]
+
+
+export default class Executions extends React.Component<ExecutionsProps, ExecutionsState> {
+
+    gridColumnApi?: ColumnApi;
     orderService: OrderService
     listingService: ListingService
     executionsController: ExecutionsController
@@ -82,57 +120,21 @@ export default class Executions extends TableView<ExecutionsProps, ExecutionsSta
 
         this.executionsController.setView(this)
 
-        let columns = this.getColumns()
-        let [defaultCols, defaultColWidths] = getConfiguredColumns(columns);
-
         this.state = {
             isOpen: false,
             usePortal: false,
-            columns: defaultCols,
-            columnWidths: defaultColWidths,
             executions: new Array<ExecutionView>(10),
             width: 0
         }
 
     }
 
-    protected  getTableName() : string {
+    protected getTableName(): string {
         return "Executions"
     }
 
-    getColumns() {
-        return [<Column key="time" id="time" name="Time" cellRenderer={this.renderTime} />,
-        <Column key="id" id="id" name="Id" cellRenderer={this.renderId} />,
-        <Column key="symbol" id="symbol" name="Symbol" cellRenderer={this.renderSymbol} />,
-        <Column key="mic" id="mic" name="Mic" cellRenderer={this.renderMic} />,
-        <Column key="country" id="country" name="Country" cellRenderer={this.renderCountry} />,
-        <Column key="quantity" id="quantity" name="Quantity" cellRenderer={this.renderQuantity} />,
-        <Column key="price" id="price" name="Price" cellRenderer={this.renderPrice} />,
-
-
-        ];
-    }
-
-    private renderId = (row: number) => <Cell>{Array.from(this.state.executions)[row]?.id}</Cell>;
-
-    private renderQuantity = (row: number) => <Cell>{Array.from(this.state.executions)[row]?.quantity}</Cell>;
-    private renderSymbol = (row: number) => <Cell>{Array.from(this.state.executions)[row]?.getSymbol()}</Cell>;
-    private renderMic = (row: number) => <Cell>{Array.from(this.state.executions)[row]?.getMic()}</Cell>;
-    private renderCountry = (row: number) => <Cell>{Array.from(this.state.executions)[row]?.getCountryCode()}</Cell>;
-    private renderPrice = (row: number) => <Cell>{Array.from(this.state.executions)[row]?.price}</Cell>;
-    private renderTime = (row: number) => {
-        let created = Array.from(this.state.executions)[row]?.time
-
-        if (created) {
-            return <Cell>{created.toLocaleTimeString()}</Cell>
-        } else {
-            return <Cell></Cell>
-        }
-    }
-
-
-    getTitle(order? : Order ) : string {
-        if( order ) {
+    getTitle(order?: Order): string {
+        if (order) {
             return "Executions for order " + order.getId()
         }
 
@@ -149,14 +151,20 @@ export default class Executions extends TableView<ExecutionsProps, ExecutionsSta
                 {...this.state}
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >
-                    <Table enableRowResizing={false} numRows={this.state.executions.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-                        enableColumnReordering={true}
-                        onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
-                        {this.state.columns}
-                    </Table>
+                    <AgGridReact className="ag-theme-balham-dark" 
+                        domLayout='autoHeight'
+                        frameworkComponents={{
+                            countryFlagRenderer: CountryFlagRenderer,
+                        }}
 
-
-
+                        defaultColDef={{
+                            sortable: false,
+                            filter: true,
+                            resizable: true
+                        }}
+                        columnDefs={columnDefs}
+                        rowData={this.state.executions}
+                    />
                 </div>
                 <div className={Classes.DIALOG_FOOTER}>
                     <div className={Classes.DIALOG_FOOTER_ACTIONS}>
