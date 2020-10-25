@@ -1,32 +1,35 @@
 import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
-import { IRegion, SelectionModes, Table } from "@blueprintjs/table";
+import { ColDef, ColumnApi, ColumnState, GridReadyEvent } from 'ag-grid-community';
+import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
 import * as React from "react";
-import { Order, OrderStatus } from '../../serverapi/order_pb';
+import { Order } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { ChildOrderBlotterController } from "../Container/Controllers";
-import { getConfiguredColumns, TableViewConfig, TableViewProperties } from '../TableView/TableView';
-import OrderBlotter, { OrderBlotterState } from "./OrderBlotter";
 import { OrderView } from "./OrderView";
+import { CountryFlagRenderer } from './ParentOrderBlotterAgGrid';
 
-export interface ChildOrderProps extends TableViewProperties   {
+export interface ChildOrderProps {
     orderService: OrderService
     listingService: ListingService
     childOrderBlotterController: ChildOrderBlotterController
 }
 
-  
-interface ChildOrderBlotterState extends OrderBlotterState {
+
+interface ChildOrderBlotterState {
     isOpen: boolean,
     usePortal: boolean
+    orders: Array<OrderView>
     parentOrder?: Order
-    selectedOrders: Array<Order>,
     width: number,
+    colStates: ColumnState[],
+    colDefs: ColDef[],
 }
 
 
-export default class ChildOrderBlotter  extends OrderBlotter<ChildOrderProps, ChildOrderBlotterState> {
+export default class ChildOrderBlotter extends React.Component<ChildOrderProps, ChildOrderBlotterState> {
 
+    gridColumnApi?: ColumnApi;
     orderService: OrderService
     listingService: ListingService
     childOrderBlotterController: ChildOrderBlotterController
@@ -39,36 +42,38 @@ export default class ChildOrderBlotter  extends OrderBlotter<ChildOrderProps, Ch
         this.childOrderBlotterController = props.childOrderBlotterController
 
         this.childOrderBlotterController.setBlotter(this)
-        let visibleStates = new Set<OrderStatus>() 
-        visibleStates.add(OrderStatus.LIVE)
-        visibleStates.add(OrderStatus.CANCELLED)
-        visibleStates.add(OrderStatus.FILLED)
-        visibleStates.add(OrderStatus.NONE)
 
         this.state = {
             isOpen: false,
             usePortal: false,
-            columns: new Array<JSX.Element>(),
-            columnWidths: new Array<number>(),
             orders: new Array<OrderView>(10),
-            selectedOrders: new Array<Order>(),
             width: 0,
-            visibleStates: visibleStates
+            colStates: new Array<ColumnState>(),
+            colDefs: new Array<ColDef>(),
+            parentOrder: undefined
         }
 
+        this.onGridReady = this.onGridReady.bind(this);
     }
 
-    protected  getTableName() : string {
+    protected getTableName(): string {
         return "Child Orders"
     }
 
 
-    getTitle(order? : Order ) : string {
-        if( order ) {
+    getTitle(order?: Order): string {
+        if (order) {
             return "Children of order " + order.getId()
         }
 
         return ""
+    }
+
+    onGridReady(params: GridReadyEvent) {
+
+        this.gridColumnApi = params.columnApi;
+        this.gridColumnApi.setColumnState(this.state.colStates)
+
     }
 
     render() {
@@ -81,12 +86,23 @@ export default class ChildOrderBlotter  extends OrderBlotter<ChildOrderProps, Ch
                 {...this.state}
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >
-                    <Table enableRowResizing={false} numRows={this.state.orders.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-                        onSelection={this.onSelection} enableColumnReordering={true}
-                        onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
-                        {this.state.columns}
-                    </Table>
+                    <div className="ag-theme-balham-dark"  >
+                        <AgGridReact
+                            domLayout='autoHeight'
+                            frameworkComponents={{
+                                countryFlagRenderer: CountryFlagRenderer,
+                            }}
 
+                            defaultColDef={{
+                                sortable: true,
+                                filter: true,
+                                resizable: true
+                            }}
+                            columnDefs={this.state.colDefs}
+                            rowData={this.state.orders}
+                            onGridReady={this.onGridReady}
+                        />
+                    </div>
 
 
                 </div>
@@ -107,40 +123,31 @@ export default class ChildOrderBlotter  extends OrderBlotter<ChildOrderProps, Ch
 
 
 
-    private onSelection = (selectedRegions: IRegion[]) => {
-        let newSelectedOrders: Array<Order> = this.getSelectedOrdersFromRegions(selectedRegions, this.state.orders);
-
-        let blotterState: ChildOrderBlotterState = {
-            ...this.state, ...{
-                selectedOrders: newSelectedOrders,
-            }
-        }
-
-        this.setState(blotterState)
-    }
-
-   
-
-    open(parentOrder: Order, orders: Array<Order>,  config: TableViewConfig, width: number) {
 
 
-        let [cols, widths] = getConfiguredColumns(this.getColumns(), config);
+    open(parentOrder: Order, orders: Array<Order>, colStates: ColumnState[], colDefs: ColDef[], width: number) {
 
-        this.clearOrders()
-
+        let orderViews = Array<OrderView>()
         for (let order of orders) {
-            this.addOrUpdateOrder(order)
+            let view = new OrderView(order)
+            let listing = this.listingService.GetListingImmediate(order.getListingid())
+            if (listing) {
+                view.setListing(listing)
+            }
+
+            orderViews.push(view)
         }
+
 
         let state =
         {
             parentOrder: parentOrder,
             isOpen: true,
             usePortal: false,
-            columns: cols,
-            columnWidths: widths,
-            selectedOrders: new Array<Order>(),
-            width: width
+            colStates: colStates,
+            colDefs: colDefs,
+            width: width,
+            orders: orderViews
         }
 
         this.setState(state)

@@ -1,16 +1,18 @@
-import { AnchorButton, Classes, Dialog, Intent } from '@blueprintjs/core';
-import { Cell, Column, SelectionModes, Table } from "@blueprintjs/table";
+import { AnchorButton, Button, Classes, Dialog, Intent } from '@blueprintjs/core';
+import { Cell, SelectionModes, Table } from "@blueprintjs/table";
+import { ColDef, ColumnApi, ColumnState, GridReadyEvent } from 'ag-grid-community';
+import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
 import * as grpcWeb from 'grpc-web';
 import * as React from "react";
 import { Timestamp } from '../../serverapi/modelcommon_pb';
-import { Order, OrderStatus } from '../../serverapi/order_pb';
 import { OrderHistory } from '../../serverapi/orderdataservice_pb';
+import { Order } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from "../Container/Controllers";
-import  { getConfiguredColumns, TableViewConfig, TableViewProperties } from "../TableView/TableView";
-import OrderBlotter, { OrderBlotterState } from "./OrderBlotter";
+import { TableViewProperties } from "../TableView/TableView";
 import { OrderView } from "./OrderView";
+import { CountryFlagRenderer } from "./ParentOrderBlotterAgGrid"
 
 export interface OrderHistoryBlotterProps extends TableViewProperties {
     orderService: OrderService
@@ -18,17 +20,22 @@ export interface OrderHistoryBlotterProps extends TableViewProperties {
     orderHistoryBlotterController: OrderHistoryBlotterController
 }
 
-interface OrderHistoryBlotterState extends OrderBlotterState {
+interface OrderHistoryBlotterState {
+    orders: OrderView[],
     isOpen: boolean,
     usePortal: boolean
     order?: Order
     updates: OrderUpdateView[];
-    width: number
+    width: number,
+    colStates: ColumnState[],
+    colDefs: ColDef[],
 }
 
+const fieldName = (name: keyof OrderUpdateView) => name;
 
-export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotterProps, OrderHistoryBlotterState> {
+export default class OrderHistoryBlotter extends React.Component<OrderHistoryBlotterProps, OrderHistoryBlotterState> {
 
+    gridColumnApi?: ColumnApi;
     orderService: OrderService
     listingService: ListingService
     orderHistoryBlotterController: OrderHistoryBlotterController
@@ -43,36 +50,39 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
 
         this.orderHistoryBlotterController.setBlotter(this)
 
-        let visibleStates = new Set<OrderStatus>()
-        visibleStates.add(OrderStatus.LIVE)
-        visibleStates.add(OrderStatus.CANCELLED)
-        visibleStates.add(OrderStatus.FILLED)
-        visibleStates.add(OrderStatus.NONE)
-
         this.state = {
             isOpen: false,
             usePortal: false,
-            columns: new Array<JSX.Element>(),
-            columnWidths: new Array<number>(),
             updates: new Array<OrderUpdateView>(0),
             orders: new Array<OrderView>(),
             width: 0,
-            visibleStates: visibleStates
+            colStates: new Array<ColumnState>(),
+            colDefs: new Array<ColDef>(),
         }
 
+        this.onGridReady = this.onGridReady.bind(this);
     }
 
-    protected  getTableName() : string {
+    protected getTableName(): string {
         return "Child Orders"
     }
 
-    getTitle(order? : Order ) : string {
-        if( order ) {
+    getTitle(order?: Order): string {
+        if (order) {
             return "History of order " + order.getId()
         }
 
         return ""
     }
+
+    onGridReady(params: GridReadyEvent) {
+
+        this.gridColumnApi = params.columnApi;
+        this.gridColumnApi.setColumnState(this.state.colStates)
+
+    }
+
+
 
     render() {
         return (
@@ -84,11 +94,24 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
                 {...this.state}
                 className="bp3-dark">
                 <div className={Classes.DIALOG_BODY} >
-                    <Table enableRowResizing={false} numRows={this.state.updates.length} className="bp3-dark" selectionModes={SelectionModes.ROWS_AND_CELLS}
-                        enableColumnReordering={true}
-                        onColumnsReordered={this.onColumnsReordered} enableColumnResizing={true} onColumnWidthChanged={this.columnResized} columnWidths={this.state.columnWidths}>
-                        {this.state.columns}
-                    </Table>
+                    <div className="ag-theme-balham-dark"  >
+                        <AgGridReact
+                        domLayout='autoHeight' 
+                            frameworkComponents={{
+                                countryFlagRenderer: CountryFlagRenderer,
+                            }}
+
+                            defaultColDef={{
+                                sortable: false,
+                                filter: true,
+                                resizable: true
+                            }}
+                            columnDefs={this.state.colDefs}
+                            rowData={this.state.orders}
+                            onGridReady={this.onGridReady}
+                        />
+                    </div>
+
                 </div>
                 <div className={Classes.DIALOG_FOOTER}>
                     <div className={Classes.DIALOG_FOOTER_ACTIONS}>
@@ -107,7 +130,7 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
 
 
 
-    open(order: Order, config: TableViewConfig, width: number) {
+    open(order: Order, colStates: ColumnState[], colDefs: ColDef[], width: number) {
 
 
 
@@ -121,7 +144,7 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
                 if (order && time) {
                     let view = new OrderUpdateView(order, time)
                     let listing = this.listingService.GetListingImmediate(order.getListingid())
-                    if( listing ) {
+                    if (listing) {
                         view.setListing(listing)
                     }
 
@@ -141,31 +164,31 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
 
         })
 
+        let colDefsWithTime = new Array<ColDef>()
 
-        let [cols, widths] = getConfiguredColumns(this.getColumns(), config);
+        
 
+        let timeCol: ColDef = {
+            headerName: 'Time',
+            field: fieldName('time'),
+            width: 80,
 
-        let newWidths = new Array<number>()
-        newWidths.push(75)
-        newWidths = newWidths.concat(widths)
+        };
 
-        let timeCol = <Column key="time" id="time" name="Time" cellRenderer={this.renderUpdateTime} />
-
-        let newCols = new Array<JSX.Element>()
-        newCols.push(timeCol)
-        newCols = newCols.concat(cols)
-
-        let state =
+        colDefsWithTime.push(timeCol)
+        colDefs.forEach(d=>colDefsWithTime.push(d)) 
+        
+        let state: OrderHistoryBlotterState =
         {
             order: order,
             isOpen: true,
             usePortal: false,
-            columns: newCols,
-            columnWidths: newWidths,
-            updates: new Array<OrderUpdateView>(),
-            orders: new Array<OrderUpdateView>(),
-            width: width
 
+            updates: new Array<OrderUpdateView>(),
+            orders: new Array<OrderView>(),
+            width: width,
+            colStates: colStates,
+            colDefs: colDefsWithTime,
         }
 
         this.setState(state)
@@ -180,27 +203,19 @@ export default class OrderHistoryBlotter extends OrderBlotter<OrderHistoryBlotte
         })
     };
 
-    private renderUpdateTime = (row: number) => {
-        let updateTime = Array.from(this.state.updates)[row]?.time
-
-        if (updateTime) {
-            return <Cell>{updateTime.toLocaleTimeString()}</Cell>
-        } else {
-            return <Cell></Cell>
-        }
-    }
 
 }
 
 class OrderUpdateView extends OrderView {
 
-    time?: Date;
+    time?: string;
 
     constructor(order: Order, updateTime: Timestamp) {
         super(order)
 
         if (updateTime) {
-            this.time = new Date(updateTime.getSeconds() * 1000)
+            let date = new Date(updateTime.getSeconds() * 1000)
+            this.time = date.toLocaleTimeString()
         }
     }
 

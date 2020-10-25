@@ -1,8 +1,11 @@
 import { Alignment, Button, Icon, Menu, MenuItem, Navbar, Popover, Position } from "@blueprintjs/core";
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 import FlexLayout, { Layout, Model, TabNode } from "flexlayout-react";
 import { Error } from "grpc-web";
-import React, { ReactNode } from 'react';
 import log from 'loglevel';
+import React, { ReactNode } from 'react';
+import { getGrpcErrorMessage } from "../../common/grpcUtilities";
 import { ClientConfigServiceClient } from "../../serverapi/ClientconfigserviceServiceClientPb";
 import { Config, GetConfigParameters, StoreConfigParams } from "../../serverapi/clientconfigservice_pb";
 import { Empty } from "../../serverapi/modelcommon_pb";
@@ -17,19 +20,15 @@ import Login from "../Login";
 import MarketDepth from '../MarketDepth';
 import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
-import ParentOrderBlotter from "../OrderBlotter/ParentOrderBlotter";
-import OrderTicket from '../OrderTicket/OrderTicket';
-import QuestionDialog from "./QuestionDialog";
-import ColumnChooser from "../TableView/ColumnChooser";
-import ViewNameDialog from "./ViewNameDialog";
-import { TicketController, ChildOrderBlotterController, OrderHistoryBlotterController, ExecutionsController, QuestionDialogController, ViewNameDialogController, ColumnChooserController, AgGridColumnChooserController } from "./Controllers";
-import { ListingContext, OrderContext } from "./Contexts";
-import { getGrpcErrorMessage } from "../../common/grpcUtilities";
 import ParentOrderBlotterAgGrid from "../OrderBlotter/ParentOrderBlotterAgGrid";
-
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
+import OrderTicket from '../OrderTicket/OrderTicket';
 import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
+import ColumnChooser from "../TableView/ColumnChooser";
+import { ListingContext, OrderContext } from "./Contexts";
+import { AgGridColumnChooserController, ChildOrderBlotterController, ColumnChooserController, ExecutionsController, OrderHistoryBlotterController, QuestionDialogController, TicketController, ViewNameDialogController } from "./Controllers";
+import QuestionDialog from "./QuestionDialog";
+import ViewNameDialog from "./ViewNameDialog";
+
 
 
 
@@ -255,7 +254,7 @@ export default class Container extends React.Component<any, ContainerState> {
             </div>
             <div>
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
-                <ChildOrderBlotter colsChooser={this.colChooserController} childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
+                <ChildOrderBlotter  childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
                 <OrderHistoryBlotter colsChooser={this.colChooserController} orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
                 <Executions colsChooser={this.colChooserController} executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>

@@ -10,7 +10,7 @@ import ColumnChooser from "../TableView/ColumnChooser";
 import { TableViewConfig } from "../TableView/TableView";
 import ViewNameDialog from "./ViewNameDialog";
 import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
-import { Column, ColumnState } from "ag-grid-community";
+import { ColDef, Column, ColumnState } from "ag-grid-community";
 
 
 export class AgGridColumnChooserController {
@@ -105,9 +105,9 @@ export class OrderHistoryBlotterController {
         this.orderHistoryBlotter = orderHistoryBlotter;
     }
 
-    openBlotter(order: Order, config: TableViewConfig, width: number) {
+    openBlotter(order: Order, colStates: ColumnState[], colDefs: ColDef[], width: number) {
         if (this.orderHistoryBlotter) {
-            this.orderHistoryBlotter.open(order, config, width);
+            this.orderHistoryBlotter.open(order, colStates, colDefs, width);
         }
     }
 
@@ -122,10 +122,9 @@ export class ChildOrderBlotterController {
         this.childOrderBlotter = childOrderBlotter;
     }
 
-    openBlotter(parentOrder: Order, orders: Array<Order>,
-        config: TableViewConfig, width: number) {
+    openBlotter(parentOrder: Order, orders: Array<Order>,  colStates: ColumnState[], colDefs: ColDef[], width: number) {
         if (this.childOrderBlotter) {
-            this.childOrderBlotter.open(parentOrder, orders, config, width);
+            this.childOrderBlotter.open(parentOrder, orders,  colStates, colDefs, width);
         }
     }
 

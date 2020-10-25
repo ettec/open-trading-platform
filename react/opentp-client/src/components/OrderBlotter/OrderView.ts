@@ -1,27 +1,16 @@
 import { toNumber } from '../../common/decimal64Conversion';
-import { Order, Side, OrderStatus } from '../../serverapi/order_pb';
-import { Listing } from '../../serverapi/listing_pb';
-import { ListingService } from '../../services/ListingService';
-import { getStrategyDisplayName } from '../../common/strategydescriptions';
 import { Destinations } from '../../common/destinations';
-import { VwapParameters } from '../OrderTicket/Strategies/VwapParams/VwapParamsPanel';
 import { roundToTick } from '../../common/modelutilities';
+import { getStrategyDisplayName } from '../../common/strategydescriptions';
+import { Listing } from '../../serverapi/listing_pb';
+import { Order, OrderStatus, Side } from '../../serverapi/order_pb';
+import { ListingService } from '../../services/ListingService';
+import { VwapParameters } from '../OrderTicket/Strategies/VwapParams/VwapParamsPanel';
 
-
-export interface Filter {
-  id(): string
-  exclude(order: Order): boolean
-}
-
-export interface Sort {
-  compare(a: Order, b: Order): number
-}
 
 export class OrdersView {
 
   orders: Map<String, Order> = new Map()
-  filter?: (order: Order, index: number, array: Order[]) => boolean
-  sort?: (a: Order, b: Order) => number
   view?: OrderView[]
   listingSvc: ListingService
   updateListener: () => void
@@ -30,16 +19,6 @@ export class OrdersView {
   constructor(listingSvc: ListingService, updateListener: () => void) {
     this.listingSvc = listingSvc
     this.updateListener = updateListener
-  }
-
-  setFilter(f?: (order: Order, index: number, array: Order[]) => boolean) {
-    this.filter = f
-    this.view = undefined
-  }
-
-  setSort(s?: (a: Order, b: Order) => number) {
-    this.sort = s
-    this.view = undefined
   }
 
   clear(): void {
@@ -60,14 +39,6 @@ export class OrdersView {
 
       for (let order of this.orders.values()) {
         result.push(order)
-      }
-
-      if (this.filter) {
-        result = result.filter(this.filter)
-      }
-
-      if (this.sort) {
-        result.sort(this.sort)
       }
 
       this.view = result.map((o: Order) => {
