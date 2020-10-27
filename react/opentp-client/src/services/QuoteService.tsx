@@ -1,11 +1,10 @@
-import { Error, ClientReadableStream } from 'grpc-web';
-import Login from "../components/Login";
+import { ClientReadableStream, Error, Metadata } from 'grpc-web';
 import log from 'loglevel';
+import Login from "../components/Login";
 import { ClobQuote } from "../serverapi/clobquote_pb";
 import { MarketDataServiceClient } from "../serverapi/Market-data-serviceServiceClientPb";
 import { MdsConnectRequest, MdsSubscribeRequest } from "../serverapi/market-data-service_pb";
 import { Empty } from "../serverapi/modelcommon_pb";
-import { ListingService } from "./ListingService";
 import Stream from "./impl/Stream";
 
 
@@ -19,24 +18,24 @@ export interface QuoteListener {
 }
 
 
-
 /**
  * Use this to subscribe to quotes to avoid multiple server side subscriptions to the same quote
  */
 export default class QuoteServiceImpl implements QuoteService {
 
-  marketDataService = new MarketDataServiceClient(Login.grpcContext.serviceUrl, null, null)
+  private marketDataService : MarketDataServiceClient
 
   stream?: Stream<ClobQuote>;
 
-  listingService: ListingService
+  
   idToListeners: Map<number, Array<QuoteListener>> = new Map()
   listingIdToQuote: Map<number, ClobQuote> = new Map()
   nextResubscribeInterval = 1000
 
 
-  constructor(listingService: ListingService) {
-    this.listingService = listingService
+  constructor(marketDataService : MarketDataServiceClient) {
+    
+    this.marketDataService = marketDataService
 
     this.stream = new Stream((): ClientReadableStream<any> => {
       var subscription = new MdsConnectRequest()

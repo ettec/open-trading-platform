@@ -1,7 +1,6 @@
 import { toNumber } from '../../common/decimal64Conversion';
 import { Destinations } from '../../common/destinations';
 import { roundToTick } from '../../common/modelutilities';
-import { getStrategyDisplayName } from '../../common/strategydescriptions';
 import { Listing } from '../../serverapi/listing_pb';
 import { Order, OrderStatus, Side } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
@@ -10,59 +9,36 @@ import { VwapParameters } from '../OrderTicket/Strategies/VwapParams/VwapParamsP
 
 export class OrdersView {
 
-  orders: Map<String, Order> = new Map()
-  view?: OrderView[]
+  viewIdx: Map<String, number> = new Map()
   listingSvc: ListingService
-  updateListener: () => void
-  requestedListingIds: Set<number> = new Set<number>()
+  updateListener: (orderView: OrderView) => void
+  views: Array<OrderView>
+  orderViewUpdateListener: (orderView: OrderView) => void
 
-  constructor(listingSvc: ListingService, updateListener: () => void) {
+  constructor(listingSvc: ListingService, updateListener: (orderView: OrderView) => void) {
     this.listingSvc = listingSvc
     this.updateListener = updateListener
+    this.views = new Array<OrderView>()
+
+    this.orderViewUpdateListener = (orderView: OrderView) => {
+      this.updateListener(orderView)
+    }
   }
 
-  clear(): void {
-    this.orders = new Map()
-    this.view = undefined
-  }
+  updateView(order: Order) {
 
-  addOrUpdateOrder(order: Order): void {
-    this.orders.set(order.getId(), order)
-    this.view = undefined
-  }
-
-  getOrders(): OrderView[] {
-
-    if (!this.view) {
-
-      let result = new Array<Order>()
-
-      for (let order of this.orders.values()) {
-        result.push(order)
-      }
-
-      this.view = result.map((o: Order) => {
-        let v = new OrderView(o)
-        let listing = this.listingSvc.GetListingImmediate(v.listingId)
-        if (!listing) {
-
-          if (!this.requestedListingIds.has(v.listingId)) {
-            this.requestedListingIds.add(v.listingId)
-            this.listingSvc.GetListing(v.listingId, (listing: Listing) => {
-              v.setListing(listing)
-              this.view = undefined
-              this.updateListener()
-            })
-          }
-        } else {
-          v.setListing(listing)
-        }
-
-        return v
-      })
+    let idx = this.viewIdx.get(order.getId())
+    var view : OrderView;
+    if (idx) {
+      view = this.views[idx] 
+      view.setOrder(order)
+    } else {
+      view = new OrderView(order, this.listingSvc.GetListing, this.orderViewUpdateListener)
+      this.viewIdx.set(view.id, this.views.length)
+      this.views.push(view)
     }
 
-    return this.view
+     this.updateListener(view) 
   }
 }
 
@@ -93,10 +69,14 @@ export class OrderView {
   mic?: string;
   countryCode?: string;
 
+  updateListener: (orderView: OrderView) => void
 
 
 
-  constructor(order: Order) {
+
+  constructor(order: Order, getListing: (listingId: number, callback: (listing: Listing) => void) => void, updateListener: (orderView: OrderView) => void) {
+    this.updateListener = updateListener
+
     this.id = ""
     this.version = 0;
     this.side = "";
@@ -111,6 +91,14 @@ export class OrderView {
     this.createdBy = "";
     this.parameters = "";
     this.setOrder(order)
+
+    this.setListing = this.setListing.bind(this)
+    
+      getListing(this.listingId, (listing: Listing) => {
+        this.setListing(listing)
+        this.updateListener(this)
+      })
+  
   }
 
   public getListing(): Listing | undefined {
@@ -122,7 +110,7 @@ export class OrderView {
     this.symbol = listing?.getInstrument()?.getDisplaysymbol()
     this.mic = listing?.getMarket()?.getMic()
     this.countryCode = listing?.getMarket()?.getCountrycode()
-    this.updateAvgPrice() 
+    this.updateAvgPrice()
   }
 
   private updateAvgPrice() {
@@ -135,7 +123,7 @@ export class OrderView {
     }
   }
 
-  private setOrder(order: Order) {
+  setOrder(order: Order) {
     this.order = order
 
 
@@ -173,14 +161,14 @@ export class OrderView {
     this.errorMsg = order.getErrormessage()
     this.createdBy = order.getRootoriginatorref()
     this.parameters = this.getParametersDisplayString(order)
-    this.updateAvgPrice() 
+    this.updateAvgPrice()
   }
 
   getOrder(): Order {
     return this.order
   }
 
-  getParametersDisplayString(order: Order): string {
+  private getParametersDisplayString(order: Order): string {
     if (order.getDestination() !== "" && order.getExecparametersjson() !== "") {
 
 
@@ -196,7 +184,7 @@ export class OrderView {
     return ""
   }
 
-  getStatusString(status: OrderStatus) {
+  private getStatusString(status: OrderStatus) {
 
     switch (status) {
       case OrderStatus.CANCELLED:
@@ -209,28 +197,6 @@ export class OrderView {
         return "None"
     }
 
-  }
-
-  getDestination(): string | undefined {
-    if (this.listing?.getMarket()?.getMic()) {
-      if (this.destination === this.listing?.getMarket()?.getMic()) {
-        return this.listing?.getMarket()?.getName()
-      }
-    }
-
-    return getStrategyDisplayName(this.destination)
-  }
-
-  getSymbol(): string | undefined {
-    return this.listing?.getInstrument()?.getDisplaysymbol()
-  }
-
-  getMic(): string | undefined {
-    return this.listing?.getMarket()?.getMic()
-  }
-
-  getCountryCode(): string | undefined {
-    return this.listing?.getMarket()?.getCountrycode()
   }
 
 }

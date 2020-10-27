@@ -2,13 +2,13 @@ import {  ItemRenderer, Select } from "@blueprintjs/select";
 import { MenuItem } from "@blueprintjs/core";
 import React from 'react';
 import v4 from 'uuid';
-import './TableView/TableCommon.css';
+import '../TableView/TableCommon.css';
 import { Button } from "@blueprintjs/core";
-import Login from "./Login";
-import { Listing } from "../serverapi/listing_pb";
+import Login from "../Login";
+import { Listing } from "../../serverapi/listing_pb";
 import log from 'loglevel';
-import { StaticDataServiceClient } from "../serverapi/StaticdataserviceServiceClientPb";
-import { MatchParameters, Listings } from "../serverapi/staticdataservice_pb";
+import { StaticDataServiceClient } from "../../serverapi/StaticdataserviceServiceClientPb";
+import { MatchParameters, Listings } from "../../serverapi/staticdataservice_pb";
 
 const ListingSelect = Select.ofType<Listing>();
 

@@ -1,5 +1,5 @@
 import { Button, Colors, Position, Tooltip } from '@blueprintjs/core';
-import { ColDef, ColumnApi, ColumnState, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, ColumnState, GridApi, GridReadyEvent, RefreshCellsParams, RowDataTransaction } from 'ag-grid-community';
 import { ApplyColumnStateParams } from 'ag-grid-community/dist/lib/columnController/columnApi';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
@@ -38,6 +38,27 @@ export class CountryFlagRenderer extends Component<any, any> {
 
   render() {
     return <span><ReactCountryFlag countryCode={this.state.value} /> {this.state.value}</span>;
+  }
+}
+
+
+
+export class TargetStatusRenderer extends Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      value: this.props.value,
+    };
+  }
+
+
+  render() {
+    if (this.state.value === "None") {
+      return <span  >{this.state.value}</span>;
+    } else {
+      return <span style={{ color: Colors.ORANGE3 }}  ><b>{this.state.value}</b></span>;
+    }
   }
 }
 
@@ -94,7 +115,8 @@ const columnDefs: ColDef[] = [
   {
     headerName: 'Price',
     field: fieldName('price'),
-    width: 170
+    width: 170,
+    enableCellChangeFlash: true
   },
   {
     headerName: 'Status',
@@ -120,33 +142,32 @@ const columnDefs: ColDef[] = [
     headerName: 'Target Status',
     field: fieldName('targetStatus'),
     width: 170,
-    cellStyle: function (params: any) {
-      let orderView: OrderView = params.data
+    cellRenderer: 'targetStatusRenderer'
 
-      if (orderView.getOrder().getTargetstatus() !== OrderStatus.NONE) {
-        return { backgroundColor: Colors.ORANGE3 }
-      }
-    }
   },
   {
     headerName: 'Rem. Qty',
     field: fieldName('remainingQuantity'),
-    width: 170
+    width: 170,
+    enableCellChangeFlash: true
   },
   {
     headerName: 'Exp. Qty',
     field: fieldName('exposedQuantity'),
-    width: 170
+    width: 170,
+    enableCellChangeFlash: true
   },
   {
     headerName: 'Traded Qty',
     field: fieldName('tradedQuantity'),
-    width: 170
+    width: 170,
+    enableCellChangeFlash: true
   },
   {
     headerName: 'Avg Price',
     field: fieldName('avgTradePrice'),
-    width: 170
+    width: 170,
+    enableCellChangeFlash: true
   },
   {
     headerName: 'Listing Id',
@@ -199,7 +220,6 @@ const columnDefs: ColDef[] = [
 
 interface ParentOrderBlotterAgGridState {
   selectedOrders: Array<Order>
-  orders: OrderView[]
 }
 
 interface ParentOrderBlotterAgGridProps {
@@ -219,7 +239,7 @@ interface ParentOrderBlotterAgGridProps {
 
 export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrderBlotterAgGridProps, ParentOrderBlotterAgGridState>{
 
-  private view: OrdersView
+  private ordersView: OrdersView
 
   gridApi?: GridApi;
   gridColumnApi?: ColumnApi;
@@ -245,15 +265,34 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
 
     this.id = v4();
 
-    this.view = new OrdersView(props.listingService, () => { this.setState({ ...this.state, orders: this.view.getOrders() }) })
+    this.ordersView = new OrdersView(props.listingService, (order: OrderView) => {
 
-    let view = new Array<OrderView>()
+      if (this.gridApi) {
+        let node = this.gridApi.getRowNode(order.id)
+        if (node) {
+          let rf: RefreshCellsParams = {
+            rowNodes: [node]
+          }
+
+          this.gridApi?.refreshCells(rf)
+        } else {
+          let rt: RowDataTransaction = {
+            add: [order]
+          }
+
+          this.gridApi.applyTransaction(rt)
+          let node = this.gridApi.getRowNode(order.id)
+
+          this.gridApi.ensureIndexVisible(node.rowIndex, 'bottom')
+        }
+
+      }
+    })
 
     this.initialColConfig = props.node.getConfig()
 
 
     let blotterState: ParentOrderBlotterAgGridState = {
-      orders: view,
       selectedOrders: new Array<Order>(),
     }
 
@@ -311,20 +350,9 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
     return "Order Blotter"
   }
 
-  public componentDidMount(): void {
-    this.orderService.SubscribeToAllParentOrders((order: Order) => {
-      this.addOrUpdateOrder(order)
-      this.onSelectionChanged()
-    })
-  }
 
 
-  protected addOrUpdateOrder(order: Order) {
-    this.view.addOrUpdateOrder(order)
-    this.setState({ ...this.state, orders: this.view.getOrders() })
 
-
-  }
 
   showOrderHistory = (orders: IterableIterator<Order>) => {
     let order = orders.next()
@@ -352,12 +380,12 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
 
     let childOrders = this.orderService.GetChildOrders(order.value)
 
-    if( this.gridColumnApi ) {
+    if (this.gridColumnApi) {
 
-    this.childOrderBlotterController.openBlotter(order.value, childOrders, this.gridColumnApi.getColumnState(),
-    columnDefs, 
-      window.innerWidth)
-    
+      this.childOrderBlotterController.openBlotter(order.value, childOrders, this.gridColumnApi.getColumnState(),
+        columnDefs,
+        window.innerWidth)
+
     }
 
   }
@@ -410,6 +438,11 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
       this.gridColumnApi.applyColumnState(colState)
     }
 
+    this.orderService.SubscribeToAllParentOrders((order: Order) => {
+      this.ordersView.updateView(order)
+      this.onSelectionChanged()
+    })
+
   };
 
 
@@ -439,18 +472,18 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
 
   };
 
-   getCancellableOrders(orders: Array<Order>): Array<Order> {
-    
-        let result = new Array<Order>()
-        for (let order of orders) {
-          if (order.getStatus() === OrderStatus.LIVE) {
-            result.push(order)
-          }
-        }
-    
-        return result
+  getCancellableOrders(orders: Array<Order>): Array<Order> {
+
+    let result = new Array<Order>()
+    for (let order of orders) {
+      if (order.getStatus() === OrderStatus.LIVE) {
+        result.push(order)
       }
-    
+    }
+
+    return result
+  }
+
 
 
   public render() {
@@ -486,18 +519,18 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
           <AgGridReact
             rowSelection={'multiple'}
             onSelectionChanged={this.onSelectionChanged}
-
+            getRowNodeId={(data: OrderView) => { return data.id }}
             frameworkComponents={{
               countryFlagRenderer: CountryFlagRenderer,
+              targetStatusRenderer: TargetStatusRenderer
             }}
-
+            suppressLoadingOverlay={true}
             defaultColDef={{
               sortable: true,
               filter: true,
               resizable: true
             }}
             columnDefs={columnDefs}
-            rowData={this.state.orders}
             onGridReady={this.onGridReady}
           />
         </div>

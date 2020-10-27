@@ -1,3 +1,4 @@
+import { ColDef, Column, ColumnState } from "ag-grid-community";
 import { Layout } from "flexlayout-react";
 import { Listing } from "../../serverapi/listing_pb";
 import { Order, Side } from "../../serverapi/order_pb";
@@ -5,12 +6,10 @@ import Executions from "../Executions";
 import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
 import OrderTicket from '../OrderTicket/OrderTicket';
-import QuestionDialog from "./QuestionDialog";
-import ColumnChooser from "../TableView/ColumnChooser";
-import { TableViewConfig } from "../TableView/TableView";
-import ViewNameDialog from "./ViewNameDialog";
 import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
-import { ColDef, Column, ColumnState } from "ag-grid-community";
+import ColumnChooser from "../TableView/ColumnChooser";
+import QuestionDialog from "./QuestionDialog";
+import ViewNameDialog from "./ViewNameDialog";
 
 
 export class AgGridColumnChooserController {

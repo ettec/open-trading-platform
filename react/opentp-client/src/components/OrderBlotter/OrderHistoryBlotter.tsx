@@ -134,7 +134,7 @@ export default class OrderHistoryBlotter extends React.Component<OrderHistoryBlo
                 let order = update.getOrder()
                 let time = update.getTime()
                 if (order && time) {
-                    let view = new OrderUpdateView(order, time)
+                    let view = new OrderUpdateView(order, this.listingService, time)
                     let listing = this.listingService.GetListingImmediate(order.getListingid())
                     if (listing) {
                         view.setListing(listing)
@@ -202,8 +202,13 @@ class OrderUpdateView extends OrderView {
 
     time?: string;
 
-    constructor(order: Order, updateTime: Timestamp) {
-        super(order)
+    constructor(order: Order, listingService: ListingService, updateTime: Timestamp) {
+        super(order, ()=>{}, ()=>{})
+
+        let listing = listingService.GetListingImmediate(order.getListingid())
+        if( listing ) {
+            this.setListing(listing)
+        }
 
         if (updateTime) {
             let date = new Date(updateTime.getSeconds() * 1000)

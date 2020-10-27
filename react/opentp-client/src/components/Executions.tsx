@@ -88,7 +88,8 @@ const columnDefs: ColDef[] = [
     {
         headerName: 'Country',
         field: fieldName('countryCode'),
-        width: 80
+        width: 80,
+        cellRenderer: 'countryFlagRenderer'
     },
     {
         headerName: 'Quantity',

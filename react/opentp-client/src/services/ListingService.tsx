@@ -40,6 +40,9 @@ export default class ListingServiceImpl implements ListingService {
         }
       }
     }, this.pendingListingCheckInteral)
+
+    this.GetListingImmediate = this.GetListingImmediate.bind(this)
+    this.GetListing = this.GetListing.bind(this)
   }
 
 

@@ -129,7 +129,7 @@ export default class ChildOrderBlotter extends React.Component<ChildOrderProps, 
 
         let orderViews = Array<OrderView>()
         for (let order of orders) {
-            let view = new OrderView(order)
+            let view = new OrderView(order, ()=>{}, ()=>{})
             let listing = this.listingService.GetListingImmediate(order.getListingid())
             if (listing) {
                 view.setListing(listing)

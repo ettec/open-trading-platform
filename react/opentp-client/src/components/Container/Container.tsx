@@ -8,6 +8,7 @@ import React, { ReactNode } from 'react';
 import { getGrpcErrorMessage } from "../../common/grpcUtilities";
 import { ClientConfigServiceClient } from "../../serverapi/ClientconfigserviceServiceClientPb";
 import { Config, GetConfigParameters, StoreConfigParams } from "../../serverapi/clientconfigservice_pb";
+import { MarketDataServiceClient } from "../../serverapi/Market-data-serviceServiceClientPb";
 import { Empty } from "../../serverapi/modelcommon_pb";
 import { OrderMonitorClient } from "../../serverapi/OrdermonitorServiceClientPb";
 import { CancelAllOrdersForOriginatorIdParams } from "../../serverapi/ordermonitor_pb";
@@ -15,7 +16,7 @@ import ListingServiceImpl, { ListingService } from "../../services/ListingServic
 import OrderServiceImpl, { OrderService } from "../../services/OrderService";
 import QuoteServiceImpl, { QuoteService } from "../../services/QuoteService";
 import Executions from "../Executions";
-import InstrumentListingWatch from "../InstrumentListingWatch";
+import InstrumentListingWatch from "../InstrumentWatch/InstrumentListingWatch";
 import Login from "../Login";
 import MarketDepth from '../MarketDepth';
 import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
@@ -77,7 +78,7 @@ export default class Container extends React.Component<any, ContainerState> {
         super(p, s);
 
         this.listingService = new ListingServiceImpl()
-        this.quoteService = new QuoteServiceImpl(this.listingService)
+        this.quoteService = new QuoteServiceImpl( new MarketDataServiceClient(Login.grpcContext.serviceUrl, null, null))
         this.orderService = new OrderServiceImpl()
         this.listingContext = new ListingContext()
         this.orderContext = new OrderContext()
@@ -103,7 +104,7 @@ export default class Container extends React.Component<any, ContainerState> {
                         ticketController={this.ticketController} />;
                 }
                 if (component === Views.InstrumentListingWatch) {
-                    return <InstrumentListingWatch colsChooser={this.colChooserController} listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state.model} />;
+                    return <InstrumentListingWatch colController={this.agGridcolChooserController} listingService={this.listingService} ticketController={this.ticketController} listingContext={this.listingContext} quoteService={this.quoteService} node={node} model={this.state.model} />;
                 }
                 if (component === Views.NavigationBar) {
                     return <Navbar />;
