@@ -171,12 +171,12 @@ export default class InstrumentListingSearchBar extends React.Component<ListingS
                     noResults={<MenuItem disabled={true} text="No results." />}
                     itemRenderer={renderListing}>
                     
-                    <Button
+                    <Button  
                         rightIcon="caret-down"
                         text={selected? `${this.getSelectDisplayName(selected)} ` : "(No selection)"}
                     />
                 </ListingSelect>
-                <Button onClick={()=>this.props.add(this.state.selected)}>Add</Button>
+                <Button minimal={true} onClick={()=>this.props.add(this.state.selected)} disabled={!selected}>Add</Button>
             </div>
         );
     }

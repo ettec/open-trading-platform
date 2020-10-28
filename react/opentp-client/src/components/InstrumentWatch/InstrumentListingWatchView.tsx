@@ -15,43 +15,51 @@ export enum WatchEventType {
 export class InstrumentListingWatchesView implements QuoteListener {
 
 
-
-
-  viewIdx: Map<number, number> = new Map()
   listingSvc: ListingService
   quoteSvc: QuoteService
-  updateListener: (orderView: ListingWatchView, eventType: WatchEventType) => void
-  views: Array<ListingWatchView>
+  updateListener: (orderView: ListingWatchView[], eventType: WatchEventType) => void
+  views: Map<number, ListingWatchView> = new Map()
 
   constructor(listingSvc: ListingService, quoteSvc: QuoteService,
-    updateListener: (watch: ListingWatchView, eventType: WatchEventType) => void) {
+    updateListener: (watch: ListingWatchView[], eventType: WatchEventType) => void) {
 
     this.listingSvc = listingSvc
     this.quoteSvc = quoteSvc
     this.updateListener = updateListener
-    this.views = new Array<ListingWatchView>()
   }
 
-  removeListing(listingId: number) {
-    let idx = this.viewIdx.get(listingId)
-    if (!idx) {
-      //this.views.
+  removeListings(listingIds: number[]) {
+
+    let removed = new Array<ListingWatchView>()
+
+    for (let listingId of listingIds) {
+
+      let view = this.views.get(listingId)
+      if (view) {
+        this.views.delete(listingId)
+        this.quoteSvc.UnsubscribeFromQuote(listingId, this)
+        removed.push(view)
+
+      }
+
     }
 
-
+    this.updateListener(removed, WatchEventType.Remove)
   }
 
+
   addListing(listingId: number) {
-    let idx = this.viewIdx.get(listingId)
-    if (!idx) {
+
+
+
+    if (!this.views.has(listingId)) {
       let view = new ListingWatchView(listingId)
-      this.viewIdx.set(view.listingId, this.views.length)
-      this.views.push(view)
-      this.updateListener(view, WatchEventType.Add)
+      this.views.set(listingId, view)
+      this.updateListener([view], WatchEventType.Add)
 
       this.listingSvc.GetListing(listingId, (listing: Listing) => {
         view.setListing(listing)
-        this.updateListener(view, WatchEventType.Update)
+        this.updateListener([view], WatchEventType.Update)
       })
 
       this.quoteSvc.SubscribeToQuote(listingId, this)
@@ -61,26 +69,21 @@ export class InstrumentListingWatchesView implements QuoteListener {
   }
 
   onQuote(quote: ClobQuote): void {
-    let idx = this.viewIdx.get(quote.getListingid())
-    var view: ListingWatchView;
-    if (idx) {
-      view = this.views[idx]
+    let view = this.views.get(quote.getListingid())
+    if (view) {
       view.setQuote(quote)
-      this.updateListener(view, WatchEventType.Update)
+      this.updateListener([view], WatchEventType.Update)
     }
   }
 
+
+
 }
-
-
-
 
 export interface PriceUpdate {
   price?: string;
   direction?: number;
 }
-
-
 
 export class ListingWatchView {
 
@@ -217,7 +220,7 @@ export class ListingWatchView {
 
       let sz = toNumber(this.quote.getLastquantity())
       if (sz) {
-        this.lastSize =  sz.toString()
+        this.lastSize = sz.toString()
       }
 
     } else {
@@ -226,7 +229,7 @@ export class ListingWatchView {
     }
 
 
-    if( this.quote.getTradedvolume()) {
+    if (this.quote.getTradedvolume()) {
       this.tradedVolume = toNumber(this.quote.getTradedvolume())
     }
 

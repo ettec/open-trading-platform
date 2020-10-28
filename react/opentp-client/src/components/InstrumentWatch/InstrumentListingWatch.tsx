@@ -1,4 +1,4 @@
-import { Icon } from '@blueprintjs/core';
+import { Button, Position, Tooltip } from '@blueprintjs/core';
 import { ColDef, ColumnApi, ColumnState, GridApi, GridReadyEvent, RefreshCellsParams, RowDataTransaction } from 'ag-grid-community';
 import { ApplyColumnStateParams } from 'ag-grid-community/dist/lib/columnController/columnApi';
 import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
@@ -11,46 +11,12 @@ import { QuoteService } from "../../services/QuoteService";
 import { GlobalColours } from '../Container/Colours';
 import { ListingContext } from "../Container/Contexts";
 import { AgGridColumnChooserController, TicketController } from "../Container/Controllers";
-import { CountryFlagRenderer } from '../OrderBlotter/ParentOrderBlotterAgGrid';
+import { CountryFlagRenderer, DirectionalPriceRenderer } from '../TableView/Renderers';
 import '../TableView/TableCommon.css';
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import { InstrumentListingWatchesView, ListingWatchView, WatchEventType } from './InstrumentListingWatchView';
 
 
-export class DirectionalPriceRenderer extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      value: this.props.value,
-    };
-  }
-
-
-  render() {
-
-    let price = this.state?.value?.price
-    let direction = this.state?.value?.direction
-
-    if (price) {
-      if (direction) {
-        if (direction > 0) {
-          return <span><Icon icon="arrow-up" style={{ color: GlobalColours.UPTICK }} />{price}</span>;
-        }
-
-        if (direction < 0) {
-          return <span><Icon icon="arrow-down" style={{ color: GlobalColours.DOWNTICK }} />{price}</span>;
-        }
-
-        return <span>{price}</span>;
-      } else {
-        return <span>{price}</span>;
-      }
-    } else {
-      return <span></span>
-    }
-  }
-}
 
 
 
@@ -163,17 +129,12 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
   listingContext: ListingContext
   ticketController: TicketController
   listingService: ListingService
+  colController: AgGridColumnChooserController
 
   gridApi?: GridApi;
   gridColumnApi?: ColumnApi;
 
-
-  watchMap: Map<number, ListingWatchView> = new Map()
-
   private watchesView: InstrumentListingWatchesView
-
-
-
 
   constructor(props: InstrumentListingWatchProps) {
     super(props);
@@ -181,37 +142,39 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
     this.quoteService = props.quoteService
     this.ticketController = props.ticketController
     this.listingService = props.listingService
+    this.colController = props.colController
 
-    this.watchesView = new InstrumentListingWatchesView(props.listingService, props.quoteService, (watch: ListingWatchView, eventType: WatchEventType) => {
+    this.watchesView = new InstrumentListingWatchesView(props.listingService, props.quoteService, (watches: ListingWatchView[], eventType: WatchEventType) => {
 
       if (this.gridApi) {
 
         switch (eventType) {
           case WatchEventType.Add:
             let rt: RowDataTransaction = {
-              add: [watch]
+              add: watches
             }
 
             this.gridApi.applyTransaction(rt)
-            let addedNode = this.gridApi.getRowNode(watch.listingId.toString())
+            let addedNode = this.gridApi.getRowNode(watches[watches.length - 1].listingId.toString())
 
             this.gridApi.ensureIndexVisible(addedNode.rowIndex, 'bottom')
             break;
           case WatchEventType.Update:
-            let updateNode = this.gridApi.getRowNode(watch.listingId.toString())
-            if (updateNode) {
-              let rf: RefreshCellsParams = {
-                rowNodes: [updateNode]
-              }
+            for (let watch of watches) {
+              let updateNode = this.gridApi.getRowNode(watch.listingId.toString())
+              if (updateNode) {
+                let rf: RefreshCellsParams = {
+                  rowNodes: [updateNode]
+                }
 
-              this.gridApi?.refreshCells(rf)
+                this.gridApi?.refreshCells(rf)
+              }
             }
             break;
           case WatchEventType.Remove:
             let removetx: RowDataTransaction = {
-              remove: [watch]
+              remove: watches
             }
-
             this.gridApi.applyTransaction(removetx)
             break;
         }
@@ -288,16 +251,61 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
     return "Instrument Watch"
   }
 
+  editVisibleColumns = () => {
+
+    if (this.gridColumnApi) {
+
+
+      this.colController.open(this.getTableName(), this.gridColumnApi.getColumnState(),
+        this.gridColumnApi.getAllColumns(), (newColumnsState: ColumnState[] | undefined) => {
+          if (newColumnsState) {
+            let colState: ApplyColumnStateParams = {
+              state: newColumnsState,
+              applyOrder: true
+            }
+            this.gridColumnApi?.applyColumnState(colState)
+          }
+        })
+    }
+
+  }
+
   public render() {
 
     return (
 
-      <div className="bp3-dark">
-        <InstrumentListingSearchBar add={this.addListing} />
+
+      <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: "centre" }}>
+        <div className="bp3-dark" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, alignItems: "left" }}>
+          <div style={{ flexGrow: 1, flexDirection: 'row', display: 'flex' }}>
+            <InstrumentListingSearchBar add={this.addListing} />
+
+            <Button minimal={true} text="Remove" onClick={this.removeListings} disabled={this.state.selectedWatches.length === 0} />
+            <span style={{minWidth:40}}></span>
+            <Button  text="Buy" onClick={this.openBuyDialog} disabled={this.state.selectedWatches.length === 0} 
+            style={{ minWidth: 80,  backgroundColor:GlobalColours.BUYBKG  }} />
+            <span style={{minWidth:5}}></span>
+            <Button  text="Sell" onClick={this.openSellDialog} disabled={this.state.selectedWatches.length === 0}
+            style={{ minWidth: 80, backgroundColor:GlobalColours.SELLBKG  }} />
+            
+
+          </div>
+          <div >
+            <Tooltip
+              content={<span>Edit Visible Columns</span>}
+              position={Position.LEFT_BOTTOM}
+              usePortal={false}
+
+            >
+              <Button minimal={true} icon="manually-entered-data" onClick={() => this.editVisibleColumns()} />
+            </Tooltip>
+          </div>
+        </div>
+
         <div className="ag-theme-balham-dark" style={{ width: "100%", height: "100%" }}>
           <AgGridReact
             rowSelection={'multiple'}
-            getRowNodeId={(data: ListingWatchView) => { return data.listingId.toString() }}
+            getRowNodeId={(data: ListingWatchView) => { return data?.listingId?.toString() }}
             onSelectionChanged={this.onSelectionChanged}
             domLayout='autoHeight'
             rowDragManaged={true}
@@ -321,62 +329,10 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
     );
   }
 
-  /*
-  renderContextMenu = () => {
-    return (
-
-      <Menu >
-        
-        <Menu.Item icon="arrow-left" text="Buy" onClick={this.openBuyDialog} disabled={this.listingContext.selectedListing === undefined}>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item icon="arrow-right" text="Sell" onClick={this.openSellDialog} disabled={this.listingContext.selectedListing === undefined}>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item text="Move Listings Up" onClick={this.moveListingsUp} disabled={this.listingContext.selectedListing === undefined}>
-        </Menu.Item>
-        <Menu.Item text="Move Listings Down" onClick={this.moveListingsDown} disabled={this.listingContext.selectedListing === undefined}>
-        </Menu.Item>
-        <Menu.Item text="Remove Listings" onClick={this.removeListings} disabled={this.listingContext.selectedListing === undefined}>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item text="Edit Visible Columns" onClick={() => this.editVisibleColumns()}  >
-        </Menu.Item>
-        
-      </Menu>
-
-    );
-  };
-  */
 
   private removeListings() {
-
-    /*
-    for (let watch of this.state.selectedWatches) {
-      this.watchMap.delete(watch.listingId)
-      this.quoteService.UnsubscribeFromQuote(watch.listingId, this)
-    }
-
-    let newWatches = Array<ListingWatchView>()
-
-    for (let watch of this.state.watches) {
-      if (this.watchMap.has(watch.listingId)) {
-        newWatches.push(watch)
-      }
-    }
-
-    let blotterState = {
-      ...this.state, ...{
-        watches: newWatches
-      }
-    }
-
-    this.setState(blotterState)
-    */
+    this.watchesView.removeListings(this.state.selectedWatches.map(w => w.listingId))
   }
-
-
-
 
   private openBuyDialog() {
 

@@ -21,7 +21,7 @@ import Login from "../Login";
 import MarketDepth from '../MarketDepth';
 import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
-import ParentOrderBlotterAgGrid from "../OrderBlotter/ParentOrderBlotterAgGrid";
+import ParentOrderBlotter from "../OrderBlotter/ParentOrderBlotter";
 import OrderTicket from '../OrderTicket/OrderTicket';
 import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
 import ColumnChooser from "../TableView/ColumnChooser";
@@ -97,7 +97,7 @@ export default class Container extends React.Component<any, ContainerState> {
             if (this.state && this.state.model) {
 
                 if (component === Views.OrderBlotter) {
-                    return <ParentOrderBlotterAgGrid ticketController={this.ticketController} colController={this.agGridcolChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
+                    return <ParentOrderBlotter ticketController={this.ticketController} colController={this.agGridcolChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === Views.MarketDepth) {
                     return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model}

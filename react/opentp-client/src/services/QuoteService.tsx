@@ -1,4 +1,4 @@
-import { ClientReadableStream, Error, Metadata } from 'grpc-web';
+import { ClientReadableStream, Error } from 'grpc-web';
 import log from 'loglevel';
 import Login from "../components/Login";
 import { ClobQuote } from "../serverapi/clobquote_pb";

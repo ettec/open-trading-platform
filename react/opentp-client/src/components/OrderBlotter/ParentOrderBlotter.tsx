@@ -7,8 +7,7 @@ import { AgGridReact } from 'ag-grid-react/lib/agGridReact';
 import { Actions, Model, TabNode } from 'flexlayout-react';
 import * as grpcWeb from 'grpc-web';
 import log from 'loglevel';
-import React, { Component } from 'react';
-import ReactCountryFlag from "react-country-flag";
+import React from 'react';
 import v4 from 'uuid';
 import { Destinations } from '../../common/destinations';
 import { ExecutionVenueClient } from '../../serverapi/ExecutionvenueServiceClientPb';
@@ -21,47 +20,11 @@ import { GlobalColours } from '../Container/Colours';
 import { OrderContext } from "../Container/Contexts";
 import { AgGridColumnChooserController, ChildOrderBlotterController, ExecutionsController, OrderHistoryBlotterController, TicketController } from "../Container/Controllers";
 import Login from '../Login';
+import { CountryFlagRenderer, TargetStatusRenderer } from '../TableView/Renderers';
 import { OrdersView, OrderView } from './OrderView';
 
 
 const fieldName = (name: keyof OrderView) => name;
-
-export class CountryFlagRenderer extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      value: this.props.value,
-    };
-  }
-
-
-  render() {
-    return <span><ReactCountryFlag countryCode={this.state.value} /> {this.state.value}</span>;
-  }
-}
-
-
-
-export class TargetStatusRenderer extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      value: this.props.value,
-    };
-  }
-
-
-  render() {
-    if (this.state.value === "None") {
-      return <span  >{this.state.value}</span>;
-    } else {
-      return <span style={{ color: Colors.ORANGE3 }}  ><b>{this.state.value}</b></span>;
-    }
-  }
-}
-
 
 
 const columnDefs: ColDef[] = [
@@ -218,11 +181,11 @@ const columnDefs: ColDef[] = [
 
 
 
-interface ParentOrderBlotterAgGridState {
+interface ParentOrderBlotterState {
   selectedOrders: Array<Order>
 }
 
-interface ParentOrderBlotterAgGridProps {
+interface ParentOrderBlotterProps {
   node: TabNode,
   model: Model,
   orderContext: OrderContext
@@ -237,7 +200,7 @@ interface ParentOrderBlotterAgGridProps {
 
 
 
-export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrderBlotterAgGridProps, ParentOrderBlotterAgGridState>{
+export default class ParentOrderBlotter extends React.Component<ParentOrderBlotterProps, ParentOrderBlotterState>{
 
   private ordersView: OrdersView
 
@@ -260,7 +223,7 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
   id: string;
 
 
-  constructor(props: ParentOrderBlotterAgGridProps) {
+  constructor(props: ParentOrderBlotterProps) {
     super(props);
 
     this.id = v4();
@@ -292,7 +255,7 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
     this.initialColConfig = props.node.getConfig()
 
 
-    let blotterState: ParentOrderBlotterAgGridState = {
+    let blotterState: ParentOrderBlotterState = {
       selectedOrders: new Array<Order>(),
     }
 
@@ -326,7 +289,7 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
 
 
 
-  protected editVisibleColumns = () => {
+  editVisibleColumns = () => {
 
     if (this.gridColumnApi) {
 
@@ -462,7 +425,7 @@ export default class ParentOrderBlotterAgGrid extends React.Component<ParentOrde
 
     }
 
-    let newState: ParentOrderBlotterAgGridState = {
+    let newState: ParentOrderBlotterState = {
       ...this.state, ...{
         selectedOrders: selectedOrders,
       }
