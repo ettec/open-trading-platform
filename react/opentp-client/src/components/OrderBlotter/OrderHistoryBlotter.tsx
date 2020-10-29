@@ -10,10 +10,9 @@ import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { OrderHistoryBlotterController } from "../Container/Controllers";
 import { CountryFlagRenderer } from '../TableView/Renderers';
-import { TableViewProperties } from "../TableView/TableView";
 import { OrderView } from "./OrderView";
 
-export interface OrderHistoryBlotterProps extends TableViewProperties {
+export interface OrderHistoryBlotterProps  {
     orderService: OrderService
     listingService: ListingService
     orderHistoryBlotterController: OrderHistoryBlotterController

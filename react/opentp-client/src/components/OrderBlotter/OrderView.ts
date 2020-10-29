@@ -9,17 +9,14 @@ import { VwapParameters } from '../OrderTicket/Strategies/VwapParams/VwapParamsP
 
 export class OrdersView {
 
-  viewIdx: Map<String, number> = new Map()
   listingSvc: ListingService
   updateListener: (orderView: OrderView) => void
-  views: Array<OrderView>
+  views: Map<string, OrderView> = new Map()
   orderViewUpdateListener: (orderView: OrderView) => void
 
   constructor(listingSvc: ListingService, updateListener: (orderView: OrderView) => void) {
     this.listingSvc = listingSvc
     this.updateListener = updateListener
-    this.views = new Array<OrderView>()
-
     this.orderViewUpdateListener = (orderView: OrderView) => {
       this.updateListener(orderView)
     }
@@ -27,18 +24,15 @@ export class OrdersView {
 
   updateView(order: Order) {
 
-    let idx = this.viewIdx.get(order.getId())
-    var view : OrderView;
-    if (idx) {
-      view = this.views[idx] 
+    let view = this.views.get(order.getId());
+    if (view) {
       view.setOrder(order)
     } else {
       view = new OrderView(order, this.listingSvc.GetListing, this.orderViewUpdateListener)
-      this.viewIdx.set(view.id, this.views.length)
-      this.views.push(view)
+      this.views.set(order.getId(), view)
     }
 
-     this.updateListener(view) 
+    this.updateListener(view)
   }
 }
 
@@ -93,12 +87,12 @@ export class OrderView {
     this.setOrder(order)
 
     this.setListing = this.setListing.bind(this)
-    
-      getListing(this.listingId, (listing: Listing) => {
-        this.setListing(listing)
-        this.updateListener(this)
-      })
-  
+
+    getListing(this.listingId, (listing: Listing) => {
+      this.setListing(listing)
+      this.updateListener(this)
+    })
+
   }
 
   public getListing(): Listing | undefined {

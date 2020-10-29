@@ -18,7 +18,7 @@ import QuoteServiceImpl, { QuoteService } from "../../services/QuoteService";
 import Executions from "../Executions";
 import InstrumentListingWatch from "../InstrumentWatch/InstrumentListingWatch";
 import Login from "../Login";
-import MarketDepth from '../MarketDepth';
+import MarketDepth from '../MarketDepth/MarketDepth';
 import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
 import ParentOrderBlotter from "../OrderBlotter/ParentOrderBlotter";
@@ -71,7 +71,6 @@ export default class Container extends React.Component<any, ContainerState> {
     executionsController: ExecutionsController
     questionDialogController: QuestionDialogController
     viewNameDialogController: ViewNameDialogController
-    colChooserController: ColumnChooserController
     agGridcolChooserController: AgGridColumnChooserController
 
     constructor(p: any, s: ContainerState) {
@@ -88,7 +87,6 @@ export default class Container extends React.Component<any, ContainerState> {
         this.executionsController = new ExecutionsController()
         this.questionDialogController = new QuestionDialogController()
         this.viewNameDialogController = new ViewNameDialogController()
-        this.colChooserController = new ColumnChooserController()
         this.agGridcolChooserController = new AgGridColumnChooserController()
 
         this.factory = (node: TabNode) => {
@@ -100,7 +98,7 @@ export default class Container extends React.Component<any, ContainerState> {
                     return <ParentOrderBlotter ticketController={this.ticketController} colController={this.agGridcolChooserController} executionsController={this.executionsController} orderHistoryBlotterController={this.orderHistoryBlotterController} childOrderBlotterController={this.childOrderBlotterController} listingService={this.listingService} orderService={this.orderService} orderContext={this.orderContext} node={node} model={this.state.model} />;
                 }
                 if (component === Views.MarketDepth) {
-                    return <MarketDepth colsChooser={this.colChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model}
+                    return <MarketDepth colController={this.agGridcolChooserController} listingContext={this.listingContext} quoteService={this.quoteService} listingService={this.listingService} node={node} model={this.state.model}
                         ticketController={this.ticketController} />;
                 }
                 if (component === Views.InstrumentListingWatch) {
@@ -256,11 +254,10 @@ export default class Container extends React.Component<any, ContainerState> {
             <div>
                 <OrderTicket quoteService={this.quoteService} tickerController={this.ticketController} ></OrderTicket>
                 <ChildOrderBlotter  childOrderBlotterController={this.childOrderBlotterController} orderService={this.orderService} listingService={this.listingService}></ChildOrderBlotter>
-                <OrderHistoryBlotter colsChooser={this.colChooserController} orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
+                <OrderHistoryBlotter  orderHistoryBlotterController={this.orderHistoryBlotterController} orderService={this.orderService} listingService={this.listingService}></OrderHistoryBlotter>
                 <Executions executionsController={this.executionsController} orderService={this.orderService} listingService={this.listingService}></Executions>
                 <QuestionDialog controller={this.questionDialogController}></QuestionDialog>
                 <ViewNameDialog controller={this.viewNameDialogController}></ViewNameDialog>
-                <ColumnChooser controller={this.colChooserController}></ColumnChooser>
                 <ColumnChooserAgGrid controller={this.agGridcolChooserController}></ColumnChooserAgGrid>
             </div>
 

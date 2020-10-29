@@ -17,11 +17,6 @@ import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import { InstrumentListingWatchesView, ListingWatchView, WatchEventType } from './InstrumentListingWatchView';
 
 
-
-
-
-
-
 const fieldName = (name: keyof ListingWatchView) => name;
 
 const columnDefs: ColDef[] = [
