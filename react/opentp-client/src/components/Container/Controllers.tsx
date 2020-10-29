@@ -6,8 +6,7 @@ import Executions from "../Executions";
 import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
 import OrderTicket from '../OrderTicket/OrderTicket';
-import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
-import ColumnChooser from "../TableView/ColumnChooser";
+import ColumnChooserAgGrid from "../AgGrid/ColumnChooseAgGrid";
 import QuestionDialog from "./QuestionDialog";
 import ViewNameDialog from "./ViewNameDialog";
 
@@ -23,24 +22,6 @@ export class AgGridColumnChooserController {
     open(tableName: string, colStates: ColumnState[], cols: Column[], callback: (columns: ColumnState[] | undefined) => void) {
         if (this.dialog) {
             this.dialog.open(tableName, colStates, cols, callback);
-        }
-    }
-
-}
-
-
-export class ColumnChooserController {
-
-    private dialog?: ColumnChooser;
-
-    setDialog(dialog: ColumnChooser) {
-        this.dialog = dialog;
-    }
-
-    open(tableName: string, visibleColumns: JSX.Element[], widths: number[], allColumns: JSX.Element[], callback: (newVisibleCols: JSX.Element[] | undefined,
-        widths: number[] | undefined) => void) {
-        if (this.dialog) {
-            this.dialog.open(tableName, visibleColumns, widths, allColumns, callback);
         }
     }
 

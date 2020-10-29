@@ -2,7 +2,6 @@ import {  ItemRenderer, Select } from "@blueprintjs/select";
 import { MenuItem } from "@blueprintjs/core";
 import React from 'react';
 import v4 from 'uuid';
-import '../TableView/TableCommon.css';
 import { Button } from "@blueprintjs/core";
 import Login from "../Login";
 import { Listing } from "../../serverapi/listing_pb";

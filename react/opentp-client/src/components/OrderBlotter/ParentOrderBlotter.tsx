@@ -20,7 +20,7 @@ import { GlobalColours } from '../Container/Colours';
 import { OrderContext } from "../Container/Contexts";
 import { AgGridColumnChooserController, ChildOrderBlotterController, ExecutionsController, OrderHistoryBlotterController, TicketController } from "../Container/Controllers";
 import Login from '../Login';
-import { CountryFlagRenderer, TargetStatusRenderer } from '../TableView/Renderers';
+import { CountryFlagRenderer, TargetStatusRenderer } from '../AgGrid/Renderers';
 import { OrdersView, OrderView } from './OrderView';
 
 

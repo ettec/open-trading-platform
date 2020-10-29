@@ -6,7 +6,7 @@ import { Order } from '../../serverapi/order_pb';
 import { ListingService } from '../../services/ListingService';
 import { OrderService } from "../../services/OrderService";
 import { ChildOrderBlotterController } from "../Container/Controllers";
-import { CountryFlagRenderer } from '../TableView/Renderers';
+import { CountryFlagRenderer } from '../AgGrid/Renderers';
 import { OrderView } from "./OrderView";
 
 

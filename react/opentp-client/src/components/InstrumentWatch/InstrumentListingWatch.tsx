@@ -11,8 +11,7 @@ import { QuoteService } from "../../services/QuoteService";
 import { GlobalColours } from '../Container/Colours';
 import { ListingContext } from "../Container/Contexts";
 import { AgGridColumnChooserController, TicketController } from "../Container/Controllers";
-import { CountryFlagRenderer, DirectionalPriceRenderer } from '../TableView/Renderers';
-import '../TableView/TableCommon.css';
+import { CountryFlagRenderer, DirectionalPriceRenderer } from '../AgGrid/Renderers';
 import InstrumentListingSearchBar from "./InstrumentListingSearchBar";
 import { InstrumentListingWatchesView, ListingWatchView, WatchEventType } from './InstrumentListingWatchView';
 

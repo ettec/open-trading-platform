@@ -23,10 +23,9 @@ import ChildOrderBlotter from "../OrderBlotter/ChildOrderBlotter";
 import OrderHistoryBlotter from "../OrderBlotter/OrderHistoryBlotter";
 import ParentOrderBlotter from "../OrderBlotter/ParentOrderBlotter";
 import OrderTicket from '../OrderTicket/OrderTicket';
-import ColumnChooserAgGrid from "../TableView/ColumnChooseAgGrid";
-import ColumnChooser from "../TableView/ColumnChooser";
+import ColumnChooserAgGrid from "../AgGrid/ColumnChooseAgGrid";
 import { ListingContext, OrderContext } from "./Contexts";
-import { AgGridColumnChooserController, ChildOrderBlotterController, ColumnChooserController, ExecutionsController, OrderHistoryBlotterController, QuestionDialogController, TicketController, ViewNameDialogController } from "./Controllers";
+import { AgGridColumnChooserController, ChildOrderBlotterController, ExecutionsController, OrderHistoryBlotterController, QuestionDialogController, TicketController, ViewNameDialogController } from "./Controllers";
 import QuestionDialog from "./QuestionDialog";
 import ViewNameDialog from "./ViewNameDialog";
 
