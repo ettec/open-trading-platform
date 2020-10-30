@@ -85,8 +85,8 @@ export default class Login extends React.Component<Props, State> {
     public componentDidMount(): void {
 
         //  uncommment to enable dev autologin
-        this.username = "supportB"
-        this.onLogin()
+        //this.username = "supportA"
+        //this.onLogin()
 
     }
 
