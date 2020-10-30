@@ -1,3 +1,11 @@
+CREATE ROLE opentp;
+CREATE DATABASE opentp;
+ALTER USER opentp WITH PASSWORD 'password';
+ALTER USER opentp WITH LOGIN;
+\c opentp
+
+
+
 --
 -- PostgreSQL database dump
 --

@@ -23,6 +23,7 @@ if [ -z "$VERSION" ]; then
 	echo "installing latest Open Trading Platform ci build"; 
 	DOCKERREPO="ettec/opentp-ci-build:"
 	TAG=""
+        VERSION="cibuild" 
 else 
        echo "installing Open Trading Platform version $VERSION"; 
 fi
@@ -91,7 +92,7 @@ kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash -c "kafka-topics -
 echo installing Open Trading Platform...
 
 
-helm install --wait --timeout 1200s otp-v1 ../helm-otp-chart/ --set dockerRepo=${DOCKERREPO} --set dockerTag=${TAG}
+helm install --wait --timeout 1200s otp-${VERSION} ../helm-otp-chart/ --set dockerRepo=${DOCKERREPO} --set dockerTag=${TAG}
 
 #Instructions to start client
 OTPPORT=$(kubectl get svc --namespace=envoy -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}')
