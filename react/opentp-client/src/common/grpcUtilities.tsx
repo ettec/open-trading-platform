@@ -57,7 +57,7 @@ export function getGrpcErrorMessage( error : Error, prepend?: string) : string {
             grpErrorCodeAsStr = "Unimplemented"
             break 
         case StatusCode.UNKNOWN: 
-        grpErrorCodeAsStr = "Unknown Host"
+        grpErrorCodeAsStr = "Unknown"
             break
                
     }    

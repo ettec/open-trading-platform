@@ -393,7 +393,7 @@ export default class OrderTicket extends React.Component<OrderTicketProps, Order
 
     let destinations = new Array<string>()
     let destination = Destinations.DMA
-    if (order.getOwnerid() !== newListing.getMarket()?.getMic()) {
+    if (order.getDestination() !== newListing.getMarket()?.getMic()) {
       destination = order.getOwnerid()
       destinations.push(order.getOwnerid())
     } else {
