@@ -56,10 +56,6 @@ export function getGrpcErrorMessage( error : Error, prepend?: string) : string {
         case StatusCode.UNIMPLEMENTED:
             grpErrorCodeAsStr = "Unimplemented"
             break 
-        case StatusCode.UNKNOWN: 
-        grpErrorCodeAsStr = "Unknown"
-            break
-               
     }    
 
     return prepend + grpErrorCodeAsStr
