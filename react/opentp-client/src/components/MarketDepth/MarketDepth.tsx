@@ -240,8 +240,8 @@ export default class MarketDepth extends Component<MarketDepthProps, MarketDepth
     return (
       <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: "centre" }}>
         <div className="bp3-dark" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, alignItems: "left" }}>
-          <div style={{ flexGrow: 1}}>
-            <Button icon={this.state.locked ? "lock" : "unlock"} onClick={this.toggleLock}>{this.getListingLabel()}</Button>
+          <div style={{ flexGrow: 1, flexDirection: 'row', display: 'flex' }}>
+            <Button  icon={this.state.locked ? "lock" : "unlock"} onClick={this.toggleLock}>{this.getListingLabel()}</Button>
             <span style={{ minWidth: 40 }}></span>
             <Button text="Buy" onClick={this.openBuyDialog} disabled={!this.state.selectedIdx}
               style={{ minWidth: 80, backgroundColor: GlobalColours.BUYBKG }} />
