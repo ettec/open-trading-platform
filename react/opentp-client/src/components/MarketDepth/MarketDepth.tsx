@@ -160,7 +160,7 @@ export default class MarketDepth extends Component<MarketDepthProps, MarketDepth
 
 
     let config: MarketDepthConfig = this.props.node.getConfig()
-    let initialColConfig = config.colState
+    let initialColConfig = config?.colState
 
     if (initialColConfig) {
       let colState: ApplyColumnStateParams = {

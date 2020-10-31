@@ -118,7 +118,7 @@ export default class ViewNameDialog extends React.Component<ViewNameDialogProps,
         })
         
         if( this.layout ) {
-            this.layout.addTabWithDragAndDrop("Add " + this.displayName + "<br>(Drag to location)", {
+            this.layout.addTabWithDragAndDropIndirect("Add " + this.displayName + "<br>(Drag to location)", {
                 component: this.component,
                 name: this.state.viewName
             });

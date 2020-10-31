@@ -219,7 +219,7 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
 
 
     let config: InstrumentWatchPersistentConfig = this.props.node.getConfig()
-    let initialColConfig = config.colState
+    let initialColConfig = config?.colState
 
     if (initialColConfig) {
       let colState: ApplyColumnStateParams = {
@@ -229,7 +229,7 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
       this.gridColumnApi.applyColumnState(colState)
     }
 
-    let listingIds = config.listingIds
+    let listingIds = config?.listingIds
     if (listingIds) {
       listingIds.forEach(id => this.watchesView.addListing(id))
     }
@@ -308,6 +308,7 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
             getRowNodeId={(data: ListingWatchView) => { return data?.listingId?.toString() }}
             onSelectionChanged={this.onSelectionChanged}
             rowDragManaged={true}
+            suppressLoadingOverlay={true}
 
             frameworkComponents={{
               countryFlagRenderer: CountryFlagRenderer,

@@ -377,12 +377,14 @@ export default class ParentOrderBlotter extends React.Component<ParentOrderBlott
 
   }
 
-  modifyOrder = (order: Order) => {
+  modifyOrder = (order: Order | undefined) => {
 
-    let listing = this.listingService.GetListingImmediate(order.getListingid())
+    if (order) {
+      let listing = this.listingService.GetListingImmediate(order.getListingid())
 
-    if (listing) {
-      this.ticketController.openModifyOrderTicket(order, listing)
+      if (listing) {
+        this.ticketController.openModifyOrderTicket(order, listing)
+      }
     }
   }
 
@@ -449,22 +451,26 @@ export default class ParentOrderBlotter extends React.Component<ParentOrderBlott
 
   getModifiableOrder(views: Array<OrderView>): Order | undefined {
 
-    if( views.length === 1 ) {
-        let view = views[0]
-        if( view.getOrder().getDestination() === view?.getListing()?.getMarket()?.getMic() &&
-        view.getOrder().getDestination() !== Destinations.SMARTROUTER ) {
+    if (views.length === 1) {
+      let view = views[0]
+      if (view.getOrder().getDestination() === view?.getListing()?.getMarket()?.getMic() &&
+        view.getOrder().getDestination() !== Destinations.SMARTROUTER) {
+
+        if (view.getOrder().getStatus() === OrderStatus.LIVE) {
           return view.getOrder()
         }
+
+      }
     }
 
-   return undefined
+    return undefined
   }
 
 
 
   public render() {
 
-    let selectedOrders = this.state.selectedOrderViews.map(v=>v.getOrder())
+    let selectedOrders = this.state.selectedOrderViews.map(v => v.getOrder())
     let cancelleableOrders = this.getCancellableOrders(this.state.selectedOrderViews)
     let modifiableOrder = this.getModifiableOrder(this.state.selectedOrderViews)
 
@@ -474,7 +480,7 @@ export default class ParentOrderBlotter extends React.Component<ParentOrderBlott
         <div className="bp3-dark" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, alignItems: "left" }}>
           <div style={{ flexGrow: 1 }}>
             <Button minimal={true} icon="delete" text="Cancel Orders" onClick={() => this.cancelOrder(cancelleableOrders)} disabled={cancelleableOrders.length === 0} />
-            <Button minimal={true} icon="edit" text="Modify Order" onClick={() => this.modifyOrder(cancelleableOrders[0])} disabled={!modifiableOrder} />
+            <Button minimal={true} icon="edit" text="Modify Order" onClick={() => this.modifyOrder(modifiableOrder)} disabled={!modifiableOrder} />
             <Button minimal={true} icon="fork" text="Child Orders" onClick={() => this.showChildOrders(selectedOrders.values())} disabled={selectedOrders.length !== 1} />
             <Button minimal={true} icon="bring-data" text="Order History" onClick={() => this.showOrderHistory(selectedOrders.values())} disabled={selectedOrders.length !== 1} />
             <Button minimal={true} icon="tick" text="Executions" onClick={() => this.showExecutions(selectedOrders.values())} disabled={selectedOrders.length !== 1} />
