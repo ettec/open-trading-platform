@@ -57,7 +57,7 @@ The client is an SPA web application written in Typescript using the React libra
 
 **Caplin Flexlayout:** the ideal GUI layout manager for a trading application as it was originally written to be, well, a layout manager for a trading application.
 
-**BlueprintJS:**  a library of GUI components designed for applications built to analyse data; there is a strong affinity between this type of application and a trading application, I have found it to be a good match in practice.
+**BlueprintJS:**  a library of GUI components optimized for building complex data-dense interfaces; there is a strong affinity between this type of application and a trading application, I have found it to be a good match in practice.
 
 
 
