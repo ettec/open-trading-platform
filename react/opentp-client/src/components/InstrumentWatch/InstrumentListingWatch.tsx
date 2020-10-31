@@ -301,7 +301,6 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
             rowSelection={'multiple'}
             getRowNodeId={(data: ListingWatchView) => { return data?.listingId?.toString() }}
             onSelectionChanged={this.onSelectionChanged}
-            domLayout='autoHeight'
             rowDragManaged={true}
 
             frameworkComponents={{

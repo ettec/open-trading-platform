@@ -114,7 +114,8 @@ export default class MarketDepth extends Component<MarketDepthProps, MarketDepth
     this.openSellDialog = this.openSellDialog.bind(this);
     this.onGridReady = this.onGridReady.bind(this)
     this.onSelectionChanged = this.onSelectionChanged.bind(this)
-    this.depth = new MarketDepthView(10, this.listingService, () => {
+    let displayedDepth = 10
+    this.depth = new MarketDepthView(displayedDepth, this.listingService, () => {
       if (this.gridApi) {
         this.gridApi.refreshCells()
       }
@@ -239,7 +240,7 @@ export default class MarketDepth extends Component<MarketDepthProps, MarketDepth
     return (
       <div style={{ width: "100%", height: "100%", display: 'flex', flexDirection: 'column', alignItems: "centre" }}>
         <div className="bp3-dark" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, alignItems: "left" }}>
-          <div style={{ flexGrow: 1, flexDirection: 'row', display: 'flex' }}>
+          <div style={{ flexGrow: 1}}>
             <Button icon={this.state.locked ? "lock" : "unlock"} onClick={this.toggleLock}>{this.getListingLabel()}</Button>
             <span style={{ minWidth: 40 }}></span>
             <Button text="Buy" onClick={this.openBuyDialog} disabled={!this.state.selectedIdx}
@@ -264,7 +265,6 @@ export default class MarketDepth extends Component<MarketDepthProps, MarketDepth
             rowSelection={'single'}
             getRowNodeId={(data: DepthLine) => { return data?.idx }}
             onSelectionChanged={this.onSelectionChanged}
-            domLayout='autoHeight'
             suppressLoadingOverlay={true}
             rowDragManaged={true}
             defaultColDef={{
