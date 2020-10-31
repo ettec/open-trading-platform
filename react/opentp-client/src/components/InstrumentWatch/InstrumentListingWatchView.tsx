@@ -48,7 +48,7 @@ export class InstrumentListingWatchesView implements QuoteListener {
   }
 
 
-  addListing(listingId: number) {
+  addListing(listingId: number) : boolean {
 
 
 
@@ -63,9 +63,10 @@ export class InstrumentListingWatchesView implements QuoteListener {
       })
 
       this.quoteSvc.SubscribeToQuote(listingId, this)
-
+      return true
     }
 
+    return false
   }
 
   onQuote(quote: ClobQuote): void {

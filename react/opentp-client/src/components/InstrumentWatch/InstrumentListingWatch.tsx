@@ -237,7 +237,13 @@ export default class InstrumentListingWatch extends Component<InstrumentListingW
 
   addListing(listing?: Listing) {
     if (listing) {
-      this.watchesView.addListing(listing.getId())
+      if (!this.watchesView.addListing(listing.getId())) {
+        let node = this.gridApi?.getRowNode(listing.getId().toString())
+        if(node) {
+          this.gridApi?.ensureNodeVisible(node)
+          this.gridApi?.selectNode(node)
+        }
+      }
     }
   }
 
