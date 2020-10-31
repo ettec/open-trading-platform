@@ -11,7 +11,7 @@ An open source highly scalable platform for building cross asset execution orien
 
 ## synopsis <a name="synopsis"></a>
 
-The platform consists of a number of services that are common in execution orientated trading applications, which will we get to shortly.  Before that I would like to outline the approach behind the platform.  If however you just want to get an out of the box configuration of the platform running see [here](https://github.com/ettec/open-trading-platform/blob/master/install/README.md) for the simple installation guide.
+The platform consists of a number of services that are common in execution orientated trading applications, which we will get to shortly.  Before that I would like to outline the approach behind the platform.  If however you just want to get an out of the box configuration of the platform running see [here](https://github.com/ettec/open-trading-platform/blob/master/install/README.md) for the simple installation guide.
 
 Historically the choice presented when a firm has needed it's own trading platform has been between choosing a vendor solution or building a bespoke solution.  The vendor platform option usually lacks flexibility and ends up costing materially more than initially allowed for once the costs of running and customising the platform are considered.  The bespoke solution is highly flexible but has a large upfront development cost and can have a higher ongoing maintenance cost (though this is not necessarily the case as platform specialists are usually required to modify and maintain the vendor solution). 
 
