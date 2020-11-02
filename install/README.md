@@ -4,7 +4,7 @@ Below are the instructions for installing OTP on both a standalone microk8s kube
 
 ### standard kubernetes
 
-Point your kubectl install at the context of the cluster you want to install the application on.
+Ensure you have helm 3 installed and then point your kubectl install at the context of the cluster you want to install the application on.
 
 Checkout the otp source code from https://github.com/ettec/open-trading-platform
 
