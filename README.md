@@ -53,7 +53,7 @@ The client is an SPA web application written in Typescript using the React libra
 
 **QuickFixGo/QuickFixJ:** fix engines used to communicate between the platform's order gateways and market simulators.
 
-**Ag Grid: **Used for all the grids in the GUI.  As a grid implementation for trading applications I can't praise this highly enough, simply superb.  
+**Ag Grid:** Used for all the grids in the GUI.  As a grid implementation for trading applications I can't praise this highly enough, simply superb.  
 
 **Caplin Flexlayout:** the ideal GUI layout manager for a trading application as it was originally written to be, well, a layout manager for a trading application.
 
