@@ -1,6 +1,6 @@
 ## Open Trading Platform
 
-An open source highly scalable platform for building cross asset execution orientated trading applications that can be easily deployed on-prem or in the cloud.
+An open source highly scaleable platform for building cross asset execution orientated trading applications that can be easily deployed on-prem or in the cloud.
 
 ### Table of contents
 1. [synopsis](#synopsis)
@@ -55,7 +55,7 @@ The client is an SPA web application written in Typescript using the React libra
 
 **Ag Grid:** Used for all the grids in the GUI.  As a grid implementation for trading applications I can't praise this highly enough, simply superb.  
 
-**Caplin Flexlayout:** the ideal GUI layout manager for a trading application as it was originally written to be, well, a layout manager for a trading application.
+**Caplin Flexlayout:** a great GUI layout manager for a trading application as it was originally written to be a layout manager for a trading application.
 
 **BlueprintJS:**  a library of GUI components optimized for building complex data-dense interfaces; there is a strong affinity between this type of application and a trading application, I have found it to be a good match in practice.
 
