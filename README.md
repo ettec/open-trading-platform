@@ -27,7 +27,7 @@ Below is the list of key technologies used in OTP and a brief but by no means co
 
 #### language overview
 
-All server side components are written in Golang, apart from the FIX Market Simulator which is written in Java.  
+All server side components are written in Golang, apart from the FIX Market Simulator which is written in Java (historical reasons, i.e. it was the language I knew best when starting the project).  
 
 The client is an SPA web application written in Typescript using the React library.  
 
