@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0673e2c7-ddff-4f6f-baa0-12f558d705bc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../authorization-service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../authorization-service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client-config-service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../client-config-service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lastreleased.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BERT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/messagesource/messagesource.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafkamessagesource.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/service.go" afterDir="false" />
-    </list>
+    <list default="true" id="0673e2c7-ddff-4f6f-baa0-12f558d705bc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -27,7 +27,7 @@ Below is the list of key technologies used in OTP and a brief but by no means co
 
 #### language overview
 
-All server side components are written in Golang, apart from the FIX Market Simulator which is written in Java (historical reasons, i.e. it was the language I knew best when starting the project).  
+All server side components are written in Golang, apart from the FIX Market Simulator which is written in Java (historical reasons, i.e. it was the language I knew best when starting the project).  The core of the code used by the Golang services is located in the Golang module  https://github.com/ettec/otp-common which is really the 'guts' of the platform (it contains the order manager, trading strategy framework, market data distribution code and other important artefacts used across the platform) 
 
 The client is an SPA web application written in Typescript using the React library.  
 
