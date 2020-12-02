@@ -15,6 +15,9 @@ import (
 	"os"
 )
 
+var logFlags = log.Ltime|log.Lshortfile
+var errLog = log.New(os.Stderr, "", logFlags)
+
 type service struct {
 	db *sql.DB
 }
@@ -94,7 +97,7 @@ func newService(driverName, dbConnString string) (*service, error) {
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("could not establish a connection with the database: ", err)
+		return nil, err
 	}
 
 	return s, nil
@@ -104,7 +107,7 @@ func (s *service) Close() {
 	if s.db != nil {
 		err := s.db.Close()
 		if err != nil {
-			log.Printf("erron closing database connection %v", err)
+			errLog.Printf("erron closing database connection %v", err)
 		}
 	}
 }
@@ -113,7 +116,7 @@ func (s *service) Close() {
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	log.SetFlags(logFlags)
 
 	dbString := bootstrap.GetEnvVar("DB_CONN_STRING")
 	dbDriverName := bootstrap.GetEnvVar("DB_DRIVER_NAME")

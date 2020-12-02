@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	api "github.com/ettec/open-trading-platform/go/order-data-service/api/orderdataservice"
-	"github.com/ettec/open-trading-platform/go/order-data-service/internal/messagesource"
 	"github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/model"
@@ -16,11 +15,14 @@ import (
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
+	"os"
 	"strings"
 	"sync"
 	"time"
 )
 
+var logFlags = log.Ltime|log.Lshortfile
+var errLog = log.New(os.Stderr,"", logFlags)
 
 type service struct {
 	orderSubscriptions sync.Map
@@ -32,6 +34,12 @@ type service struct {
 type orderAndWriteTime struct {
 	order     *model.Order
 	writeTime time.Time
+}
+
+
+type Source interface {
+	ReadMessage(ctx context.Context) (key []byte, value []byte, writeTime time.Time, err error)
+	Close() error
 }
 
 const maxInitialOrderConflationInterval = 500 * time.Millisecond
@@ -52,8 +60,17 @@ func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeTo
 
 		out := make(chan orderAndWriteTime, 1000)
 
-		source := messagesource.NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
-		go streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after, request.RootOriginatorId)
+		
+		go func() {
+			source := NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
+			defer func() {
+				if err := source.Close(); err != nil {
+					errLog.Printf("error when closing kafka message source:%v", err)
+				}
+			}()
+			streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after, request.RootOriginatorId)
+			
+		}()
 
 		err := sendUpdates(out, stream.Send)
 		if err != nil {
@@ -157,8 +174,12 @@ func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistory
 		return nil, err
 	}
 
-	reader := messagesource.NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
-	defer reader.Close()
+	reader := NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
+	defer func() {
+		if err := reader.Close(); err != nil {
+			errLog.Printf("error when closing kafka message source:%v", err)
+		}
+	}()
 
 	var updates []*api.OrderUpdate
 	for {
@@ -221,10 +242,8 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 	return username, appInstanceId, nil
 }
 
-func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId string,
+func streamOrderTopic(topic string, reader Source, appInstanceId string,
 	out chan<- orderAndWriteTime, after *model.Timestamp, rootOriginatorId string) {
-
-	defer reader.Close()
 
 	for {
 		_, value, writeTime, err := reader.ReadMessage(context.Background())
@@ -252,28 +271,39 @@ func streamOrderTopic(topic string, reader messagesource.Source, appInstanceId s
 }
 
 func logTopicReadError(appInstanceId string, topic string, err error) {
-	log.Printf("AppInstanceId: %v, Topic: %v, error occurred whilt attempting to stream message: %v", appInstanceId,
+	errLog.Printf("AppInstanceId: %v, Topic: %v, error occurred whilt attempting to stream message: %v", appInstanceId,
 		topic, err)
 }
 
 func main() {
 
+	log.SetOutput(os.Stdout)
+	log.SetFlags(logFlags)
+
 	toClientBufferSize := bootstrap.GetOptionalIntEnvVar("TO_CLIENT_BUFFER_SIZE", 1000)
 
 	port := "50551"
 	fmt.Println("Starting view service on port:" + port)
-	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
+	listener, err := net.Listen("tcp", "0.0.0.0:"+port)
+
+	defer func() {
+		if err := listener.Close(); err != nil {
+			errLog.Printf("error when closing listener:%v", err)
+		}
+	}()
 
 	if err != nil {
 		log.Panicf("Error while listening : %v", err)
 	}
 
 	s := grpc.NewServer()
+	defer s.Stop()
+
 	api.RegisterOrderDataServiceServer(s, newService(toClientBufferSize))
 
 	reflection.Register(s)
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Error while serving : %v", err)
+	if err := s.Serve(listener); err != nil {
+		log.Panicf("Error while serving : %v", err)
 	}
 
 }

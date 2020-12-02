@@ -9,10 +9,10 @@ import (
 	envoytype "github.com/envoyproxy/go-control-plane/envoy/type"
 	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettech/open-trading-platform/go/authorization-service/api/loginservice"
-	rpc "github.com/gogo/googleapis/google/rpc"
+	"github.com/gogo/googleapis/google/rpc"
 	"github.com/google/uuid"
 	_ "github.com/lib/pq"
-	status "google.golang.org/genproto/googleapis/rpc/status"
+	"google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -20,7 +20,21 @@ import (
 	"strings"
 )
 
-func (a AuthService) Login(ctx context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
+var logFlags = log.Ltime|log.Lshortfile
+var errLog = log.New(os.Stderr,"", logFlags)
+
+type user struct {
+	id              string
+	desk            string
+	permissionFlags string
+	token           string
+}
+
+type authService struct {
+	users map[string]user
+}
+
+func (a authService) Login(_ context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
 
 	log.Printf("logging in")
 
@@ -34,11 +48,7 @@ func (a AuthService) Login(ctx context.Context, params *loginservice.LoginParams
 	return nil, errors.New("user not found")
 }
 
-type AuthService struct {
-	users map[string]user
-}
-
-func (a *AuthService) Check(_ context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
+func (a *authService) Check(_ context.Context, req *auth.CheckRequest) (*auth.CheckResponse, error) {
 
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
 
@@ -135,17 +145,12 @@ const (
 	DatabaseDriverName       = "DB_DRIVER_NAME"
 )
 
-type user struct {
-	id              string
-	desk            string
-	permissionFlags string
-	token           string
-}
+
 
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	log.SetFlags(logFlags)
 
 	dbString := bootstrap.GetEnvVar(DatabaseConnectionString)
 	dbDriverName := bootstrap.GetEnvVar(DatabaseDriverName)
@@ -155,9 +160,8 @@ func main() {
 		log.Panicf("failed to open database connection: %v", err)
 	}
 	defer func() {
-		err := db.Close()
-		if err != nil {
-			log.Printf("error when closing database connection: %v", err)
+		if err := db.Close() ; err != nil {
+			errLog.Printf("error when closing database connection: %v", err)
 		}
 	} ()
 
@@ -185,13 +189,13 @@ func main() {
 
 	log.Printf("loaded %v users", len(users))
 
-	authServer := &AuthService{users: users}
+	authServer := &authService{users: users}
 
 	go func() {
 		loginPort := "50551"
 		lis, err := net.Listen("tcp", ":"+loginPort)
 		if err != nil {
-			log.Fatalf("failed to listen: %v", err)
+			log.Panicf("failed to listen: %v", err)
 		}
 		log.Printf("listening on %s", lis.Addr())
 

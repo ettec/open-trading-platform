@@ -1,4 +1,4 @@
-package messagesource
+package main
 
 import (
 	"context"
@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-type Source interface {
-	ReadMessage(ctx context.Context) (key []byte, value []byte, writeTime time.Time, err error)
-	Close() error
-}
 
 type KafkaMessageSource struct {
 	reader *kafka.Reader
