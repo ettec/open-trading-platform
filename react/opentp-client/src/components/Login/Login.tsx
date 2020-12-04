@@ -33,6 +33,7 @@ export default class Login extends React.Component<Props, State> {
     static grpcContext: GrcpContextData
     static username: string
     static desk: string
+    static env: string
 
 
     appInstanceId: string
@@ -46,8 +47,18 @@ export default class Login extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
 
+        Login.env = "DEV"
+
 
         this.serverUrl = window.location.href
+
+        console.log("URL:" + this.serverUrl )
+
+        if (this.serverUrl.includes("opentradingplatform")) {
+            Login.env = "DEMO"
+        }
+
+        console.log("Environment:" + Login.env)
 
         if (this.serverUrl.endsWith("/")) {
             this.serverUrl = this.serverUrl.substr(0, this.serverUrl.length - 1)
