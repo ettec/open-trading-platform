@@ -21,7 +21,7 @@
     "fetch": "^1.1.0",
     "flexlayout-react": "^0.3.4",
     "google-protobuf": "^3.10.0",
-    "grpc": "^1.24.2",
+    "grpc": "^1.24.9",
     "grpc-web": "^1.2.1",
     "local-storage": "^2.0.0",
     "loglevel": "^1.7.0",
