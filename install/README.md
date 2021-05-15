@@ -16,7 +16,9 @@ That's it.  After the install script completes it will inform you of the port to
 
 ### microk8s
 
-Install a fresh copy of [microk8s](https://microk8s.io/)
+Install a fresh copy of [microk8s](https://microk8s.io/) 1.21, e.g. using snap:
+
+`snap install microk8s --classic --channel=1.21/stable`
 
 Enable the required microk8s plugins using the following command:
 
