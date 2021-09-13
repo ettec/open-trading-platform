@@ -10,7 +10,7 @@ An open source highly scaleable platform for building cross asset execution orie
 1. [synopsis](#synopsis)
 2. [architecture overview](#architectureoverview)
 3. [services](#services)
-4. [so what use is it to you?](#sowhatuseisittoyou)
+4. [where could it be useful?](#wherecoulditbeuseful)
 5. [about the author](#abouttheauthor)
 
 ## synopsis <a name="synopsis"></a>
@@ -97,7 +97,7 @@ Below is a list of links to the  source route and README file of each platform s
 
 [vwap-strategy](https://github.com/ettec/open-trading-platform/blob/master/go/execution-venues/vwap-strategy)
 
-## where could it be useful?  <a name="sowhatuseisittoyou"></a>
+## where could it be useful?  <a name="wherecoulditbeuseful"></a>
 
 OTP's primary benefit is as an example of one way in which an execution platform could be built and as a way of giving some confidence that the technologies used are appropriate for this problem space.  The value here could be from using it as a starting point to give a project a leg-up or just as an approach to consider to guide your own thinking.  
 
