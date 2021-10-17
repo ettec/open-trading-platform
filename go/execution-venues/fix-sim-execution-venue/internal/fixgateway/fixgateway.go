@@ -2,6 +2,11 @@ package fixgateway
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strings"
+	"time"
+
 	"github.com/ettec/otp-common/model"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -13,10 +18,6 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/executionreport"
 	"github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
 	"github.com/shopspring/decimal"
-	"log"
-	"os"
-	"strings"
-	"time"
 )
 
 type fixOrderGateway struct {
@@ -24,7 +25,7 @@ type fixOrderGateway struct {
 	orderHandler OrderHandler
 }
 
-func NewFixOrderGateway(sessionID quickfix.SessionID) *fixOrderGateway{
+func NewFixOrderGateway(sessionID quickfix.SessionID) *fixOrderGateway {
 	return &fixOrderGateway{
 		sessionID: sessionID,
 	}
@@ -116,13 +117,13 @@ type fixHandler struct {
 	sessionToHandler map[quickfix.SessionID]OrderHandler
 	inboundRouter    *quickfix.MessageRouter
 	outboundRouter   *quickfix.MessageRouter
-	errLog			 *log.Logger
+	errLog           *log.Logger
 }
 
 func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.Application {
 	f := fixHandler{sessionToHandler: make(map[quickfix.SessionID]OrderHandler),
-		errLog: log.New(os.Stderr, "error", log.Ltime | log.Lshortfile),
-		}
+		errLog: log.New(os.Stderr, "error", log.Ltime|log.Lshortfile),
+	}
 
 	f.sessionToHandler[sessionID] = handler
 	f.inboundRouter = quickfix.NewMessageRouter()
