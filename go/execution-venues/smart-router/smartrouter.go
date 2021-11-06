@@ -108,7 +108,7 @@ func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
 	}()
 }
 
-func  submitBuyOrders(om *strategy.Strategy, q *model.ClobQuote, instrumentListings map[int32]*model.Listing) {
+func submitBuyOrders(om *strategy.Strategy, q *model.ClobQuote, instrumentListings map[int32]*model.Listing) {
 	submitOrders(om, q.Offers, func(line *model.ClobLine) bool {
 		return line.Price.LessThanOrEqual(om.ParentOrder.GetPrice())
 	}, model.Side_BUY, instrumentListings)
@@ -120,7 +120,7 @@ func submitSellOrders(om *strategy.Strategy, q *model.ClobQuote, instrumentListi
 	}, model.Side_SELL, instrumentListings)
 }
 
-func  submitOrders(om *strategy.Strategy, oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,
+func submitOrders(om *strategy.Strategy, oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,
 	side model.Side, instrumentListings map[int32]*model.Listing) {
 	listingIdToQnt := map[int32]*model.Decimal64{}
 	for _, line := range oppositeClobLines {
@@ -131,7 +131,7 @@ func  submitOrders(om *strategy.Strategy, oppositeClobLines []*model.ClobLine, w
 				quantity = om.ParentOrder.GetAvailableQty()
 			}
 
-			listing :=  instrumentListings[line.ListingId]
+			listing := instrumentListings[line.ListingId]
 			err := om.SendChildOrder(side, quantity, line.Price, listing.Id, listing.Market.Mic, "")
 			if err != nil {
 				om.CancelChan <- fmt.Sprintf("failed to send child order:%v", err)

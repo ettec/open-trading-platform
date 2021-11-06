@@ -1,18 +1,15 @@
 package main
 
 import (
+	"./internal/executionvenue"
+	"./internal/fixgateway"
 	"fmt"
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	common "github.com/ettec/otp-common"
 	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/bootstrap"
 	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
-
-	"github.com/ettec/otp-common/bootstrap"
-
-	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/fixgateway"
-
 	"github.com/quickfixgo/quickfix"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -91,6 +88,8 @@ func main() {
 	}
 
 }
+
+
 
 func getFixConfig(sessionId quickfix.SessionID) string {
 
