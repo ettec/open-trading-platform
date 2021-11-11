@@ -43,11 +43,11 @@ The client is a single page web application written in Typescript using the Reac
 
 **Kafka:** Essentially a distributed transaction log, this is used to distribute order and execution information across the platform.  Using this as the backbone of the system makes scaling the order store very straightforward (through increasing the number of order topic partitions to increase I/O parallelism).  A second advantage of using Kafka is that it enables a full state-by-state order change history to be kept (see for example the `Order History` button on the Order Blotter).
 
-**Protobuf:** Used to define the business model and service apis of the platform and makes it easy to share the business model and service apis across both the server and client.
+**Protobuf:** Used to define the domain model and service apis of the platform and makes it easy to share the domain model and service apis across both the server and client.
 
 **gRPC:**  a cross language binary communication protocol that provides a standardised, strongly typed means for the platform services to communicate via streams or Rpc calls.
 
-**Envoy/grpc-web:**  the front end's gateway to the OTP platform services.  It allows both the protobuf business model and grpc service apis to be seemlessly shared by the react client.  Also supports streaming data to the client. 
+**Envoy/grpc-web:**  the front end's gateway to the OTP platform services.  It allows both the protobuf domain model and grpc service apis to be seemlessly shared by the react client.  Also supports streaming data to the client. 
 
 **Prometheus:**  used to capture significant real-time and historical per service performance stats such as quote fan in/fan out, order counts etc. 
 
