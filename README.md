@@ -43,7 +43,7 @@ The client is a single page web application written in Typescript using the Reac
 
 **Kafka:** Essentially a distributed transaction log, this is used to distribute order and execution information across the platform.  Using this as the backbone of the system makes scaling the order store very straightforward (through increasing the number of order topic partitions to increase I/O parallelism).  A second advantage of using Kafka is that it enables a full state-by-state order change history to be kept (see for example the `Order History` button on the Order Blotter).
 
-**Protobuf:** Used to define the domain model and service apis of the platform and makes it easy to share the domain model and service apis across both the server and client.
+**Protobuf:** Used to define the domain model and service apis of the platform and makes it easy to share the domain model and service apis across the services and the client.
 
 **gRPC:**  a cross language binary communication protocol that provides a standardised, strongly typed means for the platform services to communicate via streams or Rpc calls.
 
