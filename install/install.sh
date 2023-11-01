@@ -20,12 +20,12 @@ shift $((OPTIND-1))
 DOCKERREPO="ettec/opentp:"
 TAG=-$VERSION
 if [ -z "$VERSION" ]; then 
-	echo "installing latest Open Trading Platform ci build"; 
+	printf "Installing latest Open Trading Platform ci build\n"; 
 	DOCKERREPO="ettec/opentp-ci-build:"
 	TAG=""
         VERSION="cibuild" 
 else 
-       echo "installing Open Trading Platform version $VERSION"; 
+       printf "Installing Open Trading Platform version $VERSION\n"; 
 fi
 
 if [ "$USEMICROK8S" = "true" ];  then
@@ -41,21 +41,35 @@ fi
 DIRECTORY=$(cd `dirname $0` && pwd)
 cd $DIRECTORY 
 
+#Binami chart repo
+echo adding bitnami chart repo...
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
 #Kafka
 
 echo installing Kafka...
 
 kubectl create ns kafka
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install kafka-opentp  --wait --namespace kafka  bitnami/kafka --version 26.2.0 --set "listeners.client.protocol=PLAINTEXT"
+if [ $? -ne 0 ]; then
+   echo "Failed to install kafka"
+   exit 1		
+fi
 
-helm install kafka-opentp --wait --namespace kafka  bitnami/kafka
 
-#install kafka cmd line client 
+#Kafka topics
+echo creating kafka topics
+kubectl run kafka-opentp-client --restart='Never' --image docker.io/bitnami/kafka:3.6.0-debian-11-r0 --namespace kafka --command -- sleep infinity
+if [ $? -ne 0 ]; then
+   echo "Failed to start kafka client"
+   exit 1		
+fi
 
- 
-kubectl apply --wait -f kafka_cmdline_client.yaml
+kubectl wait pods -n kafka -l run=kafka-opentp-client --for condition=Ready --timeout=90s
 
+#Orders Topic
+kubectl exec --tty -i kafka-opentp-client --namespace kafka -- bash -c "kafka-topics.sh --create --topic orders --bootstrap-server kafka-opentp.kafka.svc.cluster.local:9092"
 
 #Postgres
 
@@ -63,12 +77,24 @@ echo installing Postgresql database...
 
 kubectl create ns postgresql
 
-helm install opentp --wait --namespace postgresql bitnami/postgresql --set-file pgHbaConfiguration=./pb_hba_no_sec.conf --set volumePermissions.enabled=true
+helm install opentp --wait --namespace postgresql bitnami/postgresql --version 13.1.5 --set-file primary.pgHbaConfiguration=./pb_hba_no_sec.conf --set volumePermissions.enabled=true
+
+if [ $? -ne 0 ]; then
+   echo "Failed to install postgres"
+   exit 1		
+fi
+
+
 
 echo loading data into Postgresql database...
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 
 kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ${DOCKERREPO}data-loader-client${TAG} --env="POSTGRESQL_PASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
+
+if [ $? -ne 0 ]; then
+   echo "Failed to load initial data set"
+   exit 1		
+fi
 
 #Envoy
 
@@ -76,13 +102,12 @@ echo installing Envoy...
 
 kubectl create ns envoy
 helm install opentp-envoy --wait --namespace=envoy ./charts/envoy -f envoy-config-helm-values.yaml 
-
+if [ $? -ne 0 ]; then
+   echo "Failed to install envoy"
+   exit 1		
+fi
 
 kubectl patch service envoy --namespace envoy --type='json' -p='[{"op": "replace", "path": "/spec/sessionAffinity", "value": "ClientIP"}]'
-
-
-#Orders topic
-kubectl exec -it --namespace=kafka cmdlineclient -- /bin/bash -c "kafka-topics --zookeeper kafka-opentp-zookeeper:2181 --topic orders --create --partitions 1 --replication-factor 1"
 
 
 #Opentp
@@ -91,6 +116,11 @@ echo installing Open Trading Platform...
 
 
 helm install --wait --timeout 1200s otp-${VERSION} ../helm-otp-chart/ --set dockerRepo=${DOCKERREPO} --set dockerTag=${TAG}
+if [ $? -ne 0 ]; then
+   echo "Failed to install open trading platfrom"
+   exit 1		
+fi
+
 
 #Instructions to start client
 OTPPORT=$(kubectl get svc --namespace=envoy -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}')
