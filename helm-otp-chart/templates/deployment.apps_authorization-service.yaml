@@ -18,7 +18,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}authorization-service{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-authorization-service:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: authorization-service
   

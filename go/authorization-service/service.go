@@ -161,7 +161,7 @@ func main() {
 	}
 	defer func() {
 		if err := db.Close() ; err != nil {
-			errLog.Printf("error when closing database connection: %v", err)
+			errLog.Printf("serror when closing database connection: %v", err)
 		}
 	} ()
 

@@ -52,8 +52,6 @@ func (t testClientStream) Recv() (*marketdata.MarketDataIncrementalRefresh, erro
 	case e := <-t.refreshErrChan:
 		return nil, e
 	}
-
-	return <-t.refreshChan, nil
 }
 
 func (t testClientStream) Send(m *marketdata.MarketDataRequest) error {

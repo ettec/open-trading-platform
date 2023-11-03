@@ -28,7 +28,7 @@ spec:
           value: xnas-order-gateway-0,xnas-order-gateway-1,xnas-order-gateway-2
         - name: BB_SYMS_TO_RUN
           value: SPY,MSFT,BAC,OXY,CHNG,GE
-        image: {{ .Values.dockerRepo }}fixmarketsimulator{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-fixmarketsimulator:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xnassimulator
         ports:

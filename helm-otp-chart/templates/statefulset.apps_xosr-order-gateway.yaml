@@ -44,7 +44,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: {{ .Values.dockerRepo }}smart-router{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-smart-router:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xosr-order-gateway
         ports:

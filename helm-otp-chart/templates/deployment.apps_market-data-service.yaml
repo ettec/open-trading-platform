@@ -30,7 +30,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.name
-        image: {{ .Values.dockerRepo }}market-data-service{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-market-data-service:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: market-data-service
         resources: {}

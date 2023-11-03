@@ -11,36 +11,33 @@ import (
 	"testing"
 )
 
-
 type testMdsQuoteStream struct {
-	subscribeChan  chan int32
-	refreshChan chan *model.ClobQuote
+	subscribeChan chan int32
+	refreshChan   chan *model.ClobQuote
 }
 
 func newTestQuoteStream() *testMdsQuoteStream {
 	s := &testMdsQuoteStream{}
-	s.subscribeChan=  make(chan int32, 10)
-	s.refreshChan= make(chan *model.ClobQuote)
+	s.subscribeChan = make(chan int32, 10)
+	s.refreshChan = make(chan *model.ClobQuote)
 	return s
 }
 
-func(s *testMdsQuoteStream) Subscribe(listingId int32) {
+func (s *testMdsQuoteStream) Subscribe(listingId int32) {
 	s.subscribeChan <- listingId
 }
 
-func(s *testMdsQuoteStream) GetStream() <-chan *model.ClobQuote {
+func (s *testMdsQuoteStream) GetStream() <-chan *model.ClobQuote {
 	return s.refreshChan
 }
 
-func(s *testMdsQuoteStream)Close() {}
-
-
+func (s *testMdsQuoteStream) Close() {}
 
 func Test_quoteAggregator(t *testing.T) {
 
 	mdsqs := newTestQuoteStream()
 
-	qa := New( func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+	qa := New(func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
 		if listingId == 1 {
 			listingGroupsIn <- []*model.Listing{{
 				Version: 0,
@@ -61,7 +58,6 @@ func Test_quoteAggregator(t *testing.T) {
 		}
 
 	}, mdsqs, 1000)
-
 
 	qa.Subscribe(1)
 
@@ -111,7 +107,7 @@ func Test_quoteAggregator(t *testing.T) {
 		},
 		StreamInterrupted: false,
 		StreamStatusMsg:   "",
-		TradedVolume: &model.Decimal64{},
+		TradedVolume:      &model.Decimal64{},
 	}
 
 	if !reflect.DeepEqual(firstQuote, q) {
@@ -156,7 +152,7 @@ func Test_quoteAggregator(t *testing.T) {
 		},
 		StreamInterrupted: false,
 		StreamStatusMsg:   "",
-		TradedVolume: &model.Decimal64{},
+		TradedVolume:      &model.Decimal64{},
 	}
 
 	if !reflect.DeepEqual(combinedQuote, q) {
@@ -178,7 +174,6 @@ func Test_quoteAggregator(t *testing.T) {
 		},
 		StreamInterrupted: false,
 		StreamStatusMsg:   "",
-
 	}
 
 	q = <-qa.GetStream()
@@ -203,7 +198,7 @@ func Test_quoteAggregator(t *testing.T) {
 		},
 		StreamInterrupted: false,
 		StreamStatusMsg:   "",
-		TradedVolume: &model.Decimal64{},
+		TradedVolume:      &model.Decimal64{},
 	}
 
 	if !reflect.DeepEqual(combinedQuote, q) {
@@ -259,8 +254,6 @@ func (t testClientStream) Recv() (*model.ClobQuote, error) {
 	case e := <-t.refreshErrChan:
 		return nil, e
 	}
-
-	return <-t.refreshChan, nil
 }
 
 func (t testClientStream) Header() (metadata.MD, error) {
@@ -286,8 +279,6 @@ func (t testClientStream) SendMsg(m interface{}) error {
 func (t testClientStream) RecvMsg(m interface{}) error {
 	panic("implement me")
 }
-
-
 
 func Test_combineQuotes(t *testing.T) {
 	type args struct {
@@ -354,7 +345,7 @@ func Test_combineQuotes(t *testing.T) {
 				},
 				StreamInterrupted: false,
 				StreamStatusMsg:   "",
-				TradedVolume: &model.Decimal64{},
+				TradedVolume:      &model.Decimal64{},
 			}},
 		{name: "test combine 3 quote",
 			args: args{combinedListingId: 1, quotes: []*model.ClobQuote{
@@ -431,7 +422,7 @@ func Test_combineQuotes(t *testing.T) {
 				},
 				StreamInterrupted: false,
 				StreamStatusMsg:   "",
-				TradedVolume: &model.Decimal64{},
+				TradedVolume:      &model.Decimal64{},
 			}},
 	}
 	for _, tt := range tests {
@@ -492,7 +483,7 @@ func Test_combineQuoteStatus(t *testing.T) {
 				},
 				StreamInterrupted: true,
 				StreamStatusMsg:   "connection lost",
-				TradedVolume: &model.Decimal64{},
+				TradedVolume:      &model.Decimal64{},
 			}},
 	}
 	for _, tt := range tests {
@@ -502,7 +493,6 @@ func Test_combineQuoteStatus(t *testing.T) {
 			}
 		})
 	}
-
 
 	tests = []struct {
 		name string
@@ -547,7 +537,7 @@ func Test_combineQuoteStatus(t *testing.T) {
 				},
 				StreamInterrupted: false,
 				StreamStatusMsg:   "connection lost",
-				TradedVolume: &model.Decimal64{},
+				TradedVolume:      &model.Decimal64{},
 			}},
 	}
 	for _, tt := range tests {
@@ -557,11 +547,6 @@ func Test_combineQuoteStatus(t *testing.T) {
 			}
 		})
 	}
-
-
-
-
-
 
 }
 
@@ -588,9 +573,9 @@ func Test_combineTradeData(t *testing.T) {
 					},
 					StreamInterrupted: true,
 					StreamStatusMsg:   "connection lost",
-					LastPrice:  &model.Decimal64{Mantissa: 50, Exponent: 0},
-					LastQuantity:  &model.Decimal64{Mantissa: 15, Exponent: 0},
-					TradedVolume: &model.Decimal64{Mantissa: 10, Exponent: 0},
+					LastPrice:         &model.Decimal64{Mantissa: 50, Exponent: 0},
+					LastQuantity:      &model.Decimal64{Mantissa: 15, Exponent: 0},
+					TradedVolume:      &model.Decimal64{Mantissa: 10, Exponent: 0},
 				},
 				{
 					ListingId: 3,
@@ -602,9 +587,9 @@ func Test_combineTradeData(t *testing.T) {
 					},
 					StreamInterrupted: false,
 					StreamStatusMsg:   "",
-					LastPrice:  &model.Decimal64{Mantissa: 60, Exponent: 0},
-					LastQuantity:  &model.Decimal64{Mantissa: 25, Exponent: 0},
-					TradedVolume: &model.Decimal64{Mantissa: 20, Exponent: 0},
+					LastPrice:         &model.Decimal64{Mantissa: 60, Exponent: 0},
+					LastQuantity:      &model.Decimal64{Mantissa: 25, Exponent: 0},
+					TradedVolume:      &model.Decimal64{Mantissa: 20, Exponent: 0},
 				},
 			}},
 
@@ -620,9 +605,9 @@ func Test_combineTradeData(t *testing.T) {
 				},
 				StreamInterrupted: true,
 				StreamStatusMsg:   "connection lost",
-				LastPrice:  &model.Decimal64{Mantissa: 60, Exponent: 0},
-				LastQuantity:  &model.Decimal64{Mantissa: 25, Exponent: 0},
-				TradedVolume: &model.Decimal64{Mantissa: 30, Exponent: 0},
+				LastPrice:         &model.Decimal64{Mantissa: 60, Exponent: 0},
+				LastQuantity:      &model.Decimal64{Mantissa: 25, Exponent: 0},
+				TradedVolume:      &model.Decimal64{Mantissa: 30, Exponent: 0},
 			}},
 	}
 	for _, tt := range tests {
@@ -633,8 +618,6 @@ func Test_combineTradeData(t *testing.T) {
 		})
 	}
 }
-
-
 
 func d64(mantissa int) *model.Decimal64 {
 	return &model.Decimal64{Mantissa: int64(mantissa), Exponent: 0}

@@ -19,6 +19,6 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}order-data-service{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-order-data-service:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: order-data-service

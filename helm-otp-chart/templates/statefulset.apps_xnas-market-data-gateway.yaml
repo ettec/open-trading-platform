@@ -43,7 +43,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: {{ .Values.dockerRepo }}market-data-gateway-fixsim{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-market-data-gateway-fixsim:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xnas-market-data-gateway
         ports:
