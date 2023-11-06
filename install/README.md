@@ -18,7 +18,7 @@ That's it.  After the install script completes it will inform you of the port to
 
 ### microk8s
 
-Install a fresh copy of [microk8s](https://microk8s.io/) 1.21, e.g. using snap:
+Install a fresh copy of [microk8s](https://microk8s.io/) 1.27, e.g. using snap:
 
 ```bash
 snap install microk8s --classic --channel=1.27/stable
@@ -27,7 +27,7 @@ snap install microk8s --classic --channel=1.27/stable
 Enable the required microk8s plugins using the following command:
 
 ```bash
-microk8s enable dns storage
+microk8s enable dns hostpath-storage
 ```
 
 Start the cluster:

@@ -103,5 +103,5 @@ OTP's primary benefit is as an example of one way in which an execution platform
 
 ## about the author <a name="abouttheauthor"></a>
 
-Coding since I was 10, I took a detour via a Physics degree, but the pull of coding was just too much for me to resist and I ended up as a software engineer at a number of mainly financial organisations working primarily on front office trading systems.   I started tentatively building what would become OTP towards the end of 2019 initially as a way of exploring technologies.  The more I built the more I could see that the unique combination of technologies could yield an innovative trading execution platform and so set out to build the most common components you would expect in such a platform. 
+Coding since an early age, I took a detour via a Physics degree, but the pull of software engineering was too much for me to resist and I worked as a software engineer at a number of mainly financial organisations primarily on front office and algorithmic trading systems.   I started tentatively building what would become OTP towards the end of 2019 initially as a way of exploring technologies.  As development progressed the potential to build an innovative highly scalable execution orientated trading platform became apparent, and thus I set out to build the most common components you would expect in such a platform. 
 

@@ -1,6 +1,8 @@
-usage() { echo "Usage: $0 [-v <version number>] [-m]  where -v is the version number, omit this flag to install latest ci build.  -m flag should be used if installing on microk8s  " 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-v <version number>] [-r <docker repo>] [-m]  where -v is the version number, omit this flag to install latest ci build. -r is the docker repo, omit this flag to use the default repo. -m flag should be used if installing on microk8s  " 1>&2; exit 1; }
 
-while getopts ":v:m" o; do
+DOCKERREPO="ettec"
+
+while getopts ":v:r:m" o; do
     case "${o}" in
         v)
             VERSION=${OPTARG}
@@ -8,6 +10,9 @@ while getopts ":v:m" o; do
         m)
             USEMICROK8S="true"
             ;;
+        r)
+            DOCKERREPO=${OPTARG}
+            ;;    
         *)
             usage
             ;;
@@ -17,13 +22,11 @@ shift $((OPTIND-1))
 
 
 
-DOCKERREPO="ettec/opentp:"
-TAG=-$VERSION
+
+TAG=$VERSION
 if [ -z "$VERSION" ]; then 
-	printf "Installing latest Open Trading Platform ci build\n"; 
-	DOCKERREPO="ettec/opentp-ci-build:"
-	TAG=""
-        VERSION="cibuild" 
+	printf "Installing latest Open Trading Platform build\n"; 
+	TAG="latest"
 else 
        printf "Installing Open Trading Platform version $VERSION\n"; 
 fi
@@ -89,7 +92,7 @@ fi
 echo loading data into Postgresql database...
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql opentp-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode)
 
-kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ${DOCKERREPO}data-loader-client${TAG} --env="POSTGRESQL_PASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
+kubectl run opentp-postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image  ${DOCKERREPO}/otp-dataload:${TAG} --env="POSTGRESQL_PASSWORD=$POSTGRES_PASSWORD" --command -- psql --host opentp-postgresql -U postgres -d postgres -p 5432 -a -f ./opentp.db
 
 if [ $? -ne 0 ]; then
    echo "Failed to load initial data set"

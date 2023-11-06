@@ -20,8 +20,8 @@ import (
 	"strings"
 )
 
-var logFlags = log.Ltime|log.Lshortfile
-var errLog = log.New(os.Stderr,"", logFlags)
+var logFlags = log.Ltime | log.Lshortfile
+var errLog = log.New(os.Stderr, "", logFlags)
 
 type user struct {
 	id              string
@@ -145,8 +145,6 @@ const (
 	DatabaseDriverName       = "DB_DRIVER_NAME"
 )
 
-
-
 func main() {
 
 	log.SetOutput(os.Stdout)
@@ -160,11 +158,10 @@ func main() {
 		log.Panicf("failed to open database connection: %v", err)
 	}
 	defer func() {
-		if err := db.Close() ; err != nil {
+		if err := db.Close(); err != nil {
 			errLog.Printf("error when closing database connection: %v", err)
 		}
-	} ()
-
+	}()
 
 	err = db.Ping()
 	if err != nil {

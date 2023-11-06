@@ -41,7 +41,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: {{ .Values.dockerRepo }}quote-aggregator{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-quote-aggregator:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: xosr-market-data-gateway
         ports:

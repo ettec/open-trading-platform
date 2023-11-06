@@ -18,7 +18,7 @@ spec:
       - envFrom:
         - configMapRef:
             name: opentp
-        image: {{ .Values.dockerRepo }}client-config-service{{ .Values.dockerTag }}
+        image: {{ .Values.dockerRepo }}/otp-client-config-service:{{ .Values.dockerTag }}
         imagePullPolicy: Always
         name: client-config-service
 
