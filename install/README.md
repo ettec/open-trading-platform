@@ -11,7 +11,7 @@ Clone the otp source code from https://github.com/ettec/open-trading-platform
 Run the installation script, from the root of the checkout as follows:
 
 ```bash
-./install/install.sh -v 1.0.19
+./install/install.sh -v 1.0.20
 ```
 
 That's it.  After the install script completes it will inform you of the port to use to run the OTP client.  You can login using any of the [user ids](#userids) at the bottom of this README, no password is required out of the box (the authentication-service has a hook for a token/password validation plugin).  
