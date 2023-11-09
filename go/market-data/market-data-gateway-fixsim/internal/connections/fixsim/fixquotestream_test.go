@@ -1,8 +1,11 @@
 package fixsim
 
 import (
+	"context"
 	"fmt"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/golang/protobuf/proto"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/fix"
@@ -12,13 +15,6 @@ import (
 	"strconv"
 	"testing"
 )
-
-type testMarketDataClient struct {
-	refreshChan chan<- *md.MarketDataIncrementalRefresh
-
-	subscribeChan   chan string
-	closeSignalChan chan bool
-}
 
 func Test_QuoteClone(t *testing.T) {
 	quote := newClobQuote(2)
@@ -60,91 +56,90 @@ func Test_QuoteClone(t *testing.T) {
 
 }
 
-func newTestMarketDataClient() (*testMarketDataClient, error) {
-	t := &testMarketDataClient{
+type testFixClient struct {
+	refreshChan   chan *md.MarketDataIncrementalRefresh
+	subscribeChan chan string
+}
 
-		refreshChan:     make(chan *md.MarketDataIncrementalRefresh, 100),
-		subscribeChan:   make(chan string, 100),
-		closeSignalChan: make(chan bool, 100),
+func newTestMarketDataClient() (*testFixClient, error) {
+	t := &testFixClient{
+		refreshChan:   make(chan *md.MarketDataIncrementalRefresh, 100),
+		subscribeChan: make(chan string, 100),
 	}
 	return t, nil
 }
 
-func (t *testMarketDataClient) subscribe(symbol string) error {
+func (t *testFixClient) Chan() <-chan *md.MarketDataIncrementalRefresh {
+	return t.refreshChan
+}
+
+func (t *testFixClient) Subscribe(symbol string) error {
 	t.subscribeChan <- symbol
 	return nil
 }
 
-func (t *testMarketDataClient) close() error {
-	t.closeSignalChan <- true
-	close(t.refreshChan)
-	return nil
-}
-
 func Test_quoteNormaliser_nilRefreshResetsAllQuote(t *testing.T) {
-	_, out, n := setupTestClient()
+	fixClient, quoteStream := setupTestClient(t)
 
-	n.Subscribe(1)
-	n.Subscribe(2)
-	n.Subscribe(3)
+	quoteStream.Subscribe(1)
+	quoteStream.Subscribe(2)
+	quoteStream.Subscribe(3)
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
 	}
 
 	entries = []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "B")}
 
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
 	}
 
-	<-out
-	<-out
+	<-quoteStream.Chan()
+	<-quoteStream.Chan()
 
-	n.refreshInChan <- nil
+	fixClient.refreshChan <- nil
 
-	empt1 := <-out
+	empt1 := <-quoteStream.Chan()
 	if len(empt1.GetBids()) > 0 || len(empt1.GetOffers()) > 0 || (empt1.ListingId != 1 && empt1.ListingId != 2) || !empt1.StreamInterrupted {
 		t.FailNow()
 	}
 
-	empt2 := <-out
+	empt2 := <-quoteStream.Chan()
 	if len(empt2.GetBids()) > 0 || len(empt2.GetOffers()) > 0 || (empt1.ListingId != 1 && empt1.ListingId != 2) || !empt2.StreamInterrupted {
 		t.FailNow()
 	}
 
 }
 
-func Test_QuoteStreamInterruptedFlagResetOnUpdate(t *testing.T) {
+func TestQuoteStreamInterruptedFlagResetOnUpdate(t *testing.T) {
 
-	tmd, out, n := setupTestClient()
+	fixClient, quoteStream := setupTestClient(t)
 
-	n.Subscribe(1)
+	quoteStream.Subscribe(1)
 
-	symbol := <-tmd.subscribeChan
-	if symbol != "A" {
-		t.Errorf("exepcted subscribe call for symbol A")
-	}
+	symbol := <-fixClient.subscribeChan
+	assert.Equal(t, "A", symbol)
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
 	}
 
-	n.refreshInChan <- nil
+	fixClient.refreshChan <- nil
 
 	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
 
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries2,
 	}
 
-	q := <-out
-	q = <-out
-	q = <-out
+	q := <-quoteStream.Chan()
+	q = <-quoteStream.Chan()
+	q = <-quoteStream.Chan()
 
 	if q.StreamInterrupted {
 		t.FailNow()
@@ -152,49 +147,47 @@ func Test_QuoteStreamInterruptedFlagResetOnUpdate(t *testing.T) {
 
 }
 
-func Test_quoteNormaliser_processUpdates(t *testing.T) {
+func TestProcessingMDIncRefreshMessages(t *testing.T) {
 
-	tmd, out, n := setupTestClient()
+	fixClient, quoteStream := setupTestClient(t)
 
-	n.Subscribe(1)
+	quoteStream.Subscribe(1)
 
-	symbol := <-tmd.subscribeChan
-	if symbol != "A" {
-		t.Errorf("exepcted subscribe call for symbol A")
-	}
+	symbol := <-fixClient.subscribeChan
+	assert.Equal(t, "A", symbol)
 
 	entries := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_BID, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 10, 5, "A")}
 
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries,
 	}
 
 	entries2 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 12, 5, "A")}
 
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries2,
 	}
 
 	entries3 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_OFFER, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 11, 2, "A")}
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries3,
 	}
 
 	entries4 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 15, 10, "A")}
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries4,
 	}
 
 	entries5 := []*md.MDIncGrp{getEntry(md.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE_VOLUME, md.MDUpdateActionEnum_MD_UPDATE_ACTION_NEW, 18, 120, "A")}
-	n.refreshInChan <- &md.MarketDataIncrementalRefresh{
+	fixClient.refreshChan <- &md.MarketDataIncrementalRefresh{
 		MdIncGrp: entries5,
 	}
 
-	q := <-out
-	q = <-out
-	q = <-out
-	q = <-out
-	q = <-out
+	q := <-quoteStream.Chan()
+	q = <-quoteStream.Chan()
+	q = <-quoteStream.Chan()
+	q = <-quoteStream.Chan()
+	q = <-quoteStream.Chan()
 
 	err := testEqualsBook(q, [5][4]int64{{5, 10, 11, 2}, {0, 0, 12, 5}}, 1)
 	if err != nil {
@@ -211,23 +204,23 @@ func Test_quoteNormaliser_processUpdates(t *testing.T) {
 
 }
 
-func setupTestClient() (*testMarketDataClient, <-chan *model.ClobQuote, *fixSimAdapter) {
-	tmd, _ := newTestMarketDataClient()
+func setupTestClient(t *testing.T) (*testFixClient, *FixQuoteStream) {
+	tmd, err := newTestMarketDataClient()
+	assert.NoError(t, err)
 
 	listingIdToSym := map[int32]string{1: "A", 2: "B", 3: "C"}
-	n, _ := NewFixSimAdapter(func(id string, out chan<- *md.MarketDataIncrementalRefresh) (client MarketDataClient, err error) {
-		return tmd, nil
-	}, "testName", toLookupFunc(listingIdToSym), 100)
+	quoteStream, err := NewQuoteStreamFromFixClient(context.Background(), tmd, "testName", toLookupFunc(listingIdToSym), 100)
+	assert.NoError(t, err)
 
-	n.listingInChan = make(chan *model.Listing)
+	quoteStream.getListingResultChan = make(chan staticdata.ListingResult)
 
-	return tmd, n.GetStream(), n
+	return tmd, quoteStream
 }
 
-func toLookupFunc(listingIdToSym map[int32]string) func(listingId int32, onSymbol chan<- *model.Listing) {
-	return func(listingId int32, onSymbol chan<- *model.Listing) {
+func toLookupFunc(listingIdToSym map[int32]string) func(ctx context.Context, listingId int32, onSymbol chan<- staticdata.ListingResult) {
+	return func(ctx context.Context, listingId int32, onSymbol chan<- staticdata.ListingResult) {
 		if sym, ok := listingIdToSym[listingId]; ok {
-			onSymbol <- &model.Listing{Id: listingId, MarketSymbol: sym}
+			onSymbol <- staticdata.ListingResult{Listing: &model.Listing{Id: listingId, MarketSymbol: sym}}
 		}
 	}
 }

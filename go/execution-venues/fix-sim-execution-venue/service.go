@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/execution-venues/fix-sim-execution-venue/internal/executionvenue"
 	common "github.com/ettec/otp-common"
@@ -22,19 +23,20 @@ import (
 	"strings"
 )
 
-
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	log.SetFlags(log.Ltime | log.Lshortfile)
 
 	kafkaBrokers := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	id := bootstrap.GetEnvVar("ID")
 
 	s := grpc.NewServer()
 
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-	sds, err := staticdata.NewStaticDataSource(false)
+	sds, err := staticdata.NewStaticDataSource(ctx)
 	if err != nil {
 		log.Panicf("failed to create static data source:%v", err)
 	}
@@ -47,7 +49,7 @@ func main() {
 		log.Panicf("failed to create order store: %v", err)
 	}
 
-	orderCache,err := ordermanagement.NewOrderCache(store, id)
+	orderCache, err := ordermanagement.NewOwnerOrderCache(ctx, id, store)
 
 	if err != nil {
 		log.Panicf("failed to create order cache:%v", err)
@@ -60,7 +62,7 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := executionvenue.NewOrderManager(orderCache, gateway, sds.GetListing)
+	om := executionvenue.NewOrderManager(ctx, orderCache, gateway, sds.GetListing)
 
 	fixServerCloseChan := make(chan struct{})
 	err = createFixGateway(fixServerCloseChan, sessionID, om)
@@ -79,7 +81,7 @@ func main() {
 
 	port := "50551"
 	fmt.Println("Starting Execution Venue Service on port:" + port)
-	fmt.Println("V3")
+
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
@@ -90,6 +92,7 @@ func main() {
 		log.Fatalf("error   while serving : %v", err)
 	}
 
+	fmt.Println("Exiting execution venue service")
 }
 
 func getFixConfig(sessionId quickfix.SessionID) string {

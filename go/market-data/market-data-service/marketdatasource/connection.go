@@ -1,38 +1,38 @@
 package marketdatasource
 
 import (
+	"context"
+	"fmt"
 	"github.com/ettec/otp-common/marketdata"
-	"github.com/ettec/otp-common/model"
 	"log"
 	"sync"
 	"time"
 )
 
 type MdsConnection struct {
-	partyIdToConnection map[string]marketdata.ConflatedQuoteConnection
-	quoteDistributor    marketdata.QuoteDistributor
+	partyIdToConnection map[string]marketdata.QuoteStream
+	quoteDistributor    *marketdata.QuoteDistributor
 
 	connMux          sync.Mutex
 	maxSubscriptions int
 }
 
-func NewMdsConnection(id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
+func NewMdsConnection(ctx context.Context, id string, marketGatewayAddress string, maxReconnectInterval time.Duration,
 	maxSubscriptions int) (*MdsConnection, error) {
 
-	stream, err := marketdata.NewQuoteStreamFromMdSource(id, marketGatewayAddress, maxReconnectInterval, 1000)
-
+	stream, err := marketdata.NewQuoteStreamFromMdSource(ctx, id, marketGatewayAddress, maxReconnectInterval, 1000)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create quote stream: %w", err)
 	}
 
-	qd := marketdata.NewQuoteDistributor(stream, 1000)
-	gateway := &MdsConnection{partyIdToConnection: make(map[string]marketdata.ConflatedQuoteConnection), quoteDistributor: qd,
+	qd := marketdata.NewQuoteDistributor(ctx, stream, 1000)
+	gateway := &MdsConnection{partyIdToConnection: make(map[string]marketdata.QuoteStream), quoteDistributor: qd,
 		maxSubscriptions: maxSubscriptions}
 
 	return gateway, nil
 }
 
-func (s *MdsConnection) GetConnection(partyId string) (marketdata.ConflatedQuoteConnection, bool) {
+func (s *MdsConnection) GetConnection(partyId string) (marketdata.QuoteStream, bool) {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
@@ -40,7 +40,7 @@ func (s *MdsConnection) GetConnection(partyId string) (marketdata.ConflatedQuote
 	return con, ok
 }
 
-func (s *MdsConnection) AddConnection(subscriberId string, out chan<- *model.ClobQuote) marketdata.ConflatedQuoteConnection {
+func (s *MdsConnection) AddConnection(subscriberId string) marketdata.QuoteStream {
 	s.connMux.Lock()
 	defer s.connMux.Unlock()
 
@@ -50,10 +50,10 @@ func (s *MdsConnection) AddConnection(subscriberId string, out chan<- *model.Clo
 		log.Print("connection closed:", subscriberId)
 	}
 
-	cc := marketdata.NewConflatedQuoteConnection(subscriberId, s.quoteDistributor.GetNewQuoteStream(),
-		out, s.maxSubscriptions)
+	quoteStream := marketdata.NewConflatedQuoteStream(subscriberId, s.quoteDistributor.NewQuoteStream(),
+		s.maxSubscriptions)
 
-	s.partyIdToConnection[subscriberId] = cc
+	s.partyIdToConnection[subscriberId] = quoteStream
 
-	return cc
+	return quoteStream
 }

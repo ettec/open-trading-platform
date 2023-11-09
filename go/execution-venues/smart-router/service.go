@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/api"
@@ -24,12 +25,10 @@ import (
 	"strings"
 )
 
-
-
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	log.SetFlags(log.Ltime | log.Lshortfile)
 
 	id := bootstrap.GetEnvVar("ID")
 
@@ -40,50 +39,55 @@ func main() {
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
-	sds, err := staticdata.NewStaticDataSource(false)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	sds, err := staticdata.NewStaticDataSource(ctx)
 	if err != nil {
 		log.Fatalf("failed to create static data source:%v", err)
 	}
 
 	mdsAddress, err := k8s.GetServiceAddress("market-data-service")
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to market data service address: %v", err)
 	}
 
-	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMdService(id, mdsAddress, maxConnectRetry,
+	mdsQuoteStream, err := marketdata.NewQuoteStreamFromMarketDataService(ctx, id, mdsAddress, maxConnectRetry,
 		bootstrap.GetOptionalIntEnvVar("SMARTROUTER_INBOUND_QUOTE_BUFFER_SIZE", 1000))
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to create quote stream from market data service: %v", err)
 	}
 
-	qd := marketdata.NewQuoteDistributor(mdsQuoteStream, bootstrap.GetOptionalIntEnvVar("SMARTROUTER_QUOTE_DISTRIBUTOR_BUFFER_SIZE", 1000))
+	qd := marketdata.NewQuoteDistributor(ctx, mdsQuoteStream, bootstrap.GetOptionalIntEnvVar("SMARTROUTER_QUOTE_DISTRIBUTOR_BUFFER_SIZE", 1000))
 
 	orderRouter, err := api.GetOrderRouter(k8s.GetK8sClientSet(false), maxConnectRetry)
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to get order router: %v", err)
 	}
 
 	executeFn := func(om *strategy.Strategy) {
-		ExecuteAsSmartRouterStrategy(om, sds.GetListingsWithSameInstrument, qd.GetNewQuoteStream())
+		ExecuteAsSmartRouterStrategy(ctx, om, sds.GetListingsWithSameInstrument, qd.NewQuoteStream())
 	}
-
 
 	store, err := orderstore.NewKafkaStore(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
 		orderstore.DefaultWriterConfig(common.ORDERS_TOPIC, kafkaBrokers), id)
 
 	if err != nil {
-		panic(fmt.Errorf("failed to create order store: %v", err))
+		log.Panicf("failed to create order store: %v", err)
 	}
 
-	childOrderUpdates, err := ordermanagement.GetChildOrders(id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
-	 bootstrap.GetOptionalIntEnvVar("SMARTROUTER_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
+	childOrderUpdates, err := ordermanagement.GetChildOrders(ctx, id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+		bootstrap.GetOptionalIntEnvVar("SMARTROUTER_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to get child order updates channel: %v", err)
 	}
 
-	distributor := ordermanagement.NewChildOrderUpdatesDistributor(childOrderUpdates)
+	distributor := ordermanagement.NewChildOrderUpdatesDistributor(childOrderUpdates, 10000)
 
-	sm := strategy.NewStrategyManager(id, store, distributor, orderRouter, executeFn)
+	sm, err := strategy.NewStrategyManager(ctx, id, store, distributor, orderRouter, executeFn)
+	if err != nil {
+		log.Panicf("failed to create strategy manager: %v", err)
+	}
 
 	executionvenue.RegisterExecutionVenueServer(s, sm)
 
@@ -94,11 +98,11 @@ func main() {
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Panicf("Error while listening : %v", err)
+		log.Panicf("failed to listen on port %s : %v", port, err)
 	}
 
 	if err := s.Serve(lis); err != nil {
-		log.Panicf("error   while serving : %v", err)
+		log.Panicf("error while serving: %v", err)
 	}
 
 }

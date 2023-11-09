@@ -1,13 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/ettec/otp-common/api/marketdatasource"
 	"github.com/ettec/otp-common/bootstrap"
 	"os"
 
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/connections/fixsim"
-	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
 	md "github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -20,33 +20,33 @@ import (
 	"time"
 )
 
-func newService(id string, fixSimAddress string, maxReconnectInterval time.Duration,
+func newService(ctx context.Context, id string, fixSimAddress string, maxReconnectInterval time.Duration,
 	inboundQuoteBufferSize int, clientQuoteBufferSize int) (marketdatasource.MarketDataSourceServer, error) {
 
-	listingSrc, err := staticdata.NewStaticDataSource(false)
+	listingSrc, err := staticdata.NewStaticDataSource(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create static data source: %w", err)
 	}
 
-	newMarketDataClientFn := func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (fixsim.MarketDataClient, error) {
-		return fixsim.NewFixSimMarketDataClient(id, fixSimAddress, out, func(targetAddress string) (fixsim.FixSimMarketDataServiceClient, fixsim.GrpcConnection, error) {
-			conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
-			if err != nil {
-				return nil, nil, err
-			}
-
-			client := fixsim.NewFixSimMarketDataServiceClient(conn)
-			return client, conn, nil
-		})
+	conn, err := grpc.Dial(fixSimAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to fix sim at %s: %w", fixSimAddress, err)
 	}
 
-	fixSimConn, err := fixsim.NewFixSimAdapter(newMarketDataClientFn, id, listingSrc.GetListing,
+	grpcClient := fixsim.NewFixSimMarketDataServiceClient(conn)
+
+	fixSimClient, err := fixsim.NewFixSimMarketDataClient(ctx, id, grpcClient, conn, clientQuoteBufferSize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create fix simulator market data client: %w", err)
+	}
+
+	fixSimQuoteStream, err := fixsim.NewQuoteStreamFromFixClient(ctx, fixSimClient, id, listingSrc.GetListing,
 		inboundQuoteBufferSize)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create fix quote stream: %w", err)
 	}
 
-	qd := md.NewQuoteDistributor(fixSimConn, clientQuoteBufferSize)
+	qd := md.NewQuoteDistributor(ctx, fixSimQuoteStream, clientQuoteBufferSize)
 
 	s := md.NewMarketDataSource(qd)
 
@@ -77,7 +77,10 @@ func main() {
 
 	s := grpc.NewServer()
 
-	service, err := newService(id, fixSimAddress, time.Duration(maxConnectRetrySecs)*time.Second, inboundQuoteBufferSize,
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	service, err := newService(ctx, id, fixSimAddress, time.Duration(maxConnectRetrySecs)*time.Second, inboundQuoteBufferSize,
 		clientQuoteBufferSize)
 	if err != nil {
 		log.Panicf("error creating service: %v", err)

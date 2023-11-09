@@ -1,89 +1,98 @@
 package fixsim
 
 import (
+	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/golang/protobuf/proto"
-	"log"
-	"os"
+	"log/slog"
 )
 
-type fixSimAdapter struct {
-	connectionName    string
-	symbolToListingId map[string]int32
-	idToQuote         map[int32]*model.ClobQuote
-	refreshInChan     chan *marketdata.MarketDataIncrementalRefresh
-	listingInChan     chan *model.Listing
-	out               chan *model.ClobQuote
-	fixSimClient      MarketDataClient
-	getListing        staticdata.GetListingFn
-	closeChan         chan bool
-	log               *log.Logger
-	errLog            *log.Logger
+type GetListingFn func(ctx context.Context, listingId int32, resultChan chan<- staticdata.ListingResult)
+
+type FixQuoteStream struct {
+	ctx                  context.Context
+	connectionName       string
+	getListingResultChan chan staticdata.ListingResult
+	out                  chan *model.ClobQuote
+	fixMarketDataClient  fixMarketDataClient
+	cancelCtx            func()
+	getListing           GetListingFn
 }
 
-func (n *fixSimAdapter) GetStream() <-chan *model.ClobQuote {
+func (n *FixQuoteStream) Chan() <-chan *model.ClobQuote {
 	return n.out
 }
 
-func (n *fixSimAdapter) Close() {
-	n.closeChan <- true
+func (n *FixQuoteStream) Close() {
+	n.cancelCtx()
 }
 
-type MarketDataClient interface {
-	subscribe(symbol string) error
-	close() error
+func (n *FixQuoteStream) Subscribe(listingId int32) error {
+	n.getListing(n.ctx, listingId, n.getListingResultChan)
+	return nil
 }
 
-type newMarketDataClient = func(id string, out chan<- *marketdata.MarketDataIncrementalRefresh) (MarketDataClient, error)
+type fixMarketDataClient interface {
+	Subscribe(symbol string) error
+	Chan() <-chan *marketdata.MarketDataIncrementalRefresh
+}
 
-func NewFixSimAdapter(
-	newClientFn newMarketDataClient, connectionName string, symbolLookup staticdata.GetListingFn,
-	sendBufferSize int) (*fixSimAdapter, error) {
+func NewQuoteStreamFromFixClient(parentCtx context.Context,
+	fixMarketDataClient fixMarketDataClient, connectionName string, symbolLookup GetListingFn,
+	sendBufferSize int) (*FixQuoteStream, error) {
 
-	n := &fixSimAdapter{
-		out:               make(chan *model.ClobQuote, sendBufferSize),
-		connectionName:    connectionName,
-		symbolToListingId: make(map[string]int32),
-		idToQuote:         make(map[int32]*model.ClobQuote),
-		refreshInChan:     make(chan *marketdata.MarketDataIncrementalRefresh, 10000),
-		listingInChan:     make(chan *model.Listing, 1000),
-		getListing:        symbolLookup,
-		closeChan:         make(chan bool),
-		log:               log.New(log.Writer(), connectionName+" ", log.Flags()),
-		errLog:            log.New(os.Stderr, connectionName+" ", log.Flags()),
+	ctx, cancel := context.WithCancel(parentCtx)
+	out := make(chan *model.ClobQuote, sendBufferSize)
+
+	n := &FixQuoteStream{
+		ctx:                  ctx,
+		connectionName:       connectionName,
+		out:                  out,
+		getListingResultChan: make(chan staticdata.ListingResult, 1000),
+		fixMarketDataClient:  fixMarketDataClient,
+		cancelCtx:            cancel,
+		getListing:           symbolLookup,
 	}
 
-	var err error
-	n.fixSimClient, err = newClientFn(connectionName, n.refreshInChan)
-	if err != nil {
-		return nil, err
-	}
+	log := slog.With(slog.Default(), "connectionName", connectionName)
+	symbolToListingId := make(map[string]int32)
+	idToQuote := map[int32]*model.ClobQuote{}
 
 	go func() {
+		defer close(out)
+
 		for {
 			select {
-			case <-n.closeChan:
-				log.Print("closed fix sim adapter")
+			case <-ctx.Done():
 				break
-			case l := <-n.listingInChan:
-				n.symbolToListingId[l.MarketSymbol] = l.Id
+			case lr := <-n.getListingResultChan:
+
+				if lr.Err != nil {
+					log.Error("failed to get listing", "error", lr.Err)
+					continue
+				}
+				symbolToListingId[lr.Listing.MarketSymbol] = lr.Listing.Id
 				go func() {
-					if err := n.fixSimClient.subscribe(l.MarketSymbol); err != nil {
-						n.errLog.Printf("subscribe call failed:%v", err)
+					if err := n.fixMarketDataClient.Subscribe(lr.Listing.MarketSymbol); err != nil {
+						log.Error("failed to subscribe", "error", err)
 					}
 				}()
-			case r := <-n.refreshInChan:
+			case r, ok := <-n.fixMarketDataClient.Chan():
+				if !ok {
+					log.Warn("fix sim client closed")
+					return
+				}
 
 				if r != nil {
 					for _, incGrp := range r.MdIncGrp {
 						symbol := incGrp.GetInstrument().GetSymbol()
-						if listingId, ok := n.symbolToListingId[symbol]; ok {
+						if listingId, ok := symbolToListingId[symbol]; ok {
 
 							var originalQuote *model.ClobQuote
-							if originalQuote, ok = n.idToQuote[listingId]; !ok {
+							if originalQuote, ok = idToQuote[listingId]; !ok {
 								originalQuote = newClobQuote(listingId)
 							}
 
@@ -91,7 +100,7 @@ func NewFixSimAdapter(
 							newQuote.StreamInterrupted = false
 							newQuote.StreamStatusMsg = ""
 							if err != nil {
-								n.errLog.Print("failed to copy originalQuote:", err)
+								log.Error("failed to copy originalQuote", "error", err)
 							}
 
 							linesUpdate := incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_BID ||
@@ -102,30 +111,29 @@ func NewFixSimAdapter(
 								updateQuoteDepth(originalQuote, newQuote, incGrp, bids)
 
 							} else if incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE {
-								newQuote.LastPrice = &model.Decimal64{Mantissa:  incGrp.MdEntryPx.Mantissa, Exponent:  incGrp.MdEntryPx.Exponent}
-								newQuote.LastQuantity = &model.Decimal64{Mantissa:  incGrp.MdEntrySize.Mantissa, Exponent:  incGrp.MdEntrySize.Exponent}
+								newQuote.LastPrice = &model.Decimal64{Mantissa: incGrp.MdEntryPx.Mantissa, Exponent: incGrp.MdEntryPx.Exponent}
+								newQuote.LastQuantity = &model.Decimal64{Mantissa: incGrp.MdEntrySize.Mantissa, Exponent: incGrp.MdEntrySize.Exponent}
 
 							} else if incGrp.MdEntryType == marketdata.MDEntryTypeEnum_MD_ENTRY_TYPE_TRADE_VOLUME {
-								newQuote.TradedVolume = &model.Decimal64{Mantissa:  incGrp.MdEntrySize.Mantissa, Exponent:  incGrp.MdEntrySize.Exponent}
+								newQuote.TradedVolume = &model.Decimal64{Mantissa: incGrp.MdEntrySize.Mantissa, Exponent: incGrp.MdEntrySize.Exponent}
 							} else {
 								continue
 							}
 
-							n.idToQuote[listingId] = newQuote
+							idToQuote[listingId] = newQuote
 							n.out <- newQuote
 
 						} else {
-							n.errLog.Printf("received refresh for unknown symbol: %v", symbol)
-
+							log.Warn("received refresh for unknown symbol", "symbol", symbol)
 						}
 
 					}
 				} else {
-					for id := range n.idToQuote {
+					for id := range idToQuote {
 						emptyQuote := newClobQuote(id)
 						emptyQuote.StreamInterrupted = true
 						emptyQuote.StreamStatusMsg = "fix sim adapter stream interrupted"
-						n.idToQuote[id] = emptyQuote
+						idToQuote[id] = emptyQuote
 						n.out <- emptyQuote
 					}
 				}
@@ -152,10 +160,6 @@ func copyQuote(quote *model.ClobQuote) (*model.ClobQuote, error) {
 	return quoteCopy, nil
 }
 
-func (n *fixSimAdapter) Subscribe(listingId int32) {
-	n.getListing(listingId, n.listingInChan)
-}
-
 func newClobQuote(listingId int32) *model.ClobQuote {
 	bids := make([]*model.ClobLine, 0)
 	offers := make([]*model.ClobLine, 0)
@@ -168,13 +172,11 @@ func newClobQuote(listingId int32) *model.ClobQuote {
 }
 
 func updateQuoteDepth(originalQuote *model.ClobQuote, newQuote *model.ClobQuote, update *marketdata.MDIncGrp, bidSide bool) {
-
 	if bidSide {
 		newQuote.Bids = updateClobLines(originalQuote.Bids, update, bidSide)
 	} else {
 		newQuote.Offers = updateClobLines(originalQuote.Offers, update, bidSide)
 	}
-
 }
 
 func updateClobLines(lines []*model.ClobLine, update *marketdata.MDIncGrp, bids bool) []*model.ClobLine {

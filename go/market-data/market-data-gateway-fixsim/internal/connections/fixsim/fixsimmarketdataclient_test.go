@@ -4,11 +4,126 @@ import (
 	"context"
 	"fmt"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
+	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/metadata"
 	"testing"
 )
+
+func TestMdIncRefreshesAreForwarded(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	client, stream, conn, toTest := setup(t, ctx)
+
+	conn.getStateChan <- connectivity.Ready
+
+	client.streamOutChan <- stream
+
+	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
+
+	<-toTest.Chan()
+}
+
+func TestNilSentToOutChanWhenErrorOccurs(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	client, stream, conn, toTest := setup(t, ctx)
+
+	conn.getStateChan <- connectivity.Ready
+
+	client.streamOutChan <- stream
+
+	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
+	<-toTest.Chan()
+
+	stream.refreshErrChan <- fmt.Errorf("testerror")
+	r := <-toTest.Chan()
+	if r != nil {
+		t.FailNow()
+	}
+}
+
+func TestReconnectsAfterError(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	client, stream, conn, toTest := setup(t, ctx)
+
+	conn.getStateChan <- connectivity.Ready
+
+	client.streamOutChan <- stream
+
+	err := toTest.Subscribe("A")
+	assert.NoError(t, err)
+
+	<-stream.subsInChan
+
+	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
+	<-toTest.Chan()
+
+	stream.refreshErrChan <- fmt.Errorf("testerror")
+	r := <-toTest.Chan()
+	if r != nil {
+		t.FailNow()
+	}
+
+	conn.getStateChan <- connectivity.TransientFailure
+	conn.getStateChan <- connectivity.Ready
+	client.streamOutChan <- stream
+
+	// resubscribe
+	<-stream.subsInChan
+
+}
+
+func TestResubscribesToListingsOnConnect(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	client, stream, conn, toTest := setup(t, ctx)
+
+	err := toTest.Subscribe("A")
+	assert.NoError(t, err)
+
+	conn.getStateChan <- connectivity.Ready
+
+	client.streamOutChan <- stream
+
+	s := <-stream.subsInChan
+	if s.Parties[0].PartyId != "testId" {
+		t.FailNow()
+	}
+
+	if s.InstrmtMdReqGrp[0].Instrument.Symbol != "A" {
+		t.FailNow()
+	}
+
+}
+
+func setup(t *testing.T, ctx context.Context) (testClient, testClientStream, testConnection, *fixSimMarketDataClient) {
+
+	client := testClient{
+		streamOutChan: make(chan FixSimMarketDataService_ConnectClient),
+	}
+
+	stream := testClientStream{refreshChan: make(chan *marketdata.MarketDataIncrementalRefresh),
+		refreshErrChan: make(chan error),
+		subsInChan:     make(chan *marketdata.MarketDataRequest),
+	}
+
+	conn := testConnection{
+		getStateChan: make(chan connectivity.State),
+	}
+
+	c, err := NewFixSimMarketDataClient(ctx, "testId", client, conn, 100)
+
+	assert.NoError(t, err)
+
+	return client, stream, conn, c
+}
 
 type testConnection struct {
 	state        connectivity.State
@@ -81,114 +196,4 @@ func (t testClientStream) SendMsg(m interface{}) error {
 
 func (t testClientStream) RecvMsg(m interface{}) error {
 	panic("implement me")
-}
-
-func Test_fixSimMarketDataClient_refreshesForwaredToOut(t *testing.T) {
-
-	client, stream, conn, _, out := setup(t)
-
-	conn.getStateChan <- connectivity.Ready
-
-	client.streamOutChan <- stream
-
-	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
-
-	<-out
-}
-
-func Test_fixSimMarketDataClient_streamErrorSendsNilToOutStream(t *testing.T) {
-
-	client, stream, conn, _, out := setup(t)
-
-	conn.getStateChan <- connectivity.Ready
-
-	client.streamOutChan <- stream
-
-	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
-	<-out
-
-	stream.refreshErrChan <- fmt.Errorf("testerror")
-	r := <-out
-	if r != nil {
-		t.FailNow()
-	}
-}
-
-func Test_fixSimMarketDataClient_testReconnectAfterError(t *testing.T) {
-
-	client, stream, conn, toTest, out := setup(t)
-
-	conn.getStateChan <- connectivity.Ready
-
-	client.streamOutChan <- stream
-
-	toTest.subscribe("A")
-
-	<-stream.subsInChan
-
-	stream.refreshChan <- &marketdata.MarketDataIncrementalRefresh{}
-	<-out
-
-	stream.refreshErrChan <- fmt.Errorf("testerror")
-	r := <-out
-	if r != nil {
-		t.FailNow()
-	}
-
-	conn.getStateChan <- connectivity.TransientFailure
-	conn.getStateChan <- connectivity.Ready
-	client.streamOutChan <- stream
-
-	// resubscribe
-	<-stream.subsInChan
-
-}
-
-func Test_fixSimMarketDataClient_resubscribedOnConnect(t *testing.T) {
-
-	client, stream, conn, toTest, _ := setup(t)
-
-	toTest.subscribe("A")
-
-	conn.getStateChan <- connectivity.Ready
-
-	client.streamOutChan <- stream
-
-	s := <-stream.subsInChan
-	if s.Parties[0].PartyId != "testId" {
-		t.FailNow()
-	}
-
-	if s.InstrmtMdReqGrp[0].Instrument.Symbol != "A" {
-		t.FailNow()
-	}
-
-}
-
-func setup(t *testing.T) (testClient, testClientStream, testConnection, *fixSimMarketDataClient, chan *marketdata.MarketDataIncrementalRefresh) {
-	out := make(chan *marketdata.MarketDataIncrementalRefresh)
-
-	client := testClient{
-
-		streamOutChan: make(chan FixSimMarketDataService_ConnectClient),
-	}
-
-	stream := testClientStream{refreshChan: make(chan *marketdata.MarketDataIncrementalRefresh),
-		refreshErrChan: make(chan error),
-		subsInChan:     make(chan *marketdata.MarketDataRequest),
-	}
-
-	conn := testConnection{
-		getStateChan: make(chan connectivity.State),
-	}
-
-	c, err := NewFixSimMarketDataClient("testId", "testTarget", out,
-		func(targetAddress string) (FixSimMarketDataServiceClient, GrpcConnection, error) {
-			return client, conn, nil
-		})
-
-	if err != nil {
-		t.FailNow()
-	}
-	return client, stream, conn, c, out
 }

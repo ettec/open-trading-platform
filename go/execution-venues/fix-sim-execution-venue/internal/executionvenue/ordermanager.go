@@ -1,10 +1,12 @@
 package executionvenue
 
 import (
+	"context"
 	"fmt"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/ordermanagement"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/google/uuid"
 	"log"
 	"os"
@@ -28,13 +30,13 @@ type orderManagerImpl struct {
 
 	orderStore *ordermanagement.OrderCache
 	gateway    orderGateway
-	getListing func(listingId int32, result chan<- *model.Listing)
+	getListing func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult)
 
-	errLog     *log.Logger
+	errLog *log.Logger
 }
 
-func NewOrderManager(cache *ordermanagement.OrderCache, gateway orderGateway,
-	getListing func(listingId int32, result chan<- *model.Listing)) *orderManagerImpl {
+func NewOrderManager(ctx context.Context, cache *ordermanagement.OrderCache, gateway orderGateway,
+	getListing func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult)) *orderManagerImpl {
 
 	om := &orderManagerImpl{
 		errLog:     log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
@@ -53,34 +55,38 @@ func NewOrderManager(cache *ordermanagement.OrderCache, gateway orderGateway,
 	om.orderStore = cache
 	om.gateway = gateway
 
-	go om.executeOrderCommands()
+	go om.executeOrderCommands(ctx)
 
 	return om
 }
 
-func (om *orderManagerImpl) executeOrderCommands() {
+func (om *orderManagerImpl) executeOrderCommands(ctx context.Context) {
 
 	for {
 		select {
+		case <-ctx.Done():
+			return
 		case <-om.closeChan:
 			return
 		// Cancel Requests take priority over all other message types
 		case oc := <-om.cancelOrderChan:
-			om.executeCancelOrderCmd(oc.Params, oc.ResultChan)
+			om.executeCancelOrderCmd(ctx, oc.Params, oc.ResultChan)
 		default:
 			select {
+			case <-ctx.Done():
+				return
 			case oc := <-om.cancelOrderChan:
-				om.executeCancelOrderCmd(oc.Params, oc.ResultChan)
+				om.executeCancelOrderCmd(ctx, oc.Params, oc.ResultChan)
 			case mp := <-om.modifyOrderChan:
-				om.executeModifyOrderCmd(mp.Params, mp.ResultChan)
+				om.executeModifyOrderCmd(ctx, mp.Params, mp.ResultChan)
 			case cro := <-om.createOrderChan:
-				om.executeCreateAndRouteOrderCmd(cro.Params, cro.ResultChan)
+				om.executeCreateAndRouteOrderCmd(ctx, cro.Params, cro.ResultChan)
 			case su := <-om.setOrderStatusChan:
-				om.executeSetOrderStatusCmd(su.orderId, su.status, su.ResultChan)
+				om.executeSetOrderStatusCmd(ctx, su.orderId, su.status, su.ResultChan)
 			case em := <-om.setOrderErrMsgChan:
-				om.executeSetErrorMsg(em.orderId, em.msg, em.ResultChan)
+				om.executeSetErrorMsg(ctx, em.orderId, em.msg, em.ResultChan)
 			case tu := <-om.addExecChan:
-				om.executeUpdateTradedQntCmd(tu.orderId, tu.lastPrice, tu.lastQty, tu.execId, tu.ResultChan)
+				om.executeUpdateTradedQntCmd(ctx, tu.orderId, tu.lastPrice, tu.lastQty, tu.execId, tu.ResultChan)
 			}
 		}
 	}
@@ -196,10 +202,11 @@ func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 	return result.Error
 }
 
-func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model.Decimal64, lastQty model.Decimal64,
+func (om *orderManagerImpl) executeUpdateTradedQntCmd(ctx context.Context, id string, lastPrice model.Decimal64,
+	lastQty model.Decimal64,
 	execId string, resultChan chan errorCmdResult) {
 
-	order, exists, err:= om.orderStore.GetOrder(id)
+	order, exists, err := om.orderStore.GetOrder(id)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -221,12 +228,12 @@ func (om *orderManagerImpl) executeUpdateTradedQntCmd(id string, lastPrice model
 		return
 	}
 
-	err = om.orderStore.Store(order)
+	err = om.orderStore.Store(ctx, order)
 	resultChan <- errorCmdResult{Error: err}
 
 }
 
-func (om *orderManagerImpl) executeSetErrorMsg(id string, msg string, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeSetErrorMsg(ctx context.Context, id string, msg string, resultChan chan errorCmdResult) {
 
 	order, exists, err := om.orderStore.GetOrder(id)
 	if err != nil {
@@ -240,12 +247,12 @@ func (om *orderManagerImpl) executeSetErrorMsg(id string, msg string, resultChan
 
 	order.ErrorMessage = msg
 
-	err = om.orderStore.Store(order)
-
+	err = om.orderStore.Store(ctx, order)
 
 }
 
-func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.OrderStatus, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeSetOrderStatusCmd(ctx context.Context, id string, status model.OrderStatus,
+	resultChan chan errorCmdResult) {
 
 	order, exists, err := om.orderStore.GetOrder(id)
 	if err != nil {
@@ -264,15 +271,15 @@ func (om *orderManagerImpl) executeSetOrderStatusCmd(id string, status model.Ord
 		return
 	}
 
-	err = om.orderStore.Store(order)
+	err = om.orderStore.Store(ctx, order)
 
 	resultChan <- errorCmdResult{Error: err}
 
 }
 
-func (om *orderManagerImpl) executeModifyOrderCmd(params *api.ModifyOrderParams, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeModifyOrderCmd(ctx context.Context, params *api.ModifyOrderParams, resultChan chan errorCmdResult) {
 
-	order, exists,err := om.orderStore.GetOrder(params.OrderId)
+	order, exists, err := om.orderStore.GetOrder(params.OrderId)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -292,24 +299,29 @@ func (om *orderManagerImpl) executeModifyOrderCmd(params *api.ModifyOrderParams,
 	order.Price = params.Price
 	order.Quantity = params.Quantity
 
-	err = om.orderStore.Store(order)
+	err = om.orderStore.Store(ctx, order)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
 	}
 
-	listingChan := make(chan *model.Listing, 1)
-	om.getListing(params.ListingId, listingChan)
-	listing := <-listingChan
+	listingChan := make(chan staticdata.ListingResult, 1)
+	om.getListing(ctx, params.ListingId, listingChan)
+	listingResult := <-listingChan
+	if listingResult.Err != nil {
+		resultChan <- errorCmdResult{Error: listingResult.Err}
+		return
+	}
 
-	err = om.gateway.Modify(order, listing, params.Quantity, params.Price)
+	err = om.gateway.Modify(order, listingResult.Listing, params.Quantity, params.Price)
 
 	resultChan <- errorCmdResult{Error: err}
 }
 
-func (om *orderManagerImpl) executeCancelOrderCmd(params *api.CancelOrderParams, resultChan chan errorCmdResult) {
+func (om *orderManagerImpl) executeCancelOrderCmd(ctx context.Context,
+	params *api.CancelOrderParams, resultChan chan errorCmdResult) {
 
-	order, exists,err := om.orderStore.GetOrder(params.OrderId)
+	order, exists, err := om.orderStore.GetOrder(params.OrderId)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -326,7 +338,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(params *api.CancelOrderParams,
 		return
 	}
 
-	err = om.orderStore.Store(order)
+	err = om.orderStore.Store(ctx, order)
 	if err != nil {
 		resultChan <- errorCmdResult{Error: err}
 		return
@@ -337,7 +349,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(params *api.CancelOrderParams,
 	resultChan <- errorCmdResult{Error: err}
 }
 
-func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndRouteOrderParams,
+func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(ctx context.Context, params *api.CreateAndRouteOrderParams,
 	resultChan chan createAndRouteOrderCmdResult) {
 
 	uniqueId, err := uuid.NewUUID()
@@ -359,7 +371,7 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 		om.errLog.Printf("failed to set target status;%v", err)
 	}
 
-	err = om.orderStore.Store(order)
+	err = om.orderStore.Store(ctx, order)
 	if err != nil {
 		resultChan <- createAndRouteOrderCmdResult{
 			OrderId: nil,
@@ -369,11 +381,19 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(params *api.CreateAndR
 		return
 	}
 
-	listingChan := make(chan *model.Listing, 1)
-	om.getListing(params.ListingId, listingChan)
+	listingChan := make(chan staticdata.ListingResult, 1)
+	om.getListing(ctx, params.ListingId, listingChan)
 
-	listing := <-listingChan
-	err = om.gateway.Send(order, listing)
+	listingResult := <-listingChan
+	if listingResult.Err != nil {
+		resultChan <- createAndRouteOrderCmdResult{
+			OrderId: nil,
+			Error:   listingResult.Err,
+		}
+		return
+	}
+
+	err = om.gateway.Send(order, listingResult.Listing)
 
 	resultChan <- createAndRouteOrderCmdResult{
 		OrderId: &api.OrderId{

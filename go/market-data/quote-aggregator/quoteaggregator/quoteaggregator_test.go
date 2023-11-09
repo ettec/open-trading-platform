@@ -2,44 +2,22 @@ package quoteaggregator
 
 import (
 	"context"
-	"github.com/ettec/otp-common/api/marketdatasource"
 	"github.com/ettec/otp-common/model"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/connectivity"
-	"google.golang.org/grpc/metadata"
+	"github.com/ettec/otp-common/staticdata"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 )
 
-type testMdsQuoteStream struct {
-	subscribeChan chan int32
-	refreshChan   chan *model.ClobQuote
-}
-
-func newTestQuoteStream() *testMdsQuoteStream {
-	s := &testMdsQuoteStream{}
-	s.subscribeChan = make(chan int32, 10)
-	s.refreshChan = make(chan *model.ClobQuote)
-	return s
-}
-
-func (s *testMdsQuoteStream) Subscribe(listingId int32) {
-	s.subscribeChan <- listingId
-}
-
-func (s *testMdsQuoteStream) GetStream() <-chan *model.ClobQuote {
-	return s.refreshChan
-}
-
-func (s *testMdsQuoteStream) Close() {}
-
-func Test_quoteAggregator(t *testing.T) {
+func TestQuoteAggregation(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	mdsqs := newTestQuoteStream()
 
-	qa := New(func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+	qa := New(ctx, func(ctx context.Context, listingId int32, listingGroupsIn chan<- staticdata.ListingsResult) {
 		if listingId == 1 {
-			listingGroupsIn <- []*model.Listing{{
+			listingGroupsIn <- staticdata.ListingsResult{Listings: []*model.Listing{{
 				Version: 0,
 				Id:      1,
 				Market:  &model.Market{Mic: "XOSR"},
@@ -54,12 +32,13 @@ func Test_quoteAggregator(t *testing.T) {
 					Id:      3,
 					Market:  &model.Market{Mic: "XNAS"},
 				},
-			}
+			}}
 		}
 
 	}, mdsqs, 1000)
 
-	qa.Subscribe(1)
+	err := qa.Subscribe(1)
+	assert.NoError(t, err)
 
 	listingId := <-mdsqs.subscribeChan
 
@@ -90,7 +69,7 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-	q := <-qa.GetStream()
+	q := <-qa.Chan()
 
 	firstQuote := &model.ClobQuote{
 
@@ -130,7 +109,7 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-	q = <-qa.GetStream()
+	q = <-qa.Chan()
 
 	combinedQuote := &model.ClobQuote{
 		ListingId: 1,
@@ -176,7 +155,7 @@ func Test_quoteAggregator(t *testing.T) {
 		StreamStatusMsg:   "",
 	}
 
-	q = <-qa.GetStream()
+	q = <-qa.Chan()
 
 	combinedQuote = &model.ClobQuote{
 		ListingId: 1,
@@ -207,80 +186,7 @@ func Test_quoteAggregator(t *testing.T) {
 
 }
 
-type testConnection struct {
-	state        connectivity.State
-	getStateChan chan connectivity.State
-}
-
-func (t testConnection) GetState() connectivity.State {
-	t.state = <-t.getStateChan
-	return t.state
-}
-
-func (t testConnection) WaitForStateChange(ctx context.Context, sourceState connectivity.State) bool {
-
-	for {
-		if t.state != sourceState {
-			return true
-		}
-		t.state = <-t.getStateChan
-	}
-
-}
-
-type testClient struct {
-	streamOutChan chan marketdatasource.MarketDataSource_ConnectClient
-}
-
-func (t testClient) Connect(ctx context.Context, opts ...grpc.CallOption) (marketdatasource.MarketDataSource_ConnectClient, error) {
-	return <-t.streamOutChan, nil
-}
-
-type testClientStream struct {
-	refreshChan    chan *model.ClobQuote
-	refreshErrChan chan error
-	subscribeChan  chan *marketdatasource.SubscribeRequest
-}
-
-func (t testClientStream) Send(request *marketdatasource.SubscribeRequest) error {
-	t.subscribeChan <- request
-	return nil
-}
-
-func (t testClientStream) Recv() (*model.ClobQuote, error) {
-	select {
-	case r := <-t.refreshChan:
-		return r, nil
-	case e := <-t.refreshErrChan:
-		return nil, e
-	}
-}
-
-func (t testClientStream) Header() (metadata.MD, error) {
-	panic("implement me")
-}
-
-func (t testClientStream) Trailer() metadata.MD {
-	panic("implement me")
-}
-
-func (t testClientStream) CloseSend() error {
-	panic("implement me")
-}
-
-func (t testClientStream) Context() context.Context {
-	panic("implement me")
-}
-
-func (t testClientStream) SendMsg(m interface{}) error {
-	panic("implement me")
-}
-
-func (t testClientStream) RecvMsg(m interface{}) error {
-	panic("implement me")
-}
-
-func Test_combineQuotes(t *testing.T) {
+func TestCombineQuotes(t *testing.T) {
 	type args struct {
 		combinedListingId int32
 		quotes            []*model.ClobQuote
@@ -622,3 +528,26 @@ func Test_combineTradeData(t *testing.T) {
 func d64(mantissa int) *model.Decimal64 {
 	return &model.Decimal64{Mantissa: int64(mantissa), Exponent: 0}
 }
+
+type testMdsQuoteStream struct {
+	subscribeChan chan int32
+	refreshChan   chan *model.ClobQuote
+}
+
+func newTestQuoteStream() *testMdsQuoteStream {
+	s := &testMdsQuoteStream{}
+	s.subscribeChan = make(chan int32, 10)
+	s.refreshChan = make(chan *model.ClobQuote)
+	return s
+}
+
+func (s *testMdsQuoteStream) Subscribe(listingId int32) error {
+	s.subscribeChan <- listingId
+	return nil
+}
+
+func (s *testMdsQuoteStream) Chan() <-chan *model.ClobQuote {
+	return s.refreshChan
+}
+
+func (s *testMdsQuoteStream) Close() {}

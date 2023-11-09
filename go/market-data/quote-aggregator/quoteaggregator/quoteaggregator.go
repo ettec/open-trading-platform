@@ -1,55 +1,74 @@
 package quoteaggregator
 
 import (
+	"context"
 	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
-
+	"github.com/ettec/otp-common/staticdata"
+	"log/slog"
 )
 
+type getListingsWithSameInstrument = func(ctx context.Context, listingId int32, resultChan chan<- staticdata.ListingsResult)
+
 type quoteAggregator struct {
+	ctx             context.Context
 	getListings     getListingsWithSameInstrument
-	listingGroupsIn chan []*model.Listing
+	listingGroupsIn chan staticdata.ListingsResult
 	stream          chan *model.ClobQuote
-	closeChan       chan bool
+	cancel          context.CancelFunc
 }
 
-func (q quoteAggregator) GetStream() <-chan *model.ClobQuote {
+func (q *quoteAggregator) Chan() <-chan *model.ClobQuote {
 	return q.stream
 }
 
-func (q quoteAggregator) Close() {
-	q.closeChan <- true
+func (q *quoteAggregator) Subscribe(listingId int32) error {
+	q.getListingsWithSameInstrument(q.ctx, listingId)
+	return nil
 }
 
-type getListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
+func (q *quoteAggregator) Close() {
+	q.cancel()
+}
 
-func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream marketdata.MdsQuoteStream,
+func New(parentCtx context.Context, getListingsWithSameInstrument getListingsWithSameInstrument, stream marketdata.QuoteStream,
 	inboundListingsBufferSize int) *quoteAggregator {
 
-	qa := &quoteAggregator{
-		getListings:     getListingsWithSameInstrument,
-		listingGroupsIn: make(chan []*model.Listing, inboundListingsBufferSize),
-		stream:          make(chan *model.ClobQuote),
-		closeChan:       make(chan bool),
-	}
+	ctx, cancel := context.WithCancel(parentCtx)
 
+	qa := &quoteAggregator{
+		ctx:             ctx,
+		getListings:     getListingsWithSameInstrument,
+		listingGroupsIn: make(chan staticdata.ListingsResult, inboundListingsBufferSize),
+		stream:          make(chan *model.ClobQuote),
+		cancel:          cancel,
+	}
 
 	listingIdToQuoteChan := map[int32]chan<- *model.ClobQuote{}
 
 	go func() {
 		for {
 			select {
-			case <-qa.closeChan:
-				break
-			case listings := <-qa.listingGroupsIn:
+			case <-ctx.Done():
+				return
+			case q := <-stream.Chan():
+				listingIdToQuoteChan[q.ListingId] <- q
+			case listingsResult := <-qa.listingGroupsIn:
+				if listingsResult.Err != nil {
+					slog.Error("failed to get listings", "error", listingsResult.Err)
+					continue
+				}
+
 				quoteChan := make(chan *model.ClobQuote)
 				numStreams := 0
 				var quoteAggListingId int32 = -1
-				for _, listing := range listings {
+				for _, listing := range listingsResult.Listings {
 					if listing.Market.Mic != common.SR_MIC {
 						listingIdToQuoteChan[listing.Id] = quoteChan
-						stream.Subscribe(listing.Id)
+						if err := stream.Subscribe(listing.Id); err != nil {
+							slog.Error("failed to subscribe to quote stream", "listingId", listing.Id, "error", err)
+						}
 						numStreams++
 					} else {
 						quoteAggListingId = listing.Id
@@ -61,20 +80,20 @@ func New(getListingsWithSameInstrument getListingsWithSameInstrument, stream mar
 					quotes := make([]*model.ClobQuote, 0, numStreams)
 					for {
 						select {
+						case <-ctx.Done():
+							return
 						case q := <-quoteChan:
 							listingIdToLastQuote[q.ListingId] = q
 							quotes = quotes[:0]
 							for _, q := range listingIdToLastQuote {
 								quotes = append(quotes, q)
 							}
-							qa.stream <- combineQuotes(quoteAggListingId, quotes,q)
+							qa.stream <- combineQuotes(quoteAggListingId, quotes, q)
 						}
 					}
 				}()
-
-			case q := <-stream.GetStream():
-				listingIdToQuoteChan[q.ListingId] <- q
 			}
+
 		}
 	}()
 
@@ -117,9 +136,9 @@ func combineQuotes(combinedListingId int32, quotes []*model.ClobQuote, lastQuote
 		Offers:            offers,
 		StreamInterrupted: streamInterrupted,
 		StreamStatusMsg:   streamStatusMsg,
-		LastPrice: lastQuote.LastPrice,
-		LastQuantity: lastQuote.LastQuantity,
-		TradedVolume: tradedVolume,
+		LastPrice:         lastQuote.LastPrice,
+		LastQuantity:      lastQuote.LastQuantity,
+		TradedVolume:      tradedVolume,
 	}
 
 	return quote
@@ -162,10 +181,6 @@ func getCombinedLines(quotes []*model.ClobQuote, getQuoteLines func(quote *model
 	return result
 }
 
-func (q quoteAggregator) getListingsWithSameInstrument(listingId int32) {
-	q.getListings(listingId, q.listingGroupsIn)
-}
-
-func (q quoteAggregator) Subscribe(listingId int32) {
-	q.getListingsWithSameInstrument(listingId)
+func (q *quoteAggregator) getListingsWithSameInstrument(ctx context.Context, listingId int32) {
+	q.getListings(ctx, listingId, q.listingGroupsIn)
 }

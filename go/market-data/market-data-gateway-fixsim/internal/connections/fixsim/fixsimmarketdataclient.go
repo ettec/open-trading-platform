@@ -4,41 +4,38 @@ import (
 	"context"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/common"
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/fix/marketdata"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/metadata"
-	"log"
-	"os"
+	"log/slog"
 )
 
 type fixSimMarketDataClient struct {
-	conn              *grpc.ClientConn
 	subscriptionsChan chan string
-	log               *log.Logger
-	errLog            *log.Logger
+	out               chan *marketdata.MarketDataIncrementalRefresh
 }
 
-type getMarketSimConnectionFn = func(targetAddress string) (FixSimMarketDataServiceClient, GrpcConnection, error)
+func (fsc *fixSimMarketDataClient) Subscribe(symbol string) error {
+	fsc.subscriptionsChan <- symbol
+	return nil
+}
+
+func (fsc *fixSimMarketDataClient) Chan() <-chan *marketdata.MarketDataIncrementalRefresh {
+	return fsc.out
+}
 
 type GrpcConnection interface {
 	GetState() connectivity.State
 	WaitForStateChange(ctx context.Context, sourceState connectivity.State) bool
 }
 
-func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *marketdata.MarketDataIncrementalRefresh,
-	getConnection getMarketSimConnectionFn) (*fixSimMarketDataClient, error) {
+func NewFixSimMarketDataClient(ctx context.Context, id string, client FixSimMarketDataServiceClient, conn GrpcConnection,
+	outBufferSize int) (*fixSimMarketDataClient, error) {
 
-	fixClient := &fixSimMarketDataClient{
+	log := slog.Default()
+
+	mdClient := &fixSimMarketDataClient{
 		subscriptionsChan: make(chan string, 100),
-		log:               log.New(log.Writer(), "target:"+targetAddress+" ", log.Flags()),
-		errLog:            log.New(os.Stderr, "target:"+targetAddress+" ", log.Flags()),
-	}
-
-	log.Println("connecting to fix sim market data service at:" + targetAddress)
-
-	client, conn, err := getConnection(targetAddress)
-	if err != nil {
-		return nil, err
+		out:               make(chan *marketdata.MarketDataIncrementalRefresh, outBufferSize),
 	}
 
 	streamChan := make(chan FixSimMarketDataService_ConnectClient, 1)
@@ -53,21 +50,20 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 			case newStream := <-streamChan:
 				stream = newStream
 				if stream != nil {
-					fixClient.log.Printf("new stream connected, resubscribing to all listings")
+					log.Info("new stream connected, resubscribing to all listings")
 					for symbol := range subscriptions {
 						err := stream.Send(&marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: id}},
 							InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}})
 
 						if err != nil {
-							fixClient.errLog.Printf("failed to resubscribe to all quotes using new stream: %v", err)
+							log.Error("failed to resubscribe to quote", "symbol", symbol, "error", err)
 							break
 						}
 					}
 
-					fixClient.log.Printf("resubscribed to all %v quotes", len(subscriptions))
-
+					log.Info("resubscribed to all quotes", "numSubscriptions", len(subscriptions))
 				}
-			case symbol := <-fixClient.subscriptionsChan:
+			case symbol := <-mdClient.subscriptionsChan:
 				if !subscriptions[symbol] {
 					subscriptions[symbol] = true
 					if stream != nil {
@@ -75,7 +71,7 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 							InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}})
 
 						if err != nil {
-							fixClient.errLog.Printf("failed so subscribe to symbol %v, error:%v", symbol, err)
+							log.Error("failed so subscribe to quote", "symbol", symbol, "error", err)
 						}
 					}
 				}
@@ -86,49 +82,42 @@ func NewFixSimMarketDataClient(id string, targetAddress string, out chan<- *mark
 	}()
 
 	go func() {
-
+		defer close(mdClient.out)
 		for {
 			state := conn.GetState()
 			for state != connectivity.Ready {
-				fixClient.log.Printf("waiting for fix sim market data connection to be ready....")
+				log.Info("waiting for fix sim market data connection to be ready....")
 
-				conn.WaitForStateChange(context.Background(), state)
+				conn.WaitForStateChange(ctx, state)
 				state = conn.GetState()
-				fixClient.log.Println("market gateway connection state is:", state)
+				log.Info("market gateway connection state updated", "newState", state)
 			}
 
-			stream, err := client.Connect(metadata.AppendToOutgoingContext(context.Background(), "subscriber_id", id))
+			stream, err := client.Connect(metadata.AppendToOutgoingContext(ctx, "subscriber_id", id))
 			if err != nil {
-				fixClient.errLog.Println("failed to connect to quote stream:", err)
+				log.Error("failed to connect to fix market simulator", "error", err)
 				continue
 			}
 
-			fixClient.log.Println("connected to quote stream")
+			log.Info("connected to fix market simulator")
 
 			streamChan <- stream
 
 			for {
 				incRefresh, err := stream.Recv()
 				if err != nil {
-					fixClient.errLog.Println("inbound stream error:", err)
-					out <- nil
+					log.Error("error receiving from inbound stream", "error", err)
+					mdClient.out <- nil
 					break
+				} else {
+					mdClient.out <- incRefresh
 				}
-				out <- incRefresh
+
 			}
 
 			streamChan <- nil
 		}
 	}()
 
-	return fixClient, nil
-}
-
-func (fsc *fixSimMarketDataClient) close() error {
-	return fsc.conn.Close()
-}
-
-func (fsc *fixSimMarketDataClient) subscribe(symbol string) error {
-	fsc.subscriptionsChan <- symbol
-	return nil
+	return mdClient, nil
 }
