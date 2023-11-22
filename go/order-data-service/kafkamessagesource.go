@@ -6,7 +6,6 @@ import (
 	"time"
 )
 
-
 type KafkaMessageSource struct {
 	reader *kafka.Reader
 }

@@ -13,10 +13,13 @@ import (
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 	"log"
+	"log/slog"
 	"net"
 	"os"
+	"os/signal"
 	"strconv"
 	"strings"
+	"syscall"
 )
 
 type service struct {
@@ -33,9 +36,8 @@ func NewService(driverName, dbConnString string) (*service, error) {
 		return nil, fmt.Errorf("failed to open database connection: %w", err)
 	}
 
-	err = db.Ping()
-	if err != nil {
-		log.Fatal("could not establish a connection with the database: ", err)
+	if err = db.Ping(); err != nil {
+		return nil, fmt.Errorf("could not establish a connection with the database: %w", err)
 	}
 
 	return s, nil
@@ -50,19 +52,19 @@ func (s *service) GetListingsWithSameInstrument(c context.Context, id *api.Listi
 
 	listing, err := s.GetListing(c, id)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to fetch listing:%w", err)
 	}
 
 	lq := listingsSelect + " where instruments.id = " + strconv.Itoa(int(listing.Instrument.Id))
 
 	r, err := s.db.Query(lq)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
+		return nil, fmt.Errorf("failed to fetch listings:%w", err)
 	}
 
 	result, err := hydrateListings(r)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to hydrate listings:%w", err)
 	}
 
 	return result, nil
@@ -75,12 +77,12 @@ func (s *service) GetListingMatching(_ context.Context, m *api.ExactMatchParamet
 
 	r, err := s.db.Query(lq)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch listings from database:%w", err)
+		return nil, fmt.Errorf("failed to fetch listings:%w", err)
 	}
 
 	result, err := hydrateListings(r)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to hydrate listings:%w", err)
 	}
 
 	if len(result.Listings) == 0 {
@@ -105,7 +107,7 @@ func (s *service) GetListingsMatching(_ context.Context, m *api.MatchParameters)
 
 	result, err := hydrateListings(r)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to hydrate listings:%w", err)
 	}
 
 	return result, nil
@@ -121,7 +123,7 @@ func (s *service) GetListing(_ context.Context, id *api.ListingId) (*model.Listi
 
 	result, err := hydrateListings(r)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to hydrate listings:%w", err)
 	}
 
 	if len(result.Listings) != 1 {
@@ -143,7 +145,7 @@ func (s *service) GetListings(_ context.Context, ids *api.ListingIds) (*api.List
 
 	result, err := hydrateListings(r)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to hydrate listings:%w", err)
 	}
 
 	return result, nil
@@ -151,9 +153,8 @@ func (s *service) GetListings(_ context.Context, ids *api.ListingIds) (*api.List
 
 func (s *service) Close() {
 	if s.db != nil {
-		err := s.db.Close()
-		if err != nil {
-			log.Printf("erron closing database connection %v", err)
+		if err := s.db.Close(); err != nil {
+			slog.Error("error when closing database connection", "error", err)
 		}
 	}
 }
@@ -172,7 +173,7 @@ func hydrateListings(r *sql.Rows) (*api.Listings, error) {
 		err := r.Scan(&l.Id, &l.MarketSymbol, &l.Market.Id, &l.Market.Name, &l.Market.Mic, &l.Market.CountryCode,
 			&l.Instrument.Id, &l.Instrument.Name, &l.Instrument.DisplaySymbol, &l.Instrument.Enabled)
 		if err != nil {
-			return nil, fmt.Errorf("failed to marshal database row into listing %w", err)
+			return nil, fmt.Errorf("failed to scan database row into listing %w", err)
 		}
 
 		l.SizeIncrement = &model.Decimal64{
@@ -212,8 +213,7 @@ func hydrateListings(r *sql.Rows) (*api.Listings, error) {
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	dbString := bootstrap.GetEnvVar("DB_CONN_STRING")
 	dbDriverName := bootstrap.GetEnvVar("DB_DRIVER_NAME")
@@ -225,22 +225,31 @@ func main() {
 		log.Panicf("Error while listening : %v", err)
 	}
 
-	service, err := NewService(dbDriverName, dbString)
+	staticDataService, err := NewService(dbDriverName, dbString)
 	if err != nil {
 		log.Panicf("failed to create service: %v", err)
 	}
-	defer service.Close()
+	defer staticDataService.Close()
 
 	s := grpc.NewServer()
-	api.RegisterStaticDataServiceServer(s, service)
+	api.RegisterStaticDataServiceServer(s, staticDataService)
 
 	reflection.Register(s)
 
-	fmt.Println("Starting static data service on port:" + port)
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
+
+	slog.Info("Starting static data service", "port", port)
 
 	if err := s.Serve(lis); err != nil {
 		log.Panicf("Error while serving : %v", err)
 	}
 
 }
-

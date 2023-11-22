@@ -9,6 +9,9 @@ import (
 	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/orderstore"
 	"github.com/ettec/otp-common/staticdata"
+	"log/slog"
+	"os/signal"
+	"syscall"
 
 	"github.com/ettec/otp-common/bootstrap"
 
@@ -25,13 +28,10 @@ import (
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime | log.Lshortfile)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	kafkaBrokers := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	id := bootstrap.GetEnvVar("ID")
-
-	s := grpc.NewServer()
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -62,37 +62,44 @@ func main() {
 
 	gateway := fixgateway.NewFixOrderGateway(sessionID)
 
-	om := executionvenue.NewOrderManager(ctx, orderCache, gateway, sds.GetListing)
+	om := executionvenue.NewOrderManager(ctx, orderCache, gateway, sds.GetListing,
+		bootstrap.GetOptionalIntEnvVar("ORDER_MANAGER_CMD_BUFFER_SIZE", 100))
 
-	fixServerCloseChan := make(chan struct{})
-	err = createFixGateway(fixServerCloseChan, sessionID, om)
+	closeFixGatewayFn, err := createFixGateway(sessionID, om)
 	if err != nil {
-		panic(fmt.Errorf("failed to create fix gateway: %v", err))
+		log.Panicf("failed to create fix gateway: %v", err)
 	}
-
-	defer func() { fixServerCloseChan <- struct{}{} }()
+	defer closeFixGatewayFn()
 
 	service := executionvenue.New(om)
-	defer service.Close()
 
+	s := grpc.NewServer()
 	api.RegisterExecutionVenueServer(s, service)
 
 	reflection.Register(s)
 
 	port := "50551"
-	fmt.Println("Starting Execution Venue Service on port:" + port)
+	slog.Info("Starting Execution Venue Service", "port", port)
 
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
 
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("error   while serving : %v", err)
+		log.Panicf("error   while serving : %v", err)
 	}
-
-	fmt.Println("Exiting execution venue service")
 }
 
 func getFixConfig(sessionId quickfix.SessionID) string {
@@ -135,38 +142,31 @@ func getFixConfig(sessionId quickfix.SessionID) string {
 	return template
 }
 
-func createFixGateway(done chan struct{}, id quickfix.SessionID, handler fixgateway.OrderHandler) error {
+func createFixGateway(id quickfix.SessionID, handler fixgateway.OrderHandler) (close func(), err error) {
 
 	fixConfig := getFixConfig(id)
 
 	app := fixgateway.NewFixHandler(id, handler)
 
-	log.Printf("Creating fix engine with config: %v", fixConfig)
+	slog.Info("Creating fix engine", "config", fixConfig)
 
 	appSettings, err := quickfix.ParseSettings(strings.NewReader(fixConfig))
 	if err != nil {
-		return fmt.Errorf("failed parse config: %v", err)
+		return nil, fmt.Errorf("failed parse config: %w", err)
 	}
 	storeFactory := quickfix.NewFileStoreFactory(appSettings)
 	logFactory, err := quickfix.NewFileLogFactory(appSettings)
 	if err != nil {
-		return fmt.Errorf("failed to create logFactory: %v", err)
+		return nil, fmt.Errorf("failed to create logFactory: %w", err)
 	}
 	initiator, err := quickfix.NewInitiator(app, storeFactory, appSettings, logFactory)
 	if err != nil {
-		return fmt.Errorf("failed to create initiator: %v", err)
+		return nil, fmt.Errorf("failed to create initiator: %w", err)
 	}
 
-	go func() {
-		err = initiator.Start()
-		if err != nil {
-			panic(fmt.Errorf("failed to start the fix engine: %v", err))
-		}
+	if err = initiator.Start(); err != nil {
+		return nil, fmt.Errorf("failed to start the fix engine: %w", err)
+	}
 
-		<-done
-
-		defer initiator.Stop()
-	}()
-
-	return nil
+	return initiator.Stop, nil
 }

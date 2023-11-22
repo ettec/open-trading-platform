@@ -15,13 +15,13 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"log"
+	"log/slog"
 	"net"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 )
-
-var logFlags = log.Ltime | log.Lshortfile
-var errLog = log.New(os.Stderr, "", logFlags)
 
 type user struct {
 	id              string
@@ -34,7 +34,7 @@ type authService struct {
 	users map[string]user
 }
 
-func (a authService) Login(_ context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
+func (a *authService) Login(_ context.Context, params *loginservice.LoginParams) (*loginservice.Token, error) {
 
 	log.Printf("logging in")
 
@@ -53,7 +53,7 @@ func (a *authService) Check(_ context.Context, req *auth.CheckRequest) (*auth.Ch
 	path, ok := req.Attributes.Request.Http.Headers[":path"]
 
 	if ok && strings.HasPrefix(path, "/loginservice.LoginService") {
-		log.Printf("permitted login for path:%v", path)
+		slog.Info("permitted login for path", "path", path)
 		return newOkResponse(), nil
 	}
 
@@ -147,8 +147,7 @@ const (
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(logFlags)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	dbString := bootstrap.GetEnvVar(DatabaseConnectionString)
 	dbDriverName := bootstrap.GetEnvVar(DatabaseDriverName)
@@ -159,13 +158,13 @@ func main() {
 	}
 	defer func() {
 		if err := db.Close(); err != nil {
-			errLog.Printf("error when closing database connection: %v", err)
+			slog.Error("error when closing database connection", "error", err)
 		}
 	}()
 
 	err = db.Ping()
 	if err != nil {
-		log.Panic("could not establish a connection with the database: ", err)
+		log.Panicf("could not establish a connection with the database: %v", err)
 	}
 
 	r, err := db.Query("SELECT id, desk, permissionflags FROM users.users")
@@ -184,24 +183,35 @@ func main() {
 		users[u.id] = u
 	}
 
-	log.Printf("loaded %v users", len(users))
+	slog.Info("loaded users", "userCount", len(users))
 
 	authServer := &authService{users: users}
 
 	go func() {
+
 		loginPort := "50551"
 		lis, err := net.Listen("tcp", ":"+loginPort)
 		if err != nil {
 			log.Panicf("failed to listen: %v", err)
 		}
-		log.Printf("listening on %s", lis.Addr())
+		slog.Info("authentication server listening", "listenAddress", lis.Addr())
 
-		grpcServer := grpc.NewServer()
-		loginservice.RegisterLoginServiceServer(grpcServer, authServer)
+		authenticationGrpcServer := grpc.NewServer()
+		loginservice.RegisterLoginServiceServer(authenticationGrpcServer, authServer)
 
-		log.Print("starting login server of port:", loginPort)
-		if err := grpcServer.Serve(lis); err != nil {
-			log.Fatalf("Failed to start server: %v", err)
+		sigCh := make(chan os.Signal, 1)
+		signal.Notify(sigCh,
+			syscall.SIGKILL,
+			syscall.SIGTERM,
+			syscall.SIGQUIT)
+		go func() {
+			<-sigCh
+			authenticationGrpcServer.GracefulStop()
+		}()
+
+		slog.Info("starting authentication server", "port", loginPort)
+		if err := authenticationGrpcServer.Serve(lis); err != nil {
+			log.Panicf("Failed to start authentication server: %v", err)
 		}
 	}()
 
@@ -210,15 +220,25 @@ func main() {
 	if err != nil {
 		log.Panicf("failed to listen: %v", err)
 	}
-	log.Printf("listening on %s", lis.Addr())
+	slog.Info("authorisation server listening", "listenAddress", lis.Addr())
 
 	grpcServer := grpc.NewServer()
 
 	auth.RegisterAuthorizationServer(grpcServer, authServer)
 
-	log.Print("starting authorization server of port:", authPort)
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		grpcServer.GracefulStop()
+	}()
+
+	slog.Info("starting authorization server", "port", authPort)
 	if err := grpcServer.Serve(lis); err != nil {
-		log.Panicf("Failed to start server: %v", err)
+		log.Panicf("Failed to start authorization server: %v", err)
 	}
 
 }

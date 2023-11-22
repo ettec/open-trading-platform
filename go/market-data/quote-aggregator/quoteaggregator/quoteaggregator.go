@@ -12,19 +12,19 @@ import (
 type getListingsWithSameInstrument = func(ctx context.Context, listingId int32, resultChan chan<- staticdata.ListingsResult)
 
 type quoteAggregator struct {
-	ctx             context.Context
-	getListings     getListingsWithSameInstrument
-	listingGroupsIn chan staticdata.ListingsResult
-	stream          chan *model.ClobQuote
-	cancel          context.CancelFunc
+	ctx                           context.Context
+	cancel                        context.CancelFunc
+	getListingsWithSameInstrument getListingsWithSameInstrument
+	listingGroupsIn               chan staticdata.ListingsResult
+	outChan                       chan *model.ClobQuote
 }
 
 func (q *quoteAggregator) Chan() <-chan *model.ClobQuote {
-	return q.stream
+	return q.outChan
 }
 
 func (q *quoteAggregator) Subscribe(listingId int32) error {
-	q.getListingsWithSameInstrument(q.ctx, listingId)
+	q.getListingsWithSameInstrument(q.ctx, listingId, q.listingGroupsIn)
 	return nil
 }
 
@@ -32,22 +32,23 @@ func (q *quoteAggregator) Close() {
 	q.cancel()
 }
 
-func New(parentCtx context.Context, getListingsWithSameInstrument getListingsWithSameInstrument, stream marketdata.QuoteStream,
+func New(ctx context.Context, getListingsWithSameInstrument getListingsWithSameInstrument, stream marketdata.QuoteStream,
 	inboundListingsBufferSize int) *quoteAggregator {
 
-	ctx, cancel := context.WithCancel(parentCtx)
+	ctx, cancel := context.WithCancel(ctx)
 
 	qa := &quoteAggregator{
-		ctx:             ctx,
-		getListings:     getListingsWithSameInstrument,
-		listingGroupsIn: make(chan staticdata.ListingsResult, inboundListingsBufferSize),
-		stream:          make(chan *model.ClobQuote),
-		cancel:          cancel,
+		ctx:                           ctx,
+		cancel:                        cancel,
+		getListingsWithSameInstrument: getListingsWithSameInstrument,
+		listingGroupsIn:               make(chan staticdata.ListingsResult, inboundListingsBufferSize),
+		outChan:                       make(chan *model.ClobQuote),
 	}
 
-	listingIdToQuoteChan := map[int32]chan<- *model.ClobQuote{}
-
 	go func() {
+		listingIdToQuoteChan := map[int32]chan<- *model.ClobQuote{}
+		subscribedListings := map[int32]bool{}
+
 		for {
 			select {
 			case <-ctx.Done():
@@ -60,9 +61,21 @@ func New(parentCtx context.Context, getListingsWithSameInstrument getListingsWit
 					continue
 				}
 
+				var quoteAggListingId int32 = -1
+				for _, listing := range listingsResult.Listings {
+					if listing.Market.Mic == common.SR_MIC {
+						quoteAggListingId = listing.Id
+						if _, ok := subscribedListings[listing.Id]; ok {
+							slog.Warn("already subscribed to quote stream", "listingId", listing.Id)
+							continue
+						} else {
+							subscribedListings[listing.Id] = true
+						}
+					}
+				}
+
 				quoteChan := make(chan *model.ClobQuote)
 				numStreams := 0
-				var quoteAggListingId int32 = -1
 				for _, listing := range listingsResult.Listings {
 					if listing.Market.Mic != common.SR_MIC {
 						listingIdToQuoteChan[listing.Id] = quoteChan
@@ -70,8 +83,6 @@ func New(parentCtx context.Context, getListingsWithSameInstrument getListingsWit
 							slog.Error("failed to subscribe to quote stream", "listingId", listing.Id, "error", err)
 						}
 						numStreams++
-					} else {
-						quoteAggListingId = listing.Id
 					}
 				}
 
@@ -88,7 +99,7 @@ func New(parentCtx context.Context, getListingsWithSameInstrument getListingsWit
 							for _, q := range listingIdToLastQuote {
 								quotes = append(quotes, q)
 							}
-							qa.stream <- combineQuotes(quoteAggListingId, quotes, q)
+							qa.outChan <- combineQuotes(quoteAggListingId, quotes, q)
 						}
 					}
 				}()
@@ -179,8 +190,4 @@ func getCombinedLines(quotes []*model.ClobQuote, getQuoteLines func(quote *model
 
 	}
 	return result
-}
-
-func (q *quoteAggregator) getListingsWithSameInstrument(ctx context.Context, listingId int32) {
-	q.getListings(ctx, listingId, q.listingGroupsIn)
 }

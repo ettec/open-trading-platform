@@ -3,7 +3,7 @@ module github.com/ettec/open-trading-platform/go/smart-router
 go 1.21
 
 require (
-	github.com/ettec/otp-common v1.4.0
+	github.com/ettec/otp-common v1.4.2
 	github.com/google/uuid v1.1.1
 	google.golang.org/grpc v1.25.1
 )

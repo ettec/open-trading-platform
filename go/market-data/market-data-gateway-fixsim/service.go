@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"github.com/ettec/otp-common/api/marketdatasource"
 	"github.com/ettec/otp-common/bootstrap"
+	"log/slog"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/ettec/open-trading-platform/go/market-data/market-data-gateway-fixsim/internal/connections/fixsim"
 	md "github.com/ettec/otp-common/marketdata"
@@ -55,8 +58,7 @@ func newService(ctx context.Context, id string, fixSimAddress string, maxReconne
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime | log.Lshortfile)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	id := bootstrap.GetEnvVar("GATEWAY_ID")
 	fixSimAddress := bootstrap.GetEnvVar("FIX_SIM_ADDRESS")
@@ -65,11 +67,16 @@ func main() {
 	clientQuoteBufferSize := bootstrap.GetOptionalIntEnvVar("CLIENT_QUOTE_BUFFER_SIZE", 1000)
 
 	port := "50551"
-	fmt.Println("Starting Market Data Gateway on port:" + port)
+	slog.Info("Starting Market Data Gateway", "port", port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	http.Handle("/metrics", promhttp.Handler())
-	go http.ListenAndServe(":8080", nil)
+	go func() {
+		err := http.ListenAndServe(":8080", nil)
+		if err != nil {
+			log.Panicf("Error while serving metrics: %v", err)
+		}
+	}()
 
 	if err != nil {
 		log.Panicf("Error while listening : %v", err)
@@ -89,6 +96,17 @@ func main() {
 	marketdatasource.RegisterMarketDataSourceServer(s, service)
 
 	reflection.Register(s)
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
+
 	if err := s.Serve(lis); err != nil {
 		log.Panicf("Error while serving : %v", err)
 	}

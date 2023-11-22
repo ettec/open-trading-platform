@@ -14,15 +14,22 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	"log"
+	"log/slog"
 	"net"
 	"os"
+	"os/signal"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 )
 
-var logFlags = log.Ltime|log.Lshortfile
-var errLog = log.New(os.Stderr,"", logFlags)
+type orderAndWriteTime struct {
+	order     *model.Order
+	writeTime time.Time
+}
+
+const maxInitialOrderConflationInterval = 500 * time.Millisecond
 
 type service struct {
 	orderSubscriptions sync.Map
@@ -31,61 +38,74 @@ type service struct {
 	toClientBufferSize int
 }
 
-type orderAndWriteTime struct {
-	order     *model.Order
-	writeTime time.Time
-}
-
-
-type Source interface {
-	ReadMessage(ctx context.Context) (key []byte, value []byte, writeTime time.Time, err error)
-	Close() error
-}
-
-const maxInitialOrderConflationInterval = 500 * time.Millisecond
-
 func (s *service) SubscribeToOrdersWithRootOriginatorId(request *api.SubscribeToOrdersWithRootOriginatorIdArgs, stream api.OrderDataService_SubscribeToOrdersWithRootOriginatorIdServer) error {
 	username, appInstanceId, err := getMetaData(stream.Context())
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to get metadata, error:%w", err)
 	}
-	after := &model.Timestamp{Seconds: s.ordersAfter.Unix()}
+	streamLog := slog.With("appInstanceId", appInstanceId, "topic", common.ORDERS_TOPIC)
 
-	log.Printf("subscribe to orders from app instance id:%v, user:%v, args:%v", appInstanceId, username, request)
+	ordersAfter := &model.Timestamp{Seconds: s.ordersAfter.Unix()}
 
 	_, exists := s.orderSubscriptions.LoadOrStore(appInstanceId, appInstanceId)
 	if !exists {
-
-		defer s.orderSubscriptions.Delete(appInstanceId)
-
-		out := make(chan orderAndWriteTime, 1000)
-
-		
-		go func() {
-			source := NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
-			defer func() {
-				if err := source.Close(); err != nil {
-					errLog.Printf("error when closing kafka message source:%v", err)
-				}
-			}()
-			streamOrderTopic(common.ORDERS_TOPIC, source, appInstanceId, out, after, request.RootOriginatorId)
-			
+		defer func() {
+			s.orderSubscriptions.Delete(appInstanceId)
+			slog.Info("unsubscribed from order updates")
 		}()
 
-		err := sendUpdates(out, stream.Send)
-		if err != nil {
-			return err
+		slog.Info("subscribing to order updates", "username", username, "request", request)
+		orderUpdatesChan := s.getOrderUpdatesChan(stream.Context(), streamLog, request.RootOriginatorId, ordersAfter)
+		if err = sendOrderUpdates(stream.Context(), orderUpdatesChan, stream.Send); err != nil {
+			return fmt.Errorf("failed to send order updates:%w", err)
 		}
-
 	} else {
-		return fmt.Errorf("subscription to orders already exists for application instance id %v", appInstanceId)
+		slog.Warn("subscription already exists, ignoring subscription request")
+		return fmt.Errorf("subscription to orders already exists for application instance id %s", appInstanceId)
 	}
 
 	return nil
-
 }
 
-func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) error {
+func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.OrderHistory, error) {
+	_, _, err := getMetaData(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get metadata, error:%w", err)
+	}
+
+	reader := NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
+	defer func() {
+		if err := reader.Close(); err != nil {
+			slog.Error("error when closing kafka message source", "error", err)
+		}
+	}()
+
+	var updates []*api.OrderUpdate
+	for {
+		key, value, writeTime, err := reader.ReadMessage(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to read message:%w", err)
+		}
+
+		orderId := string(key)
+		if orderId == args.OrderId {
+			order := &model.Order{}
+			err = proto.Unmarshal(value, order)
+			if err != nil {
+				return nil, fmt.Errorf("failed to unmarshal order:%w", err)
+			}
+			updates = append(updates, &api.OrderUpdate{
+				Order: order,
+				Time:  model.NewTimeStamp(writeTime),
+			})
+			if order.Version >= args.ToVersion {
+				return &api.OrderHistory{Updates: updates}, nil
+			}
+		}
+	}
+}
+
+func sendOrderUpdates(ctx context.Context, in <-chan orderAndWriteTime, send func(*model.Order) error) error {
 
 	firstOrder := true
 	startTime := time.Time{}
@@ -93,6 +113,7 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 	conflatingInitialOrderState := true
 
 	ticker := time.NewTicker(maxInitialOrderConflationInterval)
+	defer ticker.Stop()
 	tickerChan := ticker.C
 	var lastReceivedTime time.Time
 	var lastReceivedOrder *orderAndWriteTime
@@ -100,13 +121,14 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 	for {
 
 		select {
-		case oat, ok := <-out:
+		case <-ctx.Done():
+			return nil
+		case oat, ok := <-in:
 			if !ok {
 				return errors.New("inbound channel closed")
 			}
 
 			if conflatingInitialOrderState {
-
 				if firstOrder {
 					firstOrder = false
 					startTime = time.Now()
@@ -129,17 +151,15 @@ func sendUpdates(out chan orderAndWriteTime, send func(*model.Order) error) erro
 				continue
 			}
 
-			err := send(oat.order)
-			if err != nil {
-				return fmt.Errorf("failed to send order, closing connection, error:%v", err)
+			if err := send(oat.order); err != nil {
+				return fmt.Errorf("failed to send order:%w", err)
 			}
 		case <-tickerChan:
 			conflatingInitialOrderState = conflatingOrders(startTime, lastReceivedOrder, lastReceivedTime)
 			if !conflatingInitialOrderState {
 				ticker.Stop()
-				err := sendConflatedOrders(send, conflatedOrders)
-				if err != nil {
-					return err
+				if err := sendConflatedOrders(send, conflatedOrders); err != nil {
+					return fmt.Errorf("failed to send conflated orders: %w", err)
 				}
 			}
 		}
@@ -166,44 +186,6 @@ func conflatingOrders(startTime time.Time, lastReceivedOrder *orderAndWriteTime,
 	now := time.Now()
 
 	return lastReceivedOrder.writeTime.Before(startTime) && now.Sub(lastReceivedTime) < maxInitialOrderConflationInterval
-}
-
-func (s *service) GetOrderHistory(ctx context.Context, args *api.GetOrderHistoryArgs) (*api.OrderHistory, error) {
-	_, _, err := getMetaData(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	reader := NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
-	defer func() {
-		if err := reader.Close(); err != nil {
-			errLog.Printf("error when closing kafka message source:%v", err)
-		}
-	}()
-
-	var updates []*api.OrderUpdate
-	for {
-		key, value, writeTime, err := reader.ReadMessage(ctx)
-		if err != nil {
-			return nil, err
-		}
-
-		orderId := string(key)
-		if orderId == args.OrderId {
-			order := &model.Order{}
-			err = proto.Unmarshal(value, order)
-			if err != nil {
-				return nil, err
-			}
-			updates = append(updates, &api.OrderUpdate{
-				Order: order,
-				Time:  model.NewTimeStamp(writeTime),
-			})
-			if order.Version >= args.ToVersion {
-				return &api.OrderHistory{Updates: updates}, nil
-			}
-		}
-	}
 }
 
 func newService(toClientBufferSize int) *service {
@@ -242,66 +224,78 @@ func getMetaData(ctx context.Context) (username string, appInstanceId string, er
 	return username, appInstanceId, nil
 }
 
-func streamOrderTopic(topic string, reader Source, appInstanceId string,
-	out chan<- orderAndWriteTime, after *model.Timestamp, rootOriginatorId string) {
+func (s *service) getOrderUpdatesChan(ctx context.Context, streamLog *slog.Logger, forRootOriginatorId string, after *model.Timestamp) <-chan orderAndWriteTime {
 
-	for {
-		_, value, writeTime, err := reader.ReadMessage(context.Background())
+	out := make(chan orderAndWriteTime, s.toClientBufferSize)
 
-		if err != nil {
-			logTopicReadError(appInstanceId, topic, err)
-			return
-		}
+	go func() {
+		defer close(out)
+		reader := NewKafkaMessageSource(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, s.kafkaBrokers))
+		defer func() {
+			if err := reader.Close(); err != nil {
+				slog.Error("error when closing kafka message source", "error", err)
+			}
+		}()
 
-		order := &model.Order{}
-		err = proto.Unmarshal(value, order)
-		if err != nil {
-			logTopicReadError(appInstanceId, topic, err)
-			close(out)
-			return
-		}
+		for {
+			_, value, writeTime, err := reader.ReadMessage(ctx)
+			if err != nil {
+				streamLog.Error("failed to read message", "error", err)
+				return
+			}
 
-		if order.Created != nil && order.Created.After(after) && order.RootOriginatorId == rootOriginatorId {
-			out <- orderAndWriteTime{
-				order:     order,
-				writeTime: writeTime,
+			order := &model.Order{}
+			err = proto.Unmarshal(value, order)
+			if err != nil {
+				streamLog.Error("failed to unmarshal order", "error", err)
+				return
+			}
+
+			if order.Created != nil && order.Created.After(after) && order.RootOriginatorId == forRootOriginatorId {
+				out <- orderAndWriteTime{
+					order:     order,
+					writeTime: writeTime,
+				}
 			}
 		}
-	}
-}
+	}()
 
-func logTopicReadError(appInstanceId string, topic string, err error) {
-	errLog.Printf("AppInstanceId: %v, Topic: %v, error occurred whilt attempting to stream message: %v", appInstanceId,
-		topic, err)
+	return out
 }
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(logFlags)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	toClientBufferSize := bootstrap.GetOptionalIntEnvVar("TO_CLIENT_BUFFER_SIZE", 1000)
 
 	port := "50551"
-	fmt.Println("Starting view service on port:" + port)
+	slog.Info("Starting order data service", "port", port)
 	listener, err := net.Listen("tcp", "0.0.0.0:"+port)
-
-	defer func() {
-		if err := listener.Close(); err != nil {
-			errLog.Printf("error when closing listener:%v", err)
-		}
-	}()
-
 	if err != nil {
 		log.Panicf("Error while listening : %v", err)
 	}
 
+	defer func() {
+		if err := listener.Close(); err != nil {
+			slog.Error("error when closing listener", "error", err)
+		}
+	}()
+
 	s := grpc.NewServer()
-	defer s.Stop()
-
 	api.RegisterOrderDataServiceServer(s, newService(toClientBufferSize))
-
 	reflection.Register(s)
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
+
 	if err := s.Serve(listener); err != nil {
 		log.Panicf("Error while serving : %v", err)
 	}

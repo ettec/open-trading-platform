@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	common "github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/api"
 	"github.com/ettec/otp-common/api/executionvenue"
@@ -11,7 +10,10 @@ import (
 	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettec/otp-common/strategy"
+	"log/slog"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/ettec/otp-common/bootstrap"
@@ -27,15 +29,12 @@ import (
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime | log.Lshortfile)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	id := bootstrap.GetEnvVar("ID")
 
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
-
-	s := grpc.NewServer()
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
@@ -89,17 +88,27 @@ func main() {
 		log.Panicf("failed to create strategy manager: %v", err)
 	}
 
+	s := grpc.NewServer()
 	executionvenue.RegisterExecutionVenueServer(s, sm)
-
 	reflection.Register(s)
 
 	port := "50551"
-	fmt.Println("Starting Smart Router on port:" + port)
+	slog.Info("Starting Smart Router", "port", port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
 		log.Panicf("failed to listen on port %s : %v", port, err)
 	}
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
 
 	if err := s.Serve(lis); err != nil {
 		log.Panicf("error while serving: %v", err)

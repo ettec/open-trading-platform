@@ -61,7 +61,10 @@ func main() {
 		log.Panic("Error: Could not establish a connection with the database")
 	}
 
-	db.Exec(`set search_path="referencedata"`)
+	_, err = db.Exec(`set search_path="referencedata"`)
+	if err != nil {
+		log.Panicf("Failed to set search path:%v", err)
+	}
 
 	for _, iexInst := range iexInstruments {
 
@@ -79,7 +82,9 @@ func main() {
 		sql := "INSERT INTO instruments (name, display_symbol, enabled, raw_sources) VALUES ($1, $2, $3, $4) RETURNING id"
 
 		lastInsertId := 0
-		err = db.QueryRow(sql, iexInst.Name, iexInst.Symbol, iexInst.IsEnabled, jsonStr).Scan(&lastInsertId)
+		if err = db.QueryRow(sql, iexInst.Name, iexInst.Symbol, iexInst.IsEnabled, jsonStr).Scan(&lastInsertId); err != nil {
+			log.Printf("Failed to insert instrument:%v", err)
+		}
 
 	}
 
