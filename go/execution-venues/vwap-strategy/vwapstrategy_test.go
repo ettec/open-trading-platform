@@ -3,23 +3,18 @@ package main
 import (
 	"encoding/json"
 	"github.com/ettec/otp-common/model"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 )
-
-
-
-type response2 struct {
-	Page   int      `json:"page"`
-	Fruits []string `json:"fruits"`
-}
 
 func Test_paramsUnmarshal(t *testing.T) {
 
 	jsonStr := `{"UtcStartTimeSecs":1598718201,"UtcEndTimeSecs":1598718261,"Buckets":10}`
 
 	vwapParameters := &vwapParameters{}
-	json.Unmarshal([]byte(jsonStr), vwapParameters)
+	err := json.Unmarshal([]byte(jsonStr), vwapParameters)
+	assert.NoError(t, err)
 
 	if vwapParameters.UtcStartTimeSecs != 1598718201 {
 		t.FailNow()
@@ -63,7 +58,7 @@ func Test_getBuckets(t *testing.T) {
 				},
 			},
 
-			[]bucket{bucket{
+			[]bucket{{
 				quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 0, utcEndTimeSecs: 3,
 			},
 				{
@@ -91,7 +86,7 @@ func Test_getBuckets(t *testing.T) {
 				},
 			},
 
-			[]bucket{bucket{
+			[]bucket{{
 				quantity: model.Decimal64{Mantissa: 2}, utcStartTimeSecs: 0, utcEndTimeSecs: 3,
 			},
 				{
@@ -119,7 +114,7 @@ func Test_getBuckets(t *testing.T) {
 				},
 			},
 
-			[]bucket{bucket{
+			[]bucket{{
 				quantity: model.Decimal64{Mantissa: 4}, utcStartTimeSecs: 0, utcEndTimeSecs: 2,
 			},
 				{
@@ -139,4 +134,3 @@ func Test_getBuckets(t *testing.T) {
 		})
 	}
 }
-

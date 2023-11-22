@@ -4,6 +4,7 @@ import (
 	"context"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettec/otp-common/strategy"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
@@ -63,7 +64,7 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 
 	client := &testEvClient{}
 
-	om := strategy.NewStrategyFromParentOrder(mo, func(order *model.Order) error {
+	om := strategy.NewStrategyFromParentOrder(mo, func(ctx context.Context, order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 
@@ -73,13 +74,12 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 		t.FailNow()
 	}
 
-
 	expectedParams := []*api.CreateAndRouteOrderParams{{
 		OrderSide:         model.Side_SELL,
 		Quantity:          model.IasD(10),
 		Price:             model.IasD(150),
 		ListingId:         listing1.Id,
-		Destination: "XNAS",
+		Destination:       "XNAS",
 		OriginatorId:      evId,
 		OriginatorRef:     orderId,
 		RootOriginatorId:  "ri",
@@ -89,8 +89,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 			OrderSide:         model.Side_SELL,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(140),
-			ListingId:           listing2.Id,
-			Destination: "XNAS",
+			ListingId:         listing2.Id,
+			Destination:       "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -100,8 +100,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 			OrderSide:         model.Side_SELL,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(130),
-			ListingId:           listing1.Id,
-			Destination: "XNAS",
+			ListingId:         listing1.Id,
+			Destination:       "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -111,8 +111,8 @@ func Test_smartRouterSubmitsSellOrdersToHitBestAvailableBuyOrders(t *testing.T) 
 			OrderSide:         model.Side_SELL,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(120),
-			ListingId:           listing2.Id,
-			Destination: "XNAS",
+			ListingId:         listing2.Id,
+			Destination:       "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -153,7 +153,7 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 
 	client := &testEvClient{}
 	om := strategy.NewStrategyFromParentOrder(model.NewOrder(orderId, model.Side_BUY, model.IasD(50), model.IasD(130), 0,
-		"oi", "od", "ri", "rr", "XNAS"), func(order *model.Order) error {
+		"oi", "od", "ri", "rr", "XNAS"), func(ctx context.Context, order *model.Order) error {
 		return nil
 	}, evId, client, testChildOrderStream{}, make(chan string))
 
@@ -167,8 +167,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 		OrderSide:         model.Side_BUY,
 		Quantity:          model.IasD(10),
 		Price:             model.IasD(100),
-		ListingId:           listing1.Id,
-		Destination: "XNAS",
+		ListingId:         listing1.Id,
+		Destination:       "XNAS",
 		OriginatorId:      evId,
 		OriginatorRef:     orderId,
 		RootOriginatorId:  "ri",
@@ -178,8 +178,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 			OrderSide:         model.Side_BUY,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(110),
-			ListingId:           listing2.Id,
-			Destination: "XNAS",
+			ListingId:         listing2.Id,
+			Destination:       "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -189,8 +189,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 			OrderSide:         model.Side_BUY,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(120),
-			ListingId:           listing1.Id,
-			Destination: "XNAS",
+			ListingId:         listing1.Id,
+			Destination:       "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -200,8 +200,8 @@ func Test_smartRouterSubmitsBuyOrdersToHitBestAvailableSellOrders(t *testing.T) 
 			OrderSide:         model.Side_BUY,
 			Quantity:          model.IasD(10),
 			Price:             model.IasD(130),
-			ListingId:           listing2.Id,
-			Destination: "XNAS",
+			ListingId:         listing2.Id,
+			Destination:       "XNAS",
 			OriginatorId:      evId,
 			OriginatorRef:     orderId,
 			RootOriginatorId:  "ri",
@@ -255,11 +255,11 @@ type testQuoteStream struct {
 	stream chan *model.ClobQuote
 }
 
-func (t testQuoteStream) Subscribe(listingId int32) {
-
+func (t testQuoteStream) Subscribe(listingId int32) error {
+	return nil
 }
 
-func (t testQuoteStream) GetStream() <-chan *model.ClobQuote {
+func (t testQuoteStream) Chan() <-chan *model.ClobQuote {
 	return t.stream
 }
 
@@ -271,7 +271,7 @@ type testChildOrderStream struct {
 	stream chan *model.Order
 }
 
-func (t testChildOrderStream) GetStream() <-chan *model.Order {
+func (t testChildOrderStream) Chan() <-chan *model.Order {
 	return t.stream
 }
 
@@ -279,7 +279,9 @@ func (t testChildOrderStream) Close() {
 }
 
 func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
-	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(t)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	evId, listing1, listing2, _, quoteChan, _, orderUpdates, paramsChan, _, _, order, _ := setupOrderManager(ctx, t)
 
 	q := &model.ClobQuote{
 		Offers: []*model.ClobLine{
@@ -293,8 +295,8 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(100),
-		ListingId:       listing1.Id,
-		Destination: "XNAS",
+		ListingId:     listing1.Id,
+		Destination:   "XNAS",
 		OriginatorId:  evId,
 		OriginatorRef: order.Id,
 	}
@@ -327,7 +329,7 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(10),
 		Price:         model.IasD(110),
-		ListingId:       listing2.Id,
+		ListingId:     listing2.Id,
 		OriginatorId:  evId,
 		OriginatorRef: order.Id,
 	}
@@ -346,7 +348,7 @@ func Test_smartRouterSubmitsOrderWhenLiquidityBecomesAvailable(t *testing.T) {
 
 }
 
-func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
+func setupOrderManager(ctx context.Context, t *testing.T) (string, *model.Listing, *model.Listing, chan string, chan *model.ClobQuote,
 	chan *model.Order, chan model.Order, chan paramsAndId, *testOmClient, *strategy.Strategy, model.Order,
 	chan *api.CancelOrderParams) {
 	evId := "testev"
@@ -375,8 +377,8 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		OrderSide:     model.Side_BUY,
 		Quantity:      model.IasD(20),
 		Price:         model.IasD(130),
-		ListingId:       srListing.Id,
-		Destination: "XOSR",
+		ListingId:     srListing.Id,
+		Destination:   "XOSR",
 		OriginatorId:  "oi",
 		OriginatorRef: "or",
 	}
@@ -387,7 +389,7 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		t.FailNow()
 	}
 
-	om, err := strategy.NewStrategyFromCreateParams(uniqueId.String(), params, evId, func(o *model.Order) error {
+	om, err := strategy.NewStrategyFromCreateParams(uniqueId.String(), params, evId, func(ctx context.Context, o *model.Order) error {
 		orderUpdates <- *o
 		return nil
 	}, testExecVenue, &testChildOrderStream{childOrderUpdates}, done)
@@ -396,9 +398,9 @@ func setupOrderManager(t *testing.T) (string, *model.Listing, *model.Listing, ch
 		t.Fatal(err)
 	}
 
-	ExecuteAsSmartRouterStrategy(om, func(listingId int32, listingGroupsIn chan<- []*model.Listing) {
+	ExecuteAsSmartRouterStrategy(ctx, om, func(ctx context.Context, listingId int32, listingGroupsIn chan<- staticdata.ListingsResult) {
 		go func() {
-			listingGroupsIn <- underlyingListings
+			listingGroupsIn <- staticdata.ListingsResult{Listings: underlyingListings}
 		}()
 	}, testQuoteStream{stream: quoteChan})
 

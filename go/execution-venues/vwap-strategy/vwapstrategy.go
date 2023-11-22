@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/ettec/otp-common/model"
@@ -14,29 +15,30 @@ type vwapParameters struct {
 	Buckets          int   `json:"buckets"`
 }
 
-func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *model.Listing) {
+func executeAsVwapStrategy(ctx context.Context, om *strategy.Strategy, buckets []bucket, listing *model.Listing) {
 
 	go func() {
 
 		if om.ParentOrder.GetTargetStatus() == model.OrderStatus_LIVE {
 			err := om.ParentOrder.SetStatus(model.OrderStatus_LIVE)
 			if err != nil {
-				msg := fmt.Sprintf("failed to set managed order status, cancelling order:%v", err)
-				om.ErrLog.Print(msg)
-				om.CancelChan<-msg
+				msg := fmt.Sprintf("failed to set order status, cancelling order:%v", err)
+				om.Log.Error(msg)
+				om.CancelChan <- msg
 			}
 		}
 
-		om.Log.Println("order initialised, buckets->", buckets)
+		om.Log.Info("order initialised", "buckets", buckets)
 
 		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
 
 		for {
-			done, err := om.CheckIfDone()
+			done, err := om.CheckIfDone(ctx)
 			if err != nil {
 				msg := fmt.Sprintf("failed to check if done, cancelling order:%v", err)
-				om.ErrLog.Print(msg)
-				om.CancelChan<-msg
+				om.Log.Error(msg)
+				om.CancelChan <- msg
 			}
 
 			if done {
@@ -44,6 +46,9 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 			}
 
 			select {
+			case <-ctx.Done():
+				return
+
 			case <-ticker.C:
 				nowUtc := time.Now().Unix()
 				shouldHaveSentQty := &model.Decimal64{}
@@ -73,18 +78,17 @@ func executeAsVwapStrategy(om *strategy.Strategy, buckets []bucket, listing *mod
 				}
 				err := om.CancelChildOrdersAndStrategyOrder()
 				if err != nil {
-					om.ErrLog.Printf("failed to cancel order:%v", err)
+					om.Log.Error("failed to cancel order", "error", err)
 				}
 			case co, ok := <-om.ChildOrderUpdateChan:
 				err = om.OnChildOrderUpdate(ok, co)
 				if err != nil {
-					om.ErrLog.Printf("error whilst applying child order update:%v", err)
+					om.Log.Error("failed to process child order update", "error", err)
 				}
 			}
 
 		}
 
-		ticker.Stop()
 	}()
 }
 

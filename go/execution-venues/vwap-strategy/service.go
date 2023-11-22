@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	common "github.com/ettec/otp-common"
@@ -37,7 +38,10 @@ func main() {
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
-	sds, err := staticdata.NewStaticDataSource(false)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	sds, err := staticdata.NewStaticDataSource(ctx)
 	if err != nil {
 		log.Fatalf("failed to create static data source:%v", err)
 	}
@@ -51,16 +55,21 @@ func main() {
 
 	executeFn := func(om *strategy.Strategy) {
 
-		om.Log.Printf("execute strategy for params: %v", om.ParentOrder.GetExecParametersJson())
+		om.Log.Info("executing strategy", "params", om.ParentOrder.GetExecParametersJson())
 
 		vwapParamsJson := om.ParentOrder.GetExecParametersJson()
 
-		listingIn := make(chan *model.Listing)
-		om.Log.Printf("fetching listing %v.....", om.ParentOrder.ListingId)
+		listingIn := make(chan staticdata.ListingResult)
+		om.Log.Info("fetching listing", "listingId", om.ParentOrder.ListingId)
 
-		sds.GetListing(om.ParentOrder.ListingId, listingIn)
-		listing := <-listingIn
-		om.Log.Printf("got listing %v", listing)
+		sds.GetListing(ctx, om.ParentOrder.ListingId, listingIn)
+		listingResult := <-listingIn
+		if listingResult.Err != nil {
+			om.CancelChan <- fmt.Sprintf("failed to get listing %v", listingResult.Err)
+		}
+
+		om.Log.Info("got listing", "listingId", listingResult.Listing)
+		close(listingIn)
 
 		quantity := om.ParentOrder.Quantity
 
@@ -71,7 +80,7 @@ func main() {
 		}
 
 		if vwapParams.UtcStartTimeSecs <= 0 || vwapParams.UtcEndTimeSecs <= 0 {
-			om.CancelChan <-"invalid start or end time specified"
+			om.CancelChan <- "invalid start or end time specified"
 		}
 
 		if vwapParams.UtcStartTimeSecs >= vwapParams.UtcEndTimeSecs {
@@ -79,19 +88,19 @@ func main() {
 		}
 
 		if vwapParams.UtcEndTimeSecs < time.Now().Unix() {
-			om.CancelChan <-"end time has already passed"
+			om.CancelChan <- "end time has already passed"
 		}
 
 		if model.IasD(vwapParams.Buckets).GreaterThan(quantity) {
-			om.CancelChan <-"num Buckets must be less than or equal to the quantity"
+			om.CancelChan <- "num Buckets must be less than or equal to the quantity"
 		}
 
-		buckets, err := getBucketsFromParamsString(vwapParamsJson, *quantity, listing)
+		buckets, err := getBucketsFromParamsString(vwapParamsJson, *quantity, listingResult.Listing)
 		if err != nil {
-			om.CancelChan <-fmt.Sprintf("failed to get Buckets from params:%v", err)
+			om.CancelChan <- fmt.Sprintf("failed to get Buckets from params:%v", err)
 		}
 
-		executeAsVwapStrategy(om, buckets, listing)
+		executeAsVwapStrategy(ctx, om, buckets, listingResult.Listing)
 	}
 
 	store, err := orderstore.NewKafkaStore(orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
@@ -101,16 +110,19 @@ func main() {
 		panic(fmt.Errorf("failed to create order store: %v", err))
 	}
 
-	childOrderUpdates, err := ordermanagement.GetChildOrders(id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
+	childOrderUpdates, err := ordermanagement.GetChildOrders(ctx, id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
 		bootstrap.GetOptionalIntEnvVar("VWAPSTRATEGY_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
 
 	if err != nil {
 		panic(err)
 	}
 
-	distributor := ordermanagement.NewChildOrderUpdatesDistributor(childOrderUpdates)
+	distributor := ordermanagement.NewChildOrderUpdatesDistributor(childOrderUpdates, 10000)
 
-	sm := strategy.NewStrategyManager(id, store, distributor, orderRouter, executeFn)
+	sm, err := strategy.NewStrategyManager(ctx, id, store, distributor, orderRouter, executeFn)
+	if err != nil {
+		log.Panicf("failed to create strategy manager:%v", err)
+	}
 
 	executionvenue.RegisterExecutionVenueServer(s, sm)
 

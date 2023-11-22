@@ -1,16 +1,20 @@
 package executionvenue
 
 import (
+	"context"
 	api "github.com/ettec/otp-common/api/executionvenue"
+	"github.com/ettec/otp-common/model"
 	"github.com/ettec/otp-common/ordermanagement"
-"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/golang/protobuf/proto"
 	"os"
 	"testing"
 )
 
 func TestMain(m *testing.M) {
-	setup()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	setup(ctx)
 	code := m.Run()
 	teardown()
 	os.Exit(code)
@@ -19,15 +23,15 @@ func TestMain(m *testing.M) {
 var orderCache *ordermanagement.OrderCache
 var om orderManager
 
-func setup() {
+func setup(ctx context.Context) {
 	var err error
-	orderCache, err = ordermanagement.NewOrderCache(newTestOrderStore(), "")
+	orderCache, err = ordermanagement.NewOwnerOrderCache(ctx, "", newTestOrderStore())
 	if err != nil {
 		panic(err)
 	}
 
-	om = NewOrderManager(orderCache, &TestOrderManager{}, func(listingId int32, result chan<- *model.Listing) {
-		result <- &model.Listing{Id:1}
+	om = NewOrderManager(ctx, orderCache, &TestOrderManager{}, func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult) {
+		result <- staticdata.ListingResult{Listing: &model.Listing{Id: 1}}
 	})
 }
 
@@ -48,7 +52,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 		OrderSide: model.Side_BUY,
 		Quantity:  IntToDecimal64(10),
 		Price:     IntToDecimal64(20),
-		ListingId:   1,
+		ListingId: 1,
 	}
 
 	id, err := om.CreateAndRouteOrder(params)
@@ -56,14 +60,13 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 		t.Fatalf("Create order call failed %v", err)
 	}
 
-	order, ok,_ := orderCache.GetOrder(id.OrderId)
+	order, ok, _ := orderCache.GetOrder(id.OrderId)
 
 	if !ok {
 		t.Fatalf("created order not found in store")
 	}
 
-	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(5), "testexecid" )
-
+	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(5), "testexecid")
 
 	testOrder := &model.Order{
 		Version:           1,
@@ -77,7 +80,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 		TargetStatus:      model.OrderStatus_NONE,
 	}
 
-	order, ok,_ = orderCache.GetOrder(id.OrderId)
+	order, ok, _ = orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -88,14 +91,13 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 
 }
 
-
 func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide: model.Side_BUY,
 		Quantity:  IntToDecimal64(10),
 		Price:     IntToDecimal64(20),
-		ListingId:   1,
+		ListingId: 1,
 	}
 
 	id, err := om.CreateAndRouteOrder(params)
@@ -109,8 +111,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 		t.Fatalf("created order not found in store")
 	}
 
-	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(10), "testexecid" )
-
+	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(10), "testexecid")
 
 	testOrder := &model.Order{
 		Id:                id.OrderId,
@@ -123,7 +124,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 		TargetStatus:      model.OrderStatus_NONE,
 	}
 
-	order, ok,_ = orderCache.GetOrder(id.OrderId)
+	order, ok, _ = orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -140,7 +141,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		OrderSide: model.Side_BUY,
 		Quantity:  IntToDecimal64(10),
 		Price:     IntToDecimal64(20),
-		ListingId:   1,
+		ListingId: 1,
 	}
 
 	id, err := om.CreateAndRouteOrder(params)
@@ -148,7 +149,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		t.Fatalf("Create order call failed %v", err)
 	}
 
-	order, ok,_ := orderCache.GetOrder(id.OrderId)
+	order, ok, _ := orderCache.GetOrder(id.OrderId)
 
 	if !ok {
 		t.Fatalf("created order not found in store")
@@ -157,7 +158,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 	testOrder := &model.Order{
-        Version: 			1,
+		Version:           1,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),
@@ -168,7 +169,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		TargetStatus:      model.OrderStatus_NONE,
 	}
 
-	order, ok,_ = orderCache.GetOrder(id.OrderId)
+	order, ok, _ = orderCache.GetOrder(id.OrderId)
 
 	order.Created = nil
 	testOrder.Created = nil
@@ -184,9 +185,9 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	listing := &model.Listing{Id: 1}
 
 	params := &api.CreateAndRouteOrderParams{
-		OrderSide: model.Side_BUY,
-		Quantity:  IntToDecimal64(10),
-		Price:     IntToDecimal64(20),
+		OrderSide:   model.Side_BUY,
+		Quantity:    IntToDecimal64(10),
+		Price:       IntToDecimal64(20),
 		ListingId:   1,
 		Destination: "XNAS",
 	}
@@ -196,9 +197,9 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
 
 	err := om.CancelOrder(&api.CancelOrderParams{
-		OrderId: id.OrderId,
+		OrderId:   id.OrderId,
 		ListingId: listing.Id,
-		OwnerId: "XNAS",
+		OwnerId:   "XNAS",
 	})
 	if err != nil {
 		t.Fatalf("cancel order call failed: %v", err)
@@ -207,7 +208,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 	om.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
 
 	testOrder := &model.Order{
-        Version:           3,
+		Version:           3,
 		Id:                id.OrderId,
 		Side:              model.Side_BUY,
 		Quantity:          IntToDecimal64(10),
@@ -216,7 +217,7 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 		RemainingQuantity: IntToDecimal64(10),
 		Status:            model.OrderStatus_CANCELLED,
 		TargetStatus:      model.OrderStatus_NONE,
-		Destination: "XNAS",
+		Destination:       "XNAS",
 	}
 
 	order, _, _ := orderCache.GetOrder(id.OrderId)
@@ -245,8 +246,6 @@ func (f *TestOrderManager) Modify(order *model.Order, listing *model.Listing, Qu
 	return nil
 }
 
-
-
 func newTestOrderStore() *testOrderStore {
 	t := testOrderStore{
 		orders:    make([]*model.Order, 0, 10),
@@ -261,20 +260,16 @@ type testOrderStore struct {
 	ordersMap map[string]*model.Order
 }
 
-func (t *testOrderStore) Write(order *model.Order) error {
-
+func (t *testOrderStore) Write(ctx context.Context, order *model.Order) error {
 
 	t.orders = append(t.orders, order)
 
-
 	t.ordersMap[order.Id] = order
-
-
 
 	return nil
 }
 
-func (t *testOrderStore) RecoverInitialCache(loadOrder func(order *model.Order) bool) (map[string]*model.Order, error) {
+func (t *testOrderStore) LoadOrders(ctx context.Context, loadOrder func(order *model.Order) bool) (map[string]*model.Order, error) {
 	return map[string]*model.Order{}, nil
 }
 

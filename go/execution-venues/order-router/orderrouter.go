@@ -12,6 +12,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 	"log"
+	"log/slog"
 	"sync"
 	"time"
 )
@@ -110,13 +111,13 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *executionvenue.C
 	}
 
 	id, err := ev.client.CreateAndRouteOrder(c, p)
-
-	log.Printf("routed create order request %v to execution venue %v, returned order id %v", p, ev.podId, id)
-
 	if err != nil {
-		return nil, fmt.Errorf("failed to route order:%v", err)
+		slog.Error("failed to route create order request", "request ", p, "error", err)
+		return nil, fmt.Errorf("failed to route order:%w", err)
 	}
 
+	slog.Info("routed create order request", "request", p, "executionVenue", ev.podId, "orderId", id)
+	
 	return id, nil
 
 }

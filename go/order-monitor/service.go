@@ -27,7 +27,6 @@ import (
 	"strings"
 )
 
-
 var totalOrders = promauto.NewGauge(prometheus.GaugeOpts{
 	Name: "total_orders",
 	Help: "The total number of orders",
@@ -75,14 +74,13 @@ func (s *orderMonitor) CancelAllOrdersForOriginatorId(_ context.Context, params 
 func main() {
 
 	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime|log.Lshortfile)
+	log.SetFlags(log.Ltime | log.Lshortfile)
 
 	logAllOrderUpdates := bootstrap.GetOptionalBoolEnvVar("LOG_ORDER_UPDATES", false)
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 	cancelTimeoutDuration := time.Duration(bootstrap.GetOptionalIntEnvVar("CANCEL_TIMEOUT_SECS", 5)) * time.Second
 	orderUpdatesBufSize := bootstrap.GetOptionalIntEnvVar("INBOUND_ORDER_UPDATES_BUFFER_SIZE", 1000)
-
 
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":8080", nil)
@@ -111,9 +109,9 @@ func main() {
 		cancelOrdersForOriginatorChan: cancelChan,
 	}
 
-	updates := make(chan *model.Order, orderUpdatesBufSize)
-
-	orders, err := store.SubscribeToAllOrders(updates, ordersAfter)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	orders, updates, err := store.SubscribeToAllOrders(ctx, ordersAfter, orderUpdatesBufSize)
 	if err != nil {
 		log.Panic("failed to subscribe to orders: ", err)
 	}
@@ -138,7 +136,8 @@ func main() {
 
 		for {
 			select {
-
+			case <-ctx.Done():
+				return
 			case cr := <-cancelChan:
 				log.Print("cancelling all orders for root originator id:", cr.OriginatorId)
 				var cancelParams []*executionvenue.CancelOrderParams

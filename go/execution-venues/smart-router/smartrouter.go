@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/ettec/otp-common"
 	"github.com/ettec/otp-common/marketdata"
 	"github.com/ettec/otp-common/model"
+	"github.com/ettec/otp-common/staticdata"
 	"github.com/ettec/otp-common/strategy"
 )
 
@@ -14,82 +16,96 @@ func init() {
 	zero = &model.Decimal64{}
 }
 
-type GetListingsWithSameInstrument = func(listingId int32, listingGroupsIn chan<- []*model.Listing)
+type GetListingsWithSameInstrument = func(ctx context.Context, listingId int32, listingGroupsIn chan<- staticdata.ListingsResult)
 
-func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
-	getListingsWithSameInstrument GetListingsWithSameInstrument, quoteStream marketdata.MdsQuoteStream) {
+func ExecuteAsSmartRouterStrategy(ctx context.Context, om *strategy.Strategy,
+	getListingsWithSameInstrument GetListingsWithSameInstrument, stream marketdata.QuoteStream) {
 
 	go func() {
 
-		om.Log.Println("initialising order")
+		defer stream.Close()
 
-		listingsIn := make(chan []*model.Listing)
+		om.Log.Info("initialising order")
 
-		getListingsWithSameInstrument(om.ParentOrder.ListingId, listingsIn)
+		listingsIn := make(chan staticdata.ListingsResult)
+
+		getListingsWithSameInstrument(ctx, om.ParentOrder.ListingId, listingsIn)
 
 		instrumentListings := map[int32]*model.Listing{}
 		select {
+		case <-ctx.Done():
+			return
 		case ls := <-listingsIn:
-			for _, listing := range ls {
+			if ls.Err != nil {
+				om.Log.Error("failed to get listings with same instrument", "listingId", om.ParentOrder.ListingId, "error", ls.Err)
+				om.CancelChan <- fmt.Sprintf("failed to get listings for same instrument for listingId:%v, err:%v", om.ParentOrder.ListingId, ls.Err)
+			}
+
+			for _, listing := range ls.Listings {
 				if listing.Market.Mic != common.SR_MIC {
 					instrumentListings[listing.Id] = listing
 				}
 			}
 		}
 
-		quoteStream.Subscribe(om.ParentOrder.ListingId)
+		err := stream.Subscribe(om.ParentOrder.ListingId)
+		if err != nil {
+			om.Log.Error("failed to subscribe to listing", "error", err)
+			om.CancelChan <- fmt.Sprintf("failed to subscribe to listing:%v", err)
+		}
 
-		om.Log.Printf("order initialised with status:%v, target status:%v", om.ParentOrder.GetStatus(),
-			om.ParentOrder.GetTargetStatus())
+		om.Log.Info("order initialised", "status", om.ParentOrder.GetStatus(),
+			"targetStatus", om.ParentOrder.GetTargetStatus())
 
 		for {
-			done, err := om.CheckIfDone()
+			done, err := om.CheckIfDone(ctx)
 			if err != nil {
 				msg := fmt.Sprintf("failed to check if done, cancelling order:%v", err)
-				om.ErrLog.Print(msg)
+				om.Log.Error(msg)
 				om.CancelChan <- msg
 			}
 
 			if done {
-				quoteStream.Close()
-				break
+				return
 			}
 
 			select {
+			case <-ctx.Done():
+				return
 			case errMsg := <-om.CancelChan:
 				if errMsg != "" {
 					om.ParentOrder.ErrorMessage = errMsg
 				}
 				err := om.CancelChildOrdersAndStrategyOrder()
 				if err != nil {
-					om.ErrLog.Printf("failed to cancel order:%v", err)
+					om.Log.Error("failed to cancel order", "error", err)
 				}
+
 			case co, ok := <-om.ChildOrderUpdateChan:
 				err = om.OnChildOrderUpdate(ok, co)
 				if err != nil {
-					om.ErrLog.Printf("error whilst applying child order update:%v", err)
+					om.Log.Error("error processing child order update", "error", err)
 				}
-			case q, ok := <-quoteStream.GetStream():
 
+			case quote, ok := <-stream.Chan():
 				if ok {
-
-					if !q.StreamInterrupted {
+					if !quote.StreamInterrupted {
 
 						if om.ParentOrder.GetAvailableQty().GreaterThan(zero) {
 							if om.ParentOrder.GetSide() == model.Side_BUY {
-								submitBuyOrders(om, q, instrumentListings)
+								submitBuyOrders(om, quote, instrumentListings)
 							} else {
-								submitSellOrders(om, q, instrumentListings)
+								submitSellOrders(om, quote, instrumentListings)
 							}
 
 						}
 
 						if om.ParentOrder.GetTargetStatus() == model.OrderStatus_LIVE {
 							err := om.ParentOrder.SetStatus(model.OrderStatus_LIVE)
-							om.Log.Println("order set status changed to LIVE")
+							om.Log.Info("order status changed to LIVE")
 							if err != nil {
 								msg := fmt.Sprintf("failed to set managed order status, cancelling order:%v", err)
-								om.ErrLog.Print(msg)
+								om.Log.Error(msg)
 								om.CancelChan <- msg
 							}
 
@@ -98,7 +114,7 @@ func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
 
 				} else {
 					msg := "quote chan unexpectedly closed, cancelling order"
-					om.ErrLog.Print(msg)
+					om.Log.Error(msg)
 					om.CancelChan <- msg
 				}
 			}
@@ -108,7 +124,7 @@ func ExecuteAsSmartRouterStrategy(om *strategy.Strategy,
 	}()
 }
 
-func  submitBuyOrders(om *strategy.Strategy, q *model.ClobQuote, instrumentListings map[int32]*model.Listing) {
+func submitBuyOrders(om *strategy.Strategy, q *model.ClobQuote, instrumentListings map[int32]*model.Listing) {
 	submitOrders(om, q.Offers, func(line *model.ClobLine) bool {
 		return line.Price.LessThanOrEqual(om.ParentOrder.GetPrice())
 	}, model.Side_BUY, instrumentListings)
@@ -120,7 +136,7 @@ func submitSellOrders(om *strategy.Strategy, q *model.ClobQuote, instrumentListi
 	}, model.Side_SELL, instrumentListings)
 }
 
-func  submitOrders(om *strategy.Strategy, oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,
+func submitOrders(om *strategy.Strategy, oppositeClobLines []*model.ClobLine, willTrade func(line *model.ClobLine) bool,
 	side model.Side, instrumentListings map[int32]*model.Listing) {
 	listingIdToQnt := map[int32]*model.Decimal64{}
 	for _, line := range oppositeClobLines {
@@ -131,7 +147,7 @@ func  submitOrders(om *strategy.Strategy, oppositeClobLines []*model.ClobLine, w
 				quantity = om.ParentOrder.GetAvailableQty()
 			}
 
-			listing :=  instrumentListings[line.ListingId]
+			listing := instrumentListings[line.ListingId]
 			err := om.SendChildOrder(side, quantity, line.Price, listing.Id, listing.Market.Mic, "")
 			if err != nil {
 				om.CancelChan <- fmt.Sprintf("failed to send child order:%v", err)
