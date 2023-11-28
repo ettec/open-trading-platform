@@ -340,7 +340,7 @@ func TestCombineQuotes(t *testing.T) {
 	}
 }
 
-func Test_combineQuoteStatus(t *testing.T) {
+func TestCombinedQuoteStatus(t *testing.T) {
 	type args struct {
 		combinedListingId int32
 		quotes            []*model.ClobQuote
@@ -456,7 +456,7 @@ func Test_combineQuoteStatus(t *testing.T) {
 
 }
 
-func Test_combineTradeData(t *testing.T) {
+func TestCombinedTradeData(t *testing.T) {
 	type args struct {
 		combinedListingId int32
 		quotes            []*model.ClobQuote

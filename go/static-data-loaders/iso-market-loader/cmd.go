@@ -22,7 +22,7 @@ func main() {
 
 	data, err := ioutil.ReadFile("./resources/IISO10383_MIC.csv")
 	if err != nil {
-		log.Fatalf("failed to read markets file:%v", err)
+		log.Panicf("failed to read markets file:%v", err)
 	}
 
 	csvString := string(data)
@@ -62,7 +62,10 @@ func main() {
 		log.Panic("Error: Could not establish a connection with the database")
 	}
 
-	db.Exec(`set search_path="referencedata"`)
+	_, err = db.Exec(`set search_path="referencedata"`)
+	if err != nil {
+		log.Panicf("Error: Failed to set search path:%v", err)
+	}
 
 	for _, market := range markets {
 
@@ -70,7 +73,7 @@ func main() {
 
 		_, err := db.Exec(sqlstmt)
 		if err != nil {
-			log.Printf("Error: Failed to insert row error:%v  row sql:%v", err, sqlstmt)
+			log.Printf("Error: Failed to insert market error:%v  row sql:%v", err, sqlstmt)
 		}
 
 	}

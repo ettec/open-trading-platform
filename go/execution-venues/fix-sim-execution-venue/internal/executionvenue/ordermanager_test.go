@@ -7,6 +7,7 @@ import (
 	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/golang/protobuf/proto"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 )
@@ -16,7 +17,6 @@ func TestMain(m *testing.M) {
 	defer cancel()
 	setup(ctx)
 	code := m.Run()
-	teardown()
 	os.Exit(code)
 }
 
@@ -32,11 +32,7 @@ func setup(ctx context.Context) {
 
 	om = NewOrderManager(ctx, orderCache, &TestOrderManager{}, func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult) {
 		result <- staticdata.ListingResult{Listing: &model.Listing{Id: 1}}
-	})
-}
-
-func teardown() {
-	defer om.Close()
+	}, 100)
 }
 
 func IntToDecimal64(i int) *model.Decimal64 {
@@ -46,7 +42,7 @@ func IntToDecimal64(i int) *model.Decimal64 {
 	}
 }
 
-func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) {
+func TestCreateAndRouteOrderPartialFillImmediate(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide: model.Side_BUY,
@@ -66,7 +62,8 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 		t.Fatalf("created order not found in store")
 	}
 
-	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(5), "testexecid")
+	err = om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(5), "testexecid")
+	assert.NoError(t, err)
 
 	testOrder := &model.Order{
 		Version:           1,
@@ -91,7 +88,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderPartialFillImmediate(t *testing.T) 
 
 }
 
-func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) {
+func TestCreateAndRouteOrderFullyFilledImmediate(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide: model.Side_BUY,
@@ -111,7 +108,8 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 		t.Fatalf("created order not found in store")
 	}
 
-	om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(10), "testexecid")
+	err = om.AddExecution(id.OrderId, *IntToDecimal64(20), *IntToDecimal64(10), "testexecid")
+	assert.NoError(t, err)
 
 	testOrder := &model.Order{
 		Id:                id.OrderId,
@@ -135,7 +133,7 @@ func TestOrderManagerImpl_CreateAndRouteOrderFullyFilledImmediate(t *testing.T) 
 
 }
 
-func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
+func TestCreateAndRouteOrder(t *testing.T) {
 
 	params := &api.CreateAndRouteOrderParams{
 		OrderSide: model.Side_BUY,
@@ -155,7 +153,8 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 		t.Fatalf("created order not found in store")
 	}
 
-	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
+	err = om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
+	assert.NoError(t, err)
 
 	testOrder := &model.Order{
 		Version:           1,
@@ -180,7 +179,7 @@ func TestOrderManagerImpl_CreateAndRouteOrder(t *testing.T) {
 
 }
 
-func TestOrderManagerImpl_CancelOrder(t *testing.T) {
+func TestCancelOrder(t *testing.T) {
 
 	listing := &model.Listing{Id: 1}
 
@@ -194,18 +193,18 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 
 	id, _ := om.CreateAndRouteOrder(params)
 
-	om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
+	err := om.SetOrderStatus(id.OrderId, model.OrderStatus_LIVE)
+	assert.NoError(t, err)
 
-	err := om.CancelOrder(&api.CancelOrderParams{
+	err = om.CancelOrder(&api.CancelOrderParams{
 		OrderId:   id.OrderId,
 		ListingId: listing.Id,
 		OwnerId:   "XNAS",
 	})
-	if err != nil {
-		t.Fatalf("cancel order call failed: %v", err)
-	}
+	assert.NoError(t, err)
 
-	om.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
+	err = om.SetOrderStatus(id.OrderId, model.OrderStatus_CANCELLED)
+	assert.NoError(t, err)
 
 	testOrder := &model.Order{
 		Version:           3,
@@ -234,15 +233,15 @@ func TestOrderManagerImpl_CancelOrder(t *testing.T) {
 type TestOrderManager struct {
 }
 
-func (f *TestOrderManager) Send(order *model.Order, listing *model.Listing) error {
+func (f *TestOrderManager) Send(_ *model.Order, _ *model.Listing) error {
 	return nil
 }
 
-func (f *TestOrderManager) Cancel(order *model.Order) error {
+func (f *TestOrderManager) Cancel(_ *model.Order) error {
 	return nil
 }
 
-func (f *TestOrderManager) Modify(order *model.Order, listing *model.Listing, Quantity *model.Decimal64, Price *model.Decimal64) error {
+func (f *TestOrderManager) Modify(_ *model.Order, _ *model.Listing, _ *model.Decimal64, _ *model.Decimal64) error {
 	return nil
 }
 
@@ -260,7 +259,7 @@ type testOrderStore struct {
 	ordersMap map[string]*model.Order
 }
 
-func (t *testOrderStore) Write(ctx context.Context, order *model.Order) error {
+func (t *testOrderStore) Write(_ context.Context, order *model.Order) error {
 
 	t.orders = append(t.orders, order)
 
@@ -269,7 +268,7 @@ func (t *testOrderStore) Write(ctx context.Context, order *model.Order) error {
 	return nil
 }
 
-func (t *testOrderStore) LoadOrders(ctx context.Context, loadOrder func(order *model.Order) bool) (map[string]*model.Order, error) {
+func (t *testOrderStore) LoadOrders(_ context.Context, _ func(order *model.Order) bool) (map[string]*model.Order, error) {
 	return map[string]*model.Order{}, nil
 }
 

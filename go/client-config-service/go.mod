@@ -3,7 +3,7 @@ module github.com/ettech/open-trading-platform/go/client-config-service
 go 1.21
 
 require (
-	github.com/ettec/otp-common v1.4.0
+	github.com/ettec/otp-common v1.4.2
 	github.com/golang/protobuf v1.4.2
 	github.com/lib/pq v1.2.0
 	google.golang.org/grpc v1.25.1

@@ -17,24 +17,24 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
+	"log/slog"
 	"net"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 )
 
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(log.Ltime | log.Lshortfile)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	id := bootstrap.GetEnvVar("ID")
 	maxConnectRetry := time.Duration(bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)) * time.Second
 	kafkaBrokersString := bootstrap.GetEnvVar("KAFKA_BROKERS")
 
-	log.Print("Starting vwap strategy")
-
-	s := grpc.NewServer()
+	slog.Info("Starting vwap strategy")
 
 	kafkaBrokers := strings.Split(kafkaBrokersString, ",")
 
@@ -43,7 +43,7 @@ func main() {
 
 	sds, err := staticdata.NewStaticDataSource(ctx)
 	if err != nil {
-		log.Fatalf("failed to create static data source:%v", err)
+		log.Panicf("failed to create static data source:%v", err)
 	}
 
 	clientSet := k8s.GetK8sClientSet(false)
@@ -107,14 +107,14 @@ func main() {
 		orderstore.DefaultWriterConfig(common.ORDERS_TOPIC, kafkaBrokers), id)
 
 	if err != nil {
-		panic(fmt.Errorf("failed to create order store: %v", err))
+		log.Panicf("failed to create order store: %v", err)
 	}
 
 	childOrderUpdates, err := ordermanagement.GetChildOrders(ctx, id, orderstore.DefaultReaderConfig(common.ORDERS_TOPIC, kafkaBrokers),
 		bootstrap.GetOptionalIntEnvVar("VWAPSTRATEGY_CHILD_ORDER_UPDATES_BUFFER_SIZE", 1000))
 
 	if err != nil {
-		panic(err)
+		log.Panicf("failed to create child order updates channel:%v", err)
 	}
 
 	distributor := ordermanagement.NewChildOrderUpdatesDistributor(childOrderUpdates, 10000)
@@ -124,20 +124,31 @@ func main() {
 		log.Panicf("failed to create strategy manager:%v", err)
 	}
 
+	s := grpc.NewServer()
 	executionvenue.RegisterExecutionVenueServer(s, sm)
 
 	reflection.Register(s)
 
 	port := "50551"
-	fmt.Println("Starting Execution Venue Service on port:" + port)
+	slog.Info("Starting Execution Venue Service", "port", port)
 	lis, err := net.Listen("tcp", "0.0.0.0:"+port)
 
 	if err != nil {
-		log.Fatalf("Error while listening : %v", err)
+		log.Panicf("Error while listening : %v", err)
 	}
 
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
+
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("error   while serving : %v", err)
+		log.Panicf("error   while serving : %v", err)
 	}
 
 }

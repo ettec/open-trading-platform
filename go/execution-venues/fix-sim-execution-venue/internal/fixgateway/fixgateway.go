@@ -13,8 +13,7 @@ import (
 	"github.com/quickfixgo/quickfix/fix50sp2/executionreport"
 	"github.com/quickfixgo/quickfix/fix50sp2/newordersingle"
 	"github.com/shopspring/decimal"
-	"log"
-	"os"
+	"log/slog"
 	"strings"
 	"time"
 )
@@ -24,7 +23,7 @@ type fixOrderGateway struct {
 	orderHandler OrderHandler
 }
 
-func NewFixOrderGateway(sessionID quickfix.SessionID) *fixOrderGateway{
+func NewFixOrderGateway(sessionID quickfix.SessionID) *fixOrderGateway {
 	return &fixOrderGateway{
 		sessionID: sessionID,
 	}
@@ -34,7 +33,7 @@ func (f *fixOrderGateway) Send(order *model.Order, listing *model.Listing) error
 
 	side, err := getFixSide(order.Side)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to get fix side: %w", err)
 	}
 
 	msg := newordersingle.New(field.NewClOrdID(order.Id), field.NewSide(side),
@@ -116,13 +115,10 @@ type fixHandler struct {
 	sessionToHandler map[quickfix.SessionID]OrderHandler
 	inboundRouter    *quickfix.MessageRouter
 	outboundRouter   *quickfix.MessageRouter
-	errLog			 *log.Logger
 }
 
 func NewFixHandler(sessionID quickfix.SessionID, handler OrderHandler) quickfix.Application {
-	f := fixHandler{sessionToHandler: make(map[quickfix.SessionID]OrderHandler),
-		errLog: log.New(os.Stderr, "error", log.Ltime | log.Lshortfile),
-		}
+	f := fixHandler{sessionToHandler: make(map[quickfix.SessionID]OrderHandler)}
 
 	f.sessionToHandler[sessionID] = handler
 	f.inboundRouter = quickfix.NewMessageRouter()
@@ -142,46 +138,44 @@ func (f *fixHandler) onOrderCancelReject(msg ordercancelreject.OrderCancelReject
 		return nil
 	}
 
-	orderId, err := msg.GetClOrdID()
-	if err != nil {
-		return err
+	orderId, msgRejectErr := msg.GetClOrdID()
+	if msgRejectErr != nil {
+		return msgRejectErr
 	}
 
-	errMsg, err := msg.GetText()
-	if err != nil {
-		return err
+	errMsg, msgRejectErr := msg.GetText()
+	if msgRejectErr != nil {
+		return msgRejectErr
 	}
 
 	er := handler.SetErrorMsg(orderId, errMsg)
 	if er != nil {
-		f.errLog.Printf("Failed to set error msg on order %v, message: %v,  error:%v", orderId, errMsg, er)
+		slog.Info("Failed to set error msg on order", "orderId", orderId, "errorMessage", errMsg, "error", er)
 	}
 
 	return nil
 }
 
 func logSessionMsg(sessionID quickfix.SessionID, msg string) {
-	log.Print(sessionID.String() + ":" + msg)
+	slog.Info(msg, "sessionID", sessionID.String())
 }
 
-func logSessionMsgf(sessionID quickfix.SessionID, format string, v ...interface{}) {
-	log.Printf(sessionID.String()+":"+format, v)
+func logSessionMsgf(sessionID quickfix.SessionID, format string, v ...any) {
+	slog.Info(fmt.Sprintf(format, v...), "sessionID", sessionID.String())
 }
 
 func (f *fixHandler) onOutboundBusinessMessageReject(msg businessmessagereject.BusinessMessageReject, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
-
 	logSessionMsgf(sessionID, "Sending reject message to target: %v", toReadableString(msg.Message))
-
 	return nil
 }
 
-func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 
 	logSessionMsg(sessionID, "received execution report:"+toReadableString(msg.Message))
 
-	execType, err := msg.GetExecType()
-	if err != nil {
-		return err
+	execType, msgRejectErr := msg.GetExecType()
+	if msgRejectErr != nil {
+		return msgRejectErr
 	}
 
 	handler, exists := f.sessionToHandler[sessionID]
@@ -190,9 +184,9 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 		return nil
 	}
 
-	orderId, err := msg.GetClOrdID()
-	if err != nil {
-		return err
+	orderId, msgRejectErr := msg.GetClOrdID()
+	if msgRejectErr != nil {
+		return msgRejectErr
 	}
 
 	switch execType {
@@ -215,64 +209,60 @@ func (f *fixHandler) onExecutionReport(msg executionreport.ExecutionReport, sess
 			return nil
 		}
 	case enum.ExecType_TRADE:
-		lastQty, err := msg.GetLastQty()
+		lastQty, msgRejectErr := msg.GetLastQty()
 
-		if err != nil {
-			return err
+		if msgRejectErr != nil {
+			return msgRejectErr
 		}
 
-		lastPrice, err := msg.GetLastPx()
-		if err != nil {
-			return err
+		lastPrice, msgRejectErr := msg.GetLastPx()
+		if msgRejectErr != nil {
+			return msgRejectErr
 		}
 
-		execId, err := msg.GetExecID()
-		if err != nil {
-			return err
+		execId, msgRejectErr := msg.GetExecID()
+		if msgRejectErr != nil {
+			return msgRejectErr
 		}
 
-		er := handler.AddExecution(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty), execId)
-		if er != nil {
-			f.errLog.Printf("failed to add execution to order %v, error: %v", orderId, er)
+		if err := handler.AddExecution(orderId, *model.ToDecimal64(lastPrice), *model.ToDecimal64(lastQty), execId); err != nil {
+			slog.Error("failed to add execution to order", "orderId", orderId, "error", err)
 		}
 	}
 
 	return nil
 }
 
-//Notification of a session begin created.
+// Notification of a session begin created.
 func (f *fixHandler) OnCreate(sessionID quickfix.SessionID) {
 	logSessionMsg(sessionID, "created")
 }
 
-//Notification of a session successfully logging on.
+// Notification of a session successfully logging on.
 func (f *fixHandler) OnLogon(sessionID quickfix.SessionID) {
 	logSessionMsg(sessionID, "logon received")
 }
 
-//Notification of a session logging off or disconnecting.
+// Notification of a session logging off or disconnecting.
 func (f *fixHandler) OnLogout(sessionID quickfix.SessionID) {
 	logSessionMsg(sessionID, "logout received")
 }
 
-//Notification of admin message being sent to target.
+// Notification of admin message being sent to target.
 func (f *fixHandler) ToAdmin(message *quickfix.Message, sessionID quickfix.SessionID) {
 }
 
-//Notification of app message being sent to target.
+// Notification of app message being sent to target.
 func (f *fixHandler) ToApp(message *quickfix.Message, sessionID quickfix.SessionID) error {
-
 	return nil
 }
 
-//Notification of admin message being received from target.
+// Notification of admin message being received from target.
 func (f *fixHandler) FromAdmin(message *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-
 	return nil
 }
 
-//Notification of app message being received from target.
+// Notification of app message being received from target.
 func (f *fixHandler) FromApp(message *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
-
 	return f.inboundRouter.Route(message, sessionID)
 }

@@ -8,8 +8,7 @@ import (
 	"github.com/ettec/otp-common/ordermanagement"
 	"github.com/ettec/otp-common/staticdata"
 	"github.com/google/uuid"
-	"log"
-	"os"
+	"log/slog"
 )
 
 type orderGateway interface {
@@ -18,6 +17,11 @@ type orderGateway interface {
 	Modify(order *model.Order, listing *model.Listing, Quantity *model.Decimal64, Price *model.Decimal64) error
 }
 
+// orderManager is responsible for the creation, modification and cancellation of orders.  It depends on two resources
+// that are single threaded and IO bound, the order cache and the order gateway. Therefore it is effectively single
+// threaded.  To increase throughput additional instances of the execution venue should be deployed.  The order manager
+// uses channels to queue commands, primarily to ensure that cancel commands are prioritised above all others and
+// additionally to ensure that commands are executed fairly, i.e. in the order they are received, across clients
 type orderManagerImpl struct {
 	createOrderChan    chan createAndRouteOrderCmd
 	cancelOrderChan    chan cancelOrderCmd
@@ -26,31 +30,25 @@ type orderManagerImpl struct {
 	setOrderErrMsgChan chan setOrderErrorMsgCmd
 	addExecChan        chan addExecutionCmd
 
-	closeChan chan struct{}
-
 	orderStore *ordermanagement.OrderCache
 	gateway    orderGateway
 	getListing func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult)
-
-	errLog *log.Logger
 }
 
 func NewOrderManager(ctx context.Context, cache *ordermanagement.OrderCache, gateway orderGateway,
-	getListing func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult)) *orderManagerImpl {
+	getListing func(ctx context.Context, listingId int32, result chan<- staticdata.ListingResult),
+	cmdBufferSize int) *orderManagerImpl {
 
 	om := &orderManagerImpl{
-		errLog:     log.New(os.Stderr, "", log.Lshortfile|log.Ltime),
 		getListing: getListing,
 	}
 
-	om.createOrderChan = make(chan createAndRouteOrderCmd, 100)
-	om.cancelOrderChan = make(chan cancelOrderCmd, 100)
-	om.modifyOrderChan = make(chan modifyOrderCmd, 100)
-	om.setOrderStatusChan = make(chan setOrderStatusCmd, 100)
-	om.setOrderErrMsgChan = make(chan setOrderErrorMsgCmd, 100)
-	om.addExecChan = make(chan addExecutionCmd, 100)
-
-	om.closeChan = make(chan struct{}, 1)
+	om.createOrderChan = make(chan createAndRouteOrderCmd, cmdBufferSize)
+	om.cancelOrderChan = make(chan cancelOrderCmd, cmdBufferSize)
+	om.modifyOrderChan = make(chan modifyOrderCmd, cmdBufferSize)
+	om.setOrderStatusChan = make(chan setOrderStatusCmd, cmdBufferSize)
+	om.setOrderErrMsgChan = make(chan setOrderErrorMsgCmd, cmdBufferSize)
+	om.addExecChan = make(chan addExecutionCmd, cmdBufferSize)
 
 	om.orderStore = cache
 	om.gateway = gateway
@@ -65,8 +63,6 @@ func (om *orderManagerImpl) executeOrderCommands(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			return
-		case <-om.closeChan:
 			return
 		// Cancel Requests take priority over all other message types
 		case oc := <-om.cancelOrderChan:
@@ -93,12 +89,8 @@ func (om *orderManagerImpl) executeOrderCommands(ctx context.Context) {
 
 }
 
-func (om *orderManagerImpl) Close() {
-	om.closeChan <- struct{}{}
-}
-
 func (om *orderManagerImpl) SetErrorMsg(orderId string, msg string) error {
-	log.Printf("updating order %v error message to %v", orderId, msg)
+	slog.Info("updating order error message", "orderId", orderId, "newMsg", msg)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -114,7 +106,7 @@ func (om *orderManagerImpl) SetErrorMsg(orderId string, msg string) error {
 }
 
 func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderStatus) error {
-	log.Printf("updating order %v status to %v", orderId, status)
+	slog.Info("updating order status", "orderId", orderId, "newStatus", status)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -131,7 +123,7 @@ func (om *orderManagerImpl) SetOrderStatus(orderId string, status model.OrderSta
 
 func (om *orderManagerImpl) AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64,
 	execId string) error {
-	log.Printf(orderId+":adding execution for price %v and quantity %v", lastPrice, lastQty)
+	slog.Info("adding execution to order", "orderId", orderId, "price", lastPrice, "quantity", lastQty)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -144,8 +136,6 @@ func (om *orderManagerImpl) AddExecution(orderId string, lastPrice model.Decimal
 	}
 
 	result := <-resultChan
-
-	log.Printf(orderId+":update traded quantity result:%v", result)
 
 	return result.Error
 }
@@ -169,7 +159,7 @@ func (om *orderManagerImpl) CreateAndRouteOrder(params *api.CreateAndRouteOrderP
 }
 
 func (om *orderManagerImpl) ModifyOrder(params *api.ModifyOrderParams) error {
-	log.Printf("modifying order %v, price %v, quantity %v", params.OrderId, params.Price, params.Quantity)
+	slog.Info("modifying order", "params", params)
 	resultChan := make(chan errorCmdResult)
 
 	om.modifyOrderChan <- modifyOrderCmd{
@@ -179,14 +169,12 @@ func (om *orderManagerImpl) ModifyOrder(params *api.ModifyOrderParams) error {
 
 	result := <-resultChan
 
-	log.Printf(params.OrderId+":modify order result: %v", result)
-
 	return result.Error
 }
 
 func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 
-	log.Print(params.OrderId + ":cancelling order")
+	slog.Info("cancelling order", "params", params)
 
 	resultChan := make(chan errorCmdResult)
 
@@ -196,8 +184,6 @@ func (om *orderManagerImpl) CancelOrder(params *api.CancelOrderParams) error {
 	}
 
 	result := <-resultChan
-
-	log.Printf(params.OrderId+":cancel order result: %v", result)
 
 	return result.Error
 }
@@ -237,18 +223,17 @@ func (om *orderManagerImpl) executeSetErrorMsg(ctx context.Context, id string, m
 
 	order, exists, err := om.orderStore.GetOrder(id)
 	if err != nil {
-		resultChan <- errorCmdResult{Error: fmt.Errorf("failed to get order from cache %v", id)}
+		resultChan <- errorCmdResult{Error: fmt.Errorf("failed to get order for id %s from cache: %w", id, err)}
 	}
 
 	if !exists {
-		resultChan <- errorCmdResult{Error: fmt.Errorf("set order error message failed, no order found for id %v", id)}
+		resultChan <- errorCmdResult{Error: fmt.Errorf("set order error message failed, no order found for id %s", id)}
 		return
 	}
 
 	order.ErrorMessage = msg
 
 	err = om.orderStore.Store(ctx, order)
-
 }
 
 func (om *orderManagerImpl) executeSetOrderStatusCmd(ctx context.Context, id string, status model.OrderStatus,
@@ -328,7 +313,7 @@ func (om *orderManagerImpl) executeCancelOrderCmd(ctx context.Context,
 	}
 
 	if !exists {
-		resultChan <- errorCmdResult{Error: fmt.Errorf("cancel order failed, no order found for id %v", params.OrderId)}
+		resultChan <- errorCmdResult{Error: fmt.Errorf("cancel order failed, no order found for id %s", params.OrderId)}
 		return
 	}
 
@@ -366,9 +351,8 @@ func (om *orderManagerImpl) executeCreateAndRouteOrderCmd(ctx context.Context, p
 		params.Price, params.ListingId, params.OriginatorId, params.OriginatorRef,
 		params.RootOriginatorId, params.RootOriginatorRef, params.Destination)
 
-	err = order.SetTargetStatus(model.OrderStatus_LIVE)
-	if err != nil {
-		om.errLog.Printf("failed to set target status;%v", err)
+	if err = order.SetTargetStatus(model.OrderStatus_LIVE); err != nil {
+		slog.Error("failed to set target status to live", "error", err)
 	}
 
 	err = om.orderStore.Store(ctx, order)

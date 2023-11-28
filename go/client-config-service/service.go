@@ -11,12 +11,12 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
+	"log/slog"
 	"net"
 	"os"
+	"os/signal"
+	"syscall"
 )
-
-var logFlags = log.Ltime|log.Lshortfile
-var errLog = log.New(os.Stderr, "", logFlags)
 
 type service struct {
 	db *sql.DB
@@ -56,11 +56,9 @@ func (s *service) StoreClientConfig(_ context.Context, params *api.StoreConfigPa
 
 }
 
-
-
 func (s *service) GetClientConfig(_ context.Context, parameters *api.GetConfigParameters) (*api.Config, error) {
 
-	lq := fmt.Sprintf( "select config from clientconfig.reactclientconfig where userid = '%v'", parameters.UserId)
+	lq := fmt.Sprintf("select config from clientconfig.reactclientconfig where userid = '%v'", parameters.UserId)
 
 	r, err := s.db.Query(lq)
 
@@ -74,7 +72,6 @@ func (s *service) GetClientConfig(_ context.Context, parameters *api.GetConfigPa
 		if err != nil {
 			return nil, fmt.Errorf("failed to fetch config from database:%w", err)
 		}
-
 
 		return &api.Config{
 			Config: config,
@@ -97,7 +94,7 @@ func newService(driverName, dbConnString string) (*service, error) {
 
 	err = db.Ping()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
 	return s, nil
@@ -107,16 +104,14 @@ func (s *service) Close() {
 	if s.db != nil {
 		err := s.db.Close()
 		if err != nil {
-			errLog.Printf("erron closing database connection %v", err)
+			slog.Error("error closing database connection", "error", err)
 		}
 	}
 }
 
-
 func main() {
 
-	log.SetOutput(os.Stdout)
-	log.SetFlags(logFlags)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	dbString := bootstrap.GetEnvVar("DB_CONN_STRING")
 	dbDriverName := bootstrap.GetEnvVar("DB_DRIVER_NAME")
@@ -137,8 +132,18 @@ func main() {
 	s := grpc.NewServer()
 	api.RegisterClientConfigServiceServer(s, service)
 
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
+
 	reflection.Register(s)
-	fmt.Println("Started client config service on port:" + port)
+	slog.Info("Started client config service", "port", port)
 	if err := s.Serve(lis); err != nil {
 		log.Panicf("Error while serving : %v", err)
 	}

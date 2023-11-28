@@ -12,7 +12,7 @@ func toFixString(decimal64 model.Decimal64) string {
 	return str
 }
 
-func Test_toFixDecimal(t *testing.T) {
+func TestToFixDecimal(t *testing.T) {
 
 	type args struct {
 		d model.Decimal64

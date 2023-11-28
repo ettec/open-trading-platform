@@ -25,7 +25,10 @@ func main() {
 		log.Panic("Error: Could not establish a connection with the database")
 	}
 
-	db.Exec(`set search_path="referencedata"`)
+	_, err = db.Exec(`set search_path="referencedata"`)
+	if err != nil {
+		log.Panicf("failed to set search path:%v", err)
+	}
 
 	marketIds := []int32{}
 

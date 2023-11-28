@@ -31,8 +31,6 @@ type GrpcConnection interface {
 func NewFixSimMarketDataClient(ctx context.Context, id string, client FixSimMarketDataServiceClient, conn GrpcConnection,
 	outBufferSize int) (*fixSimMarketDataClient, error) {
 
-	log := slog.Default()
-
 	mdClient := &fixSimMarketDataClient{
 		subscriptionsChan: make(chan string, 100),
 		out:               make(chan *marketdata.MarketDataIncrementalRefresh, outBufferSize),
@@ -50,18 +48,18 @@ func NewFixSimMarketDataClient(ctx context.Context, id string, client FixSimMark
 			case newStream := <-streamChan:
 				stream = newStream
 				if stream != nil {
-					log.Info("new stream connected, resubscribing to all listings")
+					slog.Info("new stream connected, resubscribing to all listings")
 					for symbol := range subscriptions {
 						err := stream.Send(&marketdata.MarketDataRequest{Parties: []*common.Parties{{PartyId: id}},
 							InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}})
 
 						if err != nil {
-							log.Error("failed to resubscribe to quote", "symbol", symbol, "error", err)
+							slog.Error("failed to resubscribe to quote", "symbol", symbol, "error", err)
 							break
 						}
 					}
 
-					log.Info("resubscribed to all quotes", "numSubscriptions", len(subscriptions))
+					slog.Info("resubscribed to all quotes", "numSubscriptions", len(subscriptions))
 				}
 			case symbol := <-mdClient.subscriptionsChan:
 				if !subscriptions[symbol] {
@@ -71,7 +69,7 @@ func NewFixSimMarketDataClient(ctx context.Context, id string, client FixSimMark
 							InstrmtMdReqGrp: []*common.InstrmtMDReqGrp{{Instrument: &common.Instrument{Symbol: symbol}}}})
 
 						if err != nil {
-							log.Error("failed so subscribe to quote", "symbol", symbol, "error", err)
+							slog.Error("failed so subscribe to quote", "symbol", symbol, "error", err)
 						}
 					}
 				}
@@ -86,27 +84,27 @@ func NewFixSimMarketDataClient(ctx context.Context, id string, client FixSimMark
 		for {
 			state := conn.GetState()
 			for state != connectivity.Ready {
-				log.Info("waiting for fix sim market data connection to be ready....")
+				slog.Info("waiting for fix sim market data connection to be ready....")
 
 				conn.WaitForStateChange(ctx, state)
 				state = conn.GetState()
-				log.Info("market gateway connection state updated", "newState", state)
+				slog.Info("market gateway connection state updated", "newState", state)
 			}
 
 			stream, err := client.Connect(metadata.AppendToOutgoingContext(ctx, "subscriber_id", id))
 			if err != nil {
-				log.Error("failed to connect to fix market simulator", "error", err)
+				slog.Error("failed to connect to fix market simulator", "error", err)
 				continue
 			}
 
-			log.Info("connected to fix market simulator")
+			slog.Info("connected to fix market simulator")
 
 			streamChan <- stream
 
 			for {
 				incRefresh, err := stream.Recv()
 				if err != nil {
-					log.Error("error receiving from inbound stream", "error", err)
+					slog.Error("error receiving from inbound stream", "error", err)
 					mdClient.out <- nil
 					break
 				} else {

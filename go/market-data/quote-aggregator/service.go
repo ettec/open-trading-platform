@@ -17,12 +17,14 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 )
 
 func main() {
 
-	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, nil)))
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{AddSource: true})))
 
 	id := bootstrap.GetEnvVar("GATEWAY_ID")
 	toClientBufferSize := bootstrap.GetOptionalIntEnvVar("TO_CLIENT_BUFFER_SIZE", 1000)
@@ -31,7 +33,12 @@ func main() {
 	inboundListingsBufferSize := bootstrap.GetOptionalIntEnvVar("INBOUND_LISTINGS_BUFFER_SIZE", 1000)
 
 	http.Handle("/metrics", promhttp.Handler())
-	go http.ListenAndServe(":8080", nil)
+	go func() {
+		err := http.ListenAndServe(":8080", nil)
+		if err != nil {
+			log.Panicf("failed to start metrics server:%v", err)
+		}
+	}()
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -67,6 +74,17 @@ func main() {
 	marketdatasource.RegisterMarketDataSourceServer(s, mdSource)
 
 	reflection.Register(s)
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
+
 	if err := s.Serve(lis); err != nil {
 		log.Panicf("Error while serving : %v", err)
 	}

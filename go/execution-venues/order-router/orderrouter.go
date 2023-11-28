@@ -20,42 +20,41 @@ import (
 type orderRouter struct {
 	micToExecVenue     map[string]map[int]*execVenue
 	ownerIdToExecVenue map[string]*execVenue
-	venueMux           sync.Mutex
+	mux                sync.Mutex
 }
 
-func New(connectRetrySecs int) *orderRouter {
+func NewOrderRouter(connectRetrySecs int) (*orderRouter, error) {
 
 	router := &orderRouter{
 		micToExecVenue:     map[string]map[int]*execVenue{},
 		ownerIdToExecVenue: map[string]*execVenue{},
-		venueMux:           sync.Mutex{},
+		mux:                sync.Mutex{},
+	}
+
+	namespace := "default"
+	clientSet := k8s.GetK8sClientSet(false)
+	serviceType := "execution-venue"
+	pods, err := clientSet.CoreV1().Pods(namespace).Watch(v1.ListOptions{
+		LabelSelector: "servicetype=" + serviceType,
+	})
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to watch pods for service type %v, error: %v", serviceType, err)
 	}
 
 	go func() {
-
-		namespace := "default"
-		clientSet := k8s.GetK8sClientSet(false)
-		serviceType := "execution-venue"
-		pods, err := clientSet.CoreV1().Pods(namespace).Watch(v1.ListOptions{
-			LabelSelector: "servicetype=" + serviceType,
-		})
-
-		if err != nil {
-			panic(err)
-		}
 
 		for e := range pods.ResultChan() {
 			pod := e.Object.(*v12.Pod)
 			bsp, err := loadbalancing.GetBalancingStatefulPod(*pod)
 			if err != nil {
-				panic(err)
+				log.Panicf("failed to get balancing stateful pod: %v", err)
 			}
 
 			if e.Type == watch.Added {
-
 				client, err := createExecVenueConnection(time.Duration(connectRetrySecs)*time.Second, bsp.TargetAddress)
 				if err != nil {
-					errLog.Printf("failed to create connection to execution venue service at %v, error: %v", bsp.TargetAddress, err)
+					slog.Error("failed to create connection to execution venue service", "targetAddress", bsp.TargetAddress, "error", err)
 					continue
 				}
 
@@ -66,25 +65,26 @@ func New(connectRetrySecs int) *orderRouter {
 		}
 	}()
 
-	return router
+	return router, nil
 }
 
 func (o *orderRouter) removeExecVenue(bsp *loadbalancing.BalancingStatefulPod) {
-	o.venueMux.Lock()
-	defer o.venueMux.Unlock()
+	o.mux.Lock()
+	defer o.mux.Unlock()
 
-	if ordToEv, ok := o.micToExecVenue[bsp.Mic]; ok {
-		delete(ordToEv, bsp.Ordinal)
+	if ordinalToExecutionVenue, ok := o.micToExecVenue[bsp.Mic]; ok {
+		delete(ordinalToExecutionVenue, bsp.Ordinal)
 	}
 
 	delete(o.ownerIdToExecVenue, bsp.Name)
 
-	log.Printf("removed execution venue for mic: %v,  target address: %v, stateful set ordinal %v", bsp.Mic, bsp.TargetAddress, bsp.Ordinal)
+	slog.Info("removed execution venue", "mic", bsp.Mic,
+		"targetAddress", bsp.TargetAddress, "ordinal", bsp.Ordinal)
 }
 
 func (o *orderRouter) addExecVenue(bsp *loadbalancing.BalancingStatefulPod, ev *execVenue) {
-	o.venueMux.Lock()
-	defer o.venueMux.Unlock()
+	o.mux.Lock()
+	defer o.mux.Unlock()
 
 	if _, ok := o.micToExecVenue[bsp.Mic]; !ok {
 		o.micToExecVenue[bsp.Mic] = map[int]*execVenue{}
@@ -94,8 +94,8 @@ func (o *orderRouter) addExecVenue(bsp *loadbalancing.BalancingStatefulPod, ev *
 
 	o.ownerIdToExecVenue[bsp.Name] = ev
 
-	log.Printf("added execution venue for mic: %v,  target address: %v, stateful set ordinal %v", bsp.Mic, bsp.TargetAddress, bsp.Ordinal)
-
+	slog.Info("added execution venue", "mic", bsp.Mic,
+		"targetAddress", bsp.TargetAddress, "ordinal", bsp.Ordinal)
 }
 
 func (o *orderRouter) GetExecutionParametersMetaData(context.Context, *model.Empty) (*executionvenue.ExecParamsMetaDataJson, error) {
@@ -107,7 +107,8 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *executionvenue.C
 	ev, err := o.getExecutionVenueForListing(p.ListingId, p.Destination)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get execution venue for listing ID %d and destination %s, error: %w",
+			p.ListingId, p.Destination, err)
 	}
 
 	id, err := ev.client.CreateAndRouteOrder(c, p)
@@ -117,14 +118,14 @@ func (o *orderRouter) CreateAndRouteOrder(c context.Context, p *executionvenue.C
 	}
 
 	slog.Info("routed create order request", "request", p, "executionVenue", ev.podId, "orderId", id)
-	
+
 	return id, nil
 
 }
 
 func (o *orderRouter) getExecutionVenueForOwnerId(ownerId string) (*execVenue, error) {
-	o.venueMux.Lock()
-	defer o.venueMux.Unlock()
+	o.mux.Lock()
+	defer o.mux.Unlock()
 	if ev, ok := o.ownerIdToExecVenue[ownerId]; ok {
 		return ev, nil
 
@@ -135,8 +136,8 @@ func (o *orderRouter) getExecutionVenueForOwnerId(ownerId string) (*execVenue, e
 }
 
 func (o *orderRouter) getExecutionVenueForListing(listingId int32, destination string) (*execVenue, error) {
-	o.venueMux.Lock()
-	defer o.venueMux.Unlock()
+	o.mux.Lock()
+	defer o.mux.Unlock()
 	if evs, ok := o.micToExecVenue[destination]; ok {
 		numVenues := int32(len(evs))
 		ordinal := loadbalancing.GetBalancingOrdinal(listingId, numVenues)
@@ -183,12 +184,12 @@ func (o *orderRouter) CancelOrder(c context.Context, p *executionvenue.CancelOrd
 func createExecVenueConnection(maxReconnectInterval time.Duration, targetAddress string) (cac *execVenue,
 	err error) {
 
-	log.Printf("connecting to execution venue service at: %v", targetAddress)
+	slog.Info("connecting to execution venue service", "targetAddress", targetAddress)
 
 	conn, err := grpc.Dial(targetAddress, grpc.WithInsecure(), grpc.WithBackoffMaxDelay(maxReconnectInterval))
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to dial execution venue service: %w", err)
 	}
 
 	client := executionvenue.NewExecutionVenueClient(conn)

@@ -47,7 +47,7 @@ func NewQuoteStreamFromFixClient(parentCtx context.Context,
 	ctx, cancel := context.WithCancel(parentCtx)
 	out := make(chan *model.ClobQuote, sendBufferSize)
 
-	n := &FixQuoteStream{
+	quoteStream := &FixQuoteStream{
 		ctx:                  ctx,
 		connectionName:       connectionName,
 		out:                  out,
@@ -63,12 +63,13 @@ func NewQuoteStreamFromFixClient(parentCtx context.Context,
 
 	go func() {
 		defer close(out)
+		defer quoteStream.Close()
 
 		for {
 			select {
 			case <-ctx.Done():
 				break
-			case lr := <-n.getListingResultChan:
+			case lr := <-quoteStream.getListingResultChan:
 
 				if lr.Err != nil {
 					log.Error("failed to get listing", "error", lr.Err)
@@ -76,11 +77,11 @@ func NewQuoteStreamFromFixClient(parentCtx context.Context,
 				}
 				symbolToListingId[lr.Listing.MarketSymbol] = lr.Listing.Id
 				go func() {
-					if err := n.fixMarketDataClient.Subscribe(lr.Listing.MarketSymbol); err != nil {
+					if err := quoteStream.fixMarketDataClient.Subscribe(lr.Listing.MarketSymbol); err != nil {
 						log.Error("failed to subscribe", "error", err)
 					}
 				}()
-			case r, ok := <-n.fixMarketDataClient.Chan():
+			case r, ok := <-quoteStream.fixMarketDataClient.Chan():
 				if !ok {
 					log.Warn("fix sim client closed")
 					return
@@ -121,7 +122,7 @@ func NewQuoteStreamFromFixClient(parentCtx context.Context,
 							}
 
 							idToQuote[listingId] = newQuote
-							n.out <- newQuote
+							quoteStream.out <- newQuote
 
 						} else {
 							log.Warn("received refresh for unknown symbol", "symbol", symbol)
@@ -134,14 +135,14 @@ func NewQuoteStreamFromFixClient(parentCtx context.Context,
 						emptyQuote.StreamInterrupted = true
 						emptyQuote.StreamStatusMsg = "fix sim adapter stream interrupted"
 						idToQuote[id] = emptyQuote
-						n.out <- emptyQuote
+						quoteStream.out <- emptyQuote
 					}
 				}
 			}
 		}
 	}()
 
-	return n, nil
+	return quoteStream, nil
 }
 
 func copyQuote(quote *model.ClobQuote) (*model.ClobQuote, error) {

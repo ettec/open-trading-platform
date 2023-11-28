@@ -1,12 +1,16 @@
 package main
 
 import (
+	"context"
 	"github.com/ettec/otp-common/model"
+	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 )
 
-func Test_sendUpdatesConflationConflatesWhenPauseBeforeReceivingInitialOrder(t *testing.T) {
+func TestConflatesWhenPauseBeforeReceivingInitialOrder(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	before := time.Now()
 
@@ -17,7 +21,10 @@ func Test_sendUpdatesConflationConflatesWhenPauseBeforeReceivingInitialOrder(t *
 		return nil
 	}
 
-	go sendUpdates(out, send)
+	go func() {
+		err := sendOrderUpdates(ctx, out, send)
+		assert.NoError(t, err)
+	}()
 
 	time.Sleep(maxInitialOrderConflationInterval)
 
@@ -40,7 +47,9 @@ func Test_sendUpdatesConflationConflatesWhenPauseBeforeReceivingInitialOrder(t *
 
 }
 
-func Test_sendUpdatesConflationWhenNoOrderIsSendThenOneOrderIsSend(t *testing.T) {
+func TestConflationWhenNoOrderIsSentThenOneOrderIsSent(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	before := time.Now()
 
@@ -51,7 +60,10 @@ func Test_sendUpdatesConflationWhenNoOrderIsSendThenOneOrderIsSend(t *testing.T)
 		return nil
 	}
 
-	go sendUpdates(out, send)
+	go func() {
+		err := sendOrderUpdates(ctx, out, send)
+		assert.NoError(t, err)
+	}()
 
 	time.Sleep(maxInitialOrderConflationInterval)
 
@@ -73,7 +85,9 @@ func Test_sendUpdatesConflationWhenNoOrderIsSendThenOneOrderIsSend(t *testing.T)
 
 }
 
-func Test_sendUpdatesConflationWhenNoNewOrderIsSent(t *testing.T) {
+func TestConflationWhenNoNewOrderIsSent(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	before := time.Now()
 
@@ -84,7 +98,10 @@ func Test_sendUpdatesConflationWhenNoNewOrderIsSent(t *testing.T) {
 		return nil
 	}
 
-	go sendUpdates(out, send)
+	go func() {
+		err := sendOrderUpdates(ctx, out, send)
+		assert.NoError(t, err)
+	}()
 
 	out <- orderAndWriteTime{order: &model.Order{Id: "1", Version: 0}, writeTime: before}
 	out <- orderAndWriteTime{order: &model.Order{Id: "1", Version: 1}, writeTime: before}
@@ -130,7 +147,9 @@ func Test_sendUpdatesConflationWhenNoNewOrderIsSent(t *testing.T) {
 
 }
 
-func Test_sendUpdatesConflationWhenNewOrderIsSent(t *testing.T) {
+func TestConflationWhenNewOrderIsSent(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	before := time.Now()
 
@@ -141,7 +160,10 @@ func Test_sendUpdatesConflationWhenNewOrderIsSent(t *testing.T) {
 		return nil
 	}
 
-	go sendUpdates(out, send)
+	go func() {
+		err := sendOrderUpdates(ctx, out, send)
+		assert.NoError(t, err)
+	}()
 
 	out <- orderAndWriteTime{order: &model.Order{Id: "1", Version: 0}, writeTime: before}
 	out <- orderAndWriteTime{order: &model.Order{Id: "1", Version: 1}, writeTime: before}

@@ -3,7 +3,7 @@ module github.com/ettech/open-trading-platform/go/market-data/market-data-servic
 go 1.21
 
 require (
-	github.com/ettec/otp-common v1.4.0
+	github.com/ettec/otp-common v1.4.2
 	github.com/golang/mock v1.6.0
 	github.com/prometheus/client_golang v1.7.1
 	github.com/stretchr/testify v1.4.0

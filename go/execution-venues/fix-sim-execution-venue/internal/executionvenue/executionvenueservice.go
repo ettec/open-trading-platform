@@ -5,7 +5,7 @@ import (
 	"fmt"
 	api "github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/model"
-	"log"
+	"log/slog"
 )
 
 type orderManager interface {
@@ -15,7 +15,6 @@ type orderManager interface {
 	SetOrderStatus(orderId string, status model.OrderStatus) error
 	SetErrorMsg(orderId string, msg string) error
 	AddExecution(orderId string, lastPrice model.Decimal64, lastQty model.Decimal64, execId string) error
-	Close()
 }
 
 type ExecVenueService struct {
@@ -29,7 +28,7 @@ func New(om orderManager) *ExecVenueService {
 
 func (s *ExecVenueService) CreateAndRouteOrder(_ context.Context, params *api.CreateAndRouteOrderParams) (*api.OrderId, error) {
 
-	log.Printf("Received  order parameters-> %v", params)
+	slog.Info("Received  order parameters", "params", params)
 
 	if params.GetQuantity() == nil {
 		return nil, fmt.Errorf("quantity required on params:%v", params)
@@ -53,11 +52,10 @@ func (s *ExecVenueService) CreateAndRouteOrder(_ context.Context, params *api.Cr
 
 	result, err := s.orderManager.CreateAndRouteOrder(params)
 	if err != nil {
-		log.Printf("error when creating and routing order:%v", err)
-		return nil, err
+		return nil, fmt.Errorf("error when creating and routing order:%w", err)
 	}
 
-	log.Printf("created order id:%v", result.OrderId)
+	slog.Info("created order", "orderId", result.OrderId)
 
 	return &api.OrderId{
 		OrderId: result.OrderId,
@@ -65,9 +63,8 @@ func (s *ExecVenueService) CreateAndRouteOrder(_ context.Context, params *api.Cr
 }
 
 func (s *ExecVenueService) CancelOrder(_ context.Context, p *api.CancelOrderParams) (*model.Empty, error) {
-	err := s.orderManager.CancelOrder(p)
-	if err != nil {
-		return nil, err
+	if err := s.orderManager.CancelOrder(p); err != nil {
+		return nil, fmt.Errorf("error when cancelling order:%w", err)
 	}
 
 	return &model.Empty{}, nil
@@ -75,9 +72,8 @@ func (s *ExecVenueService) CancelOrder(_ context.Context, p *api.CancelOrderPara
 
 func (s *ExecVenueService) ModifyOrder(_ context.Context, params *api.ModifyOrderParams) (*model.Empty, error) {
 
-	err := s.orderManager.ModifyOrder(params)
-	if err != nil {
-		return nil, err
+	if err := s.orderManager.ModifyOrder(params); err != nil {
+		return nil, fmt.Errorf("error when modifying order:%w", err)
 	}
 
 	return &model.Empty{}, nil
@@ -85,10 +81,4 @@ func (s *ExecVenueService) ModifyOrder(_ context.Context, params *api.ModifyOrde
 
 func (s *ExecVenueService) GetExecutionParametersMetaData(context.Context, *model.Empty) (*api.ExecParamsMetaDataJson, error) {
 	return &api.ExecParamsMetaDataJson{}, nil
-}
-
-func (s *ExecVenueService) Close() {
-	if s.orderManager != nil {
-		s.orderManager.Close()
-	}
 }

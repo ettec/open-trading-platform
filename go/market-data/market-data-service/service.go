@@ -25,7 +25,9 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 	"time"
 )
 
@@ -182,6 +184,16 @@ func main() {
 	api.RegisterMarketDataServiceServer(s, service)
 
 	reflection.Register(s)
+
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh,
+		syscall.SIGKILL,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+	go func() {
+		<-sigCh
+		s.GracefulStop()
+	}()
 
 	if err := s.Serve(lis); err != nil {
 		log.Panicf("Error while serving : %v", err)

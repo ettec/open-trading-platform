@@ -31,7 +31,6 @@ type MarketDataService struct {
 	ctx                       context.Context
 	id                        string
 	gatewayStreamSource       GatewayStreamSource
-	micToSources              map[string]map[int]*MdsConnection
 	getListing                getListingFn
 	subscribers               map[string]chan *model.ClobQuote
 	bufferSize                int
@@ -52,7 +51,6 @@ func NewMarketDataService(ctx context.Context, id string,
 		ctx:                       ctx,
 		id:                        id,
 		gatewayStreamSource:       gatewayStreamSource,
-		micToSources:              map[string]map[int]*MdsConnection{},
 		getListing:                getListing,
 		subscribers:               map[string]chan *model.ClobQuote{},
 		bufferSize:                toClientBufferSize,
@@ -164,7 +162,7 @@ func (c *connection) Subscribe(listingId int32) error {
 
 	mic := listingResult.Listing.Market.Mic
 	var gatewaysForMic []MarketDataGateway
-	for gateway, _ := range c.gatewayToQuoteStream {
+	for gateway := range c.gatewayToQuoteStream {
 		if gateway.GetMarketMic() == mic {
 			gatewaysForMic = append(gatewaysForMic, gateway)
 		}
