@@ -128,6 +128,7 @@ fi
 #Instructions to start client
 OTPPORT=$(kubectl get svc --namespace=envoy -o go-template='{{range .items}}{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}')
 
+echo
 echo Open Trading Platform is running. To start a client point your browser at port $OTPPORT and login as trader1 
 
 
