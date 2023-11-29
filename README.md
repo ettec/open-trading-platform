@@ -15,7 +15,7 @@ An open source highly scaleable platform for building cross asset execution orie
 
 ## synopsis <a name="synopsis"></a>
 
-The platform consists of a number of services (e.g. Order Manager, Smart Router, Quote Aggregator, VWAP Strategy, Strategy Framework, Venue Gateways etc, see [services](#services)) that are common in execution orientated trading applications, as illustrated in the system diagram below.
+The platform consists of a number of kubernetes managed services that are common in execution orientated trading applications as shown in the system diagram below, for more indepth information on the responsibilities of each service see  [services](#services)) 
 
 #### Open Trading Platform System Diagram
 
