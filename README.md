@@ -15,7 +15,15 @@ An open source highly scaleable platform for building cross asset execution orie
 
 ## synopsis <a name="synopsis"></a>
 
-The platform consists of a number of services (e.g. Order Manager, Smart Router, Quote Aggregator, VWAP Strategy, Strategy Framework, Venue Gateways etc, see [services](#services)) that are common in execution orientated trading applications, the technologies and languages utilised by the platform are detailed in the [architecture overview](#architectureoverview).  The aim and guiding principles behind the platform are outlined below.  To get an out of the box configuration of the platform running with which to interact see [here](https://github.com/ettec/open-trading-platform/blob/master/install/README.md) for the simple installation guide.
+The platform consists of a number of services (e.g. Order Manager, Smart Router, Quote Aggregator, VWAP Strategy, Strategy Framework, Venue Gateways etc, see [services](#services)) that are common in execution orientated trading applications, as illustrated in the system diagram below.
+
+#### Open Trading Platform System Diagram
+
+![](otp-system-diagram.png)
+
+
+
+The technologies and languages utilised by the platform are detailed further in the [architecture overview](#architectureoverview).  The aim and guiding principles behind the platform are outlined below.  To get an out of the box configuration of the platform running with which to interact see [here](https://github.com/ettec/open-trading-platform/blob/master/install/README.md) for the simple installation guide.
 
 A common choice typically faced by companies with demanding trading execution requirements  is between choosing a vendor solution or building a bespoke solution.  The vendor platform option usually lacks flexibility and ends up costing materially more than initially allowed for once the costs of running and customising the platform are considered.  The bespoke solution is highly flexible but has a large upfront development cost and can have a higher ongoing maintenance cost (though this is not necessarily the case as platform specialists are usually required to modify and maintain the vendor solution). 
 
