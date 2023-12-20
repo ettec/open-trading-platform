@@ -143,10 +143,10 @@ func main() {
 
 	namespace := "default"
 	clientSet := k8s.GetK8sClientSet(false)
-	serviceType := "market-data-gateway"
 
+	labelSelector := "servicetype in (market-data-gateway, execution-venue-and-market-data-gateway)"
 	pods, err := clientSet.CoreV1().Pods(namespace).Watch(v1.ListOptions{
-		LabelSelector: "servicetype=" + serviceType,
+		LabelSelector: labelSelector,
 	})
 
 	if err != nil {

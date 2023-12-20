@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"github.com/ettec/otp-common/api/executionvenue"
 	"github.com/ettec/otp-common/bootstrap"
 	"google.golang.org/grpc"
@@ -28,7 +29,10 @@ func main() {
 
 	maxConnectRetrySecs := bootstrap.GetOptionalIntEnvVar("MAX_CONNECT_RETRY_SECONDS", 60)
 
-	orderRouter, err := NewOrderRouter(maxConnectRetrySecs)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	orderRouter, err := NewOrderRouter(ctx, maxConnectRetrySecs)
 	if err != nil {
 		log.Panicf("failed to create order router: %v", err)
 	}
