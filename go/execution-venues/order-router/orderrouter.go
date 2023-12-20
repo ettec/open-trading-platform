@@ -8,7 +8,7 @@ import (
 	"github.com/ettec/otp-common/loadbalancing"
 	"github.com/ettec/otp-common/model"
 	"google.golang.org/grpc"
-	v12 "k8s.io/api/core/v1"
+	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 	"log"
@@ -23,7 +23,7 @@ type orderRouter struct {
 	mux                sync.Mutex
 }
 
-func NewOrderRouter(connectRetrySecs int) (*orderRouter, error) {
+func NewOrderRouter(_ context.Context, connectRetrySecs int) (*orderRouter, error) {
 
 	router := &orderRouter{
 		micToExecVenue:     map[string]map[int]*execVenue{},
@@ -33,19 +33,19 @@ func NewOrderRouter(connectRetrySecs int) (*orderRouter, error) {
 
 	namespace := "default"
 	clientSet := k8s.GetK8sClientSet(false)
-	serviceType := "execution-venue"
+	labelSelector := "servicetype in (execution-venue, execution-venue-and-market-data-gateway)"
 	pods, err := clientSet.CoreV1().Pods(namespace).Watch(v1.ListOptions{
-		LabelSelector: "servicetype=" + serviceType,
+		LabelSelector: labelSelector,
 	})
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to watch pods for service type %v, error: %v", serviceType, err)
+		return nil, fmt.Errorf("failed to watch pods with label selector \"%s\", error: %v", labelSelector, err)
 	}
 
 	go func() {
 
 		for e := range pods.ResultChan() {
-			pod := e.Object.(*v12.Pod)
+			pod := e.Object.(*corev1.Pod)
 			bsp, err := loadbalancing.GetBalancingStatefulPod(*pod)
 			if err != nil {
 				log.Panicf("failed to get balancing stateful pod: %v", err)
